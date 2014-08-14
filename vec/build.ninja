@@ -1,0 +1,11 @@
+rule cc
+  command = clang -c $in -o $out
+
+rule link
+  command = clang $in -o $out
+
+build unix.o: cc unix.c
+build vec.o: cc vec.c
+build main.o: cc main.c
+
+build main: link unix.o vec.o main.o

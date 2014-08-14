@@ -1,2 +1,6 @@
 asm/*.o
 asm/add_main
+vec/.ninja_deps
+vec/.ninja_log
+vec/*.o
+vec/main
