@@ -22,3 +22,7 @@ build insert_into_user_table: link insert_into_user_table.o
 build select_from_user_table.o: cc select_from_user_table.c
 build select_from_user_table: link select_from_user_table.o
   libs = -lsqlite3
+
+build update_user_table.o: cc update_user_table.c
+build update_user_table: link update_user_table.o
+  libs = -lsqlite3
