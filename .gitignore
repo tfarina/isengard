@@ -9,5 +9,6 @@ sqlite/.ninja_deps
 sqlite/.ninja_log
 sqlite/*.o
 sqlite/create_users_db
-sqlite/create_users_table
+sqlite/create_user_table
+sqlite/insert_into_user_table
 sqlite/select_from_user_table
