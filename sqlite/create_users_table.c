@@ -17,6 +17,15 @@ static void html_end() {
   printf("</html>\r\n");
 }
 
+static const char kUserSchema[] =
+  "CREATE TABLE IF NOT EXISTS 'user' ("
+  "  uid INTEGER PRIMARY KEY," /* User ID */
+  "  login TEXT UNIQUE,"       /* login name of the user */
+  "  pw TEXT,"                 /* password */
+  "  email TEXT"               /* e-mail */
+  ");"
+  "CREATE UNIQUE INDEX 'user_name_UNIQUE' ON 'user' ('login' ASC);";
+
 int main(int argc, char* argv[]) {
   html_content();
   html_start();
@@ -34,15 +43,7 @@ int main(int argc, char* argv[]) {
 
   fprintf(stdout, "Opened 'users.db' database successfully!<br>\n");
 
-  const char* sql =
-      "CREATE TABLE IF NOT EXISTS 'user' ("
-      "  uid INTEGER PRIMARY KEY," /* User ID */
-      "  login TEXT UNIQUE,"       /* login name of the user */
-      "  pw TEXT,"                 /* password */
-      "  email TEXT"               /* e-mail */
-      ");"
-      "CREATE UNIQUE INDEX 'user_name_UNIQUE' ON 'user' ('login' ASC);";
-  rc = sqlite3_exec(db, sql, NULL, NULL, NULL);
+  rc = sqlite3_exec(db, kUserSchema, NULL, NULL, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stdout, "SQL error: %s\n<br>\n", sqlite3_errmsg(db));
     sqlite3_close(db);
