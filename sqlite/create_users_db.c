@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 
   sqlite3* db;
   int rc = sqlite3_open("users.db", &db);
-  if (rc) {
+  if (rc != SQLITE_OK) {
     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return rc;
