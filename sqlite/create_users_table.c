@@ -35,12 +35,13 @@ int main(int argc, char* argv[]) {
   fprintf(stdout, "Opened 'users.db' database successfully!<br>\n");
 
   const char* sql =
-      "CREATE TABLE IF NOT EXISTS 'users' ("
-      "'user_id' INTEGER PRIMARY KEY,"
-      "'user_name' TEXT UNIQUE,"
-      "'user_password_hash' TEXT,"
-      "'user_email' TEXT);"
-      "CREATE UNIQUE INDEX 'user_name_UNIQUE' ON 'users' ('user_name' ASC);";
+      "CREATE TABLE IF NOT EXISTS 'user' ("
+      "  uid INTEGER PRIMARY KEY," /* User ID */
+      "  login TEXT UNIQUE,"       /* login name of the user */
+      "  pw TEXT,"                 /* password */
+      "  email TEXT"               /* e-mail */
+      ");"
+      "CREATE UNIQUE INDEX 'user_name_UNIQUE' ON 'user' ('login' ASC);";
   rc = sqlite3_exec(db, sql, NULL, NULL, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stdout, "SQL error: %s\n<br>\n", sqlite3_errmsg(db));
@@ -48,7 +49,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  fprintf(stdout, "Table 'users' created successfully!<br>\n");
+  fprintf(stdout, "Table 'user' created successfully!<br>\n");
   sqlite3_close(db);
 
   html_end();
