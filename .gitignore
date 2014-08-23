@@ -5,3 +5,7 @@ vec/.ninja_deps
 vec/.ninja_log
 vec/*.o
 vec/main
+sqlite/.ninja_deps
+sqlite/.ninja_log
+sqlite/*.o
+sqlite/create_users_db

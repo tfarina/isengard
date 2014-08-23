@@ -1,0 +1,13 @@
+cc = clang
+cflags = -g
+
+rule cc
+  command = $cc $cflags $includes -c $in -o $out
+
+rule link
+  command = $cc $ldflags -o $out $in $libs
+
+build create_users_db.o: cc create_users_db.c
+
+build create_users_db: link create_users_db.o
+  libs = -lsqlite3
