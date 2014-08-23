@@ -8,6 +8,9 @@ rule link
   command = $cc $ldflags -o $out $in $libs
 
 build create_users_db.o: cc create_users_db.c
-
 build create_users_db: link create_users_db.o
+  libs = -lsqlite3
+
+build create_users_table.o: cc create_users_table.c
+build create_users_table: link create_users_table.o
   libs = -lsqlite3
