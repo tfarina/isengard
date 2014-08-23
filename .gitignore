@@ -10,3 +10,4 @@ sqlite/.ninja_log
 sqlite/*.o
 sqlite/create_users_db
 sqlite/create_users_table
+sqlite/select_from_user_table

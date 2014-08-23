@@ -14,3 +14,7 @@ build create_users_db: link create_users_db.o
 build create_users_table.o: cc create_users_table.c
 build create_users_table: link create_users_table.o
   libs = -lsqlite3
+
+build select_from_user_table.o: cc select_from_user_table.c
+build select_from_user_table: link select_from_user_table.o
+  libs = -lsqlite3
