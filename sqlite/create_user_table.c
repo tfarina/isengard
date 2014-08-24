@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
 
   rc = sqlite3_exec(db, kUserSchema, NULL, NULL, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stdout, "SQL error: %s\n<br>\n", sqlite3_errmsg(db));
+    fprintf(stderr, "SQL error: %s\n<br>\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return 1;
   }
