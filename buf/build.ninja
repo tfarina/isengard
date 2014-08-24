@@ -1,0 +1,12 @@
+cc = clang
+
+rule cc
+  command = $cc -c $in -o $out
+
+rule link
+  command = $cc $in -o $out
+
+build unix.o: cc unix.c
+build buf.o: cc buf.c
+build main.o: cc main.c
+build main: link unix.o buf.o main.o
