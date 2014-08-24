@@ -5,6 +5,11 @@ buf/.ninja_deps
 buf/.ninja_log
 buf/*.o
 buf/main
+go/fetch
+go/git_log
+go/hello
+go/hello_world
+go/hello_www
 vec/.ninja_deps
 vec/.ninja_log
 vec/*.o
