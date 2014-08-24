@@ -23,8 +23,7 @@ static const char kUserSchema[] =
   "  login TEXT UNIQUE,"       /* login name of the user */
   "  pw TEXT,"                 /* password */
   "  email TEXT"               /* e-mail */
-  ");"
-  "CREATE UNIQUE INDEX 'user_name_UNIQUE' ON 'user' ('login' ASC);";
+  ");";
 
 int main(int argc, char* argv[]) {
   html_content();
