@@ -32,3 +32,16 @@ void buf_grow(Buf *b, int n)
                 b->data = xrealloc(b->data, b->cap);
         }
 }
+
+// buf_set appends the |len| bytes at |data| to the buffer.
+static void buf_set(Buf *b, void *data, int len)
+{
+	buf_grow(b, len);
+	xmemmove(b->data + b->len, data, len);
+	b->len += len;
+}
+
+void buf_sets(Buf *b, char *string)
+{
+	buf_set(b, string, xstrlen(string));
+}

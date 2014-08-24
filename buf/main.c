@@ -7,6 +7,9 @@ int main(void) {
 
         buf_init(&b);
 
+        buf_sets(&b, "Hi, C is complicated, isn't it?");
+
+        printf("%s\n", b.data);
         printf("%d\n", b.len);
 
         buf_free(&b);
