@@ -7,7 +7,7 @@ int main(void) {
 
         buf_init(&b);
 
-        buf_sets(&b, "Hi, C is complicated, isn't it?");
+        buf_write_str(&b, "Hi, C is complicated, isn't it?");
 
         printf("%s\n", b.data);
         printf("%d\n", b.len);

@@ -33,15 +33,15 @@ void buf_grow(Buf *b, int n)
         }
 }
 
-// buf_set appends the |len| bytes at |data| to the buffer.
-static void buf_set(Buf *b, void *data, int len)
+// buf_write appends the |len| bytes at |data| to the buffer.
+static void buf_write(Buf *b, void *data, int len)
 {
 	buf_grow(b, len);
 	xmemmove(b->data + b->len, data, len);
 	b->len += len;
 }
 
-void buf_sets(Buf *b, char *string)
+void buf_write_str(Buf *b, char *string)
 {
-	buf_set(b, string, xstrlen(string));
+	buf_write(b, string, xstrlen(string));
 }

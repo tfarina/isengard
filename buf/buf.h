@@ -22,7 +22,7 @@ void buf_free(Buf *b);
 // len and cap.
 void buf_grow(Buf *b, int n);
 
-// buf_sets appends |string| to the buffer.
-void buf_sets(Buf *b, char *string);
+// buf_write_str appends |string| to the buffer.
+void buf_write_str(Buf *b, char *string);
 
 #endif  // BUF_H_
