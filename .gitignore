@@ -22,4 +22,5 @@ sqlite/create_user_table
 sqlite/insert_into_user_table
 sqlite/select_from_user_table
 sqlite/update_user_table
+sqlite/delete_from_user_table
 sqlite/users.db

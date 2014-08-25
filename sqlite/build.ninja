@@ -26,3 +26,7 @@ build select_from_user_table: link select_from_user_table.o
 build update_user_table.o: cc update_user_table.c
 build update_user_table: link update_user_table.o
   libs = -lsqlite3
+
+build delete_from_user_table.o: cc delete_from_user_table.c
+build delete_from_user_table: link delete_from_user_table.o
+  libs = -lsqlite3
