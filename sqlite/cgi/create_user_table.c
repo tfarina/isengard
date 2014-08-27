@@ -1,21 +1,10 @@
 #include <stdio.h>
+
 #include <sqlite3.h>
 
+#include "html.h"
+
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
-
-static void html_content() {
-  printf("Content-type: text/html\r\n\r\n");
-}
-
-static void html_start() {
-  printf("<!DOCTYPE html>");
-  printf("<html>\n");
-}
-
-static void html_end() {
-  printf("</body>\r\n");
-  printf("</html>\r\n");
-}
 
 static const char kUserSchema[] =
   "CREATE TABLE IF NOT EXISTS 'user' ("
