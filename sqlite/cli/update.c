@@ -6,11 +6,11 @@
 
 static int callback(void* data, int argc, char** argv, char** column_name) {
   int i;
-  fprintf(stdout, "<br>%s: <br><br>\n", (const char*)data);
+  fprintf(stdout, "%s: \n", (const char*)data);
   for (i = 0; i < argc; ++i) {
-    printf("%s = %s<br>\n", column_name[i], argv[i] ? argv[i] : "NULL");
+    printf("%-12s %s\n", column_name[i], argv[i] ? argv[i] : "NULL");
   }
-  printf("<br>\n");
+  printf("\n");
   return 0;
 }
 
@@ -18,24 +18,22 @@ int main(int argc, char* argv[]) {
   sqlite3* db;
   int rc = sqlite3_open("users.db", &db);
   if (rc) {
-    fprintf(stdout, "Can't open database: %s<br>\n", sqlite3_errmsg(db));
+    fprintf(stdout, "Can't open database: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return rc;
   }
 
-  fprintf(stdout, "Opened 'users.db' database successfully!<br>\n");
-
-  const char *sql = "UPDATE user set email='john@yahoo.com' WHERE uid=1; "
+  const char *sql = "UPDATE user SET email='john@yahoo.com' WHERE uid=1; "
                     "SELECT * FROM user";
   const char* data = "Callback function called";
   rc = sqlite3_exec(db, sql, callback, (void*)data, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stdout, "SQL error: %s\n<br>", sqlite3_errmsg(db));
+    fprintf(stdout, "SQL error: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return 1;
   }
 
-  fprintf(stdout, "Updated email in 'user' table successfully!<br>\n");
+  fprintf(stdout, "Updated email in 'user' table successfully!\n");
   sqlite3_close(db);
 
   return 0;
