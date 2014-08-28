@@ -3,11 +3,11 @@
 #include <stdio.h>
 
 void html_content(void) {
-  printf("Content-type: text/html\r\n\r\n");
+  printf("Content-Type: text/html\r\n\r\n");
 }
 
 void html_start(void) {
-  printf("<!DOCTYPE html>");
+  printf("<!DOCTYPE html>\n");
   printf("<html>\n");
 }
 
