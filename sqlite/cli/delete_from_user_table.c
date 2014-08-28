@@ -18,24 +18,21 @@ int main(int argc, char* argv[]) {
   sqlite3* db;
   int rc = sqlite3_open("users.db", &db);
   if (rc) {
-    fprintf(stdout, "Can't open database: %s<br>\n", sqlite3_errmsg(db));
+    fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return rc;
   }
-
-  fprintf(stdout, "Opened 'users.db' database successfully!<br>\n");
 
   const char* sql = "DELETE FROM user WHERE uid=1;"
                     "SELECT * FROM user;";
   const char* data = "Callback function called";
   rc = sqlite3_exec(db, sql, callback, (void*)data, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stdout, "SQL error: %s\n<br>", sqlite3_errmsg(db));
+    fprintf(stderr, "SQL error: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return 1;
   }
 
-  fprintf(stdout, "Deleted from 'user' table successfully!<br>\n");
   sqlite3_close(db);
 
   return 0;
