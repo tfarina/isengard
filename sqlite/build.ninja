@@ -36,26 +36,22 @@ build cgi-bin/delete_from_user_table: link $builddir/html.o $builddir/delete_fro
   libs = -lsqlite3
 
 # CLI
-build $builddir_cli/create_users_db.o: cc cli/create_users_db.c
-build out/create_users_db: link $builddir_cli/create_users_db.o
+build $builddir_cli/create.o: cc cli/create.c
+build out/create: link $builddir_cli/create.o
   libs = -lsqlite3
 
-build $builddir_cli/create_user_table.o: cc cli/create_user_table.c
-build out/create_user_table: link $builddir_cli/create_user_table.o
+build $builddir_cli/insert.o: cc cli/insert.c
+build out/insert: link $builddir_cli/insert.o
   libs = -lsqlite3
 
-build $builddir_cli/insert_into_user_table.o: cc cli/insert_into_user_table.c
-build out/insert_into_user_table: link $builddir_cli/insert_into_user_table.o
+build $builddir_cli/select.o: cc cli/select.c
+build out/select: link $builddir_cli/select.o
   libs = -lsqlite3
 
-build $builddir_cli/select_from_user_table.o: cc cli/select_from_user_table.c
-build out/select_from_user_table: link $builddir_cli/select_from_user_table.o
+build $builddir_cli/update.o: cc cli/update.c
+build out/update: link $builddir_cli/update.o
   libs = -lsqlite3
 
-build $builddir_cli/update_user_table.o: cc cli/update_user_table.c
-build out/update_user_table: link $builddir_cli/update_user_table.o
-  libs = -lsqlite3
-
-build $builddir_cli/delete_from_user_table.o: cc cli/delete_from_user_table.c
-build out/delete_from_user_table: link $builddir_cli/delete_from_user_table.o
+build $builddir_cli/delete.o: cc cli/delete.c
+build out/delete: link $builddir_cli/delete.o
   libs = -lsqlite3
