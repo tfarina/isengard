@@ -4,18 +4,10 @@
 
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
-static int callback(void* data, int argc, char** argv, char** column_name) {
-  int i;
-  fprintf(stdout, "%s: \n", (const char*)data);
-  for (i = 0; i < argc; ++i) {
-    printf("%s = %s\n", column_name[i], argv[i] ? argv[i] : "NULL");
-  }
-  printf("\n");
-  return 0;
-}
-
 int main(int argc, char* argv[]) {
   sqlite3* db;
+  sqlite3_stmt *stmt;
+
   int rc = sqlite3_open("users.db", &db);
   if (rc) {
     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
@@ -23,15 +15,18 @@ int main(int argc, char* argv[]) {
     return rc;
   }
 
-  const char* sql = "DELETE FROM user WHERE uid=1;"
-                    "SELECT * FROM user;";
-  const char* data = "Callback function called";
-  rc = sqlite3_exec(db, sql, callback, (void*)data, NULL);
+  const char* sql = "DELETE FROM user WHERE uid=?1;";
+
+  rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "SQL error: %s\n", sqlite3_errmsg(db));
+    fprintf(stderr, "%s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return 1;
   }
+
+  sqlite3_bind_int64(stmt, 1, 1);
+  sqlite3_step(stmt);
+  sqlite3_finalize(stmt);
 
   sqlite3_close(db);
 
