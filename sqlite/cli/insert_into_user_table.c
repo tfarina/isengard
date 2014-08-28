@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 
   rc = sqlite3_exec(db, sql, NULL, NULL, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "SQL error: %s\n<br>", sqlite3_errmsg(db));
+    fprintf(stderr, "SQL error: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return 1;
   }
