@@ -6,7 +6,7 @@ int main(int argc, char* argv[]) {
   sqlite3* db;
   int rc = sqlite3_open("users.db", &db);
   if (rc) {
-    fprintf(stderr, "Can't open database: %s<br>\n", sqlite3_errmsg(db));
+    fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return rc;
   }
