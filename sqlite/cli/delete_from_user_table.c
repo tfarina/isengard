@@ -6,11 +6,11 @@
 
 static int callback(void* data, int argc, char** argv, char** column_name) {
   int i;
-  fprintf(stdout, "<br>%s: <br><br>\n", (const char*)data);
+  fprintf(stdout, "%s: \n", (const char*)data);
   for (i = 0; i < argc; ++i) {
-    printf("%s = %s<br>\n", column_name[i], argv[i] ? argv[i] : "NULL");
+    printf("%s = %s\n", column_name[i], argv[i] ? argv[i] : "NULL");
   }
-  printf("<br>\n");
+  printf("\n");
   return 0;
 }
 
