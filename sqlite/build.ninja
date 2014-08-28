@@ -1,6 +1,7 @@
 cc = clang
 cflags = -g
 builddir = out/obj
+builddir_cli = out/obj/cli
 
 rule cc
   command = $cc $cflags $includes -c $in -o $out
@@ -32,4 +33,29 @@ build cgi-bin/update_user_table: link $builddir/html.o $builddir/update_user_tab
 
 build $builddir/delete_from_user_table.o: cc cgi/delete_from_user_table.c
 build cgi-bin/delete_from_user_table: link $builddir/html.o $builddir/delete_from_user_table.o
+  libs = -lsqlite3
+
+# CLI
+build $builddir_cli/create_users_db.o: cc cli/create_users_db.c
+build out/create_users_db: link $builddir_cli/create_users_db.o
+  libs = -lsqlite3
+
+build $builddir_cli/create_user_table.o: cc cli/create_user_table.c
+build out/create_user_table: link $builddir_cli/create_user_table.o
+  libs = -lsqlite3
+
+build $builddir_cli/insert_into_user_table.o: cc cli/insert_into_user_table.c
+build out/insert_into_user_table: link $builddir_cli/insert_into_user_table.o
+  libs = -lsqlite3
+
+build $builddir_cli/select_from_user_table.o: cc cli/select_from_user_table.c
+build out/select_from_user_table: link $builddir_cli/select_from_user_table.o
+  libs = -lsqlite3
+
+build $builddir_cli/update_user_table.o: cc cli/update_user_table.c
+build out/update_user_table: link $builddir_cli/update_user_table.o
+  libs = -lsqlite3
+
+build $builddir_cli/delete_from_user_table.o: cc cli/delete_from_user_table.c
+build out/delete_from_user_table: link $builddir_cli/delete_from_user_table.o
   libs = -lsqlite3
