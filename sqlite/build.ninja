@@ -1,5 +1,5 @@
 cc = clang
-cflags = -g
+cflags = -g -Wall -Werror -std=c99 -pedantic
 builddir = out/obj
 builddir_cli = out/obj/cli
 
