@@ -14,7 +14,10 @@ static const char kUserSchema[] =
 
 int main(int argc, char* argv[]) {
   sqlite3* db;
-  int rc = sqlite3_open("users.db", &db);
+  int rc;
+
+  sqlite3_initialize();
+  rc = sqlite3_open("users.db", &db);
   if (rc) {
     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
@@ -29,6 +32,7 @@ int main(int argc, char* argv[]) {
   }
 
   sqlite3_close(db);
+  sqlite3_shutdown();
 
   return 0;
 }
