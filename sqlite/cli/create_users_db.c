@@ -13,8 +13,6 @@ int main(int argc, char* argv[]) {
     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
     sqlite3_close(db);
     return rc;
-  } else {
-    fprintf(stdout, "Opened database successfully\n");
   }
   sqlite3_close(db);
 
