@@ -17,25 +17,32 @@ static sqlite3* db_open(const char* db_file) {
   return db;
 }
 
-int main(int argc, char* argv[]) {
-  sqlite3* db;
+static int db_remove_user(sqlite3* db) {
   sqlite3_stmt *stmt;
-  int rc;
 
-  db = db_open("users.db");
+  const char *sql = "DELETE FROM user WHERE uid=?1;";
 
-  const char* sql = "DELETE FROM user WHERE uid=?1;";
-
-  rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
-  if (rc != SQLITE_OK) {
+  if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
-    sqlite3_close(db);
-    return 1;
+    return -1;
   }
 
   sqlite3_bind_int64(stmt, 1, 1);
   sqlite3_step(stmt);
   sqlite3_finalize(stmt);
+
+  return 0;
+}
+
+int main(int argc, char* argv[]) {
+  sqlite3* db;
+
+  db = db_open("users.db");
+
+  if (db_remove_user(db)) {
+    sqlite3_close(db);
+    return -1;
+  }
 
   sqlite3_close(db);
 
