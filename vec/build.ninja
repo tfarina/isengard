@@ -4,8 +4,8 @@ rule cc
 rule link
   command = clang $in -o $out
 
-build unix.o: cc unix.c
+build os_unix.o: cc os_unix.c
 build vec.o: cc vec.c
 build main.o: cc main.c
 
-build main: link unix.o vec.o main.o
+build main: link os_unix.o vec.o main.o

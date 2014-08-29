@@ -1,6 +1,6 @@
 #include "vec.h"
 
-#include "unix.h"
+#include "os.h"
 
 void vec_grow(Vec *v, int n);
 
