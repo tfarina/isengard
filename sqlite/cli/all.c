@@ -61,7 +61,7 @@ static int db_add_user(sqlite3* db) {
   return 0;
 }
 
-static int db_get(sqlite3* db) {
+static int db_get_user(sqlite3* db) {
   const char* sql = "SELECT login FROM user WHERE uid=1";
   const char* data = "Callback function called";
 
@@ -105,7 +105,7 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  if (db_get(db)) {
+  if (db_get_user(db)) {
     sqlite3_close(db);
     return -1;
   }
@@ -115,7 +115,7 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  if (db_get(db)) {
+  if (db_get_user(db)) {
     sqlite3_close(db);
     return -1;
   }
