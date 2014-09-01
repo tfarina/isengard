@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
   db = db_open("users.db");
 
   if (!db_user_exists(db, argv[1])) {
-    fprintf(stderr, "user %s does not exist\n", argv[1]);
+    fprintf(stderr, "%s: user (%s) does not exist in our database.\n", argv[0], argv[1]);
     sqlite3_close(db);
     return -1;
   }
