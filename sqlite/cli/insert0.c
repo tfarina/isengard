@@ -36,7 +36,10 @@ static int db_user_exists(sqlite3* db, const char* username) {
   return rc;
 }
 
-static int db_add_user(sqlite3* db) {
+static int db_add_user(sqlite3* db,
+                       const char* username,
+                       const char* password,
+                       const char* email) {
   sqlite3_stmt* stmt;
 
   const char *sql = "INSERT INTO user (login, pw, email) VALUES (?1, ?2, ?3);";
@@ -46,9 +49,9 @@ static int db_add_user(sqlite3* db) {
     return -1;
   }
 
-  sqlite3_bind_text(stmt, 1, "jrp", -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 2, "abcdef123", -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 3, "jrp@hotmail.com", -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 1, username, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 2, password, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 3, email, -1, SQLITE_STATIC);
   sqlite3_step(stmt);
   sqlite3_finalize(stmt);
 
@@ -71,10 +74,7 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  // Third: if user do not exist, then add the new user to the database.
-  // TODO: get the arguments passed to this tool and pass to db_add_user
-  // function.
-  if (db_add_user(db)) {
+  if (db_add_user(db, argv[1], argv[2], argv[3])) {
     sqlite3_close(db);
     return -1;
   }
