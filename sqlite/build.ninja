@@ -60,6 +60,10 @@ build $builddir_cli/delete.o: cc cli/delete.c
 build out/delete: link $builddir_cli/delete.o
   libs = -lsqlite3
 
+build $builddir_cli/delete0.o: cc cli/delete0.c
+build out/delete0: link $builddir_cli/delete0.o
+  libs = -lsqlite3
+
 build $builddir_cli/all.o: cc cli/all.c
 build out/all: link $builddir_cli/all.o
   libs = -lsqlite3
