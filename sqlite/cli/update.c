@@ -6,7 +6,7 @@
 
 static int callback(void* data, int argc, char** argv, char** column_name) {
   int i;
-  fprintf(stdout, "%s: \n", (const char*)data);
+  //fprintf(stdout, "%s: \n", (const char*)data);
   for (i = 0; i < argc; ++i) {
     printf("%-12s %s\n", column_name[i], argv[i] ? argv[i] : "NULL");
   }
@@ -44,6 +44,10 @@ int main(int argc, char* argv[]) {
 
   db = db_open("users.db");
 
+  // TODO: First: get the username from the command line.
+  //       Second: with the username in hands check if it exist in our database.
+  //       Third:  if it does not exist, blow out.
+  //       Fourth: if exists, then update the email for the that user.
   if (db_update(db)) {
     sqlite3_close(db);
     return -1;
