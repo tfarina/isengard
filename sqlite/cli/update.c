@@ -39,13 +39,44 @@ static int db_update(sqlite3* db) {
   return 0;
 }
 
+static int db_user_exists(sqlite3* db, const char* username) {
+  sqlite3_stmt* stmt;
+  int rc;
+
+  char* sql = sqlite3_mprintf("SELECT 1 FROM user WHERE login=%Q", username);
+
+  if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
+    return -1;
+  }
+
+  if (sqlite3_step(stmt) != SQLITE_ROW) {
+    rc = 0;
+  } else {
+    rc = 1;
+  }
+
+  sqlite3_finalize(stmt);
+  return rc;
+}
+
 int main(int argc, char* argv[]) {
   sqlite3* db;
 
+  if (argc != 2) {
+    fprintf(stderr, "usage: %s USERNAME\n", argv[0]);
+    return -1;
+  }
+
   db = db_open("users.db");
 
-  // TODO: First: get the username from the command line.
-  //       Second: with the username in hands check if it exist in our database.
+  if (!db_user_exists(db, argv[1])) {
+    fprintf(stderr, "%s: user (%s) does not exist in our database.\n", argv[0], argv[1]);
+    sqlite3_close(db);
+    return -1;
+  }
+
+  // TODO:
   //       Third:  if it does not exist, blow out.
   //       Fourth: if exists, then update the email for the that user.
   if (db_update(db)) {
