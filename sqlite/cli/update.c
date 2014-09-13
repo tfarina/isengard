@@ -27,17 +27,18 @@ static sqlite3* db_open(const char* db_file) {
   return db;
 }
 
-static int db_update(sqlite3* db, const char *username) {
+static int db_update(sqlite3* db, const char *username, const char *email) {
   sqlite3_stmt *stmt;
 
-  const char *sql = "UPDATE user SET email='john@hotmail.com' WHERE login=?1;";
+  const char *sql = "UPDATE user SET email=?1 WHERE login=?2;";
 
   if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
     return -1;
   }
 
-  sqlite3_bind_text(stmt, 1, username, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 1, email, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 2, username, -1, SQLITE_STATIC);
   sqlite3_step(stmt);
   sqlite3_finalize(stmt);
   return 0;
@@ -67,8 +68,8 @@ static int db_user_exists(sqlite3* db, const char* username) {
 int main(int argc, char* argv[]) {
   sqlite3* db;
 
-  if (argc != 2) {
-    fprintf(stderr, "usage: %s USERNAME\n", argv[0]);
+  if (argc != 3) {
+    fprintf(stderr, "usage: %s USERNAME E-MAIL\n", argv[0]);
     return -1;
   }
 
@@ -81,8 +82,7 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  // TODO: get the e-mail from the command line as well and pass it to db_update.
-  if (db_update(db, argv[1])) {
+  if (db_update(db, argv[1], argv[2])) {
     sqlite3_close(db);
     return -1;
   }
