@@ -13,14 +13,14 @@ static struct {
 };
 
 int main(int argc, char **argv) {
-        if (argc != 2)
+        if (argc < 2)
                 return 1;
 
         int i;
         for (i = 0; i < ARRAY_SIZE(cmds); ++i) {
-                printf("%s\n", cmds[i].name);
                 if (!strcmp(argv[1], cmds[i].name)) {
-                        cmds[i].exec(argc, argv);
+                        printf("Command name: %s\n", cmds[i].name);
+                        cmds[i].exec(argc - 1, argv + 1);
                 }
         }
 
