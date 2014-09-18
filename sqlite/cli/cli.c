@@ -10,6 +10,7 @@ static struct {
         int (*exec)(int, char **);
 } cmds[] = {
   { "add", cmd_add },
+  { "del", cmd_del },
 };
 
 int main(int argc, char **argv) {
