@@ -70,7 +70,8 @@ build out/all: link $builddir_cli/all.o
 
 build $builddir_cli/add.o: cc cli/add.c
 build $builddir_cli/del.o: cc cli/del.c
+build $builddir_cli/list1.o: cc cli/list1.c
 
 build $builddir_cli/cli.o: cc cli/cli.c
-build out/cli: link $builddir_cli/add.o $builddir_cli/del.o $builddir_cli/cli.o
+build out/cli: link $builddir_cli/add.o $builddir_cli/del.o $builddir_cli/list1.o $builddir_cli/cli.o
   libs = -lsqlite3

@@ -11,6 +11,7 @@ static struct {
 } cmds[] = {
   { "add", cmd_add },
   { "del", cmd_del },
+  { "list", cmd_list },
 };
 
 int main(int argc, char **argv) {
