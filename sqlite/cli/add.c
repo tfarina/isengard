@@ -3,9 +3,10 @@
 #include <stdio.h>
 
 int cmd_add(int argc, char **argv) {
-        printf("New argc count: %d\n", argc);
-        printf("cmd name: %s\n", argv[0]);
-        printf("function: cmd_add() called!\n");
+        if (argc != 4) {
+                printf("usage: add USERNAME PASSWORD EMAIL\n");
+                return 1;
+        }
 
         return 0;
 }
