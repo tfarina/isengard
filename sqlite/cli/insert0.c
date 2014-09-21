@@ -61,12 +61,12 @@ static int db_add_user(sqlite3* db,
 int main(int argc, char* argv[]) {
   sqlite3* db;
 
-  db = db_open("users.db");
-
   if (argc != 4) {
     printf("usage: %s USERNAME PASSWORD E-MAIL\n", argv[0]);
     return -1;
   }
+
+  db = db_open("users.db");
 
   if (db_user_exists(db, argv[1])) {
     fprintf(stderr, "%s: user (%s) already exists\n", argv[0], argv[1]);
