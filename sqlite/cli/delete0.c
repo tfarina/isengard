@@ -17,6 +17,23 @@ static sqlite3* db_open(const char* db_file) {
   return db;
 }
 
+static int db_init_user_table(sqlite3* db) {
+  const char* sql =
+    "CREATE TABLE IF NOT EXISTS 'user' ("
+    "  uid INTEGER PRIMARY KEY," /* User ID */
+    "  login TEXT UNIQUE,"       /* login name of the user */
+    "  pw TEXT,"                 /* password */
+    "  email TEXT"               /* e-mail */
+    ");";
+
+  if (sqlite3_exec(db, sql, NULL, NULL, NULL) != SQLITE_OK) {
+    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
+    return -1;
+  }
+
+  return 0;
+}
+
 static int db_user_exists(sqlite3* db, const char* username) {
   sqlite3_stmt* stmt;
   int rc;
@@ -64,6 +81,11 @@ int main(int argc, char* argv[]) {
   }
 
   db = db_open("users.db");
+
+  if (db_init_user_table(db)) {
+    sqlite3_close(db);
+    return -1;
+  }
 
   if (!db_user_exists(db, argv[1])) {
     fprintf(stderr, "%s: user (%s) does not exist in our database.\n", argv[0], argv[1]);
