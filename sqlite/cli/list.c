@@ -44,6 +44,12 @@ int main(int argc, char* argv[]) {
 
   db = db_open("users.db");
 
+  // TODO(tfarina): Before trying to select everything from 'user' table,
+  // make sure the table exists.
+  // It is easy to reproduce this error:
+  // $ rm -rf users.db
+  // $ out/list
+  // # SQLite error: no such table: user
   if (db_list(db)) {
     sqlite3_close(db);
     return -1;
