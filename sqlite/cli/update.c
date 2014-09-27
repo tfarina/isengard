@@ -27,20 +27,20 @@ static sqlite3* db_open(const char* db_file) {
   return db;
 }
 
-static int db_update(sqlite3* db, const char *username, const char *email) {
-  sqlite3_stmt *stmt;
+static int db_init_user_table(sqlite3* db) {
+  const char* sql =
+    "CREATE TABLE IF NOT EXISTS 'user' ("
+    "  uid INTEGER PRIMARY KEY," /* User ID */
+    "  login TEXT UNIQUE,"       /* login name of the user */
+    "  pw TEXT,"                 /* password */
+    "  email TEXT"               /* e-mail */
+    ");";
 
-  const char *sql = "UPDATE user SET email=?1 WHERE login=?2;";
-
-  if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_exec(db, sql, NULL, NULL, NULL) != SQLITE_OK) {
     fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
     return -1;
   }
 
-  sqlite3_bind_text(stmt, 1, email, -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 2, username, -1, SQLITE_STATIC);
-  sqlite3_step(stmt);
-  sqlite3_finalize(stmt);
   return 0;
 }
 
@@ -65,6 +65,24 @@ static int db_user_exists(sqlite3* db, const char* username) {
   return rc;
 }
 
+static int db_update_user_email(sqlite3* db,
+                                const char *username, const char *email) {
+  sqlite3_stmt *stmt;
+
+  const char *sql = "UPDATE user SET email=?1 WHERE login=?2;";
+
+  if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
+    return -1;
+  }
+
+  sqlite3_bind_text(stmt, 1, email, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 2, username, -1, SQLITE_STATIC);
+  sqlite3_step(stmt);
+  sqlite3_finalize(stmt);
+  return 0;
+}
+
 int main(int argc, char* argv[]) {
   sqlite3* db;
 
@@ -74,6 +92,13 @@ int main(int argc, char* argv[]) {
   }
 
   db = db_open("users.db");
+  // TODO(tfarina): We should check here if |db| is not NULL, as db_open()
+  // can return NULL.
+
+  if (db_init_user_table(db)) {
+    sqlite3_close(db);
+    return -1;
+  }
 
   if (!db_user_exists(db, argv[1])) {
     fprintf(stderr, "%s: user (%s) does not exist in our database.\n", argv[0],
@@ -82,7 +107,7 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  if (db_update(db, argv[1], argv[2])) {
+  if (db_update_user_email(db, argv[1], argv[2])) {
     sqlite3_close(db);
     return -1;
   }
