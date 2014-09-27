@@ -4,3 +4,4 @@ rule go
 build slide1: go slide1.go
 build slide2: go slide2.go
 build slide3: go slide3.go
+build slide4: go slide4.go
