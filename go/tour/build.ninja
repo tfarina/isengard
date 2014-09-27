@@ -1,0 +1,4 @@
+rule go
+  command = go build $in
+
+build slide1: go slide1.go

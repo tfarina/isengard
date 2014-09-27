@@ -10,6 +10,8 @@ go/git_log
 go/hello
 go/hello_world
 go/hello_www
+go/tour/.ninja_deps
+go/tour/.ninja_log
 vec/.ninja_deps
 vec/.ninja_log
 vec/*.o
