@@ -16,6 +16,7 @@ go/tour/slide1
 go/tour/slide2
 go/tour/slide3
 go/tour/slide4
+go/tour/slide5
 vec/.ninja_deps
 vec/.ninja_log
 vec/*.o
