@@ -2,3 +2,4 @@ rule go
   command = go build $in
 
 build slide1: go slide1.go
+build slide2: go slide2.go
