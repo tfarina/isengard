@@ -5,3 +5,7 @@ mysql> SET PASSWORD FOR 'vrossi'@'localhost' = PASSWORD('vr46');
 mysql> GRANT USAGE ON *.* TO 'vrossi'@'localhost' IDENTIFIED BY 'vr46';
 mysql> SHOW DATABASES;
 mysql> CREATE DATABASE valentino;
+
+You can also create the database from command line running mysqladmin:
+
+$ mysqladmin create valentino -u root -p
