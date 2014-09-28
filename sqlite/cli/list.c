@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <sqlite3.h>
 
@@ -43,6 +44,9 @@ int main(int argc, char* argv[]) {
   sqlite3* db;
 
   db = db_open("users.db");
+  if (!db) {
+    return EXIT_FAILURE;
+  }
 
   // TODO(tfarina): Before trying to select everything from 'user' table,
   // make sure the table exists.
