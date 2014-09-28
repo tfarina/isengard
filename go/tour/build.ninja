@@ -2,7 +2,7 @@ rule go
   command = go build $in
 
 build slide1: go slide1.go
-build slide2: go slide2.go
 build slide3: go slide3.go
 build slide4: go slide4.go
 build slide5: go slide5.go
+build slide6: go slide6.go
