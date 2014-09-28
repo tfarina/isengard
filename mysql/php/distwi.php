@@ -27,13 +27,16 @@ $db->exec('CREATE TABLE IF NOT EXISTS user (
            pw TEXT,
            email TEXT)');
 
-$conn = mysql_connect('localhost', 'vrossi', 'vr46');
+$hostname = 'localhost';
+$username = 'vrossi';
+$password = 'vr46';
 
-if (!$conn) {
-  die('Could not connect: ' . mysql_error());
+$connection = mysql_connect($hostname, $username, $password);
+if (!$connection) {
+  die('Failed to connect to the database: ' . mysql_error());
 }
 
 echo 'Connected successfully';
-mysql_close($conn);
+mysql_close($connection);
 
 ?>
