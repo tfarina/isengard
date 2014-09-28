@@ -37,6 +37,12 @@ if (!$connection) {
 }
 
 echo 'Connected successfully';
+
+$db_selected = mysql_select_db('valentino');
+if (!$db_selected) {
+  die('Database selection failed ' . mysql_error());
+}
+
 mysql_close($connection);
 
 ?>

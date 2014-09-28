@@ -2,7 +2,8 @@ $ mysql -u root -p
 
 mysql> CREATE USER 'vrossi'@'localhost' IDENTIFIED BY 'vr46';
 mysql> SET PASSWORD FOR 'vrossi'@'localhost' = PASSWORD('vr46');
-mysql> GRANT USAGE ON *.* TO 'vrossi'@'localhost' IDENTIFIED BY 'vr46';
+mysql> GRANT ALL ON *.* TO 'vrossi'@'localhost' IDENTIFIED BY 'vr46';
+mysql> FLUSH PRIVILEGES;
 mysql> SHOW DATABASES;
 mysql> CREATE DATABASE valentino;
 
