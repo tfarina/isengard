@@ -7,3 +7,4 @@ build slide4: go slide4.go
 build slide5: go slide5.go
 build slide6: go slide6.go
 build slide7: go slide7.go
+build slide8: go slide8.go
