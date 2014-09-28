@@ -9,3 +9,7 @@ mysql> CREATE DATABASE valentino;
 You can also create the database from command line running mysqladmin:
 
 $ mysqladmin create valentino -u root -p
+
+Create the tables:
+
+$ mysql -u root -p valentino < mysql/php/db/valentino-schema.mysql
