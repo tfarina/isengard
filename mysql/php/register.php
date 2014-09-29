@@ -16,7 +16,9 @@ EOD;
 //   echo "Username: {$row['login']}\nPassword: {$row['pw']}\n";
 // }
 
-$query = "INSERT INTO `user` (login, pw) VALUES ('$username', '$password')";
+$query = sprintf("INSERT INTO `user` (login, pw) VALUES ('%s', '%s')",
+    mysql_real_escape_string($username),
+    mysql_real_escape_string($password));
 mysql_query($query) or die(mysql_error());
 
 echo "User added!";
