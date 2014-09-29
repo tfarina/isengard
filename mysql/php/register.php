@@ -16,6 +16,13 @@ EOD;
 //   echo "Username: {$row['login']}\nPassword: {$row['pw']}\n";
 // }
 
+$query = "INSERT INTO `user` (login, pw) VALUES ('$username', '$password')";
+mysql_query($query) or die(mysql_error());
+
+echo "User added!";
+
+mysql_close($connection);
+
 include("header.php");
 ?>
 <?

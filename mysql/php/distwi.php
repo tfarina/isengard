@@ -43,6 +43,6 @@ if (!$db_selected) {
   die('Database selection failed ' . mysql_error());
 }
 
-mysql_close($connection);
+//mysql_close($connection);
 
 ?>
