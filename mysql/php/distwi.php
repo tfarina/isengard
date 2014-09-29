@@ -19,6 +19,11 @@ function get_post_param_trim($param) {
     return trim($val);
 }
 
+function utf8entities($s) {
+    return htmlentities($s,ENT_COMPAT,'UTF-8');
+}
+
+
 $db = new SQLite3('users.db');
 
 $db->exec('CREATE TABLE IF NOT EXISTS user (

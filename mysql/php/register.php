@@ -27,9 +27,8 @@ mysql_close($connection);
 
 include("header.php");
 ?>
-<?
-echo $username
-?>
+<h2>Welcome aboard!</h2>
+Hey <?=utf8entities($username)?>, now you have an account, <a href="index.php">a good start is to write your first message!</a>.
 <?
 include("footer.php")
 ?>
