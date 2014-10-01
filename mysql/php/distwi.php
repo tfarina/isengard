@@ -41,7 +41,7 @@ if (!$connection) {
   die('Failed to connect to the database: ' . mysql_error());
 }
 
-echo 'Connected successfully';
+echo "Connected successfully\n";
 
 $db_selected = mysql_select_db('valentino');
 if (!$db_selected) {

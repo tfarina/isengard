@@ -5,15 +5,20 @@ $username = get_post_param_trim("username");
 $password = get_post_param_trim("password");
 $password2 = get_post_param_trim("password2");
 
-if ($password != $password2)
-  echo "Passwords do not match!";
+if ($username === "") {
+  echo "Username required.\n";
+}
+
+if ($password != $password2) {
+  echo "Passwords must match!\n";
+}
 
 $query = sprintf("INSERT INTO `user` (login, pw) VALUES ('%s', '%s')",
     mysql_real_escape_string($username),
     mysql_real_escape_string($password));
 mysql_query($query) or die(mysql_error());
 
-echo "User added!";
+echo "User added!\n";
 
 mysql_close($connection);
 
