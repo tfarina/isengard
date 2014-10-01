@@ -3,6 +3,10 @@ include("distwi.php");
 
 $username = get_post_param_trim("username");
 $password = get_post_param_trim("password");
+$password2 = get_post_param_trim("password2");
+
+if ($password != $password2)
+  echo "Passwords do not match!";
 
 $query = sprintf("INSERT INTO `user` (login, pw) VALUES ('%s', '%s')",
     mysql_real_escape_string($username),
