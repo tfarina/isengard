@@ -5,6 +5,9 @@ $username = get_post_param_trim("username");
 $password = get_post_param_trim("password");
 $password2 = get_post_param_trim("password2");
 
+if (!$username || !$password || !$password2)
+    go_back("Every field of the registration form is needed!");
+
 if ($username === "") {
   echo "Username required.\n";
 }
