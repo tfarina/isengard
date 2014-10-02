@@ -8,13 +8,8 @@ $password2 = get_post_param_trim("password2");
 if (!$username || !$password || !$password2)
     go_back("Every field of the registration form is needed!");
 
-if ($username === "") {
-  echo "Username required.\n";
-}
-
-if ($password != $password2) {
-  echo "Passwords must match!\n";
-}
+if ($password != $password2)
+    go_back("Passwords must match!");
 
 $query = sprintf("INSERT INTO `user` (login, pw) VALUES ('%s', '%s')",
     mysql_real_escape_string($username),
