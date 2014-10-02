@@ -16,8 +16,6 @@ $query = sprintf("INSERT INTO `user` (login, pw) VALUES ('%s', '%s')",
     mysql_real_escape_string($password));
 mysql_query($query) or die(mysql_error());
 
-echo "User added!\n";
-
 mysql_close($connection);
 
 include("header.php");
