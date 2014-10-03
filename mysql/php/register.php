@@ -19,6 +19,9 @@ if (mysql_num_rows($result) != 0) {
     go_back("Sorry, the selected username is already in use.");
 }
 
+$auth_secret = get_rand();
+echo $auth_secret;
+
 $query = sprintf("INSERT INTO `user` (login, pw) VALUES ('%s', '%s')",
     mysql_real_escape_string($username),
     mysql_real_escape_string($password));

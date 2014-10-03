@@ -33,4 +33,11 @@ function go_back($msg) {
     exit;
 }
 
+function get_rand() {
+    $fd = fopen("/dev/urandom", "r");
+    $data = fread($fd, 16);
+    fclose($fd);
+    return md5($data);
+}
+
 ?>
