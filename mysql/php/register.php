@@ -29,6 +29,9 @@ mysql_query($query) or die(mysql_error());
 
 mysql_close($connection);
 
+// Expires in 1 Year.
+setcookie("auth", $auth_secret, time() + 3600 * 24 * 365);
+
 include("header.php");
 ?>
 <h2>Welcome aboard!</h2>
