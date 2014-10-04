@@ -6,14 +6,24 @@ function isLoggedIn() {
     if (isset($_COOKIE['auth'])) {
         $auth_cookie = $_COOKIE['auth'];
         //echo $auth_cookie;
-        $query = sprintf("SELECT login, email FROM user WHERE cookie='%s'", $auth_cookie);
-        $result = mysql_query($query);
-        $row = mysql_fetch_row($result);
-        //echo "Your login is: " . $row[0];
-        //echo "Your email is: " . $row[1];
-        //echo "Your login is: " . mysql_result($result, 0, "login");
+        loadUserInfo($auth_cookie);
     }
     return false;
+}
+
+function loadUserInfo($auth_secret) {
+    global $User;
+
+    $query = sprintf("SELECT uid, login, email FROM user WHERE cookie='%s'", $auth_secret);
+    $result = mysql_query($query);
+    // TODO(tfarina): Check the result here, we might not have a user with this cookie in the table.
+    $row = mysql_fetch_row($result);
+    $User['id'] = $row[0];
+    $User['name'] = $row[1];
+    $User['email'] = $row[2];
+    //echo "Your id is: " . $row[0];
+    echo "Your login is: " . $row[1];
+    //echo "Your login is: " . mysql_result($result, 0, "login");
 }
 
 function get_post_param($param) {
