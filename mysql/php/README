@@ -14,3 +14,8 @@ $ mysqladmin create valentino -u root -p
 Create the tables:
 
 $ mysql -u root -p valentino < mysql/php/db/valentino-schema.mysql
+
+
+Add cookie column to user table:
+
+mysql> ALTER TABLE user ADD cookie TEXT;
