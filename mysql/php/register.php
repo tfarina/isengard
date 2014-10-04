@@ -22,11 +22,10 @@ if (mysql_num_rows($result) != 0) {
 $auth_secret = get_rand();
 echo $auth_secret;
 
-// TODO(tfarina): save auth_secret in the user table. We will use it later to
-// retrieve the user information in the isLoggedIn() function.
-$query = sprintf("INSERT INTO `user` (login, pw) VALUES ('%s', '%s')",
+$query = sprintf("INSERT INTO `user` (login, pw, cookie) VALUES ('%s', '%s', '%s')",
     mysql_real_escape_string($username),
-    mysql_real_escape_string($password));
+    mysql_real_escape_string($password),
+    $auth_secret);
 mysql_query($query) or die(mysql_error());
 
 mysql_close($connection);
