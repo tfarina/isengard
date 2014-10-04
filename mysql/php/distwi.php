@@ -3,6 +3,10 @@
 include("db.php");
 
 function isLoggedIn() {
+    if (isset($_COOKIE['auth'])) {
+        $auth_cookie = $_COOKIE['auth'];
+        echo $auth_cookie;
+    }
     return false;
 }
 
