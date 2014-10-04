@@ -5,7 +5,13 @@ include("db.php");
 function isLoggedIn() {
     if (isset($_COOKIE['auth'])) {
         $auth_cookie = $_COOKIE['auth'];
-        echo $auth_cookie;
+        //echo $auth_cookie;
+        $query = sprintf("SELECT login, email FROM user WHERE cookie='%s'", $auth_cookie);
+        $result = mysql_query($query);
+        $row = mysql_fetch_row($result);
+        //echo "Your login is: " . $row[0];
+        //echo "Your email is: " . $row[1];
+        //echo "Your login is: " . mysql_result($result, 0, "login");
     }
     return false;
 }
