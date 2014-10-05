@@ -1,0 +1,18 @@
+CREATE TABLE user (
+  uid         INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  login       TEXT,
+  pw          TEXT,
+  email       TEXT
+);
+
+CREATE TABLE post (
+  id          INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id     INT          NOT NULL,
+  body        VARCHAR(140) NOT NULL,
+  stamp       DATETIME     NOT NULL
+);
+
+CREATE TABLE following (
+  user_id     INT          NOT NULL PRIMARY KEY,
+  follower_id INT          NOT NULL
+);
