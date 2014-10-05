@@ -6,26 +6,25 @@ function isLoggedIn() {
     if (isset($_COOKIE['auth'])) {
         $auth_cookie = $_COOKIE['auth'];
         //echo $auth_cookie;
-        loadUserInfo($auth_cookie);
+        $query = sprintf("SELECT uid, login, email FROM user WHERE cookie='%s'", $auth_cookie);
+        $result = mysql_query($query);
+        if (mysql_num_rows($result) == 0)
+            return false;
+        $row = mysql_fetch_row($result);
+        loadUserInfo($row);
+        return true;
     }
     return false;
 }
 
-function loadUserInfo($auth_secret) {
+function loadUserInfo($row) {
     global $User;
 
-    $query = sprintf("SELECT uid, login, email FROM user WHERE cookie='%s'", $auth_secret);
-    $result = mysql_query($query);
-    if (mysql_num_rows($result) == 0)
-            return;
-
-    $row = mysql_fetch_row($result);
     $User['id'] = $row[0];
     $User['name'] = $row[1];
     $User['email'] = $row[2];
     //echo "Your id is: " . $row[0];
     echo "Your login is: " . $row[1];
-    //echo "Your login is: " . mysql_result($result, 0, "login");
 }
 
 function get_post_param($param) {
