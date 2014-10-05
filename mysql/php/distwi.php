@@ -16,7 +16,9 @@ function loadUserInfo($auth_secret) {
 
     $query = sprintf("SELECT uid, login, email FROM user WHERE cookie='%s'", $auth_secret);
     $result = mysql_query($query);
-    // TODO(tfarina): Check the result here, we might not have a user with this cookie in the table.
+    if (mysql_num_rows($result) == 0)
+            return;
+
     $row = mysql_fetch_row($result);
     $User['id'] = $row[0];
     $User['name'] = $row[1];
