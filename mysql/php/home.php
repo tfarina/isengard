@@ -7,8 +7,10 @@ if (!isLoggedIn()) {
 }
 
 include("header.php");
+?>
 
+<a href="logout.php">logout</a>
 
-
+<?
 include("footer.php")
 ?>
