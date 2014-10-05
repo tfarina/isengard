@@ -24,7 +24,7 @@ function loadUserInfo($row) {
     $User['name'] = $row[1];
     $User['email'] = $row[2];
     //echo "Your id is: " . $row[0];
-    echo "Your login is: " . $row[1];
+    //echo "Your login is: " . $row[1];
 }
 
 function get_post_param($param) {

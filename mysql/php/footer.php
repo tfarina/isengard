@@ -1,4 +1,4 @@
-<div id="footer">Simple PHP application.</div>
-</div>
+    <div id="footer">Simple PHP application.</div>
+  </div>
 </body>
 </html>
