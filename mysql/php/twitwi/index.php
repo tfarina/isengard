@@ -29,5 +29,28 @@ if (isset($_SESSION['message'])) {
   <p><input type="submit" value="submit"/></p>
 </form>
 
+<?
+$posts = show_posts($_SESSION['user_id']);
+
+if (count($posts)) {
+?>
+<table border="1" cellspacing="0" cellpading="5" width="500">
+<?
+    foreach ($posts as $key => $list) {
+        echo "<tr valing='top'>\n";
+        echo "<td>". $list['user_id'] ."</td>\n";
+        echo "<td>". $list['body'] ."<br/>\n";
+        echo "<small>". $list['stamp'] ."</small></td>\n";
+        echo "</tr>\n";
+    }
+?>
+</table>
+<?
+} else {
+?>
+<p><b>You haven't posted anything yet!</b></p>
+<?
+}
+?>
 </body>
 </html>
