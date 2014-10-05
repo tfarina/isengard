@@ -16,8 +16,8 @@ if (mysql_num_rows($result) == 0) {
     go_back("Wrong username or password.");
 }
 
-$row = mysql_fetch_row($result);
-$auth_secret = $row[1];
+$row = mysql_fetch_assoc($result);
+$auth_secret = $row['cookie'];
 
 // TODO(tfarina): Check if auth_secret is NULL, it might be!
 setcookie("auth", $auth_secret, time() + 3600 * 24 * 365);
