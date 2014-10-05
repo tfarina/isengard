@@ -19,6 +19,8 @@ if (mysql_num_rows($result) == 0) {
 $row = mysql_fetch_row($result);
 $auth_secret = $row[1];
 
+// TODO(tfarina): Check if auth_secret is NULL, it might be!
 setcookie("auth", $auth_secret, time() + 3600 * 24 * 365);
+
 header("Location: index.php");
 ?>
