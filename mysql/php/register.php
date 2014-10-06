@@ -11,14 +11,16 @@ if (!$username || !$password || !$password2)
 if ($password != $password2)
     go_back("Passwords must match!");
 
+// Check if 'username' has been taken by another user.
 $query = sprintf("SELECT 1 FROM user WHERE login='%s'",
     mysql_real_escape_string($username));
 
 $result = mysql_query($query);
-if (mysql_num_rows($result) != 0) {
+if (mysql_num_rows($result) > 0) {
     go_back("Sorry, the selected username is already in use.");
 }
 
+// Inserts a new user into the database.
 $auth_secret = get_rand();
 echo $auth_secret;
 
