@@ -24,4 +24,16 @@ function show_posts($user_id) {
     return $posts;
 }
 
+function show_users() {
+    $users = array();
+    $query = "SELECT uid, login FROM user ORDER BY login";
+    $result = mysql_query($query);
+
+    while ($data = mysql_fetch_object($result)) {
+        $users[$data->uid] = $data->login;
+    }
+
+    return $users;
+}
+
 ?>

@@ -23,6 +23,7 @@ if (isset($_SESSION['message'])) {
 }
 ?>
 
+<p><a href="users.php">see list of users</a></p>
 <form method="POST" action="add.php">
   <p>Your status:</p>
   <textarea name="body" rows="5" cols="40" wrap="VIRTUAL"></textarea>
