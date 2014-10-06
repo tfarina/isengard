@@ -4,9 +4,9 @@ import "fmt"
 
 //
 // For:
-
+//
 // Go has only one looping construct, the for loop.
-
+//
 // The basic for loop looks as it does in C or Java, except that the ( ) are gone
 // (they are not even optional) and the { } are required.
 //

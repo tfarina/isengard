@@ -18,3 +18,4 @@ build slide15: go slide15.go
 build slide16: go slide16.go
 build slide17: go slide17.go
 build slide18: go slide18.go
+build slide19: go slide19.go
