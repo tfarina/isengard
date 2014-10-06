@@ -28,7 +28,11 @@ go/tour/slide14
 go/tour/slide15
 go/tour/slide16
 go/tour/slide17
+go/tour/slide18
 mysql/php/access_log.txt
+mysql/php/error_log.txt
+mysql/php/twitwi/access_log.txt
+mysql/php/twitwi/error_log.txt
 sqlite/*.o
 sqlite/.ninja_deps
 sqlite/.ninja_log
