@@ -23,3 +23,4 @@ build slide20: go slide20.go
 build slide21: go slide21.go
 build slide22: go slide22.go
 build slide23: go slide23.go
+build slide26: go slide26.go
