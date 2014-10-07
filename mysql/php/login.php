@@ -1,6 +1,9 @@
 <?
 include("distwi.php");
 
+// 1 year + 1 day.
+define("COOKIE_EXPIRE", 3600 * 24 * 365);
+
 $username = get_post_param_trim("username");
 $password = get_post_param_trim("password");
 
@@ -20,7 +23,7 @@ $row = mysql_fetch_assoc($result);
 $auth_secret = $row['cookie'];
 
 // TODO(tfarina): Check if auth_secret is NULL, it might be!
-setcookie("auth", $auth_secret, time() + 3600 * 24 * 365);
+setcookie("auth", $auth_secret, time() + COOKIE_EXPIRE);
 
 header("Location: index.php");
 ?>
