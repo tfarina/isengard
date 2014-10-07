@@ -27,7 +27,7 @@ if (isset($_SESSION['message'])) {
 <form method="POST" action="add.php">
   <p>Your status:</p>
   <textarea name="body" rows="5" cols="40" wrap="VIRTUAL"></textarea>
-  <p><input type="submit" value="submit"/></p>
+  <p><input type="submit" value="Post"/></p>
 </form>
 
 <?
@@ -35,13 +35,13 @@ $posts = show_posts($_SESSION['user_id']);
 
 if (count($posts)) {
 ?>
-<table border="1" cellspacing="0" cellpading="5" width="500">
+<table border="1" cellspacing="0" cellpading="5" width="350">
 <?
     foreach ($posts as $key => $list) {
         echo "<tr valing='top'>\n";
-        echo "<td>". $list['user_id'] ."</td>\n";
+        echo "<td>". get_username($list['user_id']) ."</td>\n";
         echo "<td>". $list['body'] ."<br/>\n";
-        echo "<small>". $list['stamp'] ."</small></td>\n";
+        echo "<small>". relative_time($list['stamp']) ."</small></td>\n";
         echo "</tr>\n";
     }
 ?>

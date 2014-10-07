@@ -7,6 +7,14 @@ function add_post($user_id, $body) {
     $result = mysql_query($query);
 }
 
+function get_username($user_id) {
+    $query = "SELECT login FROM user WHERE uid='$user_id'";
+    $result = mysql_query($query);
+
+    $row = mysql_fetch_assoc($result);
+    return $row['login'];
+}
+
 function show_posts($user_id) {
     $posts = array();
 
@@ -34,6 +42,43 @@ function show_users() {
     }
 
     return $users;
+}
+
+// Who is this user following?
+function following($user_id) {
+    $users = array();
+
+    $query = "SELECT DISTINCT user_id FROM following WHERE follower_id = '$user_id'";
+    $result = mysql_query($query);
+
+    while ($data = mysql_fetch_object($result)) {
+        array_push($users, $data->user_id);
+    }
+
+    return $users;
+}
+
+// http://gilbert.pellegrom.me/php-relative-time-function/
+function relative_time($date, $postfix = ' ago', $fallback = 'F Y') {
+    $diff = time() - strtotime($date);
+    if ($diff < 60)
+        return $diff . ' second'. ($diff != 1 ? 's' : '') . $postfix;
+    $diff = round($diff/60);
+    if ($diff < 60)
+        return $diff . ' minute'. ($diff != 1 ? 's' : '') . $postfix;
+    $diff = round($diff/60);
+    if ($diff < 24)
+        return $diff . ' hour'. ($diff != 1 ? 's' : '') . $postfix;
+    $diff = round($diff/24);
+    if ($diff < 7)
+        return $diff . ' day'. ($diff != 1 ? 's' : '') . $postfix;
+    $diff = round($diff/7);
+    if ($diff < 4)
+        return $diff . ' week'. ($diff != 1 ? 's' : '') . $postfix;
+    $diff = round($diff/4);
+    if ($diff < 12)
+        return $diff . ' month'. ($diff != 1 ? 's' : '') . $postfix;
+    return date($fallback, strtotime($date));
 }
 
 ?>
