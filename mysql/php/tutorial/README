@@ -2,4 +2,4 @@ Source code examples from: http://zetcode.com/databases/mysqlphptutorial/
 
 $ php version.php
 $ php populate.php
-$ php query.php
+$ php query_assoc.php
