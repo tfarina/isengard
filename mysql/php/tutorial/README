@@ -4,3 +4,4 @@ $ php version.php
 $ php populate.php
 $ php fetch_assoc.php
 $ php fetch_row.php
+$ php fetch_object.php
