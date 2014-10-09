@@ -6,3 +6,4 @@ $ php fetch_assoc.php
 $ php fetch_row.php
 $ php fetch_object.php
 $ php escape_string.php
+$ php fetch_field.php
