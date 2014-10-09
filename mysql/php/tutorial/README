@@ -7,3 +7,4 @@ $ php fetch_row.php
 $ php fetch_object.php
 $ php escape_string.php
 $ php fetch_field.php
+$ php num_field_rows.php
