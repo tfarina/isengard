@@ -1,8 +1,8 @@
 <?
 
 $host = "localhost";
-$user = "vrossi";
-$pass = "vr46";
+$user = "justin";
+$pass = "46656";
 
 $r = mysql_connect($host, $user, $pass);
 

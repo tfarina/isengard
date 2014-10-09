@@ -1,9 +1,9 @@
 <?
 
 $host = "localhost";
-$user = "vrossi";
-$pass = "vr46";
-$db = "valentino";
+$user = "justin";
+$pass = "46656";
+$db = "php_tutorial";
 
 function execute_query($query) {
     $r = mysql_query($query);

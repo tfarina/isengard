@@ -7,9 +7,9 @@
 //
 
 $host = "localhost";
-$user = "vrossi";
-$pass = "vr46";
-$db = "valentino";
+$user = "justin";
+$pass = "46656";
+$db = "php_tutorial";
 
 $r = mysql_connect($host, $user, $pass);
 

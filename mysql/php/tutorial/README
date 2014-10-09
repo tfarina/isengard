@@ -1,5 +1,14 @@
 Source code examples from: http://zetcode.com/databases/mysqlphptutorial/
 
+$ mysql -u root -p
+
+mysql>CREATE DATABASE php_tutorial;
+mysql>CREATE USER 'justin'@'localhost' IDENTIFIED BY '46656';
+mysql>USE php-tutorial;
+mysql>GRANT ALL ON php_tutorial.* to 'justin'@'localhost';
+mysql>FLUSH PRIVILEGES;
+mysql>quit
+
 $ php version.php
 $ php populate.php
 $ php fetch_assoc.php
