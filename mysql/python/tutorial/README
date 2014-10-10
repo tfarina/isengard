@@ -1,3 +1,4 @@
 Source code examples from: http://zetcode.com/db/mysqlpython/
 
+$ ./version.py
 $ ./show_users.py
