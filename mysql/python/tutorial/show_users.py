@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-import MySQLdb
+import MySQLdb as mdb
 
-connection = MySQLdb.connect('localhost', 'vrossi', 'vr46', 'valentino')
+connection = mdb.connect('localhost', 'vrossi', 'vr46', 'valentino')
 
 with connection:
   cursor = connection.cursor()
