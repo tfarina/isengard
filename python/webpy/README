@@ -1,0 +1,13 @@
+$ git clone https://github.com/pypa/pip.git
+$ cd pip
+$ sudo python setup.py install
+$ sudo pip install web.py
+$ python hello.py
+http://0.0.0.0:8080
+
+Visit that URL and you should see "Hello, world!".
+
+You can add an IP address/port after the "hello.py" bit to control where web.py
+launches the server. e.g.:
+
+$ python hello.py 8004
