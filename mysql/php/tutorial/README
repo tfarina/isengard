@@ -4,7 +4,7 @@ $ mysql -u root -p
 
 mysql>CREATE DATABASE php_tutorial;
 mysql>CREATE USER 'justin'@'localhost' IDENTIFIED BY '46656';
-mysql>USE php-tutorial;
+mysql>USE php_tutorial;
 mysql>GRANT ALL ON php_tutorial.* to 'justin'@'localhost';
 mysql>FLUSH PRIVILEGES;
 mysql>quit
