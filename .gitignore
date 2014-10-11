@@ -1,3 +1,4 @@
+*.pyc
 asm/*.o
 asm/add_main
 asm/add.6

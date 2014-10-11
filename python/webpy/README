@@ -12,3 +12,6 @@ launches the server. e.g.:
 
 $ python hello.py 8004
 $ python hello2.py 8005
+
+$ chmod +x ./hello.py
+$ ./hello.py 1234
