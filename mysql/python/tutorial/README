@@ -14,3 +14,4 @@ $ ./show_users.py
 $ ./populate.py
 $ ./fetchall.py
 $ ./fetchone.py
+$ ./webpy_select.py
