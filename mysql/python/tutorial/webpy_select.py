@@ -6,3 +6,6 @@ db = web.database(dbn='mysql', db='python_tutorial', user='pyuser', passwd='yell
 
 for row in db.select('writer'):
   print row
+
+for row in db.select('writer'):
+  print row["id"], row["name"]

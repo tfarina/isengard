@@ -15,3 +15,4 @@ $ ./populate.py
 $ ./fetchall.py
 $ ./fetchone.py
 $ ./webpy_select.py
+$ ./dict_cursor.py
