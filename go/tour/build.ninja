@@ -29,3 +29,4 @@ build slide28: go slide28.go
 build slide29: go slide29.go
 build slide30: go slide30.go
 build slide31: go slide31.go
+build slide32: go slide32.go
