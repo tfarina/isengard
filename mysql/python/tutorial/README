@@ -11,3 +11,4 @@ mysql>quit
 
 $ ./version.py
 $ ./show_users.py
+$ ./populate.py
