@@ -1,3 +1,10 @@
 http://webpy.org/src/todo-list/0.3
 
+To setup the MySQL database and user:
+
 $ ./setup.sh
+
+
+To run the app:
+
+$ ./todo.py 12345
