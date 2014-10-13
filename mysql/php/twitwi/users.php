@@ -24,8 +24,9 @@ include("functions.php");
   <?
     foreach ($users as $key => $value) {
       echo "<tr valgin='top'>\n";
-      echo "<td>". $key ."</td>\n";
-      echo "<td>". $value ." <small><a href='#'>follow</a></small></td>\n";
+      #echo "<td>". $key ."</td>\n";
+      echo "<td>". $value."</td>\n";
+      echo "<td><a href='#'>follow</a></td>\n";
       echo "</tr>\n";
     }
   ?>
