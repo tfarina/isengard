@@ -9,4 +9,9 @@ func main() {
 	// Slice
 	// Remember that it is [lo:hi], but it evaluates to [lo:hi-1].
 	fmt.Println("[1:4] is: ", primes[1:4])
+
+	// If you omit the 'low index', it infers that and assumes 0 in the
+	// place. Since it does the hi-1 for the second part, then [:3] will go
+	// from 0 to 2.
+	fmt.Println(primes[:3])
 }
