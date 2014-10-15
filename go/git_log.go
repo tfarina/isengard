@@ -7,9 +7,9 @@ import (
 
 func main() {
 	cmd := exec.Command("git", "log")
-	b, err := cmd.Output()
+	out, err := cmd.Output()
 	if err != nil {
-		fmt.Errorf("Failed to execute git log: %s - %s", err, string(b))
+		fmt.Errorf("Failed to execute git log: %s - %s", err, string(out))
 	}
-	fmt.Println(string(b))
+	fmt.Println(string(out))
 }
