@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -21,11 +20,5 @@ func main() {
 	err = db.Ping()
 	if err != nil {
 		log.Fatal(err)
-	}
-
-	_, err = db.Exec(
-		"INSERT INTO todo (title) VALUES (?)", "wash my car")
-	if err != nil {
-		fmt.Errorf("Failed to write to database: %s", err)
 	}
 }
