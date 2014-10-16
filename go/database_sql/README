@@ -4,4 +4,5 @@ $ mysql -u nash -p go_tutorial < schema.sql
 # Type in nash's password: virginia
 
 $ go run open.go
+$ go run ping.go
 $ go run exec.go
