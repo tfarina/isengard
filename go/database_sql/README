@@ -1,0 +1,7 @@
+$ ./setup.sh
+$ mysql -u nash -p go_tutorial < schema.sql
+
+# Type in nash's password: virginia
+
+$ go build db.go
+$ ./db
