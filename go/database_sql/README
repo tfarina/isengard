@@ -7,3 +7,4 @@ $ go run open.go
 $ go run ping.go
 $ go run exec.go
 $ go run prepare_statement.go
+$ go run query.go
