@@ -3,10 +3,11 @@ package main
 import "fmt"
 
 func main() {
+	// Slice
 	primes := []int{2, 3, 5, 7, 11}
+
 	fmt.Println(primes)
 
-	// Slice
 	// Remember that it is [lo:hi], but it evaluates to [lo:hi-1].
 	fmt.Println("[1:4] is: ", primes[1:4])
 
@@ -17,4 +18,11 @@ func main() {
 
 	// [low:low] evaluates to an empty slide. No matter index you use. :(
 	fmt.Println(primes[2:2])
+
+	// If you omit the 'high index', it will assume len(primes).
+	// So in this case, len(primes) is equal to 5, since there are 5
+	// elements in this slice.
+	// With that [3:] will evaluate to [3:5-1], which is [3:4], and will
+	// print 7, 11.
+	fmt.Println(primes[3:])
 }
