@@ -17,18 +17,13 @@ func main() {
 	}
 	defer db.Close()
 
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	stmt, err := db.Prepare("INSERT INTO todo (title) VALUES (?)")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec("go to the doctor")
+	_, err = stmt.Exec("shop on monday")
 	if err != nil {
 		log.Fatal(err)
 	}
