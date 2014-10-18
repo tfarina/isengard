@@ -34,8 +34,7 @@ func main() {
 		fmt.Println(id, title)
 	}
 
-	err = rows.Err()
-	if err != nil {
+	if err = rows.Err(); err != nil {
 		log.Fatal(err)
 	}
 }
