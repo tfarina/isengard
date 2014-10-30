@@ -25,4 +25,7 @@ func main() {
 	// With that [3:] will evaluate to [3:5-1], which is [3:4], and will
 	// print 7, 11.
 	fmt.Println(primes[3:])
+
+        // The slice [low:low+1] will evalute to ONE element.
+	fmt.Println(primes[2:3])
 }
