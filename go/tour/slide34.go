@@ -15,4 +15,7 @@ func printSlice(slice []int) {
 func main() {
         s := make([]int, 5)
         printSlice(s)
+
+        t := make([]int, 0, 5)
+        printSlice(t)
 }
