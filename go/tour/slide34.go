@@ -2,6 +2,10 @@ package main
 
 import "fmt"
 
+func printSlice(slice []int) {
+        fmt.Printf("len=%d cap=%d %v\n", len(slice), cap(slice), slice)
+}
+
 //
 // Making slices:
 //
@@ -9,7 +13,6 @@ import "fmt"
 // array and returning a slice that refers to that array:
 //
 func main() {
-        a := make([]int, 5)
-        fmt.Println(a)
-        fmt.Println(len(a))
+        s := make([]int, 5)
+        printSlice(s)
 }
