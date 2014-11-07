@@ -33,3 +33,4 @@ build slide32: go slide32.go
 build slide33: go slide33.go
 build slide34: go slide34.go
 build slide35: go slide35.go
+build slide36: go slide36.go
