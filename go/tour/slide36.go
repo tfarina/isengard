@@ -10,7 +10,18 @@ import "fmt"
 func main() {
 	slice := []int{1, 2, 3}
 
+	fmt.Println("Index Value")
 	for i, value := range slice {
 		fmt.Println(i, value)
+	}
+
+	fmt.Println("Index")
+	for i, _ := range slice {
+		fmt.Println(i)
+	}
+
+	fmt.Println("Value")
+	for _, value := range slice {
+		fmt.Println(value)
 	}
 }
