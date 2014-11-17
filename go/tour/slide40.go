@@ -16,6 +16,11 @@ var m = map[string]Location{
 	},
 }
 
+//
+// Map literals
+//
+// Map literals are like struct literals, but the keys are required.
+//
 func main() {
 	fmt.Println(m)
 }
