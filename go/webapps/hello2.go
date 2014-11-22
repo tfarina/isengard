@@ -1,4 +1,4 @@
-// go run handle_func.go
+// go run hello2.go
 //
 // 1) Open Chrome
 // 2) Navigate to localhost:8080

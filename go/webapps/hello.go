@@ -1,4 +1,4 @@
-// $ go build -gcflags=-S hello.go
+// go build -gcflags=-S hello.go
 
 package main
 
