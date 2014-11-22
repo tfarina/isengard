@@ -1,0 +1,9 @@
+URL: webgo.io
+
+# How to install it
+$ go get github.com/hoisie/web
+
+# How to run it
+$ go run hello.go
+
+Then navigate to http://localhost:9999/world
