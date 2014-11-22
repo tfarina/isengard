@@ -1,0 +1,6 @@
+exec
+open
+ping
+prepare_exec
+prepare_query
+query
