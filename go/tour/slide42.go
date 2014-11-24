@@ -17,6 +17,10 @@ import "fmt"
 //
 // delete(m, key)
 //
+// Test that a key is present with a two-value assignment:
+//
+// elem, ok = m[key]
+//
 func main() {
 	m := make(map[string]int)
 
@@ -27,6 +31,10 @@ func main() {
 	// Update its value.
 	m["books"] = 2
 	fmt.Println("Now, how many books do you have?", m["books"])
+
+	// Check if a key is present in the map.
+	value, is_present := m["books"]
+	fmt.Println(value, is_present)
 
 	// Delete an item from the map.
 	delete(m, "books")
