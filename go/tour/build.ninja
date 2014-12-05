@@ -41,3 +41,4 @@ build slide41: go slide41.go
 build slide42: go slide42.go
 build slide44: go slide44.go
 build slide47: go slide47.go
+build slide48: go slide48.go
