@@ -1,3 +1,5 @@
+// http://tour.golang.org/basics/5
+
 package main
 
 import "fmt"
