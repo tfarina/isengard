@@ -1,0 +1,11 @@
+Named return values
+
+Go's return values may be named and act just like variables.
+
+These names should be used to document the meaning of the return values.
+
+A return statement without arguments returns the current values of the results.
+This is known as a "naked" return.
+
+Naked return statements should be used only in short function, as with the
+example shown here. They can harm readability in longer functions.
