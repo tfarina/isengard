@@ -7,4 +7,4 @@ set -e
 
 as add-att.s -o add_def.o
 clang++ -c add_main.cc -o add_main.o
-clang++ add_main.o add_def.o -o add_main
+clang++ add_main.o add_def.o -o add_att_release
