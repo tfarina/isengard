@@ -1,0 +1,10 @@
+aflags = -f elf64 -m amd64
+
+rule asm
+        command = yasm $aflags -o $out $in
+
+rule link
+        command = gold -o $out $in
+
+build exit.o: asm exit.asm
+build exit: link exit.o
