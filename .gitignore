@@ -6,6 +6,9 @@ asm/rayseyfarth/ch01/.ninja_deps
 asm/rayseyfarth/ch01/.ninja_log
 asm/rayseyfarth/ch01/*.o
 asm/rayseyfarth/ch01/exit
+asm/rayseyfarth/ch02/.ninja_deps
+asm/rayseyfarth/ch02/.ninja_log
+asm/rayseyfarth/ch02/*.o
 buf/.ninja_deps
 buf/.ninja_log
 buf/*.o
