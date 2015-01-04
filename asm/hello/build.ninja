@@ -1,0 +1,8 @@
+rule asm
+        command = as -o $out $in
+
+rule link
+        command = gold -o $out $in
+
+build hello_att_x64.o: asm hello_att_x64.s
+build hello_att_x64: link hello_att_x64.o

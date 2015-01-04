@@ -2,6 +2,10 @@
 asm/*.o
 asm/add_main
 asm/add.6
+asm/hello/.ninja_deps
+asm/hello/.ninja_log
+asm/hello/*.o
+asm/hello/hello_att_x64
 asm/rayseyfarth/ch01/.ninja_deps
 asm/rayseyfarth/ch01/.ninja_log
 asm/rayseyfarth/ch01/*.o
