@@ -1,6 +1,6 @@
-import web
-
 # http://webpy.org/docs/0.3/tutorial
+
+import web
 
 urls = (
   '/', 'index'
