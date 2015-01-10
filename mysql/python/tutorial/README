@@ -1,5 +1,8 @@
 Source code examples from: http://zetcode.com/db/mysqlpython/
 
+Getting started
+===============
+
 $ mysql -u root -p
 
 mysql>CREATE DATABASE python_tutorial;
@@ -8,6 +11,10 @@ mysql>USE python_tutorial;
 mysql>GRANT ALL ON python_tutorial.* to 'pyuser'@'localhost';
 mysql>FLUSH PRIVILEGES;
 mysql>quit
+
+
+Running the code
+================
 
 $ ./version.py
 $ ./show_users.py
