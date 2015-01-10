@@ -1,5 +1,8 @@
 Source code examples from: http://zetcode.com/databases/mysqlphptutorial/
 
+Getting started
+===============
+
 $ mysql -u root -p
 
 mysql>CREATE DATABASE php_tutorial;
@@ -8,6 +11,10 @@ mysql>USE php_tutorial;
 mysql>GRANT ALL ON php_tutorial.* to 'justin'@'localhost';
 mysql>FLUSH PRIVILEGES;
 mysql>quit
+
+
+Running the code
+================
 
 $ php version.php
 $ php populate.php
