@@ -1,17 +1,30 @@
+Install Pip
+===========
+
 $ git clone https://github.com/pypa/pip.git
 $ cd pip
 $ sudo python setup.py install
+
+Install WebPy
+=============
+
 $ sudo pip install web.py
+
+
 $ python hello.py
 http://0.0.0.0:8080
 
 Visit that URL and you should see "Hello, world!".
 
-You can add an IP address/port after the "hello.py" bit to control where web.py
-launches the server. e.g.:
+You can add an IP address/port after "hello.py" to control where it should
+listen for connections (it can be helpful when there is already another service
+running on those ports). e.g.:
 
 $ python hello.py 8004
 $ python hello2.py 8005
+
+
+You can also avoid having to type 'python' everytime by doing:
 
 $ chmod +x ./hello.py
 $ ./hello.py 1234
