@@ -48,8 +48,8 @@ build $builddir_cli/insert0.o: cc cli/insert0.c
 build out/insert0: link $builddir_cli/insert0.o
   libs = -lsqlite3
 
-build $builddir_cli/list.o: cc cli/list.c
-build out/list: link $builddir_cli/list.o
+build $builddir_cli/list_new.o: cc cli/list_new.c
+build out/list_new: link $builddir_cli/list_new.o
   libs = -lsqlite3
 
 build $builddir_cli/update.o: cc cli/update.c
@@ -70,8 +70,8 @@ build out/all: link $builddir_cli/all.o
 
 build $builddir_cli/add.o: cc cli/add.c
 build $builddir_cli/del.o: cc cli/del.c
-build $builddir_cli/list1.o: cc cli/list1.c
+build $builddir_cli/list_old.o: cc cli/list_old.c
 
 build $builddir_cli/cli.o: cc cli/cli.c
-build out/cli: link $builddir_cli/add.o $builddir_cli/del.o $builddir_cli/list1.o $builddir_cli/cli.o
+build out/cli: link $builddir_cli/add.o $builddir_cli/del.o $builddir_cli/list_old.o $builddir_cli/cli.o
   libs = -lsqlite3
