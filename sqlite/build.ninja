@@ -40,12 +40,12 @@ build $builddir_cli/create.o: cc cli/create.c
 build out/create: link $builddir_cli/create.o
   libs = -lsqlite3
 
-build $builddir_cli/insert.o: cc cli/insert.c
-build out/insert: link $builddir_cli/insert.o
+build $builddir_cli/insert_old.o: cc cli/insert_old.c
+build out/insert_old: link $builddir_cli/insert_old.o
   libs = -lsqlite3
 
-build $builddir_cli/insert0.o: cc cli/insert0.c
-build out/insert0: link $builddir_cli/insert0.o
+build $builddir_cli/insert_new.o: cc cli/insert_new.c
+build out/insert_new: link $builddir_cli/insert_new.o
   libs = -lsqlite3
 
 build $builddir_cli/list_new.o: cc cli/list_new.c
