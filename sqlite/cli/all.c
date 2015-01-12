@@ -25,7 +25,7 @@ static sqlite3* db_open(const char* db_file) {
   return db;
 }
 
-static int db_table_create_user(sqlite3* db) {
+static int db_user_create_table(sqlite3* db) {
   const char* sql =
     "CREATE TABLE IF NOT EXISTS 'user' ("
     "  uid INTEGER PRIMARY KEY," /* User ID */
@@ -42,7 +42,7 @@ static int db_table_create_user(sqlite3* db) {
   return 0;
 }
 
-static int db_add_user(sqlite3* db) {
+static int db_user_add(sqlite3* db) {
   sqlite3_stmt* stmt;
 
   const char *sql = "INSERT INTO user (login, pw, email) VALUES (?1, ?2, ?3);";
@@ -61,7 +61,7 @@ static int db_add_user(sqlite3* db) {
   return 0;
 }
 
-static int db_get_user(sqlite3* db) {
+static int db_user_get(sqlite3* db) {
   const char* sql = "SELECT login FROM user WHERE uid=1";
   const char* data = "Callback function called";
 
@@ -73,7 +73,7 @@ static int db_get_user(sqlite3* db) {
   return 0;
 }
 
-static int db_remove_user(sqlite3* db) {
+static int db_user_remove(sqlite3* db) {
   sqlite3_stmt *stmt;
 
   const char *sql = "DELETE FROM user WHERE uid=?1;";
@@ -95,27 +95,27 @@ int main(int argc, char* argv[]) {
 
   db = db_open("users.db");
 
-  if (db_table_create_user(db)) {
+  if (db_user_create_table(db)) {
     sqlite3_close(db);
     return -1;
   }
 
-  if (db_add_user(db)) {
+  if (db_user_add(db)) {
     sqlite3_close(db);
     return -1;
   }
 
-  if (db_get_user(db)) {
+  if (db_user_get(db)) {
     sqlite3_close(db);
     return -1;
   }
 
-  if (db_remove_user(db)) {
+  if (db_user_remove(db)) {
     sqlite3_close(db);
     return -1;
   }
 
-  if (db_get_user(db)) {
+  if (db_user_get(db)) {
     sqlite3_close(db);
     return -1;
   }
