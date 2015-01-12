@@ -18,7 +18,7 @@ static sqlite3* db_open(const char* db_file) {
   return db;
 }
 
-static int db_table_create_user(sqlite3* db) {
+static int db_user_create_table(sqlite3* db) {
   const char* sql =
     "CREATE TABLE IF NOT EXISTS 'user' ("
     "  uid INTEGER PRIMARY KEY," /* User ID */
@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
 
   db = db_open("users.db");
 
-  if (db_table_create_user(db)) {
+  if (db_user_create_table(db)) {
     sqlite3_close(db);
     return -1;
   }
