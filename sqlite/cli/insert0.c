@@ -15,7 +15,7 @@ static sqlite3* db_open(const char* db_file) {
   return db;
 }
 
-static int db_init_user_table(sqlite3* db) {
+static int db_user_init_table(sqlite3* db) {
   const char* sql =
     "CREATE TABLE IF NOT EXISTS 'user' ("
     "  uid INTEGER PRIMARY KEY," /* User ID */
@@ -53,7 +53,7 @@ static int db_user_exists(sqlite3* db, const char* username) {
   return rc;
 }
 
-static int db_add_user(sqlite3* db,
+static int db_user_add(sqlite3* db,
                        const char* username,
                        const char* password,
                        const char* email) {
@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
   // We should check if it exist, if not then create.
   // It is pretty easy to reproduce this:
   // Just remove users.db then run out/insert0 ....
-  if (db_init_user_table(db)) {
+  if (db_user_init_table(db)) {
     sqlite3_close(db);
     return -1;
   }
@@ -103,7 +103,7 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  if (db_add_user(db, argv[1], argv[2], argv[3])) {
+  if (db_user_add(db, argv[1], argv[2], argv[3])) {
     sqlite3_close(db);
     return -1;
   }
