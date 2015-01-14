@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# TODO(tfarina): Change this to install from a pinned version from the tarball
-# instead: http://www.sfml-dev.org/files/SFML-2.2-linux-gcc-64-bit.tar.gz
-git clone https://github.com/LaurentGomila/SFML.git
-cd SFML
+SFML_VERSION=SFML-2.2
+wget http://www.sfml-dev.org/files/$SFML_VERSION-sources.zip
+extract $SFML_VERSION-sources.zip
+cd $SFML_VERSION
 mkdir build
 cd build
-cmake -GNinja -DSFML_BUILD_EXAMPLES=true ..
+cmake -GNinja ..
 ninja
 sudo ninja install
