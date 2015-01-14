@@ -48,4 +48,4 @@ sqlite/users.db
 vec/*.o
 vec/.ninja_deps
 vec/.ninja_log
-vec/main
+vec/vec_test
