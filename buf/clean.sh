@@ -1,2 +1,2 @@
 #!/bin/sh
-rm -f main *.o
+rm -f buf_test *.o

@@ -20,7 +20,7 @@ asm/rayseyfarth/ch02/.ninja_log
 buf/.ninja_deps
 buf/.ninja_log
 buf/*.o
-buf/main
+buf/buf_test
 go/fetch
 go/git_log
 go/hello

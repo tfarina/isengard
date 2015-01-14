@@ -8,5 +8,5 @@ rule link
 
 build unix.o: cc unix.c
 build buf.o: cc buf.c
-build main.o: cc main.c
-build main: link unix.o buf.o main.o
+build buf_test.o: cc buf_test.c
+build buf_test: link unix.o buf.o buf_test.o
