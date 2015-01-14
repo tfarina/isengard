@@ -1,2 +1,2 @@
 #!/bin/sh
-rm -f main *.o
+rm -f vec_test *.o

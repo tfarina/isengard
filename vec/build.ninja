@@ -6,6 +6,6 @@ rule link
 
 build os_unix.o: cc os_unix.c
 build vec.o: cc vec.c
-build main.o: cc main.c
+build vec_test.o: cc vec_test.c
 
-build main: link os_unix.o vec.o main.o
+build vec_test: link os_unix.o vec.o vec_test.o
