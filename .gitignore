@@ -29,6 +29,7 @@ go/hello_www
 go/tour/.ninja_deps
 go/tour/.ninja_log
 go/tour/out
+java/ant/build
 mysql/php/access_log.txt
 mysql/php/error_log.txt
 mysql/php/twitwi/access_log.txt
