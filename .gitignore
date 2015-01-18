@@ -21,6 +21,7 @@ buf/.ninja_deps
 buf/.ninja_log
 buf/*.o
 buf/buf_test
+c++/chrome_bookmarks_reader/out
 c++/sfml/examples/circle/sfml_app
 go/fetch
 go/git_log
