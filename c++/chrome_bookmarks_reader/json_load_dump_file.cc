@@ -38,9 +38,13 @@ int main(int argc, char** argv) {
   // now here I can get the type!
   printf("iter value: %s\n", json_dumps(iter_value, 0));
 
+  json_t* name = json_object_get(iter_value, "name");
+  const char* name_value = json_string_value(name);
+  printf("name: %s\n", name_value);
+
   json_t* type = json_object_get(iter_value, "type");
   const char* type_value = json_string_value(type);
-  printf("type value: %s\n", type_value);
+  printf("type: %s\n", type_value);
 
   //json_t* children = json_object_get(iter_value, "children");
 
