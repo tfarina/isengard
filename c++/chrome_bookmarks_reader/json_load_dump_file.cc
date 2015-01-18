@@ -9,6 +9,22 @@
 
 #include <jansson.h>
 
+const char kRootsKey[] = "roots";
+// const char kRootFolderNameKey[] = "bookmark_bar";
+// const char kOtherBookmarkFolderNameKey[] = "other";
+// const char kMobileBookmarkFolderNameKey[] = "synced";
+// const char kVersionKey[] = "version";
+// const char kChecksumKey[] = "checksum";
+// const char kIdKey[] = "id";
+// const char kTypeKey[] = "type";
+// const char kNameKey[] = "name";
+// const char kURLKey[] = "url";
+// const char kChildrenKey[] = "children";
+//
+// Possible values for kTypeKey.
+// const char kTypeURL[] = "url";
+// const char kTypeFolder[] = "folder";
+
 int main(int argc, char** argv) {
   if (argc != 3) {
     fprintf(stderr, "usage: %s in-file out-file\n", argv[0]);
@@ -22,16 +38,16 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  json_t* bookmarks_object = json_object_get(json, "roots");
-  if (!bookmarks_object) {
-    fprintf(stderr, "%s\n", "no bookmarks object");
+  json_t* roots_object = json_object_get(json, kRootsKey);
+  if (!roots_object) {
+    fprintf(stderr, "%s\n", "no roots object");
     return 1;
   }
 
-  printf("%s\n", json_dumps(bookmarks_object, 0));
+  printf("%s\n", json_dumps(roots_object, 0));
 
   // bookmarks_bar is the first root.
-  void* iter = json_object_iter(bookmarks_object);
+  void* iter = json_object_iter(roots_object);
   const char* iter_key = json_object_iter_key(iter);
   printf("iter key: %s\n", iter_key);
 
@@ -42,7 +58,6 @@ int main(int argc, char** argv) {
   const char* name_value = json_string_value(name);
   printf("name: %s\n", name_value);
 
-  // now here I can get the type!
   json_t* type = json_object_get(iter_value, "type");
   const char* type_value = json_string_value(type);
   printf("type: %s\n", type_value);
@@ -55,7 +70,7 @@ int main(int argc, char** argv) {
   printf("advance\n");
 
   // synced is the third root.
-  iter = json_object_iter_next(bookmarks_object, iter);
+  iter = json_object_iter_next(roots_object, iter);
   iter_key = json_object_iter_key(iter);
   printf("iter key: %s\n", iter_key);
 
