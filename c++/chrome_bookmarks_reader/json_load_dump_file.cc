@@ -30,28 +30,31 @@ int main(int argc, char** argv) {
 
   printf("%s\n", json_dumps(bookmarks_object, 0));
 
+  // bookmarks_bar is the first root.
   void* iter = json_object_iter(bookmarks_object);
   const char* iter_key = json_object_iter_key(iter);
   printf("iter key: %s\n", iter_key);
 
   json_t* iter_value = json_object_iter_value(iter);
-  // now here I can get the type!
   printf("iter value: %s\n", json_dumps(iter_value, 0));
 
   json_t* name = json_object_get(iter_value, "name");
   const char* name_value = json_string_value(name);
   printf("name: %s\n", name_value);
 
+  // now here I can get the type!
   json_t* type = json_object_get(iter_value, "type");
   const char* type_value = json_string_value(type);
   printf("type: %s\n", type_value);
 
   //json_t* children = json_object_get(iter_value, "children");
 
-  // now to get any element in this array:
+  // now you can get any element in the |children| array:
   //json_t* element = json_array_get(children, 0);
 
   printf("advance\n");
+
+  // synced is the third root.
   iter = json_object_iter_next(bookmarks_object, iter);
   iter_key = json_object_iter_key(iter);
   printf("iter key: %s\n", iter_key);
