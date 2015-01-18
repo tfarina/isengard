@@ -1,0 +1,21 @@
+$def with (bookmarks, form)
+
+<p><center><h1>lec.ker</h1></center></p>
+<p><hr/></p>
+<table border="0" width="100%">
+  $for bookmark in bookmarks:
+  <tr>
+    <form name="del${bookmark.id}" method="post" action="delete">
+    <td><a href="$bookmark.url">$bookmark.title</a></td>
+    <td align="right">
+      <input type="hidden" name="$bookmark.id" value="1" />
+      <a href="#" onclick="document.del${bookmark.id}.submit()">(delete)</a>
+    </td>
+    </form>
+  </tr>
+</table>
+<p><hr/></p>
+<form name="add" method="post" action="add">
+$:form.render()
+</form>
+<a href="delete">Delete Bookmarks</a>

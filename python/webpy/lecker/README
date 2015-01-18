@@ -1,0 +1,18 @@
+Bookmarking web service.
+
+http://webpy.org/src/lecker
+
+lec.ker - a simple del.icio.us clone
+
+by Valentin Wüstholz
+
+# How to setup MySQL database, user and table:
+
+$ ./setup.sh
+$ mysql -u hannibal -p lecker < schema.mysql
+# Type in hannibal's password: 19440807
+
+
+# How to run it:
+
+$ ./lecker.py #port-number-you-want-available
