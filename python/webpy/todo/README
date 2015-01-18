@@ -1,8 +1,10 @@
 http://webpy.org/src/todo-list/0.3
 
-To setup the MySQL database and user:
+To setup the MySQL database, user and table:
 
 $ ./setup.sh
+$ mysql -u kevin -p blog < schema.sql
+# Type in kevin's password: chevrolet
 
 
 To run the app:
