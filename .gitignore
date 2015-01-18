@@ -31,10 +31,10 @@ go/tour/.ninja_deps
 go/tour/.ninja_log
 go/tour/out
 java/ant/build
-mysql/php/access_log.txt
-mysql/php/error_log.txt
-mysql/php/twitwi/access_log.txt
-mysql/php/twitwi/error_log.txt
+mysql/php/apps/distwi/access_log.txt
+mysql/php/apps/distwi/error_log.txt
+mysql/php/apps/twitwi/access_log.txt
+mysql/php/apps/twitwi/error_log.txt
 sqlite/*.o
 sqlite/.ninja_deps
 sqlite/.ninja_log
