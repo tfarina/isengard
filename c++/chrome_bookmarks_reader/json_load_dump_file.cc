@@ -16,8 +16,8 @@ const char kRootsKey[] = "roots";
 // const char kVersionKey[] = "version";
 // const char kChecksumKey[] = "checksum";
 // const char kIdKey[] = "id";
-// const char kTypeKey[] = "type";
-// const char kNameKey[] = "name";
+const char kTypeKey[] = "type";
+const char kNameKey[] = "name";
 // const char kURLKey[] = "url";
 // const char kChildrenKey[] = "children";
 //
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
 
   printf("%s\n", json_dumps(roots_object, 0));
 
-  // bookmarks_bar is the first root.
+  // bookmark_bar is the first root.
   void* iter = json_object_iter(roots_object);
   const char* iter_key = json_object_iter_key(iter);
   printf("iter key: %s\n", iter_key);
@@ -54,13 +54,13 @@ int main(int argc, char** argv) {
   json_t* iter_value = json_object_iter_value(iter);
   printf("iter value: %s\n", json_dumps(iter_value, 0));
 
-  json_t* name = json_object_get(iter_value, "name");
-  const char* name_value = json_string_value(name);
-  printf("name: %s\n", name_value);
-
-  json_t* type = json_object_get(iter_value, "type");
+  json_t* type = json_object_get(iter_value, kTypeKey);
   const char* type_value = json_string_value(type);
   printf("type: %s\n", type_value);
+
+  json_t* name = json_object_get(iter_value, kNameKey);
+  const char* name_value = json_string_value(name);
+  printf("name: %s\n", name_value);
 
   //json_t* children = json_object_get(iter_value, "children");
 
