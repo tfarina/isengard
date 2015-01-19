@@ -56,7 +56,7 @@ build out/list_new: link $builddir_cli/list_new.o
   libs = -lsqlite3
 
 build $builddir_cli/update.o: cc cli/update.c
-build out/update: link $builddir_cli/update.o
+build out/update: link $builddir_cli/db.o $builddir_cli/update.o
   libs = -lsqlite3
 
 build $builddir_cli/delete_old.o: cc cli/delete_old.c
