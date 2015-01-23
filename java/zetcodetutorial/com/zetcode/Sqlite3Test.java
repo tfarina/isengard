@@ -18,11 +18,11 @@ public class Sqlite3Test {
       Statement statement = connection.createStatement();
       statement.setQueryTimeout(30);
 
-      statement.executeUpdate("drop table if exists person");
-      statement.executeUpdate("create table person (id integer, name string)");
-      statement.executeUpdate("insert into person values(1, 'leo')");
-      statement.executeUpdate("insert into person values(2, 'yui')");
-      ResultSet rs = statement.executeQuery("select * from person");
+      statement.executeUpdate("DROP TABLE IF EXISTS person");
+      statement.executeUpdate("CREATE TABLE person (id integer, name string)");
+      statement.executeUpdate("INSERT INTO person VALUES(1, 'leo')");
+      statement.executeUpdate("INSERT INTO person VALUES(2, 'yui')");
+      ResultSet rs = statement.executeQuery("SELECT * FROM person");
 
       while (rs.next()) {
         System.out.println("name = " + rs.getString("name"));
