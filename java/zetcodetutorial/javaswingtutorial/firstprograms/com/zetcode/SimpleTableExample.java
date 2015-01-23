@@ -37,6 +37,7 @@ public class SimpleTableExample extends JFrame {
 
   public static void main(String[] args) {
     try {
+      // http://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     } catch (Exception e) {
     }
