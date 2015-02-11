@@ -21,6 +21,10 @@ buf/.ninja_deps
 buf/.ninja_log
 buf/*.o
 buf/buf_test
+c/apps/*.o
+c/apps/.ninja_deps
+c/apps/.ninja_log
+c/apps/imap
 c++/chrome_bookmarks_reader/out
 c++/sfml/examples/circle/circle
 go/fetch
