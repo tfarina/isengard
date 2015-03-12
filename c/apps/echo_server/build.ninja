@@ -1,0 +1,31 @@
+cc = clang
+cflags = -g -std=c99 -pedantic -Wall -O0
+prefix = /usr/local
+
+rule COMPILE_CC
+  command = $cc $cflags -c $in -o $out
+
+rule LINK
+  command = $cc $cflags -o $out $includes $ldflags $libs $in
+
+rule CLEAN
+  description = cleaning
+  command = rm -rf $in *.o
+
+rule INSTALL
+  description = installing $in to $prefix/bin
+  command = install $in $prefix/bin
+
+rule UNINSTALL
+  description = removing $in from $prefix/bin
+  command = rm -f $prefix/bin/$in
+
+build server.o: COMPILE_CC server.c
+build server: LINK server.o
+
+build client.o: COMPILE_CC client.c
+build client: LINK client.o
+
+build clean: CLEAN imap
+
+default server
