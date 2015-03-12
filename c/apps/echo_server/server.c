@@ -14,13 +14,13 @@ int main() {
 
   struct sockaddr_in servaddr;
 
-  listen_fd = socket(AF_INET, SOCK_STREAM, 0);
-
-  bzero(&servaddr, sizeof(servaddr));
+  memset(&servaddr, 0, sizeof(servaddr));
 
   servaddr.sin_family = AF_INET;
   servaddr.sin_addr.s_addr = htons(INADDR_ANY);
   servaddr.sin_port = htons(22000);
+
+  listen_fd = socket(AF_INET, SOCK_STREAM, 0);
 
   bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr));
 
