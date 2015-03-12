@@ -8,9 +8,12 @@
 #include <unistd.h>
 #include <strings.h>
 
+#define SERVER_PORT 8088
+
 int main() {
   char str[100];
-  int listen_fd, comm_fd;
+  int listen_fd;
+  int conn_fd;
 
   struct sockaddr_in servaddr;
 
@@ -18,7 +21,7 @@ int main() {
 
   servaddr.sin_family = AF_INET;
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-  servaddr.sin_port = htons(22000);
+  servaddr.sin_port = htons(SERVER_PORT);
 
   listen_fd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -26,16 +29,16 @@ int main() {
 
   listen(listen_fd, 10);
 
-  comm_fd = accept(listen_fd, (struct sockaddr*) NULL, NULL);
+  conn_fd = accept(listen_fd, (struct sockaddr*) NULL, NULL);
 
   while (1) {
     bzero(str, 100);
 
-    read(comm_fd, str, 100);
+    read(conn_fd, str, 100);
 
     printf("Echoing back - %s", str);
 
-    write(comm_fd, str, strlen(str) + 1);
+    write(conn_fd, str, strlen(str) + 1);
   }
 
   return 0;
