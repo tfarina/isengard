@@ -25,6 +25,12 @@ c/apps/*.o
 c/apps/.ninja_deps
 c/apps/.ninja_log
 c/apps/imap
+c/apps/echo_server/.ninja_deps
+c/apps/echo_server/.ninja_log
+c/apps/echo_server/client
+c/apps/echo_server/client.o
+c/apps/echo_server/server
+c/apps/echo_server/server.o
 c++/chrome_bookmarks_reader/out
 c++/sfml/examples/circle/circle
 go/fetch
