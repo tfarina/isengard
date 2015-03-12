@@ -10,11 +10,12 @@
 #include <arpa/inet.h>
 
 #define SERVER_PORT 8088
+#define MAXLINE 100
 
 int main(int argc,char **argv) {
   int sockfd;
-  char sendline[100];
-  char recvline[100];
+  char sendline[MAXLINE];
+  char recvline[MAXLINE];
   struct sockaddr_in servaddr;
 
   sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -28,12 +29,12 @@ int main(int argc,char **argv) {
   connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
   while (1) {
-    bzero(sendline, 100);
-    bzero(recvline, 100);
-    fgets(sendline, 100, stdin); /*stdin = 0 , for standard input */
+    bzero(sendline, MAXLINE);
+    bzero(recvline, MAXLINE);
+    fgets(sendline, MAXLINE, stdin); /*stdin = 0 , for standard input */
 
     write(sockfd, sendline, strlen(sendline) + 1);
-    read(sockfd, recvline, 100);
+    read(sockfd, recvline, MAXLINE);
     printf("%s", recvline);
   }
 
