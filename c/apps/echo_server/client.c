@@ -14,17 +14,17 @@
 
 int main(int argc,char **argv) {
   int sockfd;
+  struct sockaddr_in servaddr;
   char sendline[MAXLINE];
   char recvline[MAXLINE];
-  struct sockaddr_in servaddr;
 
-  sockfd = socket(AF_INET, SOCK_STREAM, 0);
   memset(&servaddr, 0, sizeof(servaddr));
-
   servaddr.sin_family = AF_INET;
   servaddr.sin_port = htons(SERVER_PORT);
 
   inet_pton(AF_INET, "127.0.0.1", &servaddr.sin_addr);
+
+  sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
   connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
