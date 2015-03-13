@@ -10,9 +10,10 @@
 
 #define SERVER_PORT 8088
 #define LISTENQ 1024
+#define MAXLINE 100
 
 int main() {
-  char str[100];
+  char str[MAXLINE];
   int listen_fd;
   int conn_fd;
 
@@ -33,9 +34,9 @@ int main() {
   conn_fd = accept(listen_fd, (struct sockaddr*) NULL, NULL);
 
   while (1) {
-    bzero(str, 100);
+    bzero(str, MAXLINE);
 
-    read(conn_fd, str, 100);
+    read(conn_fd, str, MAXLINE);
 
     printf("Echoing back - %s", str);
 
