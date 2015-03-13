@@ -9,6 +9,7 @@
 #include <strings.h>
 
 #define SERVER_PORT 8088
+#define LISTENQ 1024
 
 int main() {
   char str[100];
@@ -27,7 +28,7 @@ int main() {
 
   bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr));
 
-  listen(listen_fd, 10);
+  listen(listen_fd, LISTENQ);
 
   conn_fd = accept(listen_fd, (struct sockaddr*) NULL, NULL);
 
