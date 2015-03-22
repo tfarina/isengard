@@ -26,6 +26,14 @@ build server: LINK server.o
 build client.o: COMPILE_CC client.c
 build client: LINK client.o
 
+build wrapunix.o: COMPILE_CC wrapunix.c
+build wrapsock.o: COMPILE_CC wrapsock.c
+build writen.o: COMPILE_CC writen.c
+build str_echo.o: COMPILE_CC str_echo.c
+
+build tcpserv01.o: COMPILE_CC tcpserv01.c
+build tcpserv01: LINK wrapunix.o wrapsock.o writen.o str_echo.o tcpserv01.o
+
 build clean: CLEAN imap
 
 default server
