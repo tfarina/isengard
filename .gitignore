@@ -30,6 +30,7 @@ c/apps/echo_server/.ninja_log
 c/apps/echo_server/*.o
 c/apps/echo_server/client
 c/apps/echo_server/server
+c/apps/echo_server/tcpcli01
 c/apps/echo_server/tcpserv01
 c++/chrome_bookmarks_reader/out
 c++/sfml/examples/circle/circle
