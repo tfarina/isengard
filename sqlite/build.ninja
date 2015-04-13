@@ -63,11 +63,11 @@ build $builddir_cli/all.o: cc cli/all.c
 build out/all: link $builddir_cli/all.o
   libs = -lsqlite3
 
-build $builddir_cli/add.o: cc cli/add.c
-build $builddir_cli/del.o: cc cli/del.c
+build $builddir_cli/cmd_add.o: cc cli/cmd_add.c
+build $builddir_cli/cmd_del.o: cc cli/cmd_del.c
 build $builddir_cli/cmd_list.o: cc cli/cmd_list.c
 
 build $builddir_cli/umc.o: cc cli/umc.c
-build out/umc: link $builddir_cli/add.o $builddir_cli/del.o $
+build out/umc: link $builddir_cli/cmd_add.o $builddir_cli/cmd_del.o $
 $builddir_cli/cmd_list.o $builddir_cli/umc.o
   libs = -lsqlite3
