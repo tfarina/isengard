@@ -5,16 +5,6 @@
 
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
-static int callback(void* data, int argc, char** argv, char** column_name) {
-  int i;
-  //fprintf(stdout, "%s: \n", (const char*)data);
-  for (i = 0; i < argc; ++i) {
-    printf("%-12s %s\n", column_name[i], argv[i] ? argv[i] : "NULL");
-  }
-  printf("\n");
-  return 0;
-}
-
 static sqlite3* db_open(const char* db_file) {
   sqlite3* db;
 
@@ -29,14 +19,28 @@ static sqlite3* db_open(const char* db_file) {
 }
 
 static int db_list(sqlite3* db) {
-  const char* sql = "SELECT * FROM user";
-  const char* data = "Callback function called";
+  sqlite3_stmt* stmt;
+  const char* sql = sqlite3_mprintf("SELECT * FROM user");
 
-  if (sqlite3_exec(db, sql, callback, (void*)data, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
     return -1;
   }
 
+  // http://www.csl.mtu.edu/cs1141/www/examples/sqlite/sqlite_select.c
+  int col_width[] = {12, 9, 5, 19, 0};
+
+  printf(" |     uid   |    login  |     pw    |         email     |\n");
+  printf(" |-----------|-----------|-----------|-------------------|\n");
+
+  while (sqlite3_step(stmt) == SQLITE_ROW) {
+    for (int i = 0; i < sqlite3_column_count(stmt); i++) {
+      printf(" | %*s", col_width[1], sqlite3_column_text(stmt, i));
+    }
+    printf("\n");
+  }
+
+  sqlite3_finalize(stmt);
   return 0;
 }
 
