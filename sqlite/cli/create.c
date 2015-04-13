@@ -4,7 +4,6 @@
 
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
-
 static sqlite3* db_open(const char* db_file) {
   sqlite3* db;
 
@@ -39,6 +38,9 @@ int main(int argc, char* argv[]) {
   sqlite3* db;
 
   db = db_open("users.db");
+  if (!db) {
+    return -1;
+  }
 
   if (db_user_create_table(db)) {
     sqlite3_close(db);
