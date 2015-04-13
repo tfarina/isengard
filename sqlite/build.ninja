@@ -43,10 +43,6 @@ build $builddir_cli/create.o: cc cli/create.c
 build out/create: link $builddir_cli/create.o
   libs = -lsqlite3
 
-build $builddir_cli/insert_old.o: cc cli/insert_old.c
-build out/insert_old: link $builddir_cli/insert_old.o
-  libs = -lsqlite3
-
 build $builddir_cli/insert_new.o: cc cli/insert_new.c
 build out/insert_new: link $builddir_cli/insert_new.o
   libs = -lsqlite3
@@ -59,10 +55,6 @@ build $builddir_cli/update.o: cc cli/update.c
 build out/update: link $builddir_cli/db.o $builddir_cli/update.o
   libs = -lsqlite3
 
-build $builddir_cli/delete_old.o: cc cli/delete_old.c
-build out/delete_old: link $builddir_cli/delete_old.o
-  libs = -lsqlite3
-
 build $builddir_cli/delete_new.o: cc cli/delete_new.c
 build out/delete_new: link $builddir_cli/delete_new.o
   libs = -lsqlite3
@@ -73,8 +65,9 @@ build out/all: link $builddir_cli/all.o
 
 build $builddir_cli/add.o: cc cli/add.c
 build $builddir_cli/del.o: cc cli/del.c
-build $builddir_cli/list_old.o: cc cli/list_old.c
+build $builddir_cli/cmd_list.o: cc cli/cmd_list.c
 
 build $builddir_cli/cli.o: cc cli/cli.c
-build out/cli: link $builddir_cli/add.o $builddir_cli/del.o $builddir_cli/list_old.o $builddir_cli/cli.o
+build out/cli: link $builddir_cli/add.o $builddir_cli/del.o $
+$builddir_cli/cmd_list.o $builddir_cli/cli.o
   libs = -lsqlite3
