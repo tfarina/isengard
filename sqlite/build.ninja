@@ -35,6 +35,10 @@ build $builddir/delete_from_user_table.o: cc cgi/delete_from_user_table.c
 build cgi-bin/delete_from_user_table: link $builddir/html.o $builddir/delete_from_user_table.o
   libs = -lsqlite3
 
+build $builddir/users.o: cc cgi/users.c
+build users.cgi: link $builddir/html.o $builddir/users.o
+  libs = -lsqlite3
+
 # CLI
 build $builddir_cli/db.o: cc cli/db.c
   libs = -lsqlite3
