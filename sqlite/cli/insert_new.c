@@ -2,6 +2,8 @@
 
 #include <sqlite3.h>
 
+// http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
+
 static sqlite3* db_open(const char* db_file) {
   sqlite3* db;
 
