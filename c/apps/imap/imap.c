@@ -41,8 +41,8 @@ int main(int argc,char *argv[]) {
   if (curl) {
     struct string s;
     init_string(&s);
-    curl_easy_setopt(curl,CURLOPT_USERNAME,argv[1]);
-    curl_easy_setopt(curl,CURLOPT_PASSWORD,argv[2]);
+    curl_easy_setopt(curl, CURLOPT_USERNAME, argv[1]);
+    curl_easy_setopt(curl, CURLOPT_PASSWORD, argv[2]);
     curl_easy_setopt(curl, CURLOPT_USE_SSL, (long)CURLUSESSL_ALL);
     curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
 
