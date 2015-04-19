@@ -2,6 +2,6 @@
 
 clang -c unix.c -o unix.o
 clang -c buf.c -o buf.o
-clang -c buf_test.c -o buf_test.o
+rm -rf libbuf.a && ar rcs libbuf.a unix.o buf.o
 
-clang unix.o buf.o buf_test.o -o buf_test
+clang -o buf_test buf_test.c -L. -lbuf
