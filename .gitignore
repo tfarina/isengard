@@ -61,6 +61,7 @@ sqlite/insert_into_user_table
 sqlite/out
 sqlite/select_from_user_table
 sqlite/update_user_table
+sqlite/users.cgi
 sqlite/users.db
 vec/*.o
 vec/.ninja_deps
