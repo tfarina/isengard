@@ -1,2 +1,2 @@
 #!/bin/sh
-rm -f buf_test *.o
+rm -f *.o libbuf.a buf_test
