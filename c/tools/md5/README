@@ -1,0 +1,10 @@
+This is a unix command line tool used to generate message digests using the
+MD5 algorithm.
+
+The code of this tool was based on the implementation from John Walker,
+https://www.fourmilab.ch/md5/ and the source code
+https://www.fourmilab.ch/md5/md5.tar.gz.
+
+The MD5 API used here is from http://openwall.info/wiki/people/solar/software/public-domain-source-code/md5,
+http://openwall.info/wiki/_media/people/solar/software/public-domain-source-code/md5.c,
+http://openwall.info/wiki/_media/people/solar/software/public-domain-source-code/md5.h
