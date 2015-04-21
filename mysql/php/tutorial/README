@@ -25,3 +25,4 @@ $ php escape_string.php
 $ php fetch_field.php
 $ php num_field_rows.php
 $ php write_image.php
+$ php read_image.php
