@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
   for (int i = 0; i < sizeof(digest); i++) {
     fprintf(stdout, "%02x", digest[i]);
   }
-  fprintf(stdout, "  %s", infilename);
-  printf("\n");
+  fprintf(stdout, "  %s\n", infilename);
+
   return 0;
 }
