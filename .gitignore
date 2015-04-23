@@ -21,6 +21,7 @@ buf/.ninja_deps
 buf/.ninja_log
 buf/*.o
 buf/buf_test
+buf/out/
 c/apps/*.o
 c/apps/.ninja_deps
 c/apps/.ninja_log
@@ -53,6 +54,7 @@ mysql/php/apps/distwi/access_log.txt
 mysql/php/apps/distwi/error_log.txt
 mysql/php/apps/twitwi/access_log.txt
 mysql/php/apps/twitwi/error_log.txt
+mysql/php/tutorial/ducati_2.png
 python/webpy/webpyauth/sessions/
 sqlite/*.o
 sqlite/.ninja_deps
