@@ -34,6 +34,7 @@ static int db_init_user_table(sqlite3* db) {
   return 0;
 }
 
+/* Returns 0 if the user does not exists, otherwise returns 1. */
 static int db_user_exists(sqlite3* db, const char* username) {
   sqlite3_stmt* stmt;
   int rc;
