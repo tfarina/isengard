@@ -87,19 +87,12 @@ int main(int argc, char* argv[]) {
 
   db = db_open("users.db");
 
-  // TODO(tfarina): If the table does not exists, then we have a problem here.
-  // How come we will insert an entry in a table that does not exist?
-  // We should check if it exist, if not then create.
-  // It is pretty easy to reproduce this:
-  // Just remove users.db then run out/insert0 ....
   if (db_user_init_table(db)) {
     sqlite3_close(db);
     return -1;
   }
 
   if (db_user_exists(db, argv[1])) {
-    // FIXME: We show this message even if the TABLE does not exist. :(
-    // This shouldn't happen!
     fprintf(stderr, "%s: user (%s) already exists\n", argv[0], argv[1]);
     sqlite3_close(db);
     return -1;
