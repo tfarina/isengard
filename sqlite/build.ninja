@@ -47,20 +47,20 @@ build $builddir_cli/create.o: cc cli/create.c
 build out/create: link $builddir_cli/create.o
   libs = -lsqlite3
 
-build $builddir_cli/insert_new.o: cc cli/insert_new.c
-build out/insert_new: link $builddir_cli/insert_new.o
+build $builddir_cli/insert.o: cc cli/insert.c
+build out/insert: link $builddir_cli/insert.o
   libs = -lsqlite3
 
-build $builddir_cli/list_new.o: cc cli/list_new.c
-build out/list_new: link $builddir_cli/list_new.o
+build $builddir_cli/list.o: cc cli/list.c
+build out/list: link $builddir_cli/list.o
   libs = -lsqlite3
 
 build $builddir_cli/update.o: cc cli/update.c
 build out/update: link $builddir_cli/db.o $builddir_cli/update.o
   libs = -lsqlite3
 
-build $builddir_cli/delete_new.o: cc cli/delete_new.c
-build out/delete_new: link $builddir_cli/delete_new.o
+build $builddir_cli/delete.o: cc cli/delete.c
+build out/delete: link $builddir_cli/delete.o
   libs = -lsqlite3
 
 build $builddir_cli/all.o: cc cli/all.c
