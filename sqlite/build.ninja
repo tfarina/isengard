@@ -48,7 +48,7 @@ build out/create: link $builddir_cli/create.o
   libs = -lsqlite3
 
 build $builddir_cli/insert.o: cc cli/insert.c
-build out/insert: link $builddir_cli/insert.o
+build out/insert: link $builddir_cli/db.o $builddir_cli/insert.o
   libs = -lsqlite3
 
 build $builddir_cli/list.o: cc cli/list.c
