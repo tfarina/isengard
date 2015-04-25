@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <sqlite3.h>
 
@@ -76,6 +77,9 @@ int main(int argc, char* argv[]) {
   }
 
   db = db_open("users.db");
+  if (!db) {
+    return EXIT_FAILURE;
+  }
 
   if (db_user_init_table(db)) {
     sqlite3_close(db);

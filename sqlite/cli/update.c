@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <sqlite3.h>
 
@@ -81,8 +82,9 @@ int main(int argc, char* argv[]) {
   }
 
   db = db_open("users.db");
-  // TODO(tfarina): We should check here if |db| is not NULL, as db_open()
-  // can return NULL.
+  if (!db) {
+    return EXIT_FAILURE;
+  }
 
   if (db_init_user_table(db)) {
     sqlite3_close(db);
