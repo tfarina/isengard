@@ -1,0 +1,13 @@
+cc = clang++
+cflags = -g -Wall -Werror -std=gnu++11 -pedantic
+builddir = out/obj
+
+rule cc
+  command = $cc $cflags $includes -c $in -o $out
+
+rule link
+  command = $cc $ldflags -o $out $in $libs
+
+build $builddir/read_file.o: cc read_file.cc
+build $builddir/read_file_test.o: cc read_file_test.cc
+build out/read_file_test: link $builddir/read_file.o $builddir/read_file_test.o
