@@ -17,27 +17,6 @@
 //   return 0;
 // }
 
-static int db_user_exists(sqlite3* db, const char* username) {
-  sqlite3_stmt* stmt;
-  int rc;
-
-  char* sql = sqlite3_mprintf("SELECT 1 FROM user WHERE login=%Q", username);
-
-  if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
-    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
-    return -1;
-  }
-
-  if (sqlite3_step(stmt) != SQLITE_ROW) {
-    rc = 0;
-  } else {
-    rc = 1;
-  }
-
-  sqlite3_finalize(stmt);
-  return rc;
-}
-
 static int db_user_update_email(sqlite3* db,
                                 const char *username,
                                 const char *email) {
