@@ -38,8 +38,9 @@ static int db_user_exists(sqlite3* db, const char* username) {
   return rc;
 }
 
-static int db_update_user_email(sqlite3* db,
-                                const char *username, const char *email) {
+static int db_user_update_email(sqlite3* db,
+                                const char *username,
+                                const char *email) {
   sqlite3_stmt *stmt;
 
   const char *sql = "UPDATE user SET email=?1 WHERE login=?2;";
@@ -81,7 +82,7 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  if (db_update_user_email(db, argv[1], argv[2])) {
+  if (db_user_update_email(db, argv[1], argv[2])) {
     sqlite3_close(db);
     return -1;
   }

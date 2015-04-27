@@ -29,7 +29,7 @@ static int db_user_exists(sqlite3* db, const char* username) {
   return rc;
 }
 
-static int db_remove_user(sqlite3* db, const char* username) {
+static int db_user_remove(sqlite3* db, const char* username) {
   sqlite3_stmt *stmt;
 
   const char *sql = "DELETE FROM user WHERE login=?1;";
@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  if (db_remove_user(db, argv[1])) {
+  if (db_user_remove(db, argv[1])) {
     sqlite3_close(db);
     return -1;
   }
