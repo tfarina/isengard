@@ -7,7 +7,7 @@
 
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
-static int db_user_init_table(sqlite3* db) {
+static int db_user_create_table(sqlite3* db) {
   const char* sql =
     "CREATE TABLE IF NOT EXISTS 'user' ("
     "  uid INTEGER PRIMARY KEY," /* User ID */
@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
     return EXIT_FAILURE;
   }
 
-  if (db_user_init_table(db)) {
+  if (db_user_create_table(db)) {
     sqlite3_close(db);
     return -1;
   }
