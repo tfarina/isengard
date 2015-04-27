@@ -41,12 +41,11 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  // TODO(tfarina): Before trying to select everything from 'user' table,
-  // make sure the table exists.
-  // It is easy to reproduce this error:
-  // $ rm -rf users.db
-  // $ out/list
-  // # SQLite error: no such table: user
+  if (db_user_create_table(db)) {
+    sqlite3_close(db);
+    return -1;
+  }
+
   if (db_list(db)) {
     sqlite3_close(db);
     return -1;
