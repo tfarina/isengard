@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
 
   db = db_open("users.db");
   if (!db) {
-    return EXIT_FAILURE;
+    return -1;
   }
 
   // TODO(tfarina): Before trying to select everything from 'user' table,

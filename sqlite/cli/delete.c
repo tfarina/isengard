@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
 
   db = db_open("users.db");
   if (!db) {
-    return EXIT_FAILURE;
+    return -1;
   }
 
   if (db_user_create_table(db)) {
