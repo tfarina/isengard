@@ -24,7 +24,7 @@ static int db_user_remove(sqlite3* db, const char* username) {
   return 0;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char **argv) {
   sqlite3* db;
 
   if (argc != 2) {

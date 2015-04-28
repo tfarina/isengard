@@ -29,7 +29,7 @@ static int db_user_add(sqlite3* db,
   return 0;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char **argv) {
   sqlite3* db;
 
   if (argc != 4) {

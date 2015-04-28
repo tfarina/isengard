@@ -6,7 +6,7 @@
 
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
-int main(int argc, char* argv[]) {
+int main(int argc, char **argv) {
   sqlite3* db;
 
   db = db_open("users.db");

@@ -33,7 +33,7 @@ static int db_list(sqlite3* db) {
   return 0;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char **argv) {
   sqlite3* db;
 
   db = db_open("users.db");
