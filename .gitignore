@@ -19,8 +19,6 @@ asm/rayseyfarth/ch02/.ninja_deps
 asm/rayseyfarth/ch02/.ninja_log
 buf/.ninja_deps
 buf/.ninja_log
-buf/*.o
-buf/buf_test
 buf/out/
 c/apps/*.o
 c/apps/.ninja_deps
