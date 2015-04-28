@@ -37,7 +37,7 @@ c/apps/imap/imap
 c/tools/md5/*.o
 c/tools/md5/md5
 c++/chrome_bookmarks_reader/out
-c++/read_file/out
+c++/libs/read_file/out
 c++/sfml/examples/circle/circle
 go/fetch
 go/git_log
