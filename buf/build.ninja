@@ -1,7 +1,8 @@
 cc = clang
+cflags = -Wall
 
 rule cc
-  command = $cc -c $in -o $out
+  command = $cc $cflags -c $in -o $out
 
 rule link
   command = $cc $in -o $out
