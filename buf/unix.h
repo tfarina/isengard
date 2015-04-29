@@ -1,6 +1,8 @@
 #ifndef UNIX_H_
 #define UNIX_H_
 
+#include <stddef.h>
+
 #define nil ((void*)0)
 
 // fatal prints an error message to standard error and exits.
@@ -18,8 +20,8 @@ char* xstrdup(char *p);
 // It calls fatal if it runs out of memory.
 void* xrealloc(void *p, int n);
 
-// xstrlen returns the length of the NUL-terminated string at p.
-int xstrlen(char *p);
+// xstrlen returns the length of the NUL-terminated string at |s|.
+size_t xstrlen(const char *s);
 
 // xstrstr returns a pointer to the first occurrence of b in a.
 char* xstrstr(char *a, char *b);

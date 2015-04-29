@@ -28,9 +28,9 @@ void* xrealloc(void *p, int n)
 	return p;
 }
 
-int xstrlen(char *p)
+size_t xstrlen(const char *s)
 {
-	return strlen(p);
+	return strlen(s);
 }
 
 char* xstrstr(char *a, char *b)
