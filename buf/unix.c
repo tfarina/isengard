@@ -38,7 +38,7 @@ char* xstrstr(char *a, char *b)
 	return strstr(a, b);
 }
 
-void xmemmove(void *dst, void *src, int n)
+void xmemmove(void *dst, const void *src, size_t n)
 {
 	memmove(dst, src, n);
 }

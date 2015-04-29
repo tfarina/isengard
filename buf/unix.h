@@ -27,7 +27,7 @@ size_t xstrlen(const char *s);
 char* xstrstr(char *a, char *b);
 
 // xmemmove copies n bytes from src to dst.
-void xmemmove(void *dst, void *src, int n);
+void xmemmove(void *dst, const void *src, size_t n);
 
 // xmemcmp compares the n-byte regions starting at a and at b.
 int xmemcmp(void *a, void *b, int n);
