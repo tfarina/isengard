@@ -3,7 +3,7 @@
 #include "buf.h"
 
 int main(void) {
-        Buf b;
+        sbuf b;
 
         buf_init(&b);
 
