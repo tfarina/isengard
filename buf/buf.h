@@ -22,6 +22,6 @@ void buf_free(sbuf *b);
 void buf_grow(sbuf *b, int n);
 
 // buf_write_str appends |str| to the buffer.
-void buf_write_str(sbuf *b, const char *str);
+void buf_write_str(sbuf *b, char *str);
 
 #endif  // BUF_H_
