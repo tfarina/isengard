@@ -41,7 +41,7 @@ static void buf_write(sbuf *b, void *data, int len)
 	b->len += len;
 }
 
-void buf_write_str(sbuf *b, char *str)
+void buf_write_str(sbuf *b, void *str)
 {
 	buf_write(b, str, xstrlen(str));
 }
