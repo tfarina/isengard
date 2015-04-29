@@ -34,14 +34,14 @@ void buf_grow(sbuf *b, int n)
 }
 
 // buf_write appends the |len| bytes at |data| to the buffer.
-static void buf_write(sbuf *b, void *data, int len)
+static void buf_write(sbuf *b, const void *data, int len)
 {
 	buf_grow(b, len);
 	xmemmove(b->data + b->len, data, len);
 	b->len += len;
 }
 
-void buf_write_str(sbuf *b, void *str)
+void buf_write_str(sbuf *b, const void *str)
 {
 	buf_write(b, str, xstrlen(str));
 }
