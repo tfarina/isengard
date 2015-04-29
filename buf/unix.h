@@ -18,7 +18,7 @@ char* xstrdup(char *p);
 // xrealloc grows the allocation p to n bytes and
 // returns the new (possibly moved) pointer.
 // It calls fatal if it runs out of memory.
-void* xrealloc(void *p, int n);
+void* xrealloc(void *p, size_t n);
 
 // xstrlen returns the length of the NUL-terminated string at |s|.
 size_t xstrlen(const char *s);

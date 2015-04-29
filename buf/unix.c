@@ -20,7 +20,7 @@ char* xstrdup(char *p)
 	return p;
 }
 
-void* xrealloc(void *p, int n)
+void* xrealloc(void *p, size_t n)
 {
 	p = realloc(p, n);
         if (p == nil)
