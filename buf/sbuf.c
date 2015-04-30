@@ -39,7 +39,7 @@ static void sbuf_setlen(sbuf *b, size_t len) {
 }
 
 // sbuf_write appends the |len| bytes at |data| to the buffer.
-static void sbuf_write(sbuf *b, const void *data, int len)
+static void sbuf_write(sbuf *b, const void *data, size_t len)
 {
 	sbuf_grow(b, len);
 	xmemmove(b->data + b->len, data, len);
