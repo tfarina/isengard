@@ -1,5 +1,5 @@
-#ifndef BUF_H_
-#define BUF_H_
+#ifndef SBUF_H_
+#define SBUF_H_
 
 // A sbuf is a byte buffer.
 typedef struct {
@@ -24,4 +24,4 @@ void sbuf_grow(sbuf *b, int n);
 // sbuf_write_str appends |str| to the buffer.
 void sbuf_write_str(sbuf *b, const void *str);
 
-#endif  // BUF_H_
+#endif  // SBUF_H_
