@@ -2,25 +2,25 @@
 
 #include "unix.h"
 
-void buf_init(sbuf *b)
+void sbuf_init(sbuf *b)
 {
 	b->data = nil;
 	b->len = 0;
 	b->cap = 0;
 }
 
-void buf_reset(sbuf *b)
+void sbuf_reset(sbuf *b)
 {
 	b->len = 0;
 }
 
-void buf_free(sbuf *b)
+void sbuf_free(sbuf *b)
 {
 	xfree(b->data);
-	buf_init(b);
+	sbuf_init(b);
 }
 
-void buf_grow(sbuf *b, int n)
+void sbuf_grow(sbuf *b, int n)
 {
 	int want;
 
@@ -33,15 +33,15 @@ void buf_grow(sbuf *b, int n)
         }
 }
 
-// buf_write appends the |len| bytes at |data| to the buffer.
-static void buf_write(sbuf *b, const void *data, int len)
+// sbuf_write appends the |len| bytes at |data| to the buffer.
+static void sbuf_write(sbuf *b, const void *data, int len)
 {
-	buf_grow(b, len);
+	sbuf_grow(b, len);
 	xmemmove(b->data + b->len, data, len);
 	b->len += len;
 }
 
-void buf_write_str(sbuf *b, const void *str)
+void sbuf_write_str(sbuf *b, const void *str)
 {
-	buf_write(b, str, xstrlen(str));
+	sbuf_write(b, str, xstrlen(str));
 }

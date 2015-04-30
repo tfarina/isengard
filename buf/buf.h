@@ -8,20 +8,20 @@ typedef struct {
 	int cap;
 } sbuf;
 
-// buf_init prepares an uninitialized buffer for use.
-void buf_init(sbuf *b);
+// sbuf_init prepares an uninitialized buffer for use.
+void sbuf_init(sbuf *b);
 
-// buf_reset truncates the buffer back to zero length.
-void buf_reset(sbuf *b);
+// sbuf_reset truncates the buffer back to zero length.
+void sbuf_reset(sbuf *b);
 
-// buf_free frees the storage associated with a buffer.
-void buf_free(sbuf *b);
+// sbuf_free frees the storage associated with a buffer.
+void sbuf_free(sbuf *b);
 
-// buf_grow ensures that the buffer has at least n more bytes between its
+// sbuf_grow ensures that the buffer has at least n more bytes between its
 // len and cap.
-void buf_grow(sbuf *b, int n);
+void sbuf_grow(sbuf *b, int n);
 
-// buf_write_str appends |str| to the buffer.
-void buf_write_str(sbuf *b, const void *str);
+// sbuf_write_str appends |str| to the buffer.
+void sbuf_write_str(sbuf *b, const void *str);
 
 #endif  // BUF_H_
