@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "buf.h"
+#include "sbuf.h"
 
 int main(void) {
         sbuf b;

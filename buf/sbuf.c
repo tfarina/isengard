@@ -1,4 +1,4 @@
-#include "buf.h"
+#include "sbuf.h"
 
 #include "unix.h"
 
