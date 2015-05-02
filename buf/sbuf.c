@@ -38,8 +38,7 @@ static void sbuf_setlen(sbuf *b, size_t len) {
         b->data[len] = '\0';
 }
 
-// sbuf_write appends the |len| bytes at |data| to the buffer.
-static void sbuf_write(sbuf *b, const void *data, size_t len)
+void sbuf_write(sbuf *b, const void *data, size_t len)
 {
 	sbuf_grow(b, len);
 	xmemmove(b->data + b->len, data, len);
