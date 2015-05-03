@@ -1,0 +1,10 @@
+Export:
+
+$ mysqldump -u root -p [database name] > [database name].sql
+
+Import:
+
+CREATE DATABASE newdatabasename;
+
+$ mysql -u root -p newdatabasename < [database name].sql
+
