@@ -1,5 +1,7 @@
 #include "sbuf.h"
 
+#include <string.h>
+
 #include "unix.h"
 
 void sbuf_init(sbuf *b)
@@ -41,7 +43,7 @@ static void sbuf_setlen(sbuf *b, size_t len) {
 void sbuf_write(sbuf *b, const void *data, size_t len)
 {
 	sbuf_grow(b, len);
-	xmemmove(b->data + b->len, data, len);
+	memcpy(b->data + b->len, data, len);
         sbuf_setlen(b, b->len + len);
 }
 
