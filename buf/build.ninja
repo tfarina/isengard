@@ -1,5 +1,6 @@
 cc = clang
 cflags = -Wall
+builddir = out
 
 rule cc
   command = $cc $cflags -c $in -o $out
@@ -7,7 +8,8 @@ rule cc
 rule link
   command = $cc $in -o $out
 
-build unix.o: cc unix.c
-build sbuf.o: cc sbuf.c
-build sbuf_test.o: cc sbuf_test.c
-build sbuf_test: link unix.o sbuf.o sbuf_test.o
+build $builddir/unix.o: cc unix.c
+build $builddir/sbuf.o: cc sbuf.c
+build $builddir/sbuf_test.o: cc sbuf_test.c
+build $builddir/sbuf_test: link $builddir/unix.o $builddir/sbuf.o $
+$builddir/sbuf_test.o
