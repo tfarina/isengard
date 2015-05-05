@@ -3,8 +3,6 @@
 
 #include <stddef.h>
 
-#define nil ((void*)0)
-
 // fatal prints an error message to standard error and exits.
 void fatal(char *msg, ...);
 

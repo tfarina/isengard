@@ -6,7 +6,7 @@
 
 void sbuf_init(sbuf *b)
 {
-	b->data = nil;
+	b->data = NULL;
 	b->len = 0;
 	b->cap = 0;
 }
