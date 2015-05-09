@@ -6,8 +6,8 @@
 // A sbuf is a byte buffer.
 typedef struct {
 	char *data;
-	int len;
-	int cap;
+	size_t len;
+	size_t cap;
 } sbuf;
 
 // sbuf_init prepares an uninitialized buffer for use.

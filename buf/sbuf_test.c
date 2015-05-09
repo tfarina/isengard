@@ -10,7 +10,7 @@ int main(void) {
         sbuf_write_str(&b, "Hi, C is complicated, isn't it?");
 
         printf("%s\n", b.data);
-        printf("%d\n", b.len);
+        printf("%zu\n", b.len);
 
         sbuf_free(&b);
 
