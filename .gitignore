@@ -20,9 +20,6 @@ asm/rayseyfarth/ch02/.ninja_log
 buf/.ninja_deps
 buf/.ninja_log
 buf/out/
-c/apps/*.o
-c/apps/.ninja_deps
-c/apps/.ninja_log
 c/apps/echo/*.o
 c/apps/echo/.ninja_deps
 c/apps/echo/.ninja_log
@@ -34,6 +31,7 @@ c/apps/imap/*.o
 c/apps/imap/.ninja_deps
 c/apps/imap/.ninja_log
 c/apps/imap/imap
+c/apps/sizeck/out/
 c/tools/md5/*.o
 c/tools/md5/md5
 c++/chrome_bookmarks_reader/out
