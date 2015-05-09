@@ -1,7 +1,10 @@
 # cs.lmu.edu/~ray/notes/gasexamples/
 
-.global _start
+message:
+        .ascii "Hello, world!\n"
+
 .text
+.global _start
 
 _start:
         mov $1, %rax
@@ -13,6 +16,3 @@ _start:
         mov $60, %rax
         xor %rdi, %rdi
         syscall
-
-message:
-        .ascii "Hello, world!\n"

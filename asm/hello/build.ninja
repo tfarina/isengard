@@ -4,7 +4,7 @@ rule asm
         command = as -o $out $in
 
 rule link
-        command = gold -o $out $in
+        command = ld -o $out $in
 
 build $builddir/hello_att_x64.o: asm hello_att_x64.s
 build $builddir/hello: link $builddir/hello_att_x64.o
