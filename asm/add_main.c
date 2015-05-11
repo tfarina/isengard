@@ -1,4 +1,4 @@
-/* yasm -f elf64 -p gas add_intel_x64.s -o add_def.o
+/* yasm -f elf64 -p gas add_att_x64.s -o add_def.o
  * clang -c add_main.c -o add_main.o
  * clang -o add_main add_def.o add_main.o
  */
