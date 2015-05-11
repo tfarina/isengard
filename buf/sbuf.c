@@ -1,5 +1,6 @@
 #include "sbuf.h"
 
+#include <stdlib.h>
 #include <string.h>
 
 #include "unix.h"
@@ -18,7 +19,7 @@ void sbuf_reset(sbuf *b)
 
 void sbuf_free(sbuf *b)
 {
-	xfree(b->data);
+	free(b->data);
 	sbuf_init(b);
 }
 

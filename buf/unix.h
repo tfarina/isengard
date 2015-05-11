@@ -6,9 +6,6 @@
 // fatal prints an error message to standard error and exits.
 void fatal(const char *msg, ...);
 
-// xfree frees the result returned by xmalloc, xstrdup, or xrealloc.
-void xfree(void *p);
-
 // xstrdup returns a newly allocated copy of p.
 // It calls fatal if it runs out of memory.
 char* xstrdup(char *p);
