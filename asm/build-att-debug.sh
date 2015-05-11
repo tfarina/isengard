@@ -7,4 +7,4 @@ set -e
 
 as add_att_x64.s -o add_def.o
 clang -g -c add_main.c -o add_main.o
-clang add_main.o add_def.o -o add_att_debug
+clang -o add_att_debug add_def.o add_main.o
