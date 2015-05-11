@@ -36,7 +36,8 @@ void sbuf_grow(sbuf *b, int n)
         }
 }
 
-static void sbuf_setlen(sbuf *b, size_t len) {
+static void sbuf_setlen(sbuf *b, size_t len)
+{
         b->len = len;
         b->data[len] = '\0';
 }
