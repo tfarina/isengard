@@ -21,13 +21,7 @@ void* xrealloc(void *p, size_t n);
 // xstrlen returns the length of the NUL-terminated string at |s|.
 size_t xstrlen(const char *s);
 
-// xstrstr returns a pointer to the first occurrence of b in a.
-char* xstrstr(char *a, char *b);
-
 // xmemmove copies n bytes from src to dst.
 void xmemmove(void *dst, const void *src, size_t n);
-
-// xmemcmp compares the n-byte regions starting at a and at b.
-int xmemcmp(void *a, void *b, int n);
 
 #endif  // UNIX_H_
