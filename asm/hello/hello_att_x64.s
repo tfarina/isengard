@@ -1,5 +1,7 @@
 # cs.lmu.edu/~ray/notes/gasexamples/
 
+.set SYS_EXIT, 60
+
 msg_hello: .ascii "Hello, world!\n"
 
 .text
@@ -12,6 +14,6 @@ _start:
         mov $14, %rdx
         syscall
 
-        mov $60, %rax
+        mov $SYS_EXIT, %rax
         xor %rdi, %rdi
         syscall
