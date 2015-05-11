@@ -1,10 +1,13 @@
 #include "umc.h"
 
+#include <libgen.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
+
+static const char *program;
 
 static struct {
         const char *name;
@@ -17,19 +20,21 @@ static struct {
 
 static void usage(void) {
 #define FMT                              \
-"\n usage: umc COMMAND [ARGS]\n"         \
+"\n usage: %s COMMAND [ARGS]\n"         \
 "\n The commands are:\n"                 \
 "   add       Add a new user\n"          \
 "   del       Delete an existing user\n" \
 "   list      List all users\n"          \
 "\n"
 
-        fprintf(stderr, FMT);
+        fprintf(stderr, FMT, program);
 #undef FMT
         exit(EXIT_FAILURE);
 }
 
 int main(int argc, char **argv) {
+        program = basename(argv[0]);
+
         if (argc < 2)
                 usage();
 
