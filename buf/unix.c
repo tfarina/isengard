@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void fatal(char *msg, ...)
+void fatal(const char *msg, ...)
 {
 }
 

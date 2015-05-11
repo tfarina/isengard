@@ -4,7 +4,7 @@
 #include <stddef.h>
 
 // fatal prints an error message to standard error and exits.
-void fatal(char *msg, ...);
+void fatal(const char *msg, ...);
 
 // xfree frees the result returned by xmalloc, xstrdup, or xrealloc.
 void xfree(void *p);
