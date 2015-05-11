@@ -24,11 +24,6 @@ void* xrealloc(void *p, size_t n)
 	return p;
 }
 
-size_t xstrlen(const char *s)
-{
-	return strlen(s);
-}
-
 void xmemmove(void *dst, const void *src, size_t n)
 {
 	memmove(dst, src, n);

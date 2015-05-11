@@ -8,9 +8,6 @@
 // It calls fatal if it runs out of memory.
 void* xrealloc(void *p, size_t n);
 
-// xstrlen returns the length of the NUL-terminated string at |s|.
-size_t xstrlen(const char *s);
-
 // xmemmove copies n bytes from src to dst.
 void xmemmove(void *dst, const void *src, size_t n);
 

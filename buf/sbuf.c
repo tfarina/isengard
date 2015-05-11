@@ -51,5 +51,5 @@ void sbuf_write(sbuf *b, const void *data, size_t len)
 
 void sbuf_write_str(sbuf *b, const void *str)
 {
-	sbuf_write(b, str, xstrlen(str));
+	sbuf_write(b, str, strlen(str));
 }
