@@ -2,24 +2,25 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
-void fatal(const char *msg, ...)
-{
-}
+#if defined(__GNUC__)
+#define NORETURN        __attribute__((__noreturn__))
+#else
+#define NORETURN
+#endif
 
-char* xstrdup(char *p)
+static void NORETURN malloc_fail(unsigned long size)
 {
-	p = strdup(p);
-        if (p == NULL)
-                fatal("out of memory");
-	return p;
+        fprintf(stderr, "out of memory: %lu\n", size);
+        abort();
 }
 
 void* xrealloc(void *p, size_t n)
 {
 	p = realloc(p, n);
         if (p == NULL)
-                fatal("out of memory");
+                malloc_fail(n);
 	return p;
 }
 
