@@ -19,16 +19,14 @@ static struct {
 };
 
 static void usage(void) {
-#define FMT                              \
-"\n usage: %s COMMAND [ARGS]\n"         \
-"\n The commands are:\n"                 \
-"   add       Add a new user\n"          \
-"   del       Delete an existing user\n" \
-"   list      List all users\n"          \
-"\n"
-
-        fprintf(stderr, FMT, program);
-#undef FMT
+        static const char *usage_msg =
+                "\n usage: %s COMMAND [ARGS]\n"
+                "\n The commands are:\n"
+                "   add       Add a new user\n"
+                "   del       Delete an existing user\n"
+                "   list      List all users\n"
+                "\n";
+        fprintf(stderr, usage_msg, program);
         exit(EXIT_FAILURE);
 }
 
