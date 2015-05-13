@@ -9,7 +9,7 @@
 
 static const char *program;
 
-static struct {
+static struct builtin_cmd {
         const char *name;
         int (*exec)(int, char **);
 } cmds[] = {
@@ -30,19 +30,31 @@ static void usage(void) {
         exit(EXIT_FAILURE);
 }
 
+static struct builtin_cmd *get_builtin(const char *name) {
+        int i;
+        for (i = 0; i < ARRAY_SIZE(cmds); i++) {
+                struct builtin_cmd *cmd = &cmds[i];
+                if (!strcmp(name, cmd->name)) {
+                        printf("Command name: %s\n", cmds[i].name);
+                        return cmd;
+                }
+        }
+        return NULL;
+}
+
 int main(int argc, char **argv) {
+        struct builtin_cmd *cmd;
+
         program = basename(argv[0]);
 
         if (argc < 2)
                 usage();
 
-        int i;
-        for (i = 0; i < ARRAY_SIZE(cmds); ++i) {
-                if (!strcmp(argv[1], cmds[i].name)) {
-                        printf("Command name: %s\n", cmds[i].name);
-                        cmds[i].exec(argc - 1, argv + 1);
-                }
-        }
+        cmd = get_builtin(argv[1]);
+        if (!cmd)
+                usage();
+
+        cmd->exec(argc - 1, argv + 1);
 
         return 0;
 }
