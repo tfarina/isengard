@@ -23,8 +23,3 @@ void* xrealloc(void *p, size_t n)
                 malloc_fail(n);
 	return p;
 }
-
-void xmemmove(void *dst, const void *src, size_t n)
-{
-	memmove(dst, src, n);
-}
