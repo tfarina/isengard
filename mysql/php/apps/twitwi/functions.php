@@ -58,6 +58,32 @@ function following($user_id) {
     return $users;
 }
 
+function check_count($first, $second) {
+  $query = "SELECT COUNT(*) FROM following WHERE user_id='$second' and follower_id='$first'";
+  $result = mysql_query($query);
+
+  $row = mysql_fetch_row($result);
+  return $row[0];
+}
+
+function follow_user($me, $them) {
+  $count = check_count($me, $them);
+
+  if ($count == 0) {
+    $query = "INSERT INTO following (user_id, follower_id) VALUES ($them, $me)";
+    $result = mysql_query($query);
+  }
+}
+
+function unfollow_user($me, $them) {
+  $count = check_count($me, $them);
+
+  if ($count != 0) {
+    $query = "DELETE FROM following WHERE user_id='$them' and follower_id='$me' LIMIT 1";
+    $result = mysql_query($query);
+  }
+}
+
 // http://gilbert.pellegrom.me/php-relative-time-function/
 function relative_time($date, $postfix = ' ago', $fallback = 'F Y') {
     $diff = time() - strtotime($date);
