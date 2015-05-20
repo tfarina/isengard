@@ -23,6 +23,12 @@ if (isset($_SESSION['message'])) {
 }
 ?>
 
+<?
+  $users = following(1);
+
+  echo "<br/><b>". count($users) ."</b><br/>FOLLOWING";
+?>
+
 <p><a href="users.php">see list of users</a></p>
 <form method="POST" action="add.php">
   <p>Your status:</p>
