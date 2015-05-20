@@ -1,22 +1,7 @@
-$ mysql -u root -p
+PHP Twitter-like system.
 
-mysql> CREATE USER 'twin'@'localhost' IDENTIFIED BY 'catheham';
-mysql> SET PASSWORD FOR 'twin'@'localhost' = PASSWORD('catheham');
-mysql> GRANT ALL ON *.* TO 'twin'@'localhost' IDENTIFIED BY 'catheham';
-mysql> FLUSH PRIVILEGES;
-mysql> SHOW DATABASES;
-mysql> CREATE DATABASE twitwi;
+It is simple to add a Twitter-like microblogging system to any application
+using PHP.
 
-You can also create the database from command line running mysqladmin:
-
-$ mysqladmin create twitwi -u root -p
-
-Create the tables:
-
-$ mysql -u root -p twitwi < db/twitwi-schema.mysql
-
-mysql> INSERT INTO user (uid, login, password) VALUES (1, 'ben', 'alice');
-
-Start the web server (if there is already an instance running in 8080):
-
-$ ./mongoose -listening_ports 8001
+Code from:
+www.ibm.com/developerworks/library/os-php-twitter/interface/
