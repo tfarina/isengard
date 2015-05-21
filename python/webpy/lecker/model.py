@@ -11,6 +11,9 @@ def new_bookmark(title, url):
 def del_bookmark(id):
   db.delete('bookmarks', where="id=$id", vars=locals())
 
+def edit_bookmark(id, title, url):
+  db.update('bookmarks', 'id = ' + id, title=title, url=url)
+
 def get_bookmark(id):
   try:
     return db.select('bookmarks', where='id=$id', vars=locals())[0]

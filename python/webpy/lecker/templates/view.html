@@ -8,6 +8,7 @@ $def with (bookmarks, form)
     <form name="del${bookmark.id}" method="post" action="delete">
     <td><a href="$bookmark.url">$bookmark.title</a></td>
     <td align="right">
+      <a href="edit/$bookmark.id">(edit)</a>
       <input type="hidden" name="$bookmark.id" value="1" />
       <a href="#" onclick="document.del${bookmark.id}.submit()">(delete)</a>
     </td>

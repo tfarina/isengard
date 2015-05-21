@@ -56,7 +56,8 @@ class edit:
     return render.edit(bookmark)
 
   def POST(self, id):
-    print web.input()
+    input = web.input()
+    model.edit_bookmark(id, input.title, input.url)
     raise web.seeother('/')
 
 app = web.application(urls, globals())
