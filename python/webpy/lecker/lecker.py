@@ -12,6 +12,7 @@ urls = (
   '/add', 'view',
   '/delete', 'delete',
   '/edit/([0-9]*)', 'edit',
+  '/favicon.ico', 'icon',
 )
 
 ### Templates
@@ -59,6 +60,11 @@ class edit:
     input = web.input()
     model.edit_bookmark(id, input.title, input.url)
     raise web.seeother('/')
+
+
+class icon:
+  def GET(self):
+    raise web.seeother("/static/favicon.ico")
 
 app = web.application(urls, globals())
 
