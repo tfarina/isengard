@@ -8,8 +8,6 @@ rule cc
 rule link
   command = $cc $in -o $out
 
-build $builddir/unix.o: cc unix.c
 build $builddir/sbuf.o: cc sbuf.c
 build $builddir/sbuf_test.o: cc sbuf_test.c
-build $builddir/sbuf_test: link $builddir/unix.o $builddir/sbuf.o $
-$builddir/sbuf_test.o
+build $builddir/sbuf_test: link $builddir/sbuf.o $builddir/sbuf_test.o

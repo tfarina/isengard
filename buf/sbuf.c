@@ -1,9 +1,28 @@
 #include "sbuf.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "unix.h"
+#if defined(__GNUC__)
+#define NORETURN        __attribute__((__noreturn__))
+#else
+#define NORETURN
+#endif
+
+static void NORETURN malloc_fail(unsigned long size)
+{
+        fprintf(stderr, "out of memory: %lu\n", size);
+        abort();
+}
+
+static void* xrealloc(void *p, size_t n)
+{
+	p = realloc(p, n);
+        if (p == NULL)
+                malloc_fail(n);
+	return p;
+}
 
 void sbuf_init(sbuf *b)
 {
