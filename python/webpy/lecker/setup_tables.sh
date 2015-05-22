@@ -6,4 +6,4 @@ DBNAME=lecker
 DBUSER=hannibal
 DBPASS=19440807
 
-mysql -u root -p < setup_db.sql
+mysql -u hannibal -p lecker < schema.mysql

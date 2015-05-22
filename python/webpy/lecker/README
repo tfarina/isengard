@@ -13,7 +13,7 @@ $ ./setup_db.sh
 # To import the tables, run the following command line and type in hannibal's
 # password: 19440807
 
-$ mysql -u hannibal -p lecker < schema.mysql
+$ ./setup_tables.sh
 
 # How to run it:
 
