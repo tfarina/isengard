@@ -2,21 +2,20 @@ $def with (bookmarks, form)
 
 <p><center><h1>lec.ker</h1></center></p>
 <p><hr/></p>
+<form name="bookmarks" method="post" action="delete">
+<p><input type="submit" value="Delete" /></p>
 <table border="0" width="100%">
   $for bookmark in bookmarks:
   <tr>
-    <form name="del${bookmark.id}" method="post" action="delete">
-    <td><a href="$bookmark.url">$bookmark.title</a></td>
+    <td><input type="checkbox" name="$bookmark.id" value="1"><a href="$bookmark.url">$bookmark.title</a></td>
     <td align="right">
-      <a href="edit/$bookmark.id">(edit)</a>
-      <input type="hidden" name="$bookmark.id" value="1" />
-      <a href="#" onclick="document.del${bookmark.id}.submit()">(delete)</a>
+      <a href="edit/$bookmark.id">edit</a>
     </td>
-    </form>
   </tr>
 </table>
+</form>
 <p><hr/></p>
+<h3>Add bookmark</h3>
 <form name="add" method="post" action="add">
 $:form.render()
 </form>
-<a href="delete">Delete Bookmarks</a>
