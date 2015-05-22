@@ -1,4 +1,4 @@
-$def with (bookmarks, form)
+$def with (bookmarks)
 
 <p><center><h1>lec.ker</h1></center></p>
 <p><hr/></p>
@@ -17,5 +17,32 @@ $def with (bookmarks, form)
 <p><hr/></p>
 <h3>Add bookmark</h3>
 <form name="add" method="post" action="add">
-$:form.render()
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          <label for="title">Title:</label>
+        </th>
+        <td>
+           <input type="text" id="title" name="title"/>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label for="url">Url:</label>
+        </th>
+        <td>
+           <input type="text" id="url" name="url"/>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label for="Add"></label>
+        </th>
+        <td>
+          <button id="Add" name="Add">Add</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </form>

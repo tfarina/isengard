@@ -19,23 +19,16 @@ urls = (
 render = web.template.render('templates')
 
 class view:
-  form = web.form.Form(
-    web.form.Textbox('title', web.form.notnull, description="Title:"),
-    web.form.Textbox('url', web.form.notnull, description="Url:"),
-    web.form.Button('Add'),
-  )
-
   def GET(self):
     bookmarks = model.get_bookmarks()
-    form = self.form
-    return render.view(bookmarks, form)
+    return render.view(bookmarks)
 
   def POST(self):
-    form = self.form
-    if not form.validates():
+    input = web.input()
+    if input.title is None or input.url is None:
       bookmarks = model.get_bookmarks()
-      return render.index(bookmarks, form)
-    model.new_bookmark(form.d.title, form.d.url)
+      return render.index(bookmarks)
+    model.new_bookmark(input.title, input.url)
     raise web.seeother('/')
 
 
