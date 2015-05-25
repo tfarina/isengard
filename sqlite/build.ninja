@@ -40,32 +40,41 @@ build users.cgi: link $builddir/html.o $builddir/users.o
   libs = -lsqlite3
 
 # CLI
+build $builddir/sqlite3.o: cc deps/sqlite3.c
+  cflags =
+
 build $builddir_cli/db.o: cc cli/db.c
-  libs = -lsqlite3
+  includes = -Ideps
 
 build $builddir_cli/create.o: cc cli/create.c
-build out/create: link $builddir_cli/db.o $builddir_cli/create.o
-  libs = -lsqlite3
+build out/create: link $builddir/sqlite3.o $builddir_cli/db.o $builddir_cli/create.o
+  includes = -Ideps
+  libs = -lpthread -ldl
 
 build $builddir_cli/insert.o: cc cli/insert.c
-build out/insert: link $builddir_cli/db.o $builddir_cli/insert.o
-  libs = -lsqlite3
+build out/insert: link $builddir/sqlite3.o $builddir_cli/db.o $builddir_cli/insert.o
+  includes = -Ideps
+  libs = -lpthread -ldl
 
 build $builddir_cli/list.o: cc cli/list.c
-build out/list: link $builddir_cli/db.o $builddir_cli/list.o
-  libs = -lsqlite3
+build out/list: link $builddir/sqlite3.o $builddir_cli/db.o $builddir_cli/list.o
+  includes = -Ideps
+  libs = -lpthread -ldl
 
 build $builddir_cli/update.o: cc cli/update.c
-build out/update: link $builddir_cli/db.o $builddir_cli/update.o
-  libs = -lsqlite3
+build out/update: link $builddir/sqlite3.o $builddir_cli/db.o $builddir_cli/update.o
+  includes = -Ideps
+  libs = -lpthread -ldl
 
 build $builddir_cli/delete.o: cc cli/delete.c
-build out/delete: link $builddir_cli/db.o $builddir_cli/delete.o
-  libs = -lsqlite3
+build out/delete: link $builddir/sqlite3.o $builddir_cli/db.o $builddir_cli/delete.o
+  includes = -Ideps
+  libs = -lpthread -ldl
 
 build $builddir_cli/all.o: cc cli/all.c
-build out/all: link $builddir_cli/db.o $builddir_cli/all.o
-  libs = -lsqlite3
+build out/all: link $builddir/sqlite3.o $builddir_cli/db.o $builddir_cli/all.o
+  includes = -Ideps
+  libs = -lpthread -ldl
 
 build $builddir_cli/cmd_add.o: cc cli/cmd_add.c
 build $builddir_cli/cmd_del.o: cc cli/cmd_del.c
@@ -74,4 +83,4 @@ build $builddir_cli/cmd_list.o: cc cli/cmd_list.c
 build $builddir_cli/umc.o: cc cli/umc.c
 build out/umc: link $builddir_cli/cmd_add.o $builddir_cli/cmd_del.o $
 $builddir_cli/cmd_list.o $builddir_cli/umc.o
-  libs = -lsqlite3
+  includes = -Ideps

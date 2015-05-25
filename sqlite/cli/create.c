@@ -1,7 +1,5 @@
 #include <stdio.h>
 
-#include <sqlite3.h>
-
 #include "db.h"
 
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm

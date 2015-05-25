@@ -1,7 +1,5 @@
 #include <stdio.h>
 
-#include <sqlite3.h>
-
 #include "db.h"
 
 static int callback(void* data, int argc, char** argv, char** column_name) {
