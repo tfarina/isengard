@@ -1,12 +1,14 @@
 http://webpy.org/src/todo-list/0.3
 
-To setup the MySQL database, user and table:
+# To setup MySQL database and user, run the following command line:
 
-$ ./setup.sh
-$ mysql -u kevin -p blog < schema.sql
-# Type in kevin's password: chevrolet
+$ ./setup_db.sh
 
+# To import the tables, run the following command line and type in kevin's
+# password: chevrolet
 
-To run the app:
+$ ./setup_tables.sh
 
-$ ./todo.py 12345
+# How to run it:
+
+$ sudo python ./todo.py #port-number-you-want-available (preferable 80).
