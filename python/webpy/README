@@ -10,6 +10,10 @@ Install WebPy
 
 $ sudo pip install web.py
 
+In order to know where web.py was installed, run the following command line:
+
+$ pip show web.py
+
 
 $ python hello.py
 http://0.0.0.0:8080
