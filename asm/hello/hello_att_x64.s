@@ -8,6 +8,7 @@ msg_hello: .ascii "Hello, world!\n"
 .global _start
 
 _start:
+	# write(1, msg_hello, 14)
         mov $1, %rax
         mov $1, %rdi
         mov $msg_hello, %rsi
