@@ -22,6 +22,7 @@ c/apps/echo/client
 c/apps/echo/server
 c/apps/echo/tcpcli01
 c/apps/echo/tcpserv01
+c/apps/getaddrinfo/out/
 c/apps/imap/*.o
 c/apps/imap/.ninja_deps
 c/apps/imap/.ninja_log
