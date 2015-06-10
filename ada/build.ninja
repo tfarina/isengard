@@ -1,0 +1,12 @@
+gnatflags = -gnat05
+
+rule gnatmake
+  command = gnat make $gnatflags $in
+
+rule cleanit
+  command = rm -rf *.o *.ali $in
+
+build hello: gnatmake hello.adb
+build clean: cleanit hello
+
+default hello

@@ -1,0 +1,11 @@
+To install Ada compiler on Linux:
+
+$ sudo apt-get install gnat-4.6
+
+Then to build the hello executale:
+
+$ ninja
+
+To clean the generated files:
+
+$ ninja clean
