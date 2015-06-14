@@ -3,6 +3,7 @@ ada/*.ali
 ada/*.o
 ada/.ninja_deps
 ada/.ninja_log
+ada/echoserver
 ada/hello
 asm/*.o
 asm/add.6
