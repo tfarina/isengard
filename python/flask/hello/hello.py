@@ -7,8 +7,13 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def main():
-  return "Hello!"
+def index():
+  return "Index page!"
+
+
+@app.route("/hello")
+def hello():
+  return "Hello"
 
 
 #app.wsgi_app = ProxyFix(app.wsgi_app)
