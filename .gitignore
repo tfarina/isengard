@@ -57,6 +57,7 @@ mysql/php/apps/distwi/error_log.txt
 mysql/php/apps/twitwi/access_log.txt
 mysql/php/apps/twitwi/error_log.txt
 mysql/php/tutorial/ducati_2.png
+python/flask/intro/app1/rocket.pid
 python/webpy/webpyauth/sessions/
 sqlite/*.o
 sqlite/.ninja_deps
