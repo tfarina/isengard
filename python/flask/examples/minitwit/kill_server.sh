@@ -2,4 +2,4 @@
 
 # https://exploreflask.com/deployment.html
 
-sudo kill `cat minitwit.pid`
+sudo kill `cat gunicorn.pid`
