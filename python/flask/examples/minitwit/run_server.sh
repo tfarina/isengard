@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 
 # https://exploreflask.com/deployment.html
 
-sudo gunicorn -c gunicorn.conf.py minitwit:app
+exec /usr/local/bin/gunicorn -c gunicorn.conf.py minitwit:app
