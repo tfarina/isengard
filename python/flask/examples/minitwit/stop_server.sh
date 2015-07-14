@@ -2,4 +2,4 @@
 
 # https://exploreflask.com/deployment.html
 
-sudo kill `cat gunicorn.pid`
+sudo kill `cat /var/run/gunicorn.pid`
