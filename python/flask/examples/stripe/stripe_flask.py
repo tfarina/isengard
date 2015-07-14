@@ -5,11 +5,19 @@
    License: MIT (see LICENSE)
 '''
 
+import os
 from flask import Flask, render_template, request
 import stripe
 
-from config import stripe_keys
 from config import DEFAULT_CHARGE_AMOUNT, DEFAULT_CHARGE_DESCRIPTION
+
+# Put the following lines in your ~/.bashrc.
+# export SECRET_KEY=<your_stripe_secrete_key>
+# export PUBLISHABLE_KEY=<your_stripe_publishable_key>
+stripe_keys = {
+  'secret_key': os.environ['SECRET_KEY'],
+  'publishable_key': os.environ['PUBLISHABLE_KEY']
+}
 
 stripe.api_key = stripe_keys['secret_key']
 
