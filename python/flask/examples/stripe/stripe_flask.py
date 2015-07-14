@@ -9,7 +9,8 @@ import os
 from flask import Flask, render_template, request
 import stripe
 
-from config import DEFAULT_CHARGE_AMOUNT, DEFAULT_CHARGE_DESCRIPTION
+CHARGE_AMOUNT = 525 # in cents.
+CHARGE_DESCRIPTION = "Flask Charge"
 
 # Put the following lines in your ~/.bashrc.
 # export SECRET_KEY=<your_stripe_secrete_key>
@@ -24,13 +25,13 @@ stripe.api_key = stripe_keys['secret_key']
 app = Flask(__name__)
 
 
-def get_amount_usd(amount=DEFAULT_CHARGE_AMOUNT):
+def get_amount_usd(amount=CHARGE_AMOUNT):
   return float(amount) / 100
 
 
 def stripe_charge(token,
-                  charge_amount=DEFAULT_CHARGE_AMOUNT,
-                  charge_description=DEFAULT_CHARGE_DESCRIPTION):
+                  charge_amount=CHARGE_AMOUNT,
+                  charge_description=CHARGE_DESCRIPTION):
   try:
     charge = stripe.Charge.create(
         amount=charge_amount,
