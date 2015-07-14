@@ -3,14 +3,8 @@
   <script type="text/javascript">
     var stripe_key = "{{ key }}"
 
-    $(document).ready(function() {
-      // This identifies the website in the createToken call in js/global.js.
-      Stripe.setPublishableKey(stripe_key);
-
-      // Comment out this line if you don't want to auto-populate the form
-      // with test data.
-      //test_data.load()
-    });
+    // This identifies your website in the createToken call at global.js.
+    Stripe.setPublishableKey(stripe_key);
   </script>
 
   <div id="new-customer">
