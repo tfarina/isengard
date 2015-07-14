@@ -10,42 +10,14 @@ import stripe
 
 from config import stripe_keys
 from config import DEFAULT_CHARGE_AMOUNT, DEFAULT_CHARGE_DESCRIPTION
-from config import DB_NAME
 
 stripe.api_key = stripe_keys['secret_key']
 
 app = Flask(__name__)
 
-# MongoDB for stripe customers.
-from pymongo import MongoClient
-c = MongoClient()
-db = c[DB_NAME]
-posts = db.posts
-
 
 def get_amount_usd(amount=DEFAULT_CHARGE_AMOUNT):
   return float(amount) / 100
-
-
-def get_stripe_customer(customer_email):
-  customer_info = posts.find_one({"customer_email": customer_email})
-
-  if customer_info is None:
-    return False, customer_info
-  else:
-    return True, customer_info
-
-
-def save_stripe_customer(customer_email, customer_id):
-  reply, entry = get_stripe_customer(customer_email)
-  if reply:
-    posts.remove(entry)
-  else:
-    post = {
-      "customer_email": customer_email,
-      "customer_id": customer_id
-    }
-    posts.insert(post)
 
 
 def stripe_charge(customer_id,
