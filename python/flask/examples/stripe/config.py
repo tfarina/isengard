@@ -16,5 +16,3 @@ stripe_keys = {
 
 DEFAULT_CHARGE_AMOUNT = 525 # in cents.
 DEFAULT_CHARGE_DESCRIPTION = "Flask Charge"
-
-DB_NAME = "stripe_customers"
