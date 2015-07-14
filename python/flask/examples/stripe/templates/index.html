@@ -1,10 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
   <script type="text/javascript">
-    var stripe_key = "{{ key }}"
-
     // This identifies your website in the createToken call at global.js.
-    Stripe.setPublishableKey(stripe_key);
+    Stripe.setPublishableKey('{{ pub_key }}');
   </script>
 
   <div id="new-customer">

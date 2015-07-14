@@ -46,7 +46,7 @@ def stripe_charge(token,
 @app.route('/')
 def index():
   return render_template('index.html',
-                         key=stripe_keys['publishable_key'],
+                         pub_key=stripe_keys['publishable_key'],
                          amount_usd=get_amount_usd())
 
 
