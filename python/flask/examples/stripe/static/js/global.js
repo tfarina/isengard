@@ -43,6 +43,5 @@ var test_data = {
     $('#payment-form').find('input[data-stripe="cvc"'].val('111');
     $('#payment-form').find('input[data-stripe="exp-month"'].val('12');
     $('#payment-form').find('input[data-stripe="exp-year"'].val('2015');
-    $('#recurring-form').find('input[name="email"'].val('customer@domain.com');
   }
 };

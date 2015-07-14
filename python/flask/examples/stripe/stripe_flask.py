@@ -92,25 +92,5 @@ def charge():
                          charge_msg=charge_msg)
 
 
-@app.route('/recurring', methods=['POST'])
-def recurring():
-  customer_email = request.form['email']
-
-  customer_valid, customer_info = get_stripe_customer(customer_email)
-  if customer_valid:
-    customer_id = customer_info['customer_id']
-
-    charge_valid, charge_msg = stripe_charge(customer_id)
-  else:
-    charge_valid = False
-    charge_msg = 'recurring customer does not exist'
-
-  return render_template('charge.html',
-                         amount_usd=get_amount_usd(),
-                         customer_email=customer_email,
-                         charge_valid=charge_valid,
-                         charge_msg=charge_msg)
-
-
 if __name__ == '__main__':
   app.run(debug=True)
