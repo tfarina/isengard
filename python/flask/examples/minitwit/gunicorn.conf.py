@@ -6,5 +6,5 @@ daemon=False
 debug=False
 workers=2
 loglevel='info'
-errorlog='-'
-accesslog='-'
+accesslog='/var/log/minitwit/gunicorn_access.log'
+errorlog='/var/log/minitwit/gunicorn_error.log'
