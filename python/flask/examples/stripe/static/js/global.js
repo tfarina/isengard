@@ -1,6 +1,5 @@
 // Author: Muneeb Ali. http://muneeb.org
 // Modified from examples at http://stripe.com/docs
-//
 
 var stripeResponseHandler = function(status, response) {
   var $form = $('#payment-form');
