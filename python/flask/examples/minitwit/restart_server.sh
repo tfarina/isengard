@@ -2,4 +2,4 @@
 
 # https://exploreflask.com/deployment.html
 
-sudo kill -HUP `cat /var/run/gunicorn.pid`
+sudo kill -HUP `cat /tmp/uwsgi-minitwit.pid`
