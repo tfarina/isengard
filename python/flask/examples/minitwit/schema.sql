@@ -1,5 +1,7 @@
 USE minitwit;
 
+DROP TABLE IF EXISTS `user`;
+
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
@@ -8,10 +10,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+DROP TABLE IF EXISTS `follower`;
+
 CREATE TABLE IF NOT EXISTS `follower` (
   `who_id` int(11) DEFAULT NULL,
   `whom_id` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `message`;
 
 CREATE TABLE IF NOT EXISTS `message` (
   `message_id` int(11) NOT NULL AUTO_INCREMENT,
