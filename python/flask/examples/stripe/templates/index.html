@@ -21,12 +21,27 @@
         </div>
       </div>
       <div class="control-group">
-        <label class="control-label">Card Number</label>
+        <label class="control-label">Card number</label>
         <div class="controls">
           <div class="row-fluid">
             <div class="span7">
               <input type="text" class="input-block-level" maxlength="20"
                   data-stripe="number" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Expiration date (MM/YYYY)</label>
+        <div class="controls">
+          <div class="row-fluid">
+            <div class="span3">
+              <input type="text" class="input-block-level" size="2"
+                  data-stripe="exp-month" />
+            </div>
+            <div class="span4">
+              <input type="text" class="input-block-level" size="4"
+                  data-stripe="exp-year" />
             </div>
           </div>
         </div>
@@ -38,21 +53,6 @@
             <div class="span3">
               <input type="text" class="input-block-level" maxlength="3"
                   data-stripe="cvc" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label">Expiration (MM/YYYY)</label>
-        <div class="controls">
-          <div class="row-fluid">
-            <div class="span3">
-              <input type="text" class="input-block-level" size="2"
-                  data-stripe="exp-month" />
-            </div>
-            <div class="span4">
-              <input type="text" class="input-block-level" size="4"
-                  data-stripe="exp-year" />
             </div>
           </div>
         </div>
