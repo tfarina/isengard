@@ -29,14 +29,14 @@ def get_amount_usd(amount=CHARGE_AMOUNT):
   return float(amount) / 100
 
 
-def stripe_charge(token,
+def stripe_charge(customer_id,
                   charge_amount=CHARGE_AMOUNT,
                   charge_description=CHARGE_DESCRIPTION):
   try:
     charge = stripe.Charge.create(
+        customer=customer_id
         amount=charge_amount,
         currency='usd',
-        source=token,
         description=charge_description)
   except stripe.error.CardError,  e:
     return False, e
@@ -58,9 +58,7 @@ def charge():
     email=customer_email,
     card=request.form['stripeToken'])
 
-  # Get the credit card details submitted by the form
-  token = request.form['stripeToken']
-  charge_valid, charge_msg = stripe_charge(token)
+  charge_valid, charge_msg = stripe_charge(customer.id)
   return render_template('charge.html',
                          amount_usd=get_amount_usd(),
                          customer_email=customer_email,
