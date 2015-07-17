@@ -52,12 +52,13 @@ def index():
 
 @app.route('/charge', methods=['POST'])
 def charge():
-  charge_valid, charge_msg = stripe_charge(request.form['stripeToken'])
-  return render_template('charge.html',
-                         amount_usd=get_amount_usd(),
-                         customer_email=customer_email,
-                         charge_valid=charge_valid,
-                         charge_msg=charge_msg)
+  return repr(request.form)
+  #charge_valid, charge_msg = stripe_charge(request.form['stripeToken'])
+  #return render_template('charge.html',
+                         #amount_usd=get_amount_usd(),
+                         #customer_email=customer_email,
+                         #charge_valid=charge_valid,
+                         #charge_msg=charge_msg)
 
 
 if __name__ == '__main__':

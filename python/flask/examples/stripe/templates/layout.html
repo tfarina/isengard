@@ -4,13 +4,16 @@
   <title>Stripe Payment</title>
 
   <link rel="stylesheet" type="text/css"
-        href="{{ url_for('static', filename='css/main.css') }}">
-
-  <link rel="stylesheet" type="text/css"
         href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 
+  <link rel="stylesheet" type="text/css"
+        href="{{ url_for('static', filename='css/main.css') }}">
+
+  <script type="text/javascript" src="https://js.stripe.com/v2/">
+  </script>
+
   <script type="text/javascript"
-          src="{{ url_for('static', filename='js/global.js') }}">
+          src="{{ url_for('static', filename='js/jquery-1.10.2.min.js') }}">
   </script>
 
   <script type="text/javascript"
@@ -18,11 +21,9 @@
   </script>
 
   <script type="text/javascript"
-          src="{{ url_for('static', filename='js/jquery-1.10.2.min.js') }}">
+          src="{{ url_for('static', filename='js/global.js') }}">
   </script>
 
-  <script type="text/javascript" src="https://js.stripe.com/v2/">
-  </script>
 </head>
 <body>
   <div class="template">
