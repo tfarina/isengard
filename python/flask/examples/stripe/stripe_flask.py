@@ -23,7 +23,7 @@ stripe_keys = {
 stripe.api_key = stripe_keys['secret_key']
 
 app = Flask(__name__)
-
+app.debug = True
 
 def get_amount_usd(amount=CHARGE_AMOUNT):
   return float(amount) / 100
@@ -62,4 +62,4 @@ def charge():
 
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0',debug=True)
+  app.run(host='0.0.0.0')
