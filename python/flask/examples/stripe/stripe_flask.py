@@ -34,7 +34,7 @@ def stripe_charge(customer_id,
                   charge_description=CHARGE_DESCRIPTION):
   try:
     charge = stripe.Charge.create(
-        customer=customer_id
+        source=customer_id,
         amount=charge_amount,
         currency='usd',
         description=charge_description)
@@ -52,13 +52,7 @@ def index():
 
 @app.route('/charge', methods=['POST'])
 def charge():
-  customer_email = request.form['email']
-
-  customer = stripe.Customer.create(
-    email=customer_email,
-    card=request.form['stripeToken'])
-
-  charge_valid, charge_msg = stripe_charge(customer.id)
+  charge_valid, charge_msg = stripe_charge(request.form['stripeToken'])
   return render_template('charge.html',
                          amount_usd=get_amount_usd(),
                          customer_email=customer_email,
@@ -67,4 +61,4 @@ def charge():
 
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0')
+  app.run(host='0.0.0.0',debug=True)

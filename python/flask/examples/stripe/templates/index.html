@@ -7,7 +7,7 @@
 
   <div id="new-customer">
     <form action="{{ url_for('charge') }}" method="POST" id="payment-form" class="form-horizontal span6">
-      <input type="hidden" name="stripeToken" value="" />
+            <!-- <input type="hidden" name="stripeToken" value="" /> -->
       <legend>New Customers: Pay ${{ amount_usd }} with Stripe</legend>
       <span class="payment-errors"></span>
       <div class="control-group">
