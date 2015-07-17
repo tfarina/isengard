@@ -15,7 +15,7 @@ func handleRoot(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	log.Printf("Server is running at http://127.0.0.1:8080")
+	log.Printf("Server is running at http://0.0.0.0:8080")
 	http.HandleFunc("/", handleRoot)
-	log.Fatal(http.ListenAndServe("127.0.0.1:8080", nil))
+	log.Fatal(http.ListenAndServe("0.0.0.0:8080", nil))
 }
