@@ -6,4 +6,4 @@ DBNAME=minitwit
 DBUSER=blaine
 DBPASS=19801219
 
-mysql -u root -p < setup_db.sql
+mysql -u root -p < database/setup_db.sql
