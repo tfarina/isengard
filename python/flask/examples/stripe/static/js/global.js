@@ -17,6 +17,8 @@ function stripeResponseHandler(status, response) {
 };
 
 jQuery(function($) {
+  $('.cc-number').payment('formatCardNumber');
+
   $('#payment-form').submit(function(event) {
     var $form = $(this);
 
