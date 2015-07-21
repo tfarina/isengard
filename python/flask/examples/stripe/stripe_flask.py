@@ -9,7 +9,7 @@ import os
 from flask import Flask, render_template, request
 import stripe
 
-CHARGE_AMOUNT = 499 # in cents.
+CHARGE_AMOUNT = 1000 # in cents.
 CHARGE_DESCRIPTION = "Flask Charge"
 
 # Put the following lines in your ~/.bashrc.
