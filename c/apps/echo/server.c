@@ -43,7 +43,7 @@ int main() {
   conn_fd = accept(listen_fd, (struct sockaddr*) NULL, NULL);
 
   while (1) {
-    bzero(str, MAXLINE);
+    memset(str, 0, sizeof(str));
 
     read(conn_fd, str, MAXLINE);
 
