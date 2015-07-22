@@ -31,7 +31,8 @@ int main() {
   if (listen_fd < 0)
     die("cannot create socket");
 
-  bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr));
+  if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
+    die("bind failed");
 
   listen(listen_fd, LISTENQ);
 
