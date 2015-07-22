@@ -36,6 +36,10 @@ int main() {
   if (listen(listen_fd, LISTENQ) < 0)
     die("listen failed");
 
+  fprintf(stderr,
+          "The server is now ready to accept connections on port %d\n",
+          SERVER_PORT);
+
   conn_fd = accept(listen_fd, (struct sockaddr*) NULL, NULL);
 
   while (1) {
