@@ -31,9 +31,9 @@ int main(int argc, char **argv) {
 
   Bind(listenfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
-  fprintf(stderr, "Server is listening on port %d\n", SERV_PORT);
-
   Listen(listenfd, LISTENQ);
+
+  fprintf(stderr, "Server is listening on port %d\n", SERV_PORT);
 
   for (;;) {
     clilen = sizeof(cliaddr);
