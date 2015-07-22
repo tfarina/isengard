@@ -8,6 +8,8 @@
 #include <unistd.h>
 #include <strings.h>
 
+#include "die.h"
+
 #define SERVER_PORT 8088
 #define LISTENQ 1024
 #define MAXLINE 100
@@ -26,6 +28,8 @@ int main() {
   servaddr.sin_port = htons(SERVER_PORT);
 
   listen_fd = socket(AF_INET, SOCK_STREAM, 0);
+  if (listen_fd < 0)
+    die("cannot create socket");
 
   bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr));
 

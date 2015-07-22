@@ -20,8 +20,10 @@ rule UNINSTALL
   description = removing $in from $prefix/bin
   command = rm -f $prefix/bin/$in
 
+build die.o: COMPILE_CC die.c
+
 build server.o: COMPILE_CC server.c
-build server: LINK server.o
+build server: LINK die.o server.o
 
 build client.o: COMPILE_CC client.c
 build client: LINK client.o
