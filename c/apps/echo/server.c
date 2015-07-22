@@ -1,12 +1,13 @@
 /* https://vcansimplify.wordpress.com/2013/03/14/c-socket-tutorial-echo-server/ */
 
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <netdb.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <strings.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "die.h"
 
@@ -14,11 +15,24 @@
 #define LISTENQ 1024
 #define MAXLINE 4096
 
+static void handle_client(int fd) {
+  char str[MAXLINE];
+  read(fd, str, MAXLINE);
+  printf("Echoing back - %s", str);
+  write(fd, str, strlen(str) + 1);
+
+  sleep(1);  /* allow socket to drain before signalling the socket is closed */
+  close(fd);
+  exit(1);
+}
+
 int main() {
   struct sockaddr_in servaddr;
   int listen_fd;
-  int conn_fd;
-  char str[MAXLINE];
+  socklen_t clilen;
+  struct sockaddr_in cliaddr;
+  int client_fd;
+  int pid;
 
   memset(&servaddr, 0, sizeof(servaddr));
 
@@ -40,17 +54,22 @@ int main() {
           "The server is now ready to accept connections on port %d\n",
           SERVER_PORT);
 
-  conn_fd = accept(listen_fd, (struct sockaddr*) NULL, NULL);
-
   while (1) {
-    memset(str, 0, sizeof(str));
+    clilen = sizeof(cliaddr);
+    if ((client_fd = accept(listen_fd, (struct sockaddr*)&cliaddr, &clilen)) < 0)
+      die("accept failed");
 
-    read(conn_fd, str, MAXLINE);
-
-    printf("Echoing back - %s", str);
-
-    write(conn_fd, str, strlen(str) + 1);
+    if ((pid = fork()) < 0) {
+      die("fork failed");
+    } else {
+      if (pid == 0) {	/* child */
+	(void)close(listen_fd);
+        handle_client(client_fd);
+      } else {	/* parent */
+        (void)close(client_fd);
+      }
+    }
   }
 
-  return 0;
+  return EXIT_SUCCESS;
 }
