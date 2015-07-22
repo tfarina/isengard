@@ -34,7 +34,8 @@ int main() {
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
     die("bind failed");
 
-  listen(listen_fd, LISTENQ);
+  if (listen(listen_fd, LISTENQ) < 0)
+    die("listen failed");
 
   conn_fd = accept(listen_fd, (struct sockaddr*) NULL, NULL);
 
