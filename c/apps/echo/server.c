@@ -12,7 +12,7 @@
 
 #define SERVER_PORT 8088
 #define LISTENQ 1024
-#define MAXLINE 100
+#define MAXLINE 4096
 
 int main() {
   struct sockaddr_in servaddr;
