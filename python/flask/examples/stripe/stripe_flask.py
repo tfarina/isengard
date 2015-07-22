@@ -10,7 +10,7 @@ from flask import Flask, render_template, request
 import stripe
 
 CHARGE_AMOUNT = 1000 # in cents.
-CHARGE_DESCRIPTION = "Flask Charge"
+CHARGE_DESCRIPTION = "T-Shirt Order"
 
 # Put the following lines in your ~/.bashrc.
 # export SECRET_KEY=<your_stripe_secrete_key>
@@ -30,6 +30,7 @@ def get_amount_usd(amount=CHARGE_AMOUNT):
 
 
 def stripe_charge(customer_id,
+                  customer_email,
                   charge_amount=CHARGE_AMOUNT,
                   charge_description=CHARGE_DESCRIPTION):
   try:
@@ -37,7 +38,8 @@ def stripe_charge(customer_id,
         source=customer_id,
         amount=charge_amount,
         currency='usd',
-        description=charge_description)
+        description=charge_description,
+        receipt_email=customer_email)
   except stripe.error.CardError,  e:
     return False, e
 
@@ -53,7 +55,7 @@ def index():
 @app.route('/charge', methods=['POST'])
 def charge():
   #return repr(request.form)
-  charge_valid, charge_msg = stripe_charge(request.form['stripeToken'])
+  charge_valid, charge_msg = stripe_charge(request.form['stripeToken'], request.form['email'])
   return render_template('thanks.html',
                          amount_usd=get_amount_usd(),
                          customer_email=request.form['email'],
