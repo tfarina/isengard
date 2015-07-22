@@ -1,20 +1,20 @@
 /* https://vcansimplify.wordpress.com/2013/03/14/c-socket-tutorial-echo-server/ */
 
-#include <sys/types.h>
-#include <sys/socket.h>
+#include <arpa/inet.h>
 #include <netdb.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
 #include <strings.h>
-#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #define SERVER_PORT 8088
-#define MAXLINE 100
+#define MAXLINE 4096
 
-int main(int argc,char **argv) {
-  int sockfd;
+int main(int argc, char **argv) {
   struct sockaddr_in servaddr;
+  int sockfd;
   char sendline[MAXLINE];
   char recvline[MAXLINE];
 
