@@ -15,11 +15,10 @@
 #define MAXLINE 100
 
 int main() {
-  char str[MAXLINE];
+  struct sockaddr_in servaddr;
   int listen_fd;
   int conn_fd;
-
-  struct sockaddr_in servaddr;
+  char str[MAXLINE];
 
   memset(&servaddr, 0, sizeof(servaddr));
 
