@@ -1,5 +1,6 @@
 /* https://vcansimplify.wordpress.com/2013/03/14/c-socket-tutorial-echo-server/ */
 
+#include <arpa/inet.h>
 #include <netdb.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -58,6 +59,8 @@ int main() {
     clilen = sizeof(cliaddr);
     if ((client_fd = accept(listen_fd, (struct sockaddr*)&cliaddr, &clilen)) < 0)
       die("accept failed");
+
+    printf("%s:%d connected\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
     if ((pid = fork()) < 0) {
       die("fork failed");
