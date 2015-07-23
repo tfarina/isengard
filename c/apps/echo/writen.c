@@ -1,8 +1,9 @@
+#include "writen.h"
+
 #include "errno.h"
-#include <stddef.h>
 #include <unistd.h>
 
-/* Code from unpv13e's lib/writen.c */
+/* Code from "Unix Network Programming" - unpv13e's lib/writen.c */
 
 static ssize_t writen(int fd, const void *vptr, size_t n) {
   size_t nleft;
