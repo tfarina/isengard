@@ -30,8 +30,8 @@ static void handle_client(int fd) {
 int main() {
   struct sockaddr_in servaddr;
   int listen_fd;
-  socklen_t clilen;
   struct sockaddr_in cliaddr;
+  socklen_t clilen = sizeof(cliaddr);
   int client_fd;
   int pid;
 
@@ -56,7 +56,6 @@ int main() {
           SERVER_PORT);
 
   while (1) {
-    clilen = sizeof(cliaddr);
     if ((client_fd = accept(listen_fd, (struct sockaddr*)&cliaddr, &clilen)) < 0)
       die("accept failed");
 
