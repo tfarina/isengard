@@ -3,6 +3,7 @@
 #include <netinet/in.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "die.h"
 #include "wraplib.h"
@@ -11,12 +12,19 @@
 
 #define SERV_PORT 8088
 
-int main(int argc, char **argv) {
+static void usage(void)
+{
+  fprintf(stderr, "usage: tcpcli01 <IP address>\n");
+  exit(EXIT_FAILURE);
+}
+
+int main(int argc, char **argv)
+{
   int sockfd;
   struct sockaddr_in servaddr;
 
   if (argc != 2) {
-    die("usage: tcpcli01 <IP address>");
+    usage();
   }
 
   sockfd = Socket(AF_INET, SOCK_STREAM, 0);
