@@ -39,6 +39,10 @@ c/apps/imap/*.o
 c/apps/imap/.ninja_deps
 c/apps/imap/.ninja_log
 c/apps/imap/imap
+c/apps/network/*.o
+c/apps/network/.ninja_deps
+c/apps/network/.ninja_log
+c/apps/network/timeserver
 c/apps/sizeck/out/
 c/tools/md5/*.o
 c/tools/md5/md5
