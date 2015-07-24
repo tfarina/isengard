@@ -43,6 +43,10 @@ c/apps/network/*.o
 c/apps/network/.ninja_deps
 c/apps/network/.ninja_log
 c/apps/network/timeserver
+c/apps/network/webserver/*.o
+c/apps/network/webserver/.ninja_deps
+c/apps/network/webserver/.ninja_log
+c/apps/network/webserver/webserver
 c/apps/sizeck/out/
 c/tools/md5/*.o
 c/tools/md5/md5
