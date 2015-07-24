@@ -23,11 +23,13 @@
 
 static void handle_client(int fd) {
   char str[MAXLINE];
+  char buffer[MAXLINE];
+
   read(fd, str, MAXLINE);
-  write(fd, "HTTP/1.1 200 OK\n", 16);
-  write(fd, "Content-Length: 49\n", 19);
-  write(fd, "Content-Type: text/html\n\n", 25);
-  write(fd, "<html><body><h1>Hello, World.</h1></body></html>", 49);
+
+  sprintf(buffer, "HTTP/1.1 200 OK\nContent-Length: 47\nContent-Type: text/html\n\n<html><body><h1>Hello, World.</h1></body><html>");
+  write(fd, buffer, strlen(buffer));
+
   sleep(1);  /* allow socket to drain before signalling the socket is closed */
   close(fd);
   exit(1);
