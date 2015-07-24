@@ -21,13 +21,17 @@
 #define LISTENQ 1024
 #define MAXLINE 4096
 
+static const char hello_page[] = "<html><body><h1>Hello, world!</h1></body</html>";
+
 static void handle_client(int fd) {
   char str[MAXLINE];
   char buffer[MAXLINE];
 
   read(fd, str, MAXLINE);
 
-  sprintf(buffer, "HTTP/1.1 200 OK\nContent-Length: 47\nContent-Type: text/html\n\n<html><body><h1>Hello, World.</h1></body><html>");
+  sprintf(buffer,
+          "HTTP/1.1 200 OK\nContent-Length: %ld\nContent-Type: text/html\n\n%s",
+          strlen(hello_page), hello_page);
   write(fd, buffer, strlen(buffer));
 
   sleep(1);  /* allow socket to drain before signalling the socket is closed */
