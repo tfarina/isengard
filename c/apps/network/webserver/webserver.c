@@ -40,6 +40,7 @@ int main() {
   socklen_t clilen = sizeof(cliaddr);
   int client_fd;
   int pid;
+  int opt = 1;
 
   memset(&servaddr, 0, sizeof(servaddr));
 
@@ -51,8 +52,7 @@ int main() {
   if (listen_fd < 0)
     die("cannot create socket");
 
-  int t = 1;
-  setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &t, sizeof(int));
+  setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
     die("bind failed");
