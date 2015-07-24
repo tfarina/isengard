@@ -52,7 +52,8 @@ int main() {
   if (listen_fd < 0)
     die("cannot create socket");
 
-  setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+  if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1)
+    die("setsockopt failed");
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
     die("bind failed");
