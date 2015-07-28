@@ -63,7 +63,7 @@ int main() {
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
     die("bind failed");
 
-  if (listen(listen_fd, LISTENQ) < 0)
+  if (listen(listen_fd, LISTENQ) == -1)
     die("listen failed");
 
   fprintf(stderr,
