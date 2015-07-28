@@ -61,7 +61,7 @@ int main() {
   if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1)
     die("setsockopt failed");
 
-  if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
+  if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
     die("bind failed");
 
   if (listen(listen_fd, LISTENQ) < 0)
