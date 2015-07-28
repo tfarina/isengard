@@ -2,4 +2,4 @@
 
 # https://exploreflask.com/deployment.html
 
-uwsgi --ini uwsgi-minitwt.ini
+uwsgi --ini minitwit.ini
