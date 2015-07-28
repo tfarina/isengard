@@ -71,7 +71,7 @@ int main() {
           SERVER_PORT);
 
   while (1) {
-    if ((client_fd = accept(listen_fd, (struct sockaddr*)&cliaddr, &clilen)) < 0)
+    if ((client_fd = accept(listen_fd, (struct sockaddr*)&cliaddr, &clilen)) == -1)
       die("accept failed");
 
     printf("%s:%d connected\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
