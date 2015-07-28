@@ -18,7 +18,7 @@
 #include "die.h"
 
 #define SERVER_PORT 8081
-#define LISTENQ 1024
+#define BACKLOG 1024
 #define MAXLINE 4096
 
 static const char hello_page[] = "<html><body><h1>Hello, world!</h1></body</html>";
@@ -63,7 +63,7 @@ int main() {
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
     die("bind failed");
 
-  if (listen(listen_fd, LISTENQ) == -1)
+  if (listen(listen_fd, BACKLOG) == -1)
     die("listen failed");
 
   fprintf(stderr,
