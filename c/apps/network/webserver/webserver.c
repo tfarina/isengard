@@ -54,8 +54,7 @@ int main() {
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
   servaddr.sin_port = htons(SERVER_PORT);
 
-  listen_fd = socket(AF_INET, SOCK_STREAM, 0);
-  if (listen_fd < 0)
+  if ((listen_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     die("cannot create socket");
 
   if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1)
