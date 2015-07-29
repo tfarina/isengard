@@ -48,6 +48,10 @@ c/apps/network/webserver/.ninja_deps
 c/apps/network/webserver/.ninja_log
 c/apps/network/webserver/webserver
 c/apps/sizeck/out/
+c/mysql/*.o
+c/mysql/.ninja_deps
+c/mysql/.ninja_log
+c/mysql/mysql_version
 c/tools/md5/*.o
 c/tools/md5/md5
 c++/chrome_bookmarks_reader/out
