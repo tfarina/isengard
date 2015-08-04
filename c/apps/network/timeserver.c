@@ -1,5 +1,9 @@
 /* Author: Paul Griffiths, 1999. paulgriffiths.net
+ * URL: http://www.paulgriffiths.net/program/c/timeserv.php
+ *
  * Code modified from paulgriffiths.net/program/c/srcs/timeservsrc.html
+ *
+ * $ ./timeserver &
  */
 
 #include <arpa/inet.h>
@@ -17,7 +21,7 @@
 #include "util.h"
 
 #define SERVER_PORT 8088
-#define LISTENQ 1024
+#define BACKLOG 1024
 #define MAXLINE 4096
 
 int main() {
@@ -40,7 +44,7 @@ int main() {
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
     die("bind failed");
 
-  if (listen(listen_fd, LISTENQ) < 0)
+  if (listen(listen_fd, BACKLOG) < 0)
     die("listen failed");
 
   fprintf(stderr,
