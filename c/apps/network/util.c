@@ -1,6 +1,6 @@
 #include "util.h"
 
-#include "errno.h"
+#include <errno.h>
 #include <unistd.h>
 
 /* Code from "Unix Network Programming" - unpv13e's lib/writen.c */
