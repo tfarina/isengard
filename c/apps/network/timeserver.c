@@ -28,17 +28,15 @@ int main() {
   struct sockaddr_in servaddr;
   int listen_fd;
   int client_fd;
-  char str[MAXLINE];
   time_t current_time;
+  char str[MAXLINE];
 
   memset(&servaddr, 0, sizeof(servaddr));
-
   servaddr.sin_family = AF_INET;
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
   servaddr.sin_port = htons(SERVER_PORT);
 
-  listen_fd = socket(AF_INET, SOCK_STREAM, 0);
-  if (listen_fd < 0)
+  if ((listen_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     die("cannot create socket");
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
