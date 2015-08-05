@@ -5,7 +5,7 @@
 #include <string.h>
 
 #if defined(__GNUC__)
-#define NORETURN        __attribute__((__noreturn__))
+#define NORETURN __attribute__((__noreturn__))
 #else
 #define NORETURN
 #endif
