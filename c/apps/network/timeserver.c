@@ -43,10 +43,10 @@ int main() {
   if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1)
     die("setsockopt failed");
 
-  if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
+  if (bind(listen_fd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1)
     die("bind failed");
 
-  if (listen(listen_fd, BACKLOG) < 0)
+  if (listen(listen_fd, BACKLOG) == -1)
     die("listen failed");
 
   fprintf(stderr,
@@ -54,7 +54,7 @@ int main() {
           SERVER_PORT);
 
   while (1) {
-    if ((client_fd = accept(listen_fd, NULL, NULL)) < 0)
+    if ((client_fd = accept(listen_fd, NULL, NULL)) == -1)
       die("accept failed");
 
     /* Echo the time to the connected client. */
