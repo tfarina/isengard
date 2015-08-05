@@ -30,6 +30,7 @@ int main() {
   int client_fd;
   time_t current_time;
   char str[MAXLINE];
+  int opt = 1;
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
@@ -38,6 +39,9 @@ int main() {
 
   if ((listen_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     die("cannot create socket");
+
+  if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1)
+    die("setsockopt failed");
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
     die("bind failed");
