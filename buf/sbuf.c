@@ -10,17 +10,26 @@
 #define NORETURN
 #endif
 
-static void NORETURN malloc_fail(unsigned long size)
+static void NORETURN die(const char *msg, ...)
 {
-        fprintf(stderr, "out of memory: %lu\n", size);
-        abort();
+    va_list args;
+
+    fprintf(stderr, "fatal: ");
+
+    va_start(args, msg);
+    vfprintf(stderr, msg, args);
+    va_end(args);
+
+    fprintf(stderr, "\n");
+
+    exit(EXIT_FAILURE);
 }
 
 static void* xrealloc(void *p, size_t n)
 {
 	p = realloc(p, n);
         if (p == NULL)
-                malloc_fail(n);
+                die("out of memory: %lu", n);
 	return p;
 }
 
