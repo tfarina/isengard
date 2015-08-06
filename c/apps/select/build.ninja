@@ -1,0 +1,7 @@
+builddir = out
+cflags = -Wall -Wextra -g
+
+rule cc
+  command = gcc $cflags -o $out $in
+
+build $builddir/select: cc select.c

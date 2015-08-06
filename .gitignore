@@ -47,6 +47,7 @@ c/apps/network/webserver/.ninja_deps
 c/apps/network/webserver/.ninja_log
 c/apps/network/webserver/*.o
 c/apps/network/webserver/webserver
+c/apps/select/out/
 c/apps/showip/out/
 c/apps/sizeck/out/
 c/mysql/*.o
