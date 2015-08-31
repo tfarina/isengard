@@ -2,6 +2,7 @@
  * URL: http://www.paulgriffiths.net/program/c/timeserv.php
  *
  * Code modified from paulgriffiths.net/program/c/srcs/timeservsrc.html
+ * and http://www.tutorialspoint.com/unix_sockets/socket_server_example.htm
  *
  * $ ./timeserver &
  */
@@ -24,13 +25,23 @@
 #define BACKLOG 1024
 #define MAXLINE 4096
 
+static void doprocessing(int sockfd) {
+  time_t current_time;
+  char str[MAXLINE];
+
+  /* Echo the time to the connected client. */
+  current_time = time(NULL);
+  sprintf(str, "%s\n", ctime(&current_time));
+  Writen(sockfd, str, strlen(str));
+  exit(EXIT_SUCCESS);
+}
+
 int main() {
   struct sockaddr_in servaddr;
   int listen_fd;
   int client_fd;
-  time_t current_time;
-  char str[MAXLINE];
   int opt = 1;
+  pid_t pid;
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
@@ -57,13 +68,18 @@ int main() {
     if ((client_fd = accept(listen_fd, NULL, NULL)) == -1)
       die("accept failed");
 
-    /* Echo the time to the connected client. */
-    current_time = time(NULL);
-    sprintf(str, "%s\n", ctime(&current_time));
-    Writen(client_fd, str, strlen(str));
+    /* Create child process. */
+    if ((pid = fork()) == -1)
+      die("fork failed");
 
-    if (close(client_fd) < 0)
-      die("close failed");
+    if (pid == 0) {
+      /* Client process. */
+      close(listen_fd);
+      doprocessing(client_fd);
+    } else {
+      /* Parent process. */
+      close(client_fd);
+    }
   }
 
   return EXIT_SUCCESS;
