@@ -26,6 +26,12 @@ build util.o: COMPILE_CC util.c
 build timeserver.o: COMPILE_CC timeserver.c
 build timeserver: LINK die.o util.o timeserver.o
 
+build udpserver.o: COMPILE_CC udpserver.c
+build udpserver: LINK die.o udpserver.o
+
+build udpclient.o: COMPILE_CC udpclient.c
+build udpclient: LINK die.o udpclient.o
+
 build clean: CLEAN
 
 default timeserver

@@ -43,6 +43,8 @@ c/apps/network/.ninja_deps
 c/apps/network/.ninja_log
 c/apps/network/*.o
 c/apps/network/timeserver
+c/apps/network/udpclient
+c/apps/network/udpserver
 c/apps/network/webserver/.ninja_deps
 c/apps/network/webserver/.ninja_log
 c/apps/network/webserver/*.o
