@@ -31,7 +31,7 @@ static void doprocessing(int sockfd) {
 
   /* Echo the time to the connected client. */
   current_time = time(NULL);
-  sprintf(str, "%s\n", ctime(&current_time));
+  sprintf(str, "%.24s\r\n", ctime(&current_time));
   Writen(sockfd, str, strlen(str));
   exit(EXIT_SUCCESS);
 }
