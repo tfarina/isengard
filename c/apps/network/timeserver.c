@@ -25,13 +25,13 @@
 #define BACKLOG 1024
 #define MAXLINE 4096
 
+/* Echo the current day time to the connected client. */
 static void doprocessing(int sockfd) {
-  time_t current_time;
+  time_t t;
   char str[MAXLINE];
 
-  /* Echo the time to the connected client. */
-  current_time = time(NULL);
-  sprintf(str, "%.24s\r\n", ctime(&current_time));
+  time(&t);
+  sprintf(str, "%.24s\r\n", ctime(&t));
   Writen(sockfd, str, strlen(str));
   exit(EXIT_SUCCESS);
 }
