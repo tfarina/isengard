@@ -14,6 +14,7 @@ int main(void) {
   int sockfd;
   int recvlen;
   char buf[BUFLEN];
+  int msgcnt = 0;  /* count # of messages we received */
 
   memset(&myaddr, 0, sizeof(myaddr));
   myaddr.sin_family = AF_INET;
@@ -33,6 +34,9 @@ int main(void) {
     }
     buf[recvlen] = '\0';
     printf("received message: %s\n", buf);
+    sprintf(buf, "ack %d", msgcnt++);
+    printf("sending response: %s\n", buf);
+    sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr *)&remoteaddr, addrlen);
   }
 
   return 0;
