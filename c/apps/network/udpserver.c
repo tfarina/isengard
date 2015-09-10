@@ -28,10 +28,11 @@ int main(void) {
 
   for (;;) {
     recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&from, &fromlen);
-    if (recvlen > 0) {
-      buf[recvlen] = '\0';
-      printf("received message: %s\n", buf);
+    if (recvlen <= 0) {
+     continue;
     }
+    buf[recvlen] = '\0';
+    printf("received message: %s\n", buf);
   }
 
   return 0;
