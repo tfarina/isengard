@@ -24,6 +24,9 @@ int main(int argc, char **argv) {
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
+  /* TODO: inet_addr is obsolet, look into replacing it by inet_aton or inet_pton.
+   * http://www.gnu.org/software/libc/manual/html_node/Host-Address-Functions.html
+   */
   servaddr.sin_addr.s_addr = inet_addr(argv[1]);
   servaddr.sin_port = htons(PORT);
 
