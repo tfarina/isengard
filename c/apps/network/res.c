@@ -20,14 +20,17 @@ int main(int argc, char **argv) {
   for (i = 0; i < res.nscount; ++i) {
     const struct sockaddr* addr = NULL;
     size_t addr_len = 0;
-    char str[INET_ADDRSTRLEN];
+    char str[INET6_ADDRSTRLEN];
     if (res.nsaddr_list[i].sin_family) {
       addr = (const struct sockaddr*)&res.nsaddr_list[i];
       addr_len = sizeof(res.nsaddr_list[i]);
       inet_ntop(AF_INET, &(((struct sockaddr_in *)addr)->sin_addr), str, INET_ADDRSTRLEN);
       printf("IPv4 %d: %s\n", i, str);
     } else if (res._u._ext.nsaddrs[i] != NULL) {
-      printf("IPv6 %d\n", i);
+      addr = (const struct sockaddr*)res._u._ext.nsaddrs[i];
+      addr_len = sizeof(*res._u._ext.nsaddrs[i]);
+      inet_ntop(AF_INET6, &(((struct sockaddr_in6 *)addr)->sin6_addr), str, INET6_ADDRSTRLEN);
+      printf("IPv6 %d: %s\n", i, str);
     }
 
     /* After you get the nameservers from resolv.conf, what do you do?
