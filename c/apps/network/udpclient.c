@@ -1,6 +1,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
 
@@ -15,6 +16,11 @@ int main(int argc, char **argv) {
   int sockfd;
   char buf[BUFLEN] = "hello udp server";
   int recvlen;
+
+  if (argc != 2) {
+    fprintf(stderr, "usage: udpclient #server-ip-address\n");
+    exit(EXIT_FAILURE);
+  }
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
