@@ -20,9 +20,8 @@ int main(int argc, char **argv) {
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
-  servaddr.sin_port = htons(SERVER_PORT);
-
   inet_pton(AF_INET, "127.0.0.1", &servaddr.sin_addr);
+  servaddr.sin_port = htons(SERVER_PORT);
 
   sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
