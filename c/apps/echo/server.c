@@ -18,6 +18,7 @@
 
 static void handle_client(int fd) {
   char str[MAXLINE];
+
   read(fd, str, MAXLINE);
   printf("Echoing back - %s", str);
   write(fd, str, strlen(str) + 1);
@@ -27,7 +28,7 @@ static void handle_client(int fd) {
   exit(1);
 }
 
-int main() {
+int main(int argc, char **argv) {
   struct sockaddr_in servaddr;
   int listen_fd;
   struct sockaddr_in cliaddr;
@@ -36,7 +37,6 @@ int main() {
   int pid;
 
   memset(&servaddr, 0, sizeof(servaddr));
-
   servaddr.sin_family = AF_INET;
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
   servaddr.sin_port = htons(SERVER_PORT);
