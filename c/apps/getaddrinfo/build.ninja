@@ -1,6 +1,7 @@
+cc = gcc
 builddir = out
 
 rule cc
-  command = gcc -o $out $in
+  command = $cc -o $out $in
 
 build $builddir/getaddrinfo: cc getaddrinfo.c
