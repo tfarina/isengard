@@ -69,6 +69,7 @@ go/hello_www
 go/tour/.ninja_deps
 go/tour/.ninja_log
 go/tour/out
+go/webapps/hello
 java/ant/build
 java/zetcodetutorial/build
 java/zetcodetutorial/sample.db
