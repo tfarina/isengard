@@ -18,10 +18,9 @@
 
 static void handle_client(int fd) {
   char buf[BUFSIZE];
+  int ret;
 
-  read(fd, buf, sizeof(buf));
-  printf("Echoing back - %s", buf);
-  write(fd, buf, strlen(buf) + 1);
+  while ((ret = read(fd, buf, sizeof(buf))) > 0 && write(fd, buf, ret) > 0);
 
   sleep(1);  /* allow socket to drain before signalling the socket is closed */
   close(fd);
