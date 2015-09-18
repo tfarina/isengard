@@ -1,9 +1,10 @@
 cc = clang
 cflags = -g -std=c99 -pedantic -Wall -O0
+defines = -D_POSIX_C_SOURCE=200112L
 prefix = /usr/local
 
 rule COMPILE_CC
-  command = $cc $cflags -c $in -o $out
+  command = $cc $cflags $defines -c $in -o $out
 
 rule LINK
   command = $cc $cflags -o $out $includes $ldflags $libs $in
@@ -31,6 +32,9 @@ build udpserver: LINK die.o udpserver.o
 
 build udpclient.o: COMPILE_CC udpclient.c
 build udpclient: LINK die.o udpclient.o
+
+build selectserver.o: COMPILE_CC selectserver.c
+build selectserver: LINK die.o selectserver.o
 
 build clean: CLEAN
 
