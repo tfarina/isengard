@@ -14,18 +14,19 @@
 
 #define SERVER_PORT 8088
 #define LISTENQ 1024
-#define MAXLINE 4096
+#define BUFSIZE 8129
 
 static void handle_client(int fd) {
-  char str[MAXLINE];
+  char buf[BUFSIZE];
 
-  read(fd, str, MAXLINE);
-  printf("Echoing back - %s", str);
-  write(fd, str, strlen(str) + 1);
+  read(fd, buf, sizeof(buf));
+  printf("Echoing back - %s", buf);
+  write(fd, buf, strlen(buf) + 1);
 
   sleep(1);  /* allow socket to drain before signalling the socket is closed */
   close(fd);
-  exit(1);
+
+  exit(EXIT_SUCCESS);
 }
 
 int main(int argc, char **argv) {
