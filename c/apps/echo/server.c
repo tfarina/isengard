@@ -13,7 +13,7 @@
 #include "die.h"
 
 #define SERVER_PORT 8088
-#define LISTENQ 1024
+#define BACKLOG 1024
 #define BUFSIZE 8129
 
 static void handle_client(int fd) {
@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
     die("bind failed");
 
-  if (listen(listen_fd, LISTENQ) < 0)
+  if (listen(listen_fd, BACKLOG) < 0)
     die("listen failed");
 
   fprintf(stderr,
