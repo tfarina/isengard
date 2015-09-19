@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
     if ((client_fd = accept(listen_fd, (struct sockaddr*)&cliaddr, &clilen)) < 0)
       die("accept failed");
 
-    printf("%s:%d connected\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
+    printf("Connection from %s:%d\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
     if ((pid = fork()) < 0) {
       die("fork failed");
