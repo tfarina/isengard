@@ -41,8 +41,7 @@ int main(int argc, char **argv) {
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
   servaddr.sin_port = htons(SERVER_PORT);
 
-  listen_fd = socket(AF_INET, SOCK_STREAM, 0);
-  if (listen_fd < 0)
+  if ((listen_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     die("cannot create socket");
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
