@@ -1,6 +1,7 @@
 /* https://vcansimplify.wordpress.com/2013/03/14/c-socket-tutorial-echo-server/ */
 
 #include <arpa/inet.h>
+#include <errno.h>
 #include <netdb.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -52,7 +53,7 @@ int main(int argc, char **argv) {
   servaddr.sin_port = htons(SERVER_PORT);
 
   if ((listen_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
-    die("cannot create socket");
+    die("socket failed: %s", strerror(errno));
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
     die("bind failed");
