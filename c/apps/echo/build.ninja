@@ -22,11 +22,11 @@ rule UNINSTALL
 
 build die.o: COMPILE_CC die.c
 
-build server.o: COMPILE_CC server.c
-build server: LINK die.o server.o
+build tcpserver.o: COMPILE_CC tcpserver.c
+build tcpserver: LINK die.o tcpserver.o
 
-build client.o: COMPILE_CC client.c
-build client: LINK client.o
+build tcpclient.o: COMPILE_CC tcpclient.c
+build tcpclient: LINK tcpclient.o
 
 build wrapunix.o: COMPILE_CC wrapunix.c
 build wrapsock.o: COMPILE_CC wrapsock.c
@@ -46,4 +46,4 @@ build tcpcli01: LINK die.o wrapunix.o wrapsock.o wraplib.o wrapstdio.o readline.
 
 build clean: CLEAN
 
-default server
+default tcpserver

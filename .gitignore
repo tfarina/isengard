@@ -30,10 +30,10 @@ buf/out/
 c/apps/echo/*.o
 c/apps/echo/.ninja_deps
 c/apps/echo/.ninja_log
-c/apps/echo/client
-c/apps/echo/server
 c/apps/echo/tcpcli01
+c/apps/echo/tcpclient
 c/apps/echo/tcpserv01
+c/apps/echo/tcpserver
 c/apps/imap/imap
 c/apps/imap/.ninja_deps
 c/apps/imap/.ninja_log
@@ -42,6 +42,7 @@ c/apps/network/.ninja_deps
 c/apps/network/.ninja_log
 c/apps/network/*.o
 c/apps/network/getaddrinfo/out/
+c/apps/network/selectserver
 c/apps/network/timeserver
 c/apps/network/udpclient
 c/apps/network/udpserver
