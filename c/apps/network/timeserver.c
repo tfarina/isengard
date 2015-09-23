@@ -8,13 +8,16 @@
  */
 
 #include <arpa/inet.h>
+#include <errno.h>
 #include <netdb.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <time.h>
 
@@ -35,12 +38,15 @@ static void doprocessing(int sockfd) {
   exit(EXIT_SUCCESS);
 }
 
+static void reapchld(int sig) {
+  while (waitpid(-1, NULL, WNOHANG) > 0);
+}
+
 int main() {
   struct sockaddr_in servaddr;
   int listen_fd;
   int client_fd;
   int opt = 1;
-  pid_t pid;
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
@@ -63,21 +69,32 @@ int main() {
           "The server is now ready to accept connections on port %d\n",
           SERVER_PORT);
 
+  struct sigaction act;
+  act.sa_flags = 0;
+  act.sa_handler = reapchld;
+  sigemptyset(&act.sa_mask);
+  sigaction(SIGCHLD, &act, 0);
+
   while (1) {
-    if ((client_fd = accept(listen_fd, NULL, NULL)) == -1)
+    if ((client_fd = accept(listen_fd, NULL, NULL)) == -1) {
+      if (errno == EINTR) /* EINTR might happen on accept. */
+        continue;
       die("accept failed");
+    }
 
-    /* Create child process. */
-    if ((pid = fork()) == -1)
-      die("fork failed");
+    switch (fork()) {
+      case -1:
+        close(listen_fd);
+        close(client_fd);
+        die("fork failed");
 
-    if (pid == 0) {
-      /* Client process. */
-      close(listen_fd);
-      doprocessing(client_fd);
-    } else {
-      /* Parent process. */
-      close(client_fd);
+      case 0:
+        close(listen_fd);
+        doprocessing(client_fd);
+
+      default:
+        close(client_fd); /* we are the parent so look for another connection. */
+        continue;
     }
   }
 
