@@ -26,7 +26,7 @@
 
 #define SERVER_PORT 8088
 #define BACKLOG 1024
-#define BUFSIZE 256
+#define MAXLINE 4096
 
 typedef void (*sig_handler)(int);
 
@@ -49,11 +49,11 @@ static void handle_chld(int sig) {
 /* Echo the current day time to the connected client. */
 static void process_request(int sockfd) {
   time_t t;
-  char buf[BUFSIZE];
+  char str[MAXLINE];
 
   time(&t);
-  sprintf(buf, "%.24s\r\n", ctime(&t));
-  Writen(sockfd, buf, strlen(buf));
+  sprintf(str, "%.24s\r\n", ctime(&t));
+  Writen(sockfd, str, strlen(str));
 }
 
 int main(int argc, char **argv) {
