@@ -7,7 +7,6 @@
  * $ ./timeserver &
  */
 
-#include <errno.h>
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <stdio.h>
@@ -16,9 +15,7 @@
 #include <strings.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <sys/wait.h>
 #include <unistd.h>
-#include <signal.h>
 #include <time.h>
 
 #include "die.h"
@@ -27,24 +24,6 @@
 #define SERVER_PORT 8088
 #define BACKLOG 1024
 #define MAXLINE 4096
-
-typedef void (*sig_handler)(int);
-
-static void set_sighandler(int sig, sig_handler sh) {
-  struct sigaction act;
-
-  act.sa_flags = 0;
-  act.sa_handler = sh;
-
-  sigemptyset(&act.sa_mask);
-  sigaction(sig, &act, 0);
-}
-
-static void handle_chld(int sig) {
-  int status, pid;
-
-  while ((pid = waitpid(-1, &status, WNOHANG)) > 0);
-}
 
 /* Echo the current day time to the connected client. */
 static void process_request(int sockfd) {
@@ -83,8 +62,6 @@ int main(int argc, char **argv) {
   fprintf(stderr,
           "The server is now ready to accept connections on port %d\n",
           SERVER_PORT);
-
-  set_sighandler(SIGCHLD, handle_chld);
 
   while (1) {
     if ((client_fd = accept(listen_fd, NULL, NULL)) == -1)
