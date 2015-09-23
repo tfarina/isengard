@@ -26,21 +26,22 @@
 #define MAXLINE 4096
 
 /* Echo the current day time to the connected client. */
-static void process_request(int sockfd) {
+static void doprocessing(int sockfd) {
   time_t t;
   char str[MAXLINE];
 
   time(&t);
   sprintf(str, "%.24s\r\n", ctime(&t));
   Writen(sockfd, str, strlen(str));
+  exit(EXIT_SUCCESS);
 }
 
-int main(int argc, char **argv) {
+int main() {
   struct sockaddr_in servaddr;
   int listen_fd;
   int client_fd;
   int opt = 1;
-  pid_t childpid;
+  pid_t pid;
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
@@ -68,18 +69,17 @@ int main(int argc, char **argv) {
       die("accept failed");
 
     /* Create child process. */
-    if ((childpid = fork()) == -1)
+    if ((pid = fork()) == -1)
       die("fork failed");
 
-    if (childpid == 0) {
+    if (pid == 0) {
       /* Client process. */
       close(listen_fd);
-      process_request(client_fd);
-      exit(EXIT_SUCCESS);
+      doprocessing(client_fd);
+    } else {
+      /* Parent process. */
+      close(client_fd);
     }
-
-    /* Parent process. */
-    close(client_fd);
   }
 
   return EXIT_SUCCESS;
