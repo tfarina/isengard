@@ -25,16 +25,16 @@
 
 #define SERVER_PORT 8088
 #define BACKLOG 1024
-#define MAXLINE 4096
+#define BUFSIZE 256
 
 /* Echo the current day time to the connected client. */
 static void doprocessing(int sockfd) {
   time_t t;
-  char str[MAXLINE];
+  char buf[BUFSIZE];
 
   time(&t);
-  sprintf(str, "%.24s\r\n", ctime(&t));
-  write(sockfd, str, strlen(str));
+  sprintf(buf, "%.24s\r\n", ctime(&t));
+  write(sockfd, buf, strlen(buf));
   exit(EXIT_SUCCESS);
 }
 
