@@ -54,10 +54,6 @@ static void process_request(int sockfd) {
   time(&t);
   sprintf(buf, "%.24s\r\n", ctime(&t));
   Writen(sockfd, buf, strlen(buf));
-
-  sleep(1);
-  close(sockfd);
-  exit(EXIT_SUCCESS);
 }
 
 int main(int argc, char **argv) {
@@ -65,7 +61,7 @@ int main(int argc, char **argv) {
   int listen_fd;
   int client_fd;
   int opt = 1;
-  pid_t pid;
+  pid_t childpid;
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
@@ -95,17 +91,18 @@ int main(int argc, char **argv) {
       die("accept failed");
 
     /* Create child process. */
-    if ((pid = fork()) == -1)
+    if ((childpid = fork()) == -1)
       die("fork failed");
 
-    if (pid == 0) {
+    if (childpid == 0) {
       /* Client process. */
       close(listen_fd);
       process_request(client_fd);
-    } else {
-      /* Parent process. */
-      close(client_fd);
+      exit(EXIT_SUCCESS);
     }
+
+    /* Parent process. */
+    close(client_fd);
   }
 
   return EXIT_SUCCESS;
