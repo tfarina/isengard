@@ -19,7 +19,6 @@
 #include <time.h>
 
 #include "die.h"
-#include "util.h"
 
 #define SERVER_PORT 8088
 #define BACKLOG 1024
@@ -32,7 +31,7 @@ static void doprocessing(int sockfd) {
 
   time(&t);
   sprintf(str, "%.24s\r\n", ctime(&t));
-  Writen(sockfd, str, strlen(str));
+  write(sockfd, str, strlen(str));
   exit(EXIT_SUCCESS);
 }
 
