@@ -1,0 +1,1 @@
+The free() function shall cause the space pointed to by ptr to be deallocated; that is, made available for further allocation. If ptr is a null pointer, no action shall occur.

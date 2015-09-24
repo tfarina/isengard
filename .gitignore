@@ -27,6 +27,9 @@ asm/rayseyfarth/ch02/.ninja_deps
 asm/rayseyfarth/ch02/.ninja_log
 asm/rayseyfarth/ch02/*.o
 buf/out/
+c/apps/*.o
+c/apps/.ninja_deps
+c/apps/.ninja_log
 c/apps/echo/*.o
 c/apps/echo/.ninja_deps
 c/apps/echo/.ninja_log
@@ -42,6 +45,7 @@ c/apps/network/.ninja_deps
 c/apps/network/.ninja_log
 c/apps/network/*.o
 c/apps/network/getaddrinfo/out/
+c/apps/network/res
 c/apps/network/selectserver
 c/apps/network/timeserver
 c/apps/network/udpclient
@@ -50,6 +54,7 @@ c/apps/network/webserver/.ninja_deps
 c/apps/network/webserver/.ninja_log
 c/apps/network/webserver/*.o
 c/apps/network/webserver/webserver
+c/apps/readfile
 c/apps/select/out/
 c/apps/showip/out/
 c/apps/sizeck/out/

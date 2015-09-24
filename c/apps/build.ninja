@@ -1,0 +1,8 @@
+builddir = out
+cc = gcc
+cflags = -Wall -Wextra -Wno-unused-parameter -g
+
+rule cc
+  command = $cc $cflags -o $out $in
+
+build readfile: cc readfile.c
