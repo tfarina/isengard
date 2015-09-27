@@ -8,7 +8,12 @@ int main(int argc, char **argv) {
   long length;
   FILE *f;
 
-  f = fopen("foo.txt", "rb");
+  if (argc != 2) {
+    fprintf(stderr, "usage: readfile <filename>\n");
+    exit(EXIT_FAILURE);
+  }
+
+  f = fopen(argv[1], "rb");
   if (f == NULL || fseek(f, 0, SEEK_END) != 0) {
     goto out;
   }
