@@ -21,8 +21,10 @@ rule UNINSTALL
   command = rm -f $prefix/bin/$in
 
 build die.o: COMPILE_CC die.c
+  cflags = $cflags -ansi
 
 build webserver.o: COMPILE_CC webserver.c
+  cflags = $cflags -ansi
 build webserver: LINK die.o webserver.o
 
 build clean: CLEAN

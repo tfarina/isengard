@@ -3,4 +3,4 @@
 
 void die(const char *msg, ...);
 
-#endif  // DIE_H_
+#endif  /* DIE_H_ */
