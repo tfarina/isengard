@@ -1,6 +1,7 @@
 /* https://vcansimplify.wordpress.com/2013/03/14/c-socket-tutorial-echo-server/ */
 
 #include <arpa/inet.h>
+#include <errno.h>
 #include <netdb.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,6 +9,8 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+#include "die.h"
 
 #define SERVER_PORT 8088
 #define MAXLINE 4096
@@ -23,7 +26,8 @@ int main(int argc, char **argv) {
   inet_pton(AF_INET, "127.0.0.1", &servaddr.sin_addr);
   servaddr.sin_port = htons(SERVER_PORT);
 
-  sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+    die("socket failed: %s", strerror(errno));
 
   connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
