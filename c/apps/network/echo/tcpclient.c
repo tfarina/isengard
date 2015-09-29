@@ -37,7 +37,8 @@ int main(int argc, char **argv) {
   if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     die("socket failed: %s", strerror(errno));
 
-  connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
+  if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1)
+    die("connect failed: %s", strerror(errno));
 
   while (1) {
     memset(sendline, 0, sizeof(sendline));
