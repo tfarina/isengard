@@ -1,0 +1,33 @@
+cc = clang
+cflags = -g -std=c99 -pedantic -Wall -O0
+prefix = /usr/local
+
+rule COMPILE_CC
+  command = $cc $cflags -c $in -o $out
+
+rule LINK
+  command = $cc $cflags -o $out $includes $ldflags $libs $in
+
+rule CLEAN
+  description = cleaning
+  command = rm -rf *.o
+
+rule INSTALL
+  description = installing $in to $prefix/bin
+  command = install $in $prefix/bin
+
+rule UNINSTALL
+  description = removing $in from $prefix/bin
+  command = rm -f $prefix/bin/$in
+
+build die.o: COMPILE_CC die.c
+
+build tcpserver.o: COMPILE_CC tcpserver.c
+build tcpserver: LINK die.o tcpserver.o
+
+build tcpclient.o: COMPILE_CC tcpclient.c
+build tcpclient: LINK tcpclient.o
+
+build clean: CLEAN
+
+default tcpserver

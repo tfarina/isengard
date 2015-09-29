@@ -22,12 +22,6 @@ rule UNINSTALL
 
 build die.o: COMPILE_CC die.c
 
-build tcpserver.o: COMPILE_CC tcpserver.c
-build tcpserver: LINK die.o tcpserver.o
-
-build tcpclient.o: COMPILE_CC tcpclient.c
-build tcpclient: LINK tcpclient.o
-
 build wrapunix.o: COMPILE_CC wrapunix.c
 build wrapsock.o: COMPILE_CC wrapsock.c
 build writen.o: COMPILE_CC writen.c
