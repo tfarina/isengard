@@ -13,13 +13,13 @@
 #include "die.h"
 
 #define SERVER_PORT 8088
-#define MAXLINE 4096
+#define BUFSIZE 4096
 
 int main(int argc, char **argv) {
   struct sockaddr_in servaddr;
   int sockfd;
-  char sendline[MAXLINE];
-  char recvline[MAXLINE];
+  char sendline[BUFSIZE];
+  char recvline[BUFSIZE];
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
@@ -32,12 +32,12 @@ int main(int argc, char **argv) {
   connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
   while (1) {
-    bzero(sendline, MAXLINE);
-    bzero(recvline, MAXLINE);
-    fgets(sendline, MAXLINE, stdin); /*stdin = 0 , for standard input */
+    bzero(sendline, BUFSIZE);
+    bzero(recvline, BUFSIZE);
+    fgets(sendline, BUFSIZE, stdin); /*stdin = 0 , for standard input */
 
     write(sockfd, sendline, strlen(sendline) + 1);
-    read(sockfd, recvline, MAXLINE);
+    read(sockfd, recvline, BUFSIZE);
     printf("%s", recvline);
   }
 
