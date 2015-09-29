@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <netdb.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <strings.h>
 #include <sys/socket.h>
@@ -21,9 +22,14 @@ int main(int argc, char **argv) {
   char sendline[BUFSIZE];
   char recvline[BUFSIZE];
 
+  if (argc != 2) {
+    fprintf(stderr, "usage: tcpclient #server-ip-address\n");
+    exit(EXIT_FAILURE);
+  }
+
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
-  inet_pton(AF_INET, "127.0.0.1", &servaddr.sin_addr);
+  inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
   servaddr.sin_port = htons(SERVER_PORT);
 
   if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
