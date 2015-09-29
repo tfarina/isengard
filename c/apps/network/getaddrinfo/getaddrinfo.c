@@ -8,10 +8,7 @@
 
 /* Get ip from domain name. */
 static int hostname_to_ip(char *hostname, char *ip) {
-  int sockfd;
-  struct addrinfo hints;
-  struct addrinfo *servinfo;
-  struct addrinfo *p;
+  struct addrinfo hints, *servinfo, *p;
   struct sockaddr_in *h;
   int rv;
 
@@ -36,13 +33,15 @@ static int hostname_to_ip(char *hostname, char *ip) {
 }
 
 int main(int argc, char **argv) {
-  char *hostname = argv[1];
+  char *hostname = NULL;
   char ip[100];
 
   if (argc < 2) {
     fprintf(stderr, "Please, provide a hostname to resolve\n");
     exit(EXIT_FAILURE);
   }
+
+  hostname = argv[1];
 
   hostname_to_ip(hostname, ip);
   printf("%s resolved to %s\n", hostname, ip);
