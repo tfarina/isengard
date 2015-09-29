@@ -40,11 +40,13 @@ int main(int argc, char **argv) {
   connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
   while (1) {
-    bzero(sendline, BUFSIZE);
-    bzero(recvline, BUFSIZE);
+    memset(sendline, 0, sizeof(sendline));
+    memset(recvline, 0, sizeof(recvline));
+
     fgets(sendline, BUFSIZE, stdin); /*stdin = 0 , for standard input */
 
     write(sockfd, sendline, strlen(sendline) + 1);
+
     read(sockfd, recvline, BUFSIZE);
     printf("%s", recvline);
   }
