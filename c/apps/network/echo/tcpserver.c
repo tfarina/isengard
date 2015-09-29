@@ -13,7 +13,6 @@
 
 #include "die.h"
 
-#define SERVER_PORT 8088
 #define BACKLOG 1024
 #define BUFSIZE 8129
 
@@ -41,16 +40,24 @@ static void handle_client(int fd) {
 
 int main(int argc, char **argv) {
   struct sockaddr_in servaddr;
+  int port;
   int listen_fd;
   struct sockaddr_in cliaddr;
   socklen_t clilen = sizeof(cliaddr);
   int client_fd;
   int pid;
 
+  if (argc != 2) {
+    fprintf(stderr, "usage: tcpserver #port-number\n");
+    exit(EXIT_FAILURE);
+  }
+
+  port = atoi(argv[1]);
+
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-  servaddr.sin_port = htons(SERVER_PORT);
+  servaddr.sin_port = htons(port);
 
   if ((listen_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
     die("socket failed: %s", strerror(errno));
@@ -63,7 +70,7 @@ int main(int argc, char **argv) {
 
   fprintf(stderr,
           "The server is now ready to accept connections on port %d\n",
-          SERVER_PORT);
+          port);
 
   while (1) {
     if ((client_fd = accept(listen_fd, (struct sockaddr*)&cliaddr, &clilen)) < 0)

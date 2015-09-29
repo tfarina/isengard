@@ -13,24 +13,26 @@
 
 #include "die.h"
 
-#define SERVER_PORT 8088
 #define BUFSIZE 4096
 
 int main(int argc, char **argv) {
   struct sockaddr_in servaddr;
+  int port;
   int sockfd;
   char sendline[BUFSIZE];
   char recvline[BUFSIZE];
 
-  if (argc != 2) {
-    fprintf(stderr, "usage: tcpclient #server-ip-address\n");
+  if (argc != 3) {
+    fprintf(stderr, "usage: tcpclient #server-ip-address #port-number\n");
     exit(EXIT_FAILURE);
   }
+
+  port = atoi(argv[2]);
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
   inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
-  servaddr.sin_port = htons(SERVER_PORT);
+  servaddr.sin_port = htons(port);
 
   if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     die("socket failed: %s", strerror(errno));
