@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
     write(sockfd, sendline, strlen(sendline) + 1);
 
     read(sockfd, recvline, BUFSIZE);
-    printf("%s", recvline);
+    fputs(recvline, stdout);
   }
 
   return 0;
