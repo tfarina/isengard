@@ -31,8 +31,8 @@ int main(int argc, char **argv) {
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
-  inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
   servaddr.sin_port = htons(port);
+  inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
 
   if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     die("socket failed: %s", strerror(errno));
