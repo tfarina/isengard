@@ -40,10 +40,10 @@ int main(int argc, char **argv) {
   if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1)
     die("connect failed: %s", strerror(errno));
 
-  while (1) {
-    memset(sendline, 0, sizeof(sendline));
-    memset(recvline, 0, sizeof(recvline));
+  memset(sendline, 0, sizeof(sendline));
+  memset(recvline, 0, sizeof(recvline));
 
+  while (1) {
     fgets(sendline, BUFSIZE, stdin); /*stdin = 0 , for standard input */
 
     write(sockfd, sendline, strlen(sendline) + 1);
