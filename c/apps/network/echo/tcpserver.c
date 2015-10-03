@@ -42,6 +42,7 @@ int main(int argc, char **argv) {
   struct sockaddr_in servaddr;
   int port;
   int listen_fd;
+  int on = 1;
   struct sockaddr_in cliaddr;
   socklen_t clilen = sizeof(cliaddr);
   int client_fd;
@@ -61,6 +62,9 @@ int main(int argc, char **argv) {
 
   if ((listen_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
     die("socket failed: %s", strerror(errno));
+
+  if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) == -1)
+    die("setsockopt SO_REUSEADDR: %s", strerror(errno));
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
     die("bind failed");
