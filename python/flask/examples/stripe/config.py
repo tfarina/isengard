@@ -1,5 +1,5 @@
 '''
-   Config options for the stripe_payment app.
+   Config options for the shop app.
    Author: Muneeb Ali | http://muneeb.org
    License: MIT (see LICENSE)
 '''
