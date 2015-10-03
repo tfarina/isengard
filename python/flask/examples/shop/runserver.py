@@ -1,5 +1,5 @@
 import os
-from stripe_flask import app
+from shop import app
 
 
 def runserver():
