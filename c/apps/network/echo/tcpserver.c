@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
     die("bind failed");
 
   if (listen(listen_fd, BACKLOG) < 0)
-    die("listen failed");
+    die("listen failed: %s", strerror(errno));
 
   fprintf(stderr,
           "The server is now ready to accept connections on port %d\n",
