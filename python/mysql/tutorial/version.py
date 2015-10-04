@@ -2,7 +2,12 @@
 
 import MySQLdb as mdb
 
-connection = mdb.connect('localhost', 'vrossi', 'vr46', 'valentino')
+DB_HOST = 'localhost'
+DB_USER = 'vrossi'
+DB_PASS = 'vr46'
+DB_NAME = 'valentino'
+
+connection = mdb.connect(DB_HOST, DB_USER, DB_PASS, DB_NAME)
 
 with connection:
   cursor = connection.cursor()
