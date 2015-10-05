@@ -35,10 +35,11 @@ int main(void) {
     }
     buf[recvlen] = '\0';
     printf("received message: %s\n", buf);
+
     sprintf(buf, "ack %d", msgcnt++);
-    printf("sending response: %s\n", buf);
     if (sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr *)&remoteaddr, addrlen) == -1)
       die("sendto failed: %s", strerror(errno));
+    printf("response sent: %s\n", buf);
   }
 
   return 0;
