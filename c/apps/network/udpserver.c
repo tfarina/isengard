@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <netinet/in.h>
 #include <stdio.h>
 #include <string.h>
@@ -10,7 +11,7 @@
 
 int main(void) {
   struct sockaddr_in myaddr, remoteaddr;
-  socklen_t addrlen;
+  socklen_t addrlen = sizeof(remoteaddr);
   int sockfd;
   int recvlen;
   char buf[BUFLEN];
@@ -36,7 +37,8 @@ int main(void) {
     printf("received message: %s\n", buf);
     sprintf(buf, "ack %d", msgcnt++);
     printf("sending response: %s\n", buf);
-    sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr *)&remoteaddr, addrlen);
+    if (sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr *)&remoteaddr, addrlen) == -1)
+      die("sendto failed: %s", strerror(errno));
   }
 
   return 0;
