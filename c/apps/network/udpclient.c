@@ -1,4 +1,5 @@
 #include <arpa/inet.h>
+#include <errno.h>
 #include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,7 +32,8 @@ int main(int argc, char **argv) {
     die("cannot create socket");
 
   printf("sending message: \"%s\" to %s on port %d\n", buf, argv[1], PORT);
-  sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr *)&servaddr, addrlen);
+  if (sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr *)&servaddr, addrlen) == -1)
+    die("sendto failed: %s", strerror(errno));
 
   recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&servaddr, &addrlen);
   if (recvlen > 0) {
