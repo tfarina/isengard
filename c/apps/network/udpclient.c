@@ -25,15 +25,17 @@ int main(int argc, char **argv) {
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
-  inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
   servaddr.sin_port = htons(PORT);
+  inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
 
   if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1)
     die("cannot create socket");
 
-  printf("sending message: \"%s\" to %s on port %d\n", buf, argv[1], PORT);
+  printf("sending message to %s:%d\n", argv[1], PORT);
+
   if (sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr *)&servaddr, addrlen) == -1)
     die("sendto failed: %s", strerror(errno));
+  printf("message sent: %s\n", buf);
 
   recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&servaddr, &addrlen);
   if (recvlen > 0) {
