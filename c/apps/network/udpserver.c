@@ -28,6 +28,8 @@ int main(void) {
   if (bind(sockfd, (struct sockaddr *)&myaddr, sizeof(myaddr)) == -1)
     die("bind failed");
 
+  printf("listening on port %d\n", PORT);
+
   for (;;) {
     recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&remoteaddr, &addrlen);
     if (recvlen <= 0) {
