@@ -9,6 +9,7 @@
 #include <strings.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 #include "die.h"
@@ -47,6 +48,7 @@ int main(int argc, char **argv) {
   socklen_t clilen = sizeof(cliaddr);
   int client_fd;
   int pid;
+  unsigned int num_children = 0; /* Number of child processes. */
 
   if (argc != 2) {
     fprintf(stderr, "usage: tcpserver #port-number\n");
@@ -90,6 +92,20 @@ int main(int argc, char **argv) {
         handle_client(client_fd);
       } else {	/* parent */
         (void)close(client_fd);
+        num_children++;
+
+        printf("Num children: %d\n", num_children);
+
+        /* Clean up all the zombies. */
+        while (num_children) {
+          if ((pid = waitpid(-1, NULL, WNOHANG)) == -1) {
+            die("waitpid failed");
+          } else if (pid == 0) {
+            break;
+          } else {
+            num_children--;
+          }
+        }
       }
     }
   }
