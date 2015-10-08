@@ -68,10 +68,10 @@ int main(int argc, char **argv) {
   if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) == -1)
     die("setsockopt SO_REUSEADDR: %s", strerror(errno));
 
-  if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
+  if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
     die("bind failed");
 
-  if (listen(listen_fd, BACKLOG) < 0)
+  if (listen(listen_fd, BACKLOG) == -1)
     die("listen failed: %s", strerror(errno));
 
   fprintf(stderr,
