@@ -8,7 +8,7 @@
 
 /* Get ip from domain name. */
 static int hostname_to_ip(char *hostname, char *ip) {
-  struct addrinfo hints, *servinfo, *p;
+  struct addrinfo hints, *addrlist, *cur;
   struct sockaddr_in *h;
   int rv;
 
@@ -16,18 +16,18 @@ static int hostname_to_ip(char *hostname, char *ip) {
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
 
-  if ((rv = getaddrinfo(hostname, "http", &hints, &servinfo)) != 0) {
+  if ((rv = getaddrinfo(hostname, "http", &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
     return 1;
   }
 
-  for (p = servinfo; p != NULL; p = p->ai_next) {
-    h = (struct sockaddr_in *)p->ai_addr;
+  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
+    h = (struct sockaddr_in *)cur->ai_addr;
     strcpy(ip, inet_ntoa(h->sin_addr));
     printf("%s\n", ip);
   }
 
-  freeaddrinfo(servinfo);
+  freeaddrinfo(addrlist);
 
   return 0;
 }
