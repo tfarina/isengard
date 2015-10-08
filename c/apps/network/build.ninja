@@ -36,6 +36,9 @@ build udpclient: LINK die.o udpclient.o
 build selectserver.o: COMPILE_CC selectserver.c
 build selectserver: LINK die.o selectserver.o
 
+build hostname.o: COMPILE_CC hostname.c
+build hostname: LINK hostname.o
+
 build clean: CLEAN
 
 default timeserver
