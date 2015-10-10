@@ -11,7 +11,7 @@
 #include <string.h>
 
 int main(int argc, char **argv) {
-  struct addrinfo hints, *res, *p;
+  struct addrinfo hints, *addrlist, *cur;
   int ret;
   char ipstr[INET6_ADDRSTRLEN];
 
@@ -24,34 +24,34 @@ int main(int argc, char **argv) {
   hints.ai_family = AF_UNSPEC; /* AF_INET or AF_INET6 */
   hints.ai_socktype = SOCK_STREAM;
 
-  if ((ret = getaddrinfo(argv[1], NULL, &hints, &res)) != 0) {
+  if ((ret = getaddrinfo(argv[1], NULL, &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(ret));
     exit(EXIT_FAILURE);
   }
 
   printf("IP addresses for %s:\n\n", argv[1]);
 
-  for (p = res; p != NULL; p = p->ai_next) {
+  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
     void *addr;
     char *ipver;
 
     /* Get the pointer to the address. */
-    if (p->ai_family == AF_INET) {
-      struct sockaddr_in *ipv4 = (struct sockaddr_in *)p->ai_addr;
+    if (cur->ai_family == AF_INET) {
+      struct sockaddr_in *ipv4 = (struct sockaddr_in *)cur->ai_addr;
       addr = &(ipv4->sin_addr);
       ipver = "IPv4";
     } else {
-      struct sockaddr_in6 *ipv6 = (struct sockaddr_in6 *)p->ai_addr;
+      struct sockaddr_in6 *ipv6 = (struct sockaddr_in6 *)cur->ai_addr;
       addr = &(ipv6->sin6_addr);
       ipver = "IPv6";
     }
 
     /* Convert the IP to a string and print it. */
-    inet_ntop(p->ai_family, addr, ipstr, sizeof(ipstr));
+    inet_ntop(cur->ai_family, addr, ipstr, sizeof(ipstr));
     printf("%s: %s\n", ipver, ipstr);
   }
 
-  freeaddrinfo(res);  /* Free the linked list pointer */
+  freeaddrinfo(addrlist);  /* We are done with this structure. */
 
   return 0;
 }
