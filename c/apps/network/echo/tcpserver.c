@@ -88,10 +88,10 @@ int main(int argc, char **argv) {
       die("fork failed");
     } else {
       if (pid == 0) {	/* child */
-	(void)close(listen_fd);
+	close(listen_fd);
         handle_client(client_fd);
       } else {	/* parent */
-        (void)close(client_fd);
+        close(client_fd);
         num_children++;
 
         printf("Num children: %d\n", num_children);
