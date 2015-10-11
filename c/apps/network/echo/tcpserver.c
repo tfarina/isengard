@@ -49,6 +49,7 @@ int main(int argc, char **argv) {
   int client_fd;
   int pid;
   unsigned int num_children = 0; /* Number of child processes. */
+  char strport[NI_MAXSERV];
 
   if (argc != 2) {
     fprintf(stderr, "usage: tcpserver #port-number\n");
@@ -56,6 +57,7 @@ int main(int argc, char **argv) {
   }
 
   port = atoi(argv[1]);
+  snprintf(strport, sizeof(strport), "%d", port);
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
@@ -69,7 +71,7 @@ int main(int argc, char **argv) {
     die("setsockopt SO_REUSEADDR: %s", strerror(errno));
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
-    die("bind failed");
+    die("bind to port %s failed: %.200s", strport, strerror(errno));
 
   if (listen(listen_fd, BACKLOG) == -1)
     die("listen failed: %s", strerror(errno));

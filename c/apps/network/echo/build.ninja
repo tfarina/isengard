@@ -1,9 +1,10 @@
 cc = clang
+defines = -D_GNU_SOURCE
 cflags = -g -std=c99 -pedantic -Wall -O0
 prefix = /usr/local
 
 rule COMPILE_CC
-  command = $cc $cflags -c $in -o $out
+  command = $cc $defines $cflags -c $in -o $out
 
 rule LINK
   command = $cc $cflags -o $out $includes $ldflags $libs $in
