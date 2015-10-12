@@ -48,7 +48,8 @@ int main(int argc, char **argv) {
   int client_fd;
   int pid;
   unsigned int num_children = 0; /* Number of child processes. */
-  char strport[NI_MAXSERV];
+  char strport[NI_MAXSERV], ntop[NI_MAXHOST];
+  int ret;
 
   if (argc != 2) {
     fprintf(stderr, "usage: tcpserver #port-number\n");
@@ -63,6 +64,12 @@ int main(int argc, char **argv) {
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
   servaddr.sin_port = htons(port);
 
+  if ((ret = getnameinfo((struct sockaddr *)&servaddr, sizeof(servaddr),
+                         ntop, sizeof(ntop), strport, sizeof(strport),
+                         NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
+    die("getnameinfo failed: %.100s", gai_strerror(ret));
+  }
+
   if ((listen_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
     die("socket failed: %s", strerror(errno));
 
@@ -76,8 +83,8 @@ int main(int argc, char **argv) {
     die("listen failed: %s", strerror(errno));
 
   fprintf(stderr,
-          "The server is now ready to accept connections on port %d\n",
-          port);
+          "The server is now ready to accept connections on %s port %d\n",
+          ntop, port);
 
   while (1) {
     if ((client_fd = accept(listen_fd, (struct sockaddr*)&cliaddr, &clilen)) == -1)
