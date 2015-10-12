@@ -18,10 +18,9 @@
 #define BUFSIZE 8129
 
 static char *ipaddr(const struct sockaddr *sa) {
-  struct sockaddr_in *sin = (struct sockaddr_in *)sa;
   static char str[128];
 
-  if (inet_ntop(AF_INET, &sin->sin_addr, str, sizeof(str)) == NULL)
+  if (inet_ntop(AF_INET, &(((struct sockaddr_in *)sa)->sin_addr), str, sizeof(str)) == NULL)
     return NULL;
 
   return str;
