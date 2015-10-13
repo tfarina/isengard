@@ -17,15 +17,6 @@
 #define BACKLOG 1024
 #define BUFSIZE 8129
 
-static char *ipaddr(const struct sockaddr *sa) {
-  static char str[128];
-
-  if (inet_ntop(AF_INET, &(((struct sockaddr_in *)sa)->sin_addr), str, sizeof(str)) == NULL)
-    return NULL;
-
-  return str;
-}
-
 static void handle_client(int fd) {
   char buf[BUFSIZE];
   int ret;
@@ -90,7 +81,13 @@ int main(int argc, char **argv) {
     if ((client_fd = accept(listen_fd, (struct sockaddr*)&cliaddr, &clilen)) == -1)
       die("accept failed");
 
-    printf("Connection from %s:%d\n", ipaddr((struct sockaddr *)&cliaddr), ntohs(cliaddr.sin_port));
+    if ((ret = getnameinfo((struct sockaddr *)&cliaddr, sizeof(cliaddr),
+                           ntop, sizeof(ntop), strport, sizeof(strport),
+                           NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
+      die("getnameinfo failed: %.100s", gai_strerror(ret));
+    }
+
+    printf("Connection from %s:%s\n", ntop, strport);
 
     if ((pid = fork()) < 0) {
       die("fork failed");
