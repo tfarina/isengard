@@ -6,3 +6,4 @@ rule cc
   command = $cc $cflags -o $out $in
 
 build readfile: cc readfile.c
+build buildtime: cc buildtime.c
