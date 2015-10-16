@@ -6,7 +6,12 @@
 #include <stdlib.h>
 #include <mysql.h>
 
-void finish_with_error(MYSQL *con) {
+static const char kDBHost[] = "localhost";
+static const char kDBUser[] = "ken";
+static const char kDBPassword[] = "194304";
+static const char kDBName[] = "ctestdb";
+
+static void finish_with_error(MYSQL *con) {
   fprintf(stderr, "%s\n", mysql_error(con));
   mysql_close(con);
   exit(1); 
@@ -20,7 +25,7 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
-  if (mysql_real_connect(con, "localhost", "ken", "194304", "ctestdb", 0, NULL, 0) == NULL) {
+  if (mysql_real_connect(con, kDBHost, kDBUser, kDBPassword, kDBName, 0, NULL, 0) == NULL) {
     finish_with_error(con);
   }
 
