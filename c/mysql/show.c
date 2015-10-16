@@ -18,26 +18,26 @@ static void finish_with_error(MYSQL *con) {
 }
 
 int main(int argc, char **argv) {
-  MYSQL *con = mysql_init(NULL);
+  MYSQL *sql = mysql_init(NULL);
   unsigned int port = 0;
 
-  if (con == NULL) {
+  if (sql == NULL) {
     fprintf(stderr, "mysql_init() failed\n");
     exit(1);
   }
 
-  if (mysql_real_connect(con, kDBHost, kDBUser, kDBPassword, kDBName, port, NULL, 0) == NULL) {
-    finish_with_error(con);
+  if (mysql_real_connect(sql, kDBHost, kDBUser, kDBPassword, kDBName, port, NULL, 0) == NULL) {
+    finish_with_error(sql);
   }
 
-  if (mysql_query(con, "SELECT * FROM bookmarks")) {
-    finish_with_error(con);
+  if (mysql_query(sql, "SELECT * FROM bookmarks")) {
+    finish_with_error(sql);
   }
 
-  MYSQL_RES *result = mysql_store_result(con);
+  MYSQL_RES *result = mysql_store_result(sql);
 
   if (result == NULL) {
-    finish_with_error(con);
+    finish_with_error(sql);
   }
 
   int num_fields = mysql_num_fields(result);
@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
   }
 
   mysql_free_result(result);
-  mysql_close(con);
+  mysql_close(sql);
 
-  exit(0);
+  return 0;
 }
