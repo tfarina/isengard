@@ -19,13 +19,14 @@ static void finish_with_error(MYSQL *con) {
 
 int main(int argc, char **argv) {
   MYSQL *con = mysql_init(NULL);
+  unsigned int port = 0;
 
   if (con == NULL) {
     fprintf(stderr, "mysql_init() failed\n");
     exit(1);
   }
 
-  if (mysql_real_connect(con, kDBHost, kDBUser, kDBPassword, kDBName, 0, NULL, 0) == NULL) {
+  if (mysql_real_connect(con, kDBHost, kDBUser, kDBPassword, kDBName, port, NULL, 0) == NULL) {
     finish_with_error(con);
   }
 
