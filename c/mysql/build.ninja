@@ -1,6 +1,7 @@
 cc = clang
 cflags = -g -std=c99 -pedantic -Wall -O0 $
          -I/usr/include/mysql -DBIG_JOINS=1 -fno-strict-aliasing
+libs = -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl
 prefix = /usr/local
 install_dir = $prefix/bin
 
@@ -24,7 +25,12 @@ rule UNINSTALL
 
 build mysql_version.o: COMPILE_CC mysql_version.c
 build mysql_version: LINK mysql_version.o
-  libs = -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl
+
+build populate.o: COMPILE_CC populate.c
+build populate: LINK populate.o
+
+build show.o: COMPILE_CC show.c
+build show: LINK show.o
 
 build install: INSTALL mysql_version
 build uninstall: UNINSTALL mysql_version

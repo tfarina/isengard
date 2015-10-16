@@ -1,0 +1,5 @@
+CREATE TABLE bookmarks (
+  id      INT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  url     TEXT      NOT NULL,
+  title   TEXT      NOT NULL
+)
