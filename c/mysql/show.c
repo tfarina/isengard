@@ -19,6 +19,8 @@ static void finish_with_error(MYSQL *sql) {
 
 int main(int argc, char **argv) {
   MYSQL *sql = NULL;
+  MYSQL_RES *res = NULL;
+  MYSQL_ROW row;
   unsigned int port = 0;
 
   if ((sql = mysql_init(NULL)) == NULL) {
@@ -34,24 +36,20 @@ int main(int argc, char **argv) {
     finish_with_error(sql);
   }
 
-  MYSQL_RES *result = mysql_store_result(sql);
-
-  if (result == NULL) {
+  if ((res = mysql_store_result(sql)) == NULL) {
     finish_with_error(sql);
   }
 
-  int num_fields = mysql_num_fields(result);
+  int num_fields = mysql_num_fields(res);
 
-  MYSQL_ROW row;
-
-  while ((row = mysql_fetch_row(result))) {
+  while ((row = mysql_fetch_row(res))) {
     for(int i = 0; i < num_fields; i++) {
       printf("%s ", row[i] ? row[i] : "NULL");
     }
     printf("\n");
   }
 
-  mysql_free_result(result);
+  mysql_free_result(res);
   mysql_close(sql);
 
   return 0;
