@@ -40,6 +40,7 @@ c/apps/imap/imap
 c/apps/imap/.ninja_deps
 c/apps/imap/.ninja_log
 c/apps/imap/*.o
+c/apps/linebyline
 c/apps/network/.ninja_deps
 c/apps/network/.ninja_log
 c/apps/network/*.o

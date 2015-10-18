@@ -7,3 +7,4 @@ rule cc
 
 build readfile: cc readfile.c
 build buildtime: cc buildtime.c
+build linebyline: cc linebyline.c
