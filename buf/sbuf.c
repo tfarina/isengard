@@ -70,14 +70,14 @@ static void sbuf_setlen(sbuf *b, size_t len)
         b->data[len] = '\0';
 }
 
-void sbuf_write(sbuf *b, const void *data, size_t len)
+void sbuf_append(sbuf *b, const void *data, size_t len)
 {
 	sbuf_grow(b, len);
 	memcpy(b->data + b->len, data, len);
         sbuf_setlen(b, b->len + len);
 }
 
-void sbuf_write_str(sbuf *b, const void *str)
+void sbuf_append_str(sbuf *b, const void *str)
 {
-	sbuf_write(b, str, strlen(str));
+	sbuf_append(b, str, strlen(str));
 }

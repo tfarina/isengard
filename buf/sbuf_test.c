@@ -7,7 +7,7 @@ int main(void) {
 
         sbuf_init(&b);
 
-        sbuf_write_str(&b, "Hi, C is complicated, isn't it?");
+        sbuf_append_str(&b, "C is hard!");
 
         printf("%s\n", b.data);
         printf("%zu\n", b.len);
