@@ -14,18 +14,18 @@ static void NORETURN die(const char *msg, ...)
 {
     va_list args;
 
-    fprintf(stderr, "fatal: ");
-
     va_start(args, msg);
-    vfprintf(stderr, msg, args);
-    va_end(args);
 
+    fprintf(stderr, "fatal: ");
+    vfprintf(stderr, msg, args);
     fprintf(stderr, "\n");
+
+    va_end(args);
 
     exit(EXIT_FAILURE);
 }
 
-static void* xrealloc(void *p, size_t n)
+static void *xrealloc(void *p, size_t n)
 {
 	p = realloc(p, n);
         if (p == NULL)
