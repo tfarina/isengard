@@ -12,17 +12,17 @@
 
 static void NORETURN die(const char *msg, ...)
 {
-    va_list args;
+        va_list args;
 
-    va_start(args, msg);
+        va_start(args, msg);
 
-    fprintf(stderr, "fatal: ");
-    vfprintf(stderr, msg, args);
-    fprintf(stderr, "\n");
+        fprintf(stderr, "fatal: ");
+        vfprintf(stderr, msg, args);
+        fprintf(stderr, "\n");
 
-    va_end(args);
+        va_end(args);
 
-    exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
 }
 
 static void *xrealloc(void *p, size_t n)
