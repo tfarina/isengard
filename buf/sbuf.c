@@ -33,6 +33,12 @@ static void *xrealloc(void *p, size_t n)
 	return p;
 }
 
+static void sbuf_setlen(sbuf *b, size_t len)
+{
+        b->len = len;
+        b->data[len] = '\0';
+}
+
 void sbuf_init(sbuf *b)
 {
 	b->data = NULL;
@@ -62,12 +68,6 @@ void sbuf_grow(sbuf *b, size_t extra)
                         b->cap = 64;
                 b->data = xrealloc(b->data, b->cap);
         }
-}
-
-static void sbuf_setlen(sbuf *b, size_t len)
-{
-        b->len = len;
-        b->data[len] = '\0';
 }
 
 void sbuf_append(sbuf *b, const void *data, size_t len)
