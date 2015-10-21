@@ -39,6 +39,9 @@ build selectserver: LINK die.o selectserver.o
 build hostname.o: COMPILE_CC hostname.c
 build hostname: LINK hostname.o
 
+build http.o: COMPILE_CC http.c
+build http: LINK http.o
+
 build clean: CLEAN
 
 default timeserver

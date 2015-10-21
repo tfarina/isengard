@@ -51,6 +51,7 @@ c/apps/network/echo/tcpclient
 c/apps/network/echo/tcpserver
 c/apps/network/getaddrinfo/out/
 c/apps/network/hostname
+c/apps/network/http
 c/apps/network/res
 c/apps/network/selectserver
 c/apps/network/showip/out/
