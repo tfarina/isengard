@@ -5,5 +5,3 @@ src/sbuf.c ?
 src/sbuf_test.c ?
 
 sudo ninja install ?
-
-die() function ?
