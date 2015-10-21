@@ -19,9 +19,9 @@ void sbuf_reset(sbuf *b);
 // sbuf_free frees the storage associated with a buffer.
 void sbuf_free(sbuf *b);
 
-// sbuf_grow ensures that the buffer has at least n more bytes between its
+// sbuf_grow ensures that the buffer has at least |extra| more bytes between its
 // len and cap.
-void sbuf_grow(sbuf *b, int n);
+void sbuf_grow(sbuf *b, size_t extra);
 
 // sbuf_append appends the |len| bytes at |data| to the buffer.
 void sbuf_append(sbuf *b, const void *data, size_t len);

@@ -51,11 +51,11 @@ void sbuf_free(sbuf *b)
 	sbuf_init(b);
 }
 
-void sbuf_grow(sbuf *b, int n)
+void sbuf_grow(sbuf *b, size_t extra)
 {
 	int want;
 
-        want = b->len + n;
+        want = b->len + extra;
         if (want > b->cap) {
                 b->cap = 2 * want;
                 if (b->cap < 64)
