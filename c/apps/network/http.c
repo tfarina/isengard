@@ -127,6 +127,8 @@ int main(int argc, char **argv) {
     }
   }
 
+  printf("HTTP request sent, awaiting response...\n"),
+
   printf("receiving data...");
 
   for (;;) {
