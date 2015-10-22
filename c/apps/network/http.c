@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
+#include <unistd.h>
 
 #define RECVSIZE 1024
 
@@ -90,8 +91,8 @@ int main(int argc, char **argv) {
   struct addrinfo hints, *addrlist;
   int sockfd;
   char request[1024];
-  size_t bytes_sent = 0;
-  size_t total_bytes_sent = 0;
+  ssize_t bytes_sent = 0;
+  ssize_t total_bytes_sent = 0;
   size_t bytes_to_send;
   ssize_t bytes_received;
   char data[RECVSIZE];
@@ -117,7 +118,7 @@ int main(int argc, char **argv) {
   printf("bytes to send: %ld\n", bytes_to_send);
 
   for (;;) {
-    bytes_sent = send(sockfd, request, strlen(request), 0);
+    bytes_sent = write(sockfd, request, strlen(request));
     total_bytes_sent += bytes_sent;
 
     printf("bytes sent: %ld\n", bytes_sent);
@@ -132,7 +133,7 @@ int main(int argc, char **argv) {
   printf("receiving data...");
 
   for (;;) {
-    bytes_received = recv(sockfd, data, sizeof(data), 0);
+    bytes_received = read(sockfd, data, sizeof(data));
 
     if (bytes_received == -1) {
       return -1;
