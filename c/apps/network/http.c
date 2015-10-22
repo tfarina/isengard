@@ -89,10 +89,10 @@ static void sbuf_append(sbuf *b, const void *data, size_t len)
 int main(int argc, char **argv) {
   struct addrinfo hints, *res;
   int sockfd;
-  char request[] = "GET / HTTP/1.0\r\nHost: google.com\r\nConnection: close\r\n\r\n";
+  char request[1024];
   size_t bytes_sent = 0;
   size_t total_bytes_sent = 0;
-  size_t bytes_to_send = strlen(request);
+  size_t bytes_to_send;
   ssize_t bytes_received;
   char data[RECVSIZE];
   sbuf response;
@@ -108,6 +108,11 @@ int main(int argc, char **argv) {
   sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 
   connect(sockfd, res->ai_addr, res->ai_addrlen);
+
+  sprintf(request, "GET %s HTTP/1.0\r\nHost: %s\r\nConnection: close\r\n\r\n",
+          "/", "google.com");
+
+  bytes_to_send = strlen(request);
 
   printf("bytes to send: %ld\n", bytes_to_send);
 
@@ -138,7 +143,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  printf("finished receiving data.\n");
+  printf("finished receiving data.\n\n");
 
   printf("%s\n", response.data);
 
