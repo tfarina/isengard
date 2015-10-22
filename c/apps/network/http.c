@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
   printf("receiving data...");
 
   for (;;) {
-    bytes_received = recv(sockfd, data, RECVSIZE, 0);
+    bytes_received = recv(sockfd, data, sizeof(data), 0);
 
     if (bytes_received == -1) {
       return -1;
