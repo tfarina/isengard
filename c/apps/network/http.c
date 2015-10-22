@@ -87,7 +87,7 @@ static void sbuf_append(sbuf *b, const void *data, size_t len)
 }
 
 int main(int argc, char **argv) {
-  struct addrinfo hints, *res;
+  struct addrinfo hints, *addrlist;
   int sockfd;
   char request[1024];
   size_t bytes_sent = 0;
@@ -103,11 +103,11 @@ int main(int argc, char **argv) {
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
 
-  getaddrinfo("google.com", "80", &hints, &res);
+  getaddrinfo("google.com", "80", &hints, &addrlist);
 
-  sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+  sockfd = socket(addrlist->ai_family, addrlist->ai_socktype, addrlist->ai_protocol);
 
-  connect(sockfd, res->ai_addr, res->ai_addrlen);
+  connect(sockfd, addrlist->ai_addr, addrlist->ai_addrlen);
 
   sprintf(request, "GET %s HTTP/1.0\r\nHost: %s\r\nConnection: close\r\n\r\n",
           "/", "google.com");
