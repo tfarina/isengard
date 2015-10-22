@@ -87,12 +87,29 @@ static void sbuf_append(sbuf *b, const void *data, size_t len)
         sbuf_setlen(b, b->len + len);
 }
 
+static ssize_t fd_write_all(int fd, char *buf, size_t len)
+{
+  ssize_t bytes_sent, total_bytes_sent = 0;
+
+  while (len) {
+    bytes_sent = write(fd, buf, len);
+    if (bytes_sent <= 0)
+      return -1;
+
+    printf("bytes sent: %ld\n", bytes_sent);
+
+    buf += bytes_sent;
+    len -= bytes_sent;
+    total_bytes_sent += bytes_sent;
+  }
+
+  return total_bytes_sent;
+}
+
 int main(int argc, char **argv) {
   struct addrinfo hints, *addrlist;
   int sockfd;
   char request[1024];
-  ssize_t bytes_sent = 0;
-  ssize_t total_bytes_sent = 0;
   size_t bytes_to_send;
   ssize_t bytes_received;
   char data[RECVSIZE];
@@ -117,16 +134,7 @@ int main(int argc, char **argv) {
 
   printf("bytes to send: %ld\n", bytes_to_send);
 
-  for (;;) {
-    bytes_sent = write(sockfd, request, strlen(request));
-    total_bytes_sent += bytes_sent;
-
-    printf("bytes sent: %ld\n", bytes_sent);
-
-    if (total_bytes_sent >= bytes_to_send) {
-      break;
-    }
-  }
+  fd_write_all(sockfd, request, strlen(request));
 
   printf("HTTP request sent, awaiting response...\n"),
 
