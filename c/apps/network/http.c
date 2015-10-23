@@ -134,7 +134,8 @@ int main(int argc, char **argv) {
 
   printf("bytes to send: %ld\n", bytes_to_send);
 
-  fd_write_all(sockfd, request, strlen(request));
+  if (fd_write_all(sockfd, request, strlen(request)) == -1)
+    die("fd_write_all() failed");
 
   printf("HTTP request sent, awaiting response...\n"),
 
