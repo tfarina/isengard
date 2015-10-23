@@ -118,6 +118,37 @@ static ssize_t fd_write_all(int fd, char *buf, size_t len)
   return total_bytes_sent;
 }
 
+static ssize_t fd_read(int fd, char *buf, size_t len)
+{
+  int rv;
+
+  do {
+    rv = read(fd, buf, len);
+  } while (rv == -1 && errno == EINTR);
+
+  return rv;
+}
+
+static ssize_t fd_read_all(int fd, char *buf, size_t len)
+{
+  char *b = buf;
+
+  while (len) {
+    ssize_t bytes_received;
+
+    bytes_received = fd_read(fd, b, len);
+    if (bytes_received < 0)
+      return -1;
+    if (bytes_received == 0)
+      break;
+
+    b += bytes_received;
+    len -= bytes_received;
+  }
+
+  return b - buf;
+}
+
 int main(int argc, char **argv) {
   struct addrinfo hints, *addrlist;
   int sockfd;
@@ -153,18 +184,8 @@ int main(int argc, char **argv) {
 
   printf("receiving data...");
 
-  for (;;) {
-    bytes_received = read(sockfd, data, sizeof(data));
-
-    if (bytes_received == -1) {
-      return -1;
-    } else if (bytes_received == 0) {
-      break; /*return 0;*/
-    }
-
-    if (bytes_received > 0) {
-      sbuf_append(&response, data, bytes_received);
-    }
+  while ((bytes_received = fd_read_all(sockfd, data, sizeof(data))) > 0) {
+    sbuf_append(&response, data, bytes_received);
   }
 
   printf("finished receiving data.\n\n");
