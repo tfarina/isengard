@@ -2,12 +2,15 @@ cc = clang
 cflags = -Wall
 builddir = out
 
-rule cc
-  command = $cc $cflags -c $in -o $out
+rule compile
+  command = $cc $cflags -MMD -MF $out.d -c $in -o $out
+  depfile = $out.d
+  deps = gcc
+  description = compile $in -> $out
 
 rule link
   command = $cc $in -o $out
 
-build $builddir/sbuf.o: cc sbuf.c
-build $builddir/sbuf_test.o: cc sbuf_test.c
+build $builddir/sbuf.o: compile sbuf.c
+build $builddir/sbuf_test.o: compile sbuf_test.c
 build $builddir/sbuf_test: link $builddir/sbuf.o $builddir/sbuf_test.o
