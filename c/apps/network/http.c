@@ -2,6 +2,7 @@
  * Heavily modified from https://github.com/reagent/http
  */
 
+#include <errno.h>
 #include <netdb.h>
 #include <stdarg.h>
 #include <stddef.h>
@@ -87,12 +88,23 @@ static void sbuf_append(sbuf *b, const void *data, size_t len)
         sbuf_setlen(b, b->len + len);
 }
 
+static ssize_t fd_write(int fd, char *buf, size_t len)
+{
+  int rv;
+
+  do {
+    rv = write(fd, buf, len);
+  } while (rv == -1 && errno == EINTR);
+
+  return rv;
+}
+
 static ssize_t fd_write_all(int fd, char *buf, size_t len)
 {
   ssize_t bytes_sent, total_bytes_sent = 0;
 
   while (len) {
-    bytes_sent = write(fd, buf, len);
+    bytes_sent = fd_write(fd, buf, len);
     if (bytes_sent <= 0)
       return -1;
 
