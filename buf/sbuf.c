@@ -59,7 +59,7 @@ void sbuf_free(sbuf *b)
 
 void sbuf_grow(sbuf *b, size_t extra)
 {
-	int want;
+	size_t want;
 
         want = b->len + extra;
         if (want > b->cap) {

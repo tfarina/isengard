@@ -1,5 +1,5 @@
 cc = clang
-cflags = -Wall
+cflags = -Wall -Wextra -Werror
 builddir = out
 
 rule compile
