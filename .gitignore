@@ -64,6 +64,7 @@ c/apps/network/webserver/.ninja_log
 c/apps/network/webserver/*.o
 c/apps/network/webserver/webserver
 c/apps/readfile
+c/apps/readjson
 c/apps/select/out/
 c/apps/sizeck/out/
 c/mysql/*.o

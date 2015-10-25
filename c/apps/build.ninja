@@ -11,3 +11,5 @@ build buildtime: cc buildtime.c
 build linebyline: cc linebyline.c
 build cjson_test: cc cJSON.c cJSONTest.c
   libs = -lm
+build readjson: cc cJSON.c readjson.c
+  libs = -lm
