@@ -21,7 +21,12 @@ static int db_user_add(sqlite3* db,
   sqlite3_bind_text(stmt, 1, username, -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 2, password, -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 3, email, -1, SQLITE_STATIC);
-  sqlite3_step(stmt);
+
+  if (sqlite3_step(stmt) != SQLITE_DONE) {
+    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
+    return -1;
+  }
+
   sqlite3_finalize(stmt);
 
   return 0;
