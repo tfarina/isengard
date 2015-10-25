@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <mysql.h>
+#include <mysql/mysql.h>
 
 static const char kDBHost[] = "localhost";
 static const char kDBUser[] = "ken";
