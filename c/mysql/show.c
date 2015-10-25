@@ -20,10 +20,12 @@ static void finish_with_error(MYSQL *sql) {
 int main(int argc, char **argv) {
   MYSQL *sql = NULL;
   MYSQL_RES *res = NULL;
+  unsigned int num_fields;
   MYSQL_ROW row;
   unsigned int port = 0;
   char query[256];
   size_t querylen;
+  int i;
 
   if ((sql = mysql_init(NULL)) == NULL) {
     fprintf(stderr, "mysql_init() failed\n");
@@ -44,10 +46,10 @@ int main(int argc, char **argv) {
     finish_with_error(sql);
   }
 
-  int num_fields = mysql_num_fields(res);
+  num_fields = mysql_num_fields(res);
 
   while ((row = mysql_fetch_row(res))) {
-    for(int i = 0; i < num_fields; i++) {
+    for(i = 0; i < num_fields; i++) {
       printf("%s ", row[i] ? row[i] : "NULL");
     }
     printf("\n");
