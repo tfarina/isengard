@@ -1,10 +1,13 @@
 builddir = out
 cc = gcc
 cflags = -Wall -Wextra -Wno-unused-parameter -g
+libs =
 
 rule cc
-  command = $cc $cflags -o $out $in
+  command = $cc $cflags -o $out $in $libs
 
 build readfile: cc readfile.c
 build buildtime: cc buildtime.c
 build linebyline: cc linebyline.c
+build cjson_test: cc cJSON.c cJSONTest.c
+  libs = -lm
