@@ -22,6 +22,8 @@ int main(int argc, char **argv) {
   MYSQL_RES *res = NULL;
   MYSQL_ROW row;
   unsigned int port = 0;
+  char query[256];
+  size_t querylen;
 
   if ((sql = mysql_init(NULL)) == NULL) {
     fprintf(stderr, "mysql_init() failed\n");
@@ -32,7 +34,9 @@ int main(int argc, char **argv) {
     finish_with_error(sql);
   }
 
-  if (mysql_query(sql, "SELECT * FROM bookmarks")) {
+  querylen = snprintf(query, sizeof(query), "SELECT * FROM bookmarks");
+
+  if (mysql_real_query(sql, query, querylen)) {
     finish_with_error(sql);
   }
 
