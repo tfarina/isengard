@@ -170,7 +170,10 @@ int main(int argc, char **argv) {
 
   sockfd = socket(addrlist->ai_family, addrlist->ai_socktype, addrlist->ai_protocol);
 
-  connect(sockfd, addrlist->ai_addr, addrlist->ai_addrlen);
+  if (connect(sockfd, addrlist->ai_addr, addrlist->ai_addrlen) == -1) {
+    close(sockfd);
+    die("connect failed: %s", strerror(errno));
+  }
 
   sprintf(request, "GET %s HTTP/1.0\r\nHost: %s\r\nConnection: close\r\n\r\n",
           "/", "google.com");
