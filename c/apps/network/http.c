@@ -159,8 +159,6 @@ int main(int argc, char **argv) {
   char data[RECVSIZE];
   sbuf response;
 
-  sbuf_init(&response);
-
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
@@ -187,6 +185,8 @@ int main(int argc, char **argv) {
   printf("HTTP request sent, awaiting response...\n"),
 
   printf("receiving data...");
+
+  sbuf_init(&response);
 
   while ((bytes_received = fd_read_all(sockfd, data, sizeof(data))) > 0) {
     sbuf_append(&response, data, bytes_received);
