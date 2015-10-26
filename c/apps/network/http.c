@@ -175,6 +175,8 @@ int main(int argc, char **argv) {
     die("connect failed: %s", strerror(errno));
   }
 
+  freeaddrinfo(addrlist);
+
   sprintf(request, "GET %s HTTP/1.0\r\nHost: %s\r\nConnection: close\r\n\r\n",
           "/", "google.com");
 
