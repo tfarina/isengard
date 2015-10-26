@@ -151,6 +151,7 @@ static ssize_t fd_read_all(int fd, char *buf, size_t len)
 
 int main(int argc, char **argv) {
   struct addrinfo hints, *addrlist;
+  int rv;
   int sockfd;
   char request[1024];
   size_t bytes_to_send;
@@ -164,7 +165,10 @@ int main(int argc, char **argv) {
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
 
-  getaddrinfo("google.com", "80", &hints, &addrlist);
+  if ((rv = getaddrinfo("google.com", "80", &hints, &addrlist)) != 0) {
+    fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
+    exit(EXIT_FAILURE);
+  }
 
   sockfd = socket(addrlist->ai_family, addrlist->ai_socktype, addrlist->ai_protocol);
 
