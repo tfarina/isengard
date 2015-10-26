@@ -168,7 +168,10 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  sockfd = socket(addrlist->ai_family, addrlist->ai_socktype, addrlist->ai_protocol);
+  if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype,
+                       addrlist->ai_protocol)) == -1) {
+    die("socket failed: %s", strerror(errno));
+  }
 
   if (connect(sockfd, addrlist->ai_addr, addrlist->ai_addrlen) == -1) {
     close(sockfd);
