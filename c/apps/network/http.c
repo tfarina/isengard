@@ -152,6 +152,7 @@ static ssize_t fd_read_all(int fd, char *buf, size_t len)
 int main(int argc, char **argv) {
   struct addrinfo hints, *addrlist;
   int rv;
+  char host[] = "google.com";
   int sockfd;
   char request[1024];
   size_t bytes_to_send;
@@ -163,7 +164,7 @@ int main(int argc, char **argv) {
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
 
-  if ((rv = getaddrinfo("google.com", "80", &hints, &addrlist)) != 0) {
+  if ((rv = getaddrinfo(host, "80", &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
@@ -181,7 +182,7 @@ int main(int argc, char **argv) {
   freeaddrinfo(addrlist);
 
   sprintf(request, "GET %s HTTP/1.0\r\nHost: %s\r\nConnection: close\r\n\r\n",
-          "/", "google.com");
+          "/", host);
 
   bytes_to_send = strlen(request);
 
