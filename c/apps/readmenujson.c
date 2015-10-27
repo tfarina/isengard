@@ -9,6 +9,8 @@ int main(int argc, char **argv) {
   void *data;
   size_t bytes_read;
   cJSON *root;
+  cJSON *menu;
+  char *filestr;
 
   f = fopen("./menu.json", "rb");
   if (f == NULL || fseek(f, 0, SEEK_END) != 0) {
@@ -37,8 +39,8 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  cJSON *menu= cJSON_GetObjectItem(root, "menu");
-  char *filestr = cJSON_GetArrayItem(menu, 1)->valuestring;
+  menu= cJSON_GetObjectItem(root, "menu");
+  filestr = cJSON_GetArrayItem(menu, 1)->valuestring;
   printf("menu value: %s\n", filestr);
 
 out:
