@@ -150,9 +150,11 @@ static ssize_t fd_read_all(int fd, char *buf, size_t len)
 }
 
 int main(int argc, char **argv) {
-  struct addrinfo hints, *addrlist;
   int rv;
   char host[] = "google.com";
+  int port = 80;
+  char portstr[6];  /* strlen("65535") + 1; */
+  struct addrinfo hints, *addrlist;
   int sockfd;
   char request[1024];
   size_t bytes_to_send;
@@ -160,11 +162,12 @@ int main(int argc, char **argv) {
   char data[RECVSIZE];
   sbuf response;
 
+  snprintf(portstr, sizeof(portstr), "%d", port);
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
 
-  if ((rv = getaddrinfo(host, "80", &hints, &addrlist)) != 0) {
+  if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
