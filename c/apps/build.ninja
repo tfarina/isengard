@@ -13,3 +13,5 @@ build cjson_test: cc cJSON.c cJSONTest.c
   libs = -lm
 build readjson: cc cJSON.c readjson.c
   libs = -lm
+build readmenujson: cc cJSON.c readmenujson.c
+  libs = -lm
