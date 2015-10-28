@@ -10,4 +10,6 @@ mkdir -p output/classes
 javac -sourcepath com/zetcode \
       -d output/classes\
       -source ${JAVA_VERSION} \
-      -target ${JAVA_VERSION} $javafiles
+      -target ${JAVA_VERSION} \
+      -encoding UTF-8 \
+      $javafiles
