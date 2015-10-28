@@ -1,8 +1,8 @@
 @echo off
 
-if not exist ".\build" (
-  md build\classes
+if not exist ".\output" (
+  md output\classes
 )
 
-javac -sourcepath com\zetcode -d build\classes com\zetcode\HelloWorld.java
-java -cp build\classes com.zetcode.HelloWorld
+javac -sourcepath com\zetcode -d output\classes com\zetcode\HelloWorld.java
+java -cp output\classes com.zetcode.HelloWorld
