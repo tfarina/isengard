@@ -92,9 +92,10 @@ go/tour/out
 go/webapps/hello
 java/ant/build
 java/zetcodetutorial/build
-java/zetcodetutorial/sample.db
 java/zetcodetutorial/javaswingtutorial/firstprograms/build
 java/zetcodetutorial/javaswingtutorial/firstprograms/sample.db
+java/zetcodetutorial/output
+java/zetcodetutorial/sample.db
 mysql/php/apps/distwi/access_log.txt
 mysql/php/apps/distwi/error_log.txt
 mysql/php/apps/twitwi/access_log.txt
