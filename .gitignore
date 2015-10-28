@@ -92,6 +92,7 @@ go/tour/out
 go/webapps/hello
 java/ant/build
 java/tutorial/zetcode/output
+java/tutorial/zetcode/swing/output
 java/zetcodetutorial/build
 java/zetcodetutorial/javaswingtutorial/firstprograms/build
 java/zetcodetutorial/javaswingtutorial/firstprograms/sample.db
