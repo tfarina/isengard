@@ -11,11 +11,12 @@
 #define STDIN 0 /* file descriptor for standard input. */
 
 int main(void) {
+  double timeout = 2500.0; /* This is in milliseconds. */
   struct timeval tv;
   fd_set readfds;
 
-  tv.tv_sec = 2;
-  tv.tv_usec = 500000;
+  tv.tv_sec = (long)(timeout / 1000.0);
+  tv.tv_usec = (long)(timeout * 1000.0) % 1000000;
 
   FD_ZERO(&readfds);
   FD_SET(STDIN, &readfds);
