@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
   void *data;
   size_t bytes_read;
   cJSON *root;
-  cJSON *j_menu;
+  cJSON *j_menu, *j_obj;
   char *filestr;
 
   f = fopen("./menu.json", "rb");
@@ -45,7 +45,13 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  filestr = cJSON_GetArrayItem(j_menu, 1)->valuestring;
+  j_obj = cJSON_GetObjectItem(j_menu, "value");
+  if (!j_obj || !cjson_is_string(j_obj)) {
+    fprintf(stderr, "menu object has no 'value'\n");
+    exit(EXIT_FAILURE);
+  }
+
+  filestr = j_obj->valuestring;
   printf("menu value: %s\n", filestr);
 
   cJSON_Delete(root);
