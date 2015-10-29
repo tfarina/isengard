@@ -14,6 +14,7 @@ int main(void) {
   double timeout = 2500.0; /* This is in milliseconds. */
   struct timeval tv;
   fd_set readfds;
+  ssize_t rv;
 
   tv.tv_sec = (long)(timeout / 1000.0);
   tv.tv_usec = (long)(timeout * 1000.0) % 1000000;
@@ -22,7 +23,13 @@ int main(void) {
   FD_SET(STDIN, &readfds);
 
   /* Don't care about writefds and exceptfds. */
-  select(STDIN + 1, &readfds, NULL, NULL, &tv);
+  rv = select(STDIN + 1, &readfds, NULL, NULL, &tv);
+  if (rv == 0) {
+    printf("Timed out.\n");
+    return -1;
+  } else if (rv == -1) {
+    /* TODO: Check errno for EAGAIN and EINTR. */
+  }
 
   if (FD_ISSET(STDIN, &readfds))
     printf("A key was pressed.\n");
