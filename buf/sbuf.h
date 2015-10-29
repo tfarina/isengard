@@ -27,6 +27,6 @@ void sbuf_grow(sbuf *b, size_t extra);
 void sbuf_append(sbuf *b, const void *data, size_t len);
 
 // sbuf_append_str appends |str| to the buffer.
-void sbuf_append_str(sbuf *b, const void *str);
+void sbuf_append_str(sbuf *b, const char *str);
 
 #endif  /* SBUF_H_ */

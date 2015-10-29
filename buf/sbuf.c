@@ -77,7 +77,7 @@ void sbuf_append(sbuf *b, const void *data, size_t len)
         sbuf_setlen(b, b->len + len);
 }
 
-void sbuf_append_str(sbuf *b, const void *str)
+void sbuf_append_str(sbuf *b, const char *str)
 {
 	sbuf_append(b, str, strlen(str));
 }
