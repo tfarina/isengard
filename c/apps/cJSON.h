@@ -54,6 +54,18 @@ typedef struct cJSON {
 	char *string;				/* The item's name string, if this item is the child of, or is in the list of subitems of an object. */
 } cJSON;
 
+typedef struct cJSON *cjson_t;
+
+/* Macros to test the type of an object.  */
+#define cjson_is_boolean(a) (!((a)->type & ~1))
+#define cjson_is_false(a)   ((a)->type == cJSON_False)
+#define cjson_is_true(a)    ((a)->type == cJSON_True)
+#define cjson_is_null(a)    ((a)->type == cJSON_NULL)
+#define cjson_is_number(a)  ((a)->type == cJSON_Number)
+#define cjson_is_string(a)  ((a)->type == cJSON_String)
+#define cjson_is_array(a)   ((a)->type == cJSON_Array)
+#define cjson_is_object(a)  ((a)->type == cJSON_Object)
+
 typedef struct cJSON_Hooks {
       void *(*malloc_fn)(size_t sz);
       void (*free_fn)(void *ptr);
