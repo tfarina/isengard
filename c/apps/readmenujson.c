@@ -39,9 +39,11 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  menu= cJSON_GetObjectItem(root, "menu");
+  menu = cJSON_GetObjectItem(root, "menu");
   filestr = cJSON_GetArrayItem(menu, 1)->valuestring;
   printf("menu value: %s\n", filestr);
+
+  cJSON_Delete(root);
 
 out:
   if (f != NULL) {
