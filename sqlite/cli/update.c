@@ -20,6 +20,7 @@ static int db_user_update_email(sqlite3* db,
                                 const char *username,
                                 const char *email) {
   sqlite3_stmt *stmt;
+  int rv;
 
   const char *sql = "UPDATE user SET email=?1 WHERE login=?2;";
 
@@ -29,8 +30,15 @@ static int db_user_update_email(sqlite3* db,
     return -1;
   }
 
-  sqlite3_bind_text(stmt, 1, email, -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 2, username, -1, SQLITE_STATIC);
+  rv = sqlite3_bind_text(stmt, 1, email, -1, SQLITE_STATIC);
+
+  if (rv == SQLITE_OK)
+    rv = sqlite3_bind_text(stmt, 2, username, -1, SQLITE_STATIC);
+
+  if (rv != SQLITE_OK) {
+    fprintf(stderr, "error binding a value for the user table: %s\n",
+            sqlite3_errmsg(db));
+  }
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
     fprintf(stderr, "error updating user table: %s\n", sqlite3_errmsg(db));
