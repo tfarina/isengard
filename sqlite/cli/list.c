@@ -10,6 +10,7 @@ static void close_user_db(sqlite3* db) {
   }
 }
 
+/* Lists records from the user table. */
 static int list_user_records(sqlite3* db) {
   sqlite3_stmt* stmt;
   const char* sql = sqlite3_mprintf("SELECT * FROM user");
