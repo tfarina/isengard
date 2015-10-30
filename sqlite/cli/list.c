@@ -5,7 +5,7 @@
 
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
-static int db_list(sqlite3* db) {
+static int list_user_records(sqlite3* db) {
   sqlite3_stmt* stmt;
   const char* sql = sqlite3_mprintf("SELECT * FROM user");
 
@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (db_list(db)) {
+  if (list_user_records(db)) {
     if (sqlite3_close(db)) {
       fprintf(stderr, "failed to close the user db: %s\n", sqlite3_errmsg(db));
     }
