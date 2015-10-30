@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "db.h"
+#include "user.h"
 
 static int callback(void* data, int argc, char** argv, char** column_name) {
   int i;

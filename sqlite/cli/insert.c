@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "db.h"
+#include "user.h"
 
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
