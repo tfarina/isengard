@@ -40,16 +40,23 @@ int main(int argc, char **argv) {
   }
 
   if (db_user_create_table(db)) {
-    sqlite3_close(db);
+    if (sqlite3_close(db)) {
+      fprintf(stderr, "failed to close the user db: %s\n", sqlite3_errmsg(db));
+    }
     return -1;
   }
 
   if (db_list(db)) {
-    sqlite3_close(db);
+    if (sqlite3_close(db)) {
+      fprintf(stderr, "failed to close the user db: %s\n", sqlite3_errmsg(db));
+    }
     return -1;
   }
 
-  sqlite3_close(db);
+  if (sqlite3_close(db)) {
+    fprintf(stderr, "failed to close the user db: %s\n", sqlite3_errmsg(db));
+    return -1;
+  }
 
   return 0;
 }
