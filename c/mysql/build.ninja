@@ -2,38 +2,20 @@ cc = clang
 cflags = -g -std=c99 -pedantic -Wall -O0 $
          -I/usr/include/mysql -DBIG_JOINS=1 -fno-strict-aliasing
 libs = -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl
-prefix = /usr/local
-install_dir = $prefix/bin
 
-rule COMPILE_CC
+rule compile
   command = $cc $cflags -c $in -o $out
 
-rule LINK
+rule link
   command = $cc $cflags -o $out $includes $ldflags $libs $in
 
-rule CLEAN
-  description = cleaning
-  command = rm -rf $in src/*.o
+build mysql_version.o: compile mysql_version.c
+build mysql_version: link mysql_version.o
 
-rule INSTALL
-  description = installing $in to $install_dir
-  command = install --mode=755 -T $in $install_dir/$in
+build populate.o: compile populate.c
+build populate: link populate.o
 
-rule UNINSTALL
-  description = removing $in from $install_dir
-  command = rm -f $install_dir/$in
+build show.o: compile show.c
+build show: link show.o
 
-build mysql_version.o: COMPILE_CC mysql_version.c
-build mysql_version: LINK mysql_version.o
-
-build populate.o: COMPILE_CC populate.c
-build populate: LINK populate.o
-
-build show.o: COMPILE_CC show.c
-build show: LINK show.o
-
-build install: INSTALL mysql_version
-build uninstall: UNINSTALL mysql_version
-build clean: CLEAN mysql_version
-
-default mysql_version
+default mysql_version populate show
