@@ -23,14 +23,18 @@ static int db_user_update_email(sqlite3* db,
   const char *sql = "UPDATE user SET email=?1 WHERE login=?2;";
 
   if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
-    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
+    fprintf(stderr, "error preparing update statement: %s\n",
+            sqlite3_errmsg(db));
     return -1;
   }
 
   sqlite3_bind_text(stmt, 1, email, -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 2, username, -1, SQLITE_STATIC);
+
   sqlite3_step(stmt);
+
   sqlite3_finalize(stmt);
+
   return 0;
 }
 
