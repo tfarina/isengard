@@ -32,7 +32,8 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  if (mysql_real_connect(sql, kDBHost, kDBUser, kDBPassword, kDBName, port, NULL, 0) == NULL) {
+  if (mysql_real_connect(sql, kDBHost, kDBUser, kDBPassword, kDBName, port,
+                         NULL, 0) == NULL) {
     finish_with_error(sql);
   }
 
