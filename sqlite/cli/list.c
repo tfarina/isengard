@@ -4,6 +4,11 @@
 #include "db.h"
 
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
+static void close_user_db(sqlite3* db) {
+  if (sqlite3_close(db) != SQLITE_OK) {
+    fprintf(stderr, "failed to close the user db: %s\n", sqlite3_errmsg(db));
+  }
+}
 
 static int list_user_records(sqlite3* db) {
   sqlite3_stmt* stmt;
@@ -28,11 +33,13 @@ static int list_user_records(sqlite3* db) {
   }
 
   sqlite3_finalize(stmt);
+
   return 0;
 }
 
 int main(int argc, char **argv) {
   sqlite3* db;
+  int rv;
 
   db = db_open("users.db");
   if (!db) {
@@ -40,23 +47,13 @@ int main(int argc, char **argv) {
   }
 
   if (db_user_create_table(db)) {
-    if (sqlite3_close(db)) {
-      fprintf(stderr, "failed to close the user db: %s\n", sqlite3_errmsg(db));
-    }
+    close_user_db(db);
     return -1;
   }
 
-  if (list_user_records(db)) {
-    if (sqlite3_close(db)) {
-      fprintf(stderr, "failed to close the user db: %s\n", sqlite3_errmsg(db));
-    }
-    return -1;
-  }
+  rv = list_user_records(db);
 
-  if (sqlite3_close(db)) {
-    fprintf(stderr, "failed to close the user db: %s\n", sqlite3_errmsg(db));
-    return -1;
-  }
+  close_user_db(db);
 
-  return 0;
+  return rv;
 }
