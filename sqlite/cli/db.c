@@ -6,9 +6,8 @@ sqlite3* db_open(const char* db_file) {
   sqlite3* db;
 
   if (sqlite3_open(db_file, &db) != SQLITE_OK) {
-    fprintf(stderr, "Failed to open database %s: %s\n", db_file,
-            sqlite3_errmsg(db));
-    if (sqlite3_close(db)) {
+    fprintf(stderr, "error opening %s: %s\n", db_file, sqlite3_errmsg(db));
+    if (sqlite3_close(db) != SQLITE_OK) {
       fprintf(stderr, "failed to close the user db: %s\n", sqlite3_errmsg(db));
     }
     return NULL;
@@ -27,7 +26,7 @@ int db_user_create_table(sqlite3* db) {
     ");";
 
   if (sqlite3_exec(db, sql, NULL, NULL, NULL) != SQLITE_OK) {
-    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
+    fprintf(stderr, "error creating user table: %s\n", sqlite3_errmsg(db));
     return -1;
   }
 
