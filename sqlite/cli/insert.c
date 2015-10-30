@@ -14,7 +14,8 @@ static int db_user_add(sqlite3* db,
   const char *sql = "INSERT INTO user (login, pw, email) VALUES (?1, ?2, ?3);";
 
   if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
-    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
+    fprintf(stderr, "error preparing insert statement: %s\n",
+            sqlite3_errmsg(db));
     return -1;
   }
 
@@ -23,11 +24,13 @@ static int db_user_add(sqlite3* db,
   sqlite3_bind_text(stmt, 3, email, -1, SQLITE_STATIC);
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
-    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
+    fprintf(stderr, "error inserting into user table: %s\n",
+            sqlite3_errmsg(db));
     return -1;
   }
 
   sqlite3_finalize(stmt);
+  stmt = NULL;
 
   return 0;
 }
