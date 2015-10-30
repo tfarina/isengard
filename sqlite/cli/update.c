@@ -31,9 +31,13 @@ static int db_user_update_email(sqlite3* db,
   sqlite3_bind_text(stmt, 1, email, -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 2, username, -1, SQLITE_STATIC);
 
-  sqlite3_step(stmt);
+  if (sqlite3_step(stmt) != SQLITE_DONE) {
+    fprintf(stderr, "error updating user table: %s\n", sqlite3_errmsg(db));
+    return -1;
+  }
 
   sqlite3_finalize(stmt);
+  stmt = NULL;
 
   return 0;
 }
