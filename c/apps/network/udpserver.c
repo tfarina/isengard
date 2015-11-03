@@ -1,6 +1,8 @@
 #include <errno.h>
+#include <netdb.h>
 #include <netinet/in.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
 
@@ -10,22 +12,30 @@
 #define PORT 5300
 
 int main(void) {
-  struct sockaddr_in myaddr, remoteaddr;
+  struct addrinfo hints, *addrlist;
+  int rv;
+  struct sockaddr_in remoteaddr;
   socklen_t addrlen = sizeof(remoteaddr);
   int sockfd;
   int recvlen;
   char buf[BUFLEN];
   int msgcnt = 0;  /* count # of messages we received */
 
-  memset(&myaddr, 0, sizeof(myaddr));
-  myaddr.sin_family = AF_INET;
-  myaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-  myaddr.sin_port = htons(PORT);
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_flags = AI_PASSIVE;
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_DGRAM;
 
-  if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1)
+  if ((rv = getaddrinfo(NULL, "5300", &hints, &addrlist)) != 0) {
+    fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
+    exit(EXIT_FAILURE);
+  }
+
+  if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype,
+                       addrlist->ai_protocol)) == -1)
     die("cannot create socket");
 
-  if (bind(sockfd, (struct sockaddr *)&myaddr, sizeof(myaddr)) == -1)
+  if (bind(sockfd, addrlist->ai_addr, addrlist->ai_addrlen) == -1)
     die("bind failed");
 
   printf("listening on port %d\n", PORT);
