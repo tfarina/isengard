@@ -154,7 +154,7 @@ int main(int argc, char **argv) {
   char host[] = "google.com";
   int port = 80;
   char portstr[6];  /* strlen("65535") + 1; */
-  struct addrinfo hints, *addrlist;
+  struct addrinfo hints, *addrlist, *cur;
   int sockfd;
   char request[1024];
   size_t bytes_to_send;
@@ -172,14 +172,19 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype,
-                       addrlist->ai_protocol)) == -1) {
-    die("socket failed: %s", strerror(errno));
-  }
+  /* Loop through all the results and connect to the first we can. */
+  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
+    if ((sockfd = socket(cur->ai_family, cur->ai_socktype,
+                         cur->ai_protocol)) == -1) {
+      continue;
+    }
 
-  if (connect(sockfd, addrlist->ai_addr, addrlist->ai_addrlen) == -1) {
-    close(sockfd);
-    die("connect failed: %s", strerror(errno));
+    if (connect(sockfd, cur->ai_addr, cur->ai_addrlen) == -1) {
+      close(sockfd);
+      continue;
+    }
+
+    break;
   }
 
   freeaddrinfo(addrlist);
