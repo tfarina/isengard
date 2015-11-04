@@ -14,7 +14,11 @@ int main(int argc, char **argv) {
   }
 
   f = fopen(argv[1], "rb");
-  if (f == NULL || fseek(f, 0, SEEK_END) != 0) {
+  if (f == NULL) {
+    goto out;
+  }
+
+  if (fseek(f, 0, SEEK_END) == -1) {
     goto out;
   }
 
