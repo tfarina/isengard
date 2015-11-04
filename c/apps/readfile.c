@@ -14,7 +14,8 @@ int main(int argc, char **argv) {
   }
 
   if ((f = fopen(argv[1], "rb")) == NULL) {
-    goto out;
+    fprintf(stderr, "error opening %s file\n", argv[1]);
+    return -1;
   }
 
   if (fseek(f, 0, SEEK_END) == -1) {
