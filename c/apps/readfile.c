@@ -13,8 +13,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  f = fopen(argv[1], "rb");
-  if (f == NULL) {
+  if ((f = fopen(argv[1], "rb")) == NULL) {
     goto out;
   }
 
@@ -30,8 +29,7 @@ int main(int argc, char **argv) {
     goto out;
   }
 
-  data = malloc(length);
-  if (data == NULL) {
+  if ((data = malloc(length)) == NULL) {
     goto out;
   }
 
