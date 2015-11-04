@@ -27,11 +27,14 @@ int main(int argc, char **argv) {
     goto out;
   }
 
+  if (fseek(f, 0, SEEK_SET) == -1) {
+    goto out;
+  }
+
   data = malloc(length);
   if (data == NULL) {
     goto out;
   }
-  rewind(f);
 
   bytes_read = fread(data, 1, length, f);
   if (ferror(f) != 0 || bytes_read != (size_t)length) {
