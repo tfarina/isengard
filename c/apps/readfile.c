@@ -22,8 +22,7 @@ int main(int argc, char **argv) {
     goto out;
   }
 
-  length = ftell(f);
-  if (length < 0) {
+  if ((length = ftell(f)) == -1) {
     goto out;
   }
 
