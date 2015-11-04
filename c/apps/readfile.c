@@ -3,10 +3,10 @@
 #include <stdlib.h>
 
 int main(int argc, char **argv) {
+  FILE *f;
+  long length;
   void *data;
   size_t bytes_read;
-  long length;
-  FILE *f;
 
   if (argc != 2) {
     fprintf(stderr, "usage: readfile <filename>\n");
