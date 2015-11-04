@@ -14,8 +14,8 @@
 int main(void) {
   struct addrinfo hints, *addrlist;
   int rv;
-  struct sockaddr_in remoteaddr;
-  socklen_t addrlen = sizeof(remoteaddr);
+  struct sockaddr_storage remoteaddr;
+  socklen_t addrlen;
   int sockfd;
   int recvlen;
   char buf[BUFLEN];
@@ -40,8 +40,10 @@ int main(void) {
 
   printf("listening on port %d\n", PORT);
 
+  addrlen = sizeof(remoteaddr);
   for (;;) {
-    recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&remoteaddr, &addrlen);
+    recvlen = recvfrom(sockfd, buf, sizeof(buf), 0,
+                       (struct sockaddr *)&remoteaddr, &addrlen);
     if (recvlen <= 0) {
      continue;
     }
@@ -49,7 +51,8 @@ int main(void) {
     printf("received message: %s\n", buf);
 
     sprintf(buf, "ack %d", msgcnt++);
-    if (sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr *)&remoteaddr, addrlen) == -1)
+    if (sendto(sockfd, buf, strlen(buf), 0,
+               (struct sockaddr *)&remoteaddr, addrlen) == -1)
       die("sendto failed: %s", strerror(errno));
     printf("response sent: %s\n", buf);
   }
