@@ -19,33 +19,41 @@ int main(int argc, char **argv) {
   }
 
   if (fseek(f, 0, SEEK_END) == -1) {
-    goto out;
+    fprintf(stderr, "unable to fseek file %s\n", argv[1]);
+    fclose(f);
+    return -1;
   }
 
   if ((length = ftell(f)) == -1) {
-    goto out;
+    fprintf(stderr, "unable to ftell file %s\n", argv[1]);
+    fclose(f);
+    return -1;
   }
 
   if (fseek(f, 0, SEEK_SET) == -1) {
-    goto out;
+    fprintf(stderr, "unable to fseek file %s\n", argv[1]);
+    fclose(f);
+    return -1;
   }
 
   if ((data = malloc(length)) == NULL) {
-    goto out;
+    fprintf(stderr, "out of memory\n");
+    fclose(f);
+    return -1;
   }
 
   bytes_read = fread(data, 1, length, f);
   if (ferror(f) != 0 || bytes_read != (size_t)length) {
-    goto out;
+    fprintf(stderr, "fread failed\n");
+    free(data);
+    fclose(f);
+    return -1;
   }
 
   fwrite(data, 1, length, stdout);
 
-out:
-  if (f != NULL) {
-    fclose(f);
-  }
   free(data);
+  fclose(f);
 
   return 0;
 }
