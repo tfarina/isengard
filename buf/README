@@ -1,2 +1,4 @@
-This was copied from Go's src/cmd/dist/ and modified by me.
+This was originally copied from Go's src/cmd/dist/ and modified by me.
 
+https://github.com/golang/go/blob/ce5cb037d171273f1a5294723234be5495c9d336/src/cmd/dist/a.h
+https://github.com/golang/go/blob/ce5cb037d171273f1a5294723234be5495c9d336/src/cmd/dist/buf.c
