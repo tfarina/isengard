@@ -32,6 +32,7 @@ c/apps/.ninja_deps
 c/apps/.ninja_log
 c/apps/bin
 c/apps/buildtime
+c/apps/cansse2
 c/apps/cjson_test
 c/apps/echo/*.o
 c/apps/echo/.ninja_deps
