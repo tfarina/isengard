@@ -21,7 +21,8 @@ static int list_user_records(sqlite3 *db) {
   const char *sql = sqlite3_mprintf("SELECT * FROM user");
 
   if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
-    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
+    fprintf(stderr, "error preparing select statement: %s\n",
+            sqlite3_errmsg(db));
     return -1;
   }
 
