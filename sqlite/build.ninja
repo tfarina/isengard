@@ -44,44 +44,43 @@ build $builddir/sqlite3.o: cc deps/sqlite3.c
   cflags =
 
 build $builddir_cli/db.o: cc cli/db.c
-  includes = -Ideps
+  includes = -I.
 
 build $builddir_cli/user.o: cc cli/user.c
-  includes = -Ideps
+  includes = -I.
 
 build $builddir_cli/create.o: cc cli/create.c
+  includes = -I.
 build out/create: link $builddir/sqlite3.o $builddir_cli/db.o $
 $builddir_cli/user.o $builddir_cli/create.o
-  includes = -Ideps
   libs = -lpthread -ldl
 
 build $builddir_cli/insert.o: cc cli/insert.c
+  includes = -I.
 build out/insert: link $builddir/sqlite3.o $builddir_cli/db.o $
 $builddir_cli/user.o $builddir_cli/insert.o
-  includes = -Ideps
   libs = -lpthread -ldl
 
 build $builddir_cli/list.o: cc cli/list.c
+  includes = -I.
 build out/list: link $builddir/sqlite3.o $builddir_cli/db.o $
 $builddir_cli/user.o $builddir_cli/list.o
-  includes = -Ideps
   libs = -lpthread -ldl
 
 build $builddir_cli/update.o: cc cli/update.c
+  includes = -I.
 build out/update: link $builddir/sqlite3.o $builddir_cli/db.o $
 $builddir_cli/user.o $builddir_cli/update.o
-  includes = -Ideps
   libs = -lpthread -ldl
 
 build $builddir_cli/delete.o: cc cli/delete.c
+  includes = -I.
 build out/delete: link $builddir/sqlite3.o $builddir_cli/db.o $
 $builddir_cli/user.o $builddir_cli/delete.o
-  includes = -Ideps
   libs = -lpthread -ldl
 
 build $builddir_cli/all.o: cc cli/all.c
+  includes = -I.
 build out/all: link $builddir/sqlite3.o $builddir_cli/db.o $
 $builddir_cli/user.o $builddir_cli/all.o
-  includes = -Ideps
   libs = -lpthread -ldl
-
