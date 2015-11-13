@@ -1,0 +1,20 @@
+cc = clang
+cflags = -Wall -Wextra -Werror -Wno-unused-parameter
+builddir = out
+
+rule compile
+  command = $cc $cflags -MMD -MF $out.d -c $in -o $out
+  depfile = $out.d
+  deps = gcc
+  description = compile $in -> $out
+
+rule link
+  command = $cc $in -o $out
+
+build $builddir/cmd_add.o: compile cmd_add.c
+build $builddir/cmd_del.o: compile cmd_del.c
+build $builddir/cmd_list.o: compile cmd_list.c
+build $builddir/umc.o: compile umc.c
+
+build $builddir/umc: link $builddir/cmd_add.o $builddir/cmd_del.o $
+$builddir/cmd_list.o $builddir/umc.o

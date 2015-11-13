@@ -71,6 +71,7 @@ c/apps/readjson
 c/apps/readmenujson
 c/apps/select/out/
 c/apps/sizeck/out/
+c/apps/uzrm/out
 c/mysql/*.o
 c/mysql/.ninja_deps
 c/mysql/.ninja_log

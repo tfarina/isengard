@@ -85,11 +85,3 @@ $builddir_cli/user.o $builddir_cli/all.o
   includes = -Ideps
   libs = -lpthread -ldl
 
-build $builddir_cli/cmd_add.o: cc cli/cmd_add.c
-build $builddir_cli/cmd_del.o: cc cli/cmd_del.c
-build $builddir_cli/cmd_list.o: cc cli/cmd_list.c
-
-build $builddir_cli/umc.o: cc cli/umc.c
-build out/umc: link $builddir_cli/cmd_add.o $builddir_cli/cmd_del.o $
-$builddir_cli/cmd_list.o $builddir_cli/umc.o
-  includes = -Ideps

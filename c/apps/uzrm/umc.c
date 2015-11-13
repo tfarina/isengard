@@ -1,4 +1,5 @@
 #include <libgen.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -31,7 +32,7 @@ static void usage(void) {
 }
 
 static struct builtin_cmd *get_builtin(const char *name) {
-        int i;
+        size_t i;
         for (i = 0; i < ARRAY_SIZE(cmds); i++) {
                 struct builtin_cmd *cmd = &cmds[i];
                 if (!strcmp(name, cmd->name)) {
