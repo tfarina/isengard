@@ -6,8 +6,8 @@ int db_user_create_table(sqlite3* db) {
   const char* sql =
     "CREATE TABLE IF NOT EXISTS 'user' ("
     "  uid INTEGER PRIMARY KEY," /* User ID */
-    "  login TEXT UNIQUE,"       /* login name of the user */
-    "  pw TEXT,"                 /* password */
+    "  login TEXT NOT NULL UNIQUE," /* login name of the user */
+    "  pw TEXT NOT NULL,"        /* password */
     "  email TEXT"               /* e-mail */
     ");";
 
