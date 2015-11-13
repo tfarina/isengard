@@ -1,9 +1,9 @@
-#include "umc.h"
-
 #include <libgen.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "commands.h"
 
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 
