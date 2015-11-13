@@ -1,7 +1,7 @@
 /*
  * SQLITE DATABASE SCHEMA FOR THE cli DATABASE.
  *
- * To recreate the database: sqlite3 users.db < sqlite-schema.sql
+ * To recreate the database: sqlite3 users.db < schema.sql
  *
  */
 
