@@ -4,6 +4,9 @@
 #include "db.h"
 #include "user.h"
 
+/* The name of the user database file.  */
+static const char user_db_fname[] = "users.db";
+
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 static void close_user_db(sqlite3 *db) {
   int rv;
@@ -44,7 +47,7 @@ int main(int argc, char **argv) {
   sqlite3 *db;
   int rv;
 
-  db = db_open("users.db");
+  db = db_open(user_db_fname);
   if (!db) {
     return -1;
   }
