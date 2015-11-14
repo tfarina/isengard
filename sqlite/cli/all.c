@@ -3,6 +3,9 @@
 #include "db.h"
 #include "user.h"
 
+/* The name of the user database file.  */
+static const char user_db_fname[] = "users.db";
+
 static int callback(void* data, int argc, char** argv, char** column_name) {
   int i;
   fprintf(stdout, "%s: \n", (const char*)data);
@@ -64,7 +67,7 @@ static int db_user_remove(sqlite3* db) {
 int main(int argc, char **argv) {
   sqlite3* db;
 
-  db = db_open("users.db");
+  db = db_open(user_db_fname);
 
   if (db_user_create_table(db)) {
     sqlite3_close(db);

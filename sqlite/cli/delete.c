@@ -6,6 +6,9 @@
 
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
+/* The name of the user database file.  */
+static const char user_db_fname[] = "users.db";
+
 static int db_user_remove(sqlite3* db, const char* username) {
   sqlite3_stmt *stmt;
 
@@ -31,7 +34,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  db = db_open("users.db");
+  db = db_open(user_db_fname);
   if (!db) {
     return -1;
   }
