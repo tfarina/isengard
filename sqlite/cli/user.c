@@ -13,8 +13,8 @@ int db_user_create_table(sqlite3* db) {
     "  email TEXT"               /* e-mail */
     ");";
 
-  if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
-    fprintf(stderr, "error creating user table: %s\n", sqlite3_errmsg(db));
+  if ((rv = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL)) != SQLITE_OK) {
+    fprintf(stderr, "error creating user table: %s\n", sqlite3_errstr(rv));
     /* TODO: close db */
     return -1;
   }
