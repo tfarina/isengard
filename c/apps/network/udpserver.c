@@ -11,6 +11,17 @@
 #define BUFLEN 512
 #define PORT 5300
 
+static int set_reuseaddr(int sd)
+{
+  int reuse;
+  socklen_t len;
+
+  reuse = 1;
+  len = sizeof(reuse);
+
+  return setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &reuse, len);
+}
+
 int main(void) {
   struct addrinfo hints, *addrlist;
   int rv;
@@ -34,6 +45,8 @@ int main(void) {
   if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype,
                        addrlist->ai_protocol)) == -1)
     die("cannot create socket");
+
+  set_reuseaddr(sockfd);
 
   if (bind(sockfd, addrlist->ai_addr, addrlist->ai_addrlen) == -1)
     die("bind on %d failed: %s", sockfd, strerror(errno));
