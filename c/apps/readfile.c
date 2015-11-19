@@ -1,6 +1,8 @@
+#include <errno.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char **argv) {
   FILE *f;
@@ -37,7 +39,7 @@ int main(int argc, char **argv) {
   }
 
   if ((data = malloc(length)) == NULL) {
-    fprintf(stderr, "out of memory\n");
+    fprintf(stderr, "malloc failed (file too large?): %s\n", strerror(errno));
     fclose(f);
     return -1;
   }
