@@ -36,7 +36,7 @@ int main(void) {
     die("cannot create socket");
 
   if (bind(sockfd, addrlist->ai_addr, addrlist->ai_addrlen) == -1)
-    die("bind failed");
+    die("bind on %d failed: %s", sockfd, strerror(errno));
 
   printf("listening on port %d\n", PORT);
 
