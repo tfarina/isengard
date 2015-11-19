@@ -38,10 +38,10 @@ $query = "DROP TABLE IF EXISTS cars";
 execute_query($query);
 
 $query = "CREATE TABLE cars(
-        id    INT  PRIMARY KEY,
-        name  TEXT,
-        price INT)
-        ENGINE=InnoDB";
+          id INT  PRIMARY KEY,
+          name TEXT,
+          price INT
+          ) ENGINE=InnoDB";
 execute_query($query);
 
 $query = "INSERT INTO cars VALUES(1,'Audi',52642)";

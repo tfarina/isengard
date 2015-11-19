@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
   num_fields = mysql_num_fields(res);
 
   while ((row = mysql_fetch_row(res))) {
-    for(i = 0; i < num_fields; i++) {
+    for (i = 0; i < num_fields; i++) {
       printf("%s ", row[i] ? row[i] : "NULL");
     }
     printf("\n");
