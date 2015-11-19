@@ -2,18 +2,20 @@
 
 #include "md5.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   FILE* infile;
-  char* infilename = argv[1];
+  char* infilename;
+  MD5_CTX ctx;
   int len;
   unsigned char buffer[1024];
-  MD5_CTX ctx;
   unsigned char digest[16];
   int i;
 
   if (argc <= 1) {
     return -1;
   }
+
+  infilename = argv[1];
 
   if ((infile = fopen(infilename, "rb")) == NULL) {
     fprintf(stderr, "%s can't be opened.\n", infilename);
@@ -24,9 +26,7 @@ int main(int argc, char** argv) {
   while ((len = fread(buffer, 1, sizeof(buffer), infile)) > 0) {
     MD5_Update(&ctx, buffer, (unsigned)len);
   }
-
   fclose(infile);
-
   MD5_Final(digest, &ctx);
 
   for (i = 0; i < sizeof(digest); i++) {
