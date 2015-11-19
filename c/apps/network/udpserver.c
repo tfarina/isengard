@@ -9,6 +9,7 @@
 #include "die.h"
 
 #define BUFLEN 512
+#define ADDRESS NULL
 #define PORT 5300
 
 static int set_reuseaddr(int sd)
@@ -31,13 +32,16 @@ int main(void) {
   int recvlen;
   char buf[BUFLEN];
   int msgcnt = 0;  /* count # of messages we received */
+  char strport[NI_MAXSERV];
+
+  snprintf(strport, sizeof(strport), "%d", PORT);
 
   memset(&hints, 0, sizeof(hints));
   hints.ai_flags = AI_PASSIVE;
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_DGRAM;
 
-  if ((rv = getaddrinfo(NULL, "5300", &hints, &addrlist)) != 0) {
+  if ((rv = getaddrinfo(ADDRESS, strport, &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
