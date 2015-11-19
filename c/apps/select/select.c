@@ -4,6 +4,7 @@
  * Slightly modified from http://beej.us/guide/bgnet/examples/select.c
  */
 
+#include <errno.h>
 #include <stdio.h>
 #include <sys/select.h>
 #include <sys/time.h>
@@ -27,7 +28,10 @@ int main(void) {
     printf("Timed out.\n");
     return -1;
   } else if (rv == -1) {
-    /* TODO: Check errno for EAGAIN and EINTR. */
+    /* TODO: Check errno for EAGAIN. */
+    if (errno == EINTR) { /* ^C was pressed. */
+      return -1;
+    }
   }
 
   if (FD_ISSET(fd, &readfds))
