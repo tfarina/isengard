@@ -52,10 +52,11 @@ int main(int argc, char **argv) {
     return -1;
   }
 
+  fclose(f);
+
   fwrite(data, 1, length, stdout);
 
   free(data);
-  fclose(f);
 
   return 0;
 }
