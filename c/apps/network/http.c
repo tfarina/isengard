@@ -22,18 +22,20 @@ typedef struct {
 
 #if defined(__GNUC__)
 #define NORETURN __attribute__((__noreturn__))
+#elif defined(_MSC_VER)
+#define NORETURN __declspec(noreturn)
 #else
 #define NORETURN
 #endif
 
-static void NORETURN die(const char *msg, ...)
+static NORETURN void fatal(const char *fmt, ...)
 {
         va_list args;
 
-        va_start(args, msg);
+        va_start(args, fmt);
 
         fprintf(stderr, "fatal: ");
-        vfprintf(stderr, msg, args);
+        vfprintf(stderr, fmt, args);
         fprintf(stderr, "\n");
 
         va_end(args);
@@ -45,7 +47,7 @@ static void *xrealloc(void *p, size_t n)
 {
 	p = realloc(p, n);
         if (p == NULL)
-                die("out of memory: %lu", n);
+                fatal("out of memory: %lu", n);
 	return p;
 }
 
@@ -197,7 +199,7 @@ int main(int argc, char **argv) {
   printf("bytes to send: %ld\n", bytes_to_send);
 
   if (fd_write_all(sockfd, request, strlen(request)) == -1)
-    die("fd_write_all() failed");
+    fatal("fd_write_all() failed");
 
   printf("HTTP request sent, awaiting response...\n"),
 
