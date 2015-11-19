@@ -70,8 +70,10 @@ int main(int argc, char **argv) {
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
     die("bind to port %s failed: %.200s", strport, strerror(errno));
 
-  if (listen(listen_fd, BACKLOG) == -1)
-    die("listen failed: %s", strerror(errno));
+  if (listen(listen_fd, BACKLOG) == -1) {
+    close(listen_fd);
+    die("listen on %d failed: %s", listen_fd, strerror(errno));
+  }
 
   fprintf(stderr,
           "The server is now ready to accept connections on %s port %d\n",
