@@ -17,3 +17,4 @@ build readmenujson: cc cJSON.c readmenujson.c
   libs = -lm
 build bin: cc bin.c
 build cansse2: cc cansse2.c
+build lexer: cc lexer.c
