@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
     die("socket failed: %s", strerror(errno));
 
   if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) == -1)
-    die("setsockopt SO_REUSEADDR: %s", strerror(errno));
+    die("set reuse addr on sd %d failed: %s", listen_fd, strerror(errno));
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
     die("bind to port %s failed: %.200s", strport, strerror(errno));
