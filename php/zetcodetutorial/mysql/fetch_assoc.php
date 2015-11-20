@@ -14,9 +14,7 @@ if (!$r) {
     echo "Connection established\n";
 }
 
-$r2 = mysql_select_db($db);
-
-if (!$r2) {
+if (!mysql_select_db($db)) {
     echo "Cannot select database\n";
     trigger_error(mysql_error(), E_USER_ERROR);
 } else {
