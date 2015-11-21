@@ -54,10 +54,26 @@ static char *read_file(const char *filename, size_t *rlen)
   return buf;
 }
 
+static void lex(const char *input)
+{
+  const char *c;
+
+  for (c = input; *c; ++c) {
+    switch (*c) {
+      case '{':
+        printf("Token::BRACE_L\n");
+        break;
+
+      case '}':
+        printf("Token::BRACE_R\n");
+        break;
+    }
+  }
+}
+
 int main(int argc, char **argv) {
   size_t len;
   char *buf;
-  const char *c;
 
   if (argc != 2) {
     fprintf(stderr, "usage: lexer <filename>\n");
@@ -66,16 +82,7 @@ int main(int argc, char **argv) {
 
   buf = read_file(argv[1], &len);
 
-  for (c = buf; *c; ++c) {
-    switch (*c) {
-      case '{':
-        printf("Token::BRACE_L\n");
-        break;
-      case '}':
-        printf("Token::BRACE_R\n");
-        break;
-    }
-  }
+  lex(buf);
 
   free(buf);
 
