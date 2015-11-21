@@ -4,6 +4,7 @@ require_once("book_sc_fns.php");
 session_start();
 
 do_html_header("Adding a book");
+
 if (check_admin_user()) {
   if (filled_out($_POST)) {
     $isbn = $_POST['isbn'];
