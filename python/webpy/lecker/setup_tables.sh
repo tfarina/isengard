@@ -2,8 +2,8 @@
 
 set -x -e
 
-DBNAME=lecker
 DBUSER=hannibal
+DBNAME=lecker
 DBPASS=19440807
 
-mysql -u hannibal -p lecker < schema.mysql
+mysql -u $DBUSER -p $DBNAME < schema.mysql
