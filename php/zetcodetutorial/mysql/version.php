@@ -4,9 +4,8 @@ define("DB_SERVER", "localhost");
 define("DB_USERNAME", "justin");
 define("DB_PASSWORD", "46656");
 
-$r = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-
-if (!$r) {
+$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+if (!$link) {
     echo "Could not connect to server\n";
     trigger_error(mysql_error(), E_USER_ERROR);
 } else {
@@ -15,16 +14,15 @@ if (!$r) {
 
 $query = "SELECT VERSION()";
 
-$rs = mysql_query($query);
-
-if (!$rs) {
+$result = mysql_query($query);
+if (!$result) {
     echo "Could not execute query: $query\n";
     trigger_error(mysql_error(), E_USER_ERROR);
 } else {
     echo "Query: $query executed\n";
 }
 
-$row = mysql_fetch_row($rs);
+$row = mysql_fetch_row($result);
 
 echo "Version: $row[0]\n";
 
