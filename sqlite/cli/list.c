@@ -1,3 +1,5 @@
+// http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,7 +9,6 @@
 /* The name of the user database file.  */
 static const char user_db_fname[] = "users.db";
 
-// http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 static void close_user_db(sqlite3 *db) {
   int rv;
   if ((rv = sqlite3_close(db)) != SQLITE_OK) {
@@ -44,10 +45,9 @@ static int list_user_records(sqlite3 *db) {
   return 0;
 }
 
-int main(int argc, char **argv) {
-  sqlite3 *db;
-  int rv;
+static sqlite3 *db;
 
+static int open_user_db(void) {
   db = db_open(user_db_fname);
   if (!db) {
     return -1;
@@ -57,6 +57,16 @@ int main(int argc, char **argv) {
     close_user_db(db);
     return -1;
   }
+
+  return 0;
+}
+
+int main(int argc, char **argv) {
+  int rv;
+
+  rv = open_user_db();
+  if (rv)
+    return rv;
 
   rv = list_user_records(db);
 
