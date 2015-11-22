@@ -1,10 +1,10 @@
-<?
+<?php
 
-$host = "localhost";
-$user = "justin";
-$pass = "46656";
+define("DB_SERVER", "localhost");
+define("DB_USERNAME", "justin");
+define("DB_PASSWORD", "46656");
 
-$r = mysql_connect($host, $user, $pass);
+$r = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 
 if (!$r) {
     echo "Could not connect to server\n";
