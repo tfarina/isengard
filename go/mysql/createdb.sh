@@ -9,8 +9,7 @@ DBUSER=nash
 DBPASS=virginia
 
 s1="CREATE DATABASE IF NOT EXISTS $DBNAME;"
-s2="CREATE USER '$DBUSER'@'localhost' IDENTIFIED BY '$DBPASS';"
-s3="GRANT ALL ON $DBNAME* TO '$DBUSER'@'localhost';"
+s3="GRANT ALL ON $DBNAME.* TO '$DBUSER'@'localhost' IDENTIFIED BY '$DBPASS';"
 s4="FLUSH PRIVILEGES;"
 sql="${s1}${s2}${s3}${s4}"
 
