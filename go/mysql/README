@@ -1,6 +1,5 @@
 $ ./createdb.sh
-$ mysql -u nash -p go_tutorial < schema.sql
-# Type in nash's password: virginia
+$ ./createtables.sh
 
 $ go run open.go
 $ go run ping.go
