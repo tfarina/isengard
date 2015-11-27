@@ -1,8 +1,7 @@
-// go run hello2.go
-//
-// 1) Open Chrome
-// 2) Navigate to localhost:8080
-// 3) See the result
+// 1) go run hello2.go
+// 2) Open Chrome
+// 3) Navigate to localhost:8001
+// 4) See the result
 
 package main
 
@@ -18,5 +17,5 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", rootHandler)
-	log.Fatal(http.ListenAndServe("0.0.0.0:8080", nil))
+	log.Fatal(http.ListenAndServe("0.0.0.0:8001", nil))
 }
