@@ -1,4 +1,4 @@
-$ ./setup.sh
+$ ./createdb.sh
 $ mysql -u nash -p go_tutorial < schema.sql
 # Type in nash's password: virginia
 
