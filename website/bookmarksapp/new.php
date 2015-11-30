@@ -14,6 +14,7 @@ if (isset($_POST['submitted'])) {
   echo "Bookmark added successfully!<br />";
   echo "<a href='list.php'>Back To Listing</a>";
 }
+
 ?>
 <!doctype html>
 <html>
@@ -28,5 +29,6 @@ if (isset($_POST['submitted'])) {
     <p><input type='submit' value='Add Bookmark'/>
        <input type='hidden' value='1' name='submitted'/>
   </form>
-</body>
-</html>
+<?php
+include_once("footer.php");
+?>
