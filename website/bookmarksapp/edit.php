@@ -17,10 +17,21 @@ if (isset($_GET['id'])) {
   $row = mysql_fetch_array(mysql_query("SELECT * FROM bookmarks WHERE id='" . $_GET['id'] . "'"));
 ?>
 
+<h2> Edit bookmark </h2>
 <form action='' method='POST'>
-  <p><b>Title:</b><br /><input type="text" name='title' value="<?php echo stripslashes($row['title']) ?>"/>
-  <p><b>URL:</b><br /><input type="text" name='url' value="<?php echo stripslashes($row['url']) ?>"/>
-  <p><input type='submit' value='Edit Bookmark' /><input type='hidden' value='1' name='submitted' />
+  <table>
+    <tr>
+      <td>Title</td>
+      <td><input type="text" name='title' value="<?php echo stripslashes($row['title']) ?>"/></td>
+    </tr>
+    <tr>
+      <td>URL</td>
+      <td><input type="text" name='url' value="<?php echo stripslashes($row['url']) ?>"/></td>
+    </tr>
+    <tr colspan=2>
+      <td><input type='submit' value='Edit Bookmark' /><input type='hidden' value='1' name='submitted' /></td>
+    </tr>
+  </table>
 </form>
 
 <?php } ?>
