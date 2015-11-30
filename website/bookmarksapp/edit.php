@@ -29,7 +29,7 @@ if (isset($_GET['id'])) {
       <td><input type="text" name='url' value="<?php echo stripslashes($row['url']) ?>"/></td>
     </tr>
     <tr colspan=2>
-      <td><input type='submit' value='Edit Bookmark' /><input type='hidden' value='1' name='submitted' /></td>
+      <td><input type='submit' value='Save' /><input type='hidden' value='1' name='submitted' /></td>
     </tr>
   </table>
 </form>
