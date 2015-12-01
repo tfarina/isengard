@@ -5,11 +5,14 @@ include('config.php');
 echo "<p><a href=new.php>New Bookmark</a></p>\n";
 
 echo "<table border=1>\n";
+echo "<thead>\n";
 echo "<tr>\n";
-echo "<td><b>URL</b></td>\n";
-echo "<td><b>Title</b></td>\n";
-echo "<td><b>Date Created</b></td>\n";
+echo "<th><b>URL</b></th>\n";
+echo "<th><b>Title</b></th>\n";
+echo "<th><b>Date Created</b></th>\n";
 echo "</tr>\n";
+echo "</thead>\n";
+echo "<tbody>\n";
 
 $result = mysql_query("SELECT * FROM `bookmarks`") or trigger_error(mysql_error());
 
@@ -26,6 +29,7 @@ while ($row = mysql_fetch_array($result)) {
   echo "</tr>\n";
 }
 
+echo "</tbody>\n";
 echo "</table>\n";
 
 ?>
