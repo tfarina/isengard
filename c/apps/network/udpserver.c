@@ -14,13 +14,8 @@
 
 static int set_reuseaddr(int sd)
 {
-  int reuse;
-  socklen_t len;
-
-  reuse = 1;
-  len = sizeof(reuse);
-
-  return setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &reuse, len);
+  int reuse = 1;
+  return setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
 }
 
 int main(void) {
