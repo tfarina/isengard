@@ -16,13 +16,9 @@ if (isset($_POST['submitted'])) {
 }
 
 ?>
-<!doctype html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Bookmark manager</title>
-</head>
-<body>
+<?php
+include_once("header.php");
+?>
   <form action='' method='POST'>
     <p><b>Title:</b><br /><input type="text" name='title'/>
     <p><b>URL:</b><br /><input type="text" name='url'/>
