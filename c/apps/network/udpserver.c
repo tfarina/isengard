@@ -24,11 +24,11 @@ static int set_reuseaddr(int sd)
 }
 
 int main(void) {
-  struct addrinfo hints, *addrlist;
+  struct addrinfo hints, *addrlist, *cur;
   int rv;
   struct sockaddr_storage remoteaddr;
   socklen_t addrlen;
-  int sockfd;
+  int sockfd = 0;
   int recvlen;
   char buf[BUFLEN];
   int msgcnt = 0;  /* count # of messages we received */
@@ -46,14 +46,19 @@ int main(void) {
     exit(EXIT_FAILURE);
   }
 
-  if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype,
-                       addrlist->ai_protocol)) == -1)
-    die("cannot create socket");
+  /* Loop through all the results and bind to the first we can. */
+  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
+    if ((sockfd = socket(cur->ai_family, cur->ai_socktype,
+                         cur->ai_protocol)) == -1)
+      die("cannot create socket");
 
-  set_reuseaddr(sockfd);
+    set_reuseaddr(sockfd);
 
-  if (bind(sockfd, addrlist->ai_addr, addrlist->ai_addrlen) == -1)
-    die("bind on %d failed: %s", sockfd, strerror(errno));
+    if (bind(sockfd, cur->ai_addr, cur->ai_addrlen) == -1)
+      die("bind on %d failed: %s", sockfd, strerror(errno));
+
+    break;
+  }
 
   printf("listening on port %d\n", PORT);
 
