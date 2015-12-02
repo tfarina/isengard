@@ -1,8 +1,13 @@
-cc = gcc
-cflags = -Wall -Wextra -g
 builddir = out
 
-rule compile_link
-  command = $cc $cflags -o $out $in
+cc = gcc
+cflags = -Wall -Wextra -g
 
-build $builddir/showip: compile_link showip.c
+rule compile
+  command = $cc $cflags -c $in -o $out
+
+rule link
+  command = $cc $in -o $out
+
+build $builddir/showip.o: compile showip.c
+build $builddir/showip: link $builddir/showip.o
