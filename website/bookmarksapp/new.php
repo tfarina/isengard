@@ -19,11 +19,24 @@ if (isset($_POST['submitted'])) {
 <?php
 include_once("header.php");
 ?>
+  <h2>New bookmark</h2>
   <form action='' method='POST'>
-    <p><b>Title:</b><br /><input type="text" name='title'/>
-    <p><b>URL:</b><br /><input type="text" name='url'/>
-    <p><input type='submit' value='Add Bookmark'/>
-       <input type='hidden' value='1' name='submitted'/>
+    <table>
+      <tr>
+        <td>Title</td>
+        <td><input type="text" name='title'/></td>
+      </tr>
+      <tr>
+        <td>URL</td>
+        <td><input type="text" name='url'/></td>
+      </tr>
+      <tr colspan=2>
+        <td>
+          <input type='submit' value='Add Bookmark'/>
+          <input type='hidden' value='1' name='submitted'/>
+        </td>
+      </tr>
+    </table>
   </form>
 <?php
 include_once("footer.php");
