@@ -16,8 +16,10 @@ if (isset($_GET['id'])) {
 
   $row = mysql_fetch_array(mysql_query("SELECT * FROM bookmarks WHERE id='" . $_GET['id'] . "'"));
 ?>
-
-<h2> Edit bookmark </h2>
+<?php
+include_once("header.php");
+?>
+<h2>Edit bookmark</h2>
 <form action='' method='POST'>
   <table>
     <tr>
@@ -33,5 +35,7 @@ if (isset($_GET['id'])) {
     </tr>
   </table>
 </form>
-
+<?php
+include_once("footer.php");
+?>
 <?php } ?>
