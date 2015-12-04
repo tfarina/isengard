@@ -10,6 +10,8 @@ echo "<tr>\n";
 echo "<th><b>URL</b></th>\n";
 echo "<th><b>Title</b></th>\n";
 echo "<th><b>Date Created</b></th>\n";
+echo "<th>&nbsp;</th>\n";
+echo "<th>&nbsp;</th>\n";
 echo "</tr>\n";
 echo "</thead>\n";
 echo "<tbody>\n";
