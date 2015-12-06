@@ -1,9 +1,9 @@
 <?
 
-$host = "localhost";
-$user = "justin";
-$pass = "46656";
-$db = "php_tutorial";
+define("DB_HOST", "localhost");
+define("DB_USERNAME", "justin");
+define("DB_PASSWORD", "46656");
+define("DB_NAME", "php_tutorial");
 
 function execute_query($query) {
     $r = mysql_query($query);
@@ -16,16 +16,16 @@ function execute_query($query) {
     }
 }
 
-$r = mysql_connect($host, $user, $pass);
+$r = mysql_connect(DB_HOST, DB_USERNAME, DB_PASSWORD);
 
 if (!$r) {
-    echo "Could not connect to server\n";
+    echo "Failed to connect to mysql server.\n";
     trigger_error(mysql_error(), E_USER_ERROR);
 } else {
     echo "Connection established\n";
 }
 
-$r2 = mysql_select_db($db);
+$r2 = mysql_select_db(DB_NAME);
 
 if (!$r2) {
     echo "Cannot select database\n";
