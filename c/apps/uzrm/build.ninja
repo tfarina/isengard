@@ -14,7 +14,7 @@ rule link
 build $builddir/cmd_add.o: compile cmd_add.c
 build $builddir/cmd_del.o: compile cmd_del.c
 build $builddir/cmd_list.o: compile cmd_list.c
-build $builddir/umc.o: compile umc.c
+build $builddir/main.o: compile main.c
 
-build $builddir/umc: link $builddir/cmd_add.o $builddir/cmd_del.o $
-$builddir/cmd_list.o $builddir/umc.o
+build $builddir/uzrm: link $builddir/cmd_add.o $builddir/cmd_del.o $
+  $builddir/cmd_list.o $builddir/main.o
