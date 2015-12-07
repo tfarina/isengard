@@ -16,7 +16,7 @@ echo "</tr>\n";
 echo "</thead>\n";
 echo "<tbody>\n";
 
-$result = mysql_query("SELECT * FROM `bookmarks`") or trigger_error(mysql_error());
+$result = mysql_query("SELECT * FROM bookmarks ORDER BY dt DESC") or trigger_error(mysql_error());
 
 while ($row = mysql_fetch_assoc($result)) {
   echo "<tr>\n";
