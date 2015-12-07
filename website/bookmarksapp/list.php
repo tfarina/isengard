@@ -2,6 +2,8 @@
 
 include('config.php');
 
+include_once("header.php");
+
 echo "<p><a href=new.php>New Bookmark</a></p>\n";
 
 echo "<table border=1>\n";
@@ -29,5 +31,7 @@ while ($row = mysql_fetch_assoc($result)) {
 
 echo "</tbody>\n";
 echo "</table>\n";
+
+include_once("footer.php");
 
 ?>
