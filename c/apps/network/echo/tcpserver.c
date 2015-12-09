@@ -34,8 +34,6 @@ int main(int argc, char **argv) {
   int port;
   int listen_fd;
   int on = 1;
-  struct sockaddr_in cliaddr;
-  socklen_t clilen = sizeof(cliaddr);
   int client_fd;
   int pid;
   unsigned int num_children = 0; /* Number of child processes. */
@@ -80,10 +78,14 @@ int main(int argc, char **argv) {
           ntop, port);
 
   while (1) {
-    if ((client_fd = accept(listen_fd, (struct sockaddr*)&cliaddr, &clilen)) == -1)
+    struct sockaddr_storage ss;
+    struct sockaddr *sa = (struct sockaddr *)&ss;
+    socklen_t addrlen = sizeof(ss);
+
+    if ((client_fd = accept(listen_fd, sa, &addrlen)) == -1)
       die("accept failed");
 
-    if ((ret = getnameinfo((struct sockaddr *)&cliaddr, sizeof(cliaddr),
+    if ((ret = getnameinfo(sa, addrlen,
                            ntop, sizeof(ntop), strport, sizeof(strport),
                            NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
       die("getnameinfo failed: %.100s", gai_strerror(ret));
