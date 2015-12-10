@@ -30,8 +30,13 @@ include_once("header.php");
       <td>URL</td>
       <td><input type="text" name='url' value="<?php echo stripslashes($row['url']) ?>"/></td>
     </tr>
-    <tr colspan=2>
-      <td><input type='submit' value='Save' /><input type='hidden' value='1' name='submitted' /></td>
+    <tr>
+      <td>&nbsp;</td>
+      <td>
+        <input type='submit' value='Save Changes'/>
+        <input type='hidden' value='1' name='submitted' />
+        <a href='list.php'>Back to bookmarks list</a>
+      </td>
     </tr>
   </table>
 </form>
