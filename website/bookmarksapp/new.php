@@ -19,7 +19,7 @@ if (isset($_POST['submitted'])) {
 <?php
 include_once("header.php");
 ?>
-  <h2>New bookmark</h2>
+  <h2>Create a new bookmark</h2>
   <form action='' method='POST'>
     <table>
       <tr>
@@ -30,10 +30,12 @@ include_once("header.php");
         <td>URL</td>
         <td><input type="text" name='url'/></td>
       </tr>
-      <tr colspan=2>
+      <tr>
+        <td>&nbsp;</td>
         <td>
-          <input type='submit' value='Add Bookmark'/>
+          <input type='submit' value='Save'/>
           <input type='hidden' value='1' name='submitted'/>
+          <a href="list.php">Back to bookmarks list</a>
         </td>
       </tr>
     </table>
