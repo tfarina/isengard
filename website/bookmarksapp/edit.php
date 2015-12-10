@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
     echo "<a href='list.php'>Back To Listing</a>";
   }
 
-  $row = mysql_fetch_array(mysql_query("SELECT * FROM bookmarks WHERE id='" . $_GET['id'] . "'"));
+  $row = mysql_fetch_assoc(mysql_query("SELECT * FROM bookmarks WHERE id='" . $_GET['id'] . "'"));
 ?>
 <?php
 include_once("header.php");
