@@ -1,20 +1,25 @@
 <?php
 include('config.php');
-if (isset($_GET['id'])) {
-  if (isset($_POST['submitted'])) {
-    foreach ($_POST as $key => $value) {
-      $_POST[$key] = mysql_real_escape_string($value);
-    }
 
-    $sql = "UPDATE bookmarks SET url='" . $_POST['url'] . "', title='" . $_POST['title'] . "' WHERE id='" . $_GET['id'] . "'";
-    mysql_query($sql) or die(mysql_error());
+$id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: record id not found');
 
-    echo mysql_affected_rows() ? "Bookmark edited. <br />"
-                               : "Nothing changed. <br />";
-    echo "<a href='list.php'>Back To Listing</a>";
+if (isset($_POST['submitted'])) {
+  foreach ($_POST as $key => $value) {
+    $_POST[$key] = mysql_real_escape_string($value);
   }
 
-  $row = mysql_fetch_assoc(mysql_query("SELECT * FROM bookmarks WHERE id='" . $_GET['id'] . "'"));
+  $sql = "UPDATE bookmarks SET url='" . $_POST['url'] . "', title='" . $_POST['title'] . "' WHERE id='" . $id . "'";
+  mysql_query($sql) or die(mysql_error());
+
+  echo mysql_affected_rows() ? "Bookmark edited. <br />"
+                             : "Nothing changed. <br />";
+  echo "<a href='list.php'>Back To Listing</a>";
+}
+
+$result = mysql_query("SELECT * FROM bookmarks WHERE id='" . $id . "'");
+$row = mysql_fetch_assoc($result);
+$title = $row['title'];
+$url = $row['url'];
 ?>
 <?php
 include_once("header.php");
@@ -43,4 +48,3 @@ include_once("header.php");
 <?php
 include_once("footer.php");
 ?>
-<?php } ?>
