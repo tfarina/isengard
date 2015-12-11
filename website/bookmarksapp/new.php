@@ -11,7 +11,7 @@ if (isset($_POST['submitted'])) {
 
   mysql_query($sql) or die(mysql_error());
 
-  echo "Bookmark added successfully!<br />";
+  echo "The bookmark has been created successfully. <br />";
   echo "<a href='list.php'>Back To Listing</a>";
 }
 

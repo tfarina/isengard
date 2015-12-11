@@ -11,7 +11,7 @@ if (isset($_POST['submitted'])) {
   $sql = "UPDATE bookmarks SET url='" . $_POST['url'] . "', title='" . $_POST['title'] . "' WHERE id='" . $id . "'";
   mysql_query($sql) or die(mysql_error());
 
-  echo mysql_affected_rows() ? "Bookmark edited. <br />"
+  echo mysql_affected_rows() ? "The bookmark has been updated successfully. <br />"
                              : "Nothing changed. <br />";
   echo "<a href='list.php'>Back To Listing</a>";
 }
