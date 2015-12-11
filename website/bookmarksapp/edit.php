@@ -11,9 +11,11 @@ if (isset($_POST['submitted'])) {
   $sql = "UPDATE bookmarks SET url='" . $_POST['url'] . "', title='" . $_POST['title'] . "' WHERE id='" . $id . "'";
   mysql_query($sql) or die(mysql_error());
 
-  echo mysql_affected_rows() ? "The bookmark has been updated successfully. <br />"
-                             : "Nothing changed. <br />";
-  echo "<a href='list.php'>Back To Listing</a>";
+  if (mysql_affected_rows()) {
+    $message = "The bookmark has been updated successfully.";
+  } else {
+    $message = "Nothing changed.";
+  }
 }
 
 $result = mysql_query("SELECT * FROM bookmarks WHERE id='" . $id . "'");
@@ -26,6 +28,13 @@ include_once("header.php");
 ?>
 <h2>Edit bookmark</h2>
 <form action='' method='POST'>
+  <div class="message">
+    <?php
+      if (isset($message)) {
+        echo $message;
+      }
+    ?>
+  </div>
   <table>
     <tr>
       <td>Title</td>

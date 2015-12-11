@@ -11,8 +11,7 @@ if (isset($_POST['submitted'])) {
 
   mysql_query($sql) or die(mysql_error());
 
-  echo "The bookmark has been created successfully. <br />";
-  echo "<a href='list.php'>Back To Listing</a>";
+  $message = "The bookmark has been created successfully.";
 }
 
 ?>
@@ -21,6 +20,13 @@ include_once("header.php");
 ?>
   <h2>Create a new bookmark</h2>
   <form action='' method='POST'>
+    <div class="message">
+      <?php
+        if (isset($message)) {
+          echo $message;
+        }
+      ?>
+    </div>
     <table>
       <tr>
         <td>Title</td>
