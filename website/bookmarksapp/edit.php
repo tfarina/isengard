@@ -12,9 +12,9 @@ if (isset($_POST['submitted'])) {
   mysql_query($sql) or die(mysql_error());
 
   if (mysql_affected_rows()) {
-    $message = "The bookmark has been updated successfully.";
+    $message = "The bookmark has been updated successfully.\n";
   } else {
-    $message = "Nothing changed.";
+    $message = "Nothing changed.\n";
   }
 }
 
@@ -26,15 +26,13 @@ $url = $row['url'];
 <?php
 include_once("header.php");
 ?>
-<h2>Edit bookmark</h2>
-<form action='' method='POST'>
+  <h2>Edit bookmark</h2>
+  <form action='' method='POST'>
+  <?php if (isset($message)) { ?>
   <div class="message">
-    <?php
-      if (isset($message)) {
-        echo $message;
-      }
-    ?>
+    <?php echo $message; ?>
   </div>
+  <?php } ?>
   <table>
     <tr>
       <td>Title</td>

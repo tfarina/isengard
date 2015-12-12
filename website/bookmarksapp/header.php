@@ -5,7 +5,7 @@
     <title>Bookmark manager</title>
     <style>
       .message {
-      color: #FF0000;
+      color: #468847;
       width: 100%;
       }
     </style>
