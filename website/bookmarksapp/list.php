@@ -10,7 +10,7 @@ while ($row = mysql_fetch_assoc($result)) {
 
 include_once("header.php");
 
-echo "<h1>Read bookmark records</h1>\n";
+echo "<h2>Bookmarks</h2>\n";
 echo "<p><a href='new.php'>Create a new bookmark</a></p>\n";
 
 echo "<table>\n";
