@@ -9,21 +9,23 @@ while ($row = mysql_fetch_assoc($result)) {
 }
 
 include_once("header.php");
+?>
+<h2>Bookmarks</h2>
+<p><a href='new.php'>Create a new bookmark</a></p>
 
-echo "<h2>Bookmarks</h2>\n";
-echo "<p><a href='new.php'>Create a new bookmark</a></p>\n";
+<table>
+  <thead>
+    <tr>
+      <th><b>URL</b></th>
+      <th><b>Title</b></th>
+      <th><b>Date Created</b></th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
 
-echo "<table>\n";
-echo "<thead>\n";
-echo "<tr>\n";
-echo "<th><b>URL</b></th>\n";
-echo "<th><b>Title</b></th>\n";
-echo "<th><b>Date Created</b></th>\n";
-echo "<th>&nbsp;</th>\n";
-echo "<th>&nbsp;</th>\n";
-echo "</tr>\n";
-echo "</thead>\n";
-echo "<tbody>\n";
+<?php
 
 foreach ($bookmarks as $bookmark) {
   echo "<tr>\n";
@@ -34,9 +36,11 @@ foreach ($bookmarks as $bookmark) {
   echo "</tr>\n";
 }
 
-echo "</tbody>\n";
-echo "</table>\n";
+?>
 
+  </tbody>
+</table>
+
+<?php
 include_once("footer.php");
-
 ?>
