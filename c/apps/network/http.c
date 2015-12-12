@@ -176,6 +176,8 @@ int main(int argc, char **argv) {
 
   /* Loop through all the results and connect to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
+    printf("Connecting to %.200s port %s.\n", host, portstr);
+
     if ((sockfd = socket(cur->ai_family, cur->ai_socktype,
                          cur->ai_protocol)) == -1) {
       continue;
@@ -190,6 +192,8 @@ int main(int argc, char **argv) {
   }
 
   freeaddrinfo(addrlist);
+
+  printf("Connection established.\n");
 
   sprintf(request, "GET %s HTTP/1.0\r\nHost: %s\r\nConnection: close\r\n\r\n",
           "/", host);
