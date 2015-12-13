@@ -1,21 +1,7 @@
 <?php
 define("UPLOAD_DIR", "/var/www/tfarina.tk/gallery2/gallery-images/");
 
-// show upload form
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-?>
- <h3>Choose a file to upload: </h3>
-<p>
-<em>Only GIF, JPG, and PNG files are allowed.</em>
-</p>
-<form action="upload.php" method="post" enctype="multipart/form-data">
- <input type="file" name="myFile"/>
- <input type="submit" value="Upload"/>
-</form>
-<?php
-}
-// process file upload
-else if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES["myFile"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES["myFile"])) {
     $myFile = $_FILES["myFile"];
     if ($myFile["error"] !== UPLOAD_ERR_OK) {
         echo "<p>An error occurred.</p>";
@@ -53,3 +39,12 @@ else if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES["myFile"])) {
 
     echo "<p>The file ". $name ." has been uploaded.</p>";
 }
+?>
+<h3>Choose a file to upload: </h3>
+<p>
+<em>Only GIF, JPG, and PNG files are allowed.</em>
+</p>
+<form action="upload.php" method="post" enctype="multipart/form-data">
+  <input type="file" name="myFile"/>
+  <input type="submit" value="Upload"/>
+</form>
