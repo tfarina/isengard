@@ -14,18 +14,16 @@ include_once("header.php");
 ?>
 <h2>Bookmarks</h2>
 <p><a href='new.php'>Create a new bookmark</a></p>
-
 <table>
   <thead>
     <tr>
-      <th><b>URL</b></th>
-      <th><b>Title</b></th>
-      <th><b>Date Created</b></th>
+      <th>URL</th>
+      <th>Title</th>
+      <th>Date Created</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-
 <?php
 
 foreach ($bookmarks as $bookmark) {
@@ -38,10 +36,8 @@ foreach ($bookmarks as $bookmark) {
 }
 
 ?>
-
   </tbody>
 </table>
-
 <?php
 include_once("footer.php");
 ?>
