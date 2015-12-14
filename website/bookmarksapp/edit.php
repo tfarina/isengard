@@ -20,8 +20,6 @@ if (isset($_POST['submitted'])) {
 
 $result = mysql_query("SELECT * FROM bookmarks WHERE id='" . $id . "'");
 $row = mysql_fetch_assoc($result);
-$title = $row['title'];
-$url = $row['url'];
 ?>
 <?php
 include_once("header.php");
