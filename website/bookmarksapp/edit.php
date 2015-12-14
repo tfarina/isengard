@@ -8,8 +8,8 @@ if (isset($_POST['submitted'])) {
     $_POST[$key] = mysql_real_escape_string($value);
   }
 
-  $sql = "UPDATE bookmarks SET url='" . $_POST['url'] . "', title='" . $_POST['title'] . "' WHERE id='" . $id . "'";
-  mysql_query($sql) or die(mysql_error());
+  $query = "UPDATE bookmarks SET url='" . $_POST['url'] . "', title='" . $_POST['title'] . "' WHERE id='" . $id . "'";
+  mysql_query($query) or die(mysql_error());
 
   if (mysql_affected_rows()) {
     $message = "The bookmark has been updated successfully.\n";
@@ -18,7 +18,8 @@ if (isset($_POST['submitted'])) {
   }
 }
 
-$result = mysql_query("SELECT * FROM bookmarks WHERE id='" . $id . "'");
+$query = "SELECT * FROM bookmarks WHERE id='" . $id . "'";
+$result = mysql_query($query);
 $row = mysql_fetch_assoc($result);
 ?>
 <?php
