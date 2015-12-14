@@ -21,8 +21,7 @@ include_once("header.php");
       <th><b>URL</b></th>
       <th><b>Title</b></th>
       <th><b>Date Created</b></th>
-      <th>&nbsp;</th>
-      <th>&nbsp;</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -34,7 +33,7 @@ foreach ($bookmarks as $bookmark) {
   echo "<td valign='top'><a href=". $bookmark['url'] .">" . $bookmark['url'] ."</a></td>\n";
   echo "<td valign='top'>" . $bookmark['title'] . "</td>\n";
   echo "<td valign='top'>" . $bookmark['dt'] . "</td>\n";
-  echo "<td valign='top'><a href=edit.php?id={$bookmark['id']}>Edit</a></td><td><a href=delete.php?id={$bookmark['id']}>Delete</a></td>\n";
+  echo "<td valign='top'><a href=edit.php?id={$bookmark['id']}>Edit</a>  <a href=delete.php?id={$bookmark['id']}>Delete</a></td>\n";
   echo "</tr>\n";
 }
 
