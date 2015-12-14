@@ -2,7 +2,8 @@
 
 include('config.php');
 
-$result = mysql_query("SELECT * FROM bookmarks ORDER BY dt DESC") or trigger_error(mysql_error());
+$query = "SELECT * FROM bookmarks ORDER BY dt DESC";
+$result = mysql_query($query) or trigger_error(mysql_error());
 
 $bookmarks = array();
 while ($row = mysql_fetch_assoc($result)) {
