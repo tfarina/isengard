@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES["myFile"])) {
         exit;
     }
 
-    // verify the file type
+    // Verify the file type.
     $fileType = exif_imagetype($_FILES["myFile"]["tmp_name"]);
     $allowed = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
     if (!in_array($fileType, $allowed)) {
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES["myFile"])) {
         exit;
     }
 
-    // ensure a safe filename
+    // Ensure a safe filename.
     $name = preg_replace("/[^A-Z0-9._-]/i", "_", $myFile["name"]);
 
     // don't overwrite an existing file
@@ -40,11 +40,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES["myFile"])) {
     echo "<p>The file ". $name ." has been uploaded.</p>";
 }
 ?>
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Upload</title>
+</head>
+<body>
 <h3>Choose a file to upload: </h3>
 <p>
 <em>Only GIF, JPG, and PNG files are allowed.</em>
 </p>
 <form action="upload.php" method="post" enctype="multipart/form-data">
-  <input type="file" name="myFile"/>
+  <input type="file" name="myFile" title="Choose a file to upload"/>
   <input type="submit" value="Upload"/>
 </form>
+</body>
+</html>
