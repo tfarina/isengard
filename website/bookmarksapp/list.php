@@ -24,18 +24,16 @@ include_once("header.php");
     </tr>
   </thead>
   <tbody>
-<?php
-
-foreach ($bookmarks as $bookmark) {
-  echo "<tr>\n";
-  echo "<td valign='top'><a href=". $bookmark['url'] .">" . $bookmark['url'] ."</a></td>\n";
-  echo "<td valign='top'>" . $bookmark['title'] . "</td>\n";
-  echo "<td valign='top'>" . $bookmark['dt'] . "</td>\n";
-  echo "<td valign='top'><a href=edit.php?id={$bookmark['id']}>Edit</a>  <a href=delete.php?id={$bookmark['id']}>Delete</a></td>\n";
-  echo "</tr>\n";
-}
-
-?>
+    <?php foreach ($bookmarks as $bookmark) { ?>
+    <tr>
+      <td><a href="<?php echo $bookmark['url']; ?>"><?php echo $bookmark['url']; ?></a></td>
+      <td><?php echo $bookmark['title']; ?></td>
+      <td><?php echo $bookmark['dt']; ?></td>
+      <td>
+        <a href="edit.php?id=<?php echo $bookmark['id']; ?>">Edit</a>  <a href="delete.php?id=<?php echo $bookmark['id']; ?>">Delete</a>
+      </td>
+    </tr>
+    <?php } ?>
   </tbody>
 </table>
 <?php
