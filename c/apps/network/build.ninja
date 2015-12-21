@@ -23,13 +23,14 @@ rule UNINSTALL
 
 build die.o: compile die.c
 build util.o: compile util.c
+build log.o: compile log.c
 
 build timeserver.o: compile timeserver.c
 build timeserver: link die.o util.o timeserver.o
 
 build udpserver.o: compile udpserver.c
   defines = -D_GNU_SOURCE
-build udpserver: link die.o udpserver.o
+build udpserver: link log.o udpserver.o
 
 build udpclient.o: compile udpclient.c
 build udpclient: link die.o udpclient.o

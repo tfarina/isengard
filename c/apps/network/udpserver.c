@@ -5,8 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
+#include <unistd.h>
 
-#include "die.h"
+#include "log.h"
 
 #define BUFLEN 512
 #define ADDRESS NULL
@@ -44,13 +45,18 @@ int main(void) {
   /* Loop through all the results and bind to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
     if ((sockfd = socket(cur->ai_family, cur->ai_socktype,
-                         cur->ai_protocol)) == -1)
-      die("cannot create socket");
+                         cur->ai_protocol)) == -1) {
+      error("cannot create socket");
+      continue;
+    }
 
     set_reuseaddr(sockfd);
 
-    if (bind(sockfd, cur->ai_addr, cur->ai_addrlen) == -1)
-      die("bind on %d failed: %s", sockfd, strerror(errno));
+    if (bind(sockfd, cur->ai_addr, cur->ai_addrlen) == -1) {
+      error("bind on %d failed: %s", sockfd, strerror(errno));
+      close(sockfd);
+      continue;
+  }
 
     break;
   }
@@ -70,7 +76,7 @@ int main(void) {
     sprintf(buf, "ack %d", msgcnt++);
     if (sendto(sockfd, buf, strlen(buf), 0,
                (struct sockaddr *)&remoteaddr, addrlen) == -1)
-      die("sendto failed: %s", strerror(errno));
+      fatal("sendto failed: %s", strerror(errno));
     printf("response sent: %s\n", buf);
   }
 
