@@ -14,6 +14,8 @@
 int main(int argc, char **argv) {
   struct sockaddr_in servaddr;
   socklen_t addrlen = sizeof(servaddr);
+  struct sockaddr_storage addr;
+  socklen_t addrlen2 = sizeof(addr);
   int sockfd;
   char buf[BUFLEN] = "hello udp server";
   int recvlen;
@@ -37,7 +39,8 @@ int main(int argc, char **argv) {
     die("sendto failed: %s", strerror(errno));
   printf("message sent: %s\n", buf);
 
-  recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&servaddr, &addrlen);
+  recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&addr,
+                     &addrlen2);
   if (recvlen > 0) {
     buf[recvlen] = '\0';
     printf("received response: %s\n", buf);
