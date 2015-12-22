@@ -22,9 +22,11 @@ static int hostname_to_ip(char *hostname, char *ip) {
   }
 
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    h = (struct sockaddr_in *)cur->ai_addr;
-    strcpy(ip, inet_ntoa(h->sin_addr));
-    printf("%s\n", ip);
+    if (cur->ai_family == AF_INET) {
+      h = (struct sockaddr_in *)cur->ai_addr;
+      strcpy(ip, inet_ntoa(h->sin_addr));
+      printf("%s\n", ip);
+    }
   }
 
   freeaddrinfo(addrlist);
