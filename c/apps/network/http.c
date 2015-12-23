@@ -193,6 +193,10 @@ int main(int argc, char **argv) {
 
   freeaddrinfo(addrlist);
 
+  /* TODO(tfarina): we need to make sure none of the steps above failed.
+   * We might not have been able to create a socket or we were not able to
+   * connect either.
+   */
   printf("Connection established.\n");
 
   sprintf(request, "GET %s HTTP/1.0\r\nHost: %s\r\nConnection: close\r\n\r\n",
