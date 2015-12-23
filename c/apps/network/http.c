@@ -92,7 +92,7 @@ static void sbuf_append(sbuf *b, const void *data, size_t len)
 
 static ssize_t fd_write(int fd, char *buf, size_t len)
 {
-  int rv;
+  ssize_t rv;
 
   do {
     rv = write(fd, buf, len);
