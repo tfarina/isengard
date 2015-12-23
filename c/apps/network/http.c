@@ -122,7 +122,7 @@ static ssize_t fd_write_all(int fd, char *buf, size_t len)
 
 static ssize_t fd_read(int fd, char *buf, size_t len)
 {
-  int rv;
+  ssize_t rv;
 
   do {
     rv = read(fd, buf, len);
