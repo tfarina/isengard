@@ -3,7 +3,7 @@
 int main(void) {
     printf("Remember: 1 byte = 8 bits\n");
     printf("With 8 bits (00000000, 00000001, etc) it's possible to "
-           "represent  256 (2^8) values.\n");
+           "represent 256 (0 to 255) (2^8) values.\n");
     printf("This is possible because one bit can only be either 0 or 1.\n\n");
 
     printf("char: %lu byte\n", sizeof(char));
