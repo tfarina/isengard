@@ -183,20 +183,21 @@ int main(int argc, char **argv) {
       continue;
     }
 
-    if (connect(sockfd, cur->ai_addr, cur->ai_addrlen) == -1) {
+    if (connect(sockfd, cur->ai_addr, cur->ai_addrlen) == 0) {
+      break;
+    } else {
       close(sockfd);
-      continue;
+      sockfd = -1;
     }
+  }
 
-    break;
+  if (sockfd == -1) {
+    fprintf(stderr, "failed to make a connection\n");
+    exit(EXIT_FAILURE);
   }
 
   freeaddrinfo(addrlist);
 
-  /* TODO(tfarina): we need to make sure none of the steps above failed.
-   * We might not have been able to create a socket or we were not able to
-   * connect either.
-   */
   printf("Connection established.\n");
 
   sprintf(request, "GET %s HTTP/1.0\r\nHost: %s\r\nConnection: close\r\n\r\n",
