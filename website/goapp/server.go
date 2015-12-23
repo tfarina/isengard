@@ -3,13 +3,20 @@ package main
 import (
 	"flag"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"strconv"
 )
 
+var tmpl = template.Must(template.New("tmpl").Parse(`
+<!doctype html><html><body><h2>Hello, www!</h2><a href="https://duckduckgo.com">DuckDuckGo</a></body></html>`))
+
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "<html><body><h2>Hello, www!</h2><a href=\"http://google.com\">Google</a></body></html>")
+	err := tmpl.Execute(w, nil)
+	if err != nil {
+		log.Print(err)
+	}
 }
 
 func main() {
