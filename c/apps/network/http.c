@@ -213,6 +213,8 @@ int main(int argc, char **argv) {
 
   printf("HTTP request sent, awaiting response...\n"),
 
+  /* TODO(tfarina): Now we need to read the http response head. */
+
   printf("receiving data...");
 
   sbuf_init(&response);
