@@ -192,7 +192,8 @@ int main(int argc, char **argv) {
   }
 
   if (sockfd == -1) {
-    fprintf(stderr, "failed to make a connection\n");
+    fprintf(stderr, "Failed to connect to %s\n", host);
+    freeaddrinfo(addrlist);
     exit(EXIT_FAILURE);
   }
 
