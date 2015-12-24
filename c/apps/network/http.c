@@ -209,7 +209,7 @@ int main(int argc, char **argv) {
   printf("bytes to send: %ld\n", bytes_to_send);
 
   if (fd_write_all(sockfd, request, strlen(request)) == -1)
-    fatal("fd_write_all() failed");
+    fatal("Failed to write the HTTP request");
 
   printf("HTTP request sent, awaiting response...\n"),
 
