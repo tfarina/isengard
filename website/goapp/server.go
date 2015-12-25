@@ -15,7 +15,7 @@ var tmpl = template.Must(template.New("tmpl").Parse(`
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	err := tmpl.Execute(w, nil)
 	if err != nil {
-		log.Print(err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
