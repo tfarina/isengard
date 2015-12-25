@@ -12,11 +12,15 @@ import (
 var tmpl = template.Must(template.New("tmpl").Parse(`
 <!doctype html><html><body><h2>Hello, www!</h2><a href="https://duckduckgo.com">DuckDuckGo</a></body></html>`))
 
-func rootHandler(w http.ResponseWriter, r *http.Request) {
+func renderTemplate(w http.ResponseWriter) {
 	err := tmpl.Execute(w, nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func rootHandler(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w)
 }
 
 func main() {
