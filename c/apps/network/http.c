@@ -159,6 +159,7 @@ int main(int argc, char **argv) {
   struct addrinfo hints, *addrlist, *cur;
   int sockfd;
   char request[1024];
+  const char *method = "GET";
   size_t bytes_to_send;
   ssize_t bytes_received;
   char data[RECVSIZE];
@@ -203,8 +204,8 @@ int main(int argc, char **argv) {
 
   printf("Connection established.\n");
 
-  sprintf(request, "GET %s HTTP/1.0\r\nHost: %s\r\nConnection: close\r\n\r\n",
-          "/", host);
+  sprintf(request, "%s %s HTTP/1.0\r\nHost: %s\r\nConnection: close\r\n\r\n",
+          method, "/", host);
 
   bytes_to_send = strlen(request);
 
