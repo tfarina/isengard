@@ -153,13 +153,13 @@ static ssize_t fd_read_all(int fd, char *buf, size_t len)
 
 int main(int argc, char **argv) {
   int rv;
-  char host[] = "google.com";
+  const char host[] = "google.com";
   int port = 80;
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int sockfd;
   char request[1024];
-  const char *method = "GET";
+  const char method[] = "GET";
   size_t bytes_to_send;
   ssize_t bytes_received;
   char data[RECVSIZE];
