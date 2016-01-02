@@ -46,11 +46,13 @@ include_once("header.php");
       <td>
         <input type='submit' value='Save Changes'/>
         <input type='hidden' value='1' name='submitted' />
-        <a href='list.php'>Back to bookmarks list</a>
       </td>
     </tr>
   </table>
 </form>
+  <p>
+    <a href="list.php">Back to bookmarks list</a>
+  </p>
 <?php
 include_once("footer.php");
 ?>
