@@ -19,7 +19,9 @@ include_once("header.php");
   <?php echo $message; ?>
 </div>
 <?php } ?>
-<a href='list.php'>Back To Listing</a>
+<p>
+  <a href='list.php'>Back To Listing</a>
+</p>
 <?php
 include_once("footer.php");
 ?>
