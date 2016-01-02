@@ -20,13 +20,11 @@ include_once("header.php");
 ?>
   <h2>Create a new bookmark</h2>
   <form action='' method='POST'>
+    <?php if (isset($message)) { ?>
     <div class="message">
-      <?php
-        if (isset($message)) {
-          echo $message;
-        }
-      ?>
+      <?php echo $message; ?>
     </div>
+    <?php } ?>
     <table>
       <tr>
         <td>Title</td>
