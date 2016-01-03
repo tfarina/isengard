@@ -21,6 +21,7 @@ if (isset($_POST['submitted'])) {
 $query = "SELECT * FROM bookmarks WHERE id='" . $id . "'";
 $result = mysql_query($query);
 $row = mysql_fetch_assoc($result);
+mysql_free_result($result);
 ?>
 <?php
 include_once("header.php");

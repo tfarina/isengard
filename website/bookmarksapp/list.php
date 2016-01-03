@@ -10,6 +10,8 @@ while ($row = mysql_fetch_assoc($result)) {
   $bookmarks[] = $row;
 }
 
+mysql_free_result($result);
+
 include_once("header.php");
 ?>
 <h2>Bookmarks</h2>
