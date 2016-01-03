@@ -16,7 +16,7 @@ include_once("header.php");
 ?>
 <h2>Bookmarks</h2>
 <p><a href='new.php'>Create a new bookmark</a></p>
-<table>
+<table class="list">
   <thead>
     <tr>
       <th>URL</th>
