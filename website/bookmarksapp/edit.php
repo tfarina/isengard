@@ -34,21 +34,23 @@ include_once("header.php");
   <h2>Edit bookmark</h2>
   <form action='' method='POST'>
   <table>
+    <tbody>
     <tr>
-      <td>Title</td>
-      <td><input type="text" name='title' value="<?php echo stripslashes($row['title']) ?>"/></td>
+      <td align="right">Title:</td>
+      <td><input type="text" name="title" value="<?php echo stripslashes($row['title']) ?>"/></td>
     </tr>
     <tr>
-      <td>URL</td>
-      <td><input type="text" name='url' value="<?php echo stripslashes($row['url']) ?>"/></td>
+      <td align="right">URL:</td>
+      <td><input type="text" name="url" value="<?php echo stripslashes($row['url']) ?>"/></td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-      <td>
-        <input type='submit' value='Save Changes'/>
+      <td></td>
+      <td style="float: right">
+        <input type="submit" value="Save"/>
         <input type='hidden' value='1' name='submitted' />
       </td>
     </tr>
+    </tbody>
   </table>
 </form>
   <p>

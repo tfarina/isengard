@@ -24,23 +24,25 @@ include_once("header.php");
   </div>
   <?php } ?>
   <h2>Create a new bookmark</h2>
-  <form action='' method='POST'>
+  <form action="" method="POST">
     <table>
+      <tbody>
       <tr>
-        <td>Title</td>
-        <td><input type="text" name='title'/></td>
+        <td align="right">Title:</td>
+        <td><input type="text" name="title"/></td>
       </tr>
       <tr>
-        <td>URL</td>
-        <td><input type="text" name='url'/></td>
+        <td align="right">URL:</td>
+        <td><input type="text" name="url"/></td>
       </tr>
       <tr>
-        <td>&nbsp;</td>
+        <td></td>
         <td style="float: right;">
           <input type="submit" value="Save"/>
           <input type='hidden' value='1' name='submitted'/>
         </td>
       </tr>
+      </tbody>
     </table>
   </form>
   <p>
