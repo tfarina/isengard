@@ -36,8 +36,8 @@ include_once("header.php");
       </tr>
       <tr>
         <td>&nbsp;</td>
-        <td>
-          <input type='submit' value='Save'/>
+        <td style="float: right;">
+          <input type="submit" value="Save"/>
           <input type='hidden' value='1' name='submitted'/>
         </td>
       </tr>
