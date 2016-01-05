@@ -2,7 +2,8 @@
 
 include('config.php');
 
-mysql_query("DELETE FROM bookmarks WHERE id='" . $_GET['id'] . "'");
+$query = "DELETE FROM bookmarks WHERE id='" . $_GET['id'] . "'";
+mysql_query($query) or die(mysql_error());
 
 if (mysql_affected_rows()) {
   $message = "The bookmark has been deleted successfully.\n";
