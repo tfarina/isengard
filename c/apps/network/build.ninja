@@ -1,6 +1,6 @@
 cc = clang
 cflags = -g -std=c99 -pedantic -Wall -O0
-defines = -D_POSIX_C_SOURCE=200112L
+defines = -D_POSIX_C_SOURCE=200112L -D_GNU_SOURCE
 prefix = /usr/local
 
 rule compile
@@ -37,6 +37,9 @@ build udpserver: link log.o udpserver.o
 
 build udpclient.o: compile udpclient.c
 build udpclient: link die.o udpclient.o
+
+build dnsclient.o: compile dnsclient.c
+build dnsclient: link dnsclient.o
 
 build selectserver.o: compile selectserver.c
 build selectserver: link die.o selectserver.o
