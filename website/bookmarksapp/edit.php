@@ -32,7 +32,7 @@ include_once("header.php");
   </div>
   <?php } ?>
   <h2>Edit bookmark</h2>
-  <form action='' method='POST'>
+  <form action="" method="POST">
   <table>
     <tbody>
     <tr>
@@ -47,15 +47,12 @@ include_once("header.php");
       <td></td>
       <td style="float: right">
         <input type="submit" value="Save"/>
-        <input type='hidden' value='1' name='submitted' />
+        <input type="hidden" value="1" name="submitted"/>
       </td>
     </tr>
     </tbody>
   </table>
 </form>
-  <p>
-    <a href="list.php">Back to bookmarks list</a>
-  </p>
 <?php
 include_once("footer.php");
 ?>
