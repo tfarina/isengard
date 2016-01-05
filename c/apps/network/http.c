@@ -188,10 +188,10 @@ int main(int argc, char **argv) {
 
     if (connect(sockfd, cur->ai_addr, cur->ai_addrlen) == 0) {
       break;
-    } else {
-      close(sockfd);
-      sockfd = -1;
     }
+
+    close(sockfd);
+    sockfd = -1;
   }
 
   if (sockfd == -1) {
