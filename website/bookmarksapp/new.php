@@ -7,9 +7,8 @@ if (isset($_POST['submitted'])) {
     $_POST[$key] = mysql_real_escape_string($value);
   }
 
-  $sql = "INSERT INTO bookmarks (url, title) VALUES ('" . $_POST['url'] . "','" . $_POST['title'] . "')";
-
-  mysql_query($sql) or die(mysql_error());
+  $query = "INSERT INTO bookmarks (url, title) VALUES ('" . $_POST['url'] . "','" . $_POST['title'] . "')";
+  mysql_query($query) or die(mysql_error());
 
   $message = "The bookmark has been created successfully.";
 }
@@ -45,9 +44,6 @@ include_once("header.php");
       </tbody>
     </table>
   </form>
-  <p>
-    <a href="list.php">Back to bookmarks list</a>
-  </p>
 <?php
 include_once("footer.php");
 ?>
