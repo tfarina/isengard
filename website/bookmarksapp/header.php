@@ -7,4 +7,4 @@
 </head>
 <body>
   <h2>Bookmarks</h2>
-  <p><a href="list.php">My bookmarks</a> | <a href='new.php'>Add bookmark</a></p>
+  <p><a href="list.php">My bookmarks</a> | <a href="new.php">Add bookmark</a></p>
