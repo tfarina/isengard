@@ -15,13 +15,10 @@ if (mysql_affected_rows()) {
 include_once("header.php");
 ?>
 <?php if (isset($message)) { ?>
-<div class="message">
-  <?php echo $message; ?>
-</div>
+  <div class="message">
+    <?php echo $message; ?>
+  </div>
 <?php } ?>
-<p>
-  <a href='list.php'>Back To Listing</a>
-</p>
 <?php
 include_once("footer.php");
 ?>
