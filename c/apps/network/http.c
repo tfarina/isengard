@@ -183,7 +183,7 @@ int main(int argc, char **argv) {
 
     if ((sockfd = socket(cur->ai_family, cur->ai_socktype,
                          cur->ai_protocol)) == -1) {
-      continue;
+      break;
     }
 
     if (connect(sockfd, cur->ai_addr, cur->ai_addrlen) == 0) {
