@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 /* Based on Daniel Julius Bernstein (DJB's)'s public domain code:
  * djbdns-1.05/dns_dfd.c
@@ -67,13 +68,61 @@ int dns_domain_fromdot(const char *buf,
   return 1;
 }
 
+/* The following two function were copied from scdns-25/scdns.c */
+
+/*
+ * Convert a length/string to dotted decimal
+ */
+static void
+todotted(char *a, uint8_t * q)
+{
+        char *cp;
+        if (a != (char *)q)
+                strcpy(a, (char *)q);
+        cp = a;
+        while (*cp) {
+                if (*cp < ' ')
+                        *cp = '.';
+                cp++;
+        }
+        if (a[0] == '.') {
+                cp = a;
+                while (*(cp + 1)) {
+                        *cp = *(cp + 1);
+                        cp++;
+                }
+                *cp = 0;
+        }
+}
+
+/*
+ * Print a length/string
+ */
+static void
+printundotted(uint8_t *s)
+{
+        while (*s) {
+                if (*s < ' ')
+                        printf("<%d>", *s);
+                else
+                        fputc((int)*s, stdout);
+                s++;
+        }
+        printf("\n");
+}
+
 int main(int argc, char **argv) {
   char host[] = "duckduckgo.com";
-  char *dnsname = NULL;
+  char *dnsname= NULL;
+  char dotted[256];
 
   dns_domain_fromdot(host, strlen(host), &dnsname);
-
   printf("%s\n", dnsname);
+
+  printundotted((uint8_t *)dnsname);
+
+  todotted(dotted, (uint8_t *)dnsname);
+  printf("%s\n", dotted);
 
   return 0;
 }
