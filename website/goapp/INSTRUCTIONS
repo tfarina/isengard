@@ -4,3 +4,16 @@ variable values in the file with the actual desired values.
 go-server {start,stop,restart} should be usable.
 * You can just startup the server manually at this point (sudo service go-server
 start), or you can reboot once to verify that it start on boot.
+
+
+Locally:
+
+$ go build server.go
+$ scp -i ~/my-key-pair.pem ./server ubuntu@server-ip-address:~
+$ ssh -i ~/my-key-pair.pem ubuntu@server-ip-address
+
+At Ubuntu instance:
+
+$ sudo service go-server stop
+$ sudo mv server /usr/local/bin/goserver
+$ sudo service go-server start
