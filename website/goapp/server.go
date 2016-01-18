@@ -6,14 +6,15 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"path/filepath"
+	"runtime"
 	"strconv"
 )
 
-var tmpl = template.Must(template.New("tmpl").Parse(`
-<!doctype html><html><body><h2>Hello, www!</h2><a href="https://duckduckgo.com">DuckDuckGo</a></body></html>`))
+var tmpl *template.Template
 
 func renderTemplate(w http.ResponseWriter) {
-	err := tmpl.Execute(w, nil)
+	err := tmpl.ExecuteTemplate(w, "index.html", nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -25,6 +26,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http_port_int := flag.Int("http-port", 8001, "The HTTP port to listen on.")
+	resources_dir := flag.String("resources-dir", "", "The directory to find templates, JS and CSS files")
 
 	flag.Parse()
 
@@ -34,6 +36,13 @@ func main() {
 	}
 
 	http_port := strconv.Itoa(*http_port_int)
+
+	if *resources_dir == "" {
+		_, filename, _, _ := runtime.Caller(0)
+		*resources_dir = filepath.Dir(filename)
+	}
+	fmt.Println(*resources_dir)
+	tmpl = template.Must(template.ParseFiles(filepath.Join(*resources_dir, "index.html")))
 
 	fmt.Println("Listening on port " + http_port)
 
