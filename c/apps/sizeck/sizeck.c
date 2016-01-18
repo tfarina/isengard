@@ -9,6 +9,7 @@ int main(void) {
     printf("char: %lu byte\n", sizeof(char));
     printf("short: %lu bytes\n", sizeof(short));
     printf("int: %lu bytes\n", sizeof(int));
+    printf("long: %lu bytes\n", sizeof(long));
     printf("float: %lu bytes\n", sizeof(float));
     printf("double: %lu bytes\n", sizeof(double));
 
