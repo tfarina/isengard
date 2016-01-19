@@ -103,7 +103,7 @@ printundotted(uint8_t *s)
 {
         while (*s) {
                 if (*s < ' ')
-                        printf("<%d>", *s);
+                        printf("(%d)", *s);
                 else
                         fputc((int)*s, stdout);
                 s++;
