@@ -19,3 +19,4 @@ build bin: cc bin.c
 build cansse2: cc cansse2.c
 build lexer: cc lexer.c
 build lookup: cc lookup.c
+build execprog: cc execprog.c
