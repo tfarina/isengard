@@ -5,4 +5,3 @@ if not exist ".\output" (
 )
 
 javac -sourcepath com\zetcode -d output\classes com\zetcode\HelloWorld.java
-java -cp output\classes com.zetcode.HelloWorld
