@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
   struct sockaddr_in servaddr;
   int port;
   int listen_fd;
-  int on = 1;
+  int reuse = 1;
   int client_fd;
   int pid;
   unsigned int num_children = 0; /* Number of child processes. */
@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
   if ((listen_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
     die("socket failed: %s", strerror(errno));
 
-  if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) == -1)
+  if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1)
     die("set reuse addr on sd %d failed: %s", listen_fd, strerror(errno));
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
