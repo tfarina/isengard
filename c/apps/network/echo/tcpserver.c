@@ -93,29 +93,21 @@ int main(int argc, char **argv) {
 
     printf("Connection from %s:%s\n", ntop, strport);
 
-    if ((pid = fork()) < 0) {
-      die("fork failed");
-    } else {
-      if (pid == 0) {	/* child */
-	close(listen_fd);
-        handle_client(client_fd);
-      } else {	/* parent */
-        close(client_fd);
-        num_children++;
+    ++num_children;
+    printf("Num children: %d\n", num_children);
 
-        printf("Num children: %d\n", num_children);
-
-        /* Clean up all the zombies. */
-        while (num_children) {
-          if ((pid = waitpid(-1, NULL, WNOHANG)) == -1) {
-            die("waitpid failed");
-          } else if (pid == 0) {
-            break;
-          } else {
-            num_children--;
-          }
-        }
-      }
+    switch (fork()) {
+    case -1:
+      close(client_fd);
+      --num_children;
+      printf("Num children: %d\n", num_children);
+      break;
+    case 0:
+      close(listen_fd);
+      handle_client(client_fd);
+      break;
+    default:
+      close(client_fd);
     }
   }
 
