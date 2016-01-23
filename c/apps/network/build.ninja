@@ -28,6 +28,9 @@ build log.o: compile log.c
 build timeserver.o: compile timeserver.c
 build timeserver: link die.o util.o timeserver.o
 
+build timeclient.o: compile timeclient.c
+build timeclient: link die.o timeclient.o
+
 build udpserver.o: compile udpserver.c
   defines = -D_GNU_SOURCE
 build udpserver: link log.o udpserver.o
