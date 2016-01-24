@@ -1,0 +1,11 @@
+cc = clang++
+cflags = -g -Wall -Werror -std=gnu++11 -pedantic
+
+rule cc
+  command = $cc $cflags $includes -c $in -o $out
+
+rule link
+  command = $cc $ldflags -o $out $in $libs
+
+build absolutepath.o: cc absolutepath.cc
+build absolutepath: link absolutepath.o
