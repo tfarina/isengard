@@ -41,9 +41,9 @@ int main(int argc, char **argv) {
   int listen_fd;
   int reuse = 1;
   int client_fd;
-  int pid;
   char strport[NI_MAXSERV], ntop[NI_MAXHOST];
   int ret;
+  pid_t pid;
 
   if (argc != 2) {
     fprintf(stderr, "usage: tcpserver #port-number\n");
@@ -101,7 +101,8 @@ int main(int argc, char **argv) {
     ++forked;
     logstatus();
 
-    switch (fork()) {
+    pid = fork();
+    switch (pid) {
     case -1:
       close(client_fd);
       --forked;
@@ -114,7 +115,8 @@ int main(int argc, char **argv) {
       break;
 
     default:
-      close(client_fd);
+      close(client_fd); /* we are the parent so look for another connection. */
+      printf("echoserver: pid %d\n", pid);
     }
   }
 
