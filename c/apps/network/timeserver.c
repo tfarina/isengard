@@ -39,7 +39,12 @@ static void doprocessing(int sockfd) {
 }
 
 static void reapchld(int sig) {
-  while (waitpid(-1, NULL, WNOHANG) > 0);
+  pid_t pid;
+  int status;
+  while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+    printf("timeserver: end %d status %d\n", pid, status);
+  }
+  signal(SIGCHLD, reapchld);
 }
 
 int main(void) {
