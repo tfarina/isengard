@@ -52,6 +52,7 @@ int main(void) {
   int sockfd;
   int client_fd;
   int reuse = 1;
+  pid_t pid;
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
@@ -87,7 +88,8 @@ int main(void) {
       die("accept failed");
     }
 
-    switch (fork()) {
+    pid = fork();
+    switch (pid) {
       case -1:
         close(sockfd);
         close(client_fd);
@@ -99,7 +101,7 @@ int main(void) {
 
       default:
         close(client_fd); /* we are the parent so look for another connection. */
-        continue;
+        printf("timeserver: pid %d\n", pid);
     }
   }
 
