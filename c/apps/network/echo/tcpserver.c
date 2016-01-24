@@ -17,6 +17,12 @@
 #define BACKLOG 1024
 #define BUFSIZE 8129
 
+static unsigned int forked = 0; /* Number of child processes. */
+
+static void logstatus(void) {
+  printf("echoserver: status: %d\n", forked);
+}
+
 static void handle_client(int fd) {
   char buf[BUFSIZE];
   int ret;
@@ -36,7 +42,6 @@ int main(int argc, char **argv) {
   int reuse = 1;
   int client_fd;
   int pid;
-  unsigned int num_children = 0; /* Number of child processes. */
   char strport[NI_MAXSERV], ntop[NI_MAXHOST];
   int ret;
 
@@ -93,19 +98,21 @@ int main(int argc, char **argv) {
 
     printf("Connection from %s:%s\n", ntop, strport);
 
-    ++num_children;
-    printf("Num children: %d\n", num_children);
+    ++forked;
+    logstatus();
 
     switch (fork()) {
     case -1:
       close(client_fd);
-      --num_children;
-      printf("Num children: %d\n", num_children);
+      --forked;
+      logstatus();
       break;
+
     case 0:
       close(listen_fd);
       handle_client(client_fd);
       break;
+
     default:
       close(client_fd);
     }
