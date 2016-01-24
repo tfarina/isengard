@@ -27,6 +27,12 @@
 #define BACKLOG 1024
 #define BUFSIZE 256
 
+static unsigned int forked = 0;
+
+static void logstatus(void) {
+  printf("timeserver: status: %d\n", forked);
+}
+
 /* Echo the current day time to the connected client. */
 static void doprocessing(int sockfd) {
   time_t t;
@@ -42,7 +48,9 @@ static void reapchld(int sig) {
   pid_t pid;
   int status;
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+    --forked;
     printf("timeserver: end %d status %d\n", pid, status);
+    logstatus();
   }
   signal(SIGCHLD, reapchld);
 }
@@ -81,6 +89,8 @@ int main(void) {
   sigemptyset(&act.sa_mask);
   sigaction(SIGCHLD, &act, 0);
 
+  logstatus();
+
   while (1) {
     if ((client_fd = accept(sockfd, NULL, NULL)) == -1) {
       if (errno == EINTR) /* EINTR might happen on accept. */
@@ -88,12 +98,18 @@ int main(void) {
       die("accept failed");
     }
 
+    ++forked;
+    logstatus();
+
     pid = fork();
     switch (pid) {
       case -1:
         close(sockfd);
         close(client_fd);
-        die("fork failed");
+        perror("fork failed");
+        --forked;
+        logstatus();
+        break;
 
       case 0:
         close(sockfd);
