@@ -47,7 +47,7 @@ static void reapchld(int sig) {
 }
 
 int main(int argc, char **argv) {
-  struct sockaddr_in servaddr;
+  struct sockaddr_in saddr;
   int port;
   int listen_fd;
   int reuse = 1;
@@ -64,12 +64,12 @@ int main(int argc, char **argv) {
   port = atoi(argv[1]);
   snprintf(strport, sizeof(strport), "%d", port);
 
-  memset(&servaddr, 0, sizeof(servaddr));
-  servaddr.sin_family = AF_INET;
-  servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-  servaddr.sin_port = htons(port);
+  memset(&saddr, 0, sizeof(saddr));
+  saddr.sin_family = AF_INET;
+  saddr.sin_addr.s_addr = htonl(INADDR_ANY);
+  saddr.sin_port = htons(port);
 
-  if ((ret = getnameinfo((struct sockaddr *)&servaddr, sizeof(servaddr),
+  if ((ret = getnameinfo((struct sockaddr *)&saddr, sizeof(saddr),
                          ntop, sizeof(ntop), strport, sizeof(strport),
                          NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
     die("getnameinfo failed: %.100s", gai_strerror(ret));
@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
   if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1)
     die("set reuse addr on sd %d failed: %s", listen_fd, strerror(errno));
 
-  if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
+  if (bind(listen_fd, (struct sockaddr *)&saddr, sizeof(saddr)) == -1)
     die("bind to port %s failed: %.200s", strport, strerror(errno));
 
   if (listen(listen_fd, BACKLOG) == -1) {
