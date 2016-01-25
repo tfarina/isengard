@@ -83,11 +83,7 @@ int main(void) {
           "The server is now ready to accept connections on port %d\n",
           SERVER_PORT);
 
-  struct sigaction act;
-  act.sa_flags = 0;
-  act.sa_handler = reapchld;
-  sigemptyset(&act.sa_mask);
-  sigaction(SIGCHLD, &act, 0);
+  signal(SIGCHLD, reapchld);
 
   logstatus();
 
