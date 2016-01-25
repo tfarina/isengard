@@ -35,6 +35,17 @@ static void handle_client(int fd) {
   exit(EXIT_SUCCESS);
 }
 
+static void reapchld(int sig) {
+  pid_t pid;
+  int status;
+  while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+    --forked;
+    printf("echoserver: end %d status %d\n", pid, status);
+    logstatus();
+  }
+  signal(SIGCHLD, reapchld);
+}
+
 int main(int argc, char **argv) {
   struct sockaddr_in servaddr;
   int port;
@@ -81,6 +92,10 @@ int main(int argc, char **argv) {
   fprintf(stderr,
           "The server is now ready to accept connections on %s port %d\n",
           ntop, port);
+
+  signal(SIGCHLD, reapchld);
+
+  logstatus();
 
   while (1) {
     struct sockaddr_storage ss;
