@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 
-enum {
+enum log_severity {
         LOG_INFO = 0,
         LOG_WARNING = 1,
         LOG_ERROR = 2,
@@ -14,8 +14,8 @@ enum {
 };
 
 struct priority_info {
-  int id;
-  const char *name;
+        int id;
+        const char *name;
 };
 
 static struct priority_info log_priority_info_table[] = {
