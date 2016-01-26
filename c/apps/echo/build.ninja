@@ -40,4 +40,4 @@ build tcpcli01: LINK die.o wrapunix.o wrapsock.o wraplib.o wrapstdio.o readline.
 
 build clean: CLEAN
 
-default tcpserver
+default tcpserv01
