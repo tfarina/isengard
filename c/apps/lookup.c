@@ -11,7 +11,23 @@ enum log_severity {
         LOG_WARNING = 1,
         LOG_ERROR = 2,
         LOG_FATAL = 3,
+        LOG_NUM_SEVERITIES = 4,
 };
+
+const char *const log_severity_names[LOG_NUM_SEVERITIES] = {
+        "info",
+        "warning",
+        "error",
+        "fatal",
+};
+
+const char *
+get_log_severity_name(int severity)
+{
+        if (severity >= 0 && severity < LOG_NUM_SEVERITIES)
+                return log_severity_names[severity];
+        return "unknown";
+}
 
 struct priority_info {
         int id;
@@ -47,6 +63,8 @@ int main(void) {
         if (pinfo) {
                 printf("%s\n", pinfo->name);
         }
+
+        printf("%s\n", get_log_severity_name(LOG_ERROR));
 
         return 0;
 }
