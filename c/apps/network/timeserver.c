@@ -44,7 +44,7 @@ static void doprocessing(int sockfd) {
   exit(EXIT_SUCCESS);
 }
 
-static void reapchld(int sig) {
+static void sigchld_handler(int sig) {
   pid_t pid;
   int status;
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
@@ -52,7 +52,7 @@ static void reapchld(int sig) {
     printf("timeserver: end %d status %d\n", pid, status);
     logstatus();
   }
-  signal(SIGCHLD, reapchld);
+  signal(SIGCHLD, sigchld_handler);
 }
 
 int main(void) {
@@ -83,7 +83,7 @@ int main(void) {
           "The server is now ready to accept connections on port %d\n",
           SERVER_PORT);
 
-  signal(SIGCHLD, reapchld);
+  signal(SIGCHLD, sigchld_handler);
 
   logstatus();
 
