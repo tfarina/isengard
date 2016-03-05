@@ -50,6 +50,9 @@ build http: link http.o
 build dns_dname.o: compile dns_dname.c
 build dns_dname: link dns_dname.o
 
+build unixserver.o: compile unixserver.c
+build unixserver: link unixserver.o
+
 build clean: CLEAN
 
 default timeserver
