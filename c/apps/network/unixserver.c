@@ -8,6 +8,7 @@
 int main(void) {
         int socket_fd;
         struct sockaddr_un unix_addr;
+        size_t unix_addr_len;
 
         socket_fd = socket(AF_UNIX, SOCK_STREAM, 0);
         if (socket_fd == -1) {
@@ -15,10 +16,13 @@ int main(void) {
                 exit(EXIT_FAILURE);
         }
 
-        static const size_t kPathMax = sizeof(unix_addr.sun_path);
-
         memset(&unix_addr, 0, sizeof(unix_addr));
         unix_addr.sun_family = AF_UNIX;
+        strncpy(unix_addr.sun_path, "server.socket", sizeof(unix_addr.sun_path));
+        unix_addr_len = strlen("server.socket") + 1 + offsetof(struct sockaddr_un, sun_path);
+
+        if (bind(socket_fd, (const struct sockaddr*)&unix_addr, unix_addr_len) == -1) {
+        }
 
         return 0;
 }
