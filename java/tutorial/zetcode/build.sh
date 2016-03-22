@@ -10,6 +10,8 @@ OUTPUT_CLASSES_DIR=output/classes
 
 mkdir -p ${OUTPUT_CLASSES_DIR}
 
+find src/main/java -name "*.java" > paramfile
+
 javac -sourcepath src \
       -d ${OUTPUT_CLASSES_DIR} \
       -source ${JAVA_VERSION} \
