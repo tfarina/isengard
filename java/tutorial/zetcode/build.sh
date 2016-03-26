@@ -16,3 +16,7 @@ javac -sourcepath src/main/java \
       -target ${JAVA_VERSION} \
       -encoding UTF-8 \
       "@${PARAMFILE}"
+
+echo "Main-Class: com.zetcode.HelloWorld" > output/MANIFEST.MF
+
+jar cvmf output/MANIFEST.MF output/libhello.jar -C output/classes com
