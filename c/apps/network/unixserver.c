@@ -24,5 +24,8 @@ int main(void) {
         if (bind(socket_fd, (const struct sockaddr*)&unix_addr, unix_addr_len) == -1) {
         }
 
+        if (listen(socket_fd, SOMAXCONN) == -1) {
+        }
+
         return 0;
 }
