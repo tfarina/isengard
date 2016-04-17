@@ -27,5 +27,8 @@ int main(void) {
         if (listen(socket_fd, SOMAXCONN) == -1) {
         }
 
+	for (;;) {
+	}
+
         return 0;
 }
