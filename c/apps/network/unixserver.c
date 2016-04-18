@@ -9,6 +9,7 @@ int main(void) {
         int socket_fd;
         struct sockaddr_un unix_addr;
         size_t unix_addr_len;
+        int accept_fd;
 
         socket_fd = socket(AF_UNIX, SOCK_STREAM, 0);
         if (socket_fd == -1) {
@@ -28,7 +29,8 @@ int main(void) {
         }
 
 	for (;;) {
-	}
+                accept_fd = accept(socket_fd, NULL, NULL);
+        }
 
         return 0;
 }
