@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,20 +28,29 @@ int main(void) {
         unix_addr_len = strlen("server.socket") + 1 + offsetof(struct sockaddr_un, sun_path);
 
         if (bind(socket_fd, (const struct sockaddr*)&unix_addr, unix_addr_len) == -1) {
+                fprintf(stderr, "bind() failed: %s\n", strerror(errno));
+                exit(EXIT_FAILURE);
         }
 
         if (listen(socket_fd, SOMAXCONN) == -1) {
+                fprintf(stderr, "listen() failed: %s\n", strerror(errno));
+                exit(EXIT_FAILURE);
         }
 
         sprintf(buf, "%s\r\n", "Your target was built!");
 
 	for (;;) {
                 if ((accept_fd = accept(socket_fd, NULL, NULL)) == -1) {
-
+                        fprintf(stderr, "accept() failed: %s\n", strerror(errno));
+                        exit(EXIT_FAILURE);
                 }
 
                 write(accept_fd, buf, strlen(buf));
+
+                if (close(accept_fd) < 0) {
+
+                }
         }
 
-        return 0;
+        return EXIT_SUCCESS;
 }
