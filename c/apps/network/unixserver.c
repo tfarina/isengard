@@ -4,12 +4,16 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <sys/un.h>
+#include <unistd.h>
+
+#define BUFSIZE 1024
 
 int main(void) {
         int socket_fd;
         struct sockaddr_un unix_addr;
         size_t unix_addr_len;
         int accept_fd;
+        char buf[BUFSIZE];
 
         socket_fd = socket(AF_UNIX, SOCK_STREAM, 0);
         if (socket_fd == -1) {
@@ -28,8 +32,14 @@ int main(void) {
         if (listen(socket_fd, SOMAXCONN) == -1) {
         }
 
+        sprintf(buf, "%s\r\n", "Your target was built!");
+
 	for (;;) {
-                accept_fd = accept(socket_fd, NULL, NULL);
+                if ((accept_fd = accept(socket_fd, NULL, NULL)) == -1) {
+
+                }
+
+                write(accept_fd, buf, strlen(buf));
         }
 
         return 0;
