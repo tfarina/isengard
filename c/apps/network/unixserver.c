@@ -16,6 +16,8 @@ int main(void) {
         int accept_fd;
         char buf[BUFSIZE];
 
+        unlink("server.socket");
+
         socket_fd = socket(AF_UNIX, SOCK_STREAM, 0);
         if (socket_fd == -1) {
                 fprintf(stderr, "failed to create AF_UNIX socket\n");
