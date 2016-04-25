@@ -3,7 +3,7 @@ include('config.php');
 
 $id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: record id not found');
 
-if (isset($_POST['submitted'])) {
+if (isset($_POST['commit'])) {
   foreach ($_POST as $key => $value) {
     $_POST[$key] = mysql_real_escape_string($value);
   }
@@ -46,8 +46,7 @@ include_once("header.php");
     <tr>
       <td></td>
       <td style="float: right">
-        <input type="submit" value="Save"/>
-        <input type="hidden" value="1" name="submitted"/>
+        <input type="submit" name="commit" value="Save"/>
       </td>
     </tr>
     </tbody>
