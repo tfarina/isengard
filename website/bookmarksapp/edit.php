@@ -12,7 +12,7 @@ if (isset($_POST['submitted'])) {
   mysql_query($query) or die(mysql_error());
 
   if (mysql_affected_rows()) {
-    $message = "The bookmark has been updated successfully.\n";
+    $message = "Bookmark has been updated successfully.\n";
   } else {
     $message = "Nothing changed.\n";
   }
