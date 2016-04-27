@@ -31,7 +31,7 @@ include_once("header.php");
     <?php echo $message; ?>
   </div>
   <?php } ?>
-  <h2>Edit bookmark</h2>
+  <h3>Edit bookmark</h3>
   <form action="" method="POST">
   <table>
     <tbody>

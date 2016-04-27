@@ -10,7 +10,7 @@ if (isset($_POST['submitted'])) {
   $query = "INSERT INTO bookmarks (url, title) VALUES ('" . $_POST['url'] . "','" . $_POST['title'] . "')";
   mysql_query($query) or die(mysql_error());
 
-  $message = "The bookmark has been created successfully.";
+  $message = "Bookmark has been created successfully.";
 }
 
 ?>
@@ -22,7 +22,7 @@ include_once("header.php");
     <?php echo $message; ?>
   </div>
   <?php } ?>
-  <h2>Create a new bookmark</h2>
+  <h3>Create New Bookmark</h3>
   <form action="" method="POST">
     <table>
       <tbody>
@@ -37,7 +37,7 @@ include_once("header.php");
       <tr>
         <td></td>
         <td style="float: right;">
-          <input type="submit" value="Save"/>
+          <input type="submit" value="Create"/>
           <input type='hidden' value='1' name='submitted'/>
         </td>
       </tr>
