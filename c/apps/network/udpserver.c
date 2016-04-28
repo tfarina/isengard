@@ -13,18 +13,13 @@
 #define ADDRESS NULL
 #define PORT 5300
 
-static int set_reuseaddr(int sd)
-{
-  int reuse = 1;
-  return setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
-}
-
 int main(void) {
   struct addrinfo hints, *addrlist, *cur;
   int rv;
   struct sockaddr_storage remoteaddr;
   socklen_t addrlen;
   int sockfd = 0;
+  int reuse = 1;
   int recvlen;
   char buf[BUFLEN];
   int msgcnt = 0;  /* count # of messages we received */
@@ -50,7 +45,8 @@ int main(void) {
       continue;
     }
 
-    set_reuseaddr(sockfd);
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1)
+      error("set reuse addr on sd %d failed: %s", sockfd, strerror(errno));
 
     if (bind(sockfd, cur->ai_addr, cur->ai_addrlen) == -1) {
       error("bind on %d failed: %s", sockfd, strerror(errno));
