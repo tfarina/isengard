@@ -2,7 +2,7 @@
 
 include('config.php');
 
-if (isset($_POST['submitted'])) {
+if (isset($_POST['submit'])) {
   foreach($_POST as $key => $value) {
     $data[$key] = mysql_real_escape_string($value);
   }
@@ -37,8 +37,7 @@ include_once("header.php");
       <tr>
         <td></td>
         <td style="float: right;">
-          <input type="submit" value="Create"/>
-          <input type='hidden' value='1' name='submitted'/>
+          <input type="submit" name="submit" value="Create"/>
         </td>
       </tr>
       </tbody>
