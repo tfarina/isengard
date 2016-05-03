@@ -4,10 +4,10 @@ include('config.php');
 
 if (isset($_POST['submitted'])) {
   foreach($_POST as $key => $value) {
-    $_POST[$key] = mysql_real_escape_string($value);
+    $data[$key] = mysql_real_escape_string($value);
   }
 
-  $query = "INSERT INTO bookmarks (url, title) VALUES ('" . $_POST['url'] . "','" . $_POST['title'] . "')";
+  $query = "INSERT INTO bookmarks (url, title) VALUES ('" . $data['url'] . "','" . $data['title'] . "')";
   mysql_query($query) or die(mysql_error());
 
   $message = "Bookmark has been created successfully.";
