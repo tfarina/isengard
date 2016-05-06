@@ -7,9 +7,9 @@ if (isset($_POST['submit'])) {
     $data[$key] = mysql_real_escape_string($value);
   }
 
-  $query = "INSERT INTO bookmarks (url, title) VALUES ('"
-          . $data['url'] . "','"
-          . $data['title'] . "')";
+  $query = "INSERT INTO bookmarks (url, title) VALUES ("
+          . "'" . $data['url'] . "',"
+          . "'" . $data['title'] . "')";
   mysql_query($query) or die(mysql_error());
 
   $message = "Bookmark has been created successfully.";
