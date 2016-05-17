@@ -1,7 +1,21 @@
 <?php
 include('config.php');
 
-$id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: record id not found');
+function is_num($string) {
+  if (preg_match("/^[0-9]+$/i", $string)) {
+    return true;
+  }
+  return false;
+}
+
+$id = "-1";
+if (isset($_GET['id']) && is_num($_GET['id'])) {
+  $id = $_GET['id'];
+}
+
+if ($id == "-1") {
+  die('ERROR: record id not found');
+}
 
 if (isset($_POST['commit'])) {
   foreach ($_POST as $key => $value) {
