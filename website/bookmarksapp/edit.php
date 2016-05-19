@@ -20,6 +20,16 @@ if ($id == "-1") {
   exit;
 }
 
+$query = "SELECT COUNT(id) AS exist FROM bookmarks WHERE id='" . $id . "'";
+$result = mysql_query($query) or die(mysql_error());
+list($total) = mysql_fetch_row($result);
+if ($total == 0) {
+  include_once("header.php");
+  echo "     <div class=\"error\">Error: There is no bookmark with this ID.</div>\n";
+  include_once("footer.php");
+  exit;
+}
+
 if (isset($_POST['commit'])) {
   foreach ($_POST as $key => $value) {
     $_POST[$key] = mysql_real_escape_string($value);
