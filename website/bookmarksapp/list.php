@@ -14,7 +14,8 @@ mysql_free_result($result);
 
 include_once("header.php");
 ?>
-  <table class="list">
+<div class="main">
+  <table class="pure-table pure-table-horizontal">
     <thead>
       <tr>
         <th>Title</th>
@@ -36,6 +37,7 @@ include_once("header.php");
     <?php } ?>
     </tbody>
   </table>
+</div>
 <?php
 include_once("footer.php");
 ?>
