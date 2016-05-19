@@ -1,7 +1,41 @@
-body {
+body{position:relative;z-index:0;margin:0;padding:0 0 1em;font:.8em Arial,Helvetica,sans-serif;color:#000;background:#fff}
+/*body {
   font-family: Arial, Helvetica, sans-serif;
-  /*color: #0F0;
-  background: #000;*/
+  color: #0F0;
+  background: #000;
+}*/
+
+.header {
+  height: 40px;
+  border-bottom: 1px solid #EEE;
+  background-color: #ffffff;
+}
+
+.footer {
+    height: 46px;
+    z-index: 1;
+    position: relative;
+}
+
+.footer-line {
+    padding: 0 24px;
+}
+
+.footer-line_bottom {
+    color: #999;
+    height: 46px;
+    font-size: 12px;
+    overflow: hidden;
+    line-height: 46px;
+}
+
+
+.inline-block {
+    display: inline-block;
+    position: relative;
+}
+.footer-copyright {
+    float: right;
 }
 
 .message {
@@ -9,6 +43,16 @@ body {
   width: 100%;
 }
 
+.error {
+    background:	#ff0000;
+    color: #ffffff;
+    padding: 3px;
+    font-size: 90%;
+}
+input[type="text"] {
+    border: 1px solid #AAA;
+}
+/*
 table {
   font-family: Helvetica, Arial, sans-serif;
   width: auto;
@@ -33,3 +77,5 @@ table.list {
 table.list tbody {
   border: 1px solid #d3d3d3 !important;
 }
+*/
+.pure-table{border-collapse:collapse;border-spacing:0;empty-cells:show;border:1px solid #cbcbcb}.pure-table caption{color:#000;font:italic 85%/1 arial,sans-serif;padding:1em 0;text-align:center}.pure-table td,.pure-table th{border-left:1px solid #cbcbcb;border-width:0 0 0 1px;font-size:inherit;margin:0;overflow:visible;padding:.5em 1em}.pure-table td:first-child,.pure-table th:first-child{border-left-width:0}.pure-table thead{background-color:#e0e0e0;color:#000;text-align:left;vertical-align:bottom}.pure-table td{background-color:transparent}.pure-table-odd td{background-color:#f2f2f2}.pure-table-striped tr:nth-child(2n-1) td{background-color:#f2f2f2}.pure-table-bordered td{border-bottom:1px solid #cbcbcb}.pure-table-bordered tbody>tr:last-child>td{border-bottom-width:0}.pure-table-horizontal td,.pure-table-horizontal th{border-width:0 0 1px;border-bottom:1px solid #cbcbcb}.pure-table-horizontal tbody>tr:last-child>td{border-bottom-width:0}

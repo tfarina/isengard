@@ -14,7 +14,10 @@ if (isset($_GET['id']) && is_num($_GET['id'])) {
 }
 
 if ($id == "-1") {
-  die('ERROR: record id not found');
+  include_once("header.php");
+  echo "     <div class=\"error\">Error: record id not found</div>\n";
+  include_once("footer.php");
+  exit;
 }
 
 if (isset($_POST['commit'])) {
