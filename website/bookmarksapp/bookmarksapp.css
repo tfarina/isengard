@@ -39,15 +39,16 @@ body{position:relative;z-index:0;margin:0;padding:0 0 1em;font:.8em Arial,Helvet
 }
 
 .message {
-  color: #468847;
+  color: #4F8A10;
+  background-color: #DFF2BF;
   width: 100%;
 }
 
 .error {
-    background:	#ff0000;
-    color: #ffffff;
     padding: 3px;
     font-size: 90%;
+    color: #D8000C;
+    background-color: #FFBABA;
 }
 input[type="text"] {
     border: 1px solid #AAA;
