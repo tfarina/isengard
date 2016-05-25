@@ -6,9 +6,9 @@
   <link rel="stylesheet" type="text/css" title"Default style" href="bookmarksapp.css">
 </head>
 <body>
-<div class="header">
+  <div class="header">
     <h2>Bookmarks</h2>
-</div>
+  </div>
   <div class="menu">
     <p><a href="list.php">My bookmarks</a> | <a href="new.php">Add bookmark</a></p>
   </div>
