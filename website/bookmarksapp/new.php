@@ -25,7 +25,7 @@ include_once("header.php");
   </div>
   <?php } ?>
   <h3>Create New Bookmark</h3>
-  <form action="" method="POST">
+  <form name="newBookmark" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <table>
       <tbody>
       <tr>
