@@ -73,7 +73,7 @@ include_once("header.php");
     <tr>
       <td></td>
       <td style="float: right">
-        <input type="submit" name="commit" value="Save"/>
+        <button type="submit" name="commit" class="pure-button pure-button-primary">Save</button>
       </td>
     </tr>
     </tbody>
