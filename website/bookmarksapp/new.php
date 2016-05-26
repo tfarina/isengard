@@ -39,7 +39,7 @@ include_once("header.php");
       <tr>
         <td></td>
         <td style="float: right;">
-          <button type="submit" name="submit">Create</button>
+          <button type="submit" name="submit" class="pure-button pure-button-primary">Create</button>
         </td>
       </tr>
       </tbody>
