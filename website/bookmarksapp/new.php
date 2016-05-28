@@ -7,12 +7,22 @@ if (isset($_POST['submit'])) {
     $data[$key] = mysql_real_escape_string($value);
   }
 
-  $query = "INSERT INTO bookmarks (url, title) VALUES ("
-          . "'" . $data['url'] . "',"
-          . "'" . $data['title'] . "')";
-  mysql_query($query) or die(mysql_error());
+  $title = $data['title'];
 
-  $message = "Bookmark has been created successfully.";
+  $valid = true;
+
+  if (empty($title)) {
+    $valid = false;
+  }
+
+  if ($valid) {
+    $query = "INSERT INTO bookmarks (url, title) VALUES ("
+            . "'" . $data['url'] . "',"
+            . "'" . $title . "')";
+    mysql_query($query) or die(mysql_error());
+
+    $message = "Bookmark has been created successfully.";
+  }
 }
 
 ?>
