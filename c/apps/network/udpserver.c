@@ -64,7 +64,7 @@ int main(void) {
     recvlen = recvfrom(sockfd, buf, sizeof(buf), 0,
                        (struct sockaddr *)&remoteaddr, &addrlen);
     if (recvlen <= 0) {
-     continue;
+      continue;
     }
     buf[recvlen] = '\0';
     printf("received message: %s\n", buf);
@@ -72,7 +72,7 @@ int main(void) {
     sprintf(buf, "ack %d", msgcnt++);
     if (sendto(sockfd, buf, strlen(buf), 0,
                (struct sockaddr *)&remoteaddr, addrlen) == -1)
-      fatal("sendto failed: %s", strerror(errno));
+      warning("sendto failed: %s", strerror(errno));
     printf("response sent: %s\n", buf);
   }
 
