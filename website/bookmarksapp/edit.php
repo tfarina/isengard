@@ -1,11 +1,19 @@
 <?php
-include('config.php');
+
+require_once 'config.php';
 
 function is_num($string) {
   if (preg_match("/^[0-9]+$/i", $string)) {
     return true;
   }
   return false;
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
 
 $id = "-1";
@@ -30,55 +38,124 @@ if ($total == 0) {
   exit;
 }
 
-if (isset($_POST['commit'])) {
+if (!empty($_POST) && isset($_POST['commit'])) {
   foreach ($_POST as $key => $value) {
     $_POST[$key] = mysql_real_escape_string($value);
   }
 
-  $query = "UPDATE bookmarks SET url='" . $_POST['url'] . "', title='" . $_POST['title'] . "' WHERE id='" . $id . "'";
-  mysql_query($query) or die(mysql_error());
+  $titleError = "";
+  $urlError = "";
 
-  if (mysql_affected_rows()) {
-    $message = "Bookmark has been updated successfully.\n";
+  $title = "";
+  $url = "";
+
+  $valid = true;
+  if (empty($_POST['title'])) {
+    $titleError = "Please enter a title for this bookmark.";
+    $valid = false;
   } else {
-    $message = "Nothing changed.\n";
+    $title = test_input($_POST['title']);
   }
-}
 
-$query = "SELECT * FROM bookmarks WHERE id='" . $id . "'";
-$result = mysql_query($query);
-$row = mysql_fetch_assoc($result);
-mysql_free_result($result);
+  if (empty($_POST['url'])) {
+    $urlError = "Please enter an URL for this bookmark.";
+    $valid = false;
+  } else {
+    $url = test_input($_POST['url']);
+
+    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $url)) {
+      $urlError = "Please enter a valid URL.";
+      $valid = false;
+    }
+  }
+
+  if ($valid) {
+    $query = "UPDATE bookmarks SET url='" . $url . "', title='" . $title . "' WHERE id='" . $id . "'";
+    mysql_query($query) or die(mysql_error());
+
+    if (mysql_affected_rows()) {
+      $message = "Bookmark has been updated successfully.";
+    } else {
+      $message = "Nothing has changed.";
+    }
+    header('Location: list.php?msg=' . urlencode($message));
+    exit;
+  }
+} else {
+  $query = "SELECT * FROM bookmarks WHERE id='" . $id . "'";
+  $result = mysql_query($query);
+  $row = mysql_fetch_assoc($result);
+  
+  $title = $row['title'];
+  $url = $row['url'];
+
+  mysql_free_result($result);
+}
 ?>
 <?php
 include_once("header.php");
 ?>
-  <?php if (isset($message)) { ?>
-  <div class="message">
-    <?php echo $message; ?>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Bookmarks</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">My Account</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li class="active">
+          <a href="list.php">My bookmarks</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <?php if (isset($message)) { ?>
+      <div class="alert alert-success" role="alert"><?php echo $message; ?></div>
+      <?php } ?>
+      <h3>Edit bookmark</h3>
+  <form action="" method="post" class="form-horizontal">
+    <div class="form-group <?php echo !empty($titleError) ? 'has-error' : ''; ?>">
+      <label for="bookmark-title" class="col-sm-2 control-label">Title</label>
+      <div class="col-sm-4">
+        <input type="text" name="title" id="bookmark-title" class="form-control"
+               value="<?php echo stripslashes($title) ?>"/>
+        <?php if (!empty($titleError)) { ?>
+        <span class="help-block"><?php echo $titleError; ?></span>
+        <?php } ?>
+      </div>
+    </div>
+
+    <div class="form-group <?php echo !empty($urlError) ? 'has-error' : ''; ?>">
+      <label for="bookmark-url" class="col-sm-2 control-label">URL</label>
+      <div class="col-sm-4">
+        <input type="url" name="url" id="bookmark-url" class="form-control"
+               value="<?php echo stripslashes($url) ?>"/>
+        <?php if (!empty($urlError)) { ?>
+        <span class="help-block"><?php echo $urlError; ?></span>
+        <?php } ?>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-4">
+        <div class="pull-right">
+          <a class="btn btn-default" href="list.php">Cancel</a>
+          <button type="submit" name="commit" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </form>
+    </div>
   </div>
-  <?php } ?>
-  <h3>Edit bookmark</h3>
-  <form action="" method="POST">
-  <table>
-    <tbody>
-    <tr>
-      <td align="right">Title:</td>
-      <td><input type="text" name="title" value="<?php echo stripslashes($row['title']) ?>"/></td>
-    </tr>
-    <tr>
-      <td align="right">URL:</td>
-      <td><input type="text" name="url" value="<?php echo stripslashes($row['url']) ?>"/></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td style="float: right">
-        <button type="submit" name="commit" class="pure-button pure-button-primary">Save</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</form>
+</div>
 <?php
 include_once("footer.php");
 ?>
