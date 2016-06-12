@@ -179,7 +179,13 @@ int main(int argc, char **argv) {
 
   /* Loop through all the results and connect to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    printf("Connecting to %.200s port %s.\n", host, portstr);
+    char addr[NI_MAXHOST], strport[NI_MAXSERV];
+    if ((rv = getnameinfo(cur->ai_addr, cur->ai_addrlen,
+                          addr, sizeof(addr), strport, sizeof(strport),
+                          NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
+      fatal("getnameinfo failed: %.100s", gai_strerror(rv));
+    }
+    printf("Connecting to %.200s port %s.\n", addr, strport);
 
     if ((sockfd = socket(cur->ai_family, cur->ai_socktype,
                          cur->ai_protocol)) == -1) {
