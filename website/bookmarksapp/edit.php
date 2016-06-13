@@ -2,19 +2,7 @@
 
 require_once 'config.php';
 
-function is_num($string) {
-  if (preg_match("/^[0-9]+$/i", $string)) {
-    return true;
-  }
-  return false;
-}
-
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
+unset($_SESSION['msg-success']);
 
 $id = "-1";
 if (isset($_GET['id']) && is_num($_GET['id'])) {
@@ -75,10 +63,12 @@ if (!empty($_POST) && isset($_POST['commit'])) {
 
     if (mysql_affected_rows()) {
       $message = "Bookmark has been updated successfully.";
+      $_SESSION['msg-success'] = $message;
     } else {
       $message = "Nothing has changed.";
     }
-    header('Location: list.php?msg=' . urlencode($message));
+    //header('Location: list.php?msg=' . urlencode($message));
+    header('Location: list.php');
     exit;
   }
 } else {

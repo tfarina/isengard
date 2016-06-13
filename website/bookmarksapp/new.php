@@ -1,8 +1,10 @@
 <?php
 
-include('config.php');
+require_once 'config.php';
 
-if (isset($_POST['submit'])) {
+unset($_SESSION['msg-success']);
+
+if (!empty($_POST) && isset($_POST['submit'])) {
   foreach($_POST as $key => $value) {
     $data[$key] = mysql_real_escape_string($value);
   }
@@ -15,13 +17,19 @@ if (isset($_POST['submit'])) {
     $valid = false;
   }
 
+  if (empty($url)) {
+    $valid = false;
+  }
+
   if ($valid) {
     $query = "INSERT INTO bookmarks (title, url) VALUES ";
     $query .= "('$title', '$url')";
     mysql_query($query) or die(mysql_error());
 
     $message = "Bookmark has been created successfully.";
-    header('Location: list.php?msg=' . urlencode($message));
+    $_SESSION['msg-success'] = $message;
+    //header('Location: list.php?msg=' . urlencode($message));
+    header('Location: list.php');
     exit;
   }
 }

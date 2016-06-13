@@ -47,4 +47,18 @@ function email_exists($email) {
   return ($num_rows > 0) ? true : false; 
 }
 
+function is_num($string) {
+  if (preg_match("/^[0-9]+$/i", $string)) {
+    return true;
+  }
+  return false;
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
 ?>
