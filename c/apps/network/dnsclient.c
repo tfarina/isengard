@@ -28,7 +28,8 @@ static const uint16_t kQClassIN = 1;
 
 static const uint16_t kMessageMaxLen = 512;
 static const uint8_t kMaxNameLength = 255;
-static const uint8_t kDefaultPort = 53;
+
+#define DNS_PORT 53
 
 int main(int argc, char **argv) {
   struct dnsheader* header;
@@ -117,7 +118,7 @@ int main(int argc, char **argv) {
   // Connect to the DNS Server that we will send the udp query to.
   memset(&to, 0, tolen);
   to.sin_family = AF_INET;
-  to.sin_port = htons(kDefaultPort);
+  to.sin_port = htons(DNS_PORT);
   inet_pton(AF_INET, "8.8.8.8", &to.sin_addr);
 
   if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
