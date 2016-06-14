@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
   ssize_t rlen;
 
   if (argc != 2) {
-    fprintf(stderr, "usage: ./dnsclient hostname\n");
+    fprintf(stderr, "usage: %s domain\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 
