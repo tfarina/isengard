@@ -140,7 +140,6 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  printf("%zd\n", rlen);
 
   // Parse the response.
   struct dnsheader *response_header = malloc(sizeof(struct dnsheader));
@@ -148,6 +147,8 @@ int main(int argc, char **argv) {
 
   printf("QUERY: %d\n", ntohs(response_header->qdcount));
   printf("ANSWER: %d\n", ntohs(response_header->ancount));
+
+  printf(";; MSG SIZE rcvd: %zd\n", rlen);
 
   return 0;
 }
