@@ -145,7 +145,8 @@ int main(int argc, char **argv) {
   struct dnsheader *response_header = malloc(sizeof(struct dnsheader));
   memcpy(response_header, response, sizeof(struct dnsheader));
 
-  printf("resource records returned: %d\n", ntohs(response_header->ancount));
+  printf("QUERY: %d\n", ntohs(response_header->qdcount));
+  printf("ANSWER: %d\n", ntohs(response_header->ancount));
 
   return 0;
 }
