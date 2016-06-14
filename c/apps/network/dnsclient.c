@@ -39,9 +39,9 @@ int main(int argc, char **argv) {
   socklen_t tolen = sizeof(to);
   int sockfd;
   uint8_t response[kMessageMaxLen];
-  struct sockaddr_storage addr;
-  socklen_t addrlen2 = sizeof(addr);
-  int rlen;
+  struct sockaddr_storage from;
+  socklen_t fromlen = sizeof(from);
+  ssize_t rlen;
 
   if (argc != 2) {
     fprintf(stderr, "usage: ./dnsclient hostname\n");
@@ -134,12 +134,12 @@ int main(int argc, char **argv) {
 
   // Receive the response.
   if ((rlen = recvfrom(sockfd, response, sizeof(response), 0,
-                       (struct sockaddr *)&addr, &addrlen2)) == -1) {
-    printf("recvfrom failed\n");
+                       (struct sockaddr *)&from, &fromlen)) == -1) {
+    fprintf(stderr, "recvfrom failed\n");
     exit(EXIT_FAILURE);
   }
 
-  printf("%d\n", rlen);
+  printf("%zd\n", rlen);
 
   // Parse the response.
   struct dnsheader *response_header = malloc(sizeof(struct dnsheader));
