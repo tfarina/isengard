@@ -35,8 +35,8 @@ int main(int argc, char **argv) {
   struct dnsquestion* question;
   char hostname[kMaxNameLength];
   uint8_t *packet;
-  struct sockaddr_in servaddr;
-  socklen_t addrlen = sizeof(servaddr);
+  struct sockaddr_in to;
+  socklen_t tolen = sizeof(to);
   int sockfd;
   uint8_t response[kMessageMaxLen];
   struct sockaddr_storage addr;
@@ -114,11 +114,11 @@ int main(int argc, char **argv) {
   // QCLASS
   memcpy(packet + offset, &question->qclass, sizeof(question->qclass));
 
-  // Connect to the DNS Server.
-  memset(&servaddr, 0, sizeof(servaddr));
-  servaddr.sin_family = AF_INET;
-  servaddr.sin_port = htons(kDefaultPort);
-  inet_pton(AF_INET, "8.8.8.8", &servaddr.sin_addr);
+  // Connect to the DNS Server that we will send the udp query to.
+  memset(&to, 0, tolen);
+  to.sin_family = AF_INET;
+  to.sin_port = htons(kDefaultPort);
+  inet_pton(AF_INET, "8.8.8.8", &to.sin_addr);
 
   if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
     printf("cannon create socket\n");
@@ -126,9 +126,9 @@ int main(int argc, char **argv) {
   }
 
   // Send the query.
-  if (sendto(sockfd, packet, packet_length, 0, (struct sockaddr *)&servaddr,
-             addrlen) == -1) {
-    printf("sendto failed\n");
+  if (sendto(sockfd, packet, packet_length, 0, (struct sockaddr *)&to,
+             tolen) == -1) {
+    fprintf(stderr, "sendto failed\n");
     exit(EXIT_FAILURE);
   }
 
