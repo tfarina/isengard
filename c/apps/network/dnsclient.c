@@ -27,14 +27,14 @@ static const uint16_t kQTypeA = 1;
 static const uint16_t kQClassIN = 1;
 
 static const uint16_t kMessageMaxLen = 512;
-static const uint8_t kMaxNameLength = 255;
 
+#define MAX_DOMAINLEN 255
 #define DNS_PORT 53
 
 int main(int argc, char **argv) {
   struct dnsheader* header;
   struct dnsquestion* question;
-  char hostname[kMaxNameLength];
+  char hostname[MAX_DOMAINLEN];
   uint8_t *packet;
   struct sockaddr_in to;
   socklen_t tolen = sizeof(to);
@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
 
   strcpy(hostname, argv[1]);
 
-  if (strlen(hostname) > kMaxNameLength) {
+  if (strlen(hostname) > MAX_DOMAINLEN) {
     exit(EXIT_FAILURE);
   }
 
@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
   int len, total = 0;
   while ((label = strsep(&hostnamedup, ".")) != NULL) {
     len = strlen(label);
-    if (len > kMaxNameLength) {
+    if (len > MAX_DOMAINLEN) {
       fprintf(stderr, "Label is too long");
       free(hostnamedup);
       return -1;
