@@ -40,7 +40,10 @@ include_once("header.php");
       <div class="alert alert-success" role="alert"><?php echo $_GET['msg']; ?></div>
       <?php } ?>
       <?php if (isset($_SESSION['msg-success'])) { ?>
-      <div class="alert alert-success" role="alert"><?php echo $_SESSION['msg-success']; ?></div>
+      <div class="alert alert-success" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <?php echo $_SESSION['msg-success']; ?>
+      </div>
       <?php } ?>
       <p><a href="new.php" class="btn btn-success">Add bookmark</a></p>
       <table class="table table-striped table-bordered table-hover">
