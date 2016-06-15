@@ -27,8 +27,7 @@ static const uint16_t kFlagRD = 0x100;
 static const uint16_t kQTypeA = 1;
 static const uint16_t kQClassIN = 1;
 
-static const uint16_t kMessageMaxLen = 512;
-
+#define MAX_PACKETLEN 512
 #define MAX_DOMAINLEN 255
 #define DNS_PORT 53
 
@@ -40,7 +39,7 @@ int main(int argc, char **argv) {
   struct sockaddr_in to;
   socklen_t tolen = sizeof(to);
   int sockfd;
-  uint8_t answer_pkt[kMessageMaxLen];
+  uint8_t answer_pkt[MAX_PACKETLEN];
   struct sockaddr_storage from;
   socklen_t fromlen = sizeof(from);
   ssize_t rlen;
