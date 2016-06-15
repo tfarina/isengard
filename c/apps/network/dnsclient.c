@@ -36,6 +36,10 @@ static const uint16_t kFlagRD = 0x100;
 #define MAX_DOMAINLEN 255
 #define DNS_PORT 53
 
+static uint16_t read_uint16(void *src) {
+  return ntohs(*(uint16_t *)src);
+}
+
 int main(int argc, char **argv) {
   struct dnsheader* header;
   struct dnsquestion* question;
@@ -147,11 +151,18 @@ int main(int argc, char **argv) {
   }
 
   // Parse the response.
-  struct dnsheader *response_header = malloc(sizeof(struct dnsheader));
-  memcpy(response_header, answer_pkt, sizeof(struct dnsheader));
+  struct dnsheader *response_header;
+  response_header = malloc(sizeof(struct dnsheader));
 
-  printf("QUERY: %d\n", ntohs(response_header->qdcount));
-  printf("ANSWER: %d\n", ntohs(response_header->ancount));
+  response_header->id = read_uint16(answer_pkt);
+  response_header->flags = read_uint16(answer_pkt + 2);
+  response_header->qdcount = read_uint16(answer_pkt + 4);
+  response_header->ancount = read_uint16(answer_pkt + 6);
+  response_header->nscount = read_uint16(answer_pkt + 8);
+  response_header->arcount = read_uint16(answer_pkt + 10);
+
+  printf("QUERY: %d\n", response_header->qdcount);
+  printf("ANSWER: %d\n", response_header->ancount);
 
   printf(";; MSG SIZE rcvd: %zd\n", rlen);
 
