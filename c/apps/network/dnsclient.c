@@ -36,11 +36,11 @@ int main(int argc, char **argv) {
   struct dnsheader* header;
   struct dnsquestion* question;
   char hostname[MAX_DOMAINLEN];
-  uint8_t *packet;
+  uint8_t *query_pkt;
   struct sockaddr_in to;
   socklen_t tolen = sizeof(to);
   int sockfd;
-  uint8_t response[kMessageMaxLen];
+  uint8_t answer_pkt[kMessageMaxLen];
   struct sockaddr_storage from;
   socklen_t fromlen = sizeof(from);
   ssize_t rlen;
@@ -89,34 +89,35 @@ int main(int argc, char **argv) {
   question->qtype = htons(kQTypeA);
   question->qclass = htons(kQClassIN);
 
-  // Build the packet (header + question) we are going to send to the DNS
-  // server.
+  // Prepare the packet (header + question) with the query that will be sent to
+  // the DNS server.
   size_t questionsize =
       question->qnamelen + sizeof(question->qtype) + sizeof(question->qclass);
-  size_t packet_length = sizeof(*header) + questionsize;
+  size_t query_pktlen = sizeof(*header) + questionsize;
 
-  packet = malloc(packet_length);
+  query_pkt = malloc(query_pktlen);
 
   int offset = 0;
 
   // HEADER
-  memcpy(packet + offset, header, sizeof(*header));
+  memcpy(query_pkt + offset, header, sizeof(*header));
   offset += sizeof(*header);
 
   // QUESTION: QNAME + QTYPE + QCLASS
 
   // QNAME
-  memcpy(packet + offset, question->qname, question->qnamelen);
+  memcpy(query_pkt + offset, question->qname, question->qnamelen);
   offset += question->qnamelen;
 
   // QTYPE
-  memcpy(packet + offset, &question->qtype, sizeof(question->qtype));
+  memcpy(query_pkt + offset, &question->qtype, sizeof(question->qtype));
   offset += sizeof(question->qtype);
 
   // QCLASS
-  memcpy(packet + offset, &question->qclass, sizeof(question->qclass));
+  memcpy(query_pkt + offset, &question->qclass, sizeof(question->qclass));
 
-  // Connect to the DNS Server that we will send the udp query to.
+  // Prepare the UDP socket that will be used to send the query to the DNS
+  // server.
   memset(&to, 0, tolen);
   to.sin_family = AF_INET;
   to.sin_port = htons(DNS_PORT);
@@ -128,23 +129,22 @@ int main(int argc, char **argv) {
   }
 
   // Send the query.
-  if (sendto(sockfd, packet, packet_length, 0, (struct sockaddr *)&to,
+  if (sendto(sockfd, query_pkt, query_pktlen, 0, (struct sockaddr *)&to,
              tolen) == -1) {
     fprintf(stderr, "sendto failed\n");
     exit(EXIT_FAILURE);
   }
 
   // Receive the response.
-  if ((rlen = recvfrom(sockfd, response, sizeof(response), 0,
+  if ((rlen = recvfrom(sockfd, answer_pkt, sizeof(answer_pkt), 0,
                        (struct sockaddr *)&from, &fromlen)) == -1) {
     fprintf(stderr, "recvfrom failed\n");
     exit(EXIT_FAILURE);
   }
 
-
   // Parse the response.
   struct dnsheader *response_header = malloc(sizeof(struct dnsheader));
-  memcpy(response_header, response, sizeof(struct dnsheader));
+  memcpy(response_header, answer_pkt, sizeof(struct dnsheader));
 
   printf("QUERY: %d\n", ntohs(response_header->qdcount));
   printf("ANSWER: %d\n", ntohs(response_header->ancount));
