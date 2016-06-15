@@ -24,8 +24,13 @@ struct dnsquestion {
 
 static const uint16_t kFlagRD = 0x100;
 
-static const uint16_t kQTypeA = 1;
-static const uint16_t kQClassIN = 1;
+/* Resource Record definitions. */
+
+/* A host address type. */
+#define RR_TYPE_A 1
+
+/* The Internet class. */
+#define RR_CLASS_IN 1
 
 #define MAX_PACKETLEN 512
 #define MAX_DOMAINLEN 255
@@ -85,8 +90,8 @@ int main(int argc, char **argv) {
   }
   free(hostnamedup);
 
-  question->qtype = htons(kQTypeA);
-  question->qclass = htons(kQClassIN);
+  question->qtype = htons(RR_TYPE_A);
+  question->qclass = htons(RR_CLASS_IN);
 
   // Prepare the packet (header + question) with the query that will be sent to
   // the DNS server.
