@@ -1,4 +1,5 @@
 #include <arpa/inet.h>
+#include <errno.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -122,7 +123,7 @@ int main(int argc, char **argv) {
   inet_pton(AF_INET, "8.8.8.8", &to.sin_addr);
 
   if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
-    printf("cannon create socket\n");
+    fprintf(stderr, "socket creation failed: %s\n", strerror(errno));
     exit(EXIT_FAILURE);
   }
 
