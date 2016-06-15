@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
   response_header->nscount = read_uint16(answer_pkt + 8);
   response_header->arcount = read_uint16(answer_pkt + 10);
 
-  printf("QUERY: %d\n", response_header->qdcount);
+  printf("QUERY: %d, ", response_header->qdcount);
   printf("ANSWER: %d\n", response_header->ancount);
 
   printf(";; MSG SIZE rcvd: %zd\n", rlen);
