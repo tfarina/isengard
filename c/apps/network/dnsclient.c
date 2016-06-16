@@ -179,6 +179,8 @@ int main(int argc, char **argv) {
   printf("AUTHORITY: %u, ", response_header->nscount);
   printf("ADDITIONAL: %u\n", response_header->arcount);
 
+  printf("\n");
+
   printf(";; MSG SIZE rcvd: %zd\n", rlen);
 
   return 0;
