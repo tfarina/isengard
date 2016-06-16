@@ -36,6 +36,10 @@ static const uint16_t kFlagRD = 0x100;
 #define MAX_DOMAINLEN 255
 #define DNS_PORT 53
 
+static void write_uint16(void *dst, uint16_t data) {
+  *(uint16_t*)dst = htons(data);
+}
+
 static uint16_t read_uint16(void *src) {
   return ntohs(*(uint16_t *)src);
 }
@@ -68,8 +72,11 @@ int main(int argc, char **argv) {
   memset(header, 0, sizeof(*header));
 
   header->id = rand();
-  header->flags = htons(kFlagRD); //htons(1 << 8) htons(0x0100);
-  header->qdcount = htons(1);
+  header->flags = kFlagRD; //htons(1 << 8) htons(0x0100);
+  header->qdcount = 1;
+  header->ancount = 0;
+  header->nscount = 0;
+  header->arcount = 0;
 
   question = malloc(sizeof(*question) + strlen(hostname) + 2);
   memset(question, 0, sizeof(*question));
@@ -108,7 +115,13 @@ int main(int argc, char **argv) {
   int offset = 0;
 
   // HEADER
-  memcpy(query_pkt + offset, header, sizeof(*header));
+  write_uint16(query_pkt, header->id);
+  write_uint16(query_pkt + 2, header->flags);
+  write_uint16(query_pkt + 4, header->qdcount);
+  write_uint16(query_pkt + 6, header->ancount);
+  write_uint16(query_pkt + 8, header->nscount);
+  write_uint16(query_pkt + 10, header->arcount);
+
   offset += sizeof(*header);
 
   // QUESTION: QNAME + QTYPE + QCLASS
