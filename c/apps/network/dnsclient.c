@@ -174,10 +174,10 @@ int main(int argc, char **argv) {
   response_header->nscount = read_uint16(answer_pkt + 8);
   response_header->arcount = read_uint16(answer_pkt + 10);
 
-  printf("QUERY: %d, ", response_header->qdcount);
-  printf("ANSWER: %d, ", response_header->ancount);
-  printf("AUTHORITY: %d, ", response_header->nscount);
-  printf("ADDITIONAL: %d\n", response_header->arcount);
+  printf("QUERY: %u, ", response_header->qdcount);
+  printf("ANSWER: %u, ", response_header->ancount);
+  printf("AUTHORITY: %u, ", response_header->nscount);
+  printf("ADDITIONAL: %u\n", response_header->arcount);
 
   printf(";; MSG SIZE rcvd: %zd\n", rlen);
 
