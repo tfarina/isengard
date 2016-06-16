@@ -42,10 +42,13 @@ include_once("header.php");
       <?php if (isset($_SESSION['msg-success'])) { ?>
       <div class="alert alert-success" role="alert">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <?php echo $_SESSION['msg-success']; ?>
+        <?php echo $_SESSION['msg-success']; unset($_SESSION['msg-success']); ?>
       </div>
       <?php } ?>
       <p><a href="new.php" class="btn btn-success">Add bookmark</a></p>
+      <?php if (count($bookmarks) == 0) { ?>
+      <div><center>You have no bookmarks yet.</center></div>
+      <?php } else { ?>
       <table class="table table-striped table-bordered table-hover">
         <thead>
           <tr>
@@ -68,6 +71,7 @@ include_once("header.php");
           <?php } ?>
         </tbody>
       </table>
+      <?php } ?>
     </div>
   </div>
 </div>
