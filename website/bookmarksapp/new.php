@@ -38,6 +38,18 @@ if (!empty($_POST) && isset($_POST['submit'])) {
 <?php
 include_once("header.php");
 ?>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Bookmarks</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="account.php">My Account</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <h3>Create New Bookmark</h3>
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form-horizontal">
     <div class="form-group <?php echo !empty($titleError) ? 'has-error' : ''; ?>">
