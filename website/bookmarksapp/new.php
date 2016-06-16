@@ -12,12 +12,17 @@ if (!empty($_POST) && isset($_POST['submit'])) {
   $title = $data['title'];
   $url = $data['url'];
 
+  $titleError = "";
+  $urlError = "";
+
   $valid = true;
   if (empty($title)) {
+    $titleError = "Please enter a title for this bookmark.";
     $valid = false;
   }
 
   if (empty($url)) {
+    $urlError = "Please enter an URL for this bookmark.";
     $valid = false;
   }
 
