@@ -45,9 +45,9 @@ static uint16_t read_uint16(void *src) {
 }
 
 int main(int argc, char **argv) {
+  char dname[MAX_DOMAINLEN];
   struct dnsheader* header;
   struct dnsquestion* question;
-  char hostname[MAX_DOMAINLEN];
   uint8_t *query_pkt;
   struct sockaddr_in to;
   socklen_t tolen = sizeof(to);
@@ -62,9 +62,9 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  strcpy(hostname, argv[1]);
+  strcpy(dname, argv[1]);
 
-  if (strlen(hostname) > MAX_DOMAINLEN) {
+  if (strlen(dname) > MAX_DOMAINLEN) {
     exit(EXIT_FAILURE);
   }
 
@@ -78,28 +78,28 @@ int main(int argc, char **argv) {
   header->nscount = 0;
   header->arcount = 0;
 
-  question = malloc(sizeof(*question) + strlen(hostname) + 2);
+  question = malloc(sizeof(*question) + strlen(dname) + 2);
   memset(question, 0, sizeof(*question));
 
-  question->qnamelen = strlen(hostname) + 2;
+  question->qnamelen = strlen(dname) + 2;
   question->qname = malloc(question->qnamelen);
 
   // dns_domain_fromdot
   char *label = NULL;
-  char *hostnamedup = strdup(hostname);
+  char *dnamedup = strdup(dname);
   int len, total = 0;
-  while ((label = strsep(&hostnamedup, ".")) != NULL) {
+  while ((label = strsep(&dnamedup, ".")) != NULL) {
     len = strlen(label);
     if (len > MAX_DOMAINLEN) {
       fprintf(stderr, "Label is too long");
-      free(hostnamedup);
+      free(dnamedup);
       return -1;
     }
     question->qname[total++] = len;
     strcat(&question->qname[total], label);
     total += len;
   }
-  free(hostnamedup);
+  free(dnamedup);
 
   question->qtype = htons(RR_TYPE_A);
   question->qclass = htons(RR_CLASS_IN);
