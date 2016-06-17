@@ -12,19 +12,22 @@ if (isset($_POST['signup'])) {
   $passwordError = "";
 
   $valid = true;
-  if (empty($data['fullname'])) {
+
+  $fullname = $data['fullname'];
+  if (empty($fullname)) {
     $nameError = "What's your name?";
     $valid = false;
   }
 
-  if (empty($data['email'])) {
+  $email = $data['email'];
+  if (empty($email)) {
     $emailError = "Please enter your email.";
     $valid = false;
-  } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $emailError = "Please enter a valid email address.";
     $valid = false;
   } else {
-    $query = "SELECT email FROM user WHERE email='" . $data['email']. "' LIMIT 1;";
+    $query = "SELECT email FROM user WHERE email='" . $email . "' LIMIT 1;";
     $result = mysql_query($query) or die(mysql_error());
     $num_rows = mysql_num_rows($result);
     mysql_free_result($result);
@@ -35,22 +38,18 @@ if (isset($_POST['signup'])) {
     }
   }
 
-  if (empty($data['password']) || strlen($data['password']) < 6) {
+  $plain_password = $data['password'];
+
+  if (empty($plain_password) || strlen($plain_password) < 6) {
     $passwordError = "Your password must be at least 6 characters.";
     $valid = false;
   }
 
-  $plain_password = $data['password'];
-  echo $plain_password . ' ';
-  $hashed_password = PwdHash($plain_password);
-  echo $hashed_password . ' ';
-
-  $secure_password = password_hash($plain_password, PASSWORD_BCRYPT, array('cost' => 12));
-  echo $secure_password;
-
   if ($valid) {
-    $query = "INSERT INTO user (fullname, email, password) VALUES ('$data[fullname]','$data[email]','$secure_password')";
-    echo $query;
+    $secure_password = password_hash($plain_password, PASSWORD_BCRYPT, array('cost' => 12));
+
+    $query = "INSERT INTO user (fullname, email, password) VALUES ";
+    $query .= "('$fullname', '$email', '$secure_password')";
     mysql_query($query) or die(mysql_error());
   }
 }
