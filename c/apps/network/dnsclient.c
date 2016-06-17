@@ -22,7 +22,7 @@ struct dnsquestion {
   uint16_t qclass;
 };
 
-static const uint16_t kFlagRD = 0x100;
+#define FLAG_RD 0x100 /* Recursion Desired - query flag */
 
 /* Resource Record definitions. */
 
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
   memset(header, 0, sizeof(*header));
 
   header->id = rand();
-  header->flags = kFlagRD; //htons(1 << 8) htons(0x0100);
+  header->flags = FLAG_RD; //htons(1 << 8) htons(0x0100);
   header->qdcount = 1;
   header->ancount = 0;
   header->nscount = 0;
