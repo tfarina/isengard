@@ -7,14 +7,11 @@ if (isset($_POST['signup'])) {
     $data[$key] = mysql_real_escape_string($value);
   }
 
-  /* Before inserting, we need to do some checks, like basically if it already
-     exists. */
   $nameError = "";
   $emailError = "";
   $passwordError = "";
-  $valid = true;
 
-  // Validate fullname.
+  $valid = true;
   if (empty($data['fullname'])) {
     $nameError = "What's your name?";
     $valid = false;
@@ -23,20 +20,18 @@ if (isset($_POST['signup'])) {
   if (empty($data['email'])) {
     $emailError = "Please enter your email.";
     $valid = false;
+  } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+    $emailError = "Please enter a valid email address.";
+    $valid = false;
   } else {
-    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-      $emailError = "Please enter a valid email address.";
-      $valid = false;
-    } else {
-      $query = "SELECT email FROM user WHERE email='" . $data['email']. "' LIMIT 1;";
-      $result = mysql_query($query) or die(mysql_error());
-      $num_rows = mysql_num_rows($result);
-      mysql_free_result($result);
+    $query = "SELECT email FROM user WHERE email='" . $data['email']. "' LIMIT 1;";
+    $result = mysql_query($query) or die(mysql_error());
+    $num_rows = mysql_num_rows($result);
+    mysql_free_result($result);
 
-      if ($num_rows > 0) {
-        $emailError = "This email is already registered.";
-        $valid = false;
-      }
+    if ($num_rows > 0) {
+      $emailError = "This email is already registered.";
+      $valid = false;
     }
   }
 
