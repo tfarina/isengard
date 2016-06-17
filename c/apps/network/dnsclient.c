@@ -174,6 +174,12 @@ int main(int argc, char **argv) {
   response_header->nscount = read_uint16(answer_pkt + 8);
   response_header->arcount = read_uint16(answer_pkt + 10);
 
+  printf(";; flags:");
+  if ((response_header->flags & FLAG_RD) != 0) {
+    printf(" rd");
+  }
+
+  printf("; ");
   printf("QUERY: %u, ", response_header->qdcount);
   printf("ANSWER: %u, ", response_header->ancount);
   printf("AUTHORITY: %u, ", response_header->nscount);
