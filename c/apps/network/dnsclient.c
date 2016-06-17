@@ -22,7 +22,7 @@ struct dnsquestion {
   uint16_t qclass;
 };
 
-#define FLAG_RD 0x100 /* Recursion Desired - query flag */
+#define FLAG_RD 0x0100U /* Recursion Desired - query flag */
 
 /* Resource Record definitions. */
 
