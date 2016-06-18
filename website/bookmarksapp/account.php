@@ -32,16 +32,17 @@ include_once("header.php");
 
 <div class="container">
   <div class="col-sm-12">
+    <h3 class="sub-header">Account Settings</h3>
     <div class="form-group col-sm-12">
-      <label class="col-sm-2 control-label">Full name</label>
+      <label class="col-sm-2 control-label">Name</label>
       <div class="col-sm-10">
-          <?php echo $row['fullname']; ?>
+        <?php echo $row['fullname']; ?>
       </div>
     </div>
     <div class="form-group col-sm-12">
-      <label class="col-sm-2 control-label">Email</label>
+      <label class="col-sm-2 control-label">E-mail</label>
       <div class="col-sm-10">
-          <?php echo $row['email']; ?>
+        <?php echo $row['email']; ?>
       </div>
     </div>
   </div>
