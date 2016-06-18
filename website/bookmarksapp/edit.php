@@ -29,25 +29,25 @@ if (!empty($_POST) && isset($_POST['commit'])) {
     $_POST[$key] = mysql_real_escape_string($value);
   }
 
+  $title = $_POST['title'];
+  $url = $_POST['url'];
+
   $titleError = "";
   $urlError = "";
 
-  $title = "";
-  $url = "";
-
   $valid = true;
-  if (empty($_POST['title'])) {
+  if (empty($title)) {
     $titleError = "Please enter a title for this bookmark.";
     $valid = false;
   } else {
-    $title = test_input($_POST['title']);
+    $title = test_input($title);
   }
 
-  if (empty($_POST['url'])) {
+  if (empty($url)) {
     $urlError = "Please enter an URL for this bookmark.";
     $valid = false;
   } else {
-    $url = test_input($_POST['url']);
+    $url = test_input($url);
 
     if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $url)) {
       $urlError = "Please enter a valid URL.";
