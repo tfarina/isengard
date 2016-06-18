@@ -69,7 +69,7 @@ include_once("header.php");
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form-horizontal">
           <div class="form-group <?php echo !empty($titleError) ? 'has-error' : ''; ?>">
             <label for="bookmark-title" class="col-sm-2 control-label">Title</label>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
               <input type="text" name="title" id="bookmark-title" class="form-control" />
               <?php if (!empty($titleError)) { ?>
               <span class="help-block"><?php echo $titleError; ?></span>
@@ -79,7 +79,7 @@ include_once("header.php");
 
           <div class="form-group <?php echo !empty($urlError) ? 'has-error' : ''; ?>">
             <label for="bookmark-url" class="col-sm-2 control-label">URL</label>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
               <input type="url" name="url" id="bookmark-url" class="form-control" />
               <?php if (!empty($urlError)) { ?>
               <span class="help-block"><?php echo $urlError; ?></span>
@@ -88,7 +88,7 @@ include_once("header.php");
           </div>
 
           <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-4">
+            <div class="col-sm-offset-2 col-sm-5">
               <div class="pull-right">
                 <a class="btn btn-default" href="list.php">Cancel</a>
                 <button type="submit" name="submit" class="btn btn-primary">Create</button>
