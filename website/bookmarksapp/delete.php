@@ -49,7 +49,7 @@ include_once("header.php");
         </ul>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h3>Delete bookmark</h3>
+        <h3 class="page-header">Delete bookmark</h3>
         <form action="" method="post">
           <input type="hidden" name="id" value="<?php echo $id; ?>" />
           <p class="alert alert-error">Are you sure you want to delete this bookmark?</p>

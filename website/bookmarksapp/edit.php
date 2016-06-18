@@ -110,7 +110,7 @@ include_once("header.php");
       <?php if (isset($message)) { ?>
       <div class="alert alert-success" role="alert"><?php echo $message; ?></div>
       <?php } ?>
-      <h3 class="sub-header">Edit bookmark</h3>
+      <h3 class="page-header">Edit bookmark</h3>
   <form action="" method="post" class="form-horizontal">
     <div class="form-group <?php echo !empty($titleError) ? 'has-error' : ''; ?>">
       <label for="bookmark-title" class="col-sm-2 control-label">Title</label>
