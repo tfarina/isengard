@@ -2,8 +2,6 @@
 
 require_once 'config.php';
 
-unset($_SESSION['msg-success']);
-
 $id = "-1";
 if (isset($_GET['id']) && is_num($_GET['id'])) {
   $id = $_GET['id'];

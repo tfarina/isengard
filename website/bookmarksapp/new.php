@@ -2,8 +2,6 @@
 
 require_once 'config.php';
 
-unset($_SESSION['msg-success']);
-
 if (!empty($_POST) && isset($_POST['submit'])) {
   foreach($_POST as $key => $value) {
     $data[$key] = mysql_real_escape_string($value);
