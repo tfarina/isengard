@@ -55,7 +55,7 @@ include_once("header.php");
           <p class="alert alert-error">Are you sure you want to delete this bookmark?</p>
           <div class="form-group">
             <button type="submit" class="btn btn-danger">Yes</button>
-            <a class="btn" href="list.php">No</a>
+            <a class="btn btn-default" href="list.php">No</a>
           </div>
         </form>
       </div>
