@@ -23,6 +23,7 @@ struct dnsquestion {
 };
 
 #define FLAG_QR 0x8000U
+#define FLAG_AA 0x0400U
 #define FLAG_RD 0x0100U /* Recursion Desired - query flag */
 #define FLAG_RA 0x0080U
 
@@ -180,6 +181,9 @@ int main(int argc, char **argv) {
   printf(";; flags:");
   if ((response_header->flags & FLAG_QR) != 0) {
     printf(" qr");
+  }
+  if ((response_header->flags & FLAG_AA) != 0) {
+    printf(" aa");
   }
   if ((response_header->flags & FLAG_RD) != 0) {
     printf(" rd");
