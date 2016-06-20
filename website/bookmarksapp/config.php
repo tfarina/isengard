@@ -16,7 +16,7 @@ if (!mysql_select_db(DB_NAME, $link)) {
 
 session_start();
 
-function isUserLoggedIn() {
+function is_user_logged_in() {
   return isset($_SESSION) && isset($_SESSION['userid']);
 }
 
