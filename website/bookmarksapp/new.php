@@ -64,7 +64,8 @@ include_once("header.php");
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h3 class="page-header">Create New Bookmark</h3>
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form-horizontal">
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post"
+              class="form-horizontal">
           <div class="form-group <?php echo !empty($titleError) ? 'has-error' : ''; ?>">
             <label for="bookmark-title" class="col-sm-2 control-label">Title</label>
             <div class="col-sm-5">
