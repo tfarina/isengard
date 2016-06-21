@@ -57,6 +57,12 @@ include_once("header.php");
     </div>
   </div>
 </div>
+
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">&copy; 2016 Bookmarks</p>
+  </div>
+</footer>
 <?php
 include_once("footer.php");
 ?>
