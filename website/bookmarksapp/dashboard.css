@@ -7,6 +7,12 @@ body {
   padding-top: 50px;
 }
 
+.table {
+border: 1px solid #dddddd;
+}
+.table thead > tr > th {
+border-bottom: none;
+}
 
 /*
  * Global add-ons
