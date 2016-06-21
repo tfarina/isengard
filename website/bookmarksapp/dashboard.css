@@ -87,6 +87,7 @@ border-bottom: none;
   .main {
     padding-right: 20px;
     margin-left: 21%;
+    width: 79%;
   }
 }
 .main .page-header {
