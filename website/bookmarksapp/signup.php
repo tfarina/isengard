@@ -27,19 +27,13 @@ if (isset($_POST['signup'])) {
     $emailError = "Please enter a valid email address.";
     $valid = false;
   } else {
-    $query = "SELECT email FROM user WHERE email='" . $email . "' LIMIT 1;";
-    $result = mysql_query($query) or die(mysql_error());
-    $num_rows = mysql_num_rows($result);
-    mysql_free_result($result);
-
-    if ($num_rows > 0) {
+    if (email_exists($email)) {
       $emailError = "This email is already registered.";
       $valid = false;
     }
   }
 
   $plain_password = $data['password'];
-
   if (empty($plain_password) || strlen($plain_password) < 6) {
     $passwordError = "Your password must be at least 6 characters.";
     $valid = false;
