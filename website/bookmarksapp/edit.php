@@ -113,38 +113,38 @@ include_once("header.php");
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <h3 class="page-header">Edit bookmark</h3>
-  <form action="" method="post" class="form-horizontal">
-    <div class="form-group <?php echo !empty($titleError) ? 'has-error' : ''; ?>">
-      <label for="bookmark-title" class="col-sm-2 control-label">Title</label>
-      <div class="col-sm-5">
-        <input type="text" name="title" id="bookmark-title" class="form-control"
-               value="<?php echo stripslashes($title) ?>"/>
-        <?php if (!empty($titleError)) { ?>
-        <span class="help-block"><?php echo $titleError; ?></span>
-        <?php } ?>
-      </div>
-    </div>
-
-    <div class="form-group <?php echo !empty($urlError) ? 'has-error' : ''; ?>">
-      <label for="bookmark-url" class="col-sm-2 control-label">URL</label>
-      <div class="col-sm-5">
-        <input type="url" name="url" id="bookmark-url" class="form-control"
-               value="<?php echo stripslashes($url) ?>"/>
-        <?php if (!empty($urlError)) { ?>
-        <span class="help-block"><?php echo $urlError; ?></span>
-        <?php } ?>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-5">
-        <div class="pull-right">
-          <a class="btn btn-default" href="list.php">Cancel</a>
-          <button type="submit" name="commit" class="btn btn-primary">Save</button>
+      <form action="" method="post" class="form-horizontal">
+        <div class="form-group <?php echo !empty($titleError) ? 'has-error' : ''; ?>">
+          <label for="bookmark-title" class="col-sm-2 control-label">Title</label>
+          <div class="col-sm-5">
+            <input type="text" name="title" id="bookmark-title" class="form-control"
+                   value="<?php echo stripslashes($title) ?>"/>
+            <?php if (!empty($titleError)) { ?>
+            <span class="help-block"><?php echo $titleError; ?></span>
+            <?php } ?>
+          </div>
         </div>
-      </div>
-    </div>
-  </form>
+
+        <div class="form-group <?php echo !empty($urlError) ? 'has-error' : ''; ?>">
+          <label for="bookmark-url" class="col-sm-2 control-label">URL</label>
+          <div class="col-sm-5">
+            <input type="url" name="url" id="bookmark-url" class="form-control"
+                   value="<?php echo stripslashes($url) ?>"/>
+            <?php if (!empty($urlError)) { ?>
+            <span class="help-block"><?php echo $urlError; ?></span>
+            <?php } ?>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-5">
+            <div class="pull-right">
+              <a class="btn btn-default" href="list.php">Cancel</a>
+              <button type="submit" name="commit" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
