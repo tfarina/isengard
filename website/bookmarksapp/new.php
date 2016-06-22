@@ -63,38 +63,34 @@ include_once("header.php");
         </ul>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h3 class="page-header">Create New Bookmark</h3>
-        <form id="new_bookmark" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"
-              method="post" class="form-horizontal">
-          <div class="form-group <?php echo !empty($titleError) ? 'has-error' : ''; ?>">
-            <label for="bookmark-title" class="col-sm-2 control-label">Title</label>
-            <div class="col-sm-5">
+        <div class="col-md-8">
+          <h3 class="page-header">Create New Bookmark</h3>
+          <form id="new_bookmark" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"
+                method="post">
+            <div class="form-group <?php echo !empty($titleError) ? 'has-error' : ''; ?>">
+              <label for="bookmark-title" class="control-label">Title</label>
               <input type="text" id="bookmark-title" name="title" class="form-control" />
               <?php if (!empty($titleError)) { ?>
               <span class="help-block"><?php echo $titleError; ?></span>
               <?php } ?>
             </div>
-          </div>
 
-          <div class="form-group <?php echo !empty($urlError) ? 'has-error' : ''; ?>">
-            <label for="bookmark-url" class="col-sm-2 control-label">URL</label>
-            <div class="col-sm-5">
+            <div class="form-group <?php echo !empty($urlError) ? 'has-error' : ''; ?>">
+              <label for="bookmark-url" class="control-label">URL</label>
               <input type="url" id="bookmark-url" name="url" class="form-control" />
               <?php if (!empty($urlError)) { ?>
               <span class="help-block"><?php echo $urlError; ?></span>
               <?php } ?>
             </div>
-          </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-5">
+            <div class="form-group">
               <div class="pull-right">
                 <a class="btn btn-default" href="list.php">Cancel</a>
                 <button type="submit" name="submit" class="btn btn-primary">Create</button>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
