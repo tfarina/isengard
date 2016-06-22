@@ -9,16 +9,14 @@ if (isset($_POST['login'])) {
     $data[$key] = mysql_real_escape_string($value);
   }
 
-  $email = $data['email'];
-  $plain_password = $data['password'];
-  if ($debug) {
-    echo $email;
-    echo $plain_password;
-  }
 
   $emailError = "";
 
   $valid = true;
+  $email = $data['email'];
+  if ($debug) {
+    echo $email;
+  }
   if (empty($email)) {
     $emailError = "Please enter your email.";
     $valid = false;
@@ -33,6 +31,10 @@ if (isset($_POST['login'])) {
     }
   }
 
+  $plain_password = $data['password'];
+  if ($debug) {
+    echo $email;
+  }
   if (empty($plain_password)) {
     $passwordError = "Please enter your password.";
     $valid = false;
@@ -60,7 +62,7 @@ if (isset($_POST['login'])) {
     if ($password_matches) {
       $_SESSION['userid'] = $row['user_id'];
       $_SESSION['fullname'] = $row['fullname'];
-      header("location: account.php");
+      header("location: list.php");
       exit;
     } else {
       $passwordError = "The email and password you entered don't match.";
