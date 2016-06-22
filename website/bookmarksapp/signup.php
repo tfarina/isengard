@@ -45,6 +45,11 @@ if (isset($_POST['signup'])) {
     $query = "INSERT INTO user (fullname, email, password) VALUES ";
     $query .= "('$fullname', '$email', '$secure_password')";
     mysql_query($query) or die(mysql_error());
+
+    // DO SOMETHING HERE!
+    // 1- SEND WELCOME EMAIL
+    // 2- SIGN IN THE USER
+    // 3- REDIRECT TO DASHBOARD PAGE
   }
 }
 
