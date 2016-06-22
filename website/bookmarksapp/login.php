@@ -9,17 +9,15 @@ if (isset($_POST['login'])) {
     $data[$key] = mysql_real_escape_string($value);
   }
 
-  $emailError = "";
-  $passwordError = "";
-
   $valid = true;
 
   $email = $data['email'];
+  $emailError = "";
   if (empty($email)) {
     $emailError = "Please enter your email.";
     $valid = false;
   } else {
-    //$email = test_input($email);
+    $email = test_input($email);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $emailError = "Please enter a valid email address.";
       $valid = false;
@@ -30,11 +28,12 @@ if (isset($_POST['login'])) {
   }
 
   $plain_password = $data['password'];
+  $passwordError = "";
   if (empty($plain_password)) {
     $passwordError = "Please enter your password.";
     $valid = false;
   } else {
-    //$plain_password = test_input($plain_password);
+    $plain_password = test_input($plain_password);
   }
 
   $query = "SELECT * FROM user WHERE email='" . $email . "';";
