@@ -43,13 +43,14 @@ if (isset($_POST['login'])) {
     $row = mysql_fetch_assoc($result);
     mysql_free_result($result);
     if ($row) {
-      if (password_verify($plain_password, $row['password'])) {
+      if (!password_verify($plain_password, $row['password'])) {
+	$passwordError = "The email and password you entered don't match.";
+        $valid = false;
+      } else {
         $_SESSION['userid'] = $row['user_id'];
 	$_SESSION['fullname'] = $row['fullname'];
 	header("location: list.php");
 	exit;
-      } else {
-	      $passwordError = "The email and password you entered don't match.";
       }
     }
   }
