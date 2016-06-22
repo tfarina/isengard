@@ -62,10 +62,7 @@ if (!empty($_POST) && isset($_POST['commit'])) {
     if (mysql_affected_rows()) {
       $message = "Bookmark has been updated successfully.";
       $_SESSION['msg-success'] = $message;
-    } else {
-      $message = "Nothing has changed.";
     }
-    //header('Location: list.php?msg=' . urlencode($message));
     header('Location: list.php');
     exit;
   }
@@ -115,9 +112,6 @@ include_once("header.php");
       </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-      <?php if (isset($message)) { ?>
-      <div class="alert alert-success" role="alert"><?php echo $message; ?></div>
-      <?php } ?>
       <h3 class="page-header">Edit bookmark</h3>
   <form action="" method="post" class="form-horizontal">
     <div class="form-group <?php echo !empty($titleError) ? 'has-error' : ''; ?>">
