@@ -36,21 +36,23 @@ if (isset($_POST['login'])) {
     $plain_password = test_input($plain_password);
   }
 
-  $query = "SELECT * FROM user WHERE email='" . $email . "';";
-  $result = mysql_query($query) or die(mysql_error());
-  $row = mysql_fetch_assoc($result);
-  if ($row) {
-    if (password_verify($plain_password, $row['password'])) {
-      $_SESSION['userid'] = $row['user_id'];
-      $_SESSION['fullname'] = $row['fullname'];
-      header("location: list.php");
-      exit;
-    } else {
-      $passwordError = "The email and password you entered don't match.";
+  // End of data validation.
+  if ($valid) {
+    $query = "SELECT * FROM user WHERE email='" . $email . "';";
+    $result = mysql_query($query) or die(mysql_error());
+    $row = mysql_fetch_assoc($result);
+    mysql_free_result($result);
+    if ($row) {
+      if (password_verify($plain_password, $row['password'])) {
+        $_SESSION['userid'] = $row['user_id'];
+	$_SESSION['fullname'] = $row['fullname'];
+	header("location: list.php");
+	exit;
+      } else {
+	      $passwordError = "The email and password you entered don't match.";
+      }
     }
   }
-
-  mysql_free_result($result);
 }
 
 include_once("header.php");
