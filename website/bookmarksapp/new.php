@@ -54,9 +54,9 @@ include_once("header.php");
               <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-              <li><a href="#"><i class="fa fa-gear fa-fw"></i> My Account</a></li>
+              <li><a href="account.php"><i class="fa fa-gear fa-fw"></i> My Account</a></li>
               <li class="divider"></li>
-              <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Log Out</a></li>
+              <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Log Out</a></li>
             </ul>
           </li>
         </ul>
