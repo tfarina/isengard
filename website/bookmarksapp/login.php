@@ -15,9 +15,6 @@ if (isset($_POST['login'])) {
   $valid = true;
 
   $email = $data['email'];
-  if ($debug) {
-    echo $email;
-  }
   if (empty($email)) {
     $emailError = "Please enter your email.";
     $valid = false;
@@ -33,9 +30,6 @@ if (isset($_POST['login'])) {
   }
 
   $plain_password = $data['password'];
-  if ($debug) {
-    echo $email;
-  }
   if (empty($plain_password)) {
     $passwordError = "Please enter your password.";
     $valid = false;
@@ -46,17 +40,9 @@ if (isset($_POST['login'])) {
   $query = "SELECT * FROM user WHERE email='" . $email . "';";
   $result = mysql_query($query) or die(mysql_error());
   $num_rows = mysql_num_rows($result);
-  if ($debug) {
-    echo $num_rows;
-  }
-
   if ($num_rows > 0) { 
     $row = mysql_fetch_assoc($result);
-    
     $password_hash_from_db = $row['password'];
-    if ($debug) {
-      echo $password_hash_from_db;
-    }
 
     $password_matches = password_verify($plain_password, $password_hash_from_db);
     if ($password_matches) {
