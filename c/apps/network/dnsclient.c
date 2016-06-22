@@ -24,8 +24,11 @@ struct dnsquestion {
 
 #define FLAG_QR 0x8000U
 #define FLAG_AA 0x0400U
+#define FLAG_TC 0x0200U
 #define FLAG_RD 0x0100U /* Recursion Desired - query flag */
 #define FLAG_RA 0x0080U
+#define FLAG_AD 0x0020U
+#define FLAG_CD 0x0010U
 
 /* Resource Record definitions. */
 
