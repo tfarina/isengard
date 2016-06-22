@@ -58,10 +58,11 @@ include_once("header.php");
 <body style="font-family:'Helvetica Neue',Arial,Helvetica,sans-serif;background-color: #fafafa;">
 <div class="panel panel-default panel-signin">
   <div class="panel-body">
-    <form action="" method="post">
+    <form id="new_user" action="" method="post" role="form">
       <h3>Join us today.</h3>
+      <br/>
       <div class="form-group <?php echo !empty($nameError) ? 'has-error' : ''; ?>">
-        <input type="text" name="fullname" id="user-fullname" class="form-control"
+        <input type="text" class="form-control" id="user-fullname" name="fullname"
                value="<?php echo $_POST['fullname']; ?>"
                placeholder="Full name" required autofocus/>
         <?php if (!empty($nameError)) { ?>
@@ -87,7 +88,8 @@ include_once("header.php");
         <button type="submit" name="signup" class="btn btn-lg btn-primary btn-block">Sign up</button>
       </div>
       <p class="text-muted text-center">
-        By signing up, you agree to our <a class="legal-link"href="" target="_blank">Terms</a> and 
+        By signing up, you agree to our <br/>
+      <a class="legal-link" href="" target="_blank">Terms</a> and
         <a class="legal-link" href="" target="_blank">Privacy Policy</a>.
       </p>
     </form>
