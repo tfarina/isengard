@@ -40,9 +40,7 @@ if (isset($_POST['login'])) {
   $result = mysql_query($query) or die(mysql_error());
   $row = mysql_fetch_assoc($result);
   if ($row) {
-    $password_hash_from_db = $row['password'];
-    $password_matches = password_verify($plain_password, $password_hash_from_db);
-    if ($password_matches) {
+    if (password_verify($plain_password, $row['password'])) {
       $_SESSION['userid'] = $row['user_id'];
       $_SESSION['fullname'] = $row['fullname'];
       header("location: list.php");
