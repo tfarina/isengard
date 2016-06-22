@@ -39,11 +39,9 @@ if (isset($_POST['login'])) {
 
   $query = "SELECT * FROM user WHERE email='" . $email . "';";
   $result = mysql_query($query) or die(mysql_error());
-  $num_rows = mysql_num_rows($result);
-  if ($num_rows > 0) { 
-    $row = mysql_fetch_assoc($result);
+  $row = mysql_fetch_assoc($result);
+  if ($row) {
     $password_hash_from_db = $row['password'];
-
     $password_matches = password_verify($plain_password, $password_hash_from_db);
     if ($password_matches) {
       $_SESSION['userid'] = $row['user_id'];
