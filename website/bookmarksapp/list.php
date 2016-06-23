@@ -44,6 +44,17 @@ include_once("header.php");
           <a href="list.php">My bookmarks</a>
         </li>
       </ul>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="nav-item"><a class="nav-link" href="#">Overview</a></li>
+	<li class="nav-item"><a class="nav-link" href="#">Reports</a></li>
+	<li class="nav-item"><a class="nav-link" href="#">Analytics</a></li>
+	<li class="nav-item"><a class="nav-link" href="#">Export</a></li>
+	<li class="nav-item"><a class="nav-link" href="">Nav item</a></li>
+	<li class="nav-item"><a class="nav-link" href="">Nav item</a></li>
+	<li class="nav-item"><a class="nav-link" href="">Another</a></li>
+	<li class="nav-item"><a class="nav-link" href="">Nav item</a></li>
+	<li class="nav-item"><a class="nav-link" href="">One more</a></li>
+      </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <?php if (isset($_GET['msg'])) { ?>
