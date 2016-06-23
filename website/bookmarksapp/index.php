@@ -9,25 +9,23 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Narrow Jumbotron Template for Bootstrap</title>
+    <title>Bookmarksapp - Online bookmark manager</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="res/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="jumbotron-narrow.css" rel="stylesheet">
+    <link href="res/css/jumbotron-narrow.css" rel="stylesheet">
   </head>
 
   <body>
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Project Name</a>
+          <a class="navbar-brand" href="/">Bookmarks</a>
         </div>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-        </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="pricing.php">Pricing</a></li>
           <li><a href="login.php">Log in</a></li>
           <li><a href="signup.php">Sign up</a></li>
         </ul>
@@ -35,13 +33,13 @@
     </div>
     <div class="container">
       <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
+        <h2>Bookmarks - Online Bookmark Manager</h2>
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+        <p><a class="btn btn-lg btn-success" href="signup.php" role="button">Sign up today</a></p>
       </div>
 
       <footer class="footer">
-        <p>&copy; 2015 Company, Inc.</p>
+        <p>&copy; 2016 Bookmarks</p>
       </footer>
     </div> <!-- /container -->
   </body>
