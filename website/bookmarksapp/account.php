@@ -18,26 +18,26 @@ mysql_free_result($result);
 include_once("header.php");
 ?>
 <nav class="navbar navbar-inverse navbar-fixed-top">
-<div class="container-fluid">
-  <div class="navbar-header">
-    <a class="navbar-brand" href="#">Bookmarks</a>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Bookmarks</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-user fa-fw"></i>
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-user">
+            <li><a href="account.php"><i class="fa fa-gear fa-fw"></i> My Account</a></li>
+            <li class="divider"></li>
+            <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Log Out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
-  <div id="navbar" class="navbar-collapse collapse">
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-          <i class="fa fa-user fa-fw"></i>
-          <i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-user">
-          <li><a href="account.php"><i class="fa fa-gear fa-fw"></i> My Account</a></li>
-          <li class="divider"></li>
-          <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Log Out</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
 </nav>
 
 <div class="container">
