@@ -45,11 +45,11 @@ include_once("header.php");
         <?php echo $_SESSION['msg-success']; unset($_SESSION['msg-success']); ?>
       </div>
       <?php } ?>
-      <p><a href="new.php" class="btn btn-success">Add bookmark</a></p>
+      <p><a href="new.php" class="btn btn-primary">Add Bookmark</a></p>
       <?php if (count($bookmarks) == 0) { ?>
       <div><center>You have no bookmarks yet.</center></div>
       <?php } else { ?>
-      <table class="table table-striped table-bordered table-hover">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th>Title</th>
