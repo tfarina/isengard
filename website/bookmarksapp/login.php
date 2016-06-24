@@ -58,7 +58,7 @@ if (isset($_POST['login'])) {
 
 include_once("header.php");
 ?>
-<body style="font-family:'Helvetica Neue',Arial,Helvetica,sans-serif;background-color: #fafafa;">
+<!-- Begin page content -->
 <div class="container">
   <div class="row">
     <div class="panel panel-default panel-signin">
@@ -94,6 +94,7 @@ include_once("header.php");
     </div>
   </div>
 </div>
+<!-- End page content -->
 <?php
 include_once("footer.php");
 ?>
