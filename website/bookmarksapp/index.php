@@ -7,12 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <meta name="description" content="Bookmarks provides bookmark manager services that make your life easier">
+
+    <link rel="author" href="/humans.txt" />
+    <link rel="shortcut icon" href="/favicon.png" />
 
     <!-- Bootstrap core CSS -->
     <link href="res/css/bootstrap.min.css" rel="stylesheet">
+    <link href="res/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="res/css/sticky_footer_navbar.css" rel="stylesheet">
@@ -22,7 +24,8 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                  data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
