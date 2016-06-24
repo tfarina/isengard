@@ -46,16 +46,22 @@ if (isset($_POST['signup'])) {
     $query .= "('$fullname', '$email', '$secure_password')";
     mysql_query($query) or die(mysql_error());
 
-    // DO SOMETHING HERE!
-    // 1- SEND WELCOME EMAIL
-    // 2- SIGN IN THE USER
-    // 3- REDIRECT TO DASHBOARD PAGE
+    // TODO: SEND WELCOME EMAIL.
+
+    $user_id = mysql_insert_id();
+    if (isset($user_id)) {
+      $_SESSION['userid'] = $user_id;
+      $_SESSION['fullname'] = $fullname;
+      header("location: list.php");
+      exit;
+    }
   }
 }
 
 include_once("header.php");
 ?>
 <body style="font-family:'Helvetica Neue',Arial,Helvetica,sans-serif;background-color: #fafafa;">
+  <!-- Begin page content -->
   <div class="container">
     <div class="row">
       <div class="panel panel-default panel-signin">
@@ -105,5 +111,6 @@ include_once("header.php");
       </div>
     </div>
   </div>
+  <!-- End page content -->
 </body>
 </html>
