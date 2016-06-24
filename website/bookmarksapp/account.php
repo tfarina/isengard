@@ -17,10 +17,10 @@ mysql_free_result($result);
 <?php
 include_once("header.php");
 ?>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Bookmarks</a>
+      <a class="navbar-brand" href="index.php">Bookmarks</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
