@@ -19,6 +19,5 @@
   <!-- Custom styles for this layout. -->
   <link rel="stylesheet" type="text/css" href="res/css/app.css">
   <link rel="stylesheet" type="text/css" href="res/css/dashboard.css">
-  <link rel="stylesheet" type="text/css" href="res/css/login.css">
 </head>
 <body>

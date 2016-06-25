@@ -61,35 +61,36 @@ include_once("header.php");
 <!-- Begin page content -->
 <div class="container">
   <div class="row">
-    <div class="panel panel-default panel-signin">
-      <div class="panel-body">
-        <form action="" method="post" class="form-signin form-horizontal">
-          <h2 class="form-signin-heading">Log in </h2>
-          <div class="form-group <?php echo !empty($emailError) ? 'has-error' : ''; ?>">
-            <input type="email" class="form-control" id="user-email" name="email"
-                   value="<?php echo $_POST['email']; ?>"
-                   placeholder="Email" required autofocus/>
-            <?php if (!empty($emailError)) { ?>
-            <span class="help-block"><?php echo $emailError; ?></span>
-            <?php } ?>
-          </div>
-          <div class="form-group <?php echo !empty($passwordError) ? 'has-error' : ''; ?>">
-            <input type="password" class="form-control" id="user-password" name="password"
-                   placeholder="Password" required/>
-            <?php if (!empty($passwordError)) { ?>
-            <span class="help-block"><?php echo $passwordError; ?></span>
-            <?php } ?>
-          </div>
-          <div class="form-group">
-            <button type="submit" name="login" class="btn btn-lg btn-block btn-primary">Log in</button>
-          </div>
-        </form>
+    <div class="panel-signin">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form action="" method="post" class="form-signin form-horizontal">
+            <h2 class="form-signin-heading">Log in </h2>
+            <div class="form-group <?php echo !empty($emailError) ? 'has-error' : ''; ?>">
+              <input type="email" class="form-control" id="user-email" name="email"
+                     value="<?php echo $_POST['email']; ?>"
+                     placeholder="Email" required autofocus/>
+              <?php if (!empty($emailError)) { ?>
+              <span class="help-block"><?php echo $emailError; ?></span>
+              <?php } ?>
+            </div>
+            <div class="form-group <?php echo !empty($passwordError) ? 'has-error' : ''; ?>">
+              <input type="password" class="form-control" id="user-password" name="password"
+                     placeholder="Password" required/>
+              <?php if (!empty($passwordError)) { ?>
+              <span class="help-block"><?php echo $passwordError; ?></span>
+              <?php } ?>
+            </div>
+            <div class="form-group">
+              <button type="submit" name="login" class="btn btn-lg btn-block btn-primary">Log in</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-    <p></p>
     <div class="panel panel-default panel-signup">
       <div class="panel-body">
-        <p>Don't have an account? <a href="signup.php">Sign up</a></p>
+        <span>Don't have an account? <a href="signup.php">Sign up</a></span>
       </div>
     </div>
   </div>

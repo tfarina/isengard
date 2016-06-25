@@ -63,49 +63,50 @@ include_once("header.php");
   <!-- Begin page content -->
   <div class="container">
     <div class="row">
-      <div class="panel panel-default panel-signin">
-        <div class="panel-body">
-          <form id="new_user" action="" method="post" role="form">
-            <h3>Join us today.</h3>
-            <br/>
-            <div class="form-group <?php echo !empty($nameError) ? 'has-error' : ''; ?>">
-              <input type="text" class="form-control" id="user-fullname" name="fullname"
-                     value="<?php echo $_POST['fullname']; ?>"
-                     placeholder="Full name" required autofocus/>
-              <?php if (!empty($nameError)) { ?>
-              <span class="help-block"><?php echo $nameError; ?></span>
-              <?php } ?>
-            </div>
-            <div class="form-group <?php echo !empty($emailError) ? 'has-error' : ''; ?>">
-              <input type="email" class="form-control" id="user-email" name="email"
-                     value="<?php echo $_POST['email']; ?>"
-                     placeholder="Email" required />
-              <?php if (!empty($emailError)) { ?>
-              <span class="help-block"><?php echo $emailError; ?></span>
-              <?php } ?>
-            </div>
-            <div class="form-group <?php echo !empty($passwordError) ? 'has-error' : ''; ?>">
-              <input type="password" class="form-control" id="user-password" name="password"
-                     placeholder="Password" required />
-              <?php if (!empty($passwordError)) { ?>
-              <span class="help-block"><?php echo $passwordError; ?></span>
-              <?php } ?>
-            </div>
-            <div class="form-group">
-              <button type="submit" name="signup" class="btn btn-lg btn-primary btn-block">Sign up</button>
-            </div>
-            <p class="text-muted text-center">
-              By signing up, you agree to our <br/>
-              <a class="legal-link" href="terms.php" target="_blank">Terms</a> and
-              <a class="legal-link" href="privacy.php" target="_blank">Privacy Policy</a>.
-            </p>
-          </form>
+      <div class="panel-signin">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form id="new_user" action="" method="post" role="form">
+              <h3>Join us today.</h3>
+              <br/>
+              <div class="form-group <?php echo !empty($nameError) ? 'has-error' : ''; ?>">
+                <input type="text" class="form-control" id="user-fullname" name="fullname"
+                       value="<?php echo $_POST['fullname']; ?>"
+                       placeholder="Full name" required autofocus/>
+                <?php if (!empty($nameError)) { ?>
+                <span class="help-block"><?php echo $nameError; ?></span>
+                <?php } ?>
+              </div>
+              <div class="form-group <?php echo !empty($emailError) ? 'has-error' : ''; ?>">
+                <input type="email" class="form-control" id="user-email" name="email"
+                       value="<?php echo $_POST['email']; ?>"
+                       placeholder="Email" required />
+                <?php if (!empty($emailError)) { ?>
+                <span class="help-block"><?php echo $emailError; ?></span>
+                <?php } ?>
+              </div>
+              <div class="form-group <?php echo !empty($passwordError) ? 'has-error' : ''; ?>">
+                <input type="password" class="form-control" id="user-password" name="password"
+                       placeholder="Password" required />
+                <?php if (!empty($passwordError)) { ?>
+                <span class="help-block"><?php echo $passwordError; ?></span>
+                <?php } ?>
+              </div>
+              <div class="form-group">
+                <button type="submit" name="signup" class="btn btn-lg btn-primary btn-block">Sign up</button>
+              </div>
+              <p class="text-muted text-center">
+                By signing up, you agree to our <br/>
+                <a class="legal-link" href="terms.php" target="_blank">Terms</a> and
+                <a class="legal-link" href="privacy.php" target="_blank">Privacy Policy</a>.
+              </p>
+            </form>
+          </div>
         </div>
       </div>
-      <p></p>
       <div class="panel panel-default panel-signup">
         <div class="panel-body">
-          <p>Have an account? <a href="login.php">Log in</a></p>
+          <span>Have an account? <a href="login.php">Log in</a></span>
         </div>
       </div>
     </div>
