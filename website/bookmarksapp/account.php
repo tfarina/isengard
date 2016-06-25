@@ -39,8 +39,7 @@ include_once("header.php");
     </div>
   </div>
 </nav>
-
-<div class="container">
+<div class="container content">
   <div class="col-sm-12">
     <h3 class="sub-header">Account Settings</h3>
     <div class="form-group col-sm-12">

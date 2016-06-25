@@ -41,3 +41,7 @@
   margin: 0 auto;
   text-align: center !important;
 }
+
+.content {
+  padding-top: 50px;
+}
