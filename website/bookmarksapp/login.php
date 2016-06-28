@@ -2,10 +2,16 @@
 
 require_once 'config.php';
 
+if (is_user_logged_in()) {
+  header('Location: list.php');
+  exit;
+}
+
 $debug = false;
 
 if (isset($_POST['login'])) {
   foreach($_POST as $key => $value) {
+    //$data[$key] = filter($value); // post variables are filtered
     $data[$key] = mysql_real_escape_string($value);
   }
 

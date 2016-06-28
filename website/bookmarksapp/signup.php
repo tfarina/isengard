@@ -2,6 +2,11 @@
 
 require_once 'config.php';
 
+if (is_user_logged_in()) {
+  header('Location: list.php');
+  exit;
+}
+
 if (isset($_POST['signup'])) {
   foreach($_POST as $key => $value) {
     $data[$key] = mysql_real_escape_string($value);
