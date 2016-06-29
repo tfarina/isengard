@@ -28,7 +28,7 @@ if (isset($_POST['signup'])) {
   if (empty($email)) {
     $emailError = "Please enter your email.";
     $valid = false;
-  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+  } elseif (!is_valid_email_address($email)) {
     $emailError = "Please enter a valid email address.";
     $valid = false;
   } else {
