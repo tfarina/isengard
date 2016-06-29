@@ -51,9 +51,10 @@ if (isset($_POST['signup'])) {
     $query .= "('$fullname', '$email', '$secure_password')";
     mysql_query($query) or die(mysql_error());
 
-    $subject = "Welcome";
-    $message = "You are in!\nGo ahead and start adding bookmarks.";
-    $headers = "From: thiago.farina@gmail.com";
+    $subject = "[bookmarks]: Welcome new member";
+    $message = "You are in!\n\n";
+    $message .= "Go ahead and start adding bookmarks.\n";
+    $headers = "From: Thiago Farina <thiago.farina@gmail.com>";
     mail($email, $subject, $message, $headers);
 
     $user_id = mysql_insert_id();
