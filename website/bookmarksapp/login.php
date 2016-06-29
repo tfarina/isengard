@@ -24,7 +24,7 @@ if (isset($_POST['login'])) {
     $valid = false;
   } else {
     $email = test_input($email);
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!is_valid_email_address($email)) {
       $emailError = "Please enter a valid email address.";
       $valid = false;
     } elseif (!email_exists($email)) {

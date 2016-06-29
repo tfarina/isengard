@@ -26,6 +26,10 @@ function logout() {
   session_write_close();
 }
 
+function is_valid_email_address($email) {
+  return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
 function email_exists($email) {
   $query = "SELECT email FROM user WHERE email='" . $email . "' LIMIT 1;";
   $result = mysql_query($query) or die(mysql_error());
