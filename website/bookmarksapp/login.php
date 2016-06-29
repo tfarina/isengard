@@ -46,9 +46,10 @@ if (isset($_POST['login'])) {
   if ($valid) {
     $query = "SELECT * FROM user WHERE email='" . $email . "';";
     $result = mysql_query($query) or die(mysql_error());
-    $row = mysql_fetch_assoc($result);
-    mysql_free_result($result);
-    if ($row) {
+    $num_rows = mysql_num_rows($result);
+    if ($num_rows == 1) {
+      $row = mysql_fetch_assoc($result);
+      mysql_free_result($result);
       if (!password_verify($plain_password, $row['password'])) {
 	$passwordError = "The email and password you entered don't match.";
         $valid = false;
