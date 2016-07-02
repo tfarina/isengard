@@ -36,6 +36,7 @@ include_once("header.php");
         </div>
       </div>
     </nav>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
@@ -61,8 +62,10 @@ include_once("header.php");
       <div class="alert alert-success" role="alert"><?php echo $_GET['msg']; ?></div>
       <?php } ?>
       <?php if (isset($_SESSION['msg-success'])) { ?>
-      <div class="alert alert-success" role="alert">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <?php echo $_SESSION['msg-success']; unset($_SESSION['msg-success']); ?>
       </div>
       <?php } ?>
