@@ -69,10 +69,27 @@ include_once("header.php");
         <?php echo $_SESSION['msg-success']; unset($_SESSION['msg-success']); ?>
       </div>
       <?php } ?>
-      <p><a href="new.php" class="btn btn-primary">Add Bookmark</a></p>
       <?php if (count($bookmarks) == 0) { ?>
-      <div><center>You have no bookmarks yet.</center></div>
+      <!--<div><center>You have no bookmarks yet.</center></div>-->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Bookmarks</h3>
+        </div>
+        <div class="panel-body">
+          <span>You have no bookmarks yet. Get started by adding a bookmark.</span>
+          <div style="margin-top:10px;">
+            <a href="new.php">
+              <i class="fa fa-plus fa-fw"></i> Add Bookmark
+            </a>
+          </div>
+        </div>
+      </div>
       <?php } else { ?>
+      <p>
+        <a href="new.php" class="btn btn-success">
+          <i class="fa fa-plus fa-fw"></i> Add Bookmark
+        </a>
+      </p>
       <table class="table table-hover">
         <thead>
           <tr>
