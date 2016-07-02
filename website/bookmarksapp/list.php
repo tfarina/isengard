@@ -89,7 +89,10 @@ include_once("header.php");
             <td><?php echo $bookmark['url']; ?></td>
             <td><?php echo $bookmark['dt']; ?></td>
             <td>
-              <a href="edit.php?id=<?php echo $bookmark['id']; ?>">Edit</a>  <a href="delete.php?id=<?php echo $bookmark['id']; ?>">Delete</a>
+              <a href="edit.php?id=<?php echo $bookmark['id']; ?>" class="btn btn-sm btn-primary">
+                <i class="fa fa-pencil fa-fw"></i> Edit </a>  <a href="delete.php?id=<?php echo $bookmark['id']; ?>" class="btn btn-sm btn-danger">
+                <i class="fa fa-trash-o fa-fw"></i> Delete
+              </a>
             </td>
           </tr>
           <?php } ?>
