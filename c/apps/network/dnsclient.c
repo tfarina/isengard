@@ -42,6 +42,42 @@ struct dnsquestion {
 #define MAX_DOMAINLEN 255
 #define DNS_PORT 53
 
+#define RCODE_MASK 0x000fU
+
+enum dns_rcode {
+  DNS_RCODE_NOERROR = 0,
+  DNS_RCODE_FORMERR = 1,
+  DNS_RCODE_SERVFAIL = 2,
+  DNS_RCODE_NXDOMAIN = 3,
+  DNS_RCODE_NOTIMPL = 4,
+  DNS_RCODE_REFUSED = 5,
+  DNS_RCODE_YXDOMAIN = 6,
+  DNS_RCODE_YXRRSET = 7,
+  DNS_RCODE_NXRRSET = 8,
+  DNS_RCODE_NOTAUTH = 9,
+  DNS_RCODE_NOTZONE = 10
+};
+
+struct lookup_table {
+  int id;
+  const char *name;
+};
+
+static struct lookup_table rcodes[] = {
+  { DNS_RCODE_NOERROR, "NOERROR" },
+  { 0, NULL }
+};
+
+struct lookup_table *lookup_by_id(struct lookup_table *table, int id) {
+  while (table->name != NULL) {
+    if (table->id == id) {
+      return table;
+    }
+    table++;
+  }
+  return NULL;
+}
+
 static void write_uint16(void *dst, uint16_t data) {
   *(uint16_t*)dst = htons(data);
 }
@@ -180,7 +216,18 @@ int main(int argc, char **argv) {
   response_header->nscount = read_uint16(answer_pkt + 8);
   response_header->arcount = read_uint16(answer_pkt + 10);
 
+  uint16_t rcode = response_header->flags & RCODE_MASK;
+  struct lookup_table *rcode_entry = lookup_by_id(rcodes, rcode);
+
   printf(";; ->>HEADER<<- ");
+
+  printf("pure rcode: %u, ", rcode);
+  if (rcode_entry) {
+    printf("rcode: %s, ", rcode_entry->name);
+  } else {
+    printf("rcode: ?? (%u), ", rcode);
+  }
+
   printf("id: %d\n", response_header->id);
   printf(";; flags:");
   if ((response_header->flags & FLAG_QR) != 0) {
