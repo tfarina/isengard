@@ -106,8 +106,8 @@ include_once("header.php");
               </div>
               <p class="text-muted text-center">
                 By signing up, you agree to our <br/>
-                <a class="legal-link" href="terms.php" target="_blank">Terms</a> and
-                <a class="legal-link" href="privacy.php" target="_blank">Privacy Policy</a>.
+                <a href="terms.php">Terms</a> and
+                <a href="privacy.php">Privacy Policy</a>.
               </p>
             </form>
           </div>
