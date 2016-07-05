@@ -22,13 +22,14 @@ struct dnsquestion {
   uint16_t qclass;
 };
 
-#define FLAG_QR 0x8000U
-#define FLAG_AA 0x0400U
-#define FLAG_TC 0x0200U
+#define FLAG_QR 0x8000U /* QueRy - query flag */
+#define FLAG_AA 0x0400U /* Authoritative Answer - server flag */
+#define FLAG_TC 0x0200U /* TrunCated - server flag */
 #define FLAG_RD 0x0100U /* Recursion Desired - query flag */
-#define FLAG_RA 0x0080U
-#define FLAG_AD 0x0020U
-#define FLAG_CD 0x0010U
+#define FLAG_RA 0x0080U /* Recursion Available - server flag */
+#define FLAG_AD 0x0020U /* Authenticated Data - server flag */
+#define FLAG_CD 0x0010U /* Checking Disabled - query flag */
+
 
 /* Resource Record definitions. */
 
