@@ -227,16 +227,16 @@ int main(int argc, char **argv) {
   response_header->nscount = read_uint16(answer_pkt + 8);
   response_header->arcount = read_uint16(answer_pkt + 10);
 
-  uint16_t rcode = response_header->flags & RCODE_MASK;
-  struct lookup_table *rcode_entry = lookup_by_id(rcodes, rcode);
+  uint16_t rcode_id = response_header->flags & RCODE_MASK;
+  struct lookup_table *rcode = lookup_by_id(rcodes, rcode_id);
 
   printf(";; ->>HEADER<<- ");
 
-  printf("pure rcode: %u, ", rcode);
-  if (rcode_entry) {
-    printf("rcode: %s, ", rcode_entry->name);
+  printf("pure rcode: %u, ", rcode_id);
+  if (rcode) {
+    printf("rcode: %s, ", rcode->name);
   } else {
-    printf("rcode: ?? (%u), ", rcode);
+    printf("rcode: ?? (%u), ", rcode_id);
   }
 
   printf("id: %d\n", response_header->id);
