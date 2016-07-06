@@ -43,7 +43,18 @@ struct dnsquestion {
 #define MAX_DOMAINLEN 255
 #define DNS_PORT 53
 
+#define OPCODE_MASK 0x7800U
+#define OPCODE_SHIFT 11
+
 #define RCODE_MASK 0x000fU
+
+enum dns_opcode {
+  DNS_OPCODE_QUERY = 0,
+  DNS_OPCODE_IQUERY = 1,
+  DNS_OPCODE_STATUS = 2,
+  DNS_OPCODE_NOTIFY = 4,
+  DNS_OPCODE_UPDATE = 5
+};
 
 enum dns_rcode {
   DNS_RCODE_NOERROR = 0,
@@ -77,6 +88,15 @@ static struct lookup_table rcodes[] = {
   { DNS_RCODE_NXRRSET, "NXRRSET" },
   { DNS_RCODE_NOTAUTH, "NOTAUTH" },
   { DNS_RCODE_NOTZONE, "NOTZONE" },
+  { 0, NULL }
+};
+
+static struct lookup_table opcodes[] = {
+  { DNS_OPCODE_QUERY, "QUERY" },
+  { DNS_OPCODE_IQUERY, "IQUERY" },
+  { DNS_OPCODE_STATUS, "STATUS" },
+  { DNS_OPCODE_NOTIFY, "NOTIFY" },
+  { DNS_OPCODE_UPDATE, "UPDATE" },
   { 0, NULL }
 };
 
@@ -228,10 +248,20 @@ int main(int argc, char **argv) {
   response_header->nscount = read_uint16(answer_pkt + 8);
   response_header->arcount = read_uint16(answer_pkt + 10);
 
+  uint16_t opcode_id = (response_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
+  struct lookup_table *opcode = lookup_by_id(opcodes, opcode_id);
+
   uint16_t rcode_id = response_header->flags & RCODE_MASK;
   struct lookup_table *rcode = lookup_by_id(rcodes, rcode_id);
 
   printf(";; ->>HEADER<<- ");
+
+  printf("pure opcode: %u, ", opcode_id);
+  if (opcode) {
+    printf("opcode: %s, ", opcode->name);
+  } else {
+    printf("opcode: ?? (%u), ", opcode_id);
+  }
 
   printf("pure rcode: %u, ", rcode_id);
   if (rcode) {
