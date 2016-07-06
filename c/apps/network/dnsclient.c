@@ -59,6 +59,7 @@ enum dns_rcode {
   DNS_RCODE_NOTZONE = 10
 };
 
+/* A general purpose lookup table. */
 struct lookup_table {
   int id;
   const char *name;
