@@ -41,6 +41,7 @@ struct dnsquestion {
 
 #define MAX_PACKETLEN 512
 #define MAX_DOMAINLEN 255
+#define DNS_DNAME_MAXLABELLEN 63 /* 2^6 - 1 */
 #define DNS_PORT 53
 
 #define OPCODE_MASK 0x7800U
@@ -164,8 +165,8 @@ int main(int argc, char **argv) {
   int len, total = 0;
   while ((label = strsep(&dnamedup, ".")) != NULL) {
     len = strlen(label);
-    if (len > MAX_DOMAINLEN) {
-      fprintf(stderr, "Label is too long");
+    if (len > DNS_DNAME_MAXLABELLEN) {
+      fprintf(stderr, "error: label is too long");
       free(dnamedup);
       return -1;
     }
