@@ -49,26 +49,28 @@ struct dnsquestion {
 
 #define RCODE_MASK 0x000fU
 
+/* DNS operation codes. */
 enum dns_opcode {
-  DNS_OPCODE_QUERY = 0,
-  DNS_OPCODE_IQUERY = 1,
-  DNS_OPCODE_STATUS = 2,
-  DNS_OPCODE_NOTIFY = 4,
-  DNS_OPCODE_UPDATE = 5
+  DNS_OPCODE_QUERY = 0, /* Standard query. */
+  DNS_OPCODE_IQUERY = 1, /* Inverse query. */
+  DNS_OPCODE_STATUS = 2, /* Server status request */
+  DNS_OPCODE_NOTIFY = 4, /* Notify message. */
+  DNS_OPCODE_UPDATE = 5 /* Dynamic update. */
 };
 
+ /* DNS reply codes. */
 enum dns_rcode {
-  DNS_RCODE_NOERROR = 0,
-  DNS_RCODE_FORMERR = 1,
-  DNS_RCODE_SERVFAIL = 2,
-  DNS_RCODE_NXDOMAIN = 3,
-  DNS_RCODE_NOTIMPL = 4,
-  DNS_RCODE_REFUSED = 5,
-  DNS_RCODE_YXDOMAIN = 6,
-  DNS_RCODE_YXRRSET = 7,
-  DNS_RCODE_NXRRSET = 8,
-  DNS_RCODE_NOTAUTH = 9,
-  DNS_RCODE_NOTZONE = 10
+  DNS_RCODE_NOERROR = 0, /* No error. */
+  DNS_RCODE_FORMERR = 1, /* Format error. */
+  DNS_RCODE_SERVFAIL = 2, /* Server failure. */
+  DNS_RCODE_NXDOMAIN = 3, /* Non-existent domain. */
+  DNS_RCODE_NOTIMPL = 4, /* Not implemented. */
+  DNS_RCODE_REFUSED = 5, /* Refused. */
+  DNS_RCODE_YXDOMAIN = 6, /* Name should not exist. */
+  DNS_RCODE_YXRRSET = 7, /* RR set should not exist. */
+  DNS_RCODE_NXRRSET = 8, /* RR set does not exist. */
+  DNS_RCODE_NOTAUTH = 9, /* Server not authoritative / Query not authorized. */
+  DNS_RCODE_NOTZONE = 10 /* Name is not inside zone. */
 };
 
 /* A general purpose lookup table. */
