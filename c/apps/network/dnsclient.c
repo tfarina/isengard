@@ -36,8 +36,17 @@ struct dnsquestion {
 /* A host address type. */
 #define RR_TYPE_A 1
 
-/* The Internet class. */
-#define RR_CLASS_IN 1
+/*
+ * Resource record class codes.
+ *
+ * http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml
+ */
+enum dns_rr_class {
+  DNS_RR_CLASS_IN = 1, /* Internet */
+  DNS_RR_CLASS_CH = 3, /* Chaos */
+  DNS_RR_CLASS_NONE = 254, /* QCLASS NONE */
+  DNS_RR_CLASS_ANY = 255 /* QCLASS * (ANY) */
+};
 
 #define MAX_PACKETLEN 512
 #define MAX_DOMAINLEN 255
@@ -179,7 +188,7 @@ int main(int argc, char **argv) {
   free(dnamedup);
 
   question->qtype = RR_TYPE_A;
-  question->qclass = RR_CLASS_IN;
+  question->qclass = DNS_RR_CLASS_IN;
 
   // Prepare the packet (header + question) with the query that will be sent to
   // the DNS server.
