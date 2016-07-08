@@ -178,8 +178,8 @@ int main(int argc, char **argv) {
   }
   free(dnamedup);
 
-  question->qtype = htons(RR_TYPE_A);
-  question->qclass = htons(RR_CLASS_IN);
+  question->qtype = RR_TYPE_A;
+  question->qclass = RR_CLASS_IN;
 
   // Prepare the packet (header + question) with the query that will be sent to
   // the DNS server.
@@ -208,11 +208,11 @@ int main(int argc, char **argv) {
   offset += question->qnamelen;
 
   // QTYPE
-  memcpy(query_pkt + offset, &question->qtype, sizeof(question->qtype));
+  write_uint16(query_pkt + offset, question->qtype);
   offset += sizeof(question->qtype);
 
   // QCLASS
-  memcpy(query_pkt + offset, &question->qclass, sizeof(question->qclass));
+  write_uint16(query_pkt + offset, question->qclass);
 
   // Prepare the UDP socket that will be used to send the query to the DNS
   // server.
