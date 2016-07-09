@@ -274,14 +274,12 @@ int main(int argc, char **argv) {
 
   printf(";; ->>HEADER<<- ");
 
-  printf("pure opcode: %u, ", opcode_id);
   if (opcode) {
     printf("opcode: %s, ", opcode->name);
   } else {
     printf("opcode: ?? (%u), ", opcode_id);
   }
 
-  printf("pure rcode: %u, ", rcode_id);
   if (rcode) {
     printf("rcode: %s, ", rcode->name);
   } else {
