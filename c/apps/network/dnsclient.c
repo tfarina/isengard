@@ -165,7 +165,7 @@ int main(int argc, char **argv) {
   memset(header, 0, sizeof(*header));
 
   header->id = rand();
-  header->flags = FLAG_RD; //htons(1 << 8) htons(0x0100);
+  header->flags = FLAG_RD;
   header->qdcount = 1;
   header->ancount = 0;
   header->nscount = 0;
