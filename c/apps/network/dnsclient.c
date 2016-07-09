@@ -94,6 +94,17 @@ struct lookup_table {
   const char *name;
 };
 
+/* Looks up the given id in the lookup table. */
+struct lookup_table *lookup_by_id(struct lookup_table *table, int id) {
+  while (table->name != NULL) {
+    if (table->id == id) {
+      return table;
+    }
+    table++;
+  }
+  return NULL;
+}
+
 static struct lookup_table rcodes[] = {
   { DNS_RCODE_NOERROR, "NOERROR" },
   { DNS_RCODE_FORMERR, "FORMERR" },
@@ -117,16 +128,6 @@ static struct lookup_table opcodes[] = {
   { DNS_OPCODE_UPDATE, "UPDATE" },
   { 0, NULL }
 };
-
-struct lookup_table *lookup_by_id(struct lookup_table *table, int id) {
-  while (table->name != NULL) {
-    if (table->id == id) {
-      return table;
-    }
-    table++;
-  }
-  return NULL;
-}
 
 static void write_uint16(void *dst, uint16_t data) {
   *(uint16_t*)dst = htons(data);
