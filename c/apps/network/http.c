@@ -57,6 +57,18 @@ static void sbuf_setlen(sbuf *b, size_t len)
         b->data[len] = '\0';
 }
 
+static sbuf *sbuf_alloc(size_t capacity)
+{
+        sbuf *b = malloc(sizeof(sbuf));
+
+        b->data = malloc(capacity + 1);
+        *b->data = 0; /* always 0 terminate data to allow string functions. */
+        b->len = 0;
+        b->cap = capacity;
+
+        return b;
+}
+
 static void sbuf_init(sbuf *b)
 {
 	b->data = NULL;
@@ -163,7 +175,7 @@ int main(int argc, char **argv) {
   size_t bytes_to_send;
   ssize_t bytes_received;
   char data[RECVSIZE];
-  sbuf response;
+  sbuf *response;
 
   snprintf(portstr, sizeof(portstr), "%d", port);
   memset(&hints, 0, sizeof(hints));
@@ -222,21 +234,20 @@ int main(int argc, char **argv) {
 
   printf("HTTP request sent, awaiting response...\n"),
 
-  /* TODO(tfarina): Now we need to read the http response head. */
-
   printf("receiving data...");
 
-  sbuf_init(&response);
+  response = sbuf_alloc(102400);
 
+  /* TODO(tfarina): Now we need to read the http response head. */
   while ((bytes_received = fd_read_all(sockfd, data, sizeof(data))) > 0) {
-    sbuf_append(&response, data, bytes_received);
+    sbuf_append(response, data, bytes_received);
   }
 
   printf("finished receiving data.\n\n");
 
-  printf("%s\n", response.data);
+  printf("%s\n", response->data);
 
-  sbuf_free(&response);
+  sbuf_free(response);
 
   return 0;
 }
