@@ -57,7 +57,7 @@ enum dns_rr_type {
 #define MAX_PACKETLEN 512
 #define MAX_DOMAINLEN 255
 #define DNS_DNAME_MAXLABELLEN 63 /* 2^6 - 1 */
-#define DNS_PORT 53
+#define DNS_DEFAULT_PORT 53
 
 #define OPCODE_MASK 0x7800U
 #define OPCODE_SHIFT 11
@@ -234,7 +234,7 @@ int main(int argc, char **argv) {
   // server.
   memset(&to, 0, tolen);
   to.sin_family = AF_INET;
-  to.sin_port = htons(DNS_PORT);
+  to.sin_port = htons(DNS_DEFAULT_PORT);
   inet_pton(AF_INET, "8.8.8.8", &to.sin_addr);
 
   if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
