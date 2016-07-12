@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
+#include <sys/time.h>
 
 struct dnsheader {
   uint16_t id;
@@ -164,7 +165,13 @@ int main(int argc, char **argv) {
   header = malloc(sizeof(*header));
   memset(header, 0, sizeof(*header));
 
-  header->id = rand();
+  unsigned int rand_seed;
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  rand_seed = tv.tv_sec ^ tv.tv_usec;
+  srandom(rand_seed);
+
+  header->id = random();
   header->flags = FLAG_RD;
   header->qdcount = 1;
   header->ancount = 0;
