@@ -12,7 +12,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-#define RECVSIZE 1024
+#define MIN_BUFLEN 1024
 
 typedef struct {
 	char *data;
@@ -170,11 +170,11 @@ int main(int argc, char **argv) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int sockfd;
-  char request[1024];
+  char request[MIN_BUFLEN];
   const char method[] = "GET";
   size_t bytes_to_send;
   ssize_t bytes_received;
-  char data[RECVSIZE];
+  char data[MIN_BUFLEN];
   sbuf *response;
 
   snprintf(portstr, sizeof(portstr), "%d", port);
