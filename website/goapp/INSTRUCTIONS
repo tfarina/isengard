@@ -9,11 +9,11 @@ start), or you can reboot once to verify that it start on boot.
 Locally:
 
 $ go build server.go
-$ scp -i ~/my-key-pair.pem ./server ubuntu@server-ip-address:~
+$ scp -i ~/my-key-pair.pem ./server ubuntu@server-ip-address:/home/ubuntu/goserver
 $ ssh -i ~/my-key-pair.pem ubuntu@server-ip-address
 
 At Ubuntu instance:
 
 $ sudo service go-server stop
-$ sudo mv server /usr/local/bin/goserver
+$ sudo mv goserver /usr/local/bin/
 $ sudo service go-server start
