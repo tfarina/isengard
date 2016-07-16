@@ -302,11 +302,20 @@ int main(int argc, char **argv) {
   if ((response_header->flags & FLAG_AA) != 0) {
     printf(" aa");
   }
+  if ((response_header->flags & FLAG_TC) != 0) {
+    printf(" tc");
+  }
   if ((response_header->flags & FLAG_RD) != 0) {
     printf(" rd");
   }
+  if ((response_header->flags & FLAG_CD) != 0) {
+    printf(" cd");
+  }
   if ((response_header->flags & FLAG_RA) != 0) {
     printf(" ra");
+  }
+  if ((response_header->flags & FLAG_AD) != 0) {
+    printf(" ad");
   }
 
   printf("; ");
