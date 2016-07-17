@@ -178,10 +178,24 @@ int main(int argc, char **argv) {
   header->nscount = 0;
   header->arcount = 0;
 
-  question = malloc(sizeof(*question) + strlen(dname) + 2);
+  size_t dname_len = strlen(dname);
+  size_t alloc_size = 0;
+  if (dname[0] == '.') {
+    alloc_size = 1;
+  } else if (dname[dname_len - 1] != '.') {
+    alloc_size = 1 + dname_len + 1;
+  } else {
+    alloc_size = 1+ dname_len;
+  }
+
+  if (alloc_size > MAX_DOMAINLEN) {
+    alloc_size = MAX_DOMAINLEN;
+  }
+
+  question = malloc(sizeof(*question) + alloc_size);
   memset(question, 0, sizeof(*question));
 
-  question->qnamelen = strlen(dname) + 2;
+  question->qnamelen = alloc_size;
   question->qname = malloc(question->qnamelen);
 
   // dns_domain_fromdot
