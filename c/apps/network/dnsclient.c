@@ -55,7 +55,11 @@ enum dns_rr_type {
   DNS_RR_TYPE_A = 1, /* An IPv4 host address. */
 };
 
-#define MAX_PACKETLEN 512
+/*
+ * RFC 1035, section 4.2.1: Messages carried by UDP are restricted to 512
+ * bytes (not counting the IP nor UDP headers).
+ */
+#define MAX_UDP_SIZE 512
 #define MAX_DOMAINLEN 255
 #define DNS_DNAME_MAXLABELLEN 63 /* 2^6 - 1 */
 #define DNS_DEFAULT_PORT 53
@@ -146,7 +150,7 @@ int main(int argc, char **argv) {
   struct sockaddr_in to;
   socklen_t tolen = sizeof(to);
   int sockfd;
-  uint8_t answer_pkt[MAX_PACKETLEN];
+  uint8_t answer_pkt[MAX_UDP_SIZE];
   struct sockaddr_storage from;
   socklen_t fromlen = sizeof(from);
   ssize_t rlen;
