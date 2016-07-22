@@ -23,12 +23,12 @@ rule UNINSTALL
 
 build die.o: COMPILE_CC die.c
 
-build tcpserver.o: COMPILE_CC tcpserver.c
-build tcpserver: LINK die.o tcpserver.o
+build echod.o: COMPILE_CC echod.c
+build echod: LINK die.o echod.o
 
-build tcpclient.o: COMPILE_CC tcpclient.c
-build tcpclient: LINK die.o tcpclient.o
+build echoc.o: COMPILE_CC echoc.c
+build echoc: LINK die.o echoc.o
 
 build clean: CLEAN
 
-default tcpserver
+default echod

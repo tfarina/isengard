@@ -165,7 +165,7 @@ static ssize_t fd_read_all(int fd, char *buf, size_t len)
 
 int main(int argc, char **argv) {
   int rv;
-  const char host[] = "google.com";
+  const char host[] = "reddit.com";
   int port = 80;
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
@@ -234,18 +234,51 @@ int main(int argc, char **argv) {
 
   printf("HTTP request sent, awaiting response...\n"),
 
-  printf("receiving data...");
+  printf("receiving data...\n");
 
   response = sbuf_alloc(102400);
 
-  /* TODO(tfarina): Now we need to read the http response head. */
+  char *buf, *p = NULL;
+  size_t bufcap;
+  ssize_t nbytes, nread = 0;
+
+  buf = response->data;
+  bufcap = response->cap;
+
+  while ((nbytes = fd_read(sockfd, buf + nread, bufcap - nread)) > 0) {
+    printf("nbytes %zd nread %zd bufcap %zu\n", nbytes, nread, bufcap);
+    nread += nbytes;
+    buf[nread] = 0;
+
+    if (nread < 4) {
+      continue;
+    }
+
+    if (nread == nbytes) {
+      p = buf;
+    } else {
+      p = buf + nread - nbytes - 3;
+    }
+
+    if ((p = strstr(p, "\r\n\r\n"))) {
+      /* found end-of-header */
+      *p = 0;
+
+      printf("# got header %zd bytes:\n%s\n\n", p - buf, buf);
+    }
+
+    printf("%s", buf);
+  }
+
+  /*
   while ((bytes_received = fd_read_all(sockfd, data, sizeof(data))) > 0) {
     sbuf_append(response, data, bytes_received);
   }
 
+  */
   printf("finished receiving data.\n\n");
 
-  printf("%s\n", response->data);
+  //printf("%s\n", response->data);
 
   sbuf_free(response);
 

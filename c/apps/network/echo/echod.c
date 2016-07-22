@@ -20,7 +20,7 @@
 static unsigned int forked = 0; /* Number of child processes. */
 
 static void logstatus(void) {
-  printf("echoserver: status: %d\n", forked);
+  printf("echod: status: %d\n", forked);
 }
 
 static void handle_client(int fd) {
@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
   pid_t pid;
 
   if (argc != 2) {
-    fprintf(stderr, "usage: tcpserver #port-number\n");
+    fprintf(stderr, "usage: %s #port-number\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 
@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
           "The server is now ready to accept connections on %s port %d\n",
           ntop, port);
 
-  signal(SIGCHLD, reapchld);
+  signal(SIGCHLD, sigchld_handler);
 
   logstatus();
 
