@@ -8,11 +8,10 @@
 #include <string.h>
 #include <strings.h>
 #include <sys/socket.h>
+#include <sys/syslog.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-
-#include "die.h"
 
 #define BACKLOG 1024
 #define BUFSIZE 8129
@@ -61,6 +60,8 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
+  openlog("echod", LOG_PID | LOG_NDELAY, LOG_DAEMON);
+
   port = atoi(argv[1]);
   snprintf(strport, sizeof(strport), "%d", port);
 
@@ -72,21 +73,30 @@ int main(int argc, char **argv) {
   if ((ret = getnameinfo((struct sockaddr *)&saddr, sizeof(saddr),
                          ntop, sizeof(ntop), strport, sizeof(strport),
                          NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
-    die("getnameinfo failed: %.100s", gai_strerror(ret));
+    syslog(LOG_ERR, "getnameinfo failed: %.100s", gai_strerror(ret));
+    exit(EXIT_FAILURE);
   }
 
-  if ((tcpfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
-    die("socket failed: %s", strerror(errno));
+  if ((tcpfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1) {
+    syslog(LOG_ERR, "socket failed: %s", strerror(errno));
+    exit(EXIT_FAILURE);
+  }
 
-  if (setsockopt(tcpfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1)
-    die("set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
+  if (setsockopt(tcpfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
+    syslog(LOG_ERR, "set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
+    close(tcpfd);
+    exit(EXIT_FAILURE);
+  }
 
-  if (bind(tcpfd, (struct sockaddr *)&saddr, sizeof(saddr)) == -1)
-    die("bind to port %s failed: %.200s", strport, strerror(errno));
+  if (bind(tcpfd, (struct sockaddr *)&saddr, sizeof(saddr)) == -1) {
+    syslog(LOG_ERR, "bind to port %s failed: %.200s", strport, strerror(errno));
+    close(tcpfd);
+    exit(EXIT_FAILURE);
+  }
 
   if (listen(tcpfd, BACKLOG) == -1) {
-    close(tcpfd);
-    die("listen on %d failed: %s", tcpfd, strerror(errno));
+    syslog(LOG_ERR, "listen on %d failed: %s", tcpfd, strerror(errno));
+    exit(EXIT_FAILURE);
   }
 
   fprintf(stderr,
@@ -102,16 +112,20 @@ int main(int argc, char **argv) {
     struct sockaddr *sa = (struct sockaddr *)&ss;
     socklen_t sslen = sizeof(ss);
 
-    if ((echofd = accept(tcpfd, sa, &sslen)) == -1)
-      die("accept failed");
+    if ((echofd = accept(tcpfd, sa, &sslen)) == -1) {
+      syslog(LOG_ERR, "accept failed: %s", strerror(errno));
+      continue;
+    }
 
     if ((ret = getnameinfo(sa, sslen,
                            ntop, sizeof(ntop), strport, sizeof(strport),
                            NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
-      die("getnameinfo failed: %.100s", gai_strerror(ret));
+      syslog(LOG_ERR, "getnameinfo failed: %.100s", gai_strerror(ret));
+      exit(EXIT_FAILURE);
     }
 
-    printf("Connection from %s:%s\n", ntop, strport);
+    syslog(LOG_INFO, "TCP connection from %s:%s", ntop, strport);
+    printf("TCP connection from %s:%s\n", ntop, strport);
 
     ++forked;
     logstatus();
