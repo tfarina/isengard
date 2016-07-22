@@ -40,7 +40,7 @@ static void sigchld_handler(int sig) {
   int status;
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
     --forked;
-    printf("echoserver: end %d status %d\n", pid, status);
+    printf("echod: end %d status %d\n", pid, status);
     logstatus();
   }
   signal(SIGCHLD, sigchld_handler);
@@ -49,9 +49,9 @@ static void sigchld_handler(int sig) {
 int main(int argc, char **argv) {
   struct sockaddr_in saddr;
   int port;
-  int listen_fd;
+  int tcpfd;
   int reuse = 1;
-  int client_fd;
+  int echofd;
   char strport[NI_MAXSERV], ntop[NI_MAXHOST];
   int ret;
   pid_t pid;
@@ -75,18 +75,18 @@ int main(int argc, char **argv) {
     die("getnameinfo failed: %.100s", gai_strerror(ret));
   }
 
-  if ((listen_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
+  if ((tcpfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
     die("socket failed: %s", strerror(errno));
 
-  if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1)
-    die("set reuse addr on sd %d failed: %s", listen_fd, strerror(errno));
+  if (setsockopt(tcpfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1)
+    die("set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
 
-  if (bind(listen_fd, (struct sockaddr *)&saddr, sizeof(saddr)) == -1)
+  if (bind(tcpfd, (struct sockaddr *)&saddr, sizeof(saddr)) == -1)
     die("bind to port %s failed: %.200s", strport, strerror(errno));
 
-  if (listen(listen_fd, BACKLOG) == -1) {
-    close(listen_fd);
-    die("listen on %d failed: %s", listen_fd, strerror(errno));
+  if (listen(tcpfd, BACKLOG) == -1) {
+    close(tcpfd);
+    die("listen on %d failed: %s", tcpfd, strerror(errno));
   }
 
   fprintf(stderr,
@@ -100,12 +100,12 @@ int main(int argc, char **argv) {
   while (1) {
     struct sockaddr_storage ss;
     struct sockaddr *sa = (struct sockaddr *)&ss;
-    socklen_t addrlen = sizeof(ss);
+    socklen_t sslen = sizeof(ss);
 
-    if ((client_fd = accept(listen_fd, sa, &addrlen)) == -1)
+    if ((echofd = accept(tcpfd, sa, &sslen)) == -1)
       die("accept failed");
 
-    if ((ret = getnameinfo(sa, addrlen,
+    if ((ret = getnameinfo(sa, sslen,
                            ntop, sizeof(ntop), strport, sizeof(strport),
                            NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
       die("getnameinfo failed: %.100s", gai_strerror(ret));
@@ -119,19 +119,19 @@ int main(int argc, char **argv) {
     pid = fork();
     switch (pid) {
     case -1:
-      close(client_fd);
+      close(echofd);
       --forked;
       logstatus();
       break;
 
     case 0:
-      close(listen_fd);
-      handle_client(client_fd);
+      close(tcpfd);
+      handle_client(echofd);
       break;
 
     default:
-      close(client_fd); /* we are the parent so look for another connection. */
-      printf("echoserver: pid %d\n", pid);
+      close(echofd); /* we are the parent so look for another connection. */
+      printf("echod: pid %d\n", pid);
     }
   }
 
