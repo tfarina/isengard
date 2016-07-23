@@ -70,12 +70,16 @@ int main(void) {
       continue;
     }
     buf[recvlen] = '\0';
+
     printf("received message: %s\n", buf);
 
     sprintf(buf, "ack %d", msgcnt++);
+
     if (sendto(sockfd, buf, strlen(buf), 0,
-               (struct sockaddr *)&remoteaddr, addrlen) == -1)
-      warning("sendto failed: %s", strerror(errno));
+               (struct sockaddr *)&remoteaddr, addrlen) == -1) {
+      error("sendto failed: %s", strerror(errno));
+    }
+
     printf("response sent: %s\n", buf);
   }
 
