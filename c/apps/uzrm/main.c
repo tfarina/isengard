@@ -8,7 +8,7 @@
 
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 
-static const char *program;
+static const char *progname;
 
 static struct builtin_cmd {
         const char *name;
@@ -27,7 +27,7 @@ static void usage(void) {
                 "   delete    Deletes the specified user\n"
                 "   list      Lists all users\n"
                 "";
-        fprintf(stderr, usage_msg, program);
+        fprintf(stderr, usage_msg, progname);
         exit(EXIT_FAILURE);
 }
 
@@ -46,7 +46,7 @@ static struct builtin_cmd *get_builtin(const char *name) {
 int main(int argc, char **argv) {
         struct builtin_cmd *cmd;
 
-        program = basename(argv[0]);
+        progname = basename(argv[0]);
 
         if (argc < 2)
                 usage();
