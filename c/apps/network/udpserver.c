@@ -62,6 +62,11 @@ int main(void) {
 
   freeaddrinfo(addrlist);
 
+  if (cur == NULL) {
+    error("failed to bind");
+    exit(EXIT_FAILURE);
+  }
+
   printf("listening on port %d\n", PORT);
 
   addrlen = sizeof(remoteaddr);
