@@ -45,14 +45,17 @@ int main(void) {
       continue;
     }
 
-    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1)
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
       error("set reuse addr on sd %d failed: %s", sockfd, strerror(errno));
+      close(sockfd);
+      continue;
+    }
 
     if (bind(sockfd, cur->ai_addr, cur->ai_addrlen) == -1) {
       error("bind on %d failed: %s", sockfd, strerror(errno));
       close(sockfd);
       continue;
-  }
+    }
 
     break;
   }
