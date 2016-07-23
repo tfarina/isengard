@@ -41,7 +41,7 @@ int main(void) {
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
     if ((sockfd = socket(cur->ai_family, cur->ai_socktype,
                          cur->ai_protocol)) == -1) {
-      error("cannot create socket");
+      error("cannot create socket: %s", strerror(errno));
       continue;
     }
 
