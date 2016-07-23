@@ -45,6 +45,12 @@ static void sigchld_handler(int sig) {
   signal(SIGCHLD, sigchld_handler);
 }
 
+static void sigusr1_handler(int sig) {
+  syslog(LOG_INFO, "shutdown by user");
+  closelog();
+  exit(EXIT_SUCCESS);
+}
+
 int main(int argc, char **argv) {
   struct sockaddr_in saddr;
   int port;
@@ -104,6 +110,7 @@ int main(int argc, char **argv) {
           ntop, port);
 
   signal(SIGCHLD, sigchld_handler);
+  signal(SIGUSR1, sigusr1_handler);
 
   logstatus();
 
