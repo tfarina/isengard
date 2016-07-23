@@ -13,16 +13,38 @@
 #define ADDRESS NULL
 #define PORT 5300
 
+static int msgcnt;  /* count # of messages we received */
+
+static void send_udp_message(int sockfd) {
+  int recvlen;
+  char buf[BUFLEN];
+  struct sockaddr_storage ss;
+  socklen_t sslen = sizeof(ss);
+
+  if((recvlen = recvfrom(sockfd, buf, sizeof(buf), 0,
+                         (struct sockaddr *)&ss, &sslen)) == -1) {
+    error("recvfrom failed: %s", strerror(errno));
+    return;
+  }
+  buf[recvlen] = '\0';
+
+  printf("received message: %s\n", buf);
+
+  sprintf(buf, "ack %d", msgcnt++);
+
+  if (sendto(sockfd, buf, strlen(buf), 0,
+             (struct sockaddr *)&ss, sslen) == -1) {
+    error("sendto failed: %s", strerror(errno));
+  }
+
+  printf("response sent: %s\n", buf);
+}
+
 int main(void) {
   struct addrinfo hints, *addrlist, *cur;
   int rv;
-  struct sockaddr_storage remoteaddr;
-  socklen_t addrlen;
   int sockfd = 0;
   int reuse = 1;
-  int recvlen;
-  char buf[BUFLEN];
-  int msgcnt = 0;  /* count # of messages we received */
   char strport[NI_MAXSERV];
 
   snprintf(strport, sizeof(strport), "%d", PORT);
@@ -69,25 +91,8 @@ int main(void) {
 
   printf("listening on port %d\n", PORT);
 
-  addrlen = sizeof(remoteaddr);
   for (;;) {
-    if((recvlen = recvfrom(sockfd, buf, sizeof(buf), 0,
-                       (struct sockaddr *)&remoteaddr, &addrlen)) == -1) {
-      error("recvfrom failed: %s", strerror(errno));
-      continue;
-    }
-    buf[recvlen] = '\0';
-
-    printf("received message: %s\n", buf);
-
-    sprintf(buf, "ack %d", msgcnt++);
-
-    if (sendto(sockfd, buf, strlen(buf), 0,
-               (struct sockaddr *)&remoteaddr, addrlen) == -1) {
-      error("sendto failed: %s", strerror(errno));
-    }
-
-    printf("response sent: %s\n", buf);
+    send_udp_message(sockfd);
   }
 
   return 0;
