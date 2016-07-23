@@ -60,6 +60,8 @@ int main(void) {
     break;
   }
 
+  freeaddrinfo(addrlist);
+
   printf("listening on port %d\n", PORT);
 
   addrlen = sizeof(remoteaddr);
