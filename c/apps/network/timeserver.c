@@ -23,7 +23,7 @@
 
 #include "die.h"
 
-#define SERVER_PORT 8088
+#define DEFAULT_PORT 37
 #define BACKLOG 1024
 #define BUFSIZE 256
 
@@ -65,7 +65,7 @@ int main(void) {
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-  servaddr.sin_port = htons(SERVER_PORT);
+  servaddr.sin_port = htons(DEFAULT_PORT);
 
   if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     die("cannot create socket");
@@ -81,7 +81,7 @@ int main(void) {
 
   fprintf(stderr,
           "The server is now ready to accept connections on port %d\n",
-          SERVER_PORT);
+          DEFAULT_PORT);
 
   signal(SIGCHLD, sigchld_handler);
 
