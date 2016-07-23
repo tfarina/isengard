@@ -70,13 +70,6 @@ int main(int argc, char **argv) {
   saddr.sin_addr.s_addr = htonl(INADDR_ANY);
   saddr.sin_port = htons(port);
 
-  if ((ret = getnameinfo((struct sockaddr *)&saddr, sizeof(saddr),
-                         ntop, sizeof(ntop), strport, sizeof(strport),
-                         NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
-    syslog(LOG_ERR, "getnameinfo failed: %.100s", gai_strerror(ret));
-    exit(EXIT_FAILURE);
-  }
-
   if ((tcpfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1) {
     syslog(LOG_ERR, "socket failed: %s", strerror(errno));
     exit(EXIT_FAILURE);
@@ -96,6 +89,13 @@ int main(int argc, char **argv) {
 
   if (listen(tcpfd, BACKLOG) == -1) {
     syslog(LOG_ERR, "listen on %d failed: %s", tcpfd, strerror(errno));
+    exit(EXIT_FAILURE);
+  }
+
+  if ((ret = getnameinfo((struct sockaddr *)&saddr, sizeof(saddr),
+                         ntop, sizeof(ntop), strport, sizeof(strport),
+                         NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
+    syslog(LOG_ERR, "getnameinfo failed: %.100s", gai_strerror(ret));
     exit(EXIT_FAILURE);
   }
 
