@@ -33,7 +33,7 @@ int main(void) {
   hints.ai_socktype = SOCK_DGRAM;
 
   if ((rv = getaddrinfo(ADDRESS, strport, &hints, &addrlist)) != 0) {
-    fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
+    error("getaddrinfo failed: %s", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
 
