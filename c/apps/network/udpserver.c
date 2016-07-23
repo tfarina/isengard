@@ -71,9 +71,9 @@ int main(void) {
 
   addrlen = sizeof(remoteaddr);
   for (;;) {
-    recvlen = recvfrom(sockfd, buf, sizeof(buf), 0,
-                       (struct sockaddr *)&remoteaddr, &addrlen);
-    if (recvlen <= 0) {
+    if((recvlen = recvfrom(sockfd, buf, sizeof(buf), 0,
+                       (struct sockaddr *)&remoteaddr, &addrlen)) == -1) {
+      error("recvfrom failed: %s", strerror(errno));
       continue;
     }
     buf[recvlen] = '\0';
