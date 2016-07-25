@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
@@ -46,6 +47,7 @@ int main(void) {
   int sockfd = 0;
   int reuse = 1;
   char strport[NI_MAXSERV];
+  fd_set set;
 
   snprintf(strport, sizeof(strport), "%d", PORT);
 
@@ -91,8 +93,19 @@ int main(void) {
 
   printf("listening on port %d\n", PORT);
 
+  FD_ZERO(&set);
+
   for (;;) {
-    send_udp_message(sockfd);
+    FD_SET(sockfd, &set);
+
+    if (select(sockfd + 1, &set, NULL, NULL, NULL) < 0) {
+      error("select failed: %s", strerror(errno));
+      exit(EXIT_FAILURE);
+    }
+
+    if (sockfd > -1 && FD_ISSET(sockfd, &set)) {
+      send_udp_message(sockfd);
+    }
   }
 
   return 0;
