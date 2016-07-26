@@ -39,6 +39,7 @@ c/apps/echo/.ninja_deps
 c/apps/echo/.ninja_log
 c/apps/echo/tcpcli01
 c/apps/echo/tcpserv01
+c/apps/exampled
 c/apps/imap/imap
 c/apps/imap/.ninja_deps
 c/apps/imap/.ninja_log

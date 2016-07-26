@@ -21,3 +21,4 @@ build lexer: cc lexer.c
 build lookup: cc lookup.c
 build execprog: cc execprog.c
 build getcwd: cc getcwd.c
+build exampled: cc exampled.c
