@@ -6,7 +6,7 @@
 #include <string.h>
 #include <sys/socket.h>
 
-#include "die.h"
+#include "log.h"
 
 #define BUFLEN 512
 #define PORT 5300
@@ -30,13 +30,19 @@ int main(int argc, char **argv) {
   servaddr.sin_port = htons(PORT);
   inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
 
-  if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1)
-    die("cannot create socket");
+  if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
+    error("cannot create socket: %s", strerror(errno));
+    exit(EXIT_FAILURE);
+  }
 
   printf("sending message to %s:%d\n", argv[1], PORT);
 
-  if (sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr *)&servaddr, addrlen) == -1)
-    die("sendto failed: %s", strerror(errno));
+  if (sendto(sockfd, buf, strlen(buf), 0,
+             (struct sockaddr *)&servaddr, addrlen) == -1) {
+    error("sendto failed: %s", strerror(errno));
+    exit(EXIT_FAILURE);
+  }
+
   printf("message sent: %s\n", buf);
 
   recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&addr,
