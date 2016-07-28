@@ -26,7 +26,7 @@ build util.o: compile util.c
 build log.o: compile log.c
 
 build timeserver.o: compile timeserver.c
-build timeserver: link die.o util.o timeserver.o
+build timeserver: link log.o util.o timeserver.o
 
 build timeclient.o: compile timeclient.c
 build timeclient: link die.o timeclient.o

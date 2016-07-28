@@ -21,7 +21,7 @@
 #include <unistd.h>
 #include <time.h>
 
-#include "die.h"
+#include "log.h"
 
 #define DEFAULT_PORT 37
 #define BACKLOG 1024
@@ -67,17 +67,28 @@ int main(void) {
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
   servaddr.sin_port = htons(DEFAULT_PORT);
 
-  if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-    die("cannot create socket");
+  if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+    error("cannot create socket: %s", strerror(errno));
+    exit(EXIT_FAILURE);
+  }
 
-  if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1)
-    die("setsockopt failed");
+  if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
+    error("set reuse addr on sd %d failed: %s", sockfd, strerror(errno));
+    close(sockfd);
+    exit(EXIT_FAILURE);
+  }
 
-  if (bind(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1)
-    die("bind failed");
+  if (bind(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1) {
+    error("bind on %d failed: %s", sockfd, strerror(errno));
+    close(sockfd);
+    exit(EXIT_FAILURE);
+  }
 
-  if (listen(sockfd, BACKLOG) == -1)
-    die("listen failed");
+  if (listen(sockfd, BACKLOG) == -1) {
+    error("listen failed: %s", strerror(errno));
+    close(sockfd);
+    exit(EXIT_FAILURE);
+  }
 
   fprintf(stderr,
           "The server is now ready to accept connections on port %d\n",
@@ -91,7 +102,8 @@ int main(void) {
     if ((client_fd = accept(sockfd, NULL, NULL)) == -1) {
       if (errno == EINTR) /* EINTR might happen on accept. */
         continue;
-      die("accept failed");
+      error("accept failed: %s", strerror(errno));
+      exit(EXIT_FAILURE);
     }
 
     ++forked;
