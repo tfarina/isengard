@@ -29,7 +29,7 @@ build timed.o: compile timed.c
 build timed: link log.o util.o timed.o
 
 build timec.o: compile timec.c
-build timec: link die.o timec.o
+build timec: link log.o timec.o
 
 build udpserver.o: compile udpserver.c
   defines = -D_GNU_SOURCE

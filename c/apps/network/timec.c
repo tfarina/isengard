@@ -6,7 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "die.h"
+#include "log.h"
 
 #define DEFAULT_PORT 37
 #define MAX_LINE 1024
@@ -22,11 +22,16 @@ int main(int argc, char **argv) {
   saddr.sin_port = htons(DEFAULT_PORT);
   inet_pton(AF_INET, "127.0.0.1", &saddr.sin_addr);
 
-  if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-    die("socket failed: %s", strerror(errno));
+  if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+    error("socket failed: %s", strerror(errno));
+    exit(EXIT_FAILURE);
+  }
 
-  if (connect(sockfd, (struct sockaddr *)&saddr, sizeof(saddr)) == -1)
-    die("connect failed: %s", strerror(errno));
+  if (connect(sockfd, (struct sockaddr *)&saddr, sizeof(saddr)) == -1) {
+    error("connect failed: %s", strerror(errno));
+    close(sockfd);
+    exit(EXIT_FAILURE);
+  }
 
   printf("The current time is: ");
 
