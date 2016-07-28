@@ -8,6 +8,7 @@
 
 #include "die.h"
 
+#define DEFAULT_PORT 37
 #define MAX_LINE 1024
 
 int main(int argc, char **argv) {
@@ -18,7 +19,7 @@ int main(int argc, char **argv) {
 
   memset(&saddr, 0, sizeof(saddr));
   saddr.sin_family = AF_INET;
-  saddr.sin_port = htons(8088);
+  saddr.sin_port = htons(DEFAULT_PORT);
   inet_pton(AF_INET, "127.0.0.1", &saddr.sin_addr);
 
   if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
