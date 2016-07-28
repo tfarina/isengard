@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
   pid_t pid;
 
   if (argc != 2) {
-    fprintf(stderr, "usage: %s #port-number\n", argv[0]);
+    fprintf(stderr, "usage: %s [port]\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 

@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
   char recvline[BUFSIZE];
 
   if (argc != 3) {
-    fprintf(stderr, "usage: %s #server-ip-address #port-number\n", argv[0]);
+    fprintf(stderr, "usage: %s [hostname] [port]\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 
