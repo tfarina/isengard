@@ -66,6 +66,11 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
+  if (geteuid() != 0) {
+    fprintf(stderr, "%s: need root privileges\n", argv[0]);
+    exit(EXIT_FAILURE);
+  }
+
   openlog("echod", LOG_PID | LOG_NDELAY, LOG_DAEMON);
 
   port = atoi(argv[1]);
