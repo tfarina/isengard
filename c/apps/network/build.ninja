@@ -25,12 +25,6 @@ build die.o: compile die.c
 build util.o: compile util.c
 build log.o: compile log.c
 
-build timed.o: compile timed.c
-build timed: link log.o util.o timed.o
-
-build timec.o: compile timec.c
-build timec: link log.o timec.o
-
 build udpserver.o: compile udpserver.c
   defines = -D_GNU_SOURCE
 build udpserver: link log.o udpserver.o

@@ -60,7 +60,8 @@ c/apps/network/http
 c/apps/network/res
 c/apps/network/selectserver
 c/apps/network/showip/out/
-c/apps/network/timeserver
+c/apps/network/time/*.o
+c/apps/network/time/out
 c/apps/network/udpclient
 c/apps/network/udpserver
 c/apps/network/webserver/.ninja_deps
