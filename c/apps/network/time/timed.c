@@ -34,7 +34,7 @@ static void logstatus(void) {
 }
 
 /* Echo the current day time to the connected client. */
-static void doprocessing(int sockfd) {
+static void daytime_stream(int sockfd) {
   time_t t;
   char buf[BUFSIZE];
 
@@ -121,7 +121,7 @@ int main(void) {
 
       case 0:
         close(sockfd);
-        doprocessing(client_fd);
+        daytime_stream(client_fd);
 
       default:
         close(client_fd); /* we are the parent so look for another connection. */
