@@ -11,7 +11,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "die.h"
+#include "log.h"
 
 #define BUFSIZE 4096
 
@@ -34,11 +34,16 @@ int main(int argc, char **argv) {
   servaddr.sin_port = htons(port);
   inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
 
-  if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-    die("socket failed: %s", strerror(errno));
+  if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+    error("socket failed: %s", strerror(errno));
+    exit(EXIT_FAILURE);
+  }
 
-  if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1)
-    die("connect failed: %s", strerror(errno));
+  if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1) {
+    error("connect failed: %s", strerror(errno));
+    close(sockfd);
+    exit(EXIT_FAILURE);
+  }
 
   memset(sendline, 0, sizeof(sendline));
   memset(recvline, 0, sizeof(recvline));

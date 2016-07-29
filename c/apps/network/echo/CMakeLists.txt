@@ -5,7 +5,7 @@ set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-std=c99 -pedantic -Wall")
 
 add_definitions(-D_GNU_SOURCE)
 
-set(ECHOC_SRCS die.c echoc.c)
+set(ECHOC_SRCS log.c echoc.c)
 set(ECHOD_SRCS echod.c)
 
 add_executable(echoc ${ECHOC_SRCS})

@@ -21,13 +21,13 @@ rule UNINSTALL
   description = removing $in from $prefix/bin
   command = rm -f $prefix/bin/$in
 
-build die.o: COMPILE_CC die.c
+build log.o: COMPILE_CC log.c
 
 build echod.o: COMPILE_CC echod.c
-build echod: LINK die.o echod.o
+build echod: LINK log.o echod.o
 
 build echoc.o: COMPILE_CC echoc.c
-build echoc: LINK die.o echoc.o
+build echoc: LINK log.o echoc.o
 
 build clean: CLEAN
 
