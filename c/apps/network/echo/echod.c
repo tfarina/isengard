@@ -51,6 +51,13 @@ static void sigusr1_handler(int sig) {
   exit(EXIT_SUCCESS);
 }
 
+static const char *progname;
+
+static void usage(void) {
+  fprintf(stderr, "usage: %s [port]\n", progname);
+  exit(EXIT_FAILURE);
+}
+
 int main(int argc, char **argv) {
   struct sockaddr_in saddr;
   int port;
@@ -61,9 +68,10 @@ int main(int argc, char **argv) {
   int ret;
   pid_t pid;
 
+  progname = argv[0];
+
   if (argc != 2) {
-    fprintf(stderr, "usage: %s [port]\n", argv[0]);
-    exit(EXIT_FAILURE);
+    usage();
   }
 
   if (geteuid() != 0) {
