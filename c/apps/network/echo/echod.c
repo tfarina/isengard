@@ -22,7 +22,7 @@ static void logstatus(void) {
   printf("echod: status: %d\n", forked);
 }
 
-static void handle_client(int fd) {
+static void echo_stream(int fd) {
   char buf[BUFSIZE];
   int ret;
 
@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
 
     case 0:
       close(tcpfd);
-      handle_client(echofd);
+      echo_stream(echofd);
       break;
 
     default:
