@@ -119,7 +119,7 @@ int main(int argc, char **argv) {
   }
 
   fprintf(stderr,
-          "The server is now ready to accept connections on %s port %d\n",
+          "Server listening on %s port %d\n",
           ntop, port);
 
   signal(SIGCHLD, sigchld_handler);
