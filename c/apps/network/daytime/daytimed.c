@@ -23,7 +23,7 @@
 
 #include "log.h"
 
-#define DEFAULT_PORT 37
+#define DEFAULT_PORT 13
 #define BACKLOG 1024
 #define BUFSIZE 256
 

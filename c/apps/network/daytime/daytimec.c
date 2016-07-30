@@ -8,7 +8,7 @@
 
 #include "log.h"
 
-#define DEFAULT_PORT 37
+#define DEFAULT_PORT 13
 #define MAX_LINE 1024
 
 int main(int argc, char **argv) {
