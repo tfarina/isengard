@@ -1,3 +1,6 @@
 daytimed
 ========
 standalone daytime protocol server
+
+daytimed is a daemon service which implements the daytime protocol as specified in
+RFC 867 (https://tools.ietf.org/html/rfc867).
