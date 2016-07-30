@@ -55,12 +55,44 @@ static void sigchld_handler(int sig) {
   signal(SIGCHLD, sigchld_handler);
 }
 
+static void send_tcp_message(int sockfd) {
+  int client_fd;
+  pid_t pid;
+
+  if ((client_fd = accept(sockfd, NULL, NULL)) == -1) {
+    if (errno == EINTR) /* EINTR might happen on accept. */
+      return;
+    error("accept failed: %s", strerror(errno));
+    exit(EXIT_FAILURE);
+  }
+
+  ++forked;
+  logstatus();
+
+  pid = fork();
+  switch (pid) {
+    case -1:
+      close(sockfd);
+      close(client_fd);
+      perror("fork failed");
+      --forked;
+      logstatus();
+      break;
+
+    case 0:
+      close(sockfd);
+      daytime_stream(client_fd);
+
+    default:
+      close(client_fd); /* we are the parent so look for another connection. */
+      printf("timed: pid %d\n", pid);
+  }
+}
+
 int main(void) {
   struct sockaddr_in servaddr;
   int sockfd;
-  int client_fd;
   int reuse = 1;
-  pid_t pid;
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
@@ -99,34 +131,7 @@ int main(void) {
   logstatus();
 
   while (1) {
-    if ((client_fd = accept(sockfd, NULL, NULL)) == -1) {
-      if (errno == EINTR) /* EINTR might happen on accept. */
-        continue;
-      error("accept failed: %s", strerror(errno));
-      exit(EXIT_FAILURE);
-    }
-
-    ++forked;
-    logstatus();
-
-    pid = fork();
-    switch (pid) {
-      case -1:
-        close(sockfd);
-        close(client_fd);
-        perror("fork failed");
-        --forked;
-        logstatus();
-        break;
-
-      case 0:
-        close(sockfd);
-        daytime_stream(client_fd);
-
-      default:
-        close(client_fd); /* we are the parent so look for another connection. */
-        printf("timed: pid %d\n", pid);
-    }
+    send_tcp_message(sockfd);
   }
 
   return EXIT_SUCCESS;
