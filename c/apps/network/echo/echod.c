@@ -59,7 +59,8 @@ static void usage(void) {
 }
 
 int main(int argc, char **argv) {
-  struct sockaddr_in saddr;
+  struct addrinfo hints, *addrlist, *cur;
+  int rv;
   int port;
   int tcpfd;
   int reuse = 1;
@@ -84,25 +85,44 @@ int main(int argc, char **argv) {
   port = atoi(argv[1]);
   snprintf(strport, sizeof(strport), "%d", port);
 
-  memset(&saddr, 0, sizeof(saddr));
-  saddr.sin_family = AF_INET;
-  saddr.sin_addr.s_addr = htonl(INADDR_ANY);
-  saddr.sin_port = htons(port);
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_protocol = IPPROTO_TCP;
+  hints.ai_flags = AI_PASSIVE;
 
-  if ((tcpfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1) {
-    syslog(LOG_ERR, "socket failed: %s", strerror(errno));
+  if ((rv = getaddrinfo(NULL, "7", &hints, &addrlist)) != 0) {
+    syslog(LOG_ERR, "getaddrinfo failed: %s", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
 
-  if (setsockopt(tcpfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
-    syslog(LOG_ERR, "set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
-    close(tcpfd);
-    exit(EXIT_FAILURE);
+  /* Loop through all the results and bind to the first we can. */
+  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
+    if ((tcpfd = socket(cur->ai_family, cur->ai_socktype,
+                        cur->ai_protocol)) == -1) {
+      syslog(LOG_ERR, "socket failed: %s", strerror(errno));
+      continue;
+    }
+
+    if (setsockopt(tcpfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
+      syslog(LOG_ERR, "set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
+      close(tcpfd);
+      continue;
+    }
+
+    if (bind(tcpfd, cur->ai_addr, cur->ai_addrlen) == -1) {
+      syslog(LOG_ERR, "bind to port %s failed: %.200s", strport, strerror(errno));
+      close(tcpfd);
+      continue;
+    }
+
+    break;
   }
 
-  if (bind(tcpfd, (struct sockaddr *)&saddr, sizeof(saddr)) == -1) {
-    syslog(LOG_ERR, "bind to port %s failed: %.200s", strport, strerror(errno));
-    close(tcpfd);
+  freeaddrinfo(addrlist);
+
+  if (cur == NULL) {
+    syslog(LOG_ERR, "failed to bind");
     exit(EXIT_FAILURE);
   }
 
@@ -111,7 +131,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  if ((ret = getnameinfo((struct sockaddr *)&saddr, sizeof(saddr),
+  if ((ret = getnameinfo(cur->ai_addr, cur->ai_addrlen,
                          ntop, sizeof(ntop), strport, sizeof(strport),
                          NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
     syslog(LOG_ERR, "getnameinfo failed: %.100s", gai_strerror(ret));
