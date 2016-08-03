@@ -34,6 +34,52 @@ static void echo_stream(int fd) {
   exit(EXIT_SUCCESS);
 }
 
+static void send_tcp_message(int tcpfd) {
+  struct sockaddr_storage ss;
+  struct sockaddr *sa = (struct sockaddr *)&ss;
+  socklen_t sslen = sizeof(ss);
+  int echofd;
+  char strport[NI_MAXSERV], ntop[NI_MAXHOST];
+  int ret;
+  pid_t pid;
+
+  if ((echofd = accept(tcpfd, sa, &sslen)) == -1) {
+    syslog(LOG_ERR, "accept failed: %s", strerror(errno));
+    return;
+  }
+
+  if ((ret = getnameinfo(sa, sslen,
+                         ntop, sizeof(ntop), strport, sizeof(strport),
+                         NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
+    syslog(LOG_ERR, "getnameinfo failed: %.100s", gai_strerror(ret));
+    exit(EXIT_FAILURE);
+  }
+
+  syslog(LOG_INFO, "TCP connection from %s:%s", ntop, strport);
+  printf("TCP connection from %s:%s\n", ntop, strport);
+
+  ++forked;
+  logstatus();
+
+  pid = fork();
+  switch (pid) {
+  case -1:
+    close(echofd);
+    --forked;
+    logstatus();
+    break;
+
+  case 0:
+    close(tcpfd);
+    echo_stream(echofd);
+    break;
+
+  default:
+    close(echofd); /* we are the parent so look for another connection. */
+    printf("echod: pid %d\n", pid);
+  }
+}
+
 static void sigchld_handler(int sig) {
   pid_t pid;
   int status;
@@ -64,10 +110,8 @@ int main(int argc, char **argv) {
   int port;
   int tcpfd;
   int reuse = 1;
-  int echofd;
   char strport[NI_MAXSERV], ntop[NI_MAXHOST];
   int ret;
-  pid_t pid;
 
   progname = argv[0];
 
@@ -138,9 +182,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  fprintf(stderr,
-          "Server listening on %s port %d\n",
-          ntop, port);
+  fprintf(stderr, "Server listening on %s port %d\n", ntop, port);
 
   signal(SIGCHLD, sigchld_handler);
   signal(SIGUSR1, sigusr1_handler);
@@ -148,45 +190,7 @@ int main(int argc, char **argv) {
   logstatus();
 
   while (1) {
-    struct sockaddr_storage ss;
-    struct sockaddr *sa = (struct sockaddr *)&ss;
-    socklen_t sslen = sizeof(ss);
-
-    if ((echofd = accept(tcpfd, sa, &sslen)) == -1) {
-      syslog(LOG_ERR, "accept failed: %s", strerror(errno));
-      continue;
-    }
-
-    if ((ret = getnameinfo(sa, sslen,
-                           ntop, sizeof(ntop), strport, sizeof(strport),
-                           NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
-      syslog(LOG_ERR, "getnameinfo failed: %.100s", gai_strerror(ret));
-      exit(EXIT_FAILURE);
-    }
-
-    syslog(LOG_INFO, "TCP connection from %s:%s", ntop, strport);
-    printf("TCP connection from %s:%s\n", ntop, strport);
-
-    ++forked;
-    logstatus();
-
-    pid = fork();
-    switch (pid) {
-    case -1:
-      close(echofd);
-      --forked;
-      logstatus();
-      break;
-
-    case 0:
-      close(tcpfd);
-      echo_stream(echofd);
-      break;
-
-    default:
-      close(echofd); /* we are the parent so look for another connection. */
-      printf("echod: pid %d\n", pid);
-    }
+    send_tcp_message(tcpfd);
   }
 
   return EXIT_SUCCESS;
