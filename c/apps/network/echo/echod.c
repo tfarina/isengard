@@ -100,14 +100,13 @@ static void sigusr1_handler(int sig) {
 static const char *progname;
 
 static void usage(void) {
-  fprintf(stderr, "usage: %s [port]\n", progname);
+  fprintf(stderr, "usage: %s\n", progname);
   exit(EXIT_FAILURE);
 }
 
 int main(int argc, char **argv) {
   struct addrinfo hints, *addrlist, *cur;
   int rv;
-  int port;
   int tcpfd;
   int reuse = 1;
   char strport[NI_MAXSERV], ntop[NI_MAXHOST];
@@ -115,7 +114,7 @@ int main(int argc, char **argv) {
 
   progname = argv[0];
 
-  if (argc != 2) {
+  if (argc != 1) {
     usage();
   }
 
@@ -125,9 +124,6 @@ int main(int argc, char **argv) {
   }
 
   openlog("echod", LOG_PID | LOG_NDELAY, LOG_DAEMON);
-
-  port = atoi(argv[1]);
-  snprintf(strport, sizeof(strport), "%d", port);
 
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
@@ -182,7 +178,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  fprintf(stderr, "Server listening on %s port %d\n", ntop, port);
+  fprintf(stderr, "Server listening on %s port %d\n", ntop, 7);
 
   signal(SIGCHLD, sigchld_handler);
   signal(SIGUSR1, sigusr1_handler);
