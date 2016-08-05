@@ -11,5 +11,5 @@ set(ECHOD_SRCS echod.c)
 add_executable(echoc ${ECHOC_SRCS})
 add_executable(echod ${ECHOD_SRCS})
 
-install(TARGETS echoc RUNTIME DESTINATION bin)
-install(TARGETS echod RUNTIME DESTINATION bin)
+install(TARGETS echoc RUNTIME DESTINATION sbin)
+install(TARGETS echod RUNTIME DESTINATION sbin)
