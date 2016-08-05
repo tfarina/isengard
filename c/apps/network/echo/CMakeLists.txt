@@ -13,3 +13,4 @@ add_executable(echod ${ECHOD_SRCS})
 
 install(TARGETS echoc RUNTIME DESTINATION sbin)
 install(TARGETS echod RUNTIME DESTINATION sbin)
+install(FILES echod.8 DESTINATION ${CMAKE_INSTALL_PREFIX}/man/man8)
