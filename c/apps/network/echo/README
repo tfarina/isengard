@@ -1,0 +1,8 @@
+echod
+========
+an daemon implementation of the Echo Protocol.
+
+echod is a very useful debugging and measurement tool.
+
+It simply sends back to the originating source any data
+it receives.
