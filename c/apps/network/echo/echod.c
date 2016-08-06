@@ -111,6 +111,7 @@ int main(int argc, char **argv) {
   int reuse = 1;
   char strport[NI_MAXSERV], ntop[NI_MAXHOST];
   int ret;
+  fd_set set;
 
   progname = argv[0];
 
@@ -185,8 +186,19 @@ int main(int argc, char **argv) {
 
   logstatus();
 
+  FD_ZERO(&set);
+
   while (1) {
-    send_tcp_message(tcpfd);
+    FD_SET(tcpfd, &set);
+
+    if (select(tcpfd + 1, &set, NULL, NULL, NULL) < 0) {
+      syslog(LOG_ERR, "select failed: %s", strerror(errno));
+      continue;
+    }
+
+    if (tcpfd > -1 && FD_ISSET(tcpfd, &set)) {
+      send_tcp_message(tcpfd);
+    }
   }
 
   return EXIT_SUCCESS;
