@@ -19,7 +19,7 @@
 static unsigned int forked = 0; /* Number of child processes. */
 
 static void logstatus(void) {
-  printf("echod: status: %d\n", forked);
+  syslog(LOG_INFO, "num child forked: %d\n", forked);
 }
 
 static void echo_stream(int fd) {
@@ -56,7 +56,6 @@ static void send_tcp_message(int tcpfd) {
   }
 
   syslog(LOG_INFO, "TCP connection from %s:%s", ntop, strport);
-  printf("TCP connection from %s:%s\n", ntop, strport);
 
   ++forked;
   logstatus();
@@ -76,7 +75,7 @@ static void send_tcp_message(int tcpfd) {
 
   default:
     close(echofd); /* we are the parent so look for another connection. */
-    printf("echod: pid %d\n", pid);
+    syslog(LOG_INFO, "pid: %d\n", pid);
   }
 }
 
@@ -85,7 +84,7 @@ static void sigchld_handler(int sig) {
   int status;
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
     --forked;
-    printf("echod: end %d status %d\n", pid, status);
+    syslog(LOG_INFO, "pid %d status %d\n", pid, status);
     logstatus();
   }
   signal(SIGCHLD, sigchld_handler);
@@ -179,7 +178,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  fprintf(stderr, "Server listening on %s port %d\n", ntop, 7);
+  syslog(LOG_INFO, "Server listening on %s port %d\n", ntop, 7);
 
   signal(SIGCHLD, sigchld_handler);
   signal(SIGUSR1, sigusr1_handler);
