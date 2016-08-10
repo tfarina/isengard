@@ -123,6 +123,11 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
+  if (daemon(0, 0) == -1) {
+    fprintf(stderr, "%s: unable to daemonize\n", progname);
+    exit(EXIT_FAILURE);
+  }
+
   openlog("echod", LOG_PID | LOG_NDELAY, LOG_DAEMON);
 
   memset(&hints, 0, sizeof(hints));
