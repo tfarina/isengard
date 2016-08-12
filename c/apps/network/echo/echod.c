@@ -104,6 +104,8 @@ static void usage(void) {
 }
 
 int main(int argc, char **argv) {
+  int ch;
+  int debug = 0;
   struct addrinfo hints, *addrlist, *cur;
   int rv;
   int tcpfd;
@@ -114,7 +116,20 @@ int main(int argc, char **argv) {
 
   progname = argv[0];
 
-  if (argc != 1) {
+  while ((ch = getopt(argc, argv, "d")) != -1) {
+    switch (ch) {
+    case 'd':
+      debug = 1;
+      break;
+    default:
+      usage();
+      /* NOTREACHED */
+    }
+  }
+  argc -= optind;
+  argv += optind;
+
+  if (argc > 0) {
     usage();
   }
 
@@ -123,9 +138,11 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  if (daemon(0, 0) == -1) {
-    fprintf(stderr, "%s: unable to daemonize\n", progname);
-    exit(EXIT_FAILURE);
+  if (!debug) {
+    if (daemon(0, 0) == -1) {
+      fprintf(stderr, "%s: unable to daemonize\n", progname);
+      exit(EXIT_FAILURE);
+    }
   }
 
   openlog("echod", LOG_PID | LOG_NDELAY, LOG_DAEMON);
