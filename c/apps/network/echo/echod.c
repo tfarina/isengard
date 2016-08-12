@@ -113,7 +113,7 @@ static void sigusr1_handler(int sig) {
 
 
 static void usage(void) {
-  fprintf(stderr, "usage: %s\n", progname);
+  fprintf(stderr, "usage: %s [-d]\n", progname);
   exit(EXIT_FAILURE);
 }
 
