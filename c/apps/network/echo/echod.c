@@ -17,10 +17,12 @@
 #define BACKLOG 1024
 #define BUFSIZE 8129
 
+static const char *progname;
+
 static unsigned int forked = 0; /* Number of child processes. */
 
 static void log_init(void) {
-  openlog("echod", LOG_PID | LOG_NDELAY, LOG_DAEMON);
+  openlog(progname, LOG_PID | LOG_NDELAY, LOG_DAEMON);
 }
 
 static void log_info(const char *emsg, ...) {
@@ -109,7 +111,6 @@ static void sigusr1_handler(int sig) {
   exit(EXIT_SUCCESS);
 }
 
-static const char *progname;
 
 static void usage(void) {
   fprintf(stderr, "usage: %s\n", progname);
