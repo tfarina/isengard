@@ -3,6 +3,7 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <netdb.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -22,8 +23,16 @@ static void log_init(void) {
   openlog("echod", LOG_PID | LOG_NDELAY, LOG_DAEMON);
 }
 
+static void log_info(const char *emsg, ...) {
+  va_list ap;
+
+  va_start(ap, emsg);
+  vsyslog(LOG_INFO, emsg, ap);
+  va_end(ap);
+}
+
 static void logstatus(void) {
-  syslog(LOG_INFO, "num child forked: %d\n", forked);
+  log_info("num child forked: %d\n", forked);
 }
 
 static void echo_stream(int fd) {
@@ -59,7 +68,7 @@ static void send_tcp_message(int tcpfd) {
     exit(EXIT_FAILURE);
   }
 
-  syslog(LOG_INFO, "TCP connection from %s:%s", ntop, strport);
+  log_info("TCP connection from %s:%s", ntop, strport);
 
   ++forked;
   logstatus();
@@ -79,7 +88,7 @@ static void send_tcp_message(int tcpfd) {
 
   default:
     close(echofd); /* we are the parent so look for another connection. */
-    syslog(LOG_INFO, "pid: %d\n", pid);
+    log_info("pid: %d\n", pid);
   }
 }
 
@@ -88,14 +97,14 @@ static void sigchld_handler(int sig) {
   int status;
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
     --forked;
-    syslog(LOG_INFO, "pid %d status %d\n", pid, status);
+    log_info("pid %d status %d\n", pid, status);
     logstatus();
   }
   signal(SIGCHLD, sigchld_handler);
 }
 
 static void sigusr1_handler(int sig) {
-  syslog(LOG_INFO, "shutdown by user");
+  log_info("shutdown by user");
   closelog();
   exit(EXIT_SUCCESS);
 }
@@ -204,7 +213,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  syslog(LOG_INFO, "Server listening on %s port %d\n", ntop, 7);
+  log_info("Server listening on %s port %d\n", ntop, 7);
 
   signal(SIGCHLD, sigchld_handler);
   signal(SIGUSR1, sigusr1_handler);
