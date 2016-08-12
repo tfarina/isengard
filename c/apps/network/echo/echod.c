@@ -18,6 +18,10 @@
 
 static unsigned int forked = 0; /* Number of child processes. */
 
+static void log_init(void) {
+  openlog("echod", LOG_PID | LOG_NDELAY, LOG_DAEMON);
+}
+
 static void logstatus(void) {
   syslog(LOG_INFO, "num child forked: %d\n", forked);
 }
@@ -145,7 +149,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  openlog("echod", LOG_PID | LOG_NDELAY, LOG_DAEMON);
+  log_init();
 
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
