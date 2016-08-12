@@ -134,7 +134,7 @@ int main(int argc, char **argv) {
   }
 
   if (geteuid() != 0) {
-    fprintf(stderr, "%s: need root privileges\n", argv[0]);
+    fprintf(stderr, "%s: need root privileges\n", progname);
     exit(EXIT_FAILURE);
   }
 
