@@ -25,11 +25,15 @@ static void log_init(void) {
   openlog(progname, LOG_PID | LOG_NDELAY, LOG_DAEMON);
 }
 
+static void vlog(int pri, const char *fmt, va_list ap) {
+  vsyslog(pri, fmt, ap);
+}
+
 static void log_info(const char *emsg, ...) {
   va_list ap;
 
   va_start(ap, emsg);
-  vsyslog(LOG_INFO, emsg, ap);
+  vlog(LOG_INFO, emsg, ap);
   va_end(ap);
 }
 
