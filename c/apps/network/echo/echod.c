@@ -14,6 +14,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#define ECHO_PORT 7
 #define BACKLOG 1024
 #define BUFSIZE 8129
 
@@ -124,6 +125,7 @@ static void usage(void) {
 int main(int argc, char **argv) {
   int ch;
   int debug = 0;
+  char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
   int tcpfd;
@@ -165,13 +167,15 @@ int main(int argc, char **argv) {
 
   log_init();
 
+  snprintf(portstr, sizeof(portstr), "%d", ECHO_PORT);
+
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_protocol = IPPROTO_TCP;
   hints.ai_flags = AI_PASSIVE;
 
-  if ((rv = getaddrinfo(NULL, "7", &hints, &addrlist)) != 0) {
+  if ((rv = getaddrinfo(NULL, portstr, &hints, &addrlist)) != 0) {
     syslog(LOG_ERR, "getaddrinfo failed: %s", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
@@ -218,7 +222,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  log_info("Server listening on %s port %d\n", ntop, 7);
+  log_info("Server listening on %s port %d\n", ntop, ECHO_PORT);
 
   signal(SIGCHLD, sigchld_handler);
   signal(SIGUSR1, sigusr1_handler);
