@@ -3,6 +3,7 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <netdb.h>
+#include <pwd.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,6 +16,7 @@
 #include <unistd.h>
 
 #define ECHO_PORT 7
+#define ECHOD_USER "_echod"
 #define BACKLOG 1024
 #define BUFSIZE 8129
 
@@ -125,6 +127,7 @@ static void usage(void) {
 int main(int argc, char **argv) {
   int ch;
   int debug = 0;
+  struct passwd *pw;
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
@@ -155,6 +158,11 @@ int main(int argc, char **argv) {
 
   if (geteuid() != 0) {
     fprintf(stderr, "%s: need root privileges\n", progname);
+    exit(EXIT_FAILURE);
+  }
+
+  if ((pw = getpwnam(ECHOD_USER)) == NULL) {
+    fprintf(stderr, "unknown user %s\n", ECHOD_USER);
     exit(EXIT_FAILURE);
   }
 
