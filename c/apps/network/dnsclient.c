@@ -23,7 +23,7 @@ struct dnsquestion {
   uint16_t qclass;
 };
 
-#define FLAG_QR 0x8000U /* QueRy - query flag */
+#define FLAG_QR 0x8000U /* Query Response flag */
 #define FLAG_AA 0x0400U /* Authoritative Answer - server flag */
 #define FLAG_TC 0x0200U /* TrunCated - server flag */
 #define FLAG_RD 0x0100U /* Recursion Desired - query flag */
