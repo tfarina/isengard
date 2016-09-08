@@ -54,4 +54,15 @@ function test_input($data) {
   return $data;
 }
 
+function filter($data) {
+  $data = trim(htmlentities(strip_tags($data)));
+
+  if (get_magic_quotes_gpc())
+    $data = stripslashes($data);
+
+  $data = mysql_real_escape_string($data);
+
+  return $data;
+}
+
 ?>
