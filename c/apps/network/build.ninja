@@ -52,4 +52,4 @@ build unixserver: link unixserver.o
 
 build clean: CLEAN
 
-default timed
+default dnsclient
