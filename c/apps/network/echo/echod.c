@@ -24,12 +24,21 @@ static const char *progname;
 
 static unsigned int forked = 0; /* Number of child processes. */
 
-static void log_init(void) {
-  openlog(progname, LOG_PID | LOG_NDELAY, LOG_DAEMON);
+static int g_debug;
+
+static void log_init(int n_debug) {
+  g_debug = n_debug;
+
+  if (!g_debug)
+    openlog(progname, LOG_PID | LOG_NDELAY, LOG_DAEMON);
 }
 
 static void vlog(int pri, const char *fmt, va_list ap) {
-  vsyslog(pri, fmt, ap);
+  if (g_debug) {
+    /* Write to stderr */
+  } else {
+    vsyslog(pri, fmt, ap);
+  }
 }
 
 static void log_info(const char *emsg, ...) {
@@ -173,7 +182,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  log_init();
+  log_init(0);
 
   snprintf(portstr, sizeof(portstr), "%d", ECHO_PORT);
 
