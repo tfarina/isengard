@@ -1,0 +1,13 @@
+
+
+Erlang - Getting Started
+
+http://erlang.org/doc/getting_started/seq_prog.html
+
+$ erl
+> c(hello).
+> hello:hello_world().
+
+$ erl -compile hello
+$ erl -noshell -s hello hello_world -s init stop
+$ erlc hello.erl
