@@ -9,3 +9,6 @@ rule link
 
 build absolutepath.o: cc absolutepath.cc
 build absolutepath: link absolutepath.o
+
+build pathexists.o: cc pathexists.cc
+build pathexists: link pathexists.o
