@@ -130,7 +130,7 @@ static void sigchld_handler(int sig) {
   signal(SIGCHLD, sigchld_handler);
 }
 
-static void sigusr1_handler(int sig) {
+static void sigterm_handler(int sig) {
   log_info("shutdown by user");
   closelog();
   exit(EXIT_SUCCESS);
@@ -251,7 +251,7 @@ int main(int argc, char **argv) {
   log_info("Server listening on %s port %d\n", ntop, ECHO_PORT);
 
   signal(SIGCHLD, sigchld_handler);
-  signal(SIGUSR1, sigusr1_handler);
+  signal(SIGTERM, sigterm_handler);
 
   logstatus();
 
