@@ -34,8 +34,17 @@ static void log_init(int n_debug) {
 }
 
 static void vlog(int pri, const char *fmt, va_list ap) {
+  char *nfmt;
   if (g_debug) {
     /* Write to stderr */
+    if (asprintf(&nfmt, "%s\n", fmt) == -1) {
+      vfprintf(stderr, fmt, ap);
+      fprintf(stderr, "\n");
+    } else {
+      vfprintf(stderr, nfmt, ap);
+      free(nfmt);
+    }
+    fflush(stderr);
   } else {
     vsyslog(pri, fmt, ap);
   }
