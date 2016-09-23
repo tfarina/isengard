@@ -1,1 +1,9 @@
 https://www.bazel.io/versions/master/docs/tutorial/java.html
+
+To build the Java binary:
+
+$ bazel build //:my-runner
+
+To run the Java binary:
+
+$ ./bazel-bin/my-runner
