@@ -58,6 +58,14 @@ static void log_info(const char *emsg, ...) {
   va_end(ap);
 }
 
+static void log_error(const char *emsg, ...) {
+  va_list ap;
+
+  va_start(ap, emsg);
+  vlog(LOG_ERR, emsg, ap);
+  va_end(ap);
+}
+
 static void logstatus(void) {
   log_info("num child forked: %d\n", forked);
 }
@@ -84,14 +92,14 @@ static void send_tcp_message(int tcpfd) {
   pid_t pid;
 
   if ((echofd = accept(tcpfd, sa, &sslen)) == -1) {
-    syslog(LOG_ERR, "accept failed: %s", strerror(errno));
+    log_error("accept failed: %s", strerror(errno));
     return;
   }
 
   if ((ret = getnameinfo(sa, sslen,
                          ntop, sizeof(ntop), strport, sizeof(strport),
                          NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
-    syslog(LOG_ERR, "getnameinfo failed: %.100s", gai_strerror(ret));
+    log_error("getnameinfo failed: %.100s", gai_strerror(ret));
     exit(EXIT_FAILURE);
   }
 
@@ -202,7 +210,7 @@ int main(int argc, char **argv) {
   hints.ai_flags = AI_PASSIVE;
 
   if ((rv = getaddrinfo(NULL, portstr, &hints, &addrlist)) != 0) {
-    syslog(LOG_ERR, "getaddrinfo failed: %s", gai_strerror(rv));
+    log_error("getaddrinfo failed: %s", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
 
@@ -210,18 +218,18 @@ int main(int argc, char **argv) {
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
     if ((tcpfd = socket(cur->ai_family, cur->ai_socktype,
                         cur->ai_protocol)) == -1) {
-      syslog(LOG_ERR, "socket failed: %s", strerror(errno));
+      log_error("socket failed: %s", strerror(errno));
       continue;
     }
 
     if (setsockopt(tcpfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
-      syslog(LOG_ERR, "set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
+      log_error("set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
       close(tcpfd);
       continue;
     }
 
     if (bind(tcpfd, cur->ai_addr, cur->ai_addrlen) == -1) {
-      syslog(LOG_ERR, "bind to port %s failed: %.200s", strport, strerror(errno));
+      log_error("bind to port %s failed: %.200s", strport, strerror(errno));
       close(tcpfd);
       continue;
     }
@@ -232,19 +240,19 @@ int main(int argc, char **argv) {
   freeaddrinfo(addrlist);
 
   if (cur == NULL) {
-    syslog(LOG_ERR, "failed to bind");
+    log_error("failed to bind");
     exit(EXIT_FAILURE);
   }
 
   if (listen(tcpfd, BACKLOG) == -1) {
-    syslog(LOG_ERR, "listen on %d failed: %s", tcpfd, strerror(errno));
+    log_error("listen on %d failed: %s", tcpfd, strerror(errno));
     exit(EXIT_FAILURE);
   }
 
   if ((ret = getnameinfo(cur->ai_addr, cur->ai_addrlen,
                          ntop, sizeof(ntop), strport, sizeof(strport),
                          NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
-    syslog(LOG_ERR, "getnameinfo failed: %.100s", gai_strerror(ret));
+    log_error("getnameinfo failed: %.100s", gai_strerror(ret));
     exit(EXIT_FAILURE);
   }
 
@@ -261,7 +269,7 @@ int main(int argc, char **argv) {
     FD_SET(tcpfd, &set);
 
     if (select(tcpfd + 1, &set, NULL, NULL, NULL) < 0) {
-      syslog(LOG_ERR, "select failed: %s", strerror(errno));
+      log_error("select failed: %s", strerror(errno));
       continue;
     }
 
