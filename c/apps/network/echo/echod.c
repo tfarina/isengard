@@ -92,7 +92,9 @@ static void send_tcp_message(int tcpfd) {
   pid_t pid;
 
   if ((echofd = accept(tcpfd, sa, &sslen)) == -1) {
-    log_error("accept failed: %s", strerror(errno));
+    if (errno != EINTR) {
+      log_error("accept failed: %s", strerror(errno));
+    }
     return;
   }
 
