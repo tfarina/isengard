@@ -3,9 +3,10 @@
 #include <string>
 
 bool PathExists(const std::string& path) {
-  return access(path.c_str(), R_OK) == 0;
+  return access(path.c_str(), F_OK) == 0;
 }
-int main(void) {
+
+int main(int argc, char **argv) {
   if (!PathExists("non-existant-file.txt")) {
     printf("file does not exist.\n");
   } else {
