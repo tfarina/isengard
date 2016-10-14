@@ -1,6 +1,15 @@
+Erlang
+
+* Installation instructions
+
+$ cd ~/Downloads
+$ wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+$ sudo dpkg -i erlang-solutions_1.0_all.deb
+$ sudo apt-get update
+$ sudo apt-get install erlang
 
 
-Erlang - Getting Started
+* Getting Started
 
 http://erlang.org/doc/getting_started/seq_prog.html
 
