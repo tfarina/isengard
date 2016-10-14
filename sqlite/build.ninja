@@ -40,7 +40,7 @@ build users.cgi: link $builddir/html.o $builddir/users.o
   libs = -lsqlite3
 
 # CLI
-build $builddir/sqlite3.o: cc deps/sqlite3.c
+build $builddir/sqlite3.o: cc third_party/sqlite/amalgamation/sqlite3.c
   cflags =
 
 build $builddir_cli/db.o: cc cli/db.c
