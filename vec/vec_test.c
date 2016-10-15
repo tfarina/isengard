@@ -13,7 +13,7 @@ int main(void)
         vec_add(&files, "chromium.zip");
 
         for (i = 0; i < files.len; i++) {
-                printf("%s\n", files.p[i]);
+                printf("%s\n", files.strs[i]);
         }
 
         vec_free(&files);
