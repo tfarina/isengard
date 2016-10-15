@@ -6,7 +6,7 @@ void vec_grow(Vec *v, int n);
 
 void vec_init(Vec *v)
 {
-	v->p = nil;
+	v->strs = nil;
 	v->len = 0;
 	v->cap = 0;
 }
@@ -16,8 +16,8 @@ void vec_reset(Vec *v)
 	int i;
 
         for (i = 0; i < v->len; i++) {
-                xfree(v->p[i]);
-		v->p[i] = nil;
+                xfree(v->strs[i]);
+		v->strs[i] = nil;
 	}
 	v->len = 0;
 }
@@ -25,7 +25,7 @@ void vec_reset(Vec *v)
 void vec_free(Vec *v)
 {
 	vec_reset(v);
-	xfree(v->p);
+	xfree(v->strs);
 	vec_init(v);
 }
 
@@ -40,16 +40,16 @@ void vec_grow(Vec *v, int n)
                 v->cap = 2 * want;
                 if(v->cap < 64)
 			v->cap = 64;
-                v->p = xrealloc(v->p, v->cap * sizeof v->p[0]);
+                v->strs = xrealloc(v->strs, v->cap * sizeof v->strs[0]);
         }
 }
 
-void vec_add(Vec *v, char *p)
+void vec_add(Vec *v, char *str)
 {
 	vec_grow(v, 1);
-	if(p != nil)
-		p = xstrdup(p);
-	v->p[v->len++] = p;
+	if(str != nil)
+		str = xstrdup(str);
+	v->strs[v->len++] = str;
 }
 
 void vec_copy(Vec *dst, char **src, int srclen)

@@ -1,15 +1,15 @@
 #ifndef VEC_H_
 #define VEC_H_
 
-// The invariant with the vectors is that v->p[0:v->len] is allocated
-// strings that are owned by the vector.  The data beyond v->len may
-// be garbage.
+// The invariant with the vectors is that v->strs[0:v->len] is allocated
+// strings that are owned by the vector. The data beyond v->len may be
+// garbage.
 
 // A Vec is a string vector, like Go's []string.
 typedef struct Vec Vec;
 struct Vec
 {
-	char **p;
+	char **strs;
 	int len;
 	int cap;
 };
