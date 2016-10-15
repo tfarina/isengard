@@ -6,13 +6,11 @@
 // garbage.
 
 // A Vec is a string vector, like Go's []string.
-typedef struct Vec Vec;
-struct Vec
-{
+typedef struct {
 	char **strs;
 	int len;
 	int cap;
-};
+} Vec;
 
 // vec_init prepares an uninitialized vector for use.
 void vec_init(Vec *v);
