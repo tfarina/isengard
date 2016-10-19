@@ -9,13 +9,6 @@
 /* The name of the user database file.  */
 static const char user_db_fname[] = "users.db";
 
-static void close_user_db(sqlite3 *db) {
-  int rv;
-  if ((rv = sqlite3_close(db)) != SQLITE_OK) {
-    fprintf(stderr, "failed to close the user db: %s\n", sqlite3_errstr(rv));
-  }
-}
-
 /* Lists records from the user table. */
 static int list_user_records(sqlite3 *db) {
   sqlite3_stmt *stmt;
@@ -54,7 +47,7 @@ static int open_user_db(void) {
   }
 
   if (db_user_create_table(db)) {
-    close_user_db(db);
+    db_close(db);
     return -1;
   }
 
@@ -70,7 +63,7 @@ int main(int argc, char **argv) {
 
   rv = list_user_records(db);
 
-  close_user_db(db);
+  db_close(db);
 
   return rv;
 }
