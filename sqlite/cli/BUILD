@@ -20,3 +20,19 @@ cc_binary(
     copts = ["-std=c99"],
     linkopts = [ "-pthread", "-ldl" ],
 )
+
+cc_binary(
+    name = "update",
+    srcs = [ "update.c" ],
+    deps = [ ":cli" ],
+    copts = ["-std=c99"],
+    linkopts = [ "-pthread", "-ldl" ],
+)
+
+cc_binary(
+    name = "delete",
+    srcs = [ "delete.c" ],
+    deps = [ ":cli" ],
+    copts = ["-std=c99"],
+    linkopts = [ "-pthread", "-ldl" ],
+)
