@@ -1,4 +1,4 @@
-licenses(["notice"])  # Apa
+licenses(["notice"])  # Apache 2.0
 
 cc_library(
     name = "sqlite3",
