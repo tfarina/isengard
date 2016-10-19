@@ -12,3 +12,11 @@ cc_binary(
     copts = ["-std=c99"],
     linkopts = [ "-pthread", "-ldl" ],
 )
+
+cc_binary(
+    name = "insert",
+    srcs = [ "insert.c" ],
+    deps = [ ":cli" ],
+    copts = ["-std=c99"],
+    linkopts = [ "-pthread", "-ldl" ],
+)
