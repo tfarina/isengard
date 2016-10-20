@@ -23,3 +23,8 @@ void db_close(sqlite3 *db) {
     fprintf(stderr, "failed to close the database: %s\n", sqlite3_errstr(rv));
   }
 }
+
+void sql_stmt_free(sqlite3_stmt *stmt) {
+  sqlite3_finalize(stmt);
+  stmt = NULL;
+}
