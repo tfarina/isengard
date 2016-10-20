@@ -9,6 +9,11 @@
 /* The name of the user database file.  */
 static const char user_db_fname[] = "users.db";
 
+static void sql_stmt_free(sqlite3_stmt *stmt) {
+  sqlite3_finalize(stmt);
+  stmt = NULL;
+}
+
 /* Lists records from the user table. */
 static int list_user_records(sqlite3 *db) {
   sqlite3_stmt *stmt;
@@ -33,7 +38,7 @@ static int list_user_records(sqlite3 *db) {
     printf("\n");
   }
 
-  sqlite3_finalize(stmt);
+  sql_stmt_free(stmt);
 
   return 0;
 }
