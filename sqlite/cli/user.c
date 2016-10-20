@@ -50,3 +50,34 @@ int db_user_exists(sqlite3* db, const char* username) {
   sqlite3_finalize(stmt);
   return rc;
 }
+
+int user_add(sqlite3* db,
+             const char* username,
+             const char* password,
+             const char* email) {
+  sqlite3_stmt* stmt;
+
+  const char *sql = "INSERT INTO user (login, pw, email) VALUES (?1, ?2, ?3);";
+
+  if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+    fprintf(stderr, "error preparing insert statement: %s\n",
+            sqlite3_errmsg(db));
+    /* TODO: close db here. */
+    return -1;
+  }
+
+  sqlite3_bind_text(stmt, 1, username, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 2, password, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 3, email, -1, SQLITE_STATIC);
+
+  if (sqlite3_step(stmt) != SQLITE_DONE) {
+    fprintf(stderr, "error inserting into user table: %s\n",
+            sqlite3_errmsg(db));
+    return -1;
+  }
+
+  sqlite3_finalize(stmt);
+  stmt = NULL;
+
+  return 0;
+}

@@ -10,4 +10,9 @@ int db_user_create_table(sqlite3* db);
 /* Returns 0 if the user does not exists, otherwise returns 1. */
 int db_user_exists(sqlite3* db, const char* username);
 
+int user_add(sqlite3* db,
+             const char* username,
+             const char* password,
+             const char* email);
+
 #endif  /* CLI_USER_H_ */
