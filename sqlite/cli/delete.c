@@ -28,8 +28,7 @@ static int delete_user_record(sqlite3 *db, const char *username) {
     return -1;
   }
 
-  sqlite3_finalize(stmt);
-  stmt = NULL;
+  sql_stmt_free(stmt);
 
   return 0;
 }

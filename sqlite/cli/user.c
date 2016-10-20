@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 
+#include "db.h"
+
 int db_user_create_table(sqlite3* db) {
   int rv;
   sqlite3_stmt *stmt;
@@ -20,7 +22,9 @@ int db_user_create_table(sqlite3* db) {
   }
 
   rv = sqlite3_step(stmt);
-  sqlite3_finalize(stmt);
+
+  sql_stmt_free(stmt);
+
   if (rv != SQLITE_DONE) {
     fprintf(stderr, "error creating user table: %s\n", sqlite3_errstr(rv));
     /* TODO: close db */
@@ -47,7 +51,8 @@ int db_user_exists(sqlite3* db, const char* username) {
     rc = 1;
   }
 
-  sqlite3_finalize(stmt);
+  sql_stmt_free(stmt);
+
   return rc;
 }
 
@@ -76,8 +81,7 @@ int user_add(sqlite3* db,
     return -1;
   }
 
-  sqlite3_finalize(stmt);
-  stmt = NULL;
+  sql_stmt_free(stmt);
 
   return 0;
 }

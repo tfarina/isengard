@@ -48,8 +48,7 @@ static int db_user_update_email(sqlite3* db,
     return -1;
   }
 
-  sqlite3_finalize(stmt);
-  stmt = NULL;
+  sql_stmt_free(stmt);
 
   return 0;
 }
