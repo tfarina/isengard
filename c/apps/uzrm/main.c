@@ -14,18 +14,20 @@ static struct builtin_cmd {
         const char *name;
         int (*exec)(int, char **);
 } cmds[] = {
-  { "add", cmd_add },
-  { "delete", cmd_del },
   { "list", cmd_list },
+  { "add", cmd_add },
+  { "update", cmd_update },
+  { "delete", cmd_del },
 };
 
 static void usage(void) {
         static const char *usage_msg =
                 "usage: %s COMMAND [ARGS]\n\n"
                 "The commands are:\n"
-                "   add       Adds a new user\n"
-                "   delete    Deletes the specified user\n"
                 "   list      Lists all users\n"
+                "   add       Adds a new user\n"
+                "   update    Update a user\n"
+                "   delete    Deletes the specified user\n"
                 "";
         fprintf(stderr, usage_msg, progname);
         exit(EXIT_FAILURE);

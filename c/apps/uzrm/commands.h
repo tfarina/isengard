@@ -1,8 +1,9 @@
-#ifndef CLI_COMMANDS_H_
-#define CLI_COMMANDS_H_
+#ifndef COMMANDS_H_
+#define COMMANDS_H_
 
-int cmd_add(int, char **);
-int cmd_del(int, char **);
 int cmd_list(int, char **);
+int cmd_add(int, char **);
+int cmd_update(int, char **);
+int cmd_del(int, char **);
 
-#endif  /* CLI_COMMANDS_H_ */
+#endif  /* COMMANDS_H_ */

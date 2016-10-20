@@ -11,10 +11,11 @@ rule compile
 rule link
   command = $cc $in -o $out
 
-build $builddir/cmd_add.o: compile cmd_add.c
-build $builddir/cmd_del.o: compile cmd_del.c
 build $builddir/cmd_list.o: compile cmd_list.c
+build $builddir/cmd_add.o: compile cmd_add.c
+build $builddir/cmd_update.o: compile cmd_update.c
+build $builddir/cmd_del.o: compile cmd_del.c
 build $builddir/main.o: compile main.c
 
 build $builddir/uzrm: link $builddir/cmd_add.o $builddir/cmd_del.o $
-  $builddir/cmd_list.o $builddir/main.o
+  $builddir/cmd_list.o $builddir/cmd_update.o $builddir/main.o
