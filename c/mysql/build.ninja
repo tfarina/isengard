@@ -15,7 +15,7 @@ build mysql_version: link mysql_version.o
 build populate.o: compile populate.c
 build populate: link populate.o
 
-build show.o: compile show.c
-build show: link show.o
+build list_bookmarks.o: compile list_bookmarks.c
+build list_bookmarks: link list_bookmarks.o
 
-default mysql_version populate show
+default mysql_version populate list_bookmarks

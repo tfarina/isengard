@@ -78,9 +78,9 @@ c/apps/uzrm/out
 c/mysql/*.o
 c/mysql/.ninja_deps
 c/mysql/.ninja_log
+c/mysql/list_bookmarks
 c/mysql/mysql_version
 c/mysql/populate
-c/mysql/show
 c/tools/md5/*.o
 c/tools/md5/.ninja_deps
 c/tools/md5/.ninja_log
