@@ -36,3 +36,19 @@ cc_binary(
     copts = ["-std=c99"],
     linkopts = [ "-pthread", "-ldl" ],
 )
+
+cc_binary(
+    name = "create",
+    srcs = [ "create.c" ],
+    deps = [ ":cli" ],
+    copts = ["-std=c99"],
+    linkopts = [ "-pthread", "-ldl" ],
+)
+
+cc_binary(
+    name = "all",
+    srcs = [ "all.c" ],
+    deps = [ ":cli" ],
+    copts = ["-std=c99"],
+    linkopts = [ "-pthread", "-ldl" ],
+)
