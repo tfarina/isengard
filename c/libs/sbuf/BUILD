@@ -7,5 +7,5 @@ cc_library(
 cc_test(
     name = "sbuf_test",
     srcs = ["sbuf_test.c"],
-    deps = [":sbuf"]
+    deps = [":sbuf"],
 )
