@@ -90,6 +90,10 @@ c++/libs/read_file/out
 c++/sfml/examples/circle/circle
 d/hello/hello
 d/hello/hello.o
+erlang/hello.beam
+erlang/network/echo/echod.beam
+erlang/tut1.beam
+erlang/tut2.beam
 go/fetch
 go/git_log
 go/hello

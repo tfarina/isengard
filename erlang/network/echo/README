@@ -1,0 +1,6 @@
+$ erl
+> c(echod).
+> echod:listen(7000).
+
+In another terminal window:
+$ telnet 127.0.0.1 7000
