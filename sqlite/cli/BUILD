@@ -1,54 +1,78 @@
 cc_library(
     name = "cli",
-    srcs = [ "db.c", "user.c" ],
-    hdrs = [ "db.h", "user.h" ],
-    deps = [ "//third_party/sqlite:sqlite3" ],
+    srcs = [
+        "db.c",
+        "user.c",
+    ],
+    hdrs = [
+        "db.h",
+        "user.h",
+    ],
+    deps = ["//third_party/sqlite:sqlite3"],
 )
 
 cc_binary(
     name = "list",
-    srcs = [ "list.c" ],
-    deps = [ ":cli" ],
+    srcs = ["list.c"],
     copts = ["-std=c99"],
-    linkopts = [ "-pthread", "-ldl" ],
+    linkopts = [
+        "-pthread",
+        "-ldl",
+    ],
+    deps = [":cli"],
 )
 
 cc_binary(
     name = "insert",
-    srcs = [ "insert.c" ],
-    deps = [ ":cli" ],
+    srcs = ["insert.c"],
     copts = ["-std=c99"],
-    linkopts = [ "-pthread", "-ldl" ],
+    linkopts = [
+        "-pthread",
+        "-ldl",
+    ],
+    deps = [":cli"],
 )
 
 cc_binary(
     name = "update",
-    srcs = [ "update.c" ],
-    deps = [ ":cli" ],
+    srcs = ["update.c"],
     copts = ["-std=c99"],
-    linkopts = [ "-pthread", "-ldl" ],
+    linkopts = [
+        "-pthread",
+        "-ldl",
+    ],
+    deps = [":cli"],
 )
 
 cc_binary(
     name = "delete",
-    srcs = [ "delete.c" ],
-    deps = [ ":cli" ],
+    srcs = ["delete.c"],
     copts = ["-std=c99"],
-    linkopts = [ "-pthread", "-ldl" ],
+    linkopts = [
+        "-pthread",
+        "-ldl",
+    ],
+    deps = [":cli"],
 )
 
 cc_binary(
     name = "create",
-    srcs = [ "create.c" ],
-    deps = [ ":cli" ],
+    srcs = ["create.c"],
     copts = ["-std=c99"],
-    linkopts = [ "-pthread", "-ldl" ],
+    linkopts = [
+        "-pthread",
+        "-ldl",
+    ],
+    deps = [":cli"],
 )
 
 cc_binary(
     name = "all",
-    srcs = [ "all.c" ],
-    deps = [ ":cli" ],
+    srcs = ["all.c"],
     copts = ["-std=c99"],
-    linkopts = [ "-pthread", "-ldl" ],
+    linkopts = [
+        "-pthread",
+        "-ldl",
+    ],
+    deps = [":cli"],
 )
