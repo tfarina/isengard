@@ -1,7 +1,0 @@
-Building:
-
-$ ninja
-
-Running:
-
-$ ./out/json_load_dump_file Bookmarks bookmarks
