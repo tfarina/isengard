@@ -23,12 +23,15 @@ static int list_user_records(sqlite3 *db) {
   // http://www.csl.mtu.edu/cs1141/www/examples/sqlite/sqlite_select.c
   int col_width[] = {12, 9, 5, 19, 0};
 
-  printf(" |     uid   |    login  |     pw    |         email     |\n");
-  printf(" |-----------|-----------|-----------|-------------------|\n");
+  printf("      uid   |    login  |     pw    |         email     \n");
+  printf(" -----------+-----------+-----------+-------------------\n");
 
   while (sqlite3_step(stmt) == SQLITE_ROW) {
     for (int i = 0; i < sqlite3_column_count(stmt); i++) {
-      printf(" | %*s", col_width[1], sqlite3_column_text(stmt, i));
+      printf(" %*s", col_width[1], sqlite3_column_text(stmt, i));
+      if (i < sqlite3_column_count(stmt) - 1) {
+        printf("  | ");
+      }
     }
     printf("\n");
   }
