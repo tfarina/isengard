@@ -12,10 +12,10 @@ rule link
 build mysql_version.o: compile mysql_version.c
 build mysql_version: link mysql_version.o
 
-build populate.o: compile populate.c
-build populate: link populate.o
-
 build list_bookmarks.o: compile list_bookmarks.c
 build list_bookmarks: link list_bookmarks.o
 
-default mysql_version populate list_bookmarks
+build insert_bookmark.o: compile insert_bookmark.c
+build insert_bookmark: link insert_bookmark.o
+
+default mysql_version list_bookmarks insert_bookmark
