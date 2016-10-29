@@ -7,12 +7,6 @@ void fatal(char *msg, ...)
 {
 }
 
-void xfree(void* p)
-{
-        free(p);
-}
-
-
 char* xstrdup(char *p)
 {
 	p = strdup(p);

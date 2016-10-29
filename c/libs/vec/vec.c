@@ -18,7 +18,7 @@ void vec_reset(Vec *v)
 	int i;
 
         for (i = 0; i < v->len; i++) {
-                xfree(v->strs[i]);
+                free(v->strs[i]);
 		v->strs[i] = NULL;
 	}
 	v->len = 0;
@@ -27,7 +27,7 @@ void vec_reset(Vec *v)
 void vec_free(Vec *v)
 {
 	vec_reset(v);
-	xfree(v->strs);
+	free(v->strs);
 	vec_init(v);
 }
 
