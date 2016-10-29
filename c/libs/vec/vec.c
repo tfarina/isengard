@@ -1,12 +1,14 @@
 #include "vec.h"
 
+#include <stdlib.h>
+
 #include "os.h"
 
 void vec_grow(Vec *v, int n);
 
 void vec_init(Vec *v)
 {
-	v->strs = nil;
+	v->strs = NULL;
 	v->len = 0;
 	v->cap = 0;
 }
@@ -17,7 +19,7 @@ void vec_reset(Vec *v)
 
         for (i = 0; i < v->len; i++) {
                 xfree(v->strs[i]);
-		v->strs[i] = nil;
+		v->strs[i] = NULL;
 	}
 	v->len = 0;
 }
@@ -47,7 +49,7 @@ void vec_grow(Vec *v, int n)
 void vec_add(Vec *v, char *str)
 {
 	vec_grow(v, 1);
-	if(str != nil)
+	if(str != NULL)
 		str = xstrdup(str);
 	v->strs[v->len++] = str;
 }

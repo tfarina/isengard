@@ -16,7 +16,7 @@ void xfree(void* p)
 char* xstrdup(char *p)
 {
 	p = strdup(p);
-        if (p == nil)
+        if (p == NULL)
                 fatal("out of memory");
 	return p;
 }
@@ -24,7 +24,7 @@ char* xstrdup(char *p)
 void* xrealloc(void *p, int n)
 {
 	p = realloc(p, n);
-        if (p == nil)
+        if (p == NULL)
                 fatal("out of memory");
 	return p;
 }
