@@ -248,6 +248,7 @@ int main(int argc, char **argv) {
 
   if (listen(tcpfd, BACKLOG) == -1) {
     log_error("listen on %d failed: %s", tcpfd, strerror(errno));
+    close(tcpfd);
     exit(EXIT_FAILURE);
   }
 
