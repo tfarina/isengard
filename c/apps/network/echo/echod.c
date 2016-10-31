@@ -162,7 +162,6 @@ int main(int argc, char **argv) {
   int tcpfd;
   int reuse = 1;
   char strport[NI_MAXSERV], ntop[NI_MAXHOST];
-  int ret;
   fd_set set;
 
   progname = argv[0];
@@ -252,10 +251,10 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  if ((ret = getnameinfo(cur->ai_addr, cur->ai_addrlen,
-                         ntop, sizeof(ntop), strport, sizeof(strport),
-                         NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
-    log_error("getnameinfo failed: %.100s", gai_strerror(ret));
+  if ((rv = getnameinfo(cur->ai_addr, cur->ai_addrlen,
+                        ntop, sizeof(ntop), strport, sizeof(strport),
+                        NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
+    log_error("getnameinfo failed: %.100s", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
 
