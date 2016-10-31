@@ -259,7 +259,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  log_info("Server listening on %s port %d\n", ntop, ECHO_PORT);
+  log_info("Server listening on %s port %s\n", ntop, portstr);
 
   signal(SIGCHLD, sigchld_handler);
   signal(SIGTERM, sigterm_handler);
