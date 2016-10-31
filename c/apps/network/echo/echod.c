@@ -201,7 +201,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  log_init(0);
+  log_init(debug);
 
   snprintf(portstr, sizeof(portstr), "%d", ECHO_PORT);
 
