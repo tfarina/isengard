@@ -15,9 +15,50 @@
 
 #define BUFSIZE 4096
 
+int tcp_socket_connect(char *host, char *port) {
+  struct addrinfo hints, *addrlist, *cur;
+  int rv;
+  int tcpfd;
+
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_protocol = IPPROTO_TCP;
+  hints.ai_flags = AI_PASSIVE;
+
+  if ((rv = getaddrinfo(host, port, &hints, &addrlist)) != 0) {
+    error("getaddrinfo failed: %s", gai_strerror(rv));
+    exit(EXIT_FAILURE);
+  }
+
+  /* Loop through all the results and connect to the first we can. */
+  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
+    if ((tcpfd = socket(cur->ai_family, cur->ai_socktype,
+                        cur->ai_protocol)) == -1) {
+      error("socket failed: %s", strerror(errno));
+      break;
+    }
+
+    if (connect(tcpfd, cur->ai_addr, cur->ai_addrlen) == 0) {
+      break;
+    }
+
+    /* If we can't connect, try the next one. */
+    close(tcpfd);
+    tcpfd = -1;
+  }
+
+  /* Oops, we couldn't connect to any address. */
+  if (tcpfd == -1 && cur == NULL) {
+    freeaddrinfo(addrlist);
+    return -1;
+  }
+
+  freeaddrinfo(addrlist);
+  return tcpfd;
+}
+
 int main(int argc, char **argv) {
-  struct sockaddr_in servaddr;
-  int port;
   int sockfd;
   char sendline[BUFSIZE];
   char recvline[BUFSIZE];
@@ -27,23 +68,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  port = atoi(argv[2]);
-
-  memset(&servaddr, 0, sizeof(servaddr));
-  servaddr.sin_family = AF_INET;
-  servaddr.sin_port = htons(port);
-  inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
-
-  if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-    error("socket failed: %s", strerror(errno));
-    exit(EXIT_FAILURE);
-  }
-
-  if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1) {
-    error("connect failed: %s", strerror(errno));
-    close(sockfd);
-    exit(EXIT_FAILURE);
-  }
+  sockfd = tcp_socket_connect(argv[1], argv[2]);
 
   memset(sendline, 0, sizeof(sendline));
   memset(recvline, 0, sizeof(recvline));
