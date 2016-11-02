@@ -41,7 +41,7 @@ static void send_udp_message(int sockfd) {
   printf("response sent: %s\n", buf);
 }
 
-int main(void) {
+int main(int argc, char **argv) {
   struct addrinfo hints, *addrlist, *cur;
   int rv;
   int sockfd = 0;
