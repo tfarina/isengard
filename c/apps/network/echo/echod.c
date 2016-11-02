@@ -82,7 +82,7 @@ static void echo_stream(int fd) {
   exit(EXIT_SUCCESS);
 }
 
-static void send_tcp_message(int tcpfd) {
+static void tcp_socket_accept(int tcpfd) {
   struct sockaddr_storage ss;
   struct sockaddr *sa = (struct sockaddr *)&ss;
   socklen_t sslen = sizeof(ss);
@@ -276,7 +276,7 @@ int main(int argc, char **argv) {
     }
 
     if (tcpfd > -1 && FD_ISSET(tcpfd, &set)) {
-      send_tcp_message(tcpfd);
+      tcp_socket_accept(tcpfd);
     }
   }
 
