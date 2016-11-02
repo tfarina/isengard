@@ -91,7 +91,7 @@ int main(void) {
     exit(EXIT_FAILURE);
   }
 
-  printf("listening on port %d\n", PORT);
+  printf("Server listening on port %s\n", strport);
 
   FD_ZERO(&set);
 
