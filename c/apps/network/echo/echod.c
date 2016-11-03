@@ -91,11 +91,16 @@ static void tcp_socket_accept(int tcpfd) {
   int ret;
   pid_t pid;
 
-  if ((echofd = accept(tcpfd, sa, &sslen)) == -1) {
-    if (errno != EINTR) {
-      log_error("accept failed: %s", strerror(errno));
+  for (;;) {
+    if ((echofd = accept(tcpfd, sa, &sslen)) == -1) {
+      if (errno == EINTR) {
+        continue;
+      } else {
+        log_error("accept failed: %s", strerror(errno));
+        return;
+      }
     }
-    return;
+    break;
   }
 
   if ((ret = getnameinfo(sa, sslen,
