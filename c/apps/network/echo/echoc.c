@@ -15,10 +15,13 @@
 
 #define BUFSIZE 4096
 
-int tcp_socket_connect(char *host, char *port) {
+int tcp_socket_connect(char *host, int port) {
+  char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
   int tcpfd;
+
+  snprintf(portstr, sizeof(portstr), "%d", port);
 
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
@@ -26,7 +29,7 @@ int tcp_socket_connect(char *host, char *port) {
   hints.ai_protocol = IPPROTO_TCP;
   hints.ai_flags = AI_PASSIVE;
 
-  if ((rv = getaddrinfo(host, port, &hints, &addrlist)) != 0) {
+  if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
     error("getaddrinfo failed: %s", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
@@ -68,7 +71,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  sockfd = tcp_socket_connect(argv[1], argv[2]);
+  sockfd = tcp_socket_connect(argv[1], atoi(argv[2]));
 
   memset(sendline, 0, sizeof(sendline));
   memset(recvline, 0, sizeof(recvline));
