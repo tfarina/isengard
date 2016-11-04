@@ -235,7 +235,7 @@ int main(int argc, char **argv) {
     }
 
     if (bind(tcpfd, cur->ai_addr, cur->ai_addrlen) == -1) {
-      log_error("bind to port %s failed: %.200s", strport, strerror(errno));
+      log_error("bind failed: %s", strerror(errno));
       close(tcpfd);
       continue;
     }
