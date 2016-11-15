@@ -86,7 +86,7 @@ c/tools/md5/.ninja_deps
 c/tools/md5/.ninja_log
 c/tools/md5/md5
 c++/chrome_bookmarks_reader/out
-c++/libs/read_file/out
+c++/libs/base/out
 c++/sfml/examples/circle/circle
 d/hello/hello
 d/hello/hello.o
