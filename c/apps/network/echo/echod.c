@@ -82,6 +82,75 @@ static void echo_stream(int fd) {
   exit(EXIT_SUCCESS);
 }
 
+static int tcp_socket_listen(char *host, int port, int backlog) {
+  char portstr[6];  /* strlen("65535") + 1; */
+  struct addrinfo hints, *addrlist, *cur;
+  int rv;
+  int tcpfd;
+  int reuse = 1;
+  char strport[NI_MAXSERV], ntop[NI_MAXHOST];
+
+  snprintf(portstr, sizeof(portstr), "%d", port);
+
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_protocol = IPPROTO_TCP;
+  hints.ai_flags = AI_PASSIVE;
+
+  if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
+    log_error("getaddrinfo failed: %s", gai_strerror(rv));
+    exit(EXIT_FAILURE);
+  }
+
+  /* Loop through all the results and bind to the first we can. */
+  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
+    if ((tcpfd = socket(cur->ai_family, cur->ai_socktype,
+                        cur->ai_protocol)) == -1) {
+      log_error("socket failed: %s", strerror(errno));
+      continue;
+    }
+
+    if (setsockopt(tcpfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
+      log_error("set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
+      close(tcpfd);
+      continue;
+    }
+
+    if (bind(tcpfd, cur->ai_addr, cur->ai_addrlen) == -1) {
+      log_error("bind to port %s failed: %.200s", portstr, strerror(errno));
+      close(tcpfd);
+      continue;
+    }
+
+    break;
+  }
+
+  freeaddrinfo(addrlist);
+
+  if (cur == NULL) {
+    log_error("failed to bind");
+    exit(EXIT_FAILURE);
+  }
+
+  if (listen(tcpfd, backlog) == -1) {
+    log_error("listen on %d failed: %s", tcpfd, strerror(errno));
+    close(tcpfd);
+    exit(EXIT_FAILURE);
+  }
+
+  if ((rv = getnameinfo(cur->ai_addr, cur->ai_addrlen,
+                        ntop, sizeof(ntop), strport, sizeof(strport),
+                        NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
+    log_error("getnameinfo failed: %.100s", gai_strerror(rv));
+    exit(EXIT_FAILURE);
+  }
+
+  log_info("Server listening on %s port %s\n", ntop, strport);
+
+  return tcpfd;
+}
+
 static void tcp_socket_accept(int tcpfd) {
   struct sockaddr_storage ss;
   struct sockaddr *sa = (struct sockaddr *)&ss;
@@ -161,12 +230,7 @@ int main(int argc, char **argv) {
   int ch;
   int debug = 0;
   struct passwd *pw;
-  char portstr[6];  /* strlen("65535") + 1; */
-  struct addrinfo hints, *addrlist, *cur;
-  int rv;
   int tcpfd;
-  int reuse = 1;
-  char strport[NI_MAXSERV], ntop[NI_MAXHOST];
   fd_set set;
 
   progname = argv[0];
@@ -207,63 +271,7 @@ int main(int argc, char **argv) {
 
   log_init(debug);
 
-  snprintf(portstr, sizeof(portstr), "%d", ECHO_PORT);
-
-  memset(&hints, 0, sizeof(hints));
-  hints.ai_family = AF_UNSPEC;
-  hints.ai_socktype = SOCK_STREAM;
-  hints.ai_protocol = IPPROTO_TCP;
-  hints.ai_flags = AI_PASSIVE;
-
-  if ((rv = getaddrinfo(NULL, portstr, &hints, &addrlist)) != 0) {
-    log_error("getaddrinfo failed: %s", gai_strerror(rv));
-    exit(EXIT_FAILURE);
-  }
-
-  /* Loop through all the results and bind to the first we can. */
-  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    if ((tcpfd = socket(cur->ai_family, cur->ai_socktype,
-                        cur->ai_protocol)) == -1) {
-      log_error("socket failed: %s", strerror(errno));
-      continue;
-    }
-
-    if (setsockopt(tcpfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
-      log_error("set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
-      close(tcpfd);
-      continue;
-    }
-
-    if (bind(tcpfd, cur->ai_addr, cur->ai_addrlen) == -1) {
-      log_error("bind failed: %s", strerror(errno));
-      close(tcpfd);
-      continue;
-    }
-
-    break;
-  }
-
-  freeaddrinfo(addrlist);
-
-  if (cur == NULL) {
-    log_error("failed to bind");
-    exit(EXIT_FAILURE);
-  }
-
-  if (listen(tcpfd, BACKLOG) == -1) {
-    log_error("listen on %d failed: %s", tcpfd, strerror(errno));
-    close(tcpfd);
-    exit(EXIT_FAILURE);
-  }
-
-  if ((rv = getnameinfo(cur->ai_addr, cur->ai_addrlen,
-                        ntop, sizeof(ntop), strport, sizeof(strport),
-                        NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
-    log_error("getnameinfo failed: %.100s", gai_strerror(rv));
-    exit(EXIT_FAILURE);
-  }
-
-  log_info("Server listening on %s port %s\n", ntop, portstr);
+  tcpfd = tcp_socket_listen(NULL, ECHO_PORT, BACKLOG);
 
   signal(SIGCHLD, sigchld_handler);
   signal(SIGTERM, sigterm_handler);
