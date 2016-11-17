@@ -230,7 +230,7 @@ int main(int argc, char **argv) {
   int debug = 0;
   struct passwd *pw;
   int tcpfd;
-  fd_set set;
+  fd_set readset;
 
   progname = argv[0];
 
@@ -277,17 +277,17 @@ int main(int argc, char **argv) {
 
   logstatus();
 
-  FD_ZERO(&set);
+  FD_ZERO(&readset);
 
   while (1) {
-    FD_SET(tcpfd, &set);
+    FD_SET(tcpfd, &readset);
 
-    if (select(tcpfd + 1, &set, NULL, NULL, NULL) == -1) {
+    if (select(tcpfd + 1, &readset, NULL, NULL, NULL) == -1) {
       log_error("select failed: %s", strerror(errno));
       continue;
     }
 
-    if (tcpfd > -1 && FD_ISSET(tcpfd, &set)) {
+    if (tcpfd > -1 && FD_ISSET(tcpfd, &readset)) {
       tcp_socket_accept(tcpfd);
     }
   }
