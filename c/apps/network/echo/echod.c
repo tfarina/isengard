@@ -282,7 +282,7 @@ int main(int argc, char **argv) {
   while (1) {
     FD_SET(tcpfd, &set);
 
-    if (select(tcpfd + 1, &set, NULL, NULL, NULL) < 0) {
+    if (select(tcpfd + 1, &set, NULL, NULL, NULL) == -1) {
       log_error("select failed: %s", strerror(errno));
       continue;
     }
