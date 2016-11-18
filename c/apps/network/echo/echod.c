@@ -279,9 +279,9 @@ int main(int argc, char **argv) {
 
   FD_ZERO(&readset);
 
-  while (1) {
-    FD_SET(tcpfd, &readset);
+  FD_SET(tcpfd, &readset);
 
+  while (1) {
     if (select(tcpfd + 1, &readset, NULL, NULL, NULL) == -1) {
       log_error("select failed: %s", strerror(errno));
       continue;
