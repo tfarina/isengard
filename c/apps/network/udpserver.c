@@ -16,6 +16,10 @@
 
 static int msgcnt;  /* count # of messages we received */
 
+static int udp_socket_listen(char *host, int port) {
+  return 0;
+}
+
 static void send_udp_message(int sockfd) {
   int recvlen;
   char buf[BUFLEN];
@@ -94,10 +98,9 @@ int main(int argc, char **argv) {
   printf("Server listening on port %s\n", strport);
 
   FD_ZERO(&set);
+  FD_SET(sockfd, &set);
 
   for (;;) {
-    FD_SET(sockfd, &set);
-
     if (select(sockfd + 1, &set, NULL, NULL, NULL) < 0) {
       error("select failed: %s", strerror(errno));
       exit(EXIT_FAILURE);
