@@ -65,6 +65,14 @@ static void log_error(const char *emsg, ...) {
   va_end(ap);
 }
 
+static void log_warning(const char *emsg, ...) {
+  va_list ap;
+
+  va_start(ap, emsg);
+  vlog(LOG_WARNING, emsg, ap);
+  va_end(ap);
+}
+
 static void logstatus(void) {
   log_info("num child forked: %d\n", forked);
 }
@@ -283,7 +291,7 @@ int main(int argc, char **argv) {
 
   while (1) {
     if (select(tcpfd + 1, &readset, NULL, NULL, NULL) == -1) {
-      log_error("select failed: %s", strerror(errno));
+      log_warning("select: %s", strerror(errno));
       continue;
     }
 
