@@ -14,8 +14,8 @@
 int main(int argc, char **argv) {
   struct sockaddr_in servaddr;
   socklen_t addrlen = sizeof(servaddr);
-  struct sockaddr_storage addr;
-  socklen_t addrlen2 = sizeof(addr);
+  struct sockaddr_storage from;
+  socklen_t fromlen = sizeof(from);
   int sockfd;
   char buf[BUFLEN] = "hello udp server";
   int recvlen;
@@ -45,8 +45,8 @@ int main(int argc, char **argv) {
 
   printf("message sent: %s\n", buf);
 
-  recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&addr,
-                     &addrlen2);
+  recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&from,
+                     &fromlen);
   if (recvlen > 0) {
     buf[recvlen] = '\0';
     printf("received response: %s\n", buf);
