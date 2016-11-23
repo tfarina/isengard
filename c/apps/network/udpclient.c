@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
   int recvlen;
 
   if (argc != 2) {
-    fprintf(stderr, "usage: udpclient #server-ip-address\n");
+    fprintf(stderr, "usage: %s [hostname]\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 
