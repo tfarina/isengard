@@ -1,5 +1,6 @@
 #include <arpa/inet.h>
 #include <errno.h>
+#include <netdb.h>
 #include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,8 +13,8 @@
 #define PORT 5300
 
 int main(int argc, char **argv) {
-  struct sockaddr_in servaddr;
-  socklen_t addrlen = sizeof(servaddr);
+  struct addrinfo hints, *addrlist;
+  int rv;
   struct sockaddr_storage from;
   socklen_t fromlen = sizeof(from);
   int sockfd;
@@ -25,12 +26,21 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  memset(&servaddr, 0, sizeof(servaddr));
-  servaddr.sin_family = AF_INET;
-  servaddr.sin_port = htons(PORT);
-  inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_DGRAM;
 
-  if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
+  if ((rv = getaddrinfo(argv[1], "5300", &hints, &addrlist)) != 0) {
+    error("getaddrinfo failed: %s", gai_strerror(rv));
+    exit(EXIT_FAILURE);
+  }
+
+  if (addrlist == NULL) {
+    error("no addrlist");
+    exit(EXIT_FAILURE);
+  }
+
+  if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype, 0)) == -1) {
     error("cannot create socket: %s", strerror(errno));
     exit(EXIT_FAILURE);
   }
@@ -38,7 +48,7 @@ int main(int argc, char **argv) {
   printf("sending message to %s:%d\n", argv[1], PORT);
 
   if (sendto(sockfd, buf, strlen(buf), 0,
-             (struct sockaddr *)&servaddr, addrlen) == -1) {
+             addrlist->ai_addr, addrlist->ai_addrlen) == -1) {
     error("sendto failed: %s", strerror(errno));
     exit(EXIT_FAILURE);
   }
