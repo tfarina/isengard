@@ -13,6 +13,7 @@
 #define PORT 5300
 
 int main(int argc, char **argv) {
+  char strport[NI_MAXSERV];
   struct addrinfo hints, *addrlist;
   int rv;
   struct sockaddr_storage from;
@@ -26,11 +27,13 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
+  snprintf(strport, sizeof(strport), "%d", PORT);
+
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_DGRAM;
 
-  if ((rv = getaddrinfo(argv[1], "5300", &hints, &addrlist)) != 0) {
+  if ((rv = getaddrinfo(argv[1], strport, &hints, &addrlist)) != 0) {
     error("getaddrinfo failed: %s", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
