@@ -238,7 +238,7 @@ int main(int argc, char **argv) {
   int debug = 0;
   struct passwd *pw;
   int tcpfd;
-  fd_set readset;
+  fd_set rfds_out;
 
   progname = argv[0];
 
@@ -285,17 +285,17 @@ int main(int argc, char **argv) {
 
   logstatus();
 
-  FD_ZERO(&readset);
+  FD_ZERO(&rfds_out);
 
-  FD_SET(tcpfd, &readset);
+  FD_SET(tcpfd, &rfds_out);
 
   while (1) {
-    if (select(tcpfd + 1, &readset, NULL, NULL, NULL) == -1) {
+    if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) == -1) {
       log_warning("select: %s", strerror(errno));
       continue;
     }
 
-    if (tcpfd > -1 && FD_ISSET(tcpfd, &readset)) {
+    if (tcpfd > -1 && FD_ISSET(tcpfd, &rfds_out)) {
       tcp_socket_accept(tcpfd);
     }
   }
