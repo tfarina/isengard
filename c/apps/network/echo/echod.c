@@ -305,7 +305,7 @@ int main(int argc, char **argv) {
       continue;
     }
 
-    if (tcpfd > -1 && FD_ISSET(tcpfd, &rfds_out)) {
+    if (FD_ISSET(tcpfd, &rfds_out)) {
       tcp_socket_accept(tcpfd);
     }
   }
