@@ -24,3 +24,4 @@ build getcwd: cc getcwd.c
 build exampled: cc exampled.c
 build strdup: cc strdup.c
 build ascii_table: cc ascii_table.c
+build bit: cc bit.c
