@@ -1,5 +1,6 @@
 #include <arpa/inet.h>
 #include <errno.h>
+#include <netdb.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -147,8 +148,8 @@ int main(int argc, char **argv) {
   struct dnsheader* header;
   struct dnsquestion* question;
   uint8_t *query_pkt;
-  struct sockaddr_in to;
-  socklen_t tolen = sizeof(to);
+  struct addrinfo hints, *addrlist;
+  int rv;
   int sockfd;
   uint8_t answer_pkt[MAX_UDP_SIZE];
   struct sockaddr_storage from;
@@ -257,19 +258,28 @@ int main(int argc, char **argv) {
 
   // Prepare the UDP socket that will be used to send the query to the DNS
   // server.
-  memset(&to, 0, tolen);
-  to.sin_family = AF_INET;
-  to.sin_port = htons(DNS_DEFAULT_PORT);
-  inet_pton(AF_INET, "8.8.8.8", &to.sin_addr);
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_DGRAM;
 
-  if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
+  if ((rv = getaddrinfo("8.8.8.8", "53", &hints, &addrlist)) != 0) {
+    fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
+    exit(EXIT_FAILURE);
+  }
+
+  if (addrlist == NULL) {
+    fprintf(stderr, "no addrlist");
+    exit(EXIT_FAILURE);
+  }
+
+  if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype, 0)) == -1) {
     fprintf(stderr, "socket creation failed: %s\n", strerror(errno));
     exit(EXIT_FAILURE);
   }
 
   // Send the query.
-  if (sendto(sockfd, query_pkt, query_pktlen, 0, (struct sockaddr *)&to,
-             tolen) == -1) {
+  if (sendto(sockfd, query_pkt, query_pktlen, 0, addrlist->ai_addr,
+             addrlist->ai_addrlen) == -1) {
     fprintf(stderr, "sendto failed\n");
     exit(EXIT_FAILURE);
   }
