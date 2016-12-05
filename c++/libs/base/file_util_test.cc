@@ -10,5 +10,7 @@ int main(int argc, char **argv) {
 
   printf("%s\n", content.c_str());
 
+  WriteFile("test.txt", content);
+
   return 0;
 }

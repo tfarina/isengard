@@ -6,4 +6,6 @@
 // Code from Bazel's https://github.com/google/bazel/blob/master/src/main/cpp/blaze_util.cc function.
 bool ReadFile(const std::string& filename, std::string* content);
 
+bool WriteFile(const std::string& path, const std::string& contents);
+
 #endif  // FILE_UTIL_H_

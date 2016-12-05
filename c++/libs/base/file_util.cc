@@ -1,7 +1,8 @@
 #include "file_util.h"
 
-#include <fcntl.h>
 #include <errno.h>
+#include <fcntl.h>
+#include <string.h>
 #include <unistd.h>
 
 namespace {
@@ -31,4 +32,28 @@ bool ReadFile(const std::string& filename, std::string* content) {
     return false;
   }
   return ReadFileDescriptior(fd, content);
+}
+
+bool WriteFile(const std::string& path, const std::string& contents) {
+  FILE* fp = fopen(path.c_str(), "w");
+  if (fp == NULL) {
+    fprintf(stderr, "WriteFile(%s): Unable to create file. %s",
+            path.c_str(), strerror(errno));
+    return false;
+  }
+
+  if (fwrite(contents.data(), 1, contents.length(), fp) < contents.length()) {
+    fprintf(stderr, "WriteFile(%s): Unable to write to the file. %s",
+            path.c_str(), strerror(errno));
+    fclose(fp);
+    return false;
+  }
+
+  if (fclose(fp) == EOF) {
+    fprintf(stderr, "WriteFile(%s): Unable to close the file. %s",
+            path.c_str(), strerror(errno));
+    return false;
+  }
+
+  return true;
 }
