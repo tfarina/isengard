@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
   int sockfd = 0;
   int reuse = 1;
   char strport[NI_MAXSERV];
-  fd_set set;
+  fd_set rfds_out;
 
   snprintf(strport, sizeof(strport), "%d", PORT);
 
@@ -97,16 +97,16 @@ int main(int argc, char **argv) {
 
   printf("Server listening on port %s\n", strport);
 
-  FD_ZERO(&set);
-  FD_SET(sockfd, &set);
+  FD_ZERO(&rfds_out);
+  FD_SET(sockfd, &rfds_out);
 
   for (;;) {
-    if (select(sockfd + 1, &set, NULL, NULL, NULL) < 0) {
+    if (select(sockfd + 1, &rfds_out, NULL, NULL, NULL) < 0) {
       error("select failed: %s", strerror(errno));
       exit(EXIT_FAILURE);
     }
 
-    if (sockfd > -1 && FD_ISSET(sockfd, &set)) {
+    if (sockfd > -1 && FD_ISSET(sockfd, &rfds_out)) {
       send_udp_message(sockfd);
     }
   }
