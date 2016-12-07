@@ -101,7 +101,7 @@ struct lookup_table {
 };
 
 /* Looks up the given id in the lookup table. */
-struct lookup_table *lookup_by_id(struct lookup_table *table, int id) {
+static const struct lookup_table *lookup_by_id(const struct lookup_table *table, int id) {
   while (table->name != NULL) {
     if (table->id == id) {
       return table;
@@ -111,7 +111,7 @@ struct lookup_table *lookup_by_id(struct lookup_table *table, int id) {
   return NULL;
 }
 
-static struct lookup_table rcodes[] = {
+static const struct lookup_table rcodes[] = {
   { DNS_RCODE_NOERROR, "NOERROR" },
   { DNS_RCODE_FORMERR, "FORMERR" },
   { DNS_RCODE_SERVFAIL, "SERVFAIL" },
@@ -126,7 +126,7 @@ static struct lookup_table rcodes[] = {
   { 0, NULL }
 };
 
-static struct lookup_table opcodes[] = {
+static const struct lookup_table opcodes[] = {
   { DNS_OPCODE_QUERY, "QUERY" },
   { DNS_OPCODE_IQUERY, "IQUERY" },
   { DNS_OPCODE_STATUS, "STATUS" },
@@ -303,10 +303,10 @@ int main(int argc, char **argv) {
   response_header->arcount = read_uint16(answer_pkt + 10);
 
   uint16_t opcode_id = (response_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
-  struct lookup_table *opcode = lookup_by_id(opcodes, opcode_id);
+  const struct lookup_table *opcode = lookup_by_id(opcodes, opcode_id);
 
   uint16_t rcode_id = response_header->flags & RCODE_MASK;
-  struct lookup_table *rcode = lookup_by_id(rcodes, rcode_id);
+  const struct lookup_table *rcode = lookup_by_id(rcodes, rcode_id);
 
   printf(";; ->>HEADER<<- ");
 
