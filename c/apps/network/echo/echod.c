@@ -248,6 +248,9 @@ int main(int argc, char **argv) {
   int debug = 0;
   struct passwd *pw;
   int tcpfd;
+  fd_set rfds_in;
+  /* We need to have a copy of the fd set as it's not safe to reuse FD sets
+   * after select(). */
   fd_set rfds_out;
 
   progname = argv[0];
@@ -295,11 +298,13 @@ int main(int argc, char **argv) {
 
   logstatus();
 
-  FD_ZERO(&rfds_out);
+  FD_ZERO(&rfds_in);
 
-  FD_SET(tcpfd, &rfds_out);
+  FD_SET(tcpfd, &rfds_in);
 
   while (1) {
+    memcpy(&rfds_out, &rfds_in, sizeof(fd_set));
+
     if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) == -1) {
       log_warning("select: %s", strerror(errno));
       continue;
