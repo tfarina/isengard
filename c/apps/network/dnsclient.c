@@ -143,6 +143,13 @@ static uint16_t read_uint16(void *src) {
   return ntohs(*(uint16_t *)src);
 }
 
+#define DNS_OFFSET_ID 0
+#define DNS_OFFSET_FLAGS 2
+#define DNS_OFFSET_QDCOUNT 4
+#define DNS_OFFSET_ANCOUNT 6
+#define DNS_OFFSET_NSCOUNT 8
+#define DNS_OFFSET_ARCOUNT 10
+
 int main(int argc, char **argv) {
   char dname[MAX_DOMAINLEN];
   struct dnsheader* header;
@@ -234,12 +241,12 @@ int main(int argc, char **argv) {
   int offset = 0;
 
   // HEADER
-  write_uint16(query_pkt, header->id);
-  write_uint16(query_pkt + 2, header->flags);
-  write_uint16(query_pkt + 4, header->qdcount);
-  write_uint16(query_pkt + 6, header->ancount);
-  write_uint16(query_pkt + 8, header->nscount);
-  write_uint16(query_pkt + 10, header->arcount);
+  write_uint16(query_pkt + DNS_OFFSET_ID, header->id);
+  write_uint16(query_pkt + DNS_OFFSET_FLAGS, header->flags);
+  write_uint16(query_pkt + DNS_OFFSET_QDCOUNT, header->qdcount);
+  write_uint16(query_pkt + DNS_OFFSET_ANCOUNT, header->ancount);
+  write_uint16(query_pkt + DNS_OFFSET_NSCOUNT, header->nscount);
+  write_uint16(query_pkt + DNS_OFFSET_ARCOUNT, header->arcount);
 
   offset += sizeof(*header);
 
