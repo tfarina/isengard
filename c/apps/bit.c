@@ -1,5 +1,7 @@
 #include <stdint.h>
 
+#define BITMASK(index) (1 << (index))
+
 int main(void) {
   const uint8_t initial_bits = 0b00001111;
   const uint8_t inverted_bits = ~initial_bits; /* equals to 0b11110000 */
