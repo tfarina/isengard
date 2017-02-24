@@ -302,12 +302,12 @@ int main(int argc, char **argv) {
   struct dnsheader *response_header;
   response_header = malloc(sizeof(struct dnsheader));
 
-  response_header->id = read_uint16(answer_pkt);
-  response_header->flags = read_uint16(answer_pkt + 2);
-  response_header->qdcount = read_uint16(answer_pkt + 4);
-  response_header->ancount = read_uint16(answer_pkt + 6);
-  response_header->nscount = read_uint16(answer_pkt + 8);
-  response_header->arcount = read_uint16(answer_pkt + 10);
+  response_header->id = read_uint16(answer_pkt + DNS_OFFSET_ID);
+  response_header->flags = read_uint16(answer_pkt + DNS_OFFSET_FLAGS);
+  response_header->qdcount = read_uint16(answer_pkt + DNS_OFFSET_QDCOUNT);
+  response_header->ancount = read_uint16(answer_pkt + DNS_OFFSET_ANCOUNT);
+  response_header->nscount = read_uint16(answer_pkt + DNS_OFFSET_NSCOUNT);
+  response_header->arcount = read_uint16(answer_pkt + DNS_OFFSET_ARCOUNT);
 
   uint16_t opcode_id = (response_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
   const struct lookup_table *opcode = lookup_by_id(opcodes, opcode_id);
