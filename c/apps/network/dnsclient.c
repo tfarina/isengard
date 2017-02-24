@@ -63,7 +63,7 @@ enum dns_rr_type {
 #define MAX_UDP_SIZE 512
 #define MAX_DOMAINLEN 255
 #define DNS_DNAME_MAXLABELLEN 63 /* 2^6 - 1 */
-#define DNS_DEFAULT_PORT 53
+#define DNS_DEFAULT_PORT "53"
 
 #define OPCODE_MASK 0x7800U
 #define OPCODE_SHIFT 11
@@ -269,7 +269,7 @@ int main(int argc, char **argv) {
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_DGRAM;
 
-  if ((rv = getaddrinfo("8.8.8.8", "53", &hints, &addrlist)) != 0) {
+  if ((rv = getaddrinfo("8.8.8.8", DNS_DEFAULT_PORT, &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
