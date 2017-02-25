@@ -153,6 +153,7 @@ static uint16_t read_uint16(void *src) {
 int main(int argc, char **argv) {
   char dname[MAX_DOMAINLEN];
   struct dnsheader* header;
+  struct dnsheader *response_header;
   struct dnsquestion* question;
   uint8_t *query_pkt;
   struct addrinfo hints, *addrlist;
@@ -301,7 +302,6 @@ int main(int argc, char **argv) {
   freeaddrinfo(addrlist);
 
   // Parse reply to the dnsheader structure.
-  struct dnsheader *response_header;
   response_header = malloc(sizeof(struct dnsheader));
 
   response_header->id = read_uint16(answer_pkt + DNS_OFFSET_ID);
