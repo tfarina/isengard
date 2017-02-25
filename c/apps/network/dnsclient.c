@@ -298,6 +298,8 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
+  freeaddrinfo(addrlist);
+
   // Parse reply to the dnsheader structure.
   struct dnsheader *response_header;
   response_header = malloc(sizeof(struct dnsheader));
