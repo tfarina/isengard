@@ -7,6 +7,7 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <sys/time.h>
+#include <unistd.h>
 
 struct dnsheader {
   uint16_t id;
@@ -364,6 +365,8 @@ int main(int argc, char **argv) {
   printf("\n");
 
   printf(";; MSG SIZE rcvd: %zd\n", rlen);
+
+  close(sockfd);
 
   return 0;
 }
