@@ -151,6 +151,14 @@ static uint16_t read_uint16(void *src) {
 #define DNS_OFFSET_NSCOUNT 8
 #define DNS_OFFSET_ARCOUNT 10
 
+static uint16_t get_question_size(const struct dnsquestion *q) {
+  if (q == NULL || q->qnamelen == 0) {
+    return 0;
+  }
+
+  return q->qnamelen + sizeof(q->qtype) + sizeof(q->qclass);
+}
+
 int main(int argc, char **argv) {
   char dname[MAX_DOMAINLEN];
   struct dnsheader* header;
@@ -234,9 +242,7 @@ int main(int argc, char **argv) {
 
   // Prepare the packet (header + question) with the query that will be sent to
   // the DNS server.
-  size_t questionsize =
-      question->qnamelen + sizeof(question->qtype) + sizeof(question->qclass);
-  size_t query_pktlen = sizeof(*header) + questionsize;
+  size_t query_pktlen = sizeof(*header) + get_question_size(question);
 
   query_pkt = malloc(query_pktlen);
 
