@@ -168,7 +168,7 @@ int main(int argc, char **argv) {
   struct addrinfo hints, *addrlist;
   int rv;
   int sockfd;
-  uint8_t answer_pkt[MAX_UDP_SIZE];
+  uint8_t reply_pkt[MAX_UDP_SIZE];
   struct sockaddr_storage from;
   socklen_t fromlen = sizeof(from);
   ssize_t rlen;
@@ -300,7 +300,7 @@ int main(int argc, char **argv) {
   }
 
   // Receive the response.
-  if ((rlen = recvfrom(sockfd, answer_pkt, sizeof(answer_pkt), 0,
+  if ((rlen = recvfrom(sockfd, reply_pkt, sizeof(reply_pkt), 0,
                        (struct sockaddr *)&from, &fromlen)) == -1) {
     fprintf(stderr, "recvfrom failed\n");
     exit(EXIT_FAILURE);
@@ -311,12 +311,12 @@ int main(int argc, char **argv) {
   // Parse reply to the dnsheader structure.
   response_header = malloc(sizeof(struct dnsheader));
 
-  response_header->id = read_uint16(answer_pkt + DNS_OFFSET_ID);
-  response_header->flags = read_uint16(answer_pkt + DNS_OFFSET_FLAGS);
-  response_header->qdcount = read_uint16(answer_pkt + DNS_OFFSET_QDCOUNT);
-  response_header->ancount = read_uint16(answer_pkt + DNS_OFFSET_ANCOUNT);
-  response_header->nscount = read_uint16(answer_pkt + DNS_OFFSET_NSCOUNT);
-  response_header->arcount = read_uint16(answer_pkt + DNS_OFFSET_ARCOUNT);
+  response_header->id = read_uint16(reply_pkt + DNS_OFFSET_ID);
+  response_header->flags = read_uint16(reply_pkt + DNS_OFFSET_FLAGS);
+  response_header->qdcount = read_uint16(reply_pkt + DNS_OFFSET_QDCOUNT);
+  response_header->ancount = read_uint16(reply_pkt + DNS_OFFSET_ANCOUNT);
+  response_header->nscount = read_uint16(reply_pkt + DNS_OFFSET_NSCOUNT);
+  response_header->arcount = read_uint16(reply_pkt + DNS_OFFSET_ARCOUNT);
 
   uint16_t opcode_id = (response_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
   const struct lookup_table *opcode = lookup_by_id(opcodes, opcode_id);
