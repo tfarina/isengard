@@ -205,6 +205,7 @@ int main(int argc, char **argv) {
   header->nscount = 0;
   header->arcount = 0;
 
+  /* Create QNAME from string. */
   size_t dname_len = strlen(dname);
   size_t alloc_size = 0;
   if (dname[0] == '.') {
@@ -219,6 +220,10 @@ int main(int argc, char **argv) {
     alloc_size = DNS_DNAME_MAXLEN;
   }
 
+  /*
+   * TODO(tfarina): we should not do this just yet, it should be
+   *  after dns_domain_fromdot.
+   */
   question = malloc(sizeof(*question) + alloc_size);
   memset(question, 0, sizeof(*question));
 
