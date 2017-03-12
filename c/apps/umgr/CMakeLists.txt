@@ -9,5 +9,7 @@ include_directories(${CMAKE_SOURCE_DIR})
 
 add_subdirectory(third_party/sqlite)
 
-add_executable(list cli/db.c cli/user.c cli/list.c)
+set(SRCS cli/db.c cli/user.c cli/list.c)
+
+add_executable(list ${SRCS})
 target_link_libraries(list sqlite3 ${EXTRA_TARGET_LINK_LIBRARIES})
