@@ -57,14 +57,19 @@ enum dns_rr_type {
   DNS_RR_TYPE_A = 1, /* An IPv4 host address. */
 };
 
+#define DNS_DEFAULT_PORT "53"
+
 /*
  * RFC 1035, section 4.2.1: Messages carried by UDP are restricted to 512
  * bytes (not counting the IP nor UDP headers).
  */
 #define MAX_UDP_SIZE 512
-#define MAX_DOMAINLEN 255
+
+/*
+ * Basic limits for domain names (RFC 1035).
+ */
+#define DNS_DNAME_MAXLEN 255 /* 1-byte maximum. */
 #define DNS_DNAME_MAXLABELLEN 63 /* 2^6 - 1 */
-#define DNS_DEFAULT_PORT "53"
 
 #define OPCODE_MASK 0x7800U
 #define OPCODE_SHIFT 11
@@ -160,7 +165,7 @@ static uint16_t get_question_size(const struct dnsquestion *q) {
 }
 
 int main(int argc, char **argv) {
-  char dname[MAX_DOMAINLEN];
+  char dname[DNS_DNAME_MAXLEN];
   struct dnsheader *header;
   struct dnsheader *response_header;
   struct dnsquestion *question;
@@ -180,7 +185,7 @@ int main(int argc, char **argv) {
 
   strcpy(dname, argv[1]);
 
-  if (strlen(dname) > MAX_DOMAINLEN) {
+  if (strlen(dname) > DNS_DNAME_MAXLEN) {
     exit(EXIT_FAILURE);
   }
 
@@ -210,8 +215,8 @@ int main(int argc, char **argv) {
     alloc_size = 1+ dname_len;
   }
 
-  if (alloc_size > MAX_DOMAINLEN) {
-    alloc_size = MAX_DOMAINLEN;
+  if (alloc_size > DNS_DNAME_MAXLEN) {
+    alloc_size = DNS_DNAME_MAXLEN;
   }
 
   question = malloc(sizeof(*question) + alloc_size);
