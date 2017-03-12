@@ -161,9 +161,9 @@ static uint16_t get_question_size(const struct dnsquestion *q) {
 
 int main(int argc, char **argv) {
   char dname[MAX_DOMAINLEN];
-  struct dnsheader* header;
+  struct dnsheader *header;
   struct dnsheader *response_header;
-  struct dnsquestion* question;
+  struct dnsquestion *question;
   uint8_t *query_pkt;
   struct addrinfo hints, *addrlist;
   int rv;
