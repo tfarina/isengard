@@ -17,6 +17,54 @@
 static int msgcnt;  /* count # of messages we received */
 
 static int udp_socket_listen(char *host, int port) {
+  struct addrinfo hints, *addrlist, *cur;
+  int rv;
+  int sockfd = 0;
+  int reuse = 1;
+  char strport[NI_MAXSERV];
+
+  snprintf(strport, sizeof(strport), "%d", port);
+
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_flags = AI_PASSIVE;
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_DGRAM;
+
+  if ((rv = getaddrinfo(host, strport, &hints, &addrlist)) != 0) {
+    error("getaddrinfo failed: %s", gai_strerror(rv));
+    return -1;
+  }
+
+  /* Loop through all the results and bind to the first we can. */
+  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
+    if ((sockfd = socket(cur->ai_family, cur->ai_socktype,
+                         cur->ai_protocol)) == -1) {
+      error("cannot create socket: %s", strerror(errno));
+      continue;
+    }
+
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
+      error("set reuse addr on sd %d failed: %s", sockfd, strerror(errno));
+      close(sockfd);
+      continue;
+    }
+
+    if (bind(sockfd, cur->ai_addr, cur->ai_addrlen) == -1) {
+      error("bind on %d failed: %s", sockfd, strerror(errno));
+      close(sockfd);
+      continue;
+    }
+
+    break;
+  }
+
+  freeaddrinfo(addrlist);
+
+  if (cur == NULL) {
+    error("failed to bind");
+    exit(EXIT_FAILURE);
+  }
+
   return 0;
 }
 
