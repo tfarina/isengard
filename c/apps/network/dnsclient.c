@@ -185,10 +185,6 @@ int main(int argc, char **argv) {
 
   strcpy(dname, argv[1]);
 
-  if (strlen(dname) > DNS_DNAME_MAXLEN) {
-    exit(EXIT_FAILURE);
-  }
-
   header = malloc(sizeof(*header));
   memset(header, 0, sizeof(*header));
 
