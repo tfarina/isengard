@@ -165,7 +165,7 @@ static uint16_t get_question_size(const struct dnsquestion *q) {
 }
 
 int main(int argc, char **argv) {
-  char dname[DNS_DNAME_MAXLEN];
+  char owner[DNS_DNAME_MAXLEN];
   struct dnsheader *header;
   struct dnsheader *response_header;
   struct dnsquestion *question;
@@ -183,7 +183,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  strcpy(dname, argv[1]);
+  strcpy(owner, argv[1]);
 
   header = malloc(sizeof(*header));
   memset(header, 0, sizeof(*header));
@@ -202,11 +202,11 @@ int main(int argc, char **argv) {
   header->arcount = 0;
 
   /* Create QNAME from string. */
-  size_t dname_len = strlen(dname);
+  size_t dname_len = strlen(owner);
   size_t alloc_size = 0;
-  if (dname[0] == '.') {
+  if (owner[0] == '.') {
     alloc_size = 1;
-  } else if (dname[dname_len - 1] != '.') {
+  } else if (owner[dname_len - 1] != '.') {
     alloc_size = 1 + dname_len + 1;
   } else {
     alloc_size = 1+ dname_len;
@@ -228,7 +228,7 @@ int main(int argc, char **argv) {
 
   // dns_domain_fromdot
   char *label = NULL;
-  char *dnamedup = strdup(dname);
+  char *dnamedup = strdup(owner);
   int len, total = 0;
   while ((label = strsep(&dnamedup, ".")) != NULL) {
     len = strlen(label);
