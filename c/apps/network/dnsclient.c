@@ -223,8 +223,7 @@ int main(int argc, char **argv) {
   question = malloc(sizeof(*question) + alloc_size);
   memset(question, 0, sizeof(*question));
 
-  question->qname = malloc(alloc_size);
-  question->qnamelen = alloc_size;
+  char *qname = malloc(alloc_size);
 
   // dns_domain_fromdot
   char *label = NULL;
@@ -238,12 +237,14 @@ int main(int argc, char **argv) {
       free(dnamedup);
       return -1;
     }
-    question->qname[namelen++] = labellen;
-    strcat(&question->qname[namelen], label);
+    qname[namelen++] = labellen;
+    strcat(&qname[namelen], label);
     namelen += labellen;
   }
   free(dnamedup);
 
+  question->qname = qname;
+  question->qnamelen = alloc_size;
   question->qtype = DNS_RR_TYPE_A;
   question->qclass = DNS_RR_CLASS_IN;
 
