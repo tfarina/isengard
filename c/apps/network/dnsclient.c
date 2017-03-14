@@ -229,17 +229,18 @@ int main(int argc, char **argv) {
   // dns_domain_fromdot
   char *label = NULL;
   char *dnamedup = strdup(owner);
-  int len, total = 0;
+  unsigned int labellen = 0;
+  unsigned int namelen = 0;
   while ((label = strsep(&dnamedup, ".")) != NULL) {
-    len = strlen(label);
-    if (len > DNS_DNAME_MAXLABELLEN) {
+    labellen = strlen(label);
+    if (labellen > DNS_DNAME_MAXLABELLEN) {
       fprintf(stderr, "error: label is too long");
       free(dnamedup);
       return -1;
     }
-    question->qname[total++] = len;
-    strcat(&question->qname[total], label);
-    total += len;
+    question->qname[namelen++] = labellen;
+    strcat(&question->qname[namelen], label);
+    namelen += labellen;
   }
   free(dnamedup);
 
