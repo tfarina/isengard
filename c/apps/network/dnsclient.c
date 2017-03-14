@@ -223,8 +223,8 @@ int main(int argc, char **argv) {
   question = malloc(sizeof(*question) + alloc_size);
   memset(question, 0, sizeof(*question));
 
+  question->qname = malloc(alloc_size);
   question->qnamelen = alloc_size;
-  question->qname = malloc(question->qnamelen);
 
   // dns_domain_fromdot
   char *label = NULL;
