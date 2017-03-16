@@ -176,7 +176,7 @@ int main(int argc, char **argv) {
   uint8_t reply_pkt[MAX_UDP_SIZE];
   struct sockaddr_storage from;
   socklen_t fromlen = sizeof(from);
-  ssize_t rlen;
+  ssize_t reply_pktlen;
 
   if (argc != 2) {
     fprintf(stderr, "usage: %s name\n", argv[0]);
@@ -308,7 +308,7 @@ int main(int argc, char **argv) {
   }
 
   // Receive the response.
-  if ((rlen = recvfrom(sockfd, reply_pkt, sizeof(reply_pkt), 0,
+  if ((reply_pktlen = recvfrom(sockfd, reply_pkt, sizeof(reply_pkt), 0,
                        (struct sockaddr *)&from, &fromlen)) == -1) {
     fprintf(stderr, "recvfrom failed\n");
     exit(EXIT_FAILURE);
@@ -378,7 +378,7 @@ int main(int argc, char **argv) {
 
   printf("\n");
 
-  printf(";; MSG SIZE rcvd: %zd\n", rlen);
+  printf(";; MSG SIZE rcvd: %zd\n", reply_pktlen);
 
   close(sockfd);
 
