@@ -297,6 +297,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
+  // Create the socket.
   if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype, 0)) == -1) {
     fprintf(stderr, "socket creation failed: %s\n", strerror(errno));
     exit(EXIT_FAILURE);
