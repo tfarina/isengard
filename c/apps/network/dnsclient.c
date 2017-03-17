@@ -167,7 +167,7 @@ static uint16_t get_question_size(const struct dnsquestion *q) {
 int main(int argc, char **argv) {
   char owner[DNS_DNAME_MAXLEN];
   struct dnsheader *header;
-  struct dnsheader *response_header;
+  struct dnsheader *reply_header;
   struct dnsquestion *question;
   uint8_t *query_pkt;
   char *def_port;
@@ -320,19 +320,19 @@ int main(int argc, char **argv) {
   freeaddrinfo(addrlist);
 
   // Parse reply to the dnsheader structure.
-  response_header = malloc(sizeof(struct dnsheader));
+  reply_header = malloc(sizeof(struct dnsheader));
 
-  response_header->id = read_uint16(reply_pkt + DNS_OFFSET_ID);
-  response_header->flags = read_uint16(reply_pkt + DNS_OFFSET_FLAGS);
-  response_header->qdcount = read_uint16(reply_pkt + DNS_OFFSET_QDCOUNT);
-  response_header->ancount = read_uint16(reply_pkt + DNS_OFFSET_ANCOUNT);
-  response_header->nscount = read_uint16(reply_pkt + DNS_OFFSET_NSCOUNT);
-  response_header->arcount = read_uint16(reply_pkt + DNS_OFFSET_ARCOUNT);
+  reply_header->id = read_uint16(reply_pkt + DNS_OFFSET_ID);
+  reply_header->flags = read_uint16(reply_pkt + DNS_OFFSET_FLAGS);
+  reply_header->qdcount = read_uint16(reply_pkt + DNS_OFFSET_QDCOUNT);
+  reply_header->ancount = read_uint16(reply_pkt + DNS_OFFSET_ANCOUNT);
+  reply_header->nscount = read_uint16(reply_pkt + DNS_OFFSET_NSCOUNT);
+  reply_header->arcount = read_uint16(reply_pkt + DNS_OFFSET_ARCOUNT);
 
-  uint16_t opcode_id = (response_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
+  uint16_t opcode_id = (reply_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
   const struct lookup_table *opcode = lookup_by_id(opcodes, opcode_id);
 
-  uint16_t rcode_id = response_header->flags & RCODE_MASK;
+  uint16_t rcode_id = reply_header->flags & RCODE_MASK;
   const struct lookup_table *rcode = lookup_by_id(rcodes, rcode_id);
 
   printf(";; ->>HEADER<<- ");
@@ -349,35 +349,35 @@ int main(int argc, char **argv) {
     printf("rcode: ?? (%u), ", rcode_id);
   }
 
-  printf("id: %d\n", response_header->id);
+  printf("id: %d\n", reply_header->id);
   printf(";; flags:");
-  if ((response_header->flags & FLAG_QR) != 0) {
+  if ((reply_header->flags & FLAG_QR) != 0) {
     printf(" qr");
   }
-  if ((response_header->flags & FLAG_AA) != 0) {
+  if ((reply_header->flags & FLAG_AA) != 0) {
     printf(" aa");
   }
-  if ((response_header->flags & FLAG_TC) != 0) {
+  if ((reply_header->flags & FLAG_TC) != 0) {
     printf(" tc");
   }
-  if ((response_header->flags & FLAG_RD) != 0) {
+  if ((reply_header->flags & FLAG_RD) != 0) {
     printf(" rd");
   }
-  if ((response_header->flags & FLAG_CD) != 0) {
+  if ((reply_header->flags & FLAG_CD) != 0) {
     printf(" cd");
   }
-  if ((response_header->flags & FLAG_RA) != 0) {
+  if ((reply_header->flags & FLAG_RA) != 0) {
     printf(" ra");
   }
-  if ((response_header->flags & FLAG_AD) != 0) {
+  if ((reply_header->flags & FLAG_AD) != 0) {
     printf(" ad");
   }
 
   printf("; ");
-  printf("QUERY: %u, ", response_header->qdcount);
-  printf("ANSWER: %u, ", response_header->ancount);
-  printf("AUTHORITY: %u, ", response_header->nscount);
-  printf("ADDITIONAL: %u\n", response_header->arcount);
+  printf("QUERY: %u, ", reply_header->qdcount);
+  printf("ANSWER: %u, ", reply_header->ancount);
+  printf("AUTHORITY: %u, ", reply_header->nscount);
+  printf("ADDITIONAL: %u\n", reply_header->arcount);
 
   printf("\n");
 
