@@ -218,13 +218,6 @@ int main(int argc, char **argv) {
     alloc_size = DNS_DNAME_MAXLEN;
   }
 
-  /*
-   * TODO(tfarina): we should not do this just yet, it should be
-   *  after dns_domain_fromdot.
-   */
-  question = malloc(sizeof(*question) + alloc_size);
-  memset(question, 0, sizeof(*question));
-
   char *qname = malloc(alloc_size);
 
   // dns_domain_fromdot
@@ -244,6 +237,9 @@ int main(int argc, char **argv) {
     namelen += labellen;
   }
   free(dnamedup);
+
+  question = malloc(sizeof(*question) + alloc_size);
+  memset(question, 0, sizeof(*question));
 
   question->qname = qname;
   question->qnamelen = alloc_size;
