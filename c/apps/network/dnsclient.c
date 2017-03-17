@@ -170,6 +170,7 @@ int main(int argc, char **argv) {
   struct dnsheader *response_header;
   struct dnsquestion *question;
   uint8_t *query_pkt;
+  char *def_port;
   struct addrinfo hints, *addrlist;
   int rv;
   int sockfd;
@@ -184,6 +185,7 @@ int main(int argc, char **argv) {
   }
 
   strcpy(owner, argv[1]);
+  def_port = DNS_DEFAULT_PORT;
 
   header = malloc(sizeof(*header));
   memset(header, 0, sizeof(*header));
@@ -285,7 +287,7 @@ int main(int argc, char **argv) {
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_DGRAM;
 
-  if ((rv = getaddrinfo("8.8.8.8", DNS_DEFAULT_PORT, &hints, &addrlist)) != 0) {
+  if ((rv = getaddrinfo("8.8.8.8", def_port, &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
