@@ -170,6 +170,7 @@ int main(int argc, char **argv) {
   struct dnsheader *reply_header;
   struct dnsquestion *question;
   uint8_t *query_pkt;
+  char *server_name;
   char *def_port;
   struct addrinfo hints, *addrlist;
   int rv;
@@ -277,13 +278,15 @@ int main(int argc, char **argv) {
   // QCLASS
   write_uint16(query_pkt + offset, question->qclass);
 
+  server_name = "8.8.8.8";
+
   // Prepare the UDP socket that will be used to send the query to the DNS
   // server.
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_DGRAM;
 
-  if ((rv = getaddrinfo("8.8.8.8", def_port, &hints, &addrlist)) != 0) {
+  if ((rv = getaddrinfo(server_name, def_port, &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
