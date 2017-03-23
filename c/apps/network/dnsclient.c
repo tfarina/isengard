@@ -248,7 +248,7 @@ int main(int argc, char **argv) {
 
   if (argc != 2) {
     fprintf(stderr, "usage: %s name\n", argv[0]);
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   strcpy(owner, argv[1]);
@@ -336,32 +336,32 @@ int main(int argc, char **argv) {
 
   if ((rv = getaddrinfo(server_name, def_port, &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   if (addrlist == NULL) {
     fprintf(stderr, "no addrlist");
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   // Create the socket.
   if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype, 0)) == -1) {
     fprintf(stderr, "socket creation failed: %s\n", strerror(errno));
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   // Send the query.
   if (sendto(sockfd, query_pkt, query_pktlen, 0, addrlist->ai_addr,
              addrlist->ai_addrlen) == -1) {
     fprintf(stderr, "sendto failed\n");
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   // Receive the response.
   if ((reply_pktlen = recvfrom(sockfd, reply_pkt, sizeof(reply_pkt), 0,
                        (struct sockaddr *)&from, &fromlen)) == -1) {
     fprintf(stderr, "recvfrom failed\n");
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   freeaddrinfo(addrlist);
