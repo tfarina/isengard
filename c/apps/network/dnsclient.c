@@ -19,7 +19,7 @@ struct dnsheader {
 };
 
 struct dnsquestion {
-  char *qname;
+  uint8_t *qname;
   size_t qnamelen;
   uint16_t qtype;
   uint16_t qclass;
@@ -164,6 +164,72 @@ static uint16_t get_question_size(const struct dnsquestion *q) {
   return q->qnamelen + sizeof(q->qtype) + sizeof(q->qclass);
 }
 
+static int is_root(const char *name) {
+  return name[0] == '.' && name[1] == '\0';
+}
+
+static size_t domain_name_length(const char *name) {
+  size_t length = strlen(name);
+
+  while (length > 0 && name[length - 1] == '.') {
+    length -= 1;
+  }
+
+  if (length + 1 > DNS_DNAME_MAXLEN) {
+    return 0;
+  }
+
+  return length;
+}
+
+/* Code from knot: src/dnssec/shared/dname.{c.h}:dname_from_ascii */
+static uint8_t *dname_from_str(const char *name) {
+  if (!name) {
+    return NULL;
+  }
+
+  if (is_root(name)) {
+    return (uint8_t *)strdup("");
+  }
+
+  size_t length = domain_name_length(name);
+  if (length == 0) {
+    return NULL;
+  }
+
+  char *wire = strndup(name, length);
+  if (!wire) {
+    return NULL;
+  }
+
+  uint8_t *dname = malloc(length + 2);
+  if (!dname) {
+    return NULL;
+  }
+
+  uint8_t* write = dname;
+  char *save = NULL;
+  char *label = strtok_r(wire, ".", &save);
+  while (label) {
+    size_t label_len = strlen(label);
+    if (label_len > DNS_DNAME_MAXLABELLEN) {
+      free(dname);
+      return NULL;
+    }
+    *write = (uint8_t)label_len;
+    write += 1;
+
+    memcpy(write, label, label_len);
+    write += label_len;
+
+    label = strtok_r(NULL, ".", &save);
+  }
+
+  *write = '\0';
+
+  return dname;
+}
+
 int main(int argc, char **argv) {
   char owner[DNS_DNAME_MAXLEN];
   struct dnsheader *header;
@@ -219,25 +285,7 @@ int main(int argc, char **argv) {
     alloc_size = DNS_DNAME_MAXLEN;
   }
 
-  char *qname = malloc(alloc_size);
-
-  // dns_domain_fromdot
-  char *label = NULL;
-  char *dnamedup = strdup(owner);
-  unsigned int labellen = 0;
-  unsigned int namelen = 0;
-  while ((label = strsep(&dnamedup, ".")) != NULL) {
-    labellen = strlen(label);
-    if (labellen > DNS_DNAME_MAXLABELLEN) {
-      fprintf(stderr, "error: label is too long");
-      free(dnamedup);
-      return -1;
-    }
-    qname[namelen++] = labellen;
-    strcat(&qname[namelen], label);
-    namelen += labellen;
-  }
-  free(dnamedup);
+  uint8_t *qname = dname_from_str(strdup(owner));
 
   question = malloc(sizeof(*question) + alloc_size);
   memset(question, 0, sizeof(*question));
