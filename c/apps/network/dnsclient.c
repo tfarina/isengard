@@ -7,6 +7,7 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <sys/time.h>
+#include <sys/un.h>
 #include <unistd.h>
 
 struct dnsheader {
@@ -186,7 +187,9 @@ static size_t domain_name_length(const char *name) {
   return length;
 }
 
-/* Code from knot: src/dnssec/shared/dname.{c.h}:dname_from_ascii */
+/*
+ * Code from knot: src/dnssec/shared/dname.{c.h}:dname_from_ascii
+ */
 static uint8_t *dname_from_str(const char *name) {
   if (!name) {
     return NULL;
@@ -232,6 +235,88 @@ static uint8_t *dname_from_str(const char *name) {
   *write = '\0';
 
   return dname;
+}
+
+/*
+ * Code from knot: src/contrib/sockaddr.{c.h}:sockaddr_tostr
+ */
+
+/* Address string "address[@port]" maximum length. */
+#define SOCKADDR_STRLEN_EXT (1 + 6) /* '@', 5 digits number, \0 */
+#define SOCKADDR_STRLEN (sizeof(struct sockaddr_un) + SOCKADDR_STRLEN_EXT)
+
+/*
+ * Returns the port number from address.
+ *
+ * \param sa Socket address.
+ *
+ * \return The port number or error code.
+ */
+static int sockaddr_port(const struct sockaddr *sa) {
+  if (sa == NULL) {
+    return -1;
+  }
+
+  if (sa->sa_family == AF_INET6) {
+    return ntohs(((struct sockaddr_in6 *)sa)->sin6_port);
+  } else if (sa->sa_family == AF_INET) {
+    return ntohs(((struct sockaddr_in *)sa)->sin_port);
+  } else {
+    return -1;
+  }
+}
+
+/*
+ * Returns the string representation of socket address.
+ *
+ * \note String format: <address>[@<port>], f.e. '127.0.0.1@53'
+ *
+ * \param buf Destination for the string representation.
+ * \param maxlen Maximum number of written bytes.
+ * \param sa Socket address.
+ *
+ * \return On success returns the number of bytes writte, otherwise an error code.
+ */
+static int sockaddr_tostr(char *buf, size_t maxlen, const struct sockaddr *sa) {
+  if (sa == NULL || buf == NULL) {
+    return -1;
+  }
+
+  const char *out = NULL;
+
+  if (sa->sa_family == AF_INET6) {
+    const struct sockaddr_in6 *s = (const struct sockaddr_in6 *)sa;
+    out = inet_ntop(sa->sa_family, &s->sin6_addr, buf, maxlen);
+  } else if (sa->sa_family == AF_INET) {
+    const struct sockaddr_in *s = (const struct sockaddr_in *)sa;
+    out = inet_ntop(sa->sa_family, &s->sin_addr, buf, maxlen);
+  } else if (sa->sa_family == AF_UNIX) {
+    //    const struct sockaddr_un *s =  (const struct sockaddr_un *)sa;
+    //    size_t ret = strlcpy(buf, s->sun_path, maxlen);
+    //    out = (ret < maxlen) ? buf : NULL;
+  } else {
+    return -1;
+  }
+
+  if (out == NULL) {
+    *buf = '\0';
+    return -2;
+  }
+
+  /* Write separator and port. */
+  int written = strlen(buf);
+  int port = sockaddr_port(sa);
+  if (port > 0) {
+    int ret = snprintf(&buf[written], maxlen - written, "@%d", port);
+    if (ret <= 0 || (size_t) ret >= maxlen - written) {
+      *buf = '\0';
+      return -2;
+    }
+
+    written += ret;
+  }
+
+  return written;
 }
 
 int main(int argc, char **argv) {
@@ -345,6 +430,11 @@ int main(int argc, char **argv) {
     fprintf(stderr, "no addrlist");
     return EXIT_FAILURE;
   }
+
+  char addr_str[SOCKADDR_STRLEN] = { 0 };
+  sockaddr_tostr(addr_str, sizeof(addr_str), addrlist->ai_addr);
+
+  printf("%s\n", addr_str);
 
   // Create the socket.
   if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype, 0)) == -1) {
