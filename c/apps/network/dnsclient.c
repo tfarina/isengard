@@ -320,7 +320,7 @@ static int sockaddr_tostr(char *buf, size_t maxlen, const struct sockaddr *sa) {
 }
 
 int main(int argc, char **argv) {
-  char owner[DNS_DNAME_MAXLEN];
+  char *owner;
   struct dnsheader *header;
   struct dnsquestion *question;
   uint8_t *query_pkt;
@@ -339,7 +339,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  strcpy(owner, argv[1]);
+  owner = strdup(argv[1]);
   def_port = DNS_DEFAULT_PORT;
 
   header = malloc(sizeof(*header));
