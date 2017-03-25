@@ -352,6 +352,7 @@ int main(int argc, char **argv) {
   if (sendto(sockfd, query_pkt, query_pktlen, 0, addrlist->ai_addr,
              addrlist->ai_addrlen) != (ssize_t)query_pktlen) {
     fprintf(stderr, "sendto failed\n");
+    close(sockfd);
     return EXIT_FAILURE;
   }
 
@@ -359,6 +360,7 @@ int main(int argc, char **argv) {
   if ((reply_pktlen = recvfrom(sockfd, reply_pkt, sizeof(reply_pkt), 0,
                        (struct sockaddr *)&from, &fromlen)) == -1) {
     fprintf(stderr, "recvfrom failed\n");
+    close(sockfd);
     return EXIT_FAILURE;
   }
 
