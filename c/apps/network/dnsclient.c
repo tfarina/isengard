@@ -100,13 +100,17 @@ enum dns_rcode {
   DNS_RCODE_NOTZONE = 10 /* Name is not inside zone. */
 };
 
-/* A general purpose lookup table. */
+/*
+ * A general purpose lookup table.
+ */
 struct lookup_table {
   int id;
   const char *name;
 };
 
-/* Looks up the given id in the lookup table. */
+/*
+ * Looks up the given id in the lookup table.
+ */
 static const struct lookup_table *lookup_by_id(const struct lookup_table *table, int id) {
   while (table->name != NULL) {
     if (table->id == id) {
