@@ -451,8 +451,10 @@ int main(int argc, char **argv) {
   }
 
   // Receive the response.
-  if ((reply_pktlen = recvfrom(sockfd, reply_pkt, sizeof(reply_pkt), 0,
-                       (struct sockaddr *)&from, &fromlen)) == -1) {
+  reply_pktlen = recvfrom(sockfd, reply_pkt, sizeof(reply_pkt), 0,
+                          (struct sockaddr *)&from, &fromlen);
+  /* recvfrom() can also return 0. */
+  if (reply_pktlen == -1 || reply_pktlen == 0) {
     fprintf(stderr, "recvfrom failed\n");
     close(sockfd);
     return EXIT_FAILURE;
