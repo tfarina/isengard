@@ -374,7 +374,7 @@ int main(int argc, char **argv) {
     alloc_size = DNS_DNAME_MAXLEN;
   }
 
-  uint8_t *qname = dname_from_str(strdup(owner));
+  uint8_t *qname = dname_from_str(owner);
 
   question = malloc(sizeof(*question) + alloc_size);
   memset(question, 0, sizeof(*question));
