@@ -343,7 +343,6 @@ int main(int argc, char **argv) {
   }
 
   owner = strdup(argv[1]);
-  def_port = DNS_DEFAULT_PORT;
 
   header = malloc(sizeof(*header));
   memset(header, 0, sizeof(*header));
@@ -416,7 +415,9 @@ int main(int argc, char **argv) {
   // QCLASS
   write_uint16(query_pkt + offset, question->qclass);
 
+  // Resolver settings.
   server_name = "8.8.8.8";
+  def_port = DNS_DEFAULT_PORT;
 
   // Prepare the UDP socket that will be used to send the query to the DNS
   // server.
