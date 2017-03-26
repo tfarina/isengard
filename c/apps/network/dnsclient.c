@@ -438,8 +438,6 @@ int main(int argc, char **argv) {
   char addr_str[SOCKADDR_STRLEN] = { 0 };
   sockaddr_tostr(addr_str, sizeof(addr_str), addrlist->ai_addr);
 
-  printf("%s\n", addr_str);
-
   // Create the socket.
   if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype, 0)) == -1) {
     fprintf(stderr, "socket creation failed: %s\n", strerror(errno));
@@ -531,6 +529,7 @@ int main(int argc, char **argv) {
 
   printf("\n");
 
+  printf(";; SERVER: %s\n", addr_str);
   printf(";; MSG SIZE rcvd: %zd\n", reply_pktlen);
 
   close(sockfd);
