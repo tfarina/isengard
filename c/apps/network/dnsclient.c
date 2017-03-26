@@ -324,6 +324,7 @@ int main(int argc, char **argv) {
   struct dnsheader *header;
   struct dnsquestion *question;
   uint8_t *query_pkt;
+  size_t query_pktlen;
   char *server_name;
   char *def_port;
   struct addrinfo hints, *addrlist;
@@ -385,7 +386,7 @@ int main(int argc, char **argv) {
 
   // Prepare the packet (header + question) with the query that will be sent to
   // the DNS server.
-  size_t query_pktlen = sizeof(*header) + get_question_size(question);
+  query_pktlen = sizeof(*header) + get_question_size(question);
   query_pkt = malloc(query_pktlen);
 
   int offset = 0;
