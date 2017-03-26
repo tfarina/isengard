@@ -66,6 +66,8 @@ enum dns_rr_type {
  */
 #define MAX_UDP_SIZE 512
 
+#define MAX_PACKET_LEN 65535
+
 /*
  * Basic limits for domain names (RFC 1035).
  */
@@ -330,7 +332,7 @@ int main(int argc, char **argv) {
   struct addrinfo hints, *addrlist;
   int rv;
   int sockfd;
-  uint8_t reply_pkt[MAX_UDP_SIZE];
+  uint8_t reply_pkt[MAX_PACKET_LEN];
   struct sockaddr_storage from;
   socklen_t fromlen = sizeof(from);
   ssize_t reply_pktlen;
