@@ -321,6 +321,35 @@ static int sockaddr_tostr(char *buf, size_t maxlen, const struct sockaddr *sa) {
   return written;
 }
 
+static int is_label_pointer(const uint8_t *pos) {
+  return pos && ((pos[0] & 0xc0) == 0xc0);
+}
+
+/*
+ * Code from knot src/libknot/dname.{c,h}:knot_dname_size().
+ */
+static int get_dname_length(const uint8_t *name) {
+  int len = 0;
+
+  if (name == NULL) {
+    return -1;
+  }
+
+  /* Count name length without terminal label. */
+  while (*name != '\0' && !is_label_pointer(name)) {
+    uint8_t label_len = *name + 1;
+    len += label_len;
+    name += label_len;
+  }
+
+  /* Compression pointer is 2 octets. */
+  if (is_label_pointer(name)) {
+    return len + 2;
+  }
+
+  return len + 1;
+}
+
 int main(int argc, char **argv) {
   char *owner;
   struct dnsheader *header;
@@ -361,27 +390,13 @@ int main(int argc, char **argv) {
   header->arcount = 0;
 
   /* Create QNAME from string. */
-  size_t dname_len = strlen(owner);
-  size_t alloc_size = 0;
-  if (owner[0] == '.') {
-    alloc_size = 1;
-  } else if (owner[dname_len - 1] != '.') {
-    alloc_size = 1 + dname_len + 1;
-  } else {
-    alloc_size = 1+ dname_len;
-  }
-
-  if (alloc_size > DNS_DNAME_MAXLEN) {
-    alloc_size = DNS_DNAME_MAXLEN;
-  }
-
   uint8_t *qname = dname_from_str(owner);
 
-  question = malloc(sizeof(*question) + alloc_size);
+  question = malloc(sizeof(*question));
   memset(question, 0, sizeof(*question));
 
   question->qname = qname;
-  question->qnamelen = alloc_size;
+  question->qnamelen = get_dname_length(qname);
   question->qtype = DNS_RR_TYPE_A;
   question->qclass = DNS_RR_CLASS_IN;
 
