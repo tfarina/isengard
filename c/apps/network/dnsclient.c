@@ -373,6 +373,10 @@ int main(int argc, char **argv) {
 
   owner = strdup(argv[1]);
 
+  // Prepare the packet (header + question) with the query that will be sent to
+  // the DNS server.
+  query_pkt = malloc(MAX_UDP_SIZE);
+
   header = malloc(sizeof(*header));
   memset(header, 0, sizeof(*header));
 
@@ -399,10 +403,6 @@ int main(int argc, char **argv) {
   question->qnamelen = get_dname_length(qname);
   question->qtype = DNS_RR_TYPE_A;
   question->qclass = DNS_RR_CLASS_IN;
-
-  // Prepare the packet (header + question) with the query that will be sent to
-  // the DNS server.
-  query_pkt = malloc(MAX_UDP_SIZE);
 
   uint8_t *position;
 
