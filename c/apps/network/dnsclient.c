@@ -247,6 +247,8 @@ static uint8_t *dname_from_str(const char *name) {
 #define SOCKADDR_STRLEN_EXT (1 + 6) /* '@', 5 digits number, \0 */
 #define SOCKADDR_STRLEN (sizeof(struct sockaddr_un) + SOCKADDR_STRLEN_EXT)
 
+#define NET_ERR -1
+
 /*
  * Returns the port number from address.
  *
@@ -256,7 +258,7 @@ static uint8_t *dname_from_str(const char *name) {
  */
 static int sockaddr_port(const struct sockaddr *sa) {
   if (sa == NULL) {
-    return -1;
+    return NET_ERR;
   }
 
   if (sa->sa_family == AF_INET6) {
@@ -264,7 +266,7 @@ static int sockaddr_port(const struct sockaddr *sa) {
   } else if (sa->sa_family == AF_INET) {
     return ntohs(((struct sockaddr_in *)sa)->sin_port);
   } else {
-    return -1;
+    return NET_ERR;
   }
 }
 
@@ -281,7 +283,7 @@ static int sockaddr_port(const struct sockaddr *sa) {
  */
 static int sockaddr_tostr(char *buf, size_t maxlen, const struct sockaddr *sa) {
   if (sa == NULL || buf == NULL) {
-    return -1;
+    return NET_ERR;
   }
 
   const char *out = NULL;
@@ -297,7 +299,7 @@ static int sockaddr_tostr(char *buf, size_t maxlen, const struct sockaddr *sa) {
     //    size_t ret = strlcpy(buf, s->sun_path, maxlen);
     //    out = (ret < maxlen) ? buf : NULL;
   } else {
-    return -1;
+    return NET_ERR;
   }
 
   if (out == NULL) {
