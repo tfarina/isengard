@@ -402,10 +402,9 @@ int main(int argc, char **argv) {
 
   // Prepare the packet (header + question) with the query that will be sent to
   // the DNS server.
-  query_pktlen = sizeof(*header) + get_question_size(question);
-  query_pkt = malloc(query_pktlen);
+  query_pkt = malloc(MAX_UDP_SIZE);
 
-  int offset = 0;
+  uint8_t *position;
 
   // HEADER
   write_uint16(query_pkt + DNS_OFFSET_ID, header->id);
@@ -415,20 +414,24 @@ int main(int argc, char **argv) {
   write_uint16(query_pkt + DNS_OFFSET_NSCOUNT, header->nscount);
   write_uint16(query_pkt + DNS_OFFSET_ARCOUNT, header->arcount);
 
-  offset += sizeof(*header);
+  position = query_pkt + sizeof(*header);
 
   // QUESTION: QNAME + QTYPE + QCLASS
 
   // QNAME
-  memcpy(query_pkt + offset, question->qname, question->qnamelen);
-  offset += question->qnamelen;
+  memcpy(position, question->qname, question->qnamelen);
+  position += question->qnamelen;
 
   // QTYPE
-  write_uint16(query_pkt + offset, question->qtype);
-  offset += sizeof(question->qtype);
+  write_uint16(position, question->qtype);
+  position += sizeof(question->qtype);
 
   // QCLASS
-  write_uint16(query_pkt + offset, question->qclass);
+  write_uint16(position, question->qclass);
+  position += sizeof(question->qclass);
+
+  query_pktlen = position - query_pkt;
+  //  printf("PKTLEN: %zu\n", query_pktlen);
 
   // Resolver settings.
   server_name = "8.8.8.8";
