@@ -168,7 +168,7 @@ static uint16_t get_question_size(const struct dnsquestion *q) {
     return 0;
   }
 
-  return q->qnamelen + sizeof(q->qtype) + sizeof(q->qclass);
+  return q->qnamelen + 2 * sizeof(uint16_t);
 }
 
 static int is_root(const char *name) {
