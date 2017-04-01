@@ -74,10 +74,10 @@ enum dns_rr_type {
 #define DNS_DNAME_MAXLEN 255 /* 1-byte maximum. */
 #define DNS_DNAME_MAXLABELLEN 63 /* 2^6 - 1 */
 
-#define OPCODE_MASK 0x7800U
+#define OPCODE_MASK 0x7800U /* 0111 1000 0000 0000 */
 #define OPCODE_SHIFT 11
 
-#define RCODE_MASK 0x000fU
+#define RCODE_MASK 0x000fU /* 0000 0000 0000 1111 */
 
 /* DNS operation codes. */
 enum dns_opcode {
