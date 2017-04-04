@@ -112,7 +112,7 @@ int main(int argc, char **argv) {
       exit(EXIT_FAILURE);
     }
 
-    if (sockfd > -1 && FD_ISSET(sockfd, &rfds_out)) {
+    if (FD_ISSET(sockfd, &rfds_out)) {
       send_udp_message(sockfd);
     }
   }
