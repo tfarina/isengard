@@ -7,7 +7,9 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <sys/time.h>
+#include <sys/types.h>
 #include <sys/un.h>
+#include <time.h>
 #include <unistd.h>
 
 struct dnsheader {
@@ -33,7 +35,6 @@ struct dnsquestion {
 #define FLAG_RA 0x0080U /* Recursion Available - server flag */
 #define FLAG_AD 0x0020U /* Authenticated Data - server flag */
 #define FLAG_CD 0x0010U /* Checking Disabled - query flag */
-
 
 /* Resource Record definitions. */
 
@@ -549,7 +550,16 @@ int main(int argc, char **argv) {
 
   printf("\n");
 
+  time_t exec_time;
+  struct tm tm;
+  char date[64];
+
+  exec_time = time(NULL);
+  localtime_r(&exec_time, &tm);
+  strftime(date, sizeof(date), "%Y-%m-%d %H:%M:%S %Z", &tm);
+
   printf(";; SERVER: %s\n", addr_str);
+  printf(";; WHEN: %s\n", date);
   printf(";; MSG SIZE rcvd: %zd\n", reply_pktlen);
 
   close(sockfd);
