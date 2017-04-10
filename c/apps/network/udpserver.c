@@ -108,8 +108,8 @@ int main(int argc, char **argv) {
 
   for (;;) {
     if (select(sockfd + 1, &rfds_out, NULL, NULL, NULL) < 0) {
-      error("select failed: %s", strerror(errno));
-      exit(EXIT_FAILURE);
+      warning("select: %s", strerror(errno));
+      continue;
     }
 
     if (FD_ISSET(sockfd, &rfds_out)) {
