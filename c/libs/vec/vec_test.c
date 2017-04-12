@@ -4,7 +4,7 @@
 
 int main(void)
 {
-        Vec files;
+        vec_t files;
         int i;
 
 	vec_init(&files);

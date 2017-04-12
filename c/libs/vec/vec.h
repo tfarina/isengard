@@ -8,37 +8,37 @@
  */
 
 /*
- * A Vec is a string vector, like Go's []string.
+ * A vec_t is a string vector, like Go's []string.
  */
 typedef struct {
 	char **strs;
 	int len;
 	int cap;
-} Vec;
+} vec_t;
 
 /*
  * vec_init prepares an uninitialized vector for use.
  */
-void vec_init(Vec *v);
+void vec_init(vec_t *v);
 
 /*
  * vec_reset truncates the vector back to zero length.
  */
-void vec_reset(Vec *v);
+void vec_reset(vec_t *v);
 
 /* 
  * vec_free frees the storage associated with the vector.
  */
-void vec_free(Vec *v);
+void vec_free(vec_t *v);
 
 /* 
  * vec_add adds a copy of the string p to the vector.
  */
-void vec_add(Vec *v, char *p);
+void vec_add(vec_t *v, char *p);
 
 /*
  * vec_copy copies the srclen strings at src into the vector.
  */
-void vec_copy(Vec *dst, char **src, int n);
+void vec_copy(vec_t *dst, char **src, int n);
 
 #endif  /* VEC_H_ */
