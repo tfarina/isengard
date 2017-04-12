@@ -150,11 +150,14 @@ static const struct lookup_table opcodes[] = {
 };
 
 static void write_uint16(void *dst, uint16_t data) {
-  *(uint16_t*)dst = htons(data);
+  uint8_t *p = (uint8_t *)dst;
+  p[0] = (uint8_t)((data >> 8) & 0xFF);
+  p[1] = (uint8_t)(data & 0xFF);
 }
 
-static uint16_t read_uint16(void *src) {
-  return ntohs(*(uint16_t *)src);
+static uint16_t read_uint16(const void *src) {
+  const uint8_t *p = (const uint8_t *)src;
+  return ((uint16_t)p[0] << 8) | (uint16_t)p[1];
 }
 
 #define DNS_OFFSET_ID 0
