@@ -8,12 +8,15 @@
 
 #define BUFSIZE 1024
 
-int main(void) {
+int main(int argc, char **argv) {
         int socket_fd;
         struct sockaddr_un unix_addr;
         char buf[BUFSIZE];
         ssize_t n;
         char pre[10];
+        int i;
+        const char *space = " ";
+        const char *newline = "\n";
 
         socket_fd = socket(AF_UNIX, SOCK_STREAM, 0);
         if (socket_fd == -1) {
@@ -28,11 +31,25 @@ int main(void) {
         if (connect(socket_fd, (struct sockaddr *)&unix_addr, sizeof(unix_addr)) == -1) {
         }
 
-        /* TODO: send command line to the server.*/
         snprintf(pre, sizeof(pre), "NIXCT%d ", 1);
 
         if (write(socket_fd, pre, strlen(pre)) <= 0) {
                 fprintf(stderr, "could not write\n");
+        }
+
+        argc -= 1;
+        argv += 1;
+
+        for (i = 0; i < argc; i++) {
+          printf(" %s", argv[i]);
+
+          write(socket_fd, space, strlen(space));
+
+          write(socket_fd, argv[i], strlen(argv[i]));
+        }
+
+        if (write(socket_fd, newline, strlen(newline)) <= 0) {
+          fprintf(stderr, "could not write\n");
         }
 
         while ((n = read(socket_fd, buf, BUFSIZE)) > 0 ) {
