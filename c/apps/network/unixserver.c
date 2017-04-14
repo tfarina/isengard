@@ -50,7 +50,9 @@ int main(void) {
                         exit(EXIT_FAILURE);
                 }
 
-                rv = read(accept_fd, magic, (int)sizeof(magic) - 1);
+                if ((rv = read(accept_fd, magic, (int)sizeof(magic) - 1)) <= 0) {
+                  fprintf(stderr, "could not read\n");
+                }
 
                 magic[7] = 0;
 
