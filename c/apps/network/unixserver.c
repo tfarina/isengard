@@ -15,6 +15,8 @@ int main(void) {
         size_t unix_addr_len;
         int accept_fd;
         char buf[BUFSIZE];
+        int rv;
+        char magic[8];
 
         unlink("server.socket");
 
@@ -40,7 +42,7 @@ int main(void) {
         }
 
         sprintf(buf, "%s\r\n", "Your target was built!");
-        char magic[8];
+
 
 	for (;;) {
                 if ((accept_fd = accept(socket_fd, NULL, NULL)) == -1) {
@@ -48,7 +50,13 @@ int main(void) {
                         exit(EXIT_FAILURE);
                 }
 
-                read(accept_fd, magic, sizeof(magic) - 1);
+                rv = read(accept_fd, magic, (int)sizeof(magic) - 1);
+
+                magic[7] = 0;
+
+                if (rv != 7 || strncmp(magic, "NIXCT", 5) != 0) {
+                  fprintf(stderr, "control connection has bad header\n");
+                }
 
                 printf("%s\n", magic);
 

@@ -13,6 +13,7 @@ int main(void) {
         struct sockaddr_un unix_addr;
         char buf[BUFSIZE];
         ssize_t n;
+        char pre[10];
 
         socket_fd = socket(AF_UNIX, SOCK_STREAM, 0);
         if (socket_fd == -1) {
@@ -27,9 +28,8 @@ int main(void) {
         if (connect(socket_fd, (struct sockaddr *)&unix_addr, sizeof(unix_addr)) == -1) {
         }
 
-        /* TODO: send the command to the server.*/
-        char pre[10];
-        snprintf(pre, sizeof(pre), "UNIXCT%d ", 1);
+        /* TODO: send command line to the server.*/
+        snprintf(pre, sizeof(pre), "NIXCT%d ", 1);
 
         write(socket_fd, pre, strlen(pre));
 
