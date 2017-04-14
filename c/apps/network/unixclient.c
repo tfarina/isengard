@@ -31,7 +31,9 @@ int main(void) {
         /* TODO: send command line to the server.*/
         snprintf(pre, sizeof(pre), "NIXCT%d ", 1);
 
-        write(socket_fd, pre, strlen(pre));
+        if (write(socket_fd, pre, strlen(pre)) <= 0) {
+                fprintf(stderr, "could not write\n");
+        }
 
         while ((n = read(socket_fd, buf, BUFSIZE)) > 0 ) {
                 buf[n] = 0;
