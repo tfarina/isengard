@@ -40,12 +40,17 @@ int main(void) {
         }
 
         sprintf(buf, "%s\r\n", "Your target was built!");
+        char magic[8];
 
 	for (;;) {
                 if ((accept_fd = accept(socket_fd, NULL, NULL)) == -1) {
                         fprintf(stderr, "accept() failed: %s\n", strerror(errno));
                         exit(EXIT_FAILURE);
                 }
+
+                read(accept_fd, magic, sizeof(magic) - 1);
+
+                printf("%s\n", magic);
 
                 write(accept_fd, buf, strlen(buf));
 
