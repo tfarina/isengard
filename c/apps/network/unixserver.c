@@ -41,7 +41,7 @@ int main(void) {
                 exit(EXIT_FAILURE);
         }
 
-        sprintf(buf, "%s\r\n", "Your target was built!");
+        sprintf(buf, "%s\r\n", "Target not found!");
 
 
 	for (;;) {
