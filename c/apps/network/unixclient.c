@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
           fprintf(stderr, "could not write\n");
         }
 
-        while ((n = read(socket_fd, buf, BUFSIZE)) > 0 ) {
+        while ((n = read(socket_fd, buf, sizeof(buf))) > 0 ) {
                 buf[n] = 0;
                 fputs(buf, stdout);
         }
