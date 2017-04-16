@@ -1,5 +1,5 @@
 cc_library(
-    name = "cli",
+    name = "umgr",
     srcs = [
         "db.c",
         "user.c",
@@ -19,7 +19,7 @@ cc_binary(
         "-pthread",
         "-ldl",
     ],
-    deps = [":cli"],
+    deps = [":umgr"],
 )
 
 cc_binary(
@@ -30,7 +30,7 @@ cc_binary(
         "-pthread",
         "-ldl",
     ],
-    deps = [":cli"],
+    deps = [":umgr"],
 )
 
 cc_binary(
@@ -41,7 +41,7 @@ cc_binary(
         "-pthread",
         "-ldl",
     ],
-    deps = [":cli"],
+    deps = [":umgr"],
 )
 
 cc_binary(
@@ -52,7 +52,7 @@ cc_binary(
         "-pthread",
         "-ldl",
     ],
-    deps = [":cli"],
+    deps = [":umgr"],
 )
 
 cc_binary(
@@ -63,7 +63,7 @@ cc_binary(
         "-pthread",
         "-ldl",
     ],
-    deps = [":cli"],
+    deps = [":umgr"],
 )
 
 cc_binary(
@@ -74,5 +74,5 @@ cc_binary(
         "-pthread",
         "-ldl",
     ],
-    deps = [":cli"],
+    deps = [":umgr"],
 )
