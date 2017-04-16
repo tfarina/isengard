@@ -11,7 +11,7 @@
 #define NORETURN
 #endif
 
-static void NORETURN die(const char *msg, ...)
+static void NORETURN fatal(const char *msg, ...)
 {
         va_list args;
 
@@ -30,7 +30,7 @@ static void *xrealloc(void *p, size_t n)
 {
 	p = realloc(p, n);
         if (p == NULL)
-                die("out of memory: %lu", n);
+                fatal("out of memory: %lu", n);
 	return p;
 }
 
