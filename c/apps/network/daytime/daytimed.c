@@ -4,7 +4,7 @@
  * Code modified from paulgriffiths.net/program/c/srcs/timeservsrc.html
  * and http://www.tutorialspoint.com/unix_sockets/socket_server_example.htm
  *
- * $ ./timed &
+ * $ ./daytimed &
  */
 
 #include <arpa/inet.h>
@@ -26,11 +26,12 @@
 #define DEFAULT_PORT 13
 #define BACKLOG 1024
 #define BUFSIZE 256
+#define PROGNAME "daytimed"
 
 static unsigned int forked = 0;
 
 static void logstatus(void) {
-  printf("timed: status: %d\n", forked);
+  printf(PROGNAME ": status: %d\n", forked);
 }
 
 /* Echo the current day time to the connected client. */
@@ -49,7 +50,7 @@ static void sigchld_handler(int sig) {
   int status;
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
     --forked;
-    printf("timed: end %d status %d\n", pid, status);
+    printf(PROGNAME ": end %d status %d\n", pid, status);
     logstatus();
   }
   signal(SIGCHLD, sigchld_handler);
@@ -85,7 +86,7 @@ static void send_tcp_message(int sockfd) {
 
     default:
       close(client_fd); /* we are the parent so look for another connection. */
-      printf("timed: pid %d\n", pid);
+      printf(PROGNAME ": pid %d\n", pid);
   }
 }
 
