@@ -123,9 +123,7 @@ int main(void) {
     exit(EXIT_FAILURE);
   }
 
-  fprintf(stderr,
-          "The server is now ready to accept connections on port %d\n",
-          DEFAULT_PORT);
+  info("The server is now ready to accept connections on port %d\n", DEFAULT_PORT);
 
   signal(SIGCHLD, sigchld_handler);
 
