@@ -9,6 +9,27 @@
 
 #define BUFSIZE 1024
 
+int socket_read_line(int fd, char *buf, size_t max) {
+  int rv;
+  size_t len = 0;
+
+  while (len < max) {
+    if ((rv = read(fd, buf + len, 1)) <= 0) {
+      return 0;
+    }
+
+    if (buf[len] == '\n') {
+      /* Return string without \n. */
+      buf[len] = 0;
+      return 1;
+    }
+    len++;
+  }
+
+  buf[max - 1] = 0;
+  return 0;
+}
+
 int main(void) {
         int socket_fd;
         struct sockaddr_un unix_addr;
@@ -17,6 +38,7 @@ int main(void) {
         char buf[BUFSIZE];
         int rv;
         char magic[8];
+        char cmdline[BUFSIZE];
 
         unlink("server.socket");
 
@@ -43,7 +65,6 @@ int main(void) {
 
         sprintf(buf, "%s\r\n", "Target not found!");
 
-
 	for (;;) {
                 if ((accept_fd = accept(socket_fd, NULL, NULL)) == -1) {
                         fprintf(stderr, "accept() failed: %s\n", strerror(errno));
@@ -61,6 +82,11 @@ int main(void) {
                 }
 
                 printf("%s\n", magic);
+
+                if (!socket_read_line(accept_fd, cmdline, sizeof(cmdline))) {
+
+                }
+                printf("%s\n", cmdline);
 
                 write(accept_fd, buf, strlen(buf));
 
