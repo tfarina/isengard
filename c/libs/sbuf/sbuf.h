@@ -10,6 +10,7 @@ typedef struct {
         /* The data contained in the buffer. */
 	char *data;
 
+        /* The current length of the buffer, the position for reading/writing. */
 	size_t len;
 
         /* The amount of data the buffer can contain. */
