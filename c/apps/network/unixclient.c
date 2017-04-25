@@ -11,12 +11,15 @@
 int main(int argc, char **argv) {
         int socket_fd;
         struct sockaddr_un unix_addr;
+        const char *path;
         char buf[BUFSIZE];
         ssize_t n;
         char pre[10];
         int i;
         const char *space = " ";
         const char *newline = "\n";
+
+        path = "server.socket";
 
         socket_fd = socket(AF_UNIX, SOCK_STREAM, 0);
         if (socket_fd == -1) {
@@ -26,7 +29,7 @@ int main(int argc, char **argv) {
 
         memset(&unix_addr, 0, sizeof(unix_addr));
         unix_addr.sun_family = AF_UNIX;
-        strncpy(unix_addr.sun_path, "server.socket", sizeof(unix_addr.sun_path));
+        strncpy(unix_addr.sun_path, path, sizeof(unix_addr.sun_path));
 
         if (connect(socket_fd, (struct sockaddr *)&unix_addr, sizeof(unix_addr)) == -1) {
         }
