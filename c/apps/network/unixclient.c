@@ -8,8 +8,20 @@
 
 #define BUFSIZE 1024
 
+static int net_create_socket(int domain)
+{
+        int sockfd;
+
+        if ((sockfd = socket(domain, SOCK_STREAM, 0)) == -1) {
+                fprintf(stderr, "failed to create socket\n");
+                return -1;
+        }
+
+        return sockfd;
+}
+
 int main(int argc, char **argv) {
-        int socket_fd;
+        int sockfd;
         struct sockaddr_un unix_addr;
         const char *path;
         char buf[BUFSIZE];
@@ -21,9 +33,7 @@ int main(int argc, char **argv) {
 
         path = "server.socket";
 
-        socket_fd = socket(AF_UNIX, SOCK_STREAM, 0);
-        if (socket_fd == -1) {
-                fprintf(stderr, "failed to create AF_UNIX socket\n");
+        if ((sockfd = net_create_socket(AF_UNIX)) == -1) {
                 return EXIT_FAILURE;
         }
 
@@ -31,12 +41,12 @@ int main(int argc, char **argv) {
         unix_addr.sun_family = AF_UNIX;
         strncpy(unix_addr.sun_path, path, sizeof(unix_addr.sun_path));
 
-        if (connect(socket_fd, (struct sockaddr *)&unix_addr, sizeof(unix_addr)) == -1) {
+        if (connect(sockfd, (struct sockaddr *)&unix_addr, sizeof(unix_addr)) == -1) {
         }
 
         snprintf(pre, sizeof(pre), "NIXCT%d ", 1);
 
-        if (write(socket_fd, pre, strlen(pre)) <= 0) {
+        if (write(sockfd, pre, strlen(pre)) <= 0) {
                 fprintf(stderr, "could not write\n");
         }
 
@@ -46,16 +56,16 @@ int main(int argc, char **argv) {
         for (i = 0; i < argc; i++) {
           printf(" %s", argv[i]);
 
-          write(socket_fd, space, strlen(space));
+          write(sockfd, space, strlen(space));
 
-          write(socket_fd, argv[i], strlen(argv[i]));
+          write(sockfd, argv[i], strlen(argv[i]));
         }
 
-        if (write(socket_fd, newline, strlen(newline)) <= 0) {
+        if (write(sockfd, newline, strlen(newline)) <= 0) {
           fprintf(stderr, "could not write\n");
         }
 
-        while ((n = read(socket_fd, buf, sizeof(buf))) > 0 ) {
+        while ((n = read(sockfd, buf, sizeof(buf))) > 0 ) {
                 buf[n] = 0;
                 fputs(buf, stdout);
         }
