@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,6 +43,9 @@ int main(int argc, char **argv) {
         strncpy(unix_addr.sun_path, path, sizeof(unix_addr.sun_path));
 
         if (connect(sockfd, (struct sockaddr *)&unix_addr, sizeof(unix_addr)) == -1) {
+                fprintf(stderr, "connect failed: %s\n", strerror(errno));
+                close(sockfd);
+                return -1;
         }
 
         snprintf(pre, sizeof(pre), "NIXCT%d ", 1);
