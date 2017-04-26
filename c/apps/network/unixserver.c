@@ -9,7 +9,19 @@
 
 #define BUFSIZE 1024
 
-int socket_read_line(int fd, char *buf, size_t max) {
+static int net_create_socket(int domain)
+{
+        int sockfd;
+
+        if ((sockfd = socket(domain, SOCK_STREAM, 0)) == -1) {
+                fprintf(stderr, "failed to create socket\n");
+                return -1;
+        }
+
+        return sockfd;
+}
+
+static int socket_read_line(int fd, char *buf, size_t max) {
   int rv;
   size_t len = 0;
 
@@ -31,7 +43,7 @@ int socket_read_line(int fd, char *buf, size_t max) {
 }
 
 int main(void) {
-        int socket_fd;
+        int sockfd;
         struct sockaddr_un unix_addr;
         size_t unix_addr_len;
         const char *path;
@@ -45,10 +57,8 @@ int main(void) {
 
         unlink(path);
 
-        socket_fd = socket(AF_UNIX, SOCK_STREAM, 0);
-        if (socket_fd == -1) {
-                fprintf(stderr, "failed to create AF_UNIX socket\n");
-                exit(EXIT_FAILURE);
+        if ((sockfd = net_create_socket(AF_UNIX)) == -1) {
+                  return EXIT_FAILURE;
         }
 
         memset(&unix_addr, 0, sizeof(unix_addr));
@@ -56,12 +66,12 @@ int main(void) {
         strncpy(unix_addr.sun_path, path, sizeof(unix_addr.sun_path));
         unix_addr_len = strlen(path) + 1 + offsetof(struct sockaddr_un, sun_path);
 
-        if (bind(socket_fd, (const struct sockaddr*)&unix_addr, unix_addr_len) == -1) {
+        if (bind(sockfd, (const struct sockaddr*)&unix_addr, unix_addr_len) == -1) {
                 fprintf(stderr, "bind() failed: %s\n", strerror(errno));
                 exit(EXIT_FAILURE);
         }
 
-        if (listen(socket_fd, SOMAXCONN) == -1) {
+        if (listen(sockfd, SOMAXCONN) == -1) {
                 fprintf(stderr, "listen() failed: %s\n", strerror(errno));
                 exit(EXIT_FAILURE);
         }
@@ -69,7 +79,7 @@ int main(void) {
         sprintf(buf, "%s\r\n", "Target not found!");
 
 	for (;;) {
-                if ((accept_fd = accept(socket_fd, NULL, NULL)) == -1) {
+                if ((accept_fd = accept(sockfd, NULL, NULL)) == -1) {
                         fprintf(stderr, "accept() failed: %s\n", strerror(errno));
                         exit(EXIT_FAILURE);
                 }
