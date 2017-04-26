@@ -68,12 +68,14 @@ int main(void) {
 
         if (bind(sockfd, (const struct sockaddr*)&unix_addr, unix_addr_len) == -1) {
                 fprintf(stderr, "bind() failed: %s\n", strerror(errno));
-                exit(EXIT_FAILURE);
+                close(sockfd);
+                return EXIT_FAILURE;
         }
 
         if (listen(sockfd, SOMAXCONN) == -1) {
                 fprintf(stderr, "listen() failed: %s\n", strerror(errno));
-                exit(EXIT_FAILURE);
+                close(sockfd);
+                return EXIT_FAILURE;
         }
 
         sprintf(buf, "%s\r\n", "Target not found!");
