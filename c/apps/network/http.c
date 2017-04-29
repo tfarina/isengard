@@ -122,7 +122,7 @@ static ssize_t fd_write_all(int fd, char *buf, size_t len)
     if (bytes_sent <= 0)
       return -1;
 
-    printf("bytes sent: %ld\n", bytes_sent);
+    printf("# sent %zd bytes\n", bytes_sent);
 
     buf += bytes_sent;
     len -= bytes_sent;
