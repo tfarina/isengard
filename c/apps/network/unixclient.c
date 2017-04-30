@@ -9,12 +9,27 @@
 
 #define BUFSIZE 1024
 
-static int net_create_socket(int domain)
+#define NET_ERR_LEN 256
+
+static void net_set_error(char *err, const char *fmt, ...)
+{
+       va_list ap;
+
+       if (!err) {
+               return;
+       }
+
+       va_start(ap, fmt);
+       vsnprintf(err, NET_ERR_LEN, fmt, ap);
+       va_end(ap);
+}
+
+static int net_create_socket(char *err, int domain)
 {
         int sockfd;
 
         if ((sockfd = socket(domain, SOCK_STREAM, 0)) == -1) {
-                fprintf(stderr, "failed to create socket\n");
+                net_set_error(err, "error creating socket: %s", strerror(errno));
                 return -1;
         }
 
@@ -23,6 +38,7 @@ static int net_create_socket(int domain)
 
 int main(int argc, char **argv) {
         int sockfd;
+        char neterr[NET_ERR_LEN];
         struct sockaddr_un unix_addr;
         const char *path;
         char buf[BUFSIZE];
@@ -34,7 +50,8 @@ int main(int argc, char **argv) {
 
         path = "server.socket";
 
-        if ((sockfd = net_create_socket(AF_UNIX)) == -1) {
+        if ((sockfd = net_create_socket(neterr, AF_UNIX)) == -1) {
+                fprintf(stderr, "%s\n", neterr);
                 return EXIT_FAILURE;
         }
 
