@@ -74,7 +74,7 @@ static void log_warning(const char *emsg, ...) {
 }
 
 static void logstatus(void) {
-  log_info("num child forked: %d\n", forked);
+  log_info("num child forked: %d", forked);
 }
 
 static void echo_stream(int fd) {
@@ -153,7 +153,7 @@ static int tcp_socket_listen(char *host, int port, int backlog) {
     exit(EXIT_FAILURE);
   }
 
-  log_info("Server listening on %s port %s\n", ntop, strport);
+  log_info("Server listening on %s port %s", ntop, strport);
 
   return tcpfd;
 }
@@ -216,7 +216,7 @@ static void tcp_socket_accept(int tcpfd) {
 
   default:
     close(echofd); /* we are the parent so look for another connection. */
-    log_info("pid: %d\n", pid);
+    log_info("pid: %d", pid);
   }
 }
 
@@ -225,7 +225,7 @@ static void sigchld_handler(int sig) {
   int status;
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
     --forked;
-    log_info("pid %d status %d\n", pid, status);
+    log_info("pid %d status %d", pid, status);
     logstatus();
   }
   signal(SIGCHLD, sigchld_handler);
