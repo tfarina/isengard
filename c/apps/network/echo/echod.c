@@ -23,18 +23,18 @@ static const char *progname;
 
 static unsigned int forked = 0; /* Number of child processes. */
 
-static int g_debug;
+static int log_on_stderr = 1;
 
-static void log_init(int n_debug) {
-  g_debug = n_debug;
+static void log_init(int on_stderr) {
+  log_on_stderr = on_stderr;
 
-  if (!g_debug)
+  if (!log_on_stderr)
     openlog(progname, LOG_PID | LOG_NDELAY, LOG_DAEMON);
 }
 
 static void vlog(int pri, const char *fmt, va_list ap) {
   char *nfmt;
-  if (g_debug) {
+  if (log_on_stderr) {
     /* Write to stderr */
     if (asprintf(&nfmt, "%s\n", fmt) == -1) {
       vfprintf(stderr, fmt, ap);
