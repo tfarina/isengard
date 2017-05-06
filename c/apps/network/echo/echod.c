@@ -253,7 +253,11 @@ int main(int argc, char **argv) {
    * after select(). */
   fd_set rfds_out;
 
-  progname = argv[0];
+  progname = strrchr(argv[0], '/');
+  if (progname == NULL)
+    progname = argv[0];
+  else
+    progname++;
 
   while ((ch = getopt(argc, argv, "d")) != -1) {
     switch (ch) {
