@@ -243,6 +243,20 @@ static void usage(void) {
   exit(EXIT_FAILURE);
 }
 
+static char *get_progname(char *argv0)
+{
+  char *name;
+
+  name = strrchr(argv0, '/');
+  if (name == NULL) {
+    name = argv0;
+  } else {
+    name++;
+  }
+
+  return name;
+}
+
 int main(int argc, char **argv) {
   int ch;
   int debug = 0;
@@ -253,11 +267,7 @@ int main(int argc, char **argv) {
    * after select(). */
   fd_set rfds_out;
 
-  progname = strrchr(argv[0], '/');
-  if (progname == NULL)
-    progname = argv[0];
-  else
-    progname++;
+  progname = get_progname(argv[0]);
 
   while ((ch = getopt(argc, argv, "d")) != -1) {
     switch (ch) {
