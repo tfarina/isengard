@@ -9,6 +9,9 @@ add_compile_options(-Wno-unused-parameter)
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-set(SRCS commands.h cmd_add.c cmd_list.c cmd_del.c cmd_update main.c)
+set(LIB_SRCS commands.h cmd_add.c cmd_list.c cmd_del.c cmd_update.c)
+add_library(uzr ${LIB_SRCS})
 
-add_executable(uzrm ${SRCS})
+set(EXE_SRCS main.c)
+add_executable(uzrm ${EXE_SRCS})
+target_link_libraries(uzrm uzr)
