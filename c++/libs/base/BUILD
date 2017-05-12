@@ -9,3 +9,9 @@ cc_library(
         "path.h",
     ],
 )
+
+cc_test(
+    name = "base_unittests",
+    srcs = ["path_test.cc"],
+    deps = ["//third_party/gtest"],
+)
