@@ -2,6 +2,7 @@
 
 #include <errno.h>
 #include <fcntl.h>
+#include <limits.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -55,5 +56,15 @@ bool WriteFile(const std::string& path, const std::string& contents) {
     return false;
   }
 
+  return true;
+}
+
+bool GetCurrentDirectory(std::string *dir) {
+  char buf[PATH_MAX];
+  if (!getcwd(buf, sizeof(buf))) {
+    //NOTREACHED();
+    return false;
+  }
+  *dir = std::string(buf);
   return true;
 }
