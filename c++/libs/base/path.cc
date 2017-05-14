@@ -17,3 +17,12 @@ std::string MakeAbsolute(const char *path) {
 bool PathExists(const std::string& path) {
   return access(path.c_str(), F_OK) == 0;
 }
+
+bool GetRealPath(const std::string& path, std::string *out) {
+  char buf[PATH_MAX];
+  if (!realpath(path.c_str(), buf)) {
+    return false;
+  }
+  *out = buf;
+  return true;
+}
