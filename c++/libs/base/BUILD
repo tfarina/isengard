@@ -12,6 +12,7 @@ cc_library(
 
 cc_test(
     name = "base_unittests",
+    size = "small",
     srcs = ["path_test.cc"],
     deps = ["//third_party/gtest"],
 )
