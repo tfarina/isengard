@@ -26,3 +26,7 @@ bool GetRealPath(const std::string& path, std::string *out) {
   *out = buf;
   return true;
 }
+
+bool IsAbsolute(const std::string& path) {
+  return !path.empty() && path[0] == '/';
+}

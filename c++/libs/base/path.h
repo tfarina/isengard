@@ -9,4 +9,6 @@ bool PathExists(const std::string& path);
 
 bool GetRealPath(const std::string& path, std::string* out);
 
+bool IsAbsolute(const std::string& path);
+
 #endif  // PATH_H_
