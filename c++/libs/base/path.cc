@@ -1,4 +1,4 @@
-#include "path.h"
+#include "base/path.h"
 
 #include <limits.h>
 #include <stdio.h>
@@ -29,4 +29,15 @@ bool GetRealPath(const std::string& path, std::string *out) {
 
 bool IsAbsolute(const std::string& path) {
   return !path.empty() && path[0] == '/';
+}
+
+std::string GetDirectoryName(const std::string& path) {
+  size_t separator = path.rfind('/');
+  if (separator == 0u) {
+    return "/";
+  }
+  if (separator == std::string::npos) {
+    return std::string();
+  }
+  return path.substr(0, separator);
 }

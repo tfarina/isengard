@@ -11,4 +11,6 @@ bool GetRealPath(const std::string& path, std::string* out);
 
 bool IsAbsolute(const std::string& path);
 
+std::string GetDirectoryName(const std::string& path);
+
 #endif  // PATH_H_
