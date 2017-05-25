@@ -13,9 +13,7 @@ char *strdup(const char *src) {
   len = strlen(src) + 1;
   dst = malloc(len);
 
-  memcpy(dst, src, len);
-
-  return dst;
+  return memcpy(dst, src, len);
 }
 
 int main(int agrc, char **argv) {
