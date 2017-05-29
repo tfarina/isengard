@@ -125,6 +125,9 @@ static const struct lookup_table *lookup_by_id(const struct lookup_table *table,
   return NULL;
 }
 
+/**
+ * DNS reply code names.
+ */
 static const struct lookup_table rcodes[] = {
   { DNS_RCODE_NOERROR, "NOERROR" },
   { DNS_RCODE_FORMERR, "FORMERR" },
@@ -140,6 +143,9 @@ static const struct lookup_table rcodes[] = {
   { 0, NULL }
 };
 
+/**
+ * DNS operation code names.
+ */
 static const struct lookup_table opcodes[] = {
   { DNS_OPCODE_QUERY, "QUERY" },
   { DNS_OPCODE_IQUERY, "IQUERY" },
