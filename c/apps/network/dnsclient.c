@@ -131,7 +131,7 @@ static const struct lookup_table *lookup_by_id(const struct lookup_table *table,
 /**
  * DNS reply code names.
  */
-static const struct lookup_table rcodes[] = {
+static const struct lookup_table rcode_names[] = {
   { DNS_RCODE_NOERROR, "NOERROR" },
   { DNS_RCODE_FORMERR, "FORMERR" },
   { DNS_RCODE_SERVFAIL, "SERVFAIL" },
@@ -149,7 +149,7 @@ static const struct lookup_table rcodes[] = {
 /**
  * DNS operation code names.
  */
-static const struct lookup_table opcodes[] = {
+static const struct lookup_table opcode_names[] = {
   { DNS_OPCODE_QUERY, "QUERY" },
   { DNS_OPCODE_IQUERY, "IQUERY" },
   { DNS_OPCODE_STATUS, "STATUS" },
@@ -511,10 +511,10 @@ int main(int argc, char **argv) {
   header->arcount = read_uint16(reply_pkt + DNS_OFFSET_ARCOUNT);
 
   uint16_t opcode_id = (header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
-  const struct lookup_table *opcode = lookup_by_id(opcodes, opcode_id);
+  const struct lookup_table *opcode = lookup_by_id(opcode_names, opcode_id);
 
   uint16_t rcode_id = header->flags & RCODE_MASK;
-  const struct lookup_table *rcode = lookup_by_id(rcodes, rcode_id);
+  const struct lookup_table *rcode = lookup_by_id(rcode_names, rcode_id);
 
   printf(";; ->>HEADER<<- ");
 
