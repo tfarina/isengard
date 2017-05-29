@@ -114,6 +114,9 @@ struct lookup_table {
 
 /*
  * Looks up the given id in the lookup table.
+ *
+ * \param table Lookup table.
+ * \param id ID to look up.
  */
 static const struct lookup_table *lookup_by_id(const struct lookup_table *table, int id) {
   while (table->name != NULL) {
