@@ -510,6 +510,12 @@ int main(int argc, char **argv) {
   header->nscount = read_uint16(reply_pkt + DNS_OFFSET_NSCOUNT);
   header->arcount = read_uint16(reply_pkt + DNS_OFFSET_ARCOUNT);
 
+  /* With |name| and |endp| we can calculate the size of name, to know where qtype starts.
+   * Otherwise it is impossible to know where qtype starts.
+   */
+  const uint8_t *name = reply_pkt + 12 /*HEADER_SIZE*/; /* This points to the start of the qname */
+  const uint8_t *endp = reply_pkt + reply_pktlen; /*This points to the end of the reply */
+
   uint16_t opcode_id = (header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
   const struct lookup_table *opcode = lookup_by_id(opcode_names, opcode_id);
 
