@@ -13,4 +13,6 @@ bool IsAbsolute(const std::string& path);
 
 std::string GetDirectoryName(const std::string& path);
 
+std::string JoinPath(const std::string& path1, const std::string& path2);
+
 #endif  // PATH_H_
