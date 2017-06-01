@@ -8,6 +8,7 @@ cc_library(
         "path.cc",
     ],
     hdrs = [
+        "arraysize.h",
         "directory.h",
         "file_util.h",
         "path.h",
