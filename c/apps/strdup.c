@@ -2,7 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *strdup(const char *src) {
+/**
+ * Duplicate a string.
+ *
+ */
+static char *xstrdup(const char *src) {
   char *dst;
   size_t len;
 
@@ -16,11 +20,11 @@ char *strdup(const char *src) {
   return memcpy(dst, src, len);
 }
 
-int main(int agrc, char **argv) {
+int main(int argc, char **argv) {
   const char *src = "hello, world";
   char *dst;
 
-  dst = strdup(src);
+  dst = xstrdup(src);
 
   printf("%s\n", dst);
 
