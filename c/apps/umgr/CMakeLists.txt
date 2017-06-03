@@ -9,6 +9,12 @@ include_directories(${CMAKE_SOURCE_DIR})
 
 add_subdirectory(third_party/sqlite)
 
+set(LIB_SRCS
+    src/db.c
+    src/user.c
+   )
+add_library(ulib ${LIB_SRCS})
+
 set(SRCS src/db.c src/user.c src/list.c)
 
 add_executable(list ${SRCS})
