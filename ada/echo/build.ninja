@@ -6,8 +6,8 @@ rule gnatmake
 rule cleanit
   command = rm -rf *.o *.ali $in
 
-build hello: gnatmake hello.adb
+build echoserver: gnatmake echoserver.adb
 
-build clean: cleanit hello
+build clean: cleanit echoserver
 
-default hello
+default echoserver
