@@ -1,14 +1,15 @@
 gnatflags = -gnat05
 
-rule gnatmake
-  command = gnat make $gnatflags $in
+rule ada
+  command = gnatmake $gnatflags $in
 
 rule cleanit
   command = rm -rf *.o *.ali $in
 
-build hello: gnatmake hello.adb
-build int: gnatmake int.adb
-build chargender: gnatmake chargender.adb
+build hello: ada hello.adb
+build int: ada int.adb
+build chargender: ada chargender.adb
+build md5digest: ada md5digest.adb
 
 build clean: cleanit hello int chargender
 
