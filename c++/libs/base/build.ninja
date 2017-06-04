@@ -1,13 +1,12 @@
-cc = clang++
 cflags = -g -Wall -Werror -std=gnu++11 -pedantic
 builddir = out/obj
 
-rule cc
-  command = $cc $cflags $includes -c $in -o $out
+rule cxx
+  command = clang++ ${include_dirs} ${cflags} -c ${in} -o ${out}
 
 rule link
-  command = $cc $ldflags -o $out $in $libs
+  command = clang++ ${ldflags} -o ${out} ${in} ${libs}
 
-build $builddir/file_util.o: cc file_util.cc
-build $builddir/file_util_test.o: cc file_util_test.cc
+build $builddir/file_util.o: cxx file_util.cc
+build $builddir/file_util_test.o: cxx file_util_test.cc
 build out/file_util_test: link $builddir/file_util.o $builddir/file_util_test.o
