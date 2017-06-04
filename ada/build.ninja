@@ -8,7 +8,8 @@ rule cleanit
 
 build hello: gnatmake hello.adb
 build int: gnatmake int.adb
+build chargender: gnatmake chargender.adb
 
-build clean: cleanit hello
+build clean: cleanit hello int chargender
 
 default hello
