@@ -7,6 +7,7 @@ rule cleanit
   command = rm -rf *.o *.ali $in
 
 build hello: gnatmake hello.adb
+build int: gnatmake int.adb
 
 build clean: cleanit hello
 
