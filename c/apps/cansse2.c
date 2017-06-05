@@ -23,20 +23,21 @@ __cpuid(int dst[4], int ax)
 #endif
 }
 
-int cansse2(void)
+static int cpu_has_sse2(void)
 {
         int info[4];
 
         __cpuid(info, 1);
-        return (info[3] & (1<<26)) != 0;        // SSE2
+        return (info[3] & (1 << 26)) != 0;        // SSE2
 }
 
 int main(int argc, char **argv)
 {
-        if (cansse2())
-          printf("SSE2 support\n");
-        else
-          printf("No SSE2 support\n");
+        if (cpu_has_sse2()) {
+                printf("CPU has SSE2 support.\n");
+        } else {
+                printf("CPU does not have SSE2 support.\n");
+        }
 
         return 0;
 }
