@@ -1,13 +1,12 @@
-cc = clang
 defines = -D_GNU_SOURCE
 cflags = -g -std=c99 -pedantic -Wall -O0
 prefix = /usr/local
 
-rule COMPILE_CC
-  command = $cc $defines $cflags -c $in -o $out
+rule cc
+  command = clang ${defines} ${cflags} -c ${in} -o ${out}
 
-rule LINK
-  command = $cc $cflags -o $out $includes $ldflags $libs $in
+rule link
+  command = clang ${cflags} -o ${out} ${includes} ${ldflags} ${libs} ${in}
 
 rule CLEAN
   description = cleaning
@@ -21,13 +20,13 @@ rule UNINSTALL
   description = removing $in from $prefix/bin
   command = rm -f $prefix/bin/$in
 
-build log.o: COMPILE_CC log.c
+build log.o: cc log.c
 
-build echod.o: COMPILE_CC echod.c
-build echod: LINK log.o echod.o
+build echod.o: cc echod.c
+build echod: link log.o echod.o
 
-build echoc.o: COMPILE_CC echoc.c
-build echoc: LINK log.o echoc.o
+build echoc.o: cc echoc.c
+build echoc: link log.o echoc.o
 
 build clean: CLEAN
 
