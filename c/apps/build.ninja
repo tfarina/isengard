@@ -27,3 +27,4 @@ build ascii_table: cc ascii_table.c
 build bit: cc bit.c
 build homedir: cc homedir.c
 build cpucount: cc cpucount.c
+build ascii: cc ascii.c
