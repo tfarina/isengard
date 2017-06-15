@@ -71,28 +71,30 @@ $result = mysql_query($query) or die (mysql_error());
 $start = $offset + 1;
 $to = (($perpage * $pagenum) > $t_articles_count) ? $t_articles_count : ($perpage * $pagenum);
 
-$paginationCtrls = '';
+$pagination = '';
 
 // If there is more than one page worth of results then we have to show
 // the pagination system, otherwise it is not worth to show it.
 if ($lastpage > 1) {
+  $pagination .= '<div class="pager">';
+
   if ($pagenum > 1) {
     $previous = $pagenum - 1;
    
-    $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?page=1">First</a> &nbsp; ';
-    $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?page='.$previous.'">Previous</a> &nbsp; &nbsp; ';
+    $pagination .= '<a href="'.$_SERVER['PHP_SELF'].'?page=1">First</a> &nbsp; ';
+    $pagination .= '<a href="'.$_SERVER['PHP_SELF'].'?page='.$previous.'">Previous</a> &nbsp; &nbsp; ';
 
     for ($i = $pagenum - 4; $i < $pagenum; $i++) {
       if ($i > 0) {
-        $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . $i . '">' . $i . '</a> &nbsp; ';
+        $pagination .= '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . $i . '">' . $i . '</a> &nbsp; ';
       }
     }
   }
 
-  $paginationCtrls .= ''. $pagenum .' &nbsp; ';
+  $pagination .= ''. $pagenum .' &nbsp; ';
 
   for ($i = $pagenum + 1; $i <= $lastpage; $i++) {
-    $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . $i . '">' . $i . '</a> &nbsp; ';
+    $pagination .= '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . $i . '">' . $i . '</a> &nbsp; ';
 
     if ($i >= $pagenum + 4) {
       break;
@@ -102,9 +104,11 @@ if ($lastpage > 1) {
   if ($pagenum != $lastpage) {
     $next = $pagenum + 1;
 
-    $paginationCtrls .= '&nbsp; <a href="'.$_SERVER['PHP_SELF'].'?page='.$next.'">Next</a> &nbsp; ';
-    $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?page='.$lastpage.'">Last</a>';
+    $pagination .= '&nbsp; <a href="'.$_SERVER['PHP_SELF'].'?page='.$next.'">Next</a> &nbsp; ';
+    $pagination .= '<a href="'.$_SERVER['PHP_SELF'].'?page='.$lastpage.'">Last</a>';
   }
+
+  $pagination .= '</div>';
 }
 
 ?>
@@ -118,9 +122,10 @@ if ($lastpage > 1) {
 echo "<p>Showing " . $start . " - " . $to . " of " . $t_articles_count . " results</p>";
 
 while ($row = mysql_fetch_assoc($result)) {
-  echo "<p>" . $row['body'] . "</p>\n";
+  echo "<p>" . $row['title'] . "</p>\n";
 }
+
+echo $pagination;
 ?>
-  <div><?php echo $paginationCtrls; ?></div>
 </body>
 </html>
