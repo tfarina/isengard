@@ -77,24 +77,29 @@ $pagination = '';
 // the pagination system, otherwise it is not worth to show it.
 if ($lastpage > 1) {
   $pagination .= '<div class="pager">';
+  $pagination .= "\n";
 
   if ($pagenum > 1) {
     $previous = $pagenum - 1;
    
-    $pagination .= '<a href="'.$_SERVER['PHP_SELF'].'?page=1">First</a> &nbsp; ';
-    $pagination .= '<a href="'.$_SERVER['PHP_SELF'].'?page='.$previous.'">Previous</a> &nbsp; &nbsp; ';
+    $pagination .= '<a href="'.$_SERVER['PHP_SELF'].'?page=1"><span class="page-numbers first">First</span></a> &nbsp; ';
+    $pagination .= "\n";
+    $pagination .= '<a href="'.$_SERVER['PHP_SELF'].'?page='.$previous.'" rel="prev"><span class="page-numbers prev">Previous</span></a> &nbsp; &nbsp; ';
+    $pagination .= "\n";
 
     for ($i = $pagenum - 4; $i < $pagenum; $i++) {
       if ($i > 0) {
-        $pagination .= '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . $i . '">' . $i . '</a> &nbsp; ';
+        $pagination .= '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . $i . '"><span class="page-numbers">' . $i . '</span></a> &nbsp; ';
+        $pagination .= "\n";
       }
     }
   }
 
-  $pagination .= ''. $pagenum .' &nbsp; ';
+  $pagination .= '<span class="page-numbers current">'. $pagenum .'</span> &nbsp; ';
+  $pagination .= "\n";
 
   for ($i = $pagenum + 1; $i <= $lastpage; $i++) {
-    $pagination .= '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . $i . '">' . $i . '</a> &nbsp; ';
+    $pagination .= '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . $i . '"><span class="page-numbers">' . $i . '</span></a> &nbsp; ';
 
     if ($i >= $pagenum + 4) {
       break;
@@ -104,8 +109,8 @@ if ($lastpage > 1) {
   if ($pagenum != $lastpage) {
     $next = $pagenum + 1;
 
-    $pagination .= '&nbsp; <a href="'.$_SERVER['PHP_SELF'].'?page='.$next.'">Next</a> &nbsp; ';
-    $pagination .= '<a href="'.$_SERVER['PHP_SELF'].'?page='.$lastpage.'">Last</a>';
+    $pagination .= '&nbsp; <a href="'.$_SERVER['PHP_SELF'].'?page='.$next.'" rel="next"><span class="page-numbers next">Next</span></a> &nbsp; ';
+    $pagination .= '<a href="'.$_SERVER['PHP_SELF'].'?page='.$lastpage.'"><span class="page-numbers last">Last</span></a>';
   }
 
   $pagination .= '</div>';
@@ -118,6 +123,7 @@ if ($lastpage > 1) {
   <title>Pagination</title>
 </head>
 <body>
+
 <?php 
 echo "<p>Showing " . $start . " - " . $to . " of " . $t_articles_count . " results</p>";
 
@@ -127,5 +133,6 @@ while ($row = mysql_fetch_assoc($result)) {
 
 echo $pagination;
 ?>
+
 </body>
 </html>
