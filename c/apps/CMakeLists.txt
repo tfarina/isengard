@@ -8,7 +8,9 @@ set(SRCS
 
 add_library(iniparser ${SRCS})
 
+add_executable(readfile readfile.c)
 add_executable(buildtime buildtime.c)
+add_executable(linebyline linebyline.c)
 add_executable(bin bin.c)
 add_executable(cansse2 cansse2.c)
 add_executable(lexer lexer.c)
