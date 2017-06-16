@@ -7,3 +7,18 @@ set(SRCS
     )
 
 add_library(iniparser ${SRCS})
+
+add_executable(buildtime buildtime.c)
+add_executable(bin bin.c)
+add_executable(cansse2 cansse2.c)
+add_executable(lexer lexer.c)
+add_executable(lookup lookup.c)
+add_executable(execprog execprog.c)
+add_executable(getcwd getcwd.c)
+add_executable(exampled exampled.c)
+add_executable(strdup strdup.c)
+add_executable(ascii_table ascii_table.c)
+add_executable(bit bit.c)
+add_executable(homedir homedir.c)
+add_executable(cpucount cpucount.c)
+add_executable(ascii ascii.c)
