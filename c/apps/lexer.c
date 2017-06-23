@@ -60,6 +60,12 @@ static void lex(const char *input)
 
   for (c = input; *c; ++c) {
     switch (*c) {
+      case '[':
+        printf("Token::BRACKET_L\n");
+        break;
+      case ']':
+        printf("Token::BRACKET_R\n");
+        break;
       case '{':
         printf("Token::BRACE_L\n");
         break;
