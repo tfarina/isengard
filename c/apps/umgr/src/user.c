@@ -85,3 +85,27 @@ int user_add(sqlite3* db,
 
   return 0;
 }
+
+int user_delete(sqlite3 *db, const char *username) {
+  sqlite3_stmt *stmt;
+
+  const char *sql = "DELETE FROM user WHERE login=?1;";
+
+  if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+    fprintf(stderr, "error preparing delete statement: %s\n",
+            sqlite3_errmsg(db));
+    return -1;
+  }
+
+  sqlite3_bind_text(stmt, 1, username, -1, SQLITE_STATIC);
+
+  if (sqlite3_step(stmt) != SQLITE_DONE) {
+    fprintf(stderr, "error deleting user from table: %s\n",
+            sqlite3_errmsg(db));
+    return -1;
+  }
+
+  sql_stmt_free(stmt);
+
+  return 0;
+}

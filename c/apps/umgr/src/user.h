@@ -19,4 +19,6 @@ int user_add(sqlite3* db,
              const char* password,
              const char* email);
 
+int user_delete(sqlite3 *db, const char *username);
+
 #endif  /* CLI_USER_H_ */
