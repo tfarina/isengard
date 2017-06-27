@@ -15,10 +15,10 @@ set(LIB_SRCS
    )
 add_library(ulib ${LIB_SRCS})
 
-set(SRCS src/db.c src/user.c src/list.c)
+set(LIST_SRCS src/list.c)
 
-add_executable(list ${SRCS})
-target_link_libraries(list sqlite3 ${EXTRA_TARGET_LINK_LIBRARIES})
+add_executable(list ${LIST_SRCS})
+target_link_libraries(list sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
 
 add_compile_options(-std=c99)
 add_compile_options(-Wall)
