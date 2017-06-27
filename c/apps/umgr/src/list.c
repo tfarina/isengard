@@ -10,7 +10,7 @@
 static const char user_db_fname[] = "users.db";
 
 /* Lists records from the user table. */
-static int list_user_records(sqlite3 *db) {
+static int user_list(sqlite3 *db) {
   sqlite3_stmt *stmt;
   const char *sql = sqlite3_mprintf("SELECT * FROM user");
 
@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
   if (rv)
     return rv;
 
-  rv = list_user_records(db);
+  rv = user_list(db);
 
   db_close(db);
 
