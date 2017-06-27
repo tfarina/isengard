@@ -8,11 +8,11 @@ int db_user_create_table(sqlite3* db) {
   int rv;
   sqlite3_stmt *stmt;
   const char* sql =
-    "CREATE TABLE IF NOT EXISTS 'user' ("
-    "  uid INTEGER PRIMARY KEY," /* User ID */
-    "  login TEXT NOT NULL UNIQUE," /* login name of the user */
-    "  pw TEXT NOT NULL,"        /* password */
-    "  email TEXT"               /* e-mail */
+    "CREATE TABLE IF NOT EXISTS user ("
+    "  uid INTEGER PRIMARY KEY,"     /* user id */
+    "  login TEXT NOT NULL UNIQUE,"  /* username */
+    "  pw TEXT NOT NULL,"            /* password */
+    "  email TEXT"                   /* email */
     ");";
 
   if ((rv = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL)) != SQLITE_OK) {
