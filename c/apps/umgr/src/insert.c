@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (db_user_exists(db, argv[1])) {
+  if (user_exists(db, argv[1])) {
     fprintf(stderr, "%s: user (%s) already exists\n", argv[0], argv[1]);
     sqlite3_close(db);
     return -1;

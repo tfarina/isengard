@@ -7,8 +7,11 @@
  * Returns 0 on success, -1 otherwise. */
 int db_user_create_table(sqlite3* db);
 
-/* Returns 0 if the user does not exists, otherwise returns 1. */
-int db_user_exists(sqlite3* db, const char* username);
+/**
+ * Returns 0 if the user does not exists, otherwise returns 1.
+ *
+ */
+int user_exists(sqlite3* db, const char* username);
 
 int user_add(sqlite3* db,
              const char* username,

@@ -34,7 +34,7 @@ int db_user_create_table(sqlite3* db) {
   return 0;
 }
 
-int db_user_exists(sqlite3* db, const char* username) {
+int user_exists(sqlite3* db, const char* username) {
   sqlite3_stmt* stmt;
   int rc;
 
