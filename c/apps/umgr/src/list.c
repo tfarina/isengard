@@ -49,7 +49,7 @@ static int open_user_db(void) {
     return -1;
   }
 
-  if (db_user_create_table(db)) {
+  if (user_init_database(db)) {
     db_close(db);
     return -1;
   }

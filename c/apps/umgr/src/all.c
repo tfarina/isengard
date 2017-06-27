@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
 
   db = db_open(user_db_fname);
 
-  if (db_user_create_table(db)) {
+  if (user_init_database(db)) {
     sqlite3_close(db);
     return -1;
   }

@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (db_user_create_table(db)) {
+  if (user_init_database(db)) {
     sqlite3_close(db);
     return -1;
   }

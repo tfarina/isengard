@@ -4,7 +4,7 @@
 
 #include "db.h"
 
-int db_user_create_table(sqlite3* db) {
+int user_init_database(sqlite3* db) {
   int rv;
   sqlite3_stmt *stmt;
   const char* sql =
