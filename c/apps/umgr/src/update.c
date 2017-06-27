@@ -19,9 +19,9 @@ static const char user_db_fname[] = "users.db";
 //   return 0;
 // }
 
-static int db_user_update_email(sqlite3* db,
-                                const char *username,
-                                const char *email) {
+static int user_update(sqlite3* db,
+                       const char *username,
+                       const char *email) {
   sqlite3_stmt *stmt;
   int rv;
 
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (db_user_update_email(db, argv[1], argv[2])) {
+  if (user_update(db, argv[1], argv[2])) {
     sqlite3_close(db);
     return -1;
   }
