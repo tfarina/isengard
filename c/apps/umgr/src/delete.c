@@ -9,7 +9,7 @@
 /* The name of the user database file.  */
 static const char user_db_fname[] = "users.db";
 
-static int delete_user_record(sqlite3 *db, const char *username) {
+static int user_delete(sqlite3 *db, const char *username) {
   sqlite3_stmt *stmt;
 
   const char *sql = "DELETE FROM user WHERE login=?1;";
@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (delete_user_record(db, argv[1])) {
+  if (user_delete(db, argv[1])) {
     sqlite3_close(db);
     return -1;
   }
