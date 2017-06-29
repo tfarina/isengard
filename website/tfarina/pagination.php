@@ -24,7 +24,7 @@ if (!mysql_select_db($CONF['db_name'], $link)) {
 // Find out how many rows are in the table.
 $t_query = "SELECT COUNT(id) AS articles_count FROM articles";
 $t_result = mysql_query($t_query) or die (mysql_error());
-$t_row = mysql_fetch_array($t_result);
+$t_row = mysql_fetch_assoc($t_result);
 $t_articles_count = $t_row['articles_count'];
 
 //echo $t_articles_count;
