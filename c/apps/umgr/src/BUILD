@@ -56,8 +56,8 @@ cc_binary(
 )
 
 cc_binary(
-    name = "create",
-    srcs = ["create.c"],
+    name = "init",
+    srcs = ["init.c"],
     copts = ["-std=c99"],
     linkopts = [
         "-pthread",
