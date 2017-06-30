@@ -65,8 +65,13 @@ if ($pagenum > $lastpage) {
 
 $offset = ($pagenum - 1) * $perpage;
 
-$query = "SELECT * FROM articles LIMIT $offset, $perpage";
-$result = mysql_query($query) or die (mysql_error());
+$t_query = "SELECT * FROM articles LIMIT $offset, $perpage";
+$t_result = mysql_query($t_query) or die (mysql_error());
+
+$t_articles = array();
+while ($t_row = mysql_fetch_assoc($t_result)) {
+  $t_articles[] = $t_row;
+}
 
 $start = $offset + 1;
 $to = (($perpage * $pagenum) > $t_articles_count) ? $t_articles_count : ($perpage * $pagenum);
@@ -127,8 +132,8 @@ if ($lastpage > 1) {
 <?php 
 echo "<p>Showing " . $start . " - " . $to . " of " . $t_articles_count . " results</p>";
 
-while ($row = mysql_fetch_assoc($result)) {
-  echo "<p>" . $row['title'] . "</p>\n";
+foreach ($t_articles as $t_article) {
+  echo "<p>" . $t_article['title'] . "</p>\n";
 }
 
 echo $pagination;
