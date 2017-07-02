@@ -7,18 +7,18 @@
 // mysql> GRANT ALL PRIVILEGES ON test.* TO 'testuser'@'localhost';
 // mysql> FLUSH PRIVILEGES;
 
-$CONF['db_host'] = "localhost";
-$CONF['db_username'] = "testuser";
-$CONF['db_password'] = "testpass";
-$CONF['db_name'] = "test";
+$g_db_hostname = 'localhost';
+$g_db_username = 'testuser';
+$g_db_password = 'testpass';
+$g_db_name = 'test';
 
-$link = @mysql_connect($CONF['db_host'], $CONF['db_username'], $CONF['db_password']);
+$link = mysql_connect($g_db_hostname, $g_db_username, $g_db_password);
 if (!$link) {
   die('Could not connect to mysql: ' . mysql_error());
 }
 
-if (!mysql_select_db($CONF['db_name'], $link)) {
-  die ('Could not select database ' . $CONF['db_name'] . ': ' . mysql_error());
+if (!mysql_select_db($g_db_name, $link)) {
+  die ('Could not select database ' . $g_db_name . ': ' . mysql_error());
 }
 
 // Find out how many rows are in the table.
