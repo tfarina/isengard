@@ -126,6 +126,9 @@ if ($lastpage > 1) {
 <html lang="en">
 <head>
   <title>Pagination</title>
+  <style>
+.page-numbers{display:inline-block;padding:4px 8px;font-size:12px;color:#848d95;border:1px solid #e4e6e8;background-color:transparent}.page-numbers.desc,.page-numbers.dots,.page-numbers.desc:hover,.page-numbers.dots:hover{color:#848d95;background-color:transparent;border-color:transparent;box-shadow:none}.page-numbers,.page-numbers:hover{text-decoration:none;transition:all 300ms ease-in-out}.page-numbers:hover{color:#FFF;background-color:#f69c55;border-color:transparent}.page-numbers.current{color:#FFF;background-color:#f69c55;border-color:transparent}
+  </style>
 </head>
 <body>
 
