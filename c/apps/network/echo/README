@@ -1,5 +1,5 @@
 echod
-========
+=====
 an daemon implementation of the Echo Protocol.
 
 echod is a very useful debugging and measurement tool.
@@ -7,7 +7,15 @@ echod is a very useful debugging and measurement tool.
 It simply sends back to the originating source any data
 it receives.
 
-You will need to add an `_echod` user to your system. You can do this by
+Installation
+------------
+    $ mkdir build
+    $ cd build
+    $ cmake -GNinja ..
+    $ ninja
+    # ninja install
+
+You then need to add an `_echod` user to your system. You can do this by
 running the following command on Linux:
 
 $ sudo useradd -u 1001 -U -c "Echo Daemon" -d /var/empty -s /sbin/nologin _echod
