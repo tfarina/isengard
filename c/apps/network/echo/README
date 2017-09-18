@@ -26,3 +26,7 @@ If you are on OpenBSD, then you can run:
 
 Change the user id and group id (1001:1001) to a different value if 1001 is
 already taken.
+
+License
+-------
+echod is licensed under the GNU GPL license. See LICENSE for details.
