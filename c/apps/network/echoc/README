@@ -1,0 +1,17 @@
+echoc
+=====
+a client implementation of the Echo Protocol.
+
+echoc is a very useful for testing its counter-part echod.
+
+Installation
+------------
+    $ mkdir build
+    $ cd build
+    $ cmake -GNinja ..
+    $ ninja
+    $ sudo ninja install
+
+License
+-------
+echoc is licensed under the GNU GPL license. See LICENSE for details.
