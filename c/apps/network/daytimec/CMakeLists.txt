@@ -5,8 +5,8 @@ set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-std=c99 -pedantic -Wall")
 
 add_definitions(-D_GNU_SOURCE)
 
-set(DAYTIMED_SRCS log.c daytimed.c)
+set(DAYTIMEC_SRCS log.c daytimec.c)
 
-add_executable(daytimed ${DAYTIMED_SRCS})
+add_executable(daytimec ${DAYTIMEC_SRCS})
 
-install(TARGETS daytimed RUNTIME DESTINATION bin)
+install(TARGETS daytimec RUNTIME DESTINATION bin)
