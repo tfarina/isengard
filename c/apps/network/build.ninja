@@ -21,7 +21,6 @@ rule UNINSTALL
   description = removing $in from $prefix/bin
   command = rm -f $prefix/bin/$in
 
-build die.o: compile die.c
 build util.o: compile util.c
 build log.o: compile log.c
 
@@ -36,7 +35,7 @@ build dnsclient.o: compile dnsclient.c
 build dnsclient: link dnsclient.o
 
 build selectserver.o: compile selectserver.c
-build selectserver: link die.o selectserver.o
+build selectserver: link selectserver.o
 
 build hostname.o: compile hostname.c
 build hostname: link hostname.o
