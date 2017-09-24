@@ -23,10 +23,10 @@ rule UNINSTALL
 build die.o: COMPILE_CC die.c
   cflags = $cflags -ansi
 
-build webserver.o: COMPILE_CC webserver.c
+build httpd.o: COMPILE_CC httpd.c
   cflags = $cflags -ansi
-build webserver: LINK die.o webserver.o
+build httpd: LINK die.o httpd.o
 
 build clean: CLEAN
 
-default webserver
+default httpd

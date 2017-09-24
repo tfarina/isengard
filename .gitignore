@@ -65,10 +65,10 @@ c/apps/network/daytime/*.o
 c/apps/network/daytime/out
 c/apps/network/udpclient
 c/apps/network/udpserver
-c/apps/network/webserver/.ninja_deps
-c/apps/network/webserver/.ninja_log
-c/apps/network/webserver/*.o
-c/apps/network/webserver/webserver
+c/apps/network/httpd/.ninja_deps
+c/apps/network/httpd/.ninja_log
+c/apps/network/httpd/*.o
+c/apps/network/httpd/httpd
 c/apps/out
 c/apps/readfile
 c/apps/readjson
