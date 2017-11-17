@@ -26,9 +26,10 @@ static int udp_socket_listen(char *host, int port) {
   snprintf(strport, sizeof(strport), "%d", port);
 
   memset(&hints, 0, sizeof(hints));
-  hints.ai_flags = AI_PASSIVE;
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_DGRAM;
+  hints.ai_protocol = IPPROTO_UDP;
+  hints.ai_flags = AI_PASSIVE;
 
   if ((rv = getaddrinfo(host, strport, &hints, &addrlist)) != 0) {
     error("getaddrinfo failed: %s", gai_strerror(rv));
