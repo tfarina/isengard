@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
   struct sockaddr_storage from;
   socklen_t fromlen = sizeof(from);
   int sockfd;
-  char buf[BUFLEN] = "hello udp server";
+  char buf[BUFLEN] = "Hello, world!";
   int recvlen;
 
   if (argc != 2) {
@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  printf("message sent: %s\n", buf);
+  printf("the message is: %s\n", buf);
 
   recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&from,
                      &fromlen);
@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
   }
 
   buf[recvlen] = '\0';
-  printf("received response: %s\n", buf);
+  printf("server replied with: %s\n", buf);
 
   return 0;
 }
