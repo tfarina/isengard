@@ -108,15 +108,10 @@ int main(int argc, char **argv) {
   FD_SET(sockfd, &rfds_out);
 
   for (;;) {
-    if (select(sockfd + 1, &rfds_out, NULL, NULL, NULL) < 0) {
-      if (errno != EINTR) {
-        warning("select: %s", strerror(errno));
+    if (select(sockfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
+      if (FD_ISSET(sockfd, &rfds_out)) {
+        send_udp_message(sockfd);
       }
-      continue;
-    }
-
-    if (FD_ISSET(sockfd, &rfds_out)) {
-      send_udp_message(sockfd);
     }
   }
 
