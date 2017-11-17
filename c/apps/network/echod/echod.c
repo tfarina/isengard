@@ -257,8 +257,7 @@ static void usage(void) {
   exit(EXIT_FAILURE);
 }
 
-static char *get_progname(char *argv0)
-{
+static char *get_progname(char *argv0) {
   char *name;
 
   name = strrchr(argv0, '/');
@@ -281,6 +280,7 @@ int main(int argc, char **argv) {
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
    * after select(). */
   fd_set rfds_out;
+  int stop = 0;
 
   progname = get_progname(argv[0]);
 
@@ -331,7 +331,7 @@ int main(int argc, char **argv) {
 
   FD_SET(tcpfd, &rfds_in);
 
-  while (1) {
+  while (!stop) {
     memcpy(&rfds_out, &rfds_in, sizeof(fd_set));
 
     if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
