@@ -17,13 +17,13 @@
 static int msgcnt;  /* count # of messages we received */
 
 static int udp_socket_listen(char *host, int port) {
+  char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
   int sockfd = 0;
   int reuse = 1;
-  char strport[NI_MAXSERV];
 
-  snprintf(strport, sizeof(strport), "%d", port);
+  snprintf(portstr, sizeof(portstr), "%d", port);
 
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
@@ -31,7 +31,7 @@ static int udp_socket_listen(char *host, int port) {
   hints.ai_protocol = IPPROTO_UDP;
   hints.ai_flags = AI_PASSIVE;
 
-  if ((rv = getaddrinfo(host, strport, &hints, &addrlist)) != 0) {
+  if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
     error("getaddrinfo failed: %s", gai_strerror(rv));
     return -1;
   }
