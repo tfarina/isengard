@@ -5,6 +5,8 @@ prefix = /usr/local
 
 rule compile
   command = $cc $cflags $defines -c $in -o $out
+  depfile = $out.d
+  deps = gcc
 
 rule link
   command = $cc $ldflags -o $out $in $libs
@@ -42,4 +44,4 @@ build unixclient: link unixclient.o
 
 build clean: CLEAN
 
-default updserver
+default udpserver
