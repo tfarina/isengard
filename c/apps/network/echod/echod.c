@@ -194,12 +194,12 @@ static void tcp_socket_accept(int tcpfd) {
   struct sockaddr_storage ss;
   struct sockaddr *sa = (struct sockaddr *)&ss;
   socklen_t sslen = sizeof(ss);
-  int echofd;
+  int fd;
   char strport[NI_MAXSERV], ntop[NI_MAXHOST];
   int ret;
   pid_t pid;
 
-  if ((echofd = tcp_socket_generic_accept(tcpfd, sa, &sslen)) == -1) {
+  if ((fd = tcp_socket_generic_accept(tcpfd, sa, &sslen)) == -1) {
     return;
   }
 
@@ -218,18 +218,18 @@ static void tcp_socket_accept(int tcpfd) {
   pid = fork();
   switch (pid) {
   case -1:
-    close(echofd);
+    close(fd);
     --forked;
     logstatus();
     break;
 
   case 0:
     close(tcpfd);
-    echo_stream(echofd);
+    echo_stream(fd);
     break;
 
   default:
-    close(echofd); /* we are the parent so look for another connection. */
+    close(fd); /* we are the parent so look for another connection. */
     log_info("pid: %d", pid);
   }
 }
