@@ -40,9 +40,6 @@ build selectserver: link selectserver.o
 build hostname.o: compile hostname.c
 build hostname: link hostname.o
 
-build http.o: compile http.c
-build http: link http.o
-
 build dns_dname.o: compile dns_dname.c
 build dns_dname: link dns_dname.o
 
