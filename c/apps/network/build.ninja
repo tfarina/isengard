@@ -27,7 +27,6 @@ build util.o: compile util.c
 build log.o: compile log.c
 
 build udpserver.o: compile udpserver.c
-  defines = -D_GNU_SOURCE
 build udpserver: link log.o udpserver.o
 
 build udpclient.o: compile udpclient.c
