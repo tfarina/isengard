@@ -31,17 +31,8 @@ build udpserver: link log.o udpserver.o
 build udpclient.o: compile udpclient.c
 build udpclient: link log.o udpclient.o
 
-build dnsclient.o: compile dnsclient.c
-build dnsclient: link dnsclient.o
-
 build selectserver.o: compile selectserver.c
 build selectserver: link selectserver.o
-
-build hostname.o: compile hostname.c
-build hostname: link hostname.o
-
-build dns_dname.o: compile dns_dname.c
-build dns_dname: link dns_dname.o
 
 build unixserver.o: compile unixserver.c
 build unixserver: link unixserver.o
@@ -51,4 +42,4 @@ build unixclient: link unixclient.o
 
 build clean: CLEAN
 
-default dnsclient
+default updserver
