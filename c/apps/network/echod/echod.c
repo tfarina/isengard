@@ -275,6 +275,7 @@ int main(int argc, char **argv) {
   int ch;
   int debug = 0;
   struct passwd *pw;
+  char *host = NULL;
   int tcpfd;
   fd_set rfds_in;
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
@@ -319,7 +320,7 @@ int main(int argc, char **argv) {
 
   log_init(debug);
 
-  tcpfd = tcp_socket_listen(NULL, ECHO_PORT, SOMAXCONN);
+  tcpfd = tcp_socket_listen(host, ECHO_PORT, SOMAXCONN);
 
   signal(SIGCHLD, sigchld_handler);
   signal(SIGTERM, sigterm_handler);
