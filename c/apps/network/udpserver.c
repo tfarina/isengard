@@ -63,7 +63,7 @@ static int udp_socket_listen(char *host, int port) {
 
   if (cur == NULL) {
     error("failed to bind");
-    exit(EXIT_FAILURE);
+    return -1;
   }
 
   return sockfd;
