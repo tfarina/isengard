@@ -334,13 +334,10 @@ int main(int argc, char **argv) {
   while (1) {
     memcpy(&rfds_out, &rfds_in, sizeof(fd_set));
 
-    if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) == -1) {
-      log_warning("select: %s", strerror(errno));
-      continue;
-    }
-
-    if (FD_ISSET(tcpfd, &rfds_out)) {
-      tcp_socket_accept(tcpfd);
+    if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
+      if (FD_ISSET(tcpfd, &rfds_out)) {
+        tcp_socket_accept(tcpfd);
+      }
     }
   }
 
