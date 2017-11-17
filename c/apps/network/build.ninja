@@ -1,5 +1,5 @@
 cc = clang
-cflags = -g -std=c99 -pedantic -Wall -O0
+cflags = -g -std=c99 -pedantic -Wall -Wextra -O0
 defines = -D_POSIX_C_SOURCE=200112L -D_GNU_SOURCE
 prefix = /usr/local
 
