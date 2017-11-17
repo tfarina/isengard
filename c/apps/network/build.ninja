@@ -32,9 +32,6 @@ build udpserver: link log.o udpserver.o
 build udpclient.o: compile udpclient.c
 build udpclient: link log.o udpclient.o
 
-build selectserver.o: compile selectserver.c
-build selectserver: link selectserver.o
-
 build unixserver.o: compile unixserver.c
 build unixserver: link unixserver.o
 
