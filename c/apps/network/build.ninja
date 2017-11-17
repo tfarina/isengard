@@ -26,12 +26,6 @@ rule UNINSTALL
 build util.o: compile util.c
 build log.o: compile log.c
 
-build udpserver.o: compile udpserver.c
-build udpserver: link log.o udpserver.o
-
-build udpclient.o: compile udpclient.c
-build udpclient: link log.o udpclient.o
-
 build unixserver.o: compile unixserver.c
 build unixserver: link unixserver.o
 
@@ -40,4 +34,4 @@ build unixclient: link unixclient.o
 
 build clean: CLEAN
 
-default udpserver
+default unixserver
