@@ -16,12 +16,22 @@
 
 static int msgcnt;  /* count # of messages we received */
 
+static int set_reuse_addr(int fd) {
+  int reuse = 1;
+
+  if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
+    error("setsockopt SO_REUSEADDR: %s", strerror(errno));
+    return -1;
+  }
+
+  return 0;
+}
+
 static int udp_socket_listen(char *host, int port) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
   int sockfd = 0;
-  int reuse = 1;
 
   snprintf(portstr, sizeof(portstr), "%d", port);
 
@@ -44,8 +54,7 @@ static int udp_socket_listen(char *host, int port) {
       continue;
     }
 
-    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
-      error("set reuse addr on sd %d failed: %s", sockfd, strerror(errno));
+    if (set_reuse_addr(sockfd) == -1) {
       close(sockfd);
       continue;
     }

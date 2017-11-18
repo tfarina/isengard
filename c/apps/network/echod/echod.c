@@ -107,7 +107,7 @@ static int set_reuse_addr(int fd) {
   int reuse = 1;
 
   if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
-    log_error("setsockopt SO_REUSEADDR: %s", fd, strerror(errno));
+    log_error("setsockopt SO_REUSEADDR: %s", strerror(errno));
     return -1;
   }
 
