@@ -9,7 +9,7 @@
 #define NET_IP_STR_LEN 46 /* INET6_ADDRSTRLEN is 46, but we need to be sure */
 
 /* Get ip from domain name. */
-static int hostname_to_ip(char *hostname, char *ip) {
+static int hostname_to_ip(char *hostname, char *ipbuf, size_t ipbuf_len) {
   struct addrinfo hints, *addrlist, *cur;
   struct sockaddr_in *h;
   int rv;
@@ -26,8 +26,8 @@ static int hostname_to_ip(char *hostname, char *ip) {
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
     if (cur->ai_family == AF_INET) {
       h = (struct sockaddr_in *)cur->ai_addr;
-      strcpy(ip, inet_ntoa(h->sin_addr));
-      printf("%s\n", ip);
+      strcpy(ipbuf, inet_ntoa(h->sin_addr));
+      printf("%s\n", ipbuf);
     }
   }
 
@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
 
   hostname = argv[1];
 
-  hostname_to_ip(hostname, ip);
+  hostname_to_ip(hostname, ip, sizeof(ip));
   printf("%s resolved to %s\n", hostname, ip);
 
   return 0;
