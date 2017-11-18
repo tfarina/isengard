@@ -10,13 +10,26 @@
 
 #define FNET_OK 0
 #define FNET_ERR -1
+#define FNET_ERR_LEN 256
+
+static void fnet_set_error(char *err, const char *fmt, ...) {
+  va_list ap;
+
+  if (!err) {
+    return;
+  }
+
+  va_start(ap, fmt);
+  vsnprintf(err, FNET_ERR_LEN, fmt, ap);
+  va_end(ap);
+}
 
 /**
  * Resolves hostname to IP address.
  *
  * @return int -1 on error, 0 on success.
  */
-static int net_resolve(char *hostname, char *ipbuf, size_t ipbuf_len) {
+static int net_resolve(char *err, char *hostname, char *ipbuf, size_t ipbuf_len) {
   struct addrinfo hints, *addrlist, *cur;
   int rv;
 
@@ -25,7 +38,7 @@ static int net_resolve(char *hostname, char *ipbuf, size_t ipbuf_len) {
   hints.ai_socktype = SOCK_STREAM;
 
   if ((rv = getaddrinfo(hostname, "http", &hints, &addrlist)) != 0) {
-    fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+    fnet_set_error(err, "%s", gai_strerror(rv));
     return FNET_ERR;
   }
 
@@ -57,7 +70,7 @@ int main(int argc, char **argv) {
 
   hostname = argv[1];
 
-  net_resolve(hostname, ip, sizeof(ip));
+  net_resolve(NULL, hostname, ip, sizeof(ip));
   printf("%s resolved to %s\n", hostname, ip);
 
   return 0;
