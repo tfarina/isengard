@@ -103,12 +103,22 @@ static void echo_stream(int fd) {
   exit(EXIT_SUCCESS);
 }
 
+static int set_reuse_addr(int fd) {
+  int reuse = 1;
+
+  if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
+    log_error("setsockopt SO_REUSEADDR: %s", fd, strerror(errno));
+    return -1;
+  }
+
+  return 0;
+}
+
 static int tcp_socket_listen(char *host, int port, int backlog) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
   int tcpfd;
-  int reuse = 1;
   char strport[NI_MAXSERV], ntop[NI_MAXHOST];
 
   snprintf(portstr, sizeof(portstr), "%d", port);
@@ -132,8 +142,7 @@ static int tcp_socket_listen(char *host, int port, int backlog) {
       continue;
     }
 
-    if (setsockopt(tcpfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
-      log_error("set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
+    if (set_reuse_addr(tcpfd) == -1) {
       close(tcpfd);
       continue;
     }
