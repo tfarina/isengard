@@ -11,7 +11,6 @@
 /* Get ip from domain name. */
 static int hostname_to_ip(char *hostname, char *ipbuf, size_t ipbuf_len) {
   struct addrinfo hints, *addrlist, *cur;
-  struct sockaddr_in *h;
   int rv;
 
   memset(&hints, 0, sizeof(hints));
@@ -25,8 +24,8 @@ static int hostname_to_ip(char *hostname, char *ipbuf, size_t ipbuf_len) {
 
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
     if (cur->ai_family == AF_INET) {
-      h = (struct sockaddr_in *)cur->ai_addr;
-      strcpy(ipbuf, inet_ntoa(h->sin_addr));
+      struct sockaddr_in *sa = (struct sockaddr_in *)cur->ai_addr;
+      strcpy(ipbuf, inet_ntoa(sa->sin_addr));
       printf("%s\n", ipbuf);
     }
   }
