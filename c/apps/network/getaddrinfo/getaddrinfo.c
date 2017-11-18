@@ -19,7 +19,7 @@ static int hostname_to_ip(char *hostname, char *ipbuf, size_t ipbuf_len) {
 
   if ((rv = getaddrinfo(hostname, "http", &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
-    return 1;
+    return -1;
   }
 
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
