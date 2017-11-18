@@ -23,7 +23,6 @@ rule UNINSTALL
   description = removing $in from $prefix/bin
   command = rm -f $prefix/bin/$in
 
-build util.o: compile util.c
 build log.o: compile log.c
 
 build clean: CLEAN
