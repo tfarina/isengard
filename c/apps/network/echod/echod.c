@@ -103,15 +103,18 @@ static void echo_stream(int fd) {
   exit(EXIT_SUCCESS);
 }
 
-static int set_reuse_addr(int fd) {
+#define FNET_OK 0
+#define FNET_ERR -1
+
+static int fnet_set_reuse_addr(int fd) {
   int reuse = 1;
 
   if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
     log_error("setsockopt SO_REUSEADDR: %s", strerror(errno));
-    return -1;
+    return FNET_ERR;
   }
 
-  return 0;
+  return FNET_OK;
 }
 
 static int tcp_socket_listen(char *host, int port, int backlog) {
@@ -142,7 +145,7 @@ static int tcp_socket_listen(char *host, int port, int backlog) {
       continue;
     }
 
-    if (set_reuse_addr(tcpfd) == -1) {
+    if (fnet_set_reuse_addr(tcpfd) == FNET_ERR) {
       close(tcpfd);
       continue;
     }

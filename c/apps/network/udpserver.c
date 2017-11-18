@@ -16,15 +16,18 @@
 
 static int msgcnt;  /* count # of messages we received */
 
-static int set_reuse_addr(int fd) {
+#define FNET_OK 0
+#define FNET_ERR -1
+
+static int fnet_set_reuse_addr(int fd) {
   int reuse = 1;
 
   if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
     error("setsockopt SO_REUSEADDR: %s", strerror(errno));
-    return -1;
+    return FNET_ERR;
   }
 
-  return 0;
+  return FNET_OK;
 }
 
 static int udp_socket_listen(char *host, int port) {
@@ -54,7 +57,7 @@ static int udp_socket_listen(char *host, int port) {
       continue;
     }
 
-    if (set_reuse_addr(sockfd) == -1) {
+    if (fnet_set_reuse_addr(sockfd) == FNET_ERR) {
       close(sockfd);
       continue;
     }
