@@ -27,6 +27,10 @@ static int hostname_to_ip(char *hostname, char *ipbuf, size_t ipbuf_len) {
       struct sockaddr_in *sa = (struct sockaddr_in *)cur->ai_addr;
       inet_ntop(AF_INET, &(sa->sin_addr), ipbuf, ipbuf_len);
       printf("%s\n", ipbuf);
+    } else {
+      struct sockaddr_in6 *sa = (struct sockaddr_in6 *)cur->ai_addr;
+      inet_ntop(AF_INET6, &(sa->sin6_addr), ipbuf, ipbuf_len);
+      printf("%s\n", ipbuf);
     }
   }
 
