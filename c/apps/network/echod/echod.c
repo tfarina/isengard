@@ -246,7 +246,7 @@ static void sigchld_handler(int sig) {
 }
 
 static void sigterm_handler(int sig) {
-  log_info("shutdown by user");
+  log_info("parent terminating, pid %s", getpid());
   closelog();
   exit(EXIT_SUCCESS);
 }
