@@ -8,8 +8,12 @@
 
 #define NET_IP_STR_LEN 46 /* INET6_ADDRSTRLEN is 46, but we need to be sure */
 
-/* Get ip from domain name. */
-static int hostname_to_ip(char *hostname, char *ipbuf, size_t ipbuf_len) {
+/**
+ * Resolves hostname to IP address.
+ *
+ * @return int -1 on error, 0 on success.
+ */
+static int net_resolve(char *hostname, char *ipbuf, size_t ipbuf_len) {
   struct addrinfo hints, *addrlist, *cur;
   int rv;
 
@@ -50,7 +54,7 @@ int main(int argc, char **argv) {
 
   hostname = argv[1];
 
-  hostname_to_ip(hostname, ip, sizeof(ip));
+  net_resolve(hostname, ip, sizeof(ip));
   printf("%s resolved to %s\n", hostname, ip);
 
   return 0;
