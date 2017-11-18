@@ -8,6 +8,9 @@
 
 #define NET_IP_STR_LEN 46 /* INET6_ADDRSTRLEN is 46, but we need to be sure */
 
+#define FNET_OK 0
+#define FNET_ERR -1
+
 /**
  * Resolves hostname to IP address.
  *
@@ -23,7 +26,7 @@ static int net_resolve(char *hostname, char *ipbuf, size_t ipbuf_len) {
 
   if ((rv = getaddrinfo(hostname, "http", &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
-    return -1;
+    return FNET_ERR;
   }
 
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
@@ -40,7 +43,7 @@ static int net_resolve(char *hostname, char *ipbuf, size_t ipbuf_len) {
 
   freeaddrinfo(addrlist);
 
-  return 0;
+  return FNET_OK;
 }
 
 int main(int argc, char **argv) {
