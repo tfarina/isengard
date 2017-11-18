@@ -30,7 +30,7 @@ static void fnet_set_error(char *err, const char *fmt, ...) {
  * @return int -1 on error, 0 on success.
  */
 static int net_resolve(char *err, char *hostname, char *ipbuf, size_t ipbuf_len) {
-  struct addrinfo hints, *addrlist, *cur;
+  struct addrinfo hints, *addrlist;
   int rv;
 
   memset(&hints, 0, sizeof(hints));
@@ -42,16 +42,12 @@ static int net_resolve(char *err, char *hostname, char *ipbuf, size_t ipbuf_len)
     return FNET_ERR;
   }
 
-  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    if (cur->ai_family == AF_INET) {
-      struct sockaddr_in *sa = (struct sockaddr_in *)cur->ai_addr;
-      inet_ntop(AF_INET, &(sa->sin_addr), ipbuf, ipbuf_len);
-      printf("%s\n", ipbuf);
-    } else {
-      struct sockaddr_in6 *sa = (struct sockaddr_in6 *)cur->ai_addr;
-      inet_ntop(AF_INET6, &(sa->sin6_addr), ipbuf, ipbuf_len);
-      printf("%s\n", ipbuf);
-    }
+  if (addrlist->ai_family == AF_INET) {
+    struct sockaddr_in *sa = (struct sockaddr_in *)addrlist->ai_addr;
+    inet_ntop(AF_INET, &(sa->sin_addr), ipbuf, ipbuf_len);
+  } else {
+    struct sockaddr_in6 *sa = (struct sockaddr_in6 *)addrlist->ai_addr;
+    inet_ntop(AF_INET6, &(sa->sin6_addr), ipbuf, ipbuf_len);
   }
 
   freeaddrinfo(addrlist);
