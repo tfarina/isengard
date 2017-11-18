@@ -6,6 +6,8 @@
 #include <string.h>
 #include <sys/socket.h>
 
+#define NET_IP_STR_LEN 46 /* INET6_ADDRSTRLEN is 46, but we need to be sure */
+
 /* Get ip from domain name. */
 static int hostname_to_ip(char *hostname, char *ip) {
   struct addrinfo hints, *addrlist, *cur;
@@ -36,7 +38,7 @@ static int hostname_to_ip(char *hostname, char *ip) {
 
 int main(int argc, char **argv) {
   char *hostname = NULL;
-  char ip[100];
+  char ip[NET_IP_STR_LEN];
 
   if (argc < 2) {
     fprintf(stderr, "Please, provide a hostname to resolve\n");
