@@ -323,6 +323,7 @@ int main(int argc, char **argv) {
   tcpfd = tcp_socket_listen(host, ECHO_PORT, SOMAXCONN);
 
   signal(SIGCHLD, sigchld_handler);
+  signal(SIGINT, sigterm_handler);
   signal(SIGTERM, sigterm_handler);
 
   logstatus();
