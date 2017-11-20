@@ -1,10 +1,10 @@
-#include "base/directory.h"
+#include "directory.h"
 
 #include <sys/stat.h>
 
 #include <vector>
 
-#include "base/path.h"
+#include "path.h"
 
 bool IsDirectory(const std::string& path) {
   struct stat buf;
