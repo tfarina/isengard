@@ -29,7 +29,7 @@ static void fnet_set_error(char *err, const char *fmt, ...) {
  *
  * @return int -1 on error, 0 on success.
  */
-static int net_resolve(char *err, char *hostname, char *ipbuf, size_t ipbuf_len) {
+static int fnet_resolve(char *err, char *hostname, char *ipbuf, size_t ipbuf_len) {
   struct addrinfo hints, *addrlist;
   int rv;
 
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 
   hostname = argv[1];
 
-  net_resolve(NULL, hostname, ip, sizeof(ip));
+  fnet_resolve(NULL, hostname, ip, sizeof(ip));
   printf("%s resolved to %s\n", hostname, ip);
 
   return 0;
