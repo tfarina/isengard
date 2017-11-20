@@ -9,9 +9,10 @@
 
 #define BUFSIZE 1024
 
-#define NET_ERR_LEN 256
+#define FNET_ERR -1
+#define FNET_ERR_LEN 256
 
-static void net_set_error(char *err, const char *fmt, ...)
+static void fnet_set_error(char *err, const char *fmt, ...)
 {
        va_list ap;
 
@@ -20,25 +21,26 @@ static void net_set_error(char *err, const char *fmt, ...)
        }
 
        va_start(ap, fmt);
-       vsnprintf(err, NET_ERR_LEN, fmt, ap);
+       vsnprintf(err, FNET_ERR_LEN, fmt, ap);
        va_end(ap);
 }
 
-static int net_create_socket(char *err, int domain)
+static int fnet_create_socket(char *err, int domain)
 {
         int sockfd;
 
         if ((sockfd = socket(domain, SOCK_STREAM, 0)) == -1) {
-                net_set_error(err, "error creating socket: %s", strerror(errno));
-                return -1;
+                fnet_set_error(err, "error creating socket: %s", strerror(errno));
+                return FNET_ERR;
         }
 
         return sockfd;
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
         int sockfd;
-        char neterr[NET_ERR_LEN];
+        char neterr[FNET_ERR_LEN];
         struct sockaddr_un unix_addr;
         const char *path;
         char buf[BUFSIZE];
@@ -50,7 +52,7 @@ int main(int argc, char **argv) {
 
         path = "server.socket";
 
-        if ((sockfd = net_create_socket(neterr, AF_UNIX)) == -1) {
+        if ((sockfd = fnet_create_socket(neterr, AF_UNIX)) == FNET_ERR) {
                 fprintf(stderr, "%s\n", neterr);
                 return EXIT_FAILURE;
         }
