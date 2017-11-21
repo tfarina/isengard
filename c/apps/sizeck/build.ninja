@@ -1,7 +1,0 @@
-cc = gcc
-builddir = out
-
-rule compile
-  command = $cc -o $out $in
-
-build $builddir/sizeck: compile sizeck.c
