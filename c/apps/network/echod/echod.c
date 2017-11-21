@@ -31,6 +31,7 @@
 
 #define ECHO_PORT 7
 #define ECHOD_USER "_echod"
+#define ECHOD_BACKLOG SOMAXCONN
 #define BUFSIZE 8129
 
 static const char *progname;
@@ -334,7 +335,7 @@ int main(int argc, char **argv) {
 
   log_init(debug);
 
-  tcpfd = tcp_socket_listen(host, ECHO_PORT, SOMAXCONN);
+  tcpfd = tcp_socket_listen(host, ECHO_PORT, ECHOD_BACKLOG);
 
   signal(SIGCHLD, sigchld_handler);
   signal(SIGINT, sigterm_handler);
