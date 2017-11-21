@@ -265,7 +265,9 @@ static void sigterm_handler(int sig) {
 
 
 static void usage(void) {
-  fprintf(stderr, "usage: %s [-d]\n", progname);
+  fprintf(stderr, "usage: %s [-d]\n\n", progname);
+  fprintf(stderr, "options:\n"
+	  " -d  run in the foreground\n");
   exit(EXIT_FAILURE);
 }
 
