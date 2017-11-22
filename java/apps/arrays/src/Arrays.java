@@ -20,8 +20,15 @@ public class Arrays {
 	}
 	System.out.println("max = " + max);
 
+        // Compute the sum of all values in the specified array.
+        double sum = 0.0;
+	for (int i = 0; i < n; i++) {
+	    sum += a[i];
+	}
+	System.out.println("sum = " + sum);
+
         // Compute the average of the array values.
-	double sum = 0.0;
+	sum = 0.0;
 	for (int i = 0; i < n; i++) {
 	    sum += a[i];
 	}
