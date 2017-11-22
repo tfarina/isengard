@@ -18,12 +18,26 @@ static int msgcnt;  /* count # of messages we received */
 
 #define FNET_OK 0
 #define FNET_ERR -1
+#define FNET_ERR_LEN 256
 
-static int fnet_set_reuse_addr(int fd) {
+static void fnet_set_error(char *err, const char *fmt, ...) {
+  va_list ap;
+
+  if (!err) {
+    return;
+  }
+
+  va_start(ap, fmt);
+  vsnprintf(err, FNET_ERR_LEN, fmt, ap);
+  va_end(ap);
+}
+
+
+static int fnet_set_reuse_addr(char *err, int fd) {
   int reuse = 1;
 
   if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
-    error("setsockopt SO_REUSEADDR: %s", strerror(errno));
+    fnet_set_error(err, "setsockopt SO_REUSEADDR: %s", strerror(errno));
     return FNET_ERR;
   }
 
@@ -57,7 +71,7 @@ static int udp_socket_listen(char *host, int port) {
       continue;
     }
 
-    if (fnet_set_reuse_addr(sockfd) == FNET_ERR) {
+    if (fnet_set_reuse_addr(NULL, sockfd) == FNET_ERR) {
       close(sockfd);
       continue;
     }
