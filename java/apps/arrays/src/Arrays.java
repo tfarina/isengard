@@ -19,5 +19,12 @@ public class Arrays {
 	    }
 	}
 	System.out.println("max = " + max);
+
+        // Compute the average of the array values.
+	double sum = 0.0;
+	for (int i = 0; i < n; i++) {
+	    sum += a[i];
+	}
+	System.out.println("average = " + sum / n);
     }
 }
