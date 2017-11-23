@@ -29,8 +29,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define ECHO_PORT 7
 #define ECHOD_USER "_echod"
+#define ECHOD_TCP_PORT 7
 #define ECHOD_BACKLOG SOMAXCONN
 #define BUFSIZE 8129
 
@@ -300,7 +300,7 @@ int main(int argc, char **argv) {
   int value;
   struct passwd *pw;
   char *host = NULL;
-  int port = ECHO_PORT;
+  int port = ECHOD_TCP_PORT;
   int tcpfd;
   fd_set rfds_in;
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
