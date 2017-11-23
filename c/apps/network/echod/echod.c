@@ -268,6 +268,7 @@ static void sigterm_handler(int sig) {
 static void usage(void) {
   fprintf(stderr, "usage: %s [-d]\n\n", progname);
   fprintf(stderr, "options:\n"
+          " -p  TCP port to listen on (default: 7)\n"
 	  " -d  run in the foreground\n");
   exit(EXIT_FAILURE);
 }
@@ -285,11 +286,21 @@ static char *get_progname(char *argv0) {
   return name;
 }
 
+static int ec_valid_port(int port) {
+  if (port < 1 || port > UINT16_MAX) {
+    return 0;
+  }
+
+  return 1;
+}
+
 int main(int argc, char **argv) {
   int ch;
   int debug = 0;
+  int value;
   struct passwd *pw;
   char *host = NULL;
+  int port = ECHO_PORT;
   int tcpfd;
   fd_set rfds_in;
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
@@ -299,11 +310,27 @@ int main(int argc, char **argv) {
 
   progname = get_progname(argv[0]);
 
-  while ((ch = getopt(argc, argv, "d")) != -1) {
+  while ((ch = getopt(argc, argv, "dp:")) != -1) {
     switch (ch) {
     case 'd':
       debug = 1;
       break;
+
+    case 'p':
+      value = atoi(optarg);
+      if (value <= 0) {
+	fprintf(stderr, "%s: option -p requires a non zero number\n", progname);
+	return EXIT_FAILURE;
+      }
+      if (!ec_valid_port(value)) {
+	fprintf(stderr, "%s: option -s value %d is not a valid "
+		   "port\n", progname, value);
+	return EXIT_FAILURE;
+      }
+
+      port = value;
+      break;
+
     default:
       usage();
       /* NOTREACHED */
@@ -335,7 +362,7 @@ int main(int argc, char **argv) {
 
   log_init(debug);
 
-  tcpfd = tcp_socket_listen(host, ECHO_PORT, ECHOD_BACKLOG);
+  tcpfd = tcp_socket_listen(host, port, ECHOD_BACKLOG);
 
   signal(SIGCHLD, sigchld_handler);
   signal(SIGINT, sigterm_handler);
