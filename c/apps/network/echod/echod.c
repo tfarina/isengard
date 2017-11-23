@@ -266,10 +266,11 @@ static void sigterm_handler(int sig) {
 
 
 static void usage(void) {
-  fprintf(stderr, "usage: %s [-d] [-p port]\n\n", progname);
+  fprintf(stderr, "usage: %s [-hd] [-p port]\n\n", progname);
   fprintf(stderr, "options:\n"
-          " -p  set the tcp port to listen on (default: 7)\n"
-	  " -d  run in the foreground\n");
+          " -h  show usage, options and exit\n"
+	  " -d  run in the foreground\n"
+          " -p  set the tcp port to listen on (default: 7)\n");
 }
 
 static char *get_progname(char *argv0) {
@@ -309,8 +310,12 @@ int main(int argc, char **argv) {
 
   progname = get_progname(argv[0]);
 
-  while ((ch = getopt(argc, argv, "dp:")) != -1) {
+  while ((ch = getopt(argc, argv, "hdp:")) != -1) {
     switch (ch) {
+    case 'h':
+      usage();
+      exit(EXIT_FAILURE);
+
     case 'd':
       debug = 1;
       break;
