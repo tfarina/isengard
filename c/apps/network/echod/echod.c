@@ -270,7 +270,6 @@ static void usage(void) {
   fprintf(stderr, "options:\n"
           " -p  TCP port to listen on (default: 7)\n"
 	  " -d  run in the foreground\n");
-  exit(EXIT_FAILURE);
 }
 
 static char *get_progname(char *argv0) {
@@ -333,6 +332,7 @@ int main(int argc, char **argv) {
 
     default:
       usage();
+      exit(EXIT_FAILURE);
       /* NOTREACHED */
     }
   }
@@ -341,6 +341,7 @@ int main(int argc, char **argv) {
 
   if (argc > 0) {
     usage();
+    exit(EXIT_FAILURE);
   }
 
   if (geteuid() != 0) {
