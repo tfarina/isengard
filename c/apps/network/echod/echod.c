@@ -266,9 +266,9 @@ static void sigterm_handler(int sig) {
 
 
 static void usage(void) {
-  fprintf(stderr, "usage: %s [-d]\n\n", progname);
+  fprintf(stderr, "usage: %s [-d] [-p port]\n\n", progname);
   fprintf(stderr, "options:\n"
-          " -p  TCP port to listen on (default: 7)\n"
+          " -p  set the tcp port to listen on (default: 7)\n"
 	  " -d  run in the foreground\n");
 }
 
