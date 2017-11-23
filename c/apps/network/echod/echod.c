@@ -31,7 +31,7 @@
 
 #define ECHOD_USER "_echod"
 #define ECHOD_TCP_PORT 7
-#define ECHOD_BACKLOG SOMAXCONN
+#define ECHOD_BACKLOG 1024
 #define BUFSIZE 8129
 
 static const char *progname;
