@@ -259,7 +259,7 @@ static void sigchld_handler(int sig) {
 }
 
 static void sigterm_handler(int sig) {
-  log_info("parent terminating, pid %s", getpid());
+  log_info("signal %d received. Exiting.", sig);
   closelog();
   exit(EXIT_SUCCESS);
 }
