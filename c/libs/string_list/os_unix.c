@@ -28,9 +28,9 @@ char* xstrdup(char *p)
 	return p;
 }
 
-void* xrealloc(void *p, int n)
+void* xrealloc(void *p, size_t size)
 {
-	p = realloc(p, n);
+	p = realloc(p, size);
         if (p == NULL)
                 fatal("out of memory");
 	return p;
