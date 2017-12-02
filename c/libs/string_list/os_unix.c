@@ -43,14 +43,6 @@ void fatal(const char *msg, ...)
 	vfatal(msg, args);
 }
 
-char* xstrdup(char *p)
-{
-	p = strdup(p);
-        if (p == NULL)
-                fatal("out of memory");
-	return p;
-}
-
 void* xrealloc(void *oldptr, size_t size)
 {
         void *newptr;
@@ -59,4 +51,12 @@ void* xrealloc(void *oldptr, size_t size)
                 fatal("out of memory");
 
 	return newptr;
+}
+
+char* xstrdup(char *s)
+{
+	s = strdup(s);
+        if (s == NULL)
+                fatal("out of memory");
+	return s;
 }
