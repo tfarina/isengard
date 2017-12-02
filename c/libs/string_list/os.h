@@ -2,7 +2,7 @@
 #define UNIX_H_
 
 // fatal prints an error message to standard error and exits.
-void fatal(char *msg, ...);
+void fatal(const char *msg, ...);
 
 // xstrdup returns a newly allocated copy of p.
 // It calls fatal if it runs out of memory.

@@ -1,10 +1,23 @@
 #include "os.h"
 
+#include <stdarg.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-void fatal(char *msg, ...)
+void fatal(const char *msg, ...)
 {
+        va_list args;
+
+        va_start(args, msg);
+
+        fprintf(stderr, "fatal: ");
+        vfprintf(stderr, msg, args);
+        fprintf(stderr, "\n");
+
+        va_end(args);
+
+        exit(EXIT_FAILURE);
 }
 
 char* xstrdup(char *p)
