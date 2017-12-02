@@ -16,6 +16,7 @@
 
 #include <arpa/inet.h>
 #include <errno.h>
+#include <grp.h>
 #include <netdb.h>
 #include <pwd.h>
 #include <stdarg.h>
@@ -294,6 +295,21 @@ static int ec_valid_port(int port) {
   return 1;
 }
 
+static void dropto(uid_t uid, gid_t gid) {
+  if (setgroups(1, &gid) != 0) {
+    fprintf(stderr, "setgroups failed\n");
+    exit(EXIT_FAILURE);
+  }
+  if (setresgid(gid, gid, gid) != 0) {
+    fprintf(stderr, "setresgid failed\n");
+    exit(EXIT_FAILURE);
+  }
+  if (setresuid(uid, uid, uid) != 0) {
+    fprintf(stderr, "setresuid failed\n");
+    exit(EXIT_FAILURE);
+  }
+}
+
 int main(int argc, char **argv) {
   int ch;
   int debug = 0;
@@ -369,6 +385,8 @@ int main(int argc, char **argv) {
   log_init(debug);
 
   tcpfd = tcp_socket_listen(host, port, ECHOD_BACKLOG);
+
+  dropto(pw->pw_uid, pw->pw_gid);
 
   signal(SIGCHLD, sigchld_handler);
   signal(SIGINT, sigterm_handler);
