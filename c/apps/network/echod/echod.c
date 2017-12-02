@@ -31,6 +31,7 @@
 #include <unistd.h>
 
 #define ECHOD_USER "_echod"
+#define ECHOD_INTERFACE NULL
 #define ECHOD_TCP_PORT 7
 #define ECHOD_BACKLOG 1024
 #define BUFSIZE 8129
@@ -315,7 +316,7 @@ int main(int argc, char **argv) {
   int debug = 0;
   int value;
   struct passwd *pw;
-  char *host = NULL;
+  char *host = ECHOD_INTERFACE;
   int port = ECHOD_TCP_PORT;
   int tcpfd;
   fd_set rfds_in;
