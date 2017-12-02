@@ -7,3 +7,6 @@ set(SRCS
     )
 
 add_library(string_list ${SRCS})
+
+add_executable(string_list_test string_list_test.c)
+target_link_libraries(string_list_test string_list)

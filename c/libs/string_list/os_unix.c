@@ -28,10 +28,12 @@ char* xstrdup(char *p)
 	return p;
 }
 
-void* xrealloc(void *p, size_t size)
+void* xrealloc(void *oldptr, size_t size)
 {
-	p = realloc(p, size);
-        if (p == NULL)
+        void *newptr;
+
+	if ((newptr = realloc(oldptr, size)) == NULL)
                 fatal("out of memory");
-	return p;
+
+	return newptr;
 }

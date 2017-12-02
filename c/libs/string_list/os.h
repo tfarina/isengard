@@ -13,6 +13,6 @@ char *xstrdup(char *p);
 // xrealloc grows the allocation p to n bytes and
 // returns the new (possibly moved) pointer.
 // It calls fatal if it runs out of memory.
-void *xrealloc(void *p, size_t size);
+void *xrealloc(void *oldptr, size_t size);
 
 #endif  // UNIX_H_
