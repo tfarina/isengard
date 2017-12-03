@@ -46,8 +46,8 @@ static int socket_read_line(int fd, char *buf, size_t max) {
 
 int main(void) {
         int sockfd;
-        struct sockaddr_un unix_addr;
-        size_t unix_addr_len;
+        struct sockaddr_un sa;
+        size_t salen;
         const char *path;
         int accept_fd;
         char buf[BUFSIZE];
@@ -63,12 +63,12 @@ int main(void) {
                   return EXIT_FAILURE;
         }
 
-        memset(&unix_addr, 0, sizeof(unix_addr));
-        unix_addr.sun_family = AF_UNIX;
-        strncpy(unix_addr.sun_path, path, sizeof(unix_addr.sun_path));
-        unix_addr_len = strlen(path) + 1 + offsetof(struct sockaddr_un, sun_path);
+        memset(&sa, 0, sizeof(sa));
+        sa.sun_family = AF_UNIX;
+        strncpy(sa.sun_path, path, sizeof(sa.sun_path));
+        salen = strlen(path) + 1 + offsetof(struct sockaddr_un, sun_path);
 
-        if (bind(sockfd, (const struct sockaddr*)&unix_addr, unix_addr_len) == -1) {
+        if (bind(sockfd, (const struct sockaddr*)&sa, salen) == -1) {
                 fprintf(stderr, "bind() failed: %s\n", strerror(errno));
                 close(sockfd);
                 return EXIT_FAILURE;
