@@ -9,13 +9,15 @@
 
 #define BUFSIZE 1024
 
-static int net_create_socket(int domain)
+#define FNET_ERR -1
+
+static int fnet_create_socket(int domain)
 {
         int sockfd;
 
         if ((sockfd = socket(domain, SOCK_STREAM, 0)) == -1) {
                 fprintf(stderr, "failed to create socket\n");
-                return -1;
+                return FNET_ERR;
         }
 
         return sockfd;
@@ -57,7 +59,7 @@ int main(void) {
 
         unlink(path);
 
-        if ((sockfd = net_create_socket(AF_UNIX)) == -1) {
+        if ((sockfd = fnet_create_socket(AF_UNIX)) == FNET_ERR) {
                   return EXIT_FAILURE;
         }
 
