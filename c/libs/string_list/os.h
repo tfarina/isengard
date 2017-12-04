@@ -1,10 +1,7 @@
-#ifndef UNIX_H_
-#define UNIX_H_
+#ifndef OS_H_
+#define OS_H_
 
 #include <stddef.h>
-
-// fatal prints an error message to standard error and exits.
-void fatal(const char *msg, ...);
 
 // xrealloc grows the allocation p to n bytes and
 // returns the new (possibly moved) pointer.
@@ -15,4 +12,4 @@ void *xrealloc(void *oldptr, size_t size);
 // It calls fatal if it runs out of memory.
 char *xstrdup(char *s);
 
-#endif  // UNIX_H_
+#endif  // OS_H_
