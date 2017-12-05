@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 
-#include "os.h"
+#include "xalloc.h"
 
 void string_list_grow(string_list_t *s, int n);
 

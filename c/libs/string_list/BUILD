@@ -1,14 +1,14 @@
 cc_library(
-    name = "os",
-    srcs = ["os_unix.c"],
-    hdrs = ["os.h"],
+    name = "xalloc",
+    srcs = ["xalloc.c"],
+    hdrs = ["xalloc.h"],
 )
 
 cc_library(
     name = "string_list",
     srcs = ["string_list.c"],
     hdrs = ["string_list.h"],
-    deps = [":os"],
+    deps = [":xalloc"],
 )
 
 cc_test(

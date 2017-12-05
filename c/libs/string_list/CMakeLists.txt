@@ -3,7 +3,7 @@ project(string_list C)
 
 set(SRCS
     log.c
-    os_unix.c
+    xalloc.c
     string_list.c
     )
 

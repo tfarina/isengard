@@ -1,5 +1,5 @@
-#ifndef OS_H_
-#define OS_H_
+#ifndef XALLOC_H_
+#define XALLOC_H_
 
 #include <stddef.h>
 
@@ -12,4 +12,4 @@ void *xrealloc(void *oldptr, size_t size);
 // It calls fatal if it runs out of memory.
 char *xstrdup(char *s);
 
-#endif  // OS_H_
+#endif  /* XALLOC_H_ */
