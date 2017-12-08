@@ -223,7 +223,7 @@ static void tcp_socket_accept(int tcpfd) {
                          ip, sizeof(ip), port, sizeof(port),
                          NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
     log_error("getnameinfo failed: %.100s", gai_strerror(ret));
-    exit(EXIT_FAILURE);
+    return;
   }
 
   log_info("Accepted connection from %s:%s", ip, port);
