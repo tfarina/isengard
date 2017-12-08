@@ -187,7 +187,7 @@ static int tcp_socket_listen(char *host, int port, int backlog) {
   return tcpfd;
 }
 
-static int tcp_socket_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen) {
+static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen) {
   int fd;
 
   for (;;) {
@@ -214,7 +214,7 @@ static void tcp_socket_accept(int tcpfd) {
   int ret;
   pid_t pid;
 
-  if ((fd = tcp_socket_generic_accept(tcpfd, sa, &sslen)) == -1) {
+  if ((fd = fnet_generic_accept(tcpfd, sa, &sslen)) == -1) {
     return;
   }
 
