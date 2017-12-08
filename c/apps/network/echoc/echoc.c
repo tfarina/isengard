@@ -31,7 +31,7 @@ int tcp_socket_connect(char *host, int port) {
 
   if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
     error("getaddrinfo failed: %s", gai_strerror(rv));
-    exit(EXIT_FAILURE);
+    return -1;
   }
 
   /* Loop through all the results and connect to the first we can. */
