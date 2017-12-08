@@ -137,7 +137,7 @@ static int tcp_socket_listen(char *host, int port, int backlog) {
 
   if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
     log_error("getaddrinfo failed: %s", gai_strerror(rv));
-    exit(EXIT_FAILURE);
+    return FNET_ERR;
   }
 
   /* Loop through all the results and bind to the first we can. */
@@ -166,20 +166,20 @@ static int tcp_socket_listen(char *host, int port, int backlog) {
 
   if (cur == NULL) {
     log_error("failed to bind");
-    exit(EXIT_FAILURE);
+    return FNET_ERR;
   }
 
   if (listen(tcpfd, backlog) == -1) {
     log_error("listen on %d failed: %s", tcpfd, strerror(errno));
     close(tcpfd);
-    exit(EXIT_FAILURE);
+    return FNET_ERR;
   }
 
   if ((rv = getnameinfo(cur->ai_addr, cur->ai_addrlen,
                         ntop, sizeof(ntop), strport, sizeof(strport),
                         NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
     log_error("getnameinfo failed: %.100s", gai_strerror(rv));
-    exit(EXIT_FAILURE);
+    return FNET_ERR;
   }
 
   log_info("Server listening on %s port %s", ntop, strport);
@@ -387,6 +387,9 @@ int main(int argc, char **argv) {
   log_init(debug);
 
   tcpfd = tcp_socket_listen(host, port, ECHOD_BACKLOG);
+  if (tcpfd == FNET_ERR) {
+    return EXIT_FAILURE;
+  }
 
   dropto(pw->pw_uid, pw->pw_gid);
 
