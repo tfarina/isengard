@@ -23,6 +23,36 @@ static int fnet_create_socket(int domain)
         return sockfd;
 }
 
+static int fnet_unix_server(const char *path)
+{
+        int sockfd;
+        struct sockaddr_un sa;
+        size_t salen;
+
+        if ((sockfd = fnet_create_socket(AF_UNIX)) == FNET_ERR) {
+                return FNET_ERR;
+        }
+
+        memset(&sa, 0, sizeof(sa));
+        sa.sun_family = AF_UNIX;
+        strncpy(sa.sun_path, path, sizeof(sa.sun_path));
+        salen = strlen(path) + 1 + offsetof(struct sockaddr_un, sun_path);
+
+        if (bind(sockfd, (const struct sockaddr*)&sa, salen) == -1) {
+                fprintf(stderr, "bind() failed: %s\n", strerror(errno));
+                close(sockfd);
+                return FNET_ERR;
+        }
+
+        if (listen(sockfd, SOMAXCONN) == -1) {
+                fprintf(stderr, "listen() failed: %s\n", strerror(errno));
+                close(sockfd);
+                return FNET_ERR;
+        }
+
+        return sockfd;
+}
+
 static int socket_read_line(int fd, char *buf, size_t max) {
   int rv;
   size_t len = 0;
@@ -46,8 +76,6 @@ static int socket_read_line(int fd, char *buf, size_t max) {
 
 int main(void) {
         int sockfd;
-        struct sockaddr_un sa;
-        size_t salen;
         const char *path;
         int accept_fd;
         char buf[BUFSIZE];
@@ -59,26 +87,10 @@ int main(void) {
 
         unlink(path);
 
-        if ((sockfd = fnet_create_socket(AF_UNIX)) == FNET_ERR) {
-                  return EXIT_FAILURE;
-        }
-
-        memset(&sa, 0, sizeof(sa));
-        sa.sun_family = AF_UNIX;
-        strncpy(sa.sun_path, path, sizeof(sa.sun_path));
-        salen = strlen(path) + 1 + offsetof(struct sockaddr_un, sun_path);
-
-        if (bind(sockfd, (const struct sockaddr*)&sa, salen) == -1) {
-                fprintf(stderr, "bind() failed: %s\n", strerror(errno));
-                close(sockfd);
-                return EXIT_FAILURE;
-        }
-
-        if (listen(sockfd, SOMAXCONN) == -1) {
-                fprintf(stderr, "listen() failed: %s\n", strerror(errno));
-                close(sockfd);
-                return EXIT_FAILURE;
-        }
+	sockfd = fnet_unix_server(path);
+	if (sockfd == FNET_ERR) {
+	        return EXIT_FAILURE;
+	}
 
         sprintf(buf, "%s\r\n", "Target not found!");
 
