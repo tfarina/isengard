@@ -226,7 +226,7 @@ static void tcp_socket_accept(int tcpfd) {
     exit(EXIT_FAILURE);
   }
 
-  log_info("TCP connection from %s:%s", ip, port);
+  log_info("Accepted connection from %s:%s", ip, port);
 
   ++forked;
   logstatus();
