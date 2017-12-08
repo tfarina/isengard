@@ -210,7 +210,8 @@ static void tcp_socket_accept(int tcpfd) {
   struct sockaddr *sa = (struct sockaddr *)&ss;
   socklen_t sslen = sizeof(ss);
   int fd;
-  char strport[NI_MAXSERV], ntop[NI_MAXHOST];
+  char ip[NI_MAXHOST];
+  char port[NI_MAXSERV];
   int ret;
   pid_t pid;
 
@@ -219,13 +220,13 @@ static void tcp_socket_accept(int tcpfd) {
   }
 
   if ((ret = getnameinfo(sa, sslen,
-                         ntop, sizeof(ntop), strport, sizeof(strport),
+                         ip, sizeof(ip), port, sizeof(port),
                          NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
     log_error("getnameinfo failed: %.100s", gai_strerror(ret));
     exit(EXIT_FAILURE);
   }
 
-  log_info("TCP connection from %s:%s", ntop, strport);
+  log_info("TCP connection from %s:%s", ip, port);
 
   ++forked;
   logstatus();
