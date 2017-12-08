@@ -37,11 +37,32 @@ static int fnet_create_socket(char *err, int domain)
         return sockfd;
 }
 
+static int fnet_unix_client(char *err, const char *path) {
+        int sockfd;
+        struct sockaddr_un sa;
+
+        if ((sockfd = fnet_create_socket(err, AF_UNIX)) == FNET_ERR) {
+                fprintf(stderr, "%s\n", err);
+                return FNET_ERR;
+        }
+
+        memset(&sa, 0, sizeof(sa));
+        sa.sun_family = AF_UNIX;
+        strncpy(sa.sun_path, path, sizeof(sa.sun_path));
+
+        if (connect(sockfd, (struct sockaddr *)&sa, sizeof(sa)) == -1) {
+                fprintf(stderr, "connect failed: %s\n", strerror(errno));
+                close(sockfd);
+                return FNET_ERR;
+        }
+
+	return sockfd;
+}
+
 int main(int argc, char **argv)
 {
         int sockfd;
         char neterr[FNET_ERR_LEN];
-        struct sockaddr_un unix_addr;
         const char *path;
         char buf[BUFSIZE];
         ssize_t n;
@@ -52,20 +73,10 @@ int main(int argc, char **argv)
 
         path = "server.socket";
 
-        if ((sockfd = fnet_create_socket(neterr, AF_UNIX)) == FNET_ERR) {
-                fprintf(stderr, "%s\n", neterr);
-                return EXIT_FAILURE;
-        }
-
-        memset(&unix_addr, 0, sizeof(unix_addr));
-        unix_addr.sun_family = AF_UNIX;
-        strncpy(unix_addr.sun_path, path, sizeof(unix_addr.sun_path));
-
-        if (connect(sockfd, (struct sockaddr *)&unix_addr, sizeof(unix_addr)) == -1) {
-                fprintf(stderr, "connect failed: %s\n", strerror(errno));
-                close(sockfd);
-                return -1;
-        }
+	sockfd = fnet_unix_client(neterr, path);
+	if (sockfd == FNET_ERR) {
+	        return EXIT_FAILURE;
+	}
 
         snprintf(pre, sizeof(pre), "NIXCT%d ", 1);
 
@@ -77,15 +88,15 @@ int main(int argc, char **argv)
         argv += 1;
 
         for (i = 0; i < argc; i++) {
-          printf(" %s", argv[i]);
+                printf(" %s", argv[i]);
 
-          write(sockfd, space, strlen(space));
+                write(sockfd, space, strlen(space));
 
-          write(sockfd, argv[i], strlen(argv[i]));
+                write(sockfd, argv[i], strlen(argv[i]));
         }
 
         if (write(sockfd, newline, strlen(newline)) <= 0) {
-          fprintf(stderr, "could not write\n");
+                fprintf(stderr, "could not write\n");
         }
 
         while ((n = read(sockfd, buf, sizeof(buf))) > 0 ) {
