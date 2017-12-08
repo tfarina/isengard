@@ -196,7 +196,7 @@ static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen
         continue;
       } else {
         log_error("accept failed: %s", strerror(errno));
-        return -1;
+        return FNET_ERR;
       }
     }
     break;
@@ -214,7 +214,7 @@ static void tcp_socket_accept(int tcpfd) {
   int ret;
   pid_t pid;
 
-  if ((fd = fnet_generic_accept(tcpfd, sa, &sslen)) == -1) {
+  if ((fd = fnet_generic_accept(tcpfd, sa, &sslen)) == FNET_ERR) {
     return;
   }
 
