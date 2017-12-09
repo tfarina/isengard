@@ -125,7 +125,6 @@ static int tcp_socket_listen(char *host, int port, int backlog) {
   struct addrinfo hints, *addrlist, *cur;
   int rv;
   int tcpfd;
-  char strport[NI_MAXSERV], ntop[NI_MAXHOST];
 
   snprintf(portstr, sizeof(portstr), "%d", port);
 
@@ -174,15 +173,6 @@ static int tcp_socket_listen(char *host, int port, int backlog) {
     close(tcpfd);
     return FNET_ERR;
   }
-
-  if ((rv = getnameinfo(cur->ai_addr, cur->ai_addrlen,
-                        ntop, sizeof(ntop), strport, sizeof(strport),
-                        NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
-    log_error("getnameinfo failed: %.100s", gai_strerror(rv));
-    return FNET_ERR;
-  }
-
-  log_info("Server listening on %s port %s", ntop, strport);
 
   return tcpfd;
 }
@@ -390,6 +380,8 @@ int main(int argc, char **argv) {
   if (tcpfd == FNET_ERR) {
     return EXIT_FAILURE;
   }
+
+  log_info("Server is ready to accept connections on port %d", port);
 
   dropto(pw->pw_uid, pw->pw_gid);
 
