@@ -195,7 +195,7 @@ static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen
   return fd;
 }
 
-static void tcp_socket_accept(int tcpfd) {
+static int tcp_socket_accept(int tcpfd) {
   struct sockaddr_storage ss;
   struct sockaddr *sa = (struct sockaddr *)&ss;
   socklen_t sslen = sizeof(ss);
@@ -206,14 +206,14 @@ static void tcp_socket_accept(int tcpfd) {
   pid_t pid;
 
   if ((fd = fnet_generic_accept(tcpfd, sa, &sslen)) == FNET_ERR) {
-    return;
+    return FNET_ERR;
   }
 
   if ((ret = getnameinfo(sa, sslen,
                          ip, sizeof(ip), port, sizeof(port),
                          NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
     log_error("getnameinfo failed: %.100s", gai_strerror(ret));
-    return;
+    return FNET_ERR;
   }
 
   log_info("Accepted connection from %s:%s", ip, port);
@@ -238,6 +238,8 @@ static void tcp_socket_accept(int tcpfd) {
     close(fd); /* we are the parent so look for another connection. */
     log_info("pid: %d", pid);
   }
+
+  return FNET_OK;
 }
 
 static void sigchld_handler(int sig) {
