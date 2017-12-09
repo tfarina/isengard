@@ -120,7 +120,7 @@ static int fnet_set_reuse_addr(int fd) {
   return FNET_OK;
 }
 
-static int tcp_socket_listen(char *host, int port, int backlog) {
+static int fnet_tcp_socket_listen(char *host, int port, int backlog) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
@@ -376,7 +376,7 @@ int main(int argc, char **argv) {
 
   log_init(debug);
 
-  tcpfd = tcp_socket_listen(host, port, ECHOD_BACKLOG);
+  tcpfd = fnet_tcp_socket_listen(host, port, ECHOD_BACKLOG);
   if (tcpfd == FNET_ERR) {
     return EXIT_FAILURE;
   }
