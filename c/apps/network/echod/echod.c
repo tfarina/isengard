@@ -239,7 +239,7 @@ static int tcp_socket_accept(int tcpfd) {
     log_info("pid: %d", pid);
   }
 
-  return FNET_OK;
+  return fd;
 }
 
 static void sigchld_handler(int sig) {
