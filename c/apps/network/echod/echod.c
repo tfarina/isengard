@@ -254,7 +254,18 @@ static void sigchld_handler(int sig) {
 }
 
 static void sigterm_handler(int sig) {
-  log_info("signal %d received. Exiting.", sig);
+  char *type;
+
+  switch (sig) {
+  case SIGINT:
+    type = "SIGINT";
+    break;
+  case SIGTERM:
+    type = "SIGTERM";
+    break;
+  }
+
+  log_info("signal %s received. Exiting.", type);
   closelog();
   exit(EXIT_SUCCESS);
 }
