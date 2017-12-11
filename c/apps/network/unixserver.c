@@ -74,6 +74,36 @@ static int socket_read_line(int fd, char *buf, size_t max) {
   return 0;
 }
 
+static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen) {
+  int fd;
+
+  for (;;) {
+    if ((fd = accept(sockfd, sa, salen)) == -1) {
+      if (errno == EINTR) {
+	continue;
+      } else {
+        fprintf(stderr, "accept() failed: %s\n", strerror(errno));
+        return -1;
+      }
+    }
+    break;
+  }
+
+  return fd;
+}
+
+static int fnet_unix_socket_accept(int sockfd) {
+  int fd;
+  struct sockaddr_un sa;
+  socklen_t salen = sizeof(sa);
+
+  if ((fd = fnet_generic_accept(sockfd, (struct sockaddr *)&sa, &salen)) == -1) {
+    return -1;
+  }
+
+  return fd;
+}
+
 int main(void) {
         int sockfd;
         const char *path;
@@ -95,8 +125,7 @@ int main(void) {
         sprintf(buf, "%s\r\n", "Target not found!");
 
 	for (;;) {
-                if ((accept_fd = accept(sockfd, NULL, NULL)) == -1) {
-                        fprintf(stderr, "accept() failed: %s\n", strerror(errno));
+                if ((accept_fd = fnet_unix_socket_accept(sockfd)) == -1) {
                         exit(EXIT_FAILURE);
                 }
 
