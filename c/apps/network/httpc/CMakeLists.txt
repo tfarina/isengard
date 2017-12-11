@@ -5,4 +5,4 @@ set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-std=c99 -pedantic -Wall")
 
 add_definitions(-D_GNU_SOURCE)
 
-add_executable(http http.c)
+add_executable(httpc httpc.c)

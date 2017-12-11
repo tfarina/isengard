@@ -119,7 +119,9 @@ static ssize_t fd_write_all(int fd, char *buf, size_t len)
 
   while (len) {
     bytes_sent = fd_write(fd, buf, len);
-    if (bytes_sent <= 0)
+    if (bytes_sent == 0)
+      return total_bytes_sent;
+    if (bytes_sent == -1)
       return -1;
 
     printf("# sent %zd bytes\n", bytes_sent);
@@ -227,7 +229,7 @@ int main(int argc, char **argv) {
 
   bytes_to_send = strlen(request);
 
-  printf("bytes to send: %ld\n", bytes_to_send);
+  printf("bytes to send: %zd\n", bytes_to_send);
 
   if (fd_write_all(sockfd, request, strlen(request)) == -1)
     fatal("Failed to write the HTTP request");
