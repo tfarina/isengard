@@ -203,7 +203,6 @@ static int tcp_socket_accept(int tcpfd) {
   char ip[NI_MAXHOST];
   char port[NI_MAXSERV];
   int rv;
-  pid_t pid;
 
   if ((fd = fnet_generic_accept(tcpfd, sa, &sslen)) == FNET_ERR) {
     return FNET_ERR;
@@ -217,27 +216,6 @@ static int tcp_socket_accept(int tcpfd) {
   }
 
   log_info("Accepted connection from %s:%s", ip, port);
-
-  ++forked;
-  logstatus();
-
-  pid = fork();
-  switch (pid) {
-  case -1:
-    close(fd);
-    --forked;
-    logstatus();
-    break;
-
-  case 0:
-    close(tcpfd);
-    echo_stream(fd);
-    break;
-
-  default:
-    close(fd); /* we are the parent so look for another connection. */
-    log_info("pid: %d", pid);
-  }
 
   return fd;
 }
@@ -328,6 +306,8 @@ int main(int argc, char **argv) {
    * after select(). */
   fd_set rfds_out;
   int stop = 0;
+  int afd;
+  pid_t pid;
 
   progname = get_progname(argv[0]);
 
@@ -413,7 +393,28 @@ int main(int argc, char **argv) {
 
     if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
       if (FD_ISSET(tcpfd, &rfds_out)) {
-        tcp_socket_accept(tcpfd);
+        afd = tcp_socket_accept(tcpfd);
+
+        ++forked;
+        logstatus();
+
+        pid = fork();
+        switch (pid) {
+        case -1:
+          close(afd);
+          --forked;
+          logstatus();
+          break;
+
+        case 0:
+          close(tcpfd);
+          echo_stream(afd);
+          break;
+
+        default:
+          close(afd); /* we are the parent so look for another connection. */
+         log_info("pid: %d", pid);
+        }
       }
     }
   }
