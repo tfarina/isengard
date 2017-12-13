@@ -202,17 +202,17 @@ static int tcp_socket_accept(int tcpfd) {
   int fd;
   char ip[NI_MAXHOST];
   char port[NI_MAXSERV];
-  int ret;
+  int rv;
   pid_t pid;
 
   if ((fd = fnet_generic_accept(tcpfd, sa, &sslen)) == FNET_ERR) {
     return FNET_ERR;
   }
 
-  if ((ret = getnameinfo(sa, sslen,
-                         ip, sizeof(ip), port, sizeof(port),
-                         NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
-    log_error("getnameinfo failed: %.100s", gai_strerror(ret));
+  if ((rv = getnameinfo(sa, sslen,
+                        ip, sizeof(ip), port, sizeof(port),
+                        NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
+    log_error("getnameinfo failed: %.100s", gai_strerror(rv));
     return FNET_ERR;
   }
 
