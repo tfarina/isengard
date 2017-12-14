@@ -4,8 +4,11 @@
 
 int main(int argc, char **argv) {
   char ch = 'a';
+  char *cptr = &ch;
 
-  printf("address of ch is: %p\n", (void *)(&ch));
+  printf("The memory address of 'ch' is -> %p\n", (void *)&ch);
+  printf("The value of the pointer 'cptr' is -> %p\n", (void *)cptr);
+  printf("The memory address of the pointer 'cptr' is -> %p\n", (void *)&cptr);
 
   return 0;
 }
