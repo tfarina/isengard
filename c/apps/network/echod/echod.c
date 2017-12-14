@@ -394,6 +394,9 @@ int main(int argc, char **argv) {
     if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
       if (FD_ISSET(tcpfd, &rfds_out)) {
         afd = tcp_socket_accept(tcpfd);
+	if (afd == FNET_ERR) {
+	  return EXIT_FAILURE;
+	}
 
         ++forked;
         logstatus();
