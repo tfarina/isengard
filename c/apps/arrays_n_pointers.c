@@ -13,9 +13,15 @@ int main(int argc, char **argv) {
   int *ptr1 = numbers;
   int val1 = numbers[0];
 
-  printf("%p\n", (void *)ptr1);
+  /* SECOND: Using address-of array notation. */
+  int *ptr2 = &numbers[0];
+  int val2 = *(&numbers[0]);
+
+  printf("address of ptr1 -> %p\n", (void *)ptr1);
+  printf("address of ptr2 -> %p\n", (void *)ptr2);
 
   printf("%d\n", val1);
+  printf("%d\n", val2);
 
   return 0;
 }
