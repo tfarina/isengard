@@ -66,7 +66,7 @@ void sbuf_grow(sbuf *b, size_t extra)
 	size_t want;
 
         want = b->len + extra;
-        if (want > b->cap) {
+        if (b->cap < want) {
                 b->cap = 2 * want;
                 if (b->cap < 64)
                         b->cap = 64;
