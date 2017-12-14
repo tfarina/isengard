@@ -195,27 +195,33 @@ static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen
   return fd;
 }
 
-static int tcp_socket_accept(int tcpfd) {
+static int tcp_socket_accept(int tcpfd, char *ipbuf, size_t ipbuf_len, int *port) {
   struct sockaddr_storage ss;
   struct sockaddr *sa = (struct sockaddr *)&ss;
   socklen_t sslen = sizeof(ss);
   int fd;
-  char ip[NI_MAXHOST];
-  char port[NI_MAXSERV];
-  int rv;
 
   if ((fd = fnet_generic_accept(tcpfd, sa, &sslen)) == FNET_ERR) {
     return FNET_ERR;
   }
 
-  if ((rv = getnameinfo(sa, sslen,
-                        ip, sizeof(ip), port, sizeof(port),
-                        NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
-    log_error("getnameinfo failed: %.100s", gai_strerror(rv));
-    return FNET_ERR;
+  if (ss.ss_family == AF_INET) {
+    struct sockaddr_in *s = (struct sockaddr_in *)&ss;
+    if (ipbuf) {
+      inet_ntop(AF_INET, (void*)&(s->sin_addr), ipbuf, ipbuf_len);
+    }
+    if (port) {
+      *port = ntohs(s->sin_port);
+    }
+  } else {
+    struct sockaddr_in6 *s = (struct sockaddr_in6 *)&ss;
+    if (ipbuf) {
+      inet_ntop(AF_INET6, (void*)&(s->sin6_addr), ipbuf, ipbuf_len);
+    }
+    if (port) {
+      *port = ntohs(s->sin6_port);
+    }
   }
-
-  log_info("Accepted connection from %s:%s", ip, port);
 
   return fd;
 }
@@ -307,6 +313,8 @@ int main(int argc, char **argv) {
   fd_set rfds_out;
   int stop = 0;
   int afd;
+  char clientip[46];
+  int clientport;
   pid_t pid;
 
   progname = get_progname(argv[0]);
@@ -393,10 +401,12 @@ int main(int argc, char **argv) {
 
     if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
       if (FD_ISSET(tcpfd, &rfds_out)) {
-        afd = tcp_socket_accept(tcpfd);
+        afd = tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
 	if (afd == FNET_ERR) {
 	  return EXIT_FAILURE;
 	}
+
+	log_info("Accepted connection from %s:%d", clientip, clientport);
 
         ++forked;
         logstatus();
