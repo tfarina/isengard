@@ -1,4 +1,8 @@
+#
 # cs.lmu.edu/~ray/notes/gasexamples/
+#
+# This file is using AT&T syntax.
+#
 
 .set SYS_EXIT, 60
 
