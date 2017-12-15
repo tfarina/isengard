@@ -312,7 +312,7 @@ int main(int argc, char **argv) {
    * after select(). */
   fd_set rfds_out;
   int stop = 0;
-  int afd;
+  int clientfd;
   char clientip[46];
   int clientport;
   pid_t pid;
@@ -401,8 +401,8 @@ int main(int argc, char **argv) {
 
     if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
       if (FD_ISSET(tcpfd, &rfds_out)) {
-        afd = fnet_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
-	if (afd == FNET_ERR) {
+        clientfd = fnet_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
+	if (clientfd == FNET_ERR) {
 	  return EXIT_FAILURE;
 	}
 
@@ -414,18 +414,18 @@ int main(int argc, char **argv) {
         pid = fork();
         switch (pid) {
         case -1:
-          close(afd);
+          close(clientfd);
           --forked;
           logstatus();
           break;
 
         case 0:
           close(tcpfd);
-          echo_stream(afd);
+          echo_stream(clientfd);
           break;
 
         default:
-          close(afd); /* we are the parent so look for another connection. */
+          close(clientfd); /* we are the parent so look for another connection. */
          log_info("pid: %d", pid);
         }
       }
