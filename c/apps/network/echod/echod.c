@@ -195,7 +195,7 @@ static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen
   return fd;
 }
 
-static int tcp_socket_accept(int tcpfd, char *ipbuf, size_t ipbuf_len, int *port) {
+static int fnet_tcp_socket_accept(int tcpfd, char *ipbuf, size_t ipbuf_len, int *port) {
   struct sockaddr_storage ss;
   struct sockaddr *sa = (struct sockaddr *)&ss;
   socklen_t sslen = sizeof(ss);
@@ -401,7 +401,7 @@ int main(int argc, char **argv) {
 
     if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
       if (FD_ISSET(tcpfd, &rfds_out)) {
-        afd = tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
+        afd = fnet_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
 	if (afd == FNET_ERR) {
 	  return EXIT_FAILURE;
 	}
