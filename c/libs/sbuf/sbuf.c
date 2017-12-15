@@ -43,6 +43,18 @@ static void sbuf_setlen(sbuf *b, size_t len)
         b->data[len] = '\0';
 }
 
+sbuf *sbuf_create(size_t capacity)
+{
+        sbuf *b;
+
+	b = calloc(1, sizeof *b);
+
+	b->data = malloc(capacity);
+	b->cap = capacity;
+
+        return b;
+}
+
 void sbuf_init(sbuf *b)
 {
 	b->data = NULL;

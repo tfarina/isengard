@@ -18,6 +18,11 @@ typedef struct {
 } sbuf;
 
 /*
+ * sbuf_create creates a new buffer with the specified capacity.
+ */
+sbuf *sbuf_create(size_t capacity);
+
+/*
  * sbuf_init prepares an uninitialized buffer for use.
  */
 void sbuf_init(sbuf *b);

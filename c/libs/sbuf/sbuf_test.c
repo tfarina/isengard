@@ -4,6 +4,7 @@
 
 int main(void) {
         sbuf b;
+	sbuf *bp;
 
         sbuf_init(&b);
 
@@ -13,6 +14,11 @@ int main(void) {
         printf("%zu\n", b.len);
 
         sbuf_free(&b);
+
+	bp = sbuf_create(512);
+        sbuf_append_str(bp, "C is very hard!");
+        printf("%s\n", bp->data);
+	sbuf_free(bp);
 
         return 0;
 }
