@@ -39,7 +39,7 @@ static void *xrealloc(void *oldptr, size_t newsize)
 
 static void sbuf_setlen(sbuf *b, size_t len)
 {
-        b->len = len;
+        b->length = len;
         b->data[len] = '\0';
 }
 
@@ -50,7 +50,7 @@ sbuf *sbuf_create(size_t capacity)
 	b = calloc(1, sizeof *b);
 
 	b->data = malloc(capacity);
-	b->cap = capacity;
+	b->capacity = capacity;
 
         return b;
 }
@@ -58,13 +58,13 @@ sbuf *sbuf_create(size_t capacity)
 void sbuf_init(sbuf *b)
 {
 	b->data = NULL;
-	b->len = 0;
-	b->cap = 0;
+	b->length = 0;
+	b->capacity = 0;
 }
 
 void sbuf_reset(sbuf *b)
 {
-	b->len = 0;
+	b->length = 0;
 }
 
 void sbuf_free(sbuf *b)
@@ -77,20 +77,20 @@ void sbuf_grow(sbuf *b, size_t extra)
 {
 	size_t want;
 
-        want = b->len + extra;
-        if (b->cap < want) {
-                b->cap = 2 * want;
-                if (b->cap < 64)
-                        b->cap = 64;
-                b->data = xrealloc(b->data, b->cap);
+        want = b->length + extra;
+        if (b->capacity < want) {
+                b->capacity = 2 * want;
+                if (b->capacity < 64)
+                        b->capacity = 64;
+                b->data = xrealloc(b->data, b->capacity);
         }
 }
 
 void sbuf_append(sbuf *b, const void *data, size_t len)
 {
 	sbuf_grow(b, len);
-	memcpy(b->data + b->len, data, len);
-        sbuf_setlen(b, b->len + len);
+	memcpy(b->data + b->length, data, len);
+        sbuf_setlen(b, b->length + len);
 }
 
 void sbuf_append_str(sbuf *b, const char *str)

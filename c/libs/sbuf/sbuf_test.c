@@ -11,7 +11,7 @@ int main(void) {
         sbuf_append_str(&b, "C is hard!");
 
         printf("%s\n", b.data);
-        printf("%zu\n", b.len);
+        printf("%zu\n", b.length);
 
         sbuf_free(&b);
 

@@ -11,10 +11,10 @@ typedef struct {
 	char *data;
 
         /* The current length of the buffer, the position for reading/writing. */
-	size_t len;
+	size_t length;
 
         /* The amount of data the buffer can contain. */
-	size_t cap;
+	size_t capacity;
 } sbuf;
 
 /*
@@ -39,7 +39,7 @@ void sbuf_free(sbuf *b);
 
 /*
  * sbuf_grow ensures that the buffer has at least |extra| more bytes between its
- * len and cap.
+ * length and capacity.
  */
 void sbuf_grow(sbuf *b, size_t extra);
 
