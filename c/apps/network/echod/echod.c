@@ -90,22 +90,6 @@ static void log_warning(const char *emsg, ...) {
   va_end(ap);
 }
 
-static void print_num_child_forked(void) {
-  log_info("num child forked: %d", forked);
-}
-
-static void echo_stream(int fd) {
-  char buf[BUFSIZE];
-  int ret;
-
-  while ((ret = read(fd, buf, sizeof(buf))) > 0 && write(fd, buf, ret) > 0);
-
-  sleep(1);  /* allow socket to drain before signalling the socket is closed */
-  close(fd);
-
-  exit(EXIT_SUCCESS);
-}
-
 #define FNET_OK 0
 #define FNET_ERR -1
 
@@ -226,6 +210,10 @@ static int fnet_tcp_socket_accept(int tcpfd, char *ipbuf, size_t ipbuf_len, int 
   return fd;
 }
 
+static void print_num_child_forked(void) {
+  log_info("num child forked: %d", forked);
+}
+
 static void sigchld_handler(int sig) {
   pid_t pid;
   int status;
@@ -297,6 +285,18 @@ static void dropto(uid_t uid, gid_t gid) {
     fprintf(stderr, "setresuid failed\n");
     exit(EXIT_FAILURE);
   }
+}
+
+static void echo_stream(int fd) {
+  char buf[BUFSIZE];
+  int ret;
+
+  while ((ret = read(fd, buf, sizeof(buf))) > 0 && write(fd, buf, ret) > 0);
+
+  sleep(1);  /* allow socket to drain before signalling the socket is closed */
+  close(fd);
+
+  exit(EXIT_SUCCESS);
 }
 
 int main(int argc, char **argv) {
