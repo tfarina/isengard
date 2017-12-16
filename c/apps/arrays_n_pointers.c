@@ -17,11 +17,22 @@ int main(int argc, char **argv) {
   int *ptr2 = &numbers[0];
   int val2 = *(&numbers[0]);
 
+  /* THIRD: Using pointer + increment notation.
+   *
+   * FACT: Array notation is pointer arithmetic.
+   * The C standard defines that numbers[0] is just
+   * syntactic sugar for *(numbers + 0).
+   */
+  int *ptr3 = numbers + 0;
+  int val3 = *(numbers + 0);
+
   printf("address of ptr1 -> %p\n", (void *)ptr1);
   printf("address of ptr2 -> %p\n", (void *)ptr2);
+  printf("address of ptr3 -> %p\n", (void *)ptr3);
 
   printf("%d\n", val1);
   printf("%d\n", val2);
+  printf("%d\n", val3);
 
   return 0;
 }
