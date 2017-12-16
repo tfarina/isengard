@@ -90,7 +90,7 @@ static void log_warning(const char *emsg, ...) {
   va_end(ap);
 }
 
-static void logstatus(void) {
+static void print_num_child_forked(void) {
   log_info("num child forked: %d", forked);
 }
 
@@ -232,7 +232,7 @@ static void sigchld_handler(int sig) {
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
     --forked;
     log_info("pid %d status %d", pid, status);
-    logstatus();
+    print_num_child_forked();
   }
   signal(SIGCHLD, sigchld_handler);
 }
@@ -390,7 +390,7 @@ int main(int argc, char **argv) {
   signal(SIGINT, sigterm_handler);
   signal(SIGTERM, sigterm_handler);
 
-  logstatus();
+  print_num_child_forked();
 
   FD_ZERO(&rfds_in);
 
@@ -409,14 +409,14 @@ int main(int argc, char **argv) {
 	log_info("Accepted connection from %s:%d", clientip, clientport);
 
         ++forked;
-        logstatus();
+        print_num_child_forked();
 
         pid = fork();
         switch (pid) {
         case -1:
           close(clientfd);
           --forked;
-          logstatus();
+          print_num_child_forked();
           break;
 
         case 0:
