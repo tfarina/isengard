@@ -23,6 +23,11 @@ typedef struct {
 sbuf *sbuf_create(size_t capacity);
 
 /*
+ * sbuf_destroy destroys a buffer.
+ */
+void sbuf_destroy(sbuf *b);
+
+/*
  * sbuf_init prepares an uninitialized buffer for use.
  */
 void sbuf_init(sbuf *b);

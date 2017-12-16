@@ -55,6 +55,12 @@ sbuf *sbuf_create(size_t capacity)
         return b;
 }
 
+void sbuf_destroy(sbuf *b)
+{
+        free(b->data);
+        free(b);
+}
+
 void sbuf_init(sbuf *b)
 {
 	b->data = NULL;

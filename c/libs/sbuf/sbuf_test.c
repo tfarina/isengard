@@ -18,7 +18,7 @@ int main(void) {
 	bp = sbuf_create(512);
         sbuf_append_str(bp, "C is very hard!");
         printf("%s\n", bp->data);
-	sbuf_free(bp);
+	sbuf_destroy(bp);
 
         return 0;
 }
