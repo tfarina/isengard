@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.6)
 project(iniparser C)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+find_package(MySQL)
+
 set(SRCS
     dictionary.c
     iniparser.c
@@ -39,3 +42,5 @@ target_link_libraries(readmenujson -lm)
 add_executable(select select.c)
 add_executable(percentage percentage.c)
 add_executable(sizedt sizedt.c)
+add_executable(mysql_version mysql_version.c)
+target_link_libraries(mysql_version ${MYSQL_LIBRARY})
