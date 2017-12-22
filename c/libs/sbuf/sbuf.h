@@ -4,7 +4,7 @@
 #include <stddef.h>
 
 /*
- * A sbuf is a byte buffer.
+ * A sbuf is a generic memory buffer.
  */
 typedef struct {
         /* The data contained in the buffer. */
