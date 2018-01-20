@@ -42,7 +42,9 @@ int main(int argc, char **argv) {
   querylen = snprintf(query, sizeof(query), "SELECT * FROM bookmarks");
 
   if (mysql_real_query(conn, query, querylen)) {
-    finish_with_error(conn);
+    fprintf(stderr, "mysql: sql select failed: %s\n", mysql_error(conn));
+    mysql_close(conn);
+    return -1;
   }
 
   if ((res = mysql_store_result(conn)) == NULL) {
