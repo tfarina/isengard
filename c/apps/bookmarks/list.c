@@ -34,7 +34,9 @@ int main(int argc, char **argv) {
 
   if (mysql_real_connect(sql, kDBHost, kDBUser, kDBPassword, kDBName, port,
                          NULL, 0) == NULL) {
-    finish_with_error(sql);
+    fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(sql));
+    mysql_close(sql);
+    return -1;
   }
 
   querylen = snprintf(query, sizeof(query), "SELECT * FROM bookmarks");
