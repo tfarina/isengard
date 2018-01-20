@@ -11,12 +11,6 @@ static const char kDBUser[] = "ken";
 static const char kDBPassword[] = "194304";
 static const char kDBName[] = "ctestdb";
 
-static void finish_with_error(MYSQL *sql) {
-  fprintf(stderr, "%s\n", mysql_error(sql));
-  mysql_close(sql);
-  exit(EXIT_FAILURE);
-}
-
 int main(int argc, char **argv) {
   MYSQL *conn = NULL;
   MYSQL_RES *res = NULL;
@@ -48,7 +42,9 @@ int main(int argc, char **argv) {
   }
 
   if ((res = mysql_store_result(conn)) == NULL) {
-    finish_with_error(conn);
+    fprintf(stderr, "mysql: sql result retrieval failed: %s\n", mysql_error(conn));
+    mysql_close(conn);
+    return -1;
   }
 
   num_fields = mysql_num_fields(res);
