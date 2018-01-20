@@ -18,7 +18,7 @@ static void finish_with_error(MYSQL *sql) {
 }
 
 int main(int argc, char **argv) {
-  MYSQL *sql = NULL;
+  MYSQL *conn = NULL;
   MYSQL_RES *res = NULL;
   unsigned int num_fields;
   MYSQL_ROW row;
@@ -27,26 +27,26 @@ int main(int argc, char **argv) {
   size_t querylen;
   int i;
 
-  if ((sql = mysql_init(NULL)) == NULL) {
+  if ((conn = mysql_init(NULL)) == NULL) {
     fprintf(stderr, "mysql_init() failed\n");
     exit(EXIT_FAILURE);
   }
 
-  if (mysql_real_connect(sql, kDBHost, kDBUser, kDBPassword, kDBName, port,
+  if (mysql_real_connect(conn, kDBHost, kDBUser, kDBPassword, kDBName, port,
                          NULL, 0) == NULL) {
-    fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(sql));
-    mysql_close(sql);
+    fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(conn));
+    mysql_close(conn);
     return -1;
   }
 
   querylen = snprintf(query, sizeof(query), "SELECT * FROM bookmarks");
 
-  if (mysql_real_query(sql, query, querylen)) {
-    finish_with_error(sql);
+  if (mysql_real_query(conn, query, querylen)) {
+    finish_with_error(conn);
   }
 
-  if ((res = mysql_store_result(sql)) == NULL) {
-    finish_with_error(sql);
+  if ((res = mysql_store_result(conn)) == NULL) {
+    finish_with_error(conn);
   }
 
   num_fields = mysql_num_fields(res);
@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
   }
 
   mysql_free_result(res);
-  mysql_close(sql);
+  mysql_close(conn);
 
   return 0;
 }
