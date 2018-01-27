@@ -28,7 +28,9 @@ int main(int argc, char **argv) {
 
   if (mysql_real_connect(conn, kDBHost, kDBUser, kDBPassword, kDBName, port,
                          NULL, 0) == NULL) {
-    finish_with_error(conn);
+    fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(conn));
+    mysql_close(conn);
+    return -1;
   }
 
   if (mysql_query(conn,
