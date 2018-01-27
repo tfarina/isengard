@@ -22,8 +22,8 @@ int main(int argc, char **argv) {
   unsigned int port = 0;
 
   if ((conn = mysql_init(NULL)) == NULL) {
-    fprintf(stderr, "mysql_init() failed\n");
-    exit(EXIT_FAILURE);
+    fprintf(stderr, "mysql: unable to allocate memory for database connection.\n");
+    return -1;
   }
 
   if (mysql_real_connect(conn, kDBHost, kDBUser, kDBPassword, kDBName, port,
