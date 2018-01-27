@@ -18,25 +18,25 @@ static void finish_with_error(MYSQL *sql) {
 }
 
 int main(int argc, char **argv) {
-  MYSQL *sql = NULL;
+  MYSQL *conn = NULL;
   unsigned int port = 0;
 
-  if ((sql = mysql_init(NULL)) == NULL) {
+  if ((conn = mysql_init(NULL)) == NULL) {
     fprintf(stderr, "mysql_init() failed\n");
     exit(EXIT_FAILURE);
   }
 
-  if (mysql_real_connect(sql, kDBHost, kDBUser, kDBPassword, kDBName, port,
+  if (mysql_real_connect(conn, kDBHost, kDBUser, kDBPassword, kDBName, port,
                          NULL, 0) == NULL) {
-    finish_with_error(sql);
+    finish_with_error(conn);
   }
 
-  if (mysql_query(sql,
+  if (mysql_query(conn,
           "INSERT INTO bookmarks VALUES (1, 'https://google.com', 'Google')")) {
-    finish_with_error(sql);
+    finish_with_error(conn);
   }
 
-  mysql_close(sql);
+  mysql_close(conn);
 
   return 0;
 }
