@@ -46,7 +46,6 @@ int main(int argc, char **argv) {
   MYSQL_ROW row;
   unsigned int port = 0;
   char query[256];
-  size_t querylen;
   int i;
 
   homedir = get_homedir();
