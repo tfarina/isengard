@@ -14,6 +14,7 @@ static const char kDBName[] = "ctestdb";
 int main(int argc, char **argv) {
   MYSQL *conn = NULL;
   unsigned int port = 0;
+  char query[256];
 
   if ((conn = mysql_init(NULL)) == NULL) {
     fprintf(stderr, "mysql: unable to allocate memory for database connection.\n");
@@ -27,8 +28,9 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (mysql_query(conn,
-          "INSERT INTO bookmarks VALUES (1, 'https://google.com', 'Google')")) {
+  sprintf(query, "INSERT INTO bookmarks VALUES (1, 'https://google.com', 'Google')");
+
+  if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: sql insert failed: %s\n", mysql_error(conn));
     mysql_close(conn);
     return -1;
