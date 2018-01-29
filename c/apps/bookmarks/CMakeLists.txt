@@ -6,7 +6,14 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")    
 find_package(MySQL)
 
+set(INIPARSER_SRCS
+    dictionary.c
+    iniparser.c
+    )
+
+add_library(iniparser ${INIPARSER_SRCS})
+
 add_executable(list list.c)
 add_executable(insert insert.c)
-target_link_libraries(list ${MYSQL_LIBRARY})
-target_link_libraries(insert ${MYSQL_LIBRARY})
+target_link_libraries(list ${MYSQL_LIBRARY} iniparser)
+target_link_libraries(insert ${MYSQL_LIBRARY} iniparser)
