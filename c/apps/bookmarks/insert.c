@@ -32,6 +32,27 @@ static char *make_file_path(const char *directory, const char *name)
   return path;
 }
 
+static MYSQL *mysql_connect(const char *host, const char *user,
+                            const char *password, const char *dbname)
+{
+  MYSQL *conn;
+  unsigned int port = 0;
+
+  if ((conn = mysql_init(NULL)) == NULL) {
+    fprintf(stderr, "mysql: unable to allocate memory for database connection.\n");
+    return NULL;
+  }
+
+  if (mysql_real_connect(conn, host, user, password, dbname, port,
+                         NULL, 0) == NULL) {
+    fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(conn));
+    mysql_close(conn);
+    return NULL;
+  }
+
+  return conn;
+}
+
 int main(int argc, char **argv) {
   char *homedir;
   char *userconffile;
@@ -52,15 +73,7 @@ int main(int argc, char **argv) {
   password = iniparser_getstring(ini, "mysql:password", NULL);
   dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
 
-  if ((conn = mysql_init(NULL)) == NULL) {
-    fprintf(stderr, "mysql: unable to allocate memory for database connection.\n");
-    return -1;
-  }
-
-  if (mysql_real_connect(conn, host, user, password, dbname, port,
-                         NULL, 0) == NULL) {
-    fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(conn));
-    mysql_close(conn);
+  if ((conn = mysql_connect(host, user, password, dbname)) == NULL) {
     return -1;
   }
 
