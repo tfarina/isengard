@@ -53,6 +53,21 @@ static MYSQL *mysql_connect(const char *host, const char *user,
   return conn;
 }
 
+static int bookmark_add(MYSQL *conn, const char *url, const char *title)
+{
+  char query[256];
+
+  sprintf(query, "INSERT INTO bookmarks VALUES ('%s', '%s')", url, title);
+
+  if (mysql_query(conn, query)) {
+    fprintf(stderr, "mysql: sql insert failed: %s\n", mysql_error(conn));
+    mysql_close(conn);
+    return -1;
+  }
+
+  return 0;
+}
+
 int main(int argc, char **argv) {
   char *homedir;
   char *userconffile;
@@ -62,8 +77,6 @@ int main(int argc, char **argv) {
   const char *password;
   const char *dbname;
   MYSQL *conn = NULL;
-  unsigned int port = 0;
-  char query[256];
 
   homedir = get_homedir();
   userconffile = make_file_path(homedir, USERCONFFILE);
@@ -77,11 +90,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  sprintf(query, "INSERT INTO bookmarks VALUES (1, 'https://google.com', 'Google')");
-
-  if (mysql_query(conn, query)) {
-    fprintf(stderr, "mysql: sql insert failed: %s\n", mysql_error(conn));
-    mysql_close(conn);
+  if (bookmark_add(conn, "https://google.com", "Google") == -1) {
     return -1;
   }
 
