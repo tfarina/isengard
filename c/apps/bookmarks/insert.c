@@ -53,11 +53,12 @@ static MYSQL *mysql_connect(const char *host, const char *user,
   return conn;
 }
 
-static int bookmark_add(MYSQL *conn, const char *url, const char *title)
+static int product_add(MYSQL *conn, const char *name, int quantity, double price)
 {
   char query[256];
 
-  sprintf(query, "INSERT INTO bookmarks VALUES ('%s', '%s')", url, title);
+  sprintf(query, "INSERT INTO products (`productName`, `productLine`, `quantityInStock`, `buyPrice`) VALUES ('%s', 'Motorcycles', %d, %f)",
+          name, quantity, price);
 
   if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: sql insert failed: %s\n", mysql_error(conn));
@@ -90,7 +91,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (bookmark_add(conn, "https://google.com", "Google") == -1) {
+  if (product_add(conn, "Ducati", 25, 8999.00) == -1) {
     return -1;
   }
 
