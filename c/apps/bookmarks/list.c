@@ -53,32 +53,13 @@ static MYSQL *mysql_connect(const char *host, const char *user,
   return conn;
 }
 
-int main(int argc, char **argv) {
-  char *homedir;
-  char *userconffile;
-  dictionary *ini;
-  const char *host;
-  const char *user;
-  const char *password;
-  const char *dbname;
-  MYSQL *conn = NULL;
+static int bookmark_list(MYSQL *conn)
+{
   MYSQL_RES *res = NULL;
   unsigned int num_fields;
   MYSQL_ROW row;
   char query[256];
   int i;
-
-  homedir = get_homedir();
-  userconffile = make_file_path(homedir, USERCONFFILE);
-  ini = iniparser_load(userconffile);
-  host = iniparser_getstring(ini, "mysql:host", NULL);
-  user = iniparser_getstring(ini, "mysql:user", NULL);
-  password = iniparser_getstring(ini, "mysql:password", NULL);
-  dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
-
-  if ((conn = mysql_connect(host, user, password, dbname)) == NULL) {
-    return -1;
-  }
 
   sprintf(query, "SELECT * FROM bookmarks");
 
@@ -104,6 +85,36 @@ int main(int argc, char **argv) {
   }
 
   mysql_free_result(res);
+
+  return 0;
+}
+
+int main(int argc, char **argv) {
+  char *homedir;
+  char *userconffile;
+  dictionary *ini;
+  const char *host;
+  const char *user;
+  const char *password;
+  const char *dbname;
+  MYSQL *conn = NULL;
+
+  homedir = get_homedir();
+  userconffile = make_file_path(homedir, USERCONFFILE);
+  ini = iniparser_load(userconffile);
+  host = iniparser_getstring(ini, "mysql:host", NULL);
+  user = iniparser_getstring(ini, "mysql:user", NULL);
+  password = iniparser_getstring(ini, "mysql:password", NULL);
+  dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
+
+  if ((conn = mysql_connect(host, user, password, dbname)) == NULL) {
+    return -1;
+  }
+
+  if (bookmark_list(conn) == -1) {
+    return -1;
+  }
+
   mysql_close(conn);
 
   return 0;
