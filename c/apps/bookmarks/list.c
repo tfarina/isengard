@@ -53,7 +53,7 @@ static MYSQL *mysql_connect(const char *host, const char *user,
   return conn;
 }
 
-static int bookmark_list(MYSQL *conn)
+static int product_list(MYSQL *conn)
 {
   MYSQL_RES *res = NULL;
   unsigned int num_fields;
@@ -61,7 +61,7 @@ static int bookmark_list(MYSQL *conn)
   char query[256];
   int i;
 
-  sprintf(query, "SELECT * FROM bookmarks");
+  sprintf(query, "SELECT * FROM products");
 
   if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: sql select failed: %s\n", mysql_error(conn));
@@ -111,7 +111,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (bookmark_list(conn) == -1) {
+  if (product_list(conn) == -1) {
     return -1;
   }
 
