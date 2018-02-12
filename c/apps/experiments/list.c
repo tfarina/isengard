@@ -55,10 +55,10 @@ static MYSQL *mysql_connect(const char *host, const char *user,
 
 static int product_list(MYSQL *conn)
 {
+  char query[256];
   MYSQL_RES *res = NULL;
   unsigned int num_fields;
   MYSQL_ROW row;
-  char query[256];
   int i;
 
   sprintf(query, "SELECT * FROM products");
@@ -79,7 +79,10 @@ static int product_list(MYSQL *conn)
 
   while ((row = mysql_fetch_row(res))) {
     for (i = 0; i < num_fields; i++) {
-      printf("%s ", row[i] ? row[i] : "NULL");
+      if (i > 0) {
+        fputc('\t', stdout);
+      }
+      printf("%s", row[i] ? row[i] : "NULL");
     }
     printf("\n");
   }
