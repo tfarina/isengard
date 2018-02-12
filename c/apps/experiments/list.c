@@ -8,7 +8,7 @@
 
 #include "iniparser.h"
 
-#define USERCONFFILE ".bookmarksrc"
+#define USERCONFFILE ".experimentsrc"
 #define PATH_SEP '/'
 
 static char *get_homedir(void)
