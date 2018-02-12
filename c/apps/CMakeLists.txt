@@ -11,6 +11,15 @@ set(SRCS
 
 add_library(iniparser ${SRCS})
 
+set(LIBCSV_SRCS
+    libcsv.c
+    )
+
+add_library(libcsv ${LIBCSV_SRCS})
+
+add_executable(tst tst.c)
+target_link_libraries(tst libcsv)
+
 add_executable(readfile readfile.c)
 add_executable(buildtime buildtime.c)
 add_executable(linebyline linebyline.c)
