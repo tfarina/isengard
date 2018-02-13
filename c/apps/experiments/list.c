@@ -104,7 +104,9 @@ int main(int argc, char **argv) {
 
   homedir = get_homedir();
   userconffile = make_file_path(homedir, USERCONFFILE);
+
   ini = iniparser_load(userconffile);
+
   host = iniparser_getstring(ini, "mysql:host", NULL);
   user = iniparser_getstring(ini, "mysql:user", NULL);
   password = iniparser_getstring(ini, "mysql:password", NULL);
@@ -113,6 +115,8 @@ int main(int argc, char **argv) {
   if ((conn = mysql_connect(host, user, password, dbname)) == NULL) {
     return -1;
   }
+
+  iniparser_freedict(ini);
 
   if (product_list(conn) == -1) {
     return -1;
