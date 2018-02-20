@@ -1,3 +1,7 @@
+/**
+ * Pivot point = P = (H + L + C) / 3
+ */
+
 #include <stdio.h>
 
 static float pivot_point(float high, float low, float close)
