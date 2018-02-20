@@ -4,6 +4,8 @@
  * Second area of resistance = R2 = P + (R1 - S1)
  * Third area of resistance = R3 = H + 2 * (P - L)
  * First area of support = S1 = 2P - H
+ * Second area of support = S2 = P - (R1 - S1)
+ * Third area of support = S3 = L - 2 * (H - P)
  */
 
 #include <stdio.h>
@@ -33,6 +35,16 @@ static float support1(float pivot_point, float high)
   return (2 * pivot_point) - high;
 }
 
+static float support2(float pivot_point, float r1, float s1)
+{
+  return pivot_point - (r1 - s1);
+}
+
+static float support3(float pivot_point, float high, float low)
+{
+  return low - 2 * (high - pivot_point);
+}
+
 int main(int argc, char **argv)
 {
   float high, low, close;
@@ -41,6 +53,8 @@ int main(int argc, char **argv)
   float r2;
   float r3;
   float s1;
+  float s2;
+  float s3;
 
   high = 60.82;
   low = 59.74;
@@ -51,8 +65,10 @@ int main(int argc, char **argv)
   r1 = resistance1(pp, low);
   r2 = resistance2(pp, r1, s1);
   r3 = resistance3(pp, high, low);
+  s2 = support2(pp, r1, s1);
+  s3 = support3(pp, high, low);
 
-  printf("%.4f\t%.4f\t%.4f\t%.4f\t%.4f\n", s1, pp, r1, r2, r3);
+  printf("%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\n", s3, s2, s1, pp, r1, r2, r3);
 
   return 0;
 }
