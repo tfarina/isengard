@@ -23,4 +23,18 @@ CREATE TABLE `stockinfo` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into stockinfo (symbol, name, sector, subsector, segment) values ('CHKE', 'CHESAPEAKE', 'Petrleo, Gs e Biocombustveis', 'Petrleo, Gs e Biocombustveis', 'Explorao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('CHKE', 'CHESAPEAKE', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('CHVX', 'CHEVRON', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('COPH', 'COPHILLIPS', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('EXXO', 'EXXON MOBIL', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('OGSA', 'NOVA OLEO', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('OGXP', 'OGX PETROLEO', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('RPMG', 'PET MANGUINH', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('PETR', 'PETROBRAS', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('PRIO', 'PETRORIO', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('QGEP', 'GEP PART', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('SANC', 'SANCHEZ ENER', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('TSOR', 'TESORO CORP', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('RIGG', 'TRANSOCEAN', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('VLOE', 'VALERO ENER', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
+insert into stockinfo (symbol, name, sector, subsector, segment) values ('YPFL', 'Y P F', 'Petroleo, Gas e Biocombustveis', 'Petroleo, Gas e Biocombustiveis', 'Exploracao e/ou Refino');
