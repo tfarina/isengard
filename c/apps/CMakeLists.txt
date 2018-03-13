@@ -21,6 +21,7 @@ add_executable(tst tst.c)
 target_link_libraries(tst libcsv)
 
 add_executable(readfile readfile.c)
+add_executable(writefile writefile.c)
 add_executable(buildtime buildtime.c)
 add_executable(linebyline linebyline.c)
 add_executable(bin bin.c)
