@@ -5,8 +5,6 @@
 
 #include "csv.h"
 
-char *g_symbol;
-
 static char *readfile(char *filename, size_t *len) {
   // open file for reading
   FILE *fh = fopen(filename, "r");
@@ -68,7 +66,6 @@ static char *readfile(char *filename, size_t *len) {
 }
  
 typedef struct {
-  char *symbol;
   char *date;
   double open;
   double high;
@@ -83,6 +80,7 @@ typedef enum {
 } field;
  
 typedef struct {
+  char *symbol;
   tickerdata *ticks;
   size_t ticks_alloc;
   size_t ticks_used;
@@ -98,8 +96,6 @@ void process_field(void *field,
   if (cdr->error) return;
  
   tickerdata *cur_tick = cdr->ticks + cdr->ticks_used;
- 
-  cur_tick->symbol = g_symbol;
 
   // used for parsing floating-point values:
   // (declaring these in a switch/case is annoying)
@@ -184,8 +180,6 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  g_symbol = strdup(argv[2]);
- 
   char *csvdata = readfile(argv[1], &len);
   if (csvdata == NULL)
     return 1;
@@ -198,6 +192,7 @@ int main(int argc, char **argv) {
   }
  
   memset((void*)&cdr, 0, sizeof(tickerdata_reader));
+  cdr.symbol = strdup(argv[2]);
   cdr.ticks_alloc = 2;
   cdr.ticks = malloc(cdr.ticks_alloc * sizeof(tickerdata));
   if (cdr.ticks == NULL) {
@@ -219,7 +214,7 @@ int main(int argc, char **argv) {
     return 1;
   }
  
-  printf("%s ticks:\n", g_symbol);
+  printf("%s ticks:\n", cdr.symbol);
 
   for (i = 0; i < cdr.ticks_used; i++) {
     tickerdata *tick = cdr.ticks + i;
