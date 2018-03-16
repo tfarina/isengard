@@ -114,7 +114,6 @@ static char *readfile(char *filename, size_t *len) {
 }
  
 typedef struct {
-  char *symbol;
   char *date;
   double open;
   double high;
@@ -129,6 +128,7 @@ typedef enum {
 } field;
  
 typedef struct {
+  char *symbol;
   tickerdata *ticks;
   size_t ticks_alloc;
   size_t ticks_used;
@@ -217,13 +217,13 @@ void process_row(int delim __attribute__((unused)), void *ctx) {
   }
 }
 
-static int tick_add(MYSQL *conn, tickerdata *tick)
+static int tick_add(MYSQL *conn, const char *symbol, tickerdata *tick)
 {
   char query[256];
   MYSQL_RES *res;
 
   /* Determine if this is an insert or update operation. */
-  sprintf(query, "SELECT symbol FROM historicaldata WHERE symbol = \"%s\" and date = \"%s\"", tick->symbol, tick->date);
+  sprintf(query, "SELECT symbol FROM historicaldata WHERE symbol = \"%s\" and date = \"%s\"", symbol, tick->date);
   if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: sql insert failed: %s\n", mysql_error(conn));
     mysql_close(conn);
@@ -239,10 +239,10 @@ static int tick_add(MYSQL *conn, tickerdata *tick)
 
   /* If there is a record with this symbol and date, update it, otherwise insert new record. */
   if (mysql_num_rows(res)) {
-    sprintf(query, "UPDATE historicaldata SET open=%f, high=%f, low=%f, close=%f, adjClose=%f, volume=%d WHERE symbol = \"%s\" and date = \"%s\"", tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume, tick->symbol, tick->date);
+    sprintf(query, "UPDATE historicaldata SET open=%f, high=%f, low=%f, close=%f, adjClose=%f, volume=%d WHERE symbol = \"%s\" and date = \"%s\"", tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume, symbol, tick->date);
   } else {
     sprintf(query, "INSERT INTO historicaldata (symbol, date, open, high, low, close, adjClose, volume) VALUES ('%s', '%s', %f, %f, %f, %f, %f, %d)",
-            tick->symbol, tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
+            symbol, tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
   }
 
   if (mysql_query(conn, query)) {
@@ -298,6 +298,7 @@ int main(int argc, char **argv) {
   }
  
   memset((void*)&tdr, 0, sizeof(tickerdata_reader));
+  tdr.symbol = strdup(argv[2]);
   tdr.ticks_alloc = 2;
   tdr.ticks = malloc(tdr.ticks_alloc * sizeof(tickerdata));
   if (tdr.ticks == NULL) {
@@ -328,15 +329,12 @@ int main(int argc, char **argv) {
 
   for (i = 0; i < tdr.ticks_used; i++) {
     tickerdata *tick = tdr.ticks + i;
-    tick->symbol = argv[2];
 
-    if (tick_add(conn, tick) != -1) {
+    if (tick_add(conn, tdr.symbol, tick) != -1) {
     }
 
-    printf("Row %d imported\n", i);
-
-    //printf("symbol=\"%s\"; date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
-    //       tick->symbol, tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
+    printf("symbol=\"%s\"; date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
+           tdr.symbol, tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
 
     free(tick->date);
   }
