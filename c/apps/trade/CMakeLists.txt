@@ -23,5 +23,12 @@ add_library(iniparser ${INIPARSER_SRCS})
 add_executable(ticks ticks.c)
 target_link_libraries(ticks libcsv)
 
+find_package(CURL REQUIRED)
+if (CURL_FOUND)
+  include_directories(${CURL_INCLUDE_DIRS})
+  add_executable(gethistdata gethistdata.c)
+  target_link_libraries(gethistdata ${CURL_LIBRARIES} libcsv iniparser ${MYSQL_LIBRARY})
+endif()
+
 add_executable(csvimport csvimport.c)
 target_link_libraries(csvimport iniparser libcsv ${MYSQL_LIBRARY})
