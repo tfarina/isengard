@@ -31,7 +31,6 @@ static char *make_file_path(const char *directory, const char *name)
   return path;
 }
 
-
 static MYSQL *mysql_connect(const char *host, const char *user,
                             const char *password, const char *dbname)
 {
@@ -112,7 +111,7 @@ static char *readfile(char *filename, size_t *len) {
   fclose(fh);
   return contents;
 }
- 
+
 typedef struct {
   char *date;
   double open;
