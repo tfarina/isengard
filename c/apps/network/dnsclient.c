@@ -104,6 +104,11 @@ enum dns_rcode {
   DNS_RCODE_NOTZONE = 10 /* Name is not inside zone. */
 };
 
+typedef struct {
+  uint16_t len;
+  uint8_t data[];
+} rdata_t;
+
 /*
  * A general purpose lookup table.
  */
