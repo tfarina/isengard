@@ -111,6 +111,8 @@ typedef struct {
   uint8_t data[];
 } rdata_t;
 
+#define DNS_WIRE_HEADER_SIZE 12
+
 /*
  * A general purpose lookup table.
  */
@@ -521,7 +523,7 @@ int main(int argc, char **argv) {
   /* With |name| and |endp| we can calculate the size of name, to know where qtype starts.
    * Otherwise it is impossible to know where qtype starts.
    */
-  const uint8_t *name = reply_pkt + 12 /*HEADER_SIZE*/; /* This points to the start of the qname */
+  const uint8_t *name = reply_pkt + DNS_WIRE_HEADER_SIZE; /* This points to the start of the qname */
   const uint8_t *endp = reply_pkt + reply_pktlen; /*This points to the end of the reply */
 
   uint16_t opcode_id = (reply_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
