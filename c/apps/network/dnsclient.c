@@ -12,6 +12,8 @@
 #include <time.h>
 #include <unistd.h>
 
+typedef uint8_t dns_dname_t;
+
 struct dnsheader {
   uint16_t id;
   uint16_t flags;
@@ -22,7 +24,7 @@ struct dnsheader {
 };
 
 struct dnsquestion {
-  uint8_t *qname;
+  dns_dname_t *qname;
   size_t qnamelen;
   uint16_t qtype;
   uint16_t qclass;
@@ -414,7 +416,7 @@ int main(int argc, char **argv) {
   header->arcount = 0;
 
   /* Create QNAME from string. */
-  uint8_t *qname = dname_from_str(owner);
+  dns_dname_t *qname = dname_from_str(owner);
 
   question = malloc(sizeof(*question));
   memset(question, 0, sizeof(*question));
