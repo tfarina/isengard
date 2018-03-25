@@ -374,7 +374,7 @@ static int get_dname_length(const uint8_t *name) {
 
 int main(int argc, char **argv) {
   char *owner;
-  struct dnsheader *header;
+  struct dnsheader *query_header;
   struct dnsquestion *question;
   uint8_t *query_pkt;
   size_t query_pktlen;
@@ -387,6 +387,7 @@ int main(int argc, char **argv) {
   struct sockaddr_storage from;
   socklen_t fromlen = sizeof(from);
   ssize_t reply_pktlen;
+  struct dnsheader *reply_header;
 
   if (argc != 2) {
     fprintf(stderr, "usage: %s name\n", argv[0]);
@@ -399,8 +400,8 @@ int main(int argc, char **argv) {
   // the DNS server.
   query_pkt = malloc(MAX_UDP_SIZE);
 
-  header = malloc(sizeof(*header));
-  memset(header, 0, sizeof(*header));
+  query_header = malloc(sizeof(*query_header));
+  memset(query_header, 0, sizeof(*query_header));
 
   unsigned int rand_seed;
   struct timeval tv;
@@ -408,12 +409,12 @@ int main(int argc, char **argv) {
   rand_seed = tv.tv_sec ^ tv.tv_usec;
   srandom(rand_seed);
 
-  header->id = random();
-  header->flags = FLAG_RD;
-  header->qdcount = 1;
-  header->ancount = 0;
-  header->nscount = 0;
-  header->arcount = 0;
+  query_header->id = random();
+  query_header->flags = FLAG_RD;
+  query_header->qdcount = 1;
+  query_header->ancount = 0;
+  query_header->nscount = 0;
+  query_header->arcount = 0;
 
   /* Create QNAME from string. */
   dns_dname_t *qname = dname_from_str(owner);
@@ -429,14 +430,14 @@ int main(int argc, char **argv) {
   uint8_t *position;
 
   // HEADER
-  write_uint16(query_pkt + DNS_OFFSET_ID, header->id);
-  write_uint16(query_pkt + DNS_OFFSET_FLAGS, header->flags);
-  write_uint16(query_pkt + DNS_OFFSET_QDCOUNT, header->qdcount);
-  write_uint16(query_pkt + DNS_OFFSET_ANCOUNT, header->ancount);
-  write_uint16(query_pkt + DNS_OFFSET_NSCOUNT, header->nscount);
-  write_uint16(query_pkt + DNS_OFFSET_ARCOUNT, header->arcount);
+  write_uint16(query_pkt + DNS_OFFSET_ID, query_header->id);
+  write_uint16(query_pkt + DNS_OFFSET_FLAGS, query_header->flags);
+  write_uint16(query_pkt + DNS_OFFSET_QDCOUNT, query_header->qdcount);
+  write_uint16(query_pkt + DNS_OFFSET_ANCOUNT, query_header->ancount);
+  write_uint16(query_pkt + DNS_OFFSET_NSCOUNT, query_header->nscount);
+  write_uint16(query_pkt + DNS_OFFSET_ARCOUNT, query_header->arcount);
 
-  position = query_pkt + sizeof(*header);
+  position = query_pkt + sizeof(*query_header);
 
   // QUESTION: QNAME + QTYPE + QCLASS
 
@@ -504,18 +505,18 @@ int main(int argc, char **argv) {
 
   freeaddrinfo(addrlist);
 
-  free(header);
+  free(query_header);
 
   // Parse reply to the dnsheader structure.
-  header = malloc(sizeof(*header));
-  memset(header, 0, sizeof(*header));
+  reply_header = malloc(sizeof(*reply_header));
+  memset(reply_header, 0, sizeof(*reply_header));
 
-  header->id = read_uint16(reply_pkt + DNS_OFFSET_ID);
-  header->flags = read_uint16(reply_pkt + DNS_OFFSET_FLAGS);
-  header->qdcount = read_uint16(reply_pkt + DNS_OFFSET_QDCOUNT);
-  header->ancount = read_uint16(reply_pkt + DNS_OFFSET_ANCOUNT);
-  header->nscount = read_uint16(reply_pkt + DNS_OFFSET_NSCOUNT);
-  header->arcount = read_uint16(reply_pkt + DNS_OFFSET_ARCOUNT);
+  reply_header->id = read_uint16(reply_pkt + DNS_OFFSET_ID);
+  reply_header->flags = read_uint16(reply_pkt + DNS_OFFSET_FLAGS);
+  reply_header->qdcount = read_uint16(reply_pkt + DNS_OFFSET_QDCOUNT);
+  reply_header->ancount = read_uint16(reply_pkt + DNS_OFFSET_ANCOUNT);
+  reply_header->nscount = read_uint16(reply_pkt + DNS_OFFSET_NSCOUNT);
+  reply_header->arcount = read_uint16(reply_pkt + DNS_OFFSET_ARCOUNT);
 
   /* With |name| and |endp| we can calculate the size of name, to know where qtype starts.
    * Otherwise it is impossible to know where qtype starts.
@@ -523,10 +524,10 @@ int main(int argc, char **argv) {
   const uint8_t *name = reply_pkt + 12 /*HEADER_SIZE*/; /* This points to the start of the qname */
   const uint8_t *endp = reply_pkt + reply_pktlen; /*This points to the end of the reply */
 
-  uint16_t opcode_id = (header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
+  uint16_t opcode_id = (reply_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
   const struct lookup_table *opcode = lookup_by_id(opcode_names, opcode_id);
 
-  uint16_t rcode_id = header->flags & RCODE_MASK;
+  uint16_t rcode_id = reply_header->flags & RCODE_MASK;
   const struct lookup_table *rcode = lookup_by_id(rcode_names, rcode_id);
 
   printf(";; ->>HEADER<<- ");
@@ -543,35 +544,35 @@ int main(int argc, char **argv) {
     printf("rcode: ?? (%u), ", rcode_id);
   }
 
-  printf("id: %d\n", header->id);
+  printf("id: %d\n", reply_header->id);
   printf(";; flags:");
-  if ((header->flags & FLAG_QR) != 0) {
+  if ((reply_header->flags & FLAG_QR) != 0) {
     printf(" qr");
   }
-  if ((header->flags & FLAG_AA) != 0) {
+  if ((reply_header->flags & FLAG_AA) != 0) {
     printf(" aa");
   }
-  if ((header->flags & FLAG_TC) != 0) {
+  if ((reply_header->flags & FLAG_TC) != 0) {
     printf(" tc");
   }
-  if ((header->flags & FLAG_RD) != 0) {
+  if ((reply_header->flags & FLAG_RD) != 0) {
     printf(" rd");
   }
-  if ((header->flags & FLAG_CD) != 0) {
+  if ((reply_header->flags & FLAG_CD) != 0) {
     printf(" cd");
   }
-  if ((header->flags & FLAG_RA) != 0) {
+  if ((reply_header->flags & FLAG_RA) != 0) {
     printf(" ra");
   }
-  if ((header->flags & FLAG_AD) != 0) {
+  if ((reply_header->flags & FLAG_AD) != 0) {
     printf(" ad");
   }
 
   printf("; ");
-  printf("QUERY: %u, ", header->qdcount);
-  printf("ANSWER: %u, ", header->ancount);
-  printf("AUTHORITY: %u, ", header->nscount);
-  printf("ADDITIONAL: %u\n", header->arcount);
+  printf("QUERY: %u, ", reply_header->qdcount);
+  printf("ANSWER: %u, ", reply_header->ancount);
+  printf("AUTHORITY: %u, ", reply_header->nscount);
+  printf("ADDITIONAL: %u\n", reply_header->arcount);
 
   printf("\n");
 
