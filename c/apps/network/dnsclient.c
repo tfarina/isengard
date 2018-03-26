@@ -173,6 +173,11 @@ static void write_uint16(void *dst, uint16_t data) {
   p[1] = (uint8_t)(data & 0xFF);
 }
 
+/**
+ * Reads to 2 bytes from |src|.
+ *
+ * Returns the 2 bytes read, in the host byte order.
+ */
 static uint16_t read_uint16(const void *src) {
   const uint8_t *p = (const uint8_t *)src;
   return ((uint16_t)p[0] << 8) | (uint16_t)p[1];
@@ -184,6 +189,11 @@ static uint16_t read_uint16(const void *src) {
 #define DNS_OFFSET_ANCOUNT 6
 #define DNS_OFFSET_NSCOUNT 8
 #define DNS_OFFSET_ARCOUNT 10
+
+static uint16_t dns_wire_get_id(const uint8_t *packet)
+{
+  return read_uint16(packet + DNS_OFFSET_ID);
+}
 
 static uint16_t get_question_size(const struct dnsquestion *q) {
   if (q == NULL || q->qnamelen == 0) {
@@ -526,7 +536,7 @@ int main(int argc, char **argv) {
   reply_header = malloc(sizeof(*reply_header));
   memset(reply_header, 0, sizeof(*reply_header));
 
-  reply_header->id = read_uint16(reply_pkt + DNS_OFFSET_ID);
+  reply_header->id = dns_wire_get_id(reply_pkt);
   reply_header->flags = read_uint16(reply_pkt + DNS_OFFSET_FLAGS);
   reply_header->qdcount = read_uint16(reply_pkt + DNS_OFFSET_QDCOUNT);
   reply_header->ancount = read_uint16(reply_pkt + DNS_OFFSET_ANCOUNT);
