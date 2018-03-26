@@ -10,7 +10,7 @@
 #include "csv.h"
 #include "iniparser.h"
  
-struct buffer_s {
+struct buffer {
     char *data;
     size_t size;
 };
@@ -26,7 +26,7 @@ static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream)
 
 static size_t write_data2(void *ptr, size_t size, size_t nmemb, void *data)
 {
-    struct buffer_s *buf = (struct buffer_s *)data;
+    struct buffer *buf = (struct buffer *)data;
     size_t realsize = size * nmemb;
 
     buf->data = (char *)realloc(buf->data, buf->size + realsize + 1);
@@ -285,7 +285,7 @@ int main(int argc, char *argv[])
   CURL *curl;
   CURLcode result;
   FILE *fp;
-  struct buffer_s buf;
+  struct buffer buf;
   char fullurl[255];
   time_t start_date;
   time_t end_date;
