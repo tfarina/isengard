@@ -374,6 +374,19 @@ static int get_dname_length(const uint8_t *name) {
   return len + 1;
 }
 
+/* With |name| and |endp| we can calculate the size of name, to know where qtype starts.
+ * Otherwise it is impossible to know where qtype starts.
+ *
+ * |name| this points to the start of the qname.
+ * |endp| this points to the end of the reply.
+ */
+static int dns_dname_wire_check(const uint8_t *name, const uint8_t *endp)
+{
+
+
+  return -1;
+}
+
 int main(int argc, char **argv) {
   char *owner;
   struct dnsheader *query_header;
@@ -520,11 +533,7 @@ int main(int argc, char **argv) {
   reply_header->nscount = read_uint16(reply_pkt + DNS_OFFSET_NSCOUNT);
   reply_header->arcount = read_uint16(reply_pkt + DNS_OFFSET_ARCOUNT);
 
-  /* With |name| and |endp| we can calculate the size of name, to know where qtype starts.
-   * Otherwise it is impossible to know where qtype starts.
-   */
-  const uint8_t *name = reply_pkt + DNS_WIRE_HEADER_SIZE; /* This points to the start of the qname */
-  const uint8_t *endp = reply_pkt + reply_pktlen; /*This points to the end of the reply */
+  dns_dname_wire_check(reply_pkt + DNS_WIRE_HEADER_SIZE, reply_pkt + reply_pktlen);
 
   uint16_t opcode_id = (reply_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
   const struct lookup_table *opcode = lookup_by_id(opcode_names, opcode_id);
