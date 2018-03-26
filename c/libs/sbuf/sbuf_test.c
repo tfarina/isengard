@@ -3,8 +3,8 @@
 #include "sbuf.h"
 
 int main(void) {
-        sbuf b;
-	sbuf *bp;
+        sbuf_t b;
+	sbuf_t *bp;
 
         sbuf_init(&b);
 
