@@ -195,14 +195,6 @@ static uint16_t dns_wire_get_id(const uint8_t *packet)
   return read_uint16(packet + DNS_OFFSET_ID);
 }
 
-static uint16_t get_question_size(const struct dnsquestion *q) {
-  if (q == NULL || q->qnamelen == 0) {
-    return 0;
-  }
-
-  return q->qnamelen + 2 * sizeof(uint16_t);
-}
-
 static int is_root(const char *name) {
   return name[0] == '.' && name[1] == '\0';
 }
