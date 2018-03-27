@@ -505,7 +505,7 @@ int main(int argc, char **argv) {
   // Send the query.
   if (sendto(sockfd, query_pkt, query_pktlen, 0, addrlist->ai_addr,
              addrlist->ai_addrlen) != (ssize_t)query_pktlen) {
-    fprintf(stderr, "sendto failed\n");
+    fprintf(stderr, "can't send query to %s\n", addr_str);
     close(sockfd);
     return EXIT_FAILURE;
   }
