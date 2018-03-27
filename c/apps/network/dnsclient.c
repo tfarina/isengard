@@ -354,7 +354,7 @@ static int is_label_pointer(const uint8_t *pos) {
 /*
  * Code from knot src/libknot/dname.{c,h}:knot_dname_size().
  */
-static int get_dname_length(const uint8_t *name) {
+static int dns_dname_length(const uint8_t *name) {
   int len = 0;
 
   if (name == NULL) {
@@ -440,7 +440,7 @@ int main(int argc, char **argv) {
   memset(question, 0, sizeof(*question));
 
   question->qname = qname;
-  question->qnamelen = get_dname_length(qname);
+  question->qnamelen = dns_dname_length(qname);
   question->qtype = DNS_RR_TYPE_A;
   question->qclass = DNS_RR_CLASS_IN;
 
