@@ -190,6 +190,11 @@ static uint16_t read_uint16(const void *src) {
 #define DNS_OFFSET_NSCOUNT 8
 #define DNS_OFFSET_ARCOUNT 10
 
+static void dns_pkt_set_id(uint8_t *packet, uint16_t id)
+{
+  write_uint16(packet + DNS_OFFSET_ID, id);
+}
+
 static uint16_t dns_wire_get_id(const uint8_t *packet)
 {
   return read_uint16(packet + DNS_OFFSET_ID);
@@ -447,7 +452,7 @@ int main(int argc, char **argv) {
   uint8_t *position;
 
   // HEADER
-  write_uint16(query_pkt + DNS_OFFSET_ID, query_header->id);
+  dns_pkt_set_id(query_pkt, query_header->id);
   write_uint16(query_pkt + DNS_OFFSET_FLAGS, query_header->flags);
   write_uint16(query_pkt + DNS_OFFSET_QDCOUNT, query_header->qdcount);
   write_uint16(query_pkt + DNS_OFFSET_ANCOUNT, query_header->ancount);
