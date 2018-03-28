@@ -386,12 +386,14 @@ static int dns_dname_length(const uint8_t *name) {
  *
  * |name| this points to the start of the qname.
  * |endp| this points to the end of the reply.
+ *
+ * Returns the size of the domain name.
  */
 static int dns_dname_wire_check(const uint8_t *name, const uint8_t *endp)
 {
+  int wire_len = 0;
 
-
-  return -1;
+  return wire_len;
 }
 
 int main(int argc, char **argv) {
@@ -410,6 +412,7 @@ int main(int argc, char **argv) {
   socklen_t fromlen = sizeof(from);
   ssize_t reply_pktlen;
   struct dnsheader *reply_header;
+  int dname_size;
 
   if (argc != 2) {
     fprintf(stderr, "usage: %s name\n", argv[0]);
@@ -540,7 +543,7 @@ int main(int argc, char **argv) {
   reply_header->nscount = read_uint16(reply_pkt + DNS_OFFSET_NSCOUNT);
   reply_header->arcount = read_uint16(reply_pkt + DNS_OFFSET_ARCOUNT);
 
-  dns_dname_wire_check(reply_pkt + DNS_WIRE_HEADER_SIZE, reply_pkt + reply_pktlen);
+  dname_size = dns_dname_wire_check(reply_pkt + DNS_WIRE_HEADER_SIZE, reply_pkt + reply_pktlen);
 
   uint16_t opcode_id = (reply_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
   const struct lookup_table *opcode = lookup_by_id(opcode_names, opcode_id);
