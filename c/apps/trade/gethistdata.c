@@ -337,7 +337,7 @@ int main(int argc, char *argv[])
   /* 1- Download html page to extract the crumb value from CrumbStore. */
   curl = curl_easy_init();
 
-  fp = fopen("OUTPUT.txt", "w");
+  fp = fopen("history.html", "w");
 
   curl_easy_setopt(curl, CURLOPT_URL, histurl);
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
