@@ -1,6 +1,8 @@
 #include <stdio.h>
 
 int main(void) {
+    printf("Sizes of Data Types:\n\n");
+
     printf("Remember: 1 byte = 8 bits\n");
     printf("With 8 bits (00000000, 00000001, etc) it's possible to "
            "represent 256 (0 to 255) (2^8) values.\n");
@@ -16,6 +18,8 @@ int main(void) {
     printf("\n");
 
     printf("pointer to char: %lu bytes\n", sizeof(char *));
+    printf("pointer to int: %lu bytes\n", sizeof(int *));
     printf("pointer to void: %lu bytes\n", sizeof(void *));
+
     return 0;
 }
