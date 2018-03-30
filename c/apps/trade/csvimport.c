@@ -216,7 +216,7 @@ void process_row(int delim __attribute__((unused)), void *ctx) {
   }
 }
 
-static int tick_add(MYSQL *conn, const char *symbol, stock_data_t *tick)
+static int stock_add_tick(MYSQL *conn, const char *symbol, stock_data_t *tick)
 {
   char query[256];
   MYSQL_RES *res;
@@ -329,7 +329,7 @@ int main(int argc, char **argv) {
   for (i = 0; i < stock.ticks_used; i++) {
     stock_data_t *tick = stock.ticks + i;
 
-    if (tick_add(conn, stock.symbol, tick) != -1) {
+    if (stock_add_tick(conn, stock.symbol, tick) != -1) {
     }
 
     printf("symbol=\"%s\"; date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",

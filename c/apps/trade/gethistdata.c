@@ -238,7 +238,7 @@ static MYSQL *mysql_connect(const char *host, const char *user,
   return conn;
 }
 
-static int tick_add(MYSQL *conn, const char *symbol, tickerdata *tick)
+static int stock_add_tick(MYSQL *conn, const char *symbol, tickerdata *tick)
 {
   char query[256];
   MYSQL_RES *res;
@@ -460,7 +460,7 @@ int main(int argc, char *argv[])
   for (i = 0; i < tdr.ticks_used; i++) {
     tickerdata *tick = tdr.ticks + i;
 
-    if (tick_add(conn, tdr.symbol, tick) != -1) {
+    if (stock_add_tick(conn, tdr.symbol, tick) != -1) {
     }
 
     printf("date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
