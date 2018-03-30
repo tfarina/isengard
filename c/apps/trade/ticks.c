@@ -77,14 +77,14 @@ typedef struct {
  
 typedef enum {
   DATE, OPEN, HIGH, LOW, CLOSE, ADJ_CLOSE, VOLUME
-} field;
+} stock_data_field_t;
  
 typedef struct {
   char *symbol;
   stock_data_t *ticks;
   size_t ticks_alloc;
   size_t ticks_used;
-  field cur_field;
+  stock_data_field_t cur_field;
   int error;
 } stock_info_t;
  
