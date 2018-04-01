@@ -1,5 +1,5 @@
-#ifndef CLI_DB_H_
-#define CLI_DB_H_
+#ifndef DB_H_
+#define DB_H_
 
 #include "third_party/sqlite/amalgamation/sqlite3.h"
 
@@ -9,4 +9,4 @@ void db_close(sqlite3* db);
 
 void sql_stmt_free(sqlite3_stmt* stmt);
 
-#endif  /* CLI_DB_H_ */
+#endif  /* DB_H_ */

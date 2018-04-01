@@ -1,5 +1,5 @@
-#ifndef CLI_USER_H_
-#define CLI_USER_H_
+#ifndef USER_H_
+#define USER_H_
 
 #include "third_party/sqlite/amalgamation/sqlite3.h"
 
@@ -21,4 +21,4 @@ int user_add(sqlite3* db,
 
 int user_delete(sqlite3 *db, const char *username);
 
-#endif  /* CLI_USER_H_ */
+#endif  /* USER_H_ */
