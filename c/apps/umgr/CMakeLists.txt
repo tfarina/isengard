@@ -20,6 +20,11 @@ set(LIST_SRCS src/list.c)
 add_executable(list ${LIST_SRCS})
 target_link_libraries(list sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
 
+set(UPDATE_SRCS src/update.c)
+
+add_executable(update ${UPDATE_SRCS})
+target_link_libraries(update sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
+
 add_compile_options(-std=c99)
 add_compile_options(-Wall)
 add_compile_options(-Wextra)
