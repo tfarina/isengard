@@ -266,7 +266,7 @@ int main(int argc, char **argv) {
   MYSQL *conn = NULL;
   size_t len;
   char *csvdata;
-  struct csv_parser p;
+  struct csv_parser parser;
   int rc;
   stock_info_t stock;
   size_t bytes_processed;
@@ -289,7 +289,7 @@ int main(int argc, char **argv) {
   if (csvdata == NULL)
     return 1;
  
-  rc = csv_init(&p, CSV_APPEND_NULL);
+  rc = csv_init(&parser, CSV_APPEND_NULL);
   if (rc != 0) {
     free(csvdata);
     fputs("failed to initialize CSV parser\n", stderr);
@@ -307,15 +307,15 @@ int main(int argc, char **argv) {
     return 1;
   }
  
-  bytes_processed = csv_parse(&p, (void*)csvdata, len,
+  bytes_processed = csv_parse(&parser, (void*)csvdata, len,
                               process_field, process_row, &stock);
-  rc = csv_fini(&p, process_field, process_row, &stock);
+  rc = csv_fini(&parser, process_field, process_row, &stock);
   free(csvdata);
  
   if (stock.error || rc != 0 || bytes_processed < len) {
     fprintf(stderr,
             "read %zu bytes out of %zu: %s\n",
-	    bytes_processed, len, csv_strerror(csv_error(&p)));
+	    bytes_processed, len, csv_strerror(csv_error(&parser)));
     return 1;
   }
  
