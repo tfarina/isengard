@@ -86,29 +86,29 @@ typedef struct {
   double close;
   double adj_close;
   int volume;
-} tickerdata;
+} stock_data_t;
  
 typedef enum {
   DATE, OPEN, HIGH, LOW, CLOSE, ADJ_CLOSE, VOLUME
-} field;
+} stock_data_field_t;
  
 typedef struct {
   char *symbol;
-  tickerdata *ticks;
+  stock_data_t *ticks;
   size_t ticks_alloc;
   size_t ticks_used;
-  field cur_field;
+  stock_data_field_t cur_field;
   int error;
-} tickerdata_reader;
+} stock_info_t;
  
 void process_field(void *field,
 		   size_t field_len __attribute__((unused)),
 		   void *ctx)
 {
-  tickerdata_reader *cdr = (tickerdata_reader*)ctx;
-  if (cdr->error) return;
+  stock_info_t *stock = (stock_info_t *)ctx;
+  if (stock->error) return;
 
-  tickerdata *cur_tick = cdr->ticks + cdr->ticks_used;
+  stock_data_t *cur_tick = stock->ticks + stock->ticks_used;
  
   // used for parsing floating-point values:
   // (declaring these in a switch/case is annoying)
@@ -126,22 +126,22 @@ void process_field(void *field,
     return;
   }
  
-  switch (cdr->cur_field) {
+  switch (stock->cur_field) {
   case DATE:
     // start of a new record; check if we need to reallocate
-    if (cdr->ticks_used == cdr->ticks_alloc) {
-      cdr->ticks_alloc *= 2;
-      cdr->ticks = realloc(cdr->ticks,
-			    sizeof(tickerdata) * cdr->ticks_alloc);
-      if (cdr->ticks == NULL) {
-	fprintf(stderr,
-		"failed to reallocate %zu bytes for city data: ",
-		sizeof(tickerdata) * cdr->ticks_alloc);
-	perror(NULL);
-	cdr->error = 1;
+    if (stock->ticks_used == stock->ticks_alloc) {
+      stock->ticks_alloc *= 2;
+      stock->ticks = realloc(stock->ticks,
+                             sizeof(stock_data_t) * stock->ticks_alloc);
+      if (stock->ticks == NULL) {
+        fprintf(stderr,
+                "failed to reallocate %zu bytes for stock data: ",
+		sizeof(stock_data_t) * stock->ticks_alloc);
+        perror(NULL);
+        stock->error = 1;
 	return;
       }
-      cur_tick = cdr->ticks + cdr->ticks_used;
+      cur_tick = stock->ticks + stock->ticks_used;
     }
  
     // anyway, we just got tick data
@@ -158,20 +158,20 @@ void process_field(void *field,
       if (*endptr != '\0') {
         fprintf(stderr,
                 "non-float value in record %zu, field %u: \"%s\"\n",
-                 cdr->ticks_used+1, cdr->cur_field+1, field);
-        cdr->error = 1;
+                 stock->ticks_used + 1, stock->cur_field + 1, field);
+        stock->error = 1;
         return;
       }
  
-      if (cdr->cur_field == OPEN)
+      if (stock->cur_field == OPEN)
         cur_tick->open = dval;
-      else if (cdr->cur_field == HIGH)
+      else if (stock->cur_field == HIGH)
         cur_tick->high = dval;
-      else if (cdr->cur_field == LOW)
+      else if (stock->cur_field == LOW)
         cur_tick->low = dval;
-      else if (cdr->cur_field == CLOSE)
+      else if (stock->cur_field == CLOSE)
         cur_tick->close = dval;
-      else if (cdr->cur_field == ADJ_CLOSE)
+      else if (stock->cur_field == ADJ_CLOSE)
         cur_tick->adj_close = dval;
     }
   case VOLUME:
@@ -179,17 +179,17 @@ void process_field(void *field,
   }
  
 
-  if (cdr->cur_field == VOLUME) cdr->ticks_used++;
-  cdr->cur_field = (cdr->cur_field + 1) % 7;
+  if (stock->cur_field == VOLUME) stock->ticks_used++;
+  stock->cur_field = (stock->cur_field + 1) % 7;
 }
  
 void process_row(int delim __attribute__((unused)), void *ctx) {
-  tickerdata_reader *tdr = (tickerdata_reader*)ctx;
-  if (tdr->error) return;
+  stock_info_t *stock = (stock_info_t *)ctx;
+  if (stock->error) return;
  
-  if (tdr->cur_field != DATE) {
-    fprintf(stderr, "not enough fields in row %zu\n", tdr->ticks_used);
-    tdr->error = 1;
+  if (stock->cur_field != DATE) {
+    fprintf(stderr, "not enough fields in row %zu\n", stock->ticks_used);
+    stock->error = 1;
   }
 }
 
@@ -238,7 +238,7 @@ static MYSQL *mysql_connect(const char *host, const char *user,
   return conn;
 }
 
-static int stock_add_tick(MYSQL *conn, const char *symbol, tickerdata *tick)
+static int stock_add_tick(MYSQL *conn, const char *symbol, stock_data_t *tick)
 {
   char query[256];
   MYSQL_RES *res;
@@ -292,9 +292,9 @@ int main(int argc, char *argv[])
   struct tm* tm;
   char start_date_str[12];
   char end_date_str[12];
-  struct csv_parser p;
+  struct csv_parser parser;
   int rc;
-  tickerdata_reader tdr;
+  stock_info_t stock;
   size_t bytes_processed;
   char *homedir;
   char *userconffile;
@@ -411,30 +411,30 @@ int main(int argc, char *argv[])
 
   // Now that we have downloaded the historical data, parse the csv content
   // to store it in the MySQL table. 
-  rc = csv_init(&p, CSV_APPEND_NULL);
+  rc = csv_init(&parser, CSV_APPEND_NULL);
   if (rc != 0) {
     fprintf(stderr, "failed to initialize CSV parser\n");
     return -1;
   }
 
-  memset((void*)&tdr, 0, sizeof(tickerdata_reader));
-  tdr.symbol = symbol;
-  tdr.ticks_alloc = 2;
-  tdr.ticks = malloc(tdr.ticks_alloc * sizeof(tickerdata));
-  if (tdr.ticks == NULL) {
-    fprintf(stderr, "failed to allocate %zu bytes for city data\n",
-	    tdr.ticks_alloc * sizeof(tickerdata));
+  memset((void *)&stock, 0, sizeof(stock_info_t));
+  stock.symbol = symbol;
+  stock.ticks_alloc = 2;
+  stock.ticks = malloc(stock.ticks_alloc * sizeof(stock_data_t));
+  if (stock.ticks == NULL) {
+    fprintf(stderr, "failed to allocate %zu bytes for stock data\n",
+            stock.ticks_alloc * sizeof(stock_data_t));
     return -1;
   }
  
-  bytes_processed = csv_parse(&p, (void*)buf.data, buf.size,
-                              process_field, process_row, &tdr);
-  rc = csv_fini(&p, process_field, process_row, &tdr);
+  bytes_processed = csv_parse(&parser, (void*)buf.data, buf.size,
+                              process_field, process_row, &stock);
+  rc = csv_fini(&parser, process_field, process_row, &stock);
  
-  if (tdr.error || rc != 0 || bytes_processed < buf.size) {
+  if (stock.error || rc != 0 || bytes_processed < buf.size) {
     fprintf(stderr,
             "read %zu bytes out of %zu: %s\n",
-	    bytes_processed, buf.size, csv_strerror(csv_error(&p)));
+	    bytes_processed, buf.size, csv_strerror(csv_error(&parser)));
     return -1;
   }
 
@@ -457,10 +457,10 @@ int main(int argc, char *argv[])
 
   printf("Importing records...\n");
 
-  for (i = 0; i < tdr.ticks_used; i++) {
-    tickerdata *tick = tdr.ticks + i;
+  for (i = 0; i < stock.ticks_used; i++) {
+    stock_data_t *tick = stock.ticks + i;
 
-    if (stock_add_tick(conn, tdr.symbol, tick) != -1) {
+    if (stock_add_tick(conn, stock.symbol, tick) != -1) {
     }
 
     printf("date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
@@ -469,10 +469,9 @@ int main(int argc, char *argv[])
     free(tick->date);
   }
 
-  printf("%d rows imported\n", tdr.ticks_used);
+  printf("%d rows imported\n", stock.ticks_used);
 
-  free(tdr.ticks);
- 
+  free(stock.ticks);
 
   return 0;
 }
