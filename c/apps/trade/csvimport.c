@@ -6,6 +6,7 @@
 
 #include "csv.h"
 #include "iniparser.h"
+#include "stock.h"
 
 #define USERCONFFILE ".traderc"
 #define PATH_SEP '/'
@@ -112,29 +113,6 @@ static char *readfile(char *filename, size_t *len) {
   return contents;
 }
 
-typedef struct {
-  char *date;
-  double open;
-  double high;
-  double low;
-  double close;
-  double adj_close;
-  int volume;
-} stock_data_t;
- 
-typedef enum {
-  DATE, OPEN, HIGH, LOW, CLOSE, ADJ_CLOSE, VOLUME
-} stock_data_field_t;
- 
-typedef struct {
-  char *symbol;
-  stock_data_t *ticks;
-  size_t ticks_alloc;
-  size_t ticks_used;
-  stock_data_field_t cur_field;
-  int error;
-} stock_info_t;
- 
 void process_field(void *field,
 		   size_t field_len __attribute__((unused)),
 		   void *ctx)
