@@ -195,8 +195,8 @@ static char *make_file_path(const char *directory, const char *name)
   return path;
 }
 
-static MYSQL *mysql_connect(const char *host, const char *user,
-                            const char *password, const char *dbname)
+static MYSQL *db_mysql_connect(const char *host, const char *user,
+                               const char *password, const char *dbname)
 {
   MYSQL *conn;
   unsigned int port = 0;
@@ -429,7 +429,7 @@ int main(int argc, char *argv[])
   curl_easy_cleanup(curl);
   curl_global_cleanup();
  
-  if ((conn = mysql_connect(host, user, password, dbname)) == NULL) {
+  if ((conn = db_mysql_connect(host, user, password, dbname)) == NULL) {
     return -1;
   }
 
