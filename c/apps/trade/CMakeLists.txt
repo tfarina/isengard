@@ -23,6 +23,8 @@ add_library(iniparser ${INIPARSER_SRCS})
 add_executable(ticks ticks.c file.c)
 target_link_libraries(ticks libcsv)
 
+find_package(MySQL)
+
 find_package(CURL REQUIRED)
 if (CURL_FOUND)
   include_directories(${CURL_INCLUDE_DIRS})
