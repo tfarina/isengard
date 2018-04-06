@@ -9,6 +9,7 @@
 
 #include "csv.h"
 #include "iniparser.h"
+#include "env.h"
 #include "db_mysql.h"
 #include "stock.h"
  
@@ -174,11 +175,6 @@ void process_row(int delim __attribute__((unused)), void *ctx) {
 
 #define USERCONFFILE ".traderc"
 #define PATH_SEP '/'
-
-static char *get_homedir(void)
-{
-  return getenv("HOME");
-}
 
 /* Code from msmtp:src/tools.c:get_filename */
 static char *make_file_path(const char *directory, const char *name)

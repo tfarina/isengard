@@ -7,16 +7,12 @@
 #include "csv.h"
 #include "iniparser.h"
 #include "db_mysql.h"
+#include "env.h"
 #include "file.h"
 #include "stock.h"
 
 #define USERCONFFILE ".traderc"
 #define PATH_SEP '/'
-
-static char *get_homedir(void)
-{
-  return getenv("HOME");
-}
 
 /* Code from msmtp:src/tools.c:get_filename */
 static char *make_file_path(const char *directory, const char *name)
