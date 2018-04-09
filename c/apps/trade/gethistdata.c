@@ -7,17 +7,13 @@
 #include <curl/curl.h>
 #include <mysql/mysql.h>
 
+#include "buffer.h"
 #include "csv.h"
 #include "iniparser.h"
 #include "env.h"
 #include "db_mysql.h"
 #include "stock.h"
  
-struct buffer {
-    char *data;
-    size_t size;
-};
-
 static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream)
 {
   size_t written;
