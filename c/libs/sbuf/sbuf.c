@@ -43,6 +43,23 @@ static void sbuf_setlen(sbuf_t *b, size_t len)
         b->data[len] = '\0';
 }
 
+/*
+ * _sbuf_grow ensures that the buffer has at least |extra| more bytes between its
+ * length and capacity.
+ */
+static void _sbuf_grow(sbuf_t *b, size_t extra)
+{
+	size_t want;
+
+        want = b->length + extra;
+        if (b->capacity < want) {
+                b->capacity = 2 * want;
+                if (b->capacity < 64)
+                        b->capacity = 64;
+                b->data = xrealloc(b->data, b->capacity);
+        }
+}
+
 sbuf_t *sbuf_create(size_t capacity)
 {
         sbuf_t *b;
@@ -79,22 +96,9 @@ void sbuf_free(sbuf_t *b)
 	sbuf_init(b);
 }
 
-void sbuf_grow(sbuf_t *b, size_t extra)
-{
-	size_t want;
-
-        want = b->length + extra;
-        if (b->capacity < want) {
-                b->capacity = 2 * want;
-                if (b->capacity < 64)
-                        b->capacity = 64;
-                b->data = xrealloc(b->data, b->capacity);
-        }
-}
-
 void sbuf_append(sbuf_t *b, const void *data, size_t len)
 {
-	sbuf_grow(b, len);
+	_sbuf_grow(b, len);
 	memcpy(b->data + b->length, data, len);
         sbuf_setlen(b, b->length + len);
 }
