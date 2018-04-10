@@ -38,14 +38,14 @@ static void *xrealloc(void *oldptr, size_t newsize)
 }
 
 /*
- * _sbuf_grow ensures that the buffer has at least |extra| more bytes between its
+ * _sbuf_realloc ensures that the buffer has at least |length| more bytes between its
  * length and capacity.
  */
-static void _sbuf_grow(sbuf_t *b, size_t extra)
+static void _sbuf_realloc(sbuf_t *b, size_t length)
 {
 	size_t want;
 
-        want = b->length + extra;
+        want = b->length + length;
         if (b->capacity < want) {
                 b->capacity = 2 * want;
                 if (b->capacity < 64)
@@ -86,7 +86,7 @@ void sbuf_reset(sbuf_t *b)
 
 void sbuf_append(sbuf_t *b, const void *data, size_t len)
 {
-	_sbuf_grow(b, len);
+	_sbuf_realloc(b, len);
 	memcpy(b->data + b->length, data, len);
         b->length += len;
         b->data[b->length] = '\0'; /* always 0 terminate data. */
