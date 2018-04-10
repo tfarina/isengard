@@ -70,6 +70,8 @@ sbuf_t *sbuf_create(size_t capacity)
 	b->data = malloc(capacity);
 	b->capacity = capacity;
 
+	b->length = 0;
+
         return b;
 }
 
