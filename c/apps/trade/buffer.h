@@ -3,7 +3,7 @@
 
 struct buffer {
   char *data;
-  size_t size;
+  size_t length;
 };
 
 #endif /* BUFFER_H_ */

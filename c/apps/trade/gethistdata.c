@@ -28,11 +28,11 @@ static size_t write_data2(void *ptr, size_t size, size_t nmemb, void *data)
     struct buffer *buf = (struct buffer *)data;
     size_t realsize = size * nmemb;
 
-    buf->data = (char *)realloc(buf->data, buf->size + realsize + 1);
+    buf->data = (char *)realloc(buf->data, buf->length + realsize + 1);
     if (buf->data) {
-        memcpy(&(buf->data[buf->size]), ptr, realsize);
-        buf->size += realsize;
-        buf->data[buf->size] = 0;
+        memcpy(&(buf->data[buf->length]), ptr, realsize);
+        buf->length += realsize;
+        buf->data[buf->length] = 0;
     }
 
     return realsize;
@@ -274,7 +274,7 @@ int main(int argc, char *argv[])
   start_date = mktime(tm);
 
   buf.data = NULL;
-  buf.size = 0;
+  buf.length = 0;
 
   printf("Downloading historical data.\n\n");
   printf("Symbol: %s\n", symbol);
@@ -337,7 +337,7 @@ int main(int argc, char *argv[])
 
   free(buf.data);
   buf.data = NULL;
-  buf.size = 0;
+  buf.length = 0;
 
   /* 4- With cookies and crumb, it is ready to download the historical data
    * (in csv format) to memory.
@@ -357,7 +357,7 @@ int main(int argc, char *argv[])
 
   // NOW I WANT TO SAVE buf.data to SYMBOL.csv and INSERT INTO MYSQL DATABASE.
   sprintf(filename, "%s.csv", symbol);
-  write_file(filename, buf.data, buf.size);
+  write_file(filename, buf.data, buf.length);
 
   // Now that we have downloaded the historical data, parse the csv content
   // to store it in the MySQL table. 
@@ -377,14 +377,14 @@ int main(int argc, char *argv[])
     return -1;
   }
  
-  bytes_processed = csv_parse(&parser, (void*)buf.data, buf.size,
+  bytes_processed = csv_parse(&parser, (void*)buf.data, buf.length,
                               process_field, process_row, &stock);
   rc = csv_fini(&parser, process_field, process_row, &stock);
  
-  if (stock.error || rc != 0 || bytes_processed < buf.size) {
+  if (stock.error || rc != 0 || bytes_processed < buf.length) {
     fprintf(stderr,
             "read %zu bytes out of %zu: %s\n",
-	    bytes_processed, buf.size, csv_strerror(csv_error(&parser)));
+	    bytes_processed, buf.length, csv_strerror(csv_error(&parser)));
     return -1;
   }
 
