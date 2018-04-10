@@ -33,7 +33,7 @@ sbuf_t *sbuf_create(size_t capacity);
 void sbuf_free(sbuf_t *b);
 
 /*
- * sbuf_reset truncates the buffer back to zero length.
+ * sbuf_reset sets the length to zero.
  */
 void sbuf_reset(sbuf_t *b);
 
