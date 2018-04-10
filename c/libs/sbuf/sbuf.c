@@ -60,6 +60,13 @@ static void _sbuf_grow(sbuf_t *b, size_t extra)
         }
 }
 
+void sbuf_init(sbuf_t *b)
+{
+	b->data = NULL;
+	b->length = 0;
+	b->capacity = 0;
+}
+
 sbuf_t *sbuf_create(size_t capacity)
 {
         sbuf_t *b;
@@ -72,28 +79,15 @@ sbuf_t *sbuf_create(size_t capacity)
         return b;
 }
 
-void sbuf_destroy(sbuf_t *b)
+void sbuf_free(sbuf_t *b)
 {
         free(b->data);
         free(b);
 }
 
-void sbuf_init(sbuf_t *b)
-{
-	b->data = NULL;
-	b->length = 0;
-	b->capacity = 0;
-}
-
 void sbuf_reset(sbuf_t *b)
 {
 	b->length = 0;
-}
-
-void sbuf_free(sbuf_t *b)
-{
-	free(b->data);
-	sbuf_init(b);
 }
 
 void sbuf_append(sbuf_t *b, const void *data, size_t len)

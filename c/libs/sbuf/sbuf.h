@@ -18,29 +18,24 @@ typedef struct {
 } sbuf_t;
 
 /*
- * sbuf_create creates a new buffer with the specified capacity.
- */
-sbuf_t *sbuf_create(size_t capacity);
-
-/*
- * sbuf_destroy destroys a buffer.
- */
-void sbuf_destroy(sbuf_t *b);
-
-/*
  * sbuf_init prepares an uninitialized buffer for use.
  */
 void sbuf_init(sbuf_t *b);
 
 /*
+ * sbuf_create creates a new buffer with the specified capacity.
+ */
+sbuf_t *sbuf_create(size_t capacity);
+
+/*
+ * sbuf_free
+ */
+void sbuf_free(sbuf_t *b);
+
+/*
  * sbuf_reset truncates the buffer back to zero length.
  */
 void sbuf_reset(sbuf_t *b);
-
-/*
- * sbuf_free frees the storage associated with a buffer.
- */
-void sbuf_free(sbuf_t *b);
 
 /*
  * sbuf_append appends the |len| bytes at |data| to the buffer.

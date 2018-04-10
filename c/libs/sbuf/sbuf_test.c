@@ -13,12 +13,10 @@ int main(void) {
         printf("%s\n", b.data);
         printf("%zu\n", b.length);
 
-        sbuf_free(&b);
-
 	bp = sbuf_create(512);
         sbuf_append_str(bp, "C is very hard!");
         printf("%s\n", bp->data);
-	sbuf_destroy(bp);
+	sbuf_free(bp);
 
         return 0;
 }
