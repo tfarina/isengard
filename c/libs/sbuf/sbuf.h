@@ -28,7 +28,7 @@ void sbuf_init(sbuf_t *b);
 sbuf_t *sbuf_create(size_t capacity);
 
 /*
- * sbuf_free
+ * sbuf_free frees the buffer and all its contents.
  */
 void sbuf_free(sbuf_t *b);
 
