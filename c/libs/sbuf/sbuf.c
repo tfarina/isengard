@@ -82,6 +82,7 @@ void sbuf_free(sbuf_t *b)
 void sbuf_reset(sbuf_t *b)
 {
 	b->length = 0;
+	*b->data = 0;
 }
 
 void sbuf_append(sbuf_t *b, const void *data, size_t len)
