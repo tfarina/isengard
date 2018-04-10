@@ -87,11 +87,11 @@ void sbuf_reset(sbuf_t *b)
 	*b->data = 0;
 }
 
-void sbuf_append(sbuf_t *b, const void *data, size_t len)
+void sbuf_append(sbuf_t *b, const void *data, size_t length)
 {
-	_sbuf_realloc(b, len);
-	memcpy(b->data + b->length, data, len);
-        b->length += len;
+	_sbuf_realloc(b, length);
+	memcpy(b->data + b->length, data, length);
+        b->length += length;
         b->data[b->length] = '\0'; /* always 0 terminate data. */
 }
 
