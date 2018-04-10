@@ -37,12 +37,6 @@ static void *xrealloc(void *oldptr, size_t newsize)
 	return newptr;
 }
 
-static void sbuf_setlen(sbuf_t *b, size_t len)
-{
-        b->length = len;
-        b->data[len] = '\0';
-}
-
 /*
  * _sbuf_grow ensures that the buffer has at least |extra| more bytes between its
  * length and capacity.
@@ -94,7 +88,8 @@ void sbuf_append(sbuf_t *b, const void *data, size_t len)
 {
 	_sbuf_grow(b, len);
 	memcpy(b->data + b->length, data, len);
-        sbuf_setlen(b, b->length + len);
+        b->length += len;
+        b->data[b->length] = '\0'; /* always 0 terminate data. */
 }
 
 void sbuf_append_str(sbuf_t *b, const char *str)
