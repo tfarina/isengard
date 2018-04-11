@@ -61,7 +61,7 @@ void sbuf_init(sbuf_t *b)
 	b->capacity = 0;
 }
 
-sbuf_t *sbuf_create(size_t capacity)
+sbuf_t *sbuf_alloc(size_t capacity)
 {
         sbuf_t *b;
 

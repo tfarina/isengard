@@ -23,9 +23,9 @@ typedef struct {
 void sbuf_init(sbuf_t *b);
 
 /*
- * sbuf_create creates a new buffer with the specified capacity.
+ * sbuf_alloc creates a new buffer with the specified capacity.
  */
-sbuf_t *sbuf_create(size_t capacity);
+sbuf_t *sbuf_alloc(size_t capacity);
 
 /*
  * sbuf_free frees the buffer and all its contents.
