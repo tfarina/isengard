@@ -14,7 +14,7 @@
 #include "db_mysql.h"
 #include "stock.h"
  
-static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream)
+static size_t write_data_to_file(void *ptr, size_t size, size_t nmemb, void *stream)
 {
   size_t written;
 
@@ -23,7 +23,7 @@ static size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream)
   return written;
 }
 
-static size_t write_data2(void *ptr, size_t size, size_t nmemb, void *data)
+static size_t write_data_to_memory(void *ptr, size_t size, size_t nmemb, void *data)
 {
     struct buffer *buf = (struct buffer *)data;
     size_t realsize = size * nmemb;
@@ -296,7 +296,7 @@ int main(int argc, char *argv[])
   curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
             
   curl_easy_setopt(curl, CURLOPT_ENCODING, "");
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_file);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
 
   result = curl_easy_perform(curl);
@@ -308,7 +308,7 @@ int main(int argc, char *argv[])
   }
 
   /* 2- Download the html page to memory to extract the crumb. */
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data2);
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&buf);
             
   result = curl_easy_perform(curl);
@@ -344,7 +344,7 @@ int main(int argc, char *argv[])
    */
   curl_easy_setopt(curl, CURLOPT_URL, fullurl);
   curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data2);
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&buf);
 
   result = curl_easy_perform(curl);
