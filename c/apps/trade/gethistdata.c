@@ -23,14 +23,14 @@ static size_t write_data_to_file(void *ptr, size_t size, size_t nmemb, void *str
   return written;
 }
 
-static size_t write_data_to_memory(void *ptr, size_t size, size_t nmemb, void *data)
+static size_t write_data_to_memory(void *data, size_t size, size_t nmemb, void *ctx)
 {
-    struct buffer *buf = (struct buffer *)data;
+    struct buffer *buf = (struct buffer *)ctx;
     size_t realsize = size * nmemb;
 
     buf->data = (char *)realloc(buf->data, buf->length + realsize + 1);
     if (buf->data) {
-        memcpy(&(buf->data[buf->length]), ptr, realsize);
+        memcpy(&(buf->data[buf->length]), data, realsize);
         buf->length += realsize;
         buf->data[buf->length] = 0;
     }
