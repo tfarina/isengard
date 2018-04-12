@@ -25,7 +25,7 @@ static size_t write_data_to_file(void *ptr, size_t size, size_t nmemb, void *str
 
 static size_t write_data_to_memory(void *data, size_t size, size_t nmemb, void *ctx)
 {
-    struct buffer *buf = (struct buffer *)ctx;
+    buffer_t *buf = (buffer_t *)ctx;
     size_t realsize = size * nmemb;
 
     buf->data = (char *)realloc(buf->data, buf->length + realsize + 1);
@@ -235,7 +235,7 @@ int main(int argc, char *argv[])
   CURL *curl;
   CURLcode result;
   FILE *fp;
-  struct buffer buf;
+  buffer_t buf;
   char fullurl[255];
   time_t start_date;
   time_t end_date;
