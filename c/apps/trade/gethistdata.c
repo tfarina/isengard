@@ -14,11 +14,11 @@
 #include "db_mysql.h"
 #include "stock.h"
  
-static size_t write_data_to_file(void *ptr, size_t size, size_t nmemb, void *stream)
+static size_t write_data_to_file(void *data, size_t size, size_t nmemb, void *stream)
 {
   size_t written;
 
-  written = fwrite(ptr, size, nmemb, (FILE *)stream);
+  written = fwrite(data, size, nmemb, (FILE *)stream);
 
   return written;
 }
