@@ -13,6 +13,7 @@
 #include "env.h"
 #include "db_mysql.h"
 #include "stock.h"
+#include "file.h"
  
 static size_t write_data_to_file(void *data, size_t size, size_t nmemb, void *stream)
 {
@@ -51,30 +52,6 @@ time_t date_to_epoch(const char *date) {
   epoch_time = mktime(&time);
 
   return epoch_time;
-}
-
-static int write_file(const char *filename, const char *data, size_t size)
-{
-  int fd = creat(filename, 0666);
-  if (fd < 0) {
-    return -1;
-  }
-
-  ssize_t bytes_written_total = 0;
-  for (ssize_t bytes_written_partial = 0; bytes_written_total < size;
-       bytes_written_total += bytes_written_partial) {
-    bytes_written_partial = write(fd, data + bytes_written_total,
-                                      size - bytes_written_total);
-    if (bytes_written_partial < 0) {
-      return -1;
-    }
-  }
-
-  if (close(fd) < 0) {
-    return -1;
-  }
-
-  return size;
 }
 
 void process_field(void *field,
