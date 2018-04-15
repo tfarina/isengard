@@ -39,21 +39,6 @@ static size_t write_data_to_memory(void *data, size_t size, size_t nmemb, void *
     return realsize;
 }
 
-time_t date_to_epoch(const char *date) {
-  struct tm time;
-  time_t epoch_time;
-
-  strptime(date, "%D", &time);
-
-  printf("year: %d; month: %d; day: %d;\n",
-	 time.tm_year, time.tm_mon, time.tm_mday);
-  time.tm_isdst = -1;
-
-  epoch_time = mktime(&time);
-
-  return epoch_time;
-}
-
 void process_field(void *field,
 		   size_t field_len __attribute__((unused)),
 		   void *ctx)
