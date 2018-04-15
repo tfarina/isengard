@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
   socklen_t fromlen = sizeof(from);
   int sockfd;
   char buf[BUFLEN] = "Hello, world!";
-  int recvlen;
+  ssize_t recvlen;
 
   if (argc != 2) {
     fprintf(stderr, "usage: %s [hostname]\n", argv[0]);
