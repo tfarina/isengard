@@ -6,7 +6,7 @@ CREATE TABLE `exchange` (
   `country` varchar(255) NULL,
   `currency` varchar(64) NULL,
   `timezone_offset` time NULL,
-  `created_date` datetime NOT NULL,
-  `last_updated_date` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
