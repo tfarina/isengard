@@ -37,7 +37,7 @@ void process_field(void *field,
   stock_info_t *stock = (stock_info_t *)ctx;
   if (stock->error) return;
  
-  stock_data_t *cur_tick = stock->ticks + stock->ticks_used;
+  stock_tick_t *cur_tick = stock->ticks + stock->ticks_used;
  
   // used for parsing floating-point values:
   // (declaring these in a switch/case is annoying)
@@ -50,11 +50,11 @@ void process_field(void *field,
     if (stock->ticks_used == stock->ticks_alloc) {
       stock->ticks_alloc *= 2;
       stock->ticks = realloc(stock->ticks,
-			     sizeof(stock_data_t) * stock->ticks_alloc);
+			     sizeof(stock_tick_t) * stock->ticks_alloc);
       if (stock->ticks == NULL) {
 	fprintf(stderr,
 		"failed to reallocate %zu bytes for stock data: ",
-		sizeof(stock_data_t) * stock->ticks_alloc);
+		sizeof(stock_tick_t) * stock->ticks_alloc);
 	perror(NULL);
 	stock->error = 1;
 	return;
@@ -155,10 +155,10 @@ int main(int argc, char **argv) {
   memset((void *)&stock, 0, sizeof(stock_info_t));
   stock.symbol = strdup(argv[2]);
   stock.ticks_alloc = 2;
-  stock.ticks = malloc(stock.ticks_alloc * sizeof(stock_data_t));
+  stock.ticks = malloc(stock.ticks_alloc * sizeof(stock_tick_t));
   if (stock.ticks == NULL) {
     fprintf(stderr, "failed to allocate %zu bytes for city data\n",
-	    stock.ticks_alloc * sizeof(stock_data_t));
+	    stock.ticks_alloc * sizeof(stock_tick_t));
     free(csvdata);
     return 1;
   }
@@ -183,7 +183,7 @@ int main(int argc, char **argv) {
   printf("Importing records...\n");
 
   for (i = 0; i < stock.ticks_used; i++) {
-    stock_data_t *tick = stock.ticks + i;
+    stock_tick_t *tick = stock.ticks + i;
 
     if (stock_add_tick(conn, stock.symbol, tick) != -1) {
     }

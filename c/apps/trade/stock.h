@@ -13,21 +13,21 @@ typedef struct {
   double close;
   double adj_close;
   int volume;
-} stock_data_t;
+} stock_tick_t;
  
 typedef enum {
   DATE, OPEN, HIGH, LOW, CLOSE, ADJ_CLOSE, VOLUME
-} stock_data_field_t;
+} stock_tick_field_t;
  
 typedef struct {
   char *symbol;
-  stock_data_t *ticks;
+  stock_tick_t *ticks;
   size_t ticks_alloc;
   size_t ticks_used;
-  stock_data_field_t cur_field;
+  stock_tick_field_t cur_field;
   int error;
 } stock_info_t;
 
-int stock_add_tick(MYSQL *conn, const char *symbol, stock_data_t *tick);
+int stock_add_tick(MYSQL *conn, const char *symbol, stock_tick_t *tick);
  
 #endif  /* STOCK_H_ */

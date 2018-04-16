@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-int stock_add_tick(MYSQL *conn, const char *symbol, stock_data_t *tick)
+int stock_add_tick(MYSQL *conn, const char *symbol, stock_tick_t *tick)
 {
   char query[256];
   MYSQL_RES *res;
