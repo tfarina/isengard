@@ -8,6 +8,7 @@
 #include <mysql/mysql.h>
 
 #include "buffer.h"
+#include "curl_helper.h"
 #include "csv.h"
 #include "iniparser.h"
 #include "env.h"
@@ -16,30 +17,6 @@
 #include "file.h"
 
 #define USERCONFFILE ".traderc"
-
-static size_t write_data_to_file(void *data, size_t size, size_t nmemb, void *stream)
-{
-  size_t written;
-
-  written = fwrite(data, size, nmemb, (FILE *)stream);
-
-  return written;
-}
-
-static size_t write_data_to_memory(void *data, size_t size, size_t nmemb, void *ctx)
-{
-    buffer_t *buf = (buffer_t *)ctx;
-    size_t realsize = size * nmemb;
-
-    buf->data = (char *)realloc(buf->data, buf->length + realsize + 1);
-    if (buf->data) {
-        memcpy(&(buf->data[buf->length]), data, realsize);
-        buf->length += realsize;
-        buf->data[buf->length] = 0;
-    }
-
-    return realsize;
-}
 
 void process_field(void *field,
 		   size_t field_len __attribute__((unused)),
