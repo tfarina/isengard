@@ -14,7 +14,9 @@
 #include "db_mysql.h"
 #include "stock.h"
 #include "file.h"
- 
+
+#define USERCONFFILE ".traderc"
+
 static size_t write_data_to_file(void *data, size_t size, size_t nmemb, void *stream)
 {
   size_t written;
@@ -129,25 +131,6 @@ void process_row(int delim __attribute__((unused)), void *ctx) {
     fprintf(stderr, "not enough fields in row %zu\n", stock->ticks_used);
     stock->error = 1;
   }
-}
-
-#define USERCONFFILE ".traderc"
-#define PATH_SEP '/'
-
-/* Code from msmtp:src/tools.c:get_filename */
-static char *make_file_path(const char *directory, const char *name)
-{
-  char *path;
-  size_t dirlen;
-
-  dirlen = strlen(directory);
-  path = malloc((dirlen + strlen(name) + 2) * sizeof(char));
-  strcpy(path, directory);
-  if (dirlen == 0 || path[dirlen - 1] != PATH_SEP) {
-    path[dirlen++] = PATH_SEP;
-  }
-  strcpy(path + dirlen, name);
-  return path;
 }
 
 int main(int argc, char *argv[])

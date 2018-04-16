@@ -12,23 +12,6 @@
 #include "stock.h"
 
 #define USERCONFFILE ".traderc"
-#define PATH_SEP '/'
-
-/* Code from msmtp:src/tools.c:get_filename */
-static char *make_file_path(const char *directory, const char *name)
-{
-  char *path;
-  size_t dirlen;
-
-  dirlen = strlen(directory);
-  path = malloc((dirlen + strlen(name) + 2) * sizeof(char));
-  strcpy(path, directory);
-  if (dirlen == 0 || path[dirlen - 1] != PATH_SEP) {
-    path[dirlen++] = PATH_SEP;
-  }
-  strcpy(path + dirlen, name);
-  return path;
-}
 
 void process_field(void *field,
 		   size_t field_len __attribute__((unused)),

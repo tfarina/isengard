@@ -6,6 +6,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#define PATH_SEP '/'
+
 char *readfile(char *filename, size_t *len) {
   // open file for reading
   FILE *fh = fopen(filename, "r");
@@ -88,4 +90,20 @@ int write_file(const char *filename, const char *data, size_t size)
   }
 
   return size;
+}
+
+/* Code from msmtp:src/tools.c:get_filename */
+char *make_file_path(const char *directory, const char *name)
+{
+  char *path;
+  size_t dirlen;
+
+  dirlen = strlen(directory);
+  path = malloc((dirlen + strlen(name) + 2) * sizeof(char));
+  strcpy(path, directory);
+  if (dirlen == 0 || path[dirlen - 1] != PATH_SEP) {
+    path[dirlen++] = PATH_SEP;
+  }
+  strcpy(path + dirlen, name);
+  return path;
 }
