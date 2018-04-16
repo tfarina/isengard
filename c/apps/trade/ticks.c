@@ -90,7 +90,7 @@ void process_row(int delim __attribute__((unused)), void *ctx) {
 
 int main(int argc, char **argv) {
   char *csvdata;
-  size_t len;
+  size_t csvdata_len;
   int rc;
   struct csv_parser parser;
   stock_info_t stock;
@@ -102,9 +102,10 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  csvdata = readfile(argv[1], &len);
-  if (csvdata == NULL)
+  csvdata = readfile(argv[1], &csvdata_len);
+  if (csvdata == NULL) {
     return 1;
+  }
 
   rc = csv_init(&parser, CSV_APPEND_NULL);
   if (rc != 0) {
@@ -124,15 +125,15 @@ int main(int argc, char **argv) {
     return 1;
   }
  
-  bytes_processed = csv_parse(&parser, (void*)csvdata, len,
+  bytes_processed = csv_parse(&parser, (void*)csvdata, csvdata_len,
                               process_field, process_row, &stock);
   rc = csv_fini(&parser, process_field, process_row, &stock);
   free(csvdata);
  
-  if (stock.error || rc != 0 || bytes_processed < len) {
+  if (stock.error || rc != 0 || bytes_processed < csvdata_len) {
     fprintf(stderr,
             "read %zu bytes out of %zu: %s\n",
-	    bytes_processed, len, csv_strerror(csv_error(&parser)));
+	    bytes_processed, csvdata_len, csv_strerror(csv_error(&parser)));
     return 1;
   }
  
