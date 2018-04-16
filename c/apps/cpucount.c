@@ -3,7 +3,12 @@
 
 static int cpu_get_count(void)
 {
-  return (int)sysconf(_SC_NPROCESSORS_ONLN);
+  int cpus = (int)sysconf(_SC_NPROCESSORS_ONLN);
+  if (cpus < 0) {
+    return 0;
+  }
+
+  return cpus;
 }
 
 int main(int argc, char **argv)
