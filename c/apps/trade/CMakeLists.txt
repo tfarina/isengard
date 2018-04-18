@@ -20,7 +20,7 @@ set(INIPARSER_SRCS
 
 add_library(iniparser ${INIPARSER_SRCS})
 
-add_executable(ticks ticks.c file.c)
+add_executable(ticks ticks.c file.c csv_helper.c)
 target_link_libraries(ticks libcsv)
 
 find_package(MySQL)
@@ -28,9 +28,9 @@ find_package(MySQL)
 find_package(CURL REQUIRED)
 if (CURL_FOUND)
   include_directories(${CURL_INCLUDE_DIRS})
-  add_executable(gethistdata gethistdata.c env.c db_mysql.c stock.c file.c curl_helper.c)
+  add_executable(gethistdata gethistdata.c env.c db_mysql.c stock.c file.c curl_helper.c csv_helper.c)
   target_link_libraries(gethistdata ${CURL_LIBRARIES} libcsv iniparser ${MYSQL_LIBRARY})
 endif()
 
-add_executable(csvimport csvimport.c file.c db_mysql.c env.c stock.c)
+add_executable(csvimport csvimport.c file.c db_mysql.c env.c stock.c csv_helper.c)
 target_link_libraries(csvimport iniparser libcsv ${MYSQL_LIBRARY})
