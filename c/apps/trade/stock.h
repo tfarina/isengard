@@ -28,6 +28,6 @@ typedef struct {
   int error;
 } stock_info_t;
 
-int stock_add_tick(MYSQL *conn, const char *symbol, stock_tick_t *tick);
+int stock_add_tick(MYSQL *conn, stock_info_t *stock, stock_tick_t *tick);
  
 #endif  /* STOCK_H_ */

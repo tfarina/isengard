@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
   for (i = 0; i < stock.ticks_used; i++) {
     stock_tick_t *tick = stock.ticks + i;
 
-    if (stock_add_tick(conn, stock.symbol, tick) != -1) {
+    if (stock_add_tick(conn, &stock, tick) != -1) {
     }
 
     printf("symbol=\"%s\"; date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
