@@ -57,11 +57,11 @@ int main(int argc, char **argv) {
  
   memset((void *)&stock, 0, sizeof(stock_info_t));
   stock.symbol = strdup(argv[2]);
-  stock.ticks_alloc = 2;
-  stock.ticks = malloc(stock.ticks_alloc * sizeof(stock_tick_t));
+  stock.ticks_capacity = 2;
+  stock.ticks = malloc(stock.ticks_capacity * sizeof(stock_tick_t));
   if (stock.ticks == NULL) {
     fprintf(stderr, "failed to allocate %zu bytes for city data\n",
-	    stock.ticks_alloc * sizeof(stock_tick_t));
+	    stock.ticks_capacity * sizeof(stock_tick_t));
     free(csvdata);
     return 1;
   }
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
   /* NOTE: This will overwrite existing data. */
   printf("Importing records...\n");
 
-  for (i = 0; i < stock.ticks_used; i++) {
+  for (i = 0; i < stock.ticks_length; i++) {
     stock_tick_t *tick = stock.ticks + i;
 
     if (stock_add_tick(conn, &stock, tick) != -1) {
@@ -97,7 +97,7 @@ int main(int argc, char **argv) {
     free(tick->date);
   }
 
-  printf("%d rows imported\n", stock.ticks_used);
+  printf("%d rows imported\n", stock.ticks_length);
 
   free(stock.ticks);
  

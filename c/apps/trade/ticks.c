@@ -36,11 +36,11 @@ int main(int argc, char **argv) {
  
   memset((void *)&stock, 0, sizeof(stock_info_t));
   stock.symbol = strdup(argv[2]);
-  stock.ticks_alloc = 2;
-  stock.ticks = malloc(stock.ticks_alloc * sizeof(stock_tick_t));
+  stock.ticks_capacity = 2;
+  stock.ticks = malloc(stock.ticks_capacity * sizeof(stock_tick_t));
   if (stock.ticks == NULL) {
     fprintf(stderr, "failed to allocate %zu bytes for stock data\n",
-	    stock.ticks_alloc * sizeof(stock_tick_t));
+	    stock.ticks_capacity * sizeof(stock_tick_t));
     free(csvdata);
     return 1;
   }
@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
  
   printf("%s ticks:\n", stock.symbol);
 
-  for (i = 0; i < stock.ticks_used; i++) {
+  for (i = 0; i < stock.ticks_length; i++) {
     stock_tick_t *tick = stock.ticks + i;
     printf("date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
            tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);

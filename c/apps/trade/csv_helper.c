@@ -13,7 +13,7 @@ void process_field(void *field,
   stock_info_t *stock = (stock_info_t *)ctx;
   if (stock->error) return;
 
-  stock_tick_t *cur_tick = stock->ticks + stock->ticks_used;
+  stock_tick_t *cur_tick = stock->ticks + stock->ticks_length;
  
   // used for parsing floating-point values:
   // (declaring these in a switch/case is annoying)
@@ -34,19 +34,19 @@ void process_field(void *field,
   switch (stock->cur_field) {
   case DATE:
     // start of a new record; check if we need to reallocate
-    if (stock->ticks_used == stock->ticks_alloc) {
-      stock->ticks_alloc *= 2;
+    if (stock->ticks_length == stock->ticks_capacity) {
+      stock->ticks_capacity *= 2;
       stock->ticks = realloc(stock->ticks,
-                             sizeof(stock_tick_t) * stock->ticks_alloc);
+                             sizeof(stock_tick_t) * stock->ticks_capacity);
       if (stock->ticks == NULL) {
         fprintf(stderr,
                 "failed to reallocate %zu bytes for stock data: ",
-		sizeof(stock_tick_t) * stock->ticks_alloc);
+		sizeof(stock_tick_t) * stock->ticks_capacity);
         perror(NULL);
         stock->error = 1;
 	return;
       }
-      cur_tick = stock->ticks + stock->ticks_used;
+      cur_tick = stock->ticks + stock->ticks_length;
     }
  
     // anyway, we just got tick data
@@ -63,7 +63,7 @@ void process_field(void *field,
       if (*endptr != '\0') {
         fprintf(stderr,
                 "non-float value in record %zu, field %u: \"%s\"\n",
-                 stock->ticks_used + 1, stock->cur_field + 1, field);
+                 stock->ticks_length + 1, stock->cur_field + 1, field);
         stock->error = 1;
         return;
       }
@@ -84,7 +84,7 @@ void process_field(void *field,
   }
  
 
-  if (stock->cur_field == VOLUME) stock->ticks_used++;
+  if (stock->cur_field == VOLUME) stock->ticks_length++;
   stock->cur_field = (stock->cur_field + 1) % 7;
 }
  
@@ -93,7 +93,7 @@ void process_row(int delim __attribute__((unused)), void *ctx) {
   if (stock->error) return;
  
   if (stock->cur_field != DATE) {
-    fprintf(stderr, "not enough fields in row %zu\n", stock->ticks_used);
+    fprintf(stderr, "not enough fields in row %zu\n", stock->ticks_length);
     stock->error = 1;
   }
 }

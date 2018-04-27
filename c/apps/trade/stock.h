@@ -22,8 +22,8 @@ typedef enum {
 typedef struct {
   char *symbol;
   stock_tick_t *ticks;
-  size_t ticks_alloc;
-  size_t ticks_used;
+  size_t ticks_capacity;
+  size_t ticks_length;
   stock_tick_field_t cur_field;
   int error;
 } stock_info_t;
