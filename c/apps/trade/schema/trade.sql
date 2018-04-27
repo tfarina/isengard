@@ -1,3 +1,21 @@
+CREATE TABLE `sector` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `subsector` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `segment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `historicaldata` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `symbol` char(6) NOT NULL,
