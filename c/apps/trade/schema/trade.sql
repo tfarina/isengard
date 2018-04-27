@@ -4,6 +4,18 @@ CREATE TABLE `sector` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+insert into sector (name) values ('Financeiros e Outros');
+insert into sector (name) values ('Consumo Cíclico');
+insert into sector (name) values ('Construção e Transporte');
+insert into sector (name) values ('Construção e Transporte');
+insert into sector (name) values ('Consumo não Cíclico');
+insert into sector (name) values ('Utilidade Pública');
+insert into sector (name) values ('Materiais Básicos');
+insert into sector (name) values ('Bens Industriais');
+insert into sector (name) values ('Tecnologia da Informação');
+insert into sector (name) values ('Petróleo, Gás e Biocombustíveis');
+insert into sector (name) values ('Telecomunicações');
+
 CREATE TABLE `subsector` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NULL,
