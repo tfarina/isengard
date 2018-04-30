@@ -1,0 +1,7 @@
+This file contains a log of ALTER TABLE statements that need to be executed
+to bring a Trade SQL database up to the current schema.
+
+================================================================
+2018-04-30: Add 'sector_id' column to stockinfo table.
+
+ALTER TABLE stockinfo ADD COLUMN sector_id INTEGER NOT NULL;
