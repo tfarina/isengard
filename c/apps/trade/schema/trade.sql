@@ -22,6 +22,46 @@ CREATE TABLE `subsector` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+insert into subsector (name) values ('Petróleo, Gás e Biocombustíveis');
+insert into subsector (name) values ('Mineração');
+insert into subsector (name) values ('Siderurgia e Metalurgia');
+insert into subsector (name) values ('Químicos');
+insert into subsector (name) values ('Madeira e Papel');
+insert into subsector (name) values ('Embalagens');
+insert into subsector (name) values ('Materiais Diversos');
+insert into subsector (name) values ('Material de Transporte');
+insert into subsector (name) values ('Equipamentos Elétricos');
+insert into subsector (name) values ('Máquinas e Equipamentos');
+insert into subsector (name) values ('Serviços');
+insert into subsector (name) values ('Comércio');
+insert into subsector (name) values ('Alimentos Processados');
+insert into subsector (name) values ('Bebidas');
+insert into subsector (name) values ('Fumo');
+insert into subsector (name) values ('Produtos de Uso Pessoal e de Limpeza');
+insert into subsector (name) values ('Saúde');
+insert into subsector (name) values ('Diversos');
+insert into subsector (name) values ('Comércio e Distribuição');
+insert into subsector (name) values ('Tecidos, Vestuário e Calçados');
+insert into subsector (name) values ('Utilidades Domésticas');
+insert into subsector (name) values ('Automóveis e Motocicletas');
+insert into subsector (name) values ('Mídia');
+insert into subsector (name) values ('Hotéis e Restaurantes');
+insert into subsector (name) values ('Viagens e Lazer');
+insert into subsector (name) values ('Computadores e Equipamentos');
+insert into subsector (name) values ('Programas e Serviços');
+insert into subsector (name) values ('Telefonia Fixa');
+insert into subsector (name) values ('Telefonia Móvel');
+insert into subsector (name) values ('Energia Elétrica');
+insert into subsector (name) values ('Água e Saneamento');
+insert into subsector (name) values ('Gás');
+insert into subsector (name) values ('Intermediários Financeiros');
+insert into subsector (name) values ('Securitizadoras de Recebíveis');
+insert into subsector (name) values ('Serviços Financeiros Diversos');
+insert into subsector (name) values ('Previdência e Seguros');
+insert into subsector (name) values ('Exploração de Imóveis');
+insert into subsector (name) values ('Holdings Diversificadas');
+insert into subsector (name) values ('Outros');
+
 CREATE TABLE `segment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NULL,
