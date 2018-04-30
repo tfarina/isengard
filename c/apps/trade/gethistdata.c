@@ -188,8 +188,6 @@ int main(int argc, char *argv[])
   password = iniparser_getstring(ini, "mysql:password", NULL);
   dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
 
-  printf("%s\n", dbname);
-
   curl_easy_cleanup(curl);
   curl_global_cleanup();
  
