@@ -34,6 +34,10 @@ int main(int argc, char **argv) {
   homedir = get_homedir();
   userconffile = make_file_path(homedir, USERCONFFILE);
   ini = iniparser_load(userconffile);
+  if (ini == NULL) {
+    fprintf(stderr, "cannot parse file: %s\n", userconffile);
+    return -1;
+  }
   host = iniparser_getstring(ini, "mysql:host", NULL);
   user = iniparser_getstring(ini, "mysql:user", NULL);
   password = iniparser_getstring(ini, "mysql:password", NULL);
