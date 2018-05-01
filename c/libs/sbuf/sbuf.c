@@ -42,10 +42,22 @@ static void *xrealloc(void *oldptr, size_t newsize)
         void *newptr;
 
 	newptr = realloc(oldptr, newsize);
-        if (newptr == NULL)
+        if (newptr == NULL) {
                 fatal("out of memory: %lu", newsize);
+	}
 
 	return newptr;
+}
+
+static void *xcalloc(size_t nmemb, size_t size)
+{
+        void *ptr;
+
+        if ((ptr = calloc(nmemb, size)) == NULL) {
+	        fatal("xcalloc failed");
+	}
+
+        return ptr;
 }
 
 /*
@@ -76,7 +88,7 @@ sbuf_t *sbuf_alloc(size_t capacity)
 {
         sbuf_t *b;
 
-	b = calloc(1, sizeof *b);
+	b = xcalloc(1, sizeof *b);
 
 	b->data = xmalloc(capacity);
 	b->capacity = capacity;
