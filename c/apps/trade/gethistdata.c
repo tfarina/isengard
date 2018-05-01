@@ -183,7 +183,7 @@ int main(int argc, char *argv[])
   userconffile = make_file_path(homedir, USERCONFFILE);
   ini = iniparser_load(userconffile);
   if (ini == NULL) {
-    fprintf(stderr, "cannot parse file: %s\n", userconffile);
+    fprintf(stderr, "Cannot read configuration file: %s\n", userconffile);
     return -1;
   }
   host = iniparser_getstring(ini, "mysql:host", NULL);
