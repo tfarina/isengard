@@ -198,6 +198,8 @@ int main(int argc, char *argv[])
     return -1;
   }
 
+  iniparser_freedict(ini);
+
   printf("Importing records...\n");
 
   for (i = 0; i < stock.ticks_length; i++) {

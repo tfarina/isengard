@@ -86,6 +86,8 @@ int main(int argc, char **argv) {
     return -1;
   }
 
+  iniparser_freedict(ini);
+
   /* NOTE: This will overwrite existing data. */
   printf("Importing records...\n");
 
