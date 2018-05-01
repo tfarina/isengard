@@ -65,8 +65,7 @@ int main(int argc, char *argv[])
   strftime(start_date_str, sizeof(start_date_str), "%F", tm);
   start_date = mktime(tm);
 
-  buf.data = NULL;
-  buf.length = 0;
+  buffer_init(&buf);
 
   printf("Downloading historical data.\n\n");
   printf("Symbol: %s\n", symbol);
@@ -128,8 +127,8 @@ int main(int argc, char *argv[])
   printf("url: %s\n", fullurl);
 
   free(buf.data);
-  buf.data = NULL;
-  buf.length = 0;
+
+  buffer_init(&buf);
 
   /* 4- With cookies and crumb, it is ready to download the historical data
    * (in csv format) to memory.

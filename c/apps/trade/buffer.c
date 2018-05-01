@@ -3,6 +3,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+void buffer_init(buffer_t *buf)
+{
+  buf->data = NULL;
+  buf->length = 0;
+}
+
 void buffer_add(buffer_t *buf, char *data, size_t size)
 {
   buf->data = (char *)realloc(buf->data, buf->length + size + 1);

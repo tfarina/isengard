@@ -8,6 +8,8 @@ typedef struct {
   size_t length;
 } buffer_t;
 
+void buffer_init(buffer_t *buf);
+
 void buffer_add(buffer_t *buf, char *data, size_t size);
 
 #endif /* BUFFER_H_ */
