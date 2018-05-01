@@ -26,6 +26,17 @@ static void NORETURN fatal(const char *msg, ...)
         exit(EXIT_FAILURE);
 }
 
+static void *xmalloc(size_t size)
+{
+        void *ptr;
+
+        if ((ptr = malloc(size)) == NULL) {
+                fatal("xmalloc failed");
+        }
+
+        return ptr;
+}
+
 static void *xrealloc(void *oldptr, size_t newsize)
 {
         void *newptr;
@@ -67,7 +78,7 @@ sbuf_t *sbuf_alloc(size_t capacity)
 
 	b = calloc(1, sizeof *b);
 
-	b->data = malloc(capacity);
+	b->data = xmalloc(capacity);
 	b->capacity = capacity;
 
 	b->length = 0;
