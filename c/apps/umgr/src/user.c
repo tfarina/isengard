@@ -91,7 +91,7 @@ int user_add(sqlite3* db,
   if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing insert statement: %s\n",
             sqlite3_errmsg(db));
-    /* TODO: close db here. */
+    db_close(db);
     return -1;
   }
 
