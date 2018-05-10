@@ -37,7 +37,7 @@ int user_init_database(sqlite3* db) {
 
   if ((rv = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL)) != SQLITE_OK) {
     fprintf(stderr, "error creating user table: %s\n", sqlite3_errstr(rv));
-    /* TODO: close db */
+    db_close(db);
     return -1;
   }
 
@@ -47,7 +47,7 @@ int user_init_database(sqlite3* db) {
 
   if (rv != SQLITE_DONE) {
     fprintf(stderr, "error creating user table: %s\n", sqlite3_errstr(rv));
-    /* TODO: close db */
+    db_close(db);
     return -1;
   }
 
