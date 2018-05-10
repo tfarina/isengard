@@ -10,6 +10,10 @@ static const char user_db_fname[] = "users.db";
 static sqlite3 *user_db;
 
 int user_open_db(void) {
+  if (user_db) {
+    return 0; /* Already open. */
+  }
+
   user_db = db_open(user_db_fname);
   if (!user_db) {
     fprintf(stderr, "error opening user database\n");
