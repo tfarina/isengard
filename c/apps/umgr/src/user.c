@@ -4,6 +4,26 @@
 
 #include "db.h"
 
+/* The name of the user database file.  */
+static const char user_db_fname[] = "users.db";
+
+static sqlite3 *user_db;
+
+int user_open_db(void) {
+  user_db = db_open(user_db_fname);
+  if (!user_db) {
+    fprintf(stderr, "error opening user database\n");
+    return -1;
+  }
+
+  if (user_init_database(user_db)) {
+    db_close(user_db);
+    return -1;
+  }
+
+  return 0;
+}
+
 int user_init_database(sqlite3* db) {
   int rv;
   sqlite3_stmt *stmt;
@@ -108,4 +128,44 @@ int user_delete(sqlite3 *db, const char *username) {
   sql_stmt_free(stmt);
 
   return 0;
+}
+
+/* Lists records from the user table. */
+int user_list(void) {
+  int err;
+
+  err = user_open_db();
+  if (err)
+    return err;
+
+  sqlite3_stmt *stmt;
+  const char *sql = sqlite3_mprintf("SELECT * FROM user");
+
+  if (sqlite3_prepare_v2(user_db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+    fprintf(stderr, "error preparing select statement: %s\n",
+            sqlite3_errmsg(user_db));
+    return -1;
+  }
+
+  // http://www.csl.mtu.edu/cs1141/www/examples/sqlite/sqlite_select.c
+  int col_width[] = {12, 9, 5, 19, 0};
+
+  printf("      uid   |    login  |     pw    |         email     \n");
+  printf(" -----------+-----------+-----------+-------------------\n");
+
+  while (sqlite3_step(stmt) == SQLITE_ROW) {
+    for (int i = 0; i < sqlite3_column_count(stmt); i++) {
+      printf(" %*s", col_width[1], sqlite3_column_text(stmt, i));
+      if (i < sqlite3_column_count(stmt) - 1) {
+        printf("  | ");
+      }
+    }
+    printf("\n");
+  }
+
+  sql_stmt_free(stmt);
+
+  db_close(user_db);
+
+  return err;
 }

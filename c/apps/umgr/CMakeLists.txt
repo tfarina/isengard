@@ -14,6 +14,7 @@ set(LIB_SRCS
     src/user.c
    )
 add_library(ulib ${LIB_SRCS})
+target_link_libraries(ulib sqlite3)
 
 set(LIST_SRCS src/list.c)
 
