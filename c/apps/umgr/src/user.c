@@ -8,6 +8,7 @@
 static const char user_db_fname[] = "users.db";
 
 static sqlite3 *user_db;
+static sqlite3_stmt *user_insert_stmt;
 
 int user_open_db(void) {
   if (user_db) {
@@ -94,6 +95,8 @@ int user_add(sqlite3* db,
     db_close(db);
     return -1;
   }
+
+  user_insert_stmt = stmt;
 
   sqlite3_bind_text(stmt, 1, username, -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 2, password, -1, SQLITE_STATIC);
