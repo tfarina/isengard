@@ -5,14 +5,14 @@ cc_library(
 )
 
 cc_library(
-    name = "string_list",
-    srcs = ["string_list.c"],
-    hdrs = ["string_list.h"],
+    name = "string_array",
+    srcs = ["string_array.c"],
+    hdrs = ["string_array.h"],
     deps = [":xalloc"],
 )
 
 cc_test(
-    name = "string_list_test",
-    srcs = ["string_list_test.c"],
-    deps = [":string_list"],
+    name = "string_array_test",
+    srcs = ["string_array_test.c"],
+    deps = [":string_array"],
 )

@@ -1,19 +1,19 @@
-#include "string_list.h"
+#include "string_array.h"
 
 #include <stdlib.h>
 
 #include "xalloc.h"
 
-void string_list_grow(string_list_t *s, int n);
+void string_array_grow(string_array_t *s, int n);
 
-void string_list_init(string_list_t *s)
+void string_array_init(string_array_t *s)
 {
 	s->strs = NULL;
 	s->len = 0;
 	s->cap = 0;
 }
 
-void string_list_reset(string_list_t *s)
+void string_array_reset(string_array_t *s)
 {
 	int i;
 
@@ -24,16 +24,16 @@ void string_list_reset(string_list_t *s)
 	s->len = 0;
 }
 
-void string_list_free(string_list_t *s)
+void string_array_free(string_array_t *s)
 {
-	string_list_reset(s);
+	string_array_reset(s);
 	free(s->strs);
-	string_list_init(s);
+	string_array_init(s);
 }
 
-// string_list_grow ensures that the list has room for at least
+// string_array_grow ensures that the list has room for at least
 // n more entries between len and cap.
-void string_list_grow(string_list_t *s, int n)
+void string_array_grow(string_array_t *s, int n)
 {
 	int want;
 
@@ -46,19 +46,19 @@ void string_list_grow(string_list_t *s, int n)
         }
 }
 
-void string_list_add(string_list_t *s, char *str)
+void string_array_add(string_array_t *s, char *str)
 {
-	string_list_grow(s, 1);
+	string_array_grow(s, 1);
 	if(str != NULL)
 		str = xstrdup(str);
 	s->strs[s->len++] = str;
 }
 
-void string_list_copy(string_list_t *dst, char **src, int srclen)
+void string_array_copy(string_array_t *dst, char **src, int srclen)
 {
 	int i;
 
-	/* Use string_list_ad(), to make copies of strings. */
+	/* Use string_array_add(), to make copies of strings. */
         for (i = 0; i < srclen; i++)
-                string_list_add(dst, src[i]);
+                string_array_add(dst, src[i]);
 }
