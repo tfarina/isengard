@@ -21,7 +21,9 @@ int user_add(sqlite3* db,
 
 int user_delete(sqlite3 *db, const char *username);
 
-/* Lists records from the user table. */
+/**
+ * Lists records from the user table.
+ */
 int user_list(void);
 
 #endif  /* USER_H_ */

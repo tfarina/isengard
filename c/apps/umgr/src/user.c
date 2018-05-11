@@ -137,7 +137,7 @@ int user_delete(sqlite3 *db, const char *username) {
   return 0;
 }
 
-/* Lists records from the user table. */
+
 int user_list(void) {
   int err;
 
