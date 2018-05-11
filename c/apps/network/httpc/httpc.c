@@ -43,12 +43,16 @@ static NORETURN void fatal(const char *fmt, ...)
         exit(EXIT_FAILURE);
 }
 
-static void *xrealloc(void *p, size_t n)
+static void *xrealloc(void *oldptr, size_t newsize)
 {
-	p = realloc(p, n);
-        if (p == NULL)
-                fatal("out of memory: %lu", n);
-	return p;
+        void *newptr;
+
+	newptr = realloc(oldptr, newsize);
+        if (newptr == NULL) {
+                fatal("out of memory: %lu", newsize);
+	}
+
+	return newptr;
 }
 
 static void sbuf_setlen(sbuf *b, size_t len)
