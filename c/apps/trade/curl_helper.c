@@ -20,7 +20,7 @@ size_t write_data_to_memory(void *data, size_t size, size_t nmemb, void *ctx)
     buffer_t *buf = (buffer_t *)ctx;
     size_t realsize = size * nmemb;
 
-    buffer_add(buf, data, realsize);
+    buffer_append(buf, data, realsize);
 
     return realsize;
 }

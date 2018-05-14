@@ -10,6 +10,6 @@ typedef struct {
 
 void buffer_init(buffer_t *buf);
 
-void buffer_add(buffer_t *buf, char *data, size_t size);
+void buffer_append(buffer_t *buf, char *data, size_t size);
 
 #endif /* BUFFER_H_ */
