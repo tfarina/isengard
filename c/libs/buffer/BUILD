@@ -1,11 +1,11 @@
 cc_library(
-    name = "sbuf",
-    srcs = ["sbuf.c"],
-    hdrs = ["sbuf.h"],
+    name = "buffer",
+    srcs = ["buffer.c"],
+    hdrs = ["buffer.h"],
 )
 
 cc_test(
-    name = "sbuf_test",
-    srcs = ["sbuf_test.c"],
-    deps = [":sbuf"],
+    name = "buffer_test",
+    srcs = ["buffer_test.c"],
+    deps = [":buffer"],
 )
