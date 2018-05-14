@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 2.8)
-project(sbuf C)
+project(buffer C)
 
 set(SRCS
-    sbuf.c
+    buffer.c
     )
 
-add_library(sbuf ${SRCS})
+add_library(buffer ${SRCS})
 
-add_executable(sbuf_test sbuf_test.c)
-target_link_libraries(sbuf_test sbuf)
+add_executable(buffer_test buffer_test.c)
+target_link_libraries(buffer_test buffer)

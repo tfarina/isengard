@@ -1,4 +1,4 @@
-#include "sbuf.h"
+#include "buffer.h"
 
 #include <stdarg.h>
 #include <stdio.h>
@@ -61,10 +61,10 @@ static void *xcalloc(size_t nmemb, size_t size)
 }
 
 /*
- * _sbuf_realloc ensures that the buffer has at least |length| more bytes between its
+ * _buffer_realloc ensures that the buffer has at least |length| more bytes between its
  * length and capacity.
  */
-static void _sbuf_realloc(sbuf_t *b, size_t length)
+static void _buffer_realloc(buffer_t *b, size_t length)
 {
 	size_t want;
 
@@ -77,16 +77,16 @@ static void _sbuf_realloc(sbuf_t *b, size_t length)
         }
 }
 
-void sbuf_init(sbuf_t *b)
+void buffer_init(buffer_t *b)
 {
 	b->data = NULL;
 	b->length = 0;
 	b->capacity = 0;
 }
 
-sbuf_t *sbuf_alloc(size_t capacity)
+buffer_t *buffer_alloc(size_t capacity)
 {
-        sbuf_t *b;
+        buffer_t *b;
 
 	b = xcalloc(1, sizeof *b);
 
@@ -98,27 +98,27 @@ sbuf_t *sbuf_alloc(size_t capacity)
         return b;
 }
 
-void sbuf_free(sbuf_t *b)
+void buffer_free(buffer_t *b)
 {
         free(b->data);
         free(b);
 }
 
-void sbuf_reset(sbuf_t *b)
+void buffer_reset(buffer_t *b)
 {
 	b->length = 0;
 	*b->data = 0;
 }
 
-void sbuf_append(sbuf_t *b, const void *data, size_t length)
+void buffer_append(buffer_t *b, const void *data, size_t length)
 {
-	_sbuf_realloc(b, length);
+	_buffer_realloc(b, length);
 	memcpy(b->data + b->length, data, length);
         b->length += length;
         b->data[b->length] = '\0'; /* always 0 terminate data. */
 }
 
-void sbuf_append_str(sbuf_t *b, const char *str)
+void buffer_append_str(buffer_t *b, const char *str)
 {
-	sbuf_append(b, str, strlen(str));
+	buffer_append(b, str, strlen(str));
 }
