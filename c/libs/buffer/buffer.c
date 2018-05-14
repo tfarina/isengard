@@ -31,7 +31,7 @@ static void *xmalloc(size_t size)
         void *ptr;
 
         if ((ptr = malloc(size)) == NULL) {
-                fatal("xmalloc failed");
+	  fatal("Out of memory, malloc failed, tried to allocate %lu bytes", (unsigned long)size);
         }
 
         return ptr;
