@@ -1,5 +1,3 @@
-Move this to sbuf/ ?
-
 include/sbuf.h ?
 src/sbuf.c ?
 src/sbuf_test.c ?
