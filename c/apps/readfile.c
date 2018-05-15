@@ -4,6 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * Reads the contents of |filename| and returns it. |rlen| holds its
+ * length.
+ *
+ * Returns NULL on failure.
+ */
 static char *read_file(const char *filename, size_t *rlen)
 {
   FILE *fp;
