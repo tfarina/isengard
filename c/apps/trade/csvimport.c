@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
     return 1;
   }
  
-  csvdata = readfile(argv[1], &len);
+  csvdata = read_file(argv[1], &len);
   if (csvdata == NULL)
     return 1;
  

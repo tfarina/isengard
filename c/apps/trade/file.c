@@ -8,7 +8,7 @@
 
 #define PATH_SEP '/'
 
-char *readfile(const char *filename, size_t *len) {
+char *read_file(const char *filename, size_t *len) {
   // open file for reading
   FILE *fh = fopen(filename, "r");
   if (fh == NULL) {
