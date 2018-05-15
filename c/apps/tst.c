@@ -5,7 +5,7 @@
  
 #include "csv.h"
  
-char *read_file(char *filename, size_t *len) {
+static char *read_file(char *filename, size_t *len) {
   // open file for reading
   FILE *fh = fopen(filename, "r");
   if (fh == NULL) {
