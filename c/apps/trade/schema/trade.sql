@@ -767,3 +767,20 @@ insert into stockinfo (symbol, name, sector, subsector, segment) values ('OPSE',
 insert into stockinfo (symbol, name, sector, subsector, segment) values ('OPTS', 'SUL 116 PART', 'Financeiros e Outros', 'Outros', 'Outros');
 insert into stockinfo (symbol, name, sector, subsector, segment) values ('TLVT', 'TELINVEST', 'Financeiros e Outros', 'Outros', 'Outros');
 insert into stockinfo (symbol, name, sector, subsector, segment) values ('OPZI', 'ZAIN PART', 'Financeiros e Outros', 'Outros', 'Outros');
+
+CREATE TABLE `symbol_code` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `symbol` varchar(255) NULL,
+  `code` varchar(255) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into symbol_code (symbol, code) values ('AELP', 'AELP3');
+insert into symbol_code (symbol, code) values ('TIET', 'TIET3');
+insert into symbol_code (symbol, code) values ('TIET', 'TIET4');
+insert into symbol_code (symbol, code) values ('TIET', 'TIET11');
+insert into symbol_code (symbol, code) values ('AFLT', 'AFLT3');
+insert into symbol_code (symbol, code) values ('ALEF', 'ALEF3B');
+insert into symbol_code (symbol, code) values ('RPAD', 'RPAD3');
+insert into symbol_code (symbol, code) values ('RPAD', 'RPAD5');
+insert into symbol_code (symbol, code) values ('RPAD', 'RPAD6');
