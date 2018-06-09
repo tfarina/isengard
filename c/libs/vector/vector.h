@@ -7,13 +7,13 @@
  * A vector_t is a generic vector.
  */
 typedef struct {
-        /* The data contained in the buffer. */
-	void **items;
+        /* This is a pointer that forms an array of pointers to elements. */
+	void **entries;
 
-        /* The current length of the vector, the position for reading/writing. */
+        /* The current number of entries in the vector. */
 	size_t length;
 
-        /* The amount of elements the vector can contain. */
+        /* The number of allocated entries. */
 	size_t capacity;
 } vector_t;
 
