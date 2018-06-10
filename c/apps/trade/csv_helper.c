@@ -33,7 +33,8 @@ void process_field(void *field,
  
   switch (stock->cur_field) {
   case DATE:
-    // start of a new record; check if we need to reallocate
+    /* Start of a new record; check if we need to reallocate. */
+    /* If the number of entries in the vector has reached the capacity, resize. */
     if (stock->ticks_length == stock->ticks_capacity) {
       stock->ticks_capacity *= 2;
       stock->ticks = realloc(stock->ticks,
