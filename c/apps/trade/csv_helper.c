@@ -37,7 +37,7 @@ void process_field(void *field,
     if (stock->ticks_length == stock->ticks_capacity) {
       stock->ticks_capacity *= 2;
       stock->ticks = realloc(stock->ticks,
-                             sizeof(stock_tick_t) * stock->ticks_capacity);
+                             stock->ticks_capacity * sizeof(stock_tick_t));
       if (stock->ticks == NULL) {
         fprintf(stderr,
                 "failed to reallocate %zu bytes for stock data: ",
