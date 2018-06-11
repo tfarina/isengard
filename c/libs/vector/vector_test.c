@@ -7,6 +7,8 @@ int main(void) {
 
         vp = vector_alloc(2);
 
+        printf("%d\n", vector_length(vp));
+
 	vector_free(&vp);
 
         return 0;

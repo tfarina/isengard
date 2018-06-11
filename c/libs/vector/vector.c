@@ -83,3 +83,17 @@ void vector_clear(vector_t *v)
                 v->length = 0;
         }
 }
+
+int vector_length(const vector_t *v)
+{
+        return v ? v->length : 0;
+}
+
+void *vector_get(const vector_t *v, int pos)
+{
+        if (pos < 0 || !v || pos >= v->length) {
+                return NULL;
+        }
+
+        return v->entries[pos];
+}
