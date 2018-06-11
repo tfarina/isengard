@@ -61,3 +61,25 @@ vector_t * vector_alloc(int capacity)
 
         return v;
 }
+
+void vector_free(vector_t **v)
+{
+        if (v && *v) {
+                vector_clear(*v);
+                free((*v)->entries);
+                free(*v);
+        }
+}
+
+void vector_clear(vector_t *v)
+{
+        int i;
+
+        if (v) {
+                for (i = 0; i < v->length; i++) {
+                        free(v->entries[i]);
+                }
+
+                v->length = 0;
+        }
+}

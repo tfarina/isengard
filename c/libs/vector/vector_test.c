@@ -7,5 +7,7 @@ int main(void) {
 
         vp = vector_alloc(2);
 
+	vector_free(&vp);
+
         return 0;
 }
