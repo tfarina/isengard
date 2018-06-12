@@ -52,6 +52,42 @@ static void *xcalloc(size_t nmemb, size_t size)
         return ptr;
 }
 
+static void *xrealloc(void *oldptr, size_t newsize)
+{
+        void *newptr;
+
+	newptr = realloc(oldptr, newsize);
+        if (newptr == NULL) {
+                fatal("out of memory: %lu", newsize);
+	}
+
+	return newptr;
+}
+
+static int _vector_add_private(vector_t *v, const void *elem, size_t size, int pos)
+{
+        void *elemp;
+
+        if (pos < 0 || !v || pos > v->length) {
+	        return -1;
+	}
+
+        elemp = xmalloc(size);
+        memcpy(elemp, elem, size);
+
+        if (v->capacity == v->length) {
+                v->entries = xrealloc(v->entries, (v->capacity *= 2) * sizeof(void *));
+	}
+
+        memmove(&v->entries[pos + 1], &v->entries[pos], (v->length - pos) * sizeof(void *));
+
+        v->length++;
+
+        v->entries[pos] = elemp;
+
+        return pos;
+}
+
 vector_t * vector_alloc(int capacity)
 {
         vector_t *v = xcalloc(1, sizeof(vector_t));
@@ -82,6 +118,11 @@ void vector_clear(vector_t *v)
 
                 v->length = 0;
         }
+}
+
+int vector_append(vector_t *v, const void *elem, size_t size)
+{
+  return v ? _vector_add_private(v, elem, size, v->length) : -1;
 }
 
 int vector_length(const vector_t *v)
