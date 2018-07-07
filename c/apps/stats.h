@@ -5,5 +5,6 @@
 
 double stats_sum(double a[], size_t size);
 double stats_mean(double a[], size_t size);
+double stats_variance(double a[], size_t size);
 
 #endif /* STATS_H_ */
