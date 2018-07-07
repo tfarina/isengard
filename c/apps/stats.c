@@ -1,9 +1,10 @@
-#include <stddef.h>
 #include <stdio.h>
+
+#include "stats.h"
 
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
-static double Sum(double a[], size_t size)
+double stats_sum(double a[], size_t size)
 {
   double sum = 0.0;
   size_t i;
@@ -15,11 +16,11 @@ static double Sum(double a[], size_t size)
   return sum;
 }
 
-static double Mean(double a[], size_t size)
+double stats_mean(double a[], size_t size)
 {
   double sum = 0.0;
 
-  sum = Sum(a, size);
+  sum = stats_sum(a, size);
 
   return sum / size;
 }
@@ -30,8 +31,8 @@ int main(void)
   double sum = 0.0;
   double mean = 0.0;
 
-  sum = Sum(a, ARRAY_SIZE(a));
-  mean = Mean(a, ARRAY_SIZE(a));
+  sum = stats_sum(a, ARRAY_SIZE(a));
+  mean = stats_mean(a, ARRAY_SIZE(a));
 
   printf("%f\n", sum);
   printf("%f\n", mean);
