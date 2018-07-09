@@ -1,5 +1,7 @@
 #include "stats.h"
 
+#include <math.h>
+
 double stats_sum(double a[], size_t size)
 {
   double sum = 0.0;
@@ -34,4 +36,9 @@ double stats_variance(double a[], size_t size)
   }
 
   return sum / (size - 1);
+}
+
+double stats_stdev(double a[], size_t size)
+{
+  return sqrt(stats_variance(a, size));
 }
