@@ -14,7 +14,7 @@ int main(void)
 
   sum = stats_sum(a, ARRAY_SIZE(a));
   mean = stats_mean(a, ARRAY_SIZE(a));
-  variance = stats_variance(a, ARRAY_SIZE(a));
+  variance = stats_var(a, ARRAY_SIZE(a));
   stdev = stats_stdev(a, ARRAY_SIZE(a));
 
   printf("sum %f\n", sum);

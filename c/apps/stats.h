@@ -16,7 +16,7 @@ double stats_mean(double a[], size_t size);
 /**
  * Returns the sample variance of the entries in the specified array.
  */
-double stats_variance(double a[], size_t size);
+double stats_var(double a[], size_t size);
 
 /**
  * Returns the sample standard deviation of the entries in the specified array.

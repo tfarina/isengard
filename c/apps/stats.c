@@ -23,7 +23,7 @@ double stats_mean(double a[], size_t size)
   return sum / size;
 }
 
-double stats_variance(double a[], size_t size)
+double stats_var(double a[], size_t size)
 {
   double avg = 0.0;
   double sum = 0.0;
@@ -40,5 +40,5 @@ double stats_variance(double a[], size_t size)
 
 double stats_stdev(double a[], size_t size)
 {
-  return sqrt(stats_variance(a, size));
+  return sqrt(stats_var(a, size));
 }
