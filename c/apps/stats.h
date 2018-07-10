@@ -11,7 +11,7 @@ double stats_sum(double a[], size_t size);
 /**
  * Returns the arithmetic mean of the entries in the specified array.
  */
-double stats_mean(double a[], size_t size);
+double stats_average(double a[], size_t size);
 
 /**
  * Returns the sample variance of the entries in the specified array.

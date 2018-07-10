@@ -14,7 +14,7 @@ double stats_sum(double a[], size_t size)
   return sum;
 }
 
-double stats_mean(double a[], size_t size)
+double stats_average(double a[], size_t size)
 {
   double sum = 0.0;
 
@@ -29,7 +29,7 @@ double stats_var(double a[], size_t size)
   double sum = 0.0;
   size_t i;
 
-  avg = stats_mean(a, size);
+  avg = stats_average(a, size);
 
   for (i = 0; i < size; i++) {
     sum += (a[i] - avg) * (a[i] - avg);
