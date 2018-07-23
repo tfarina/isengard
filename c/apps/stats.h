@@ -4,6 +4,18 @@
 #include <stddef.h>
 
 /**
+ * Returns the minimum of the entries in the specified array, or NAN if the
+ * array is empty.
+ */
+double stats_min(double a[], size_t size);
+
+/**
+ * Returns the maximum of the entries in the specified array, or NAN if the
+ * array is empty.
+ */
+double stats_max(double a[], size_t size);
+
+/**
  * Returns the sum of the values in the specified array.
  */
 double stats_sum(double a[], size_t size);

@@ -2,6 +2,42 @@
 
 #include <math.h>
 
+double stats_min(double a[], size_t size)
+{
+  size_t i;
+  double min = +INFINITY;
+
+  for (i = 0; i < size; i++) {
+    if(isnan(a[i])) {
+      return NAN;
+    }
+
+    if (a[i] < min) {
+      min = a[i];
+    }
+  }
+
+  return min;
+}
+
+double stats_max(double a[], size_t size)
+{
+  size_t i;
+  double max = -INFINITY;
+
+  for (i = 0; i < size; i++) {
+    if(isnan(a[i])) {
+      return NAN;
+    }
+
+    if (a[i] > max) {
+      max = a[i];
+    }
+  }
+
+  return max;
+}
+
 double stats_sum(double a[], size_t size)
 {
   double sum = 0.0;

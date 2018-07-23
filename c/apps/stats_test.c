@@ -22,6 +22,8 @@ int main(void)
   double avg = 0.0;
   double variance = 0.0;
   double stdev = 0.0;
+  double min = 0.0;
+  double max = 0.0;
 
   printf("Array:\n");
   print_array(a, ARRAY_SIZE(a));
@@ -30,11 +32,15 @@ int main(void)
   avg = stats_average(a, ARRAY_SIZE(a));
   variance = stats_var(a, ARRAY_SIZE(a));
   stdev = stats_stdev(a, ARRAY_SIZE(a));
+  min = stats_min(a, ARRAY_SIZE(a));
+  max = stats_max(a, ARRAY_SIZE(a));
 
   printf("The sum is %f\n", sum);
   printf("The average is %f\n", avg);
   printf("The variance is %f\n", variance);
   printf("The standard deviation is %f\n", stdev);
+  printf("The min value in array is %f\n", min);
+  printf("The max value in array is %f\n", max);
 
   return 0;
 }
