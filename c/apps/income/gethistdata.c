@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
 
   printf("%s\n", buf.data);
 
-  // NOW I WANT TO SAVE buf.data to SYMBOL.csv and INSERT INTO MYSQL DATABASE.
+  // Now proceed to save buf.data to SYMBOL.csv file.
   sprintf(filename, "%s.csv", symbol);
   write_file(filename, buf.data, buf.length);
 
@@ -194,6 +194,7 @@ int main(int argc, char *argv[])
   curl_easy_cleanup(curl);
   curl_global_cleanup();
  
+  // Now connect to MySQL database to start inserting the data into the table.
   if ((conn = db_mysql_connect(host, user, password, dbname)) == NULL) {
     return -1;
   }
