@@ -18,7 +18,7 @@ typedef struct {
 	char *data;
 	size_t len;
 	size_t cap;
-} sbuf;
+} buffer_t;
 
 #if defined(__GNUC__)
 #define NORETURN __attribute__((__noreturn__))
@@ -55,15 +55,15 @@ static void *xrealloc(void *oldptr, size_t newsize)
 	return newptr;
 }
 
-static void sbuf_setlen(sbuf *b, size_t len)
+static void buffer_setlen(buffer_t *b, size_t len)
 {
         b->len = len;
         b->data[len] = '\0';
 }
 
-static sbuf *sbuf_alloc(size_t capacity)
+static buffer_t *buffer_alloc(size_t capacity)
 {
-        sbuf *b = malloc(sizeof(sbuf));
+        buffer_t *b = malloc(sizeof(buffer_t));
 
         b->data = malloc(capacity + 1);
         *b->data = 0; /* always 0 terminate data to allow string functions. */
@@ -73,20 +73,20 @@ static sbuf *sbuf_alloc(size_t capacity)
         return b;
 }
 
-static void sbuf_init(sbuf *b)
+static void buffer_init(buffer_t *b)
 {
 	b->data = NULL;
 	b->len = 0;
 	b->cap = 0;
 }
 
-static void sbuf_free(sbuf *b)
+static void buffer_free(buffer_t *b)
 {
 	free(b->data);
-	sbuf_init(b);
+	buffer_init(b);
 }
 
-static void sbuf_grow(sbuf *b, size_t extra)
+static void buffer_grow(buffer_t *b, size_t extra)
 {
 	size_t want;
 
@@ -99,11 +99,11 @@ static void sbuf_grow(sbuf *b, size_t extra)
         }
 }
 
-static void sbuf_append(sbuf *b, const void *data, size_t len)
+static void buffer_append(buffer_t *b, const void *data, size_t len)
 {
-	sbuf_grow(b, len);
+	buffer_grow(b, len);
 	memcpy(b->data + b->len, data, len);
-        sbuf_setlen(b, b->len + len);
+        buffer_setlen(b, b->len + len);
 }
 
 static ssize_t fd_write(int fd, char *buf, size_t len)
@@ -181,7 +181,7 @@ int main(int argc, char **argv) {
   size_t bytes_to_send;
   ssize_t bytes_received;
   char data[MIN_BUFLEN];
-  sbuf *response;
+  buffer_t *response;
 
   snprintf(portstr, sizeof(portstr), "%d", port);
   memset(&hints, 0, sizeof(hints));
@@ -242,7 +242,7 @@ int main(int argc, char **argv) {
 
   printf("receiving data...\n");
 
-  response = sbuf_alloc(102400);
+  response = buffer_alloc(102400);
 
   char *buf, *p = NULL;
   size_t bufcap;
@@ -278,7 +278,7 @@ int main(int argc, char **argv) {
 
   /*
   while ((bytes_received = fd_read_all(sockfd, data, sizeof(data))) > 0) {
-    sbuf_append(response, data, bytes_received);
+    buffer_append(response, data, bytes_received);
   }
 
   */
@@ -286,7 +286,7 @@ int main(int argc, char **argv) {
 
   //printf("%s\n", response->data);
 
-  sbuf_free(response);
+  buffer_free(response);
 
   return 0;
 }
