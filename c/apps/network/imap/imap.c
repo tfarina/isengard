@@ -19,17 +19,18 @@ void init_string(struct string *s) {
 }
 
 size_t write_data_to_memory(void *ptr, size_t size, size_t nmemb, struct string *s) {
-  size_t new_len = s->len + size*nmemb;
-  s->ptr = realloc(s->ptr, new_len+1);
+  size_t realsize = size * nmemb;
+  size_t new_len = s->len + realsize;
+  s->ptr = realloc(s->ptr, new_len + 1);
   if (s->ptr == NULL) {
     fprintf(stderr, "realloc() failed\n");
     exit(EXIT_FAILURE);
   }
-  memcpy(s->ptr+s->len, ptr, size*nmemb);
+  memcpy(s->ptr+s->len, ptr, realsize);
   s->ptr[new_len] = '\0';
   s->len = new_len;
 
-  return size*nmemb;
+  return realsize;
 }
 
 /* http://tiku.io/questions/1891989/c-use-libcurl-to-list-imap-sent-mails */
