@@ -1,8 +1,7 @@
 #include <stdio.h>
 
+#include "arraysize.h"
 #include "stats.h"
-
-#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
 static void print_array(double a[], size_t size)
 {

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
+#include "arraysize.h"
 
 int main(void) {
   int numbers[] = {0, 1, 2, 3};
