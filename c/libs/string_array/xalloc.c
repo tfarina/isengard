@@ -5,12 +5,13 @@
 
 #include "log.h"
 
-void* xrealloc(void *oldptr, size_t size)
+void* xrealloc(void *oldptr, size_t newsize)
 {
         void *newptr;
 
-	if ((newptr = realloc(oldptr, size)) == NULL)
+	if ((newptr = realloc(oldptr, newsize)) == NULL) {
                 fatal("out of memory");
+	}
 
 	return newptr;
 }

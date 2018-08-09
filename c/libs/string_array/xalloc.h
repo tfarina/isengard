@@ -8,7 +8,7 @@
  * returns the new (possibly moved) pointer.
  * It calls fatal if it runs out of memory.
  */
-void *xrealloc(void *oldptr, size_t size);
+void *xrealloc(void *oldptr, size_t newsize);
 
 /**
  * xstrdup returns a newly allocated copy of s.
