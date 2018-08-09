@@ -1,5 +1,1 @@
-include/sbuf.h ?
-src/sbuf.c ?
-src/sbuf_test.c ?
-
-sudo ninja install ?
+1- Have a 'sudo ninja install'?
