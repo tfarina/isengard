@@ -18,7 +18,7 @@ void init_string(struct string *s) {
   s->ptr[0] = '\0';
 }
 
-size_t writefunc(void *ptr, size_t size, size_t nmemb, struct string *s) {
+size_t write_data_to_memory(void *ptr, size_t size, size_t nmemb, struct string *s) {
   size_t new_len = s->len + size*nmemb;
   s->ptr = realloc(s->ptr, new_len+1);
   if (s->ptr == NULL) {
@@ -33,7 +33,7 @@ size_t writefunc(void *ptr, size_t size, size_t nmemb, struct string *s) {
 }
 
 /* http://tiku.io/questions/1891989/c-use-libcurl-to-list-imap-sent-mails */
-int main(int argc,char *argv[]) {
+int main(int argc, char *argv[]) {
   CURL *curl;
   CURLcode res;
 
@@ -47,7 +47,7 @@ int main(int argc,char *argv[]) {
     curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
 
     curl_easy_setopt(curl, CURLOPT_URL, "imaps://imap.gmail.com:993/\"[Gmail]/All Mail\"");
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writefunc);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
     res = curl_easy_perform(curl);
 
