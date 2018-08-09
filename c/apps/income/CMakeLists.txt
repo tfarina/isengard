@@ -20,10 +20,10 @@ set(INIPARSER_SRCS
 
 add_library(iniparser ${INIPARSER_SRCS})
 
-add_executable(print_csv_ticks print_csv_ticks.c file.c csv_helper.c)
-target_link_libraries(print_csv_ticks libcsv)
-
 find_package(MySQL)
+
+add_executable(print_csv_ticks print_csv_ticks.c file.c csv_helper.c stock.c)
+target_link_libraries(print_csv_ticks libcsv ${MYSQL_LIBRARY})
 
 find_package(CURL REQUIRED)
 if (CURL_FOUND)

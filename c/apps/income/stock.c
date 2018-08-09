@@ -1,6 +1,13 @@
 #include "stock.h"
 
 #include <stdio.h>
+#include <stdlib.h>
+
+void stock_ticks_alloc(stock_info_t *stock, int capacity)
+{
+  stock->ticks = malloc(capacity * sizeof(stock_tick_t));
+  stock->ticks_capacity = capacity;
+}
 
 int stock_add_tick(MYSQL *conn, stock_info_t *stock, stock_tick_t *tick)
 {
