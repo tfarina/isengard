@@ -8,9 +8,9 @@ struct string {
   size_t len;
 };
 
-void init_string(struct string *s) {
+void string_init(struct string *s) {
   s->len = 0;
-  s->ptr = malloc(s->len+1);
+  s->ptr = malloc(s->len + 1);
   if (s->ptr == NULL) {
     fprintf(stderr, "malloc() failed\n");
     exit(EXIT_FAILURE);
@@ -21,12 +21,13 @@ void init_string(struct string *s) {
 size_t write_data_to_memory(void *ptr, size_t size, size_t nmemb, struct string *s) {
   size_t realsize = size * nmemb;
   size_t new_len = s->len + realsize;
+
   s->ptr = realloc(s->ptr, new_len + 1);
   if (s->ptr == NULL) {
     fprintf(stderr, "realloc() failed\n");
     exit(EXIT_FAILURE);
   }
-  memcpy(s->ptr+s->len, ptr, realsize);
+  memcpy(s->ptr + s->len, ptr, realsize);
   s->ptr[new_len] = '\0';
   s->len = new_len;
 
@@ -41,7 +42,8 @@ int main(int argc, char *argv[]) {
   curl = curl_easy_init();
   if (curl) {
     struct string s;
-    init_string(&s);
+    string_init(&s);
+
     curl_easy_setopt(curl, CURLOPT_USERNAME, argv[1]);
     curl_easy_setopt(curl, CURLOPT_PASSWORD, argv[2]);
     curl_easy_setopt(curl, CURLOPT_USE_SSL, (long)CURLUSESSL_ALL);
