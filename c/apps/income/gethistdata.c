@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 
   curl_global_init(CURL_GLOBAL_NOTHING);
 
-  /* 1- Download html page to extract the crumb value from CrumbStore. */
+  /* 1- Download history page to get the cookies. */
   curl = curl_easy_init();
 
   fp = fopen("history.html", "w");
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
     return -1;
   }
 
-  /* 2- Download the html page to memory to extract the crumb. */
+  /* 2- Download history page to memory to get the crumb. */
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&buf);
             
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
   buffer_init(&buf);
 
   /* 4- With cookies and crumb, it is ready to download the historical data
-   * (in csv format) to memory.
+   * (in csv format) to memory and save it to file.
    */
   curl_easy_setopt(curl, CURLOPT_URL, fullurl);
   curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
@@ -146,12 +146,11 @@ int main(int argc, char *argv[])
 
   printf("%s\n", buf.data);
 
-  // Now proceed to save buf.data to SYMBOL.csv file.
+  /* 5- Now proceed to save buf.data to file. */
   sprintf(filename, "%s.csv", symbol);
   write_file(filename, buf.data, buf.length);
 
-  // Now that we have downloaded the historical data, parse the csv content
-  // to store it in the MySQL table. 
+  /* 6- Read the file to parse the csv and import it to the MySQL table. */
   rc = csv_init(&parser, CSV_APPEND_NULL);
   if (rc != 0) {
     fprintf(stderr, "failed to initialize CSV parser\n");
@@ -194,7 +193,7 @@ int main(int argc, char *argv[])
   curl_easy_cleanup(curl);
   curl_global_cleanup();
  
-  // Now connect to MySQL database to start inserting the data into the table.
+  /* Connect to the database to start importing the data. */
   if ((conn = db_mysql_connect(host, user, password, dbname)) == NULL) {
     return -1;
   }
