@@ -22,18 +22,18 @@
 int main(int argc, char *argv[])
 {
   char *symbol;
-  char filename[255];
-  char histurl[255];
-  CURL *curl;
-  CURLcode result;
-  FILE *fp;
-  buffer_t buf;
-  char fullurl[255];
   time_t start_date;
   time_t end_date;
   struct tm* tm;
   char start_date_str[12];
   char end_date_str[12];
+  CURL *curl;
+  CURLcode result;
+  char histurl[255];
+  FILE *fp;
+  buffer_t buf;
+  char fullurl[255];
+  char filename[255];
   struct csv_parser parser;
   int rc;
   stock_info_t stock;
@@ -55,17 +55,13 @@ int main(int argc, char *argv[])
 
   symbol = strdup(argv[1]);
 
-  sprintf(histurl, "https://finance.yahoo.com/quote/%s/history", symbol);
-
-  end_date = time(0);   // get time now (today)
+  end_date = time(0);   // get time now (today).
   tm = localtime(&end_date);
   strftime(end_date_str, sizeof(end_date_str), "%F", tm);
 
-  tm->tm_year = tm->tm_year - 1; // 1 ago from today
+  tm->tm_year = tm->tm_year - 1; // 1 year ago from today.
   strftime(start_date_str, sizeof(start_date_str), "%F", tm);
   start_date = mktime(tm);
-
-  buffer_init(&buf);
 
   printf("Downloading historical data.\n\n");
   printf("Symbol: %s\n", symbol);
@@ -77,6 +73,8 @@ int main(int argc, char *argv[])
 
   /* 1- Download history page to get the cookies. */
   curl = curl_easy_init();
+
+  sprintf(histurl, "https://finance.yahoo.com/quote/%s/history", symbol);
 
   fp = fopen("history.html", "w");
 
@@ -97,6 +95,8 @@ int main(int argc, char *argv[])
     fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
     return -1;
   }
+
+  buffer_init(&buf);
 
   /* 2- Download history page to memory to get the crumb. */
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
