@@ -5,11 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#if defined(__GNUC__)
-#define NORETURN __attribute__((__noreturn__))
-#else
-#define NORETURN
-#endif
+#include "macros.h"
 
 static void NORETURN fatal(const char *msg, ...)
 {
