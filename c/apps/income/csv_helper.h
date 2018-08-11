@@ -3,7 +3,9 @@
 
 #include <stddef.h>
 
-void process_field(void *field, size_t field_len __attribute__((unused)), void *ctx);
-void process_row(int delim __attribute__((unused)), void *ctx);
+#define UNUSED __attribute__((unused))
+
+void process_field(void *field, size_t field_len UNUSED, void *ctx);
+void process_row(int delim UNUSED, void *ctx);
 
 #endif  /* CSV_HELPER_H_ */

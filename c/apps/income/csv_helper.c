@@ -7,7 +7,7 @@
 #include "stock.h"
 
 void process_field(void *field,
-		   size_t field_len __attribute__((unused)),
+		   size_t field_len UNUSED,
 		   void *ctx)
 {
   stock_info_t *stock = (stock_info_t *)ctx;
@@ -89,7 +89,7 @@ void process_field(void *field,
   stock->cur_field = (stock->cur_field + 1) % 7;
 }
  
-void process_row(int delim __attribute__((unused)), void *ctx) {
+void process_row(int delim UNUSED, void *ctx) {
   stock_info_t *stock = (stock_info_t *)ctx;
   if (stock->error) return;
  
