@@ -12,6 +12,8 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include "macros.h"
+
 #define MIN_BUFLEN 1024
 
 typedef struct {
@@ -19,14 +21,6 @@ typedef struct {
 	size_t len;
 	size_t cap;
 } buffer_t;
-
-#if defined(__GNUC__)
-#define NORETURN __attribute__((__noreturn__))
-#elif defined(_MSC_VER)
-#define NORETURN __declspec(noreturn)
-#else
-#define NORETURN
-#endif
 
 static NORETURN void fatal(const char *fmt, ...)
 {
