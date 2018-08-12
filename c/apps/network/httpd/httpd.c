@@ -15,7 +15,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "die.h"
+#include "log.h"
 
 #define SERVER_PORT 8081
 #define BACKLOG 1024
