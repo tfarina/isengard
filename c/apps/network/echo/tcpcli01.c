@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "die.h"
 #include "wraplib.h"
 #include "wrapsock.h"
 #include "str_cli.h"

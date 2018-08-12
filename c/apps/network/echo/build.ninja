@@ -20,8 +20,6 @@ rule UNINSTALL
   description = removing $in from $prefix/bin
   command = rm -f $prefix/bin/$in
 
-build die.o: COMPILE_CC die.c
-
 build wrapunix.o: COMPILE_CC wrapunix.c
 build wrapsock.o: COMPILE_CC wrapsock.c
 build writen.o: COMPILE_CC writen.c
@@ -36,7 +34,7 @@ build readline.o: COMPILE_CC readline.c
 build str_cli.o: COMPILE_CC str_cli.c
 
 build tcpcli01.o: COMPILE_CC tcpcli01.c
-build tcpcli01: LINK die.o wrapunix.o wrapsock.o wraplib.o wrapstdio.o readline.o writen.o str_cli.o tcpcli01.o
+build tcpcli01: LINK wrapunix.o wrapsock.o wraplib.o wrapstdio.o readline.o writen.o str_cli.o tcpcli01.o
 
 build clean: CLEAN
 
