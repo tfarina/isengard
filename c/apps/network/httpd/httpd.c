@@ -55,16 +55,16 @@ int main() {
   servaddr.sin_port = htons(SERVER_PORT);
 
   if ((listen_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-    die("cannot create socket");
+    fatal("cannot create socket");
 
   if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1)
-    die("setsockopt failed");
+    fatal("setsockopt failed");
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
-    die("bind failed");
+    fatal("bind failed");
 
   if (listen(listen_fd, BACKLOG) == -1)
-    die("listen failed");
+    fatal("listen failed");
 
   fprintf(stderr,
           "The server is now ready to accept connections on port %d\n",
@@ -72,12 +72,12 @@ int main() {
 
   while (1) {
     if ((client_fd = accept(listen_fd, (struct sockaddr*)&cliaddr, &clilen)) == -1)
-      die("accept failed");
+      fatal("accept failed");
 
     printf("%s:%d connected\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
     if ((pid = fork()) < 0) {
-      die("fork failed");
+      fatal("fork failed");
     } else {
       if (pid == 0) {	/* child */
 	(void)close(listen_fd);

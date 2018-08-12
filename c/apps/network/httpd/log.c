@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void die(const char *msg, ...) {
+void fatal(const char *msg, ...) {
     va_list args;
 
     fprintf(stderr, "fatal: ");
