@@ -6,13 +6,13 @@ int main(int argc, char *argv[])
 
   GtkWidget *table;
 
-  GtkWidget *label1;
-  GtkWidget *label2;
-  GtkWidget *label3;
+  GtkWidget *name_label;
+  GtkWidget *email_label;
+  GtkWidget *password_label;
 
-  GtkWidget *entry1;
-  GtkWidget *entry2;
-  GtkWidget *entry3;
+  GtkWidget *name_entry;
+  GtkWidget *email_entry;
+  GtkWidget *password_entry;
 
   gtk_init(&argc, &argv);
 
@@ -24,26 +24,26 @@ int main(int argc, char *argv[])
   table = gtk_table_new(3, 2, FALSE);
   gtk_container_add(GTK_CONTAINER(window), table);
 
-  label1 = gtk_label_new("Name");
-  label2 = gtk_label_new("Email");
-  label3 = gtk_label_new("Password");
+  name_label = gtk_label_new("Name");
+  email_label = gtk_label_new("Email");
+  password_label = gtk_label_new("Password");
 
-  gtk_table_attach(GTK_TABLE(table), label1, 0, 1, 0, 1, 
+  gtk_table_attach(GTK_TABLE(table), name_label, 0, 1, 0, 1,
 		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
-  gtk_table_attach(GTK_TABLE(table), label2, 0, 1, 1, 2, 
+  gtk_table_attach(GTK_TABLE(table), email_label, 0, 1, 1, 2,
 		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
-  gtk_table_attach(GTK_TABLE(table), label3, 0, 1, 2, 3, 
+  gtk_table_attach(GTK_TABLE(table), password_label, 0, 1, 2, 3,
 		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
 
-  entry1 = gtk_entry_new();
-  entry2 = gtk_entry_new();
-  entry3 = gtk_entry_new();
+  name_entry = gtk_entry_new();
+  email_entry = gtk_entry_new();
+  password_entry = gtk_entry_new();
 
-  gtk_table_attach(GTK_TABLE(table), entry1, 1, 2, 0, 1, 
+  gtk_table_attach(GTK_TABLE(table), name_entry, 1, 2, 0, 1,
 		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
-  gtk_table_attach(GTK_TABLE(table), entry2, 1, 2, 1, 2, 
+  gtk_table_attach(GTK_TABLE(table), email_entry, 1, 2, 1, 2,
 		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
-  gtk_table_attach(GTK_TABLE(table), entry3, 1, 2, 2, 3, 
+  gtk_table_attach(GTK_TABLE(table), password_entry, 1, 2, 2, 3,
 		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
 
   gtk_widget_show_all(window);
