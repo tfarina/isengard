@@ -18,7 +18,7 @@ void buffer_init(buffer_t *b) {
   b->ptr[0] = '\0';
 }
 
-size_t write_data_to_memory(void *ptr, size_t size, size_t nmemb, buffer_t *b) {
+size_t write_data_to_memory(void *data, size_t size, size_t nmemb, buffer_t *b) {
   size_t realsize = size * nmemb;
   size_t new_len = b->len + realsize;
 
@@ -27,7 +27,7 @@ size_t write_data_to_memory(void *ptr, size_t size, size_t nmemb, buffer_t *b) {
     fprintf(stderr, "realloc() failed\n");
     exit(EXIT_FAILURE);
   }
-  memcpy(b->ptr + b->len, ptr, realsize);
+  memcpy(b->ptr + b->len, data, realsize);
   b->ptr[new_len] = '\0';
   b->len = new_len;
 
