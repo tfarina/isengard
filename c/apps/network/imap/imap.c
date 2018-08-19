@@ -4,32 +4,32 @@
 #include <curl/curl.h>
 
 typedef struct {
-  char *ptr;
-  size_t len;
+  char *data;
+  size_t length;
 } buffer_t;
 
 void buffer_init(buffer_t *b) {
-  b->len = 0;
-  b->ptr = malloc(b->len + 1);
-  if (b->ptr == NULL) {
+  b->length = 0;
+  b->data = malloc(b->length + 1);
+  if (b->data == NULL) {
     fprintf(stderr, "malloc() failed\n");
     exit(EXIT_FAILURE);
   }
-  b->ptr[0] = '\0';
+  b->data[0] = '\0';
 }
 
 size_t write_data_to_memory(void *data, size_t size, size_t nmemb, buffer_t *b) {
   size_t realsize = size * nmemb;
-  size_t new_len = b->len + realsize;
+  size_t new_len = b->length + realsize;
 
-  b->ptr = realloc(b->ptr, new_len + 1);
-  if (b->ptr == NULL) {
+  b->data = realloc(b->data, new_len + 1);
+  if (b->data == NULL) {
     fprintf(stderr, "realloc() failed\n");
     exit(EXIT_FAILURE);
   }
-  memcpy(b->ptr + b->len, data, realsize);
-  b->ptr[new_len] = '\0';
-  b->len = new_len;
+  memcpy(b->data + b->length, data, realsize);
+  b->data[new_len] = '\0';
+  b->length = new_len;
 
   return realsize;
 }
@@ -54,8 +54,8 @@ int main(int argc, char *argv[]) {
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buf);
     res = curl_easy_perform(curl);
 
-    printf("%s\n", buf.ptr);
-    free(buf.ptr);
+    printf("%s\n", buf.data);
+    free(buf.data);
 
     if (res != CURLE_OK)
       fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
