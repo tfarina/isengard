@@ -3,33 +3,33 @@
 
 #include <curl/curl.h>
 
-struct string {
+typedef struct {
   char *ptr;
   size_t len;
-};
+} buffer_t;
 
-void string_init(struct string *s) {
-  s->len = 0;
-  s->ptr = malloc(s->len + 1);
-  if (s->ptr == NULL) {
+void buffer_init(buffer_t *b) {
+  b->len = 0;
+  b->ptr = malloc(b->len + 1);
+  if (b->ptr == NULL) {
     fprintf(stderr, "malloc() failed\n");
     exit(EXIT_FAILURE);
   }
-  s->ptr[0] = '\0';
+  b->ptr[0] = '\0';
 }
 
-size_t write_data_to_memory(void *ptr, size_t size, size_t nmemb, struct string *s) {
+size_t write_data_to_memory(void *ptr, size_t size, size_t nmemb, buffer_t *b) {
   size_t realsize = size * nmemb;
-  size_t new_len = s->len + realsize;
+  size_t new_len = b->len + realsize;
 
-  s->ptr = realloc(s->ptr, new_len + 1);
-  if (s->ptr == NULL) {
+  b->ptr = realloc(b->ptr, new_len + 1);
+  if (b->ptr == NULL) {
     fprintf(stderr, "realloc() failed\n");
     exit(EXIT_FAILURE);
   }
-  memcpy(s->ptr + s->len, ptr, realsize);
-  s->ptr[new_len] = '\0';
-  s->len = new_len;
+  memcpy(b->ptr + b->len, ptr, realsize);
+  b->ptr[new_len] = '\0';
+  b->len = new_len;
 
   return realsize;
 }
@@ -41,8 +41,8 @@ int main(int argc, char *argv[]) {
 
   curl = curl_easy_init();
   if (curl) {
-    struct string s;
-    string_init(&s);
+    buffer_t buf;
+    buffer_init(&buf);
 
     curl_easy_setopt(curl, CURLOPT_USERNAME, argv[1]);
     curl_easy_setopt(curl, CURLOPT_PASSWORD, argv[2]);
@@ -51,16 +51,17 @@ int main(int argc, char *argv[]) {
 
     curl_easy_setopt(curl, CURLOPT_URL, "imaps://imap.gmail.com:993/\"[Gmail]/All Mail\"");
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buf);
     res = curl_easy_perform(curl);
 
-    printf("%s\n", s.ptr);
-    free(s.ptr);
+    printf("%s\n", buf.ptr);
+    free(buf.ptr);
 
     if (res != CURLE_OK)
       fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
 
     curl_easy_cleanup(curl);
   }
+
   return 0;
 }
