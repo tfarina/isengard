@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
   char histurl[255];
   FILE *fp;
   buffer_t buf;
+  char crumb_key[] = "CrumbStore\":{\"crumb\":\"";
   char fullurl[255];
   char filename[255];
   struct csv_parser parser;
@@ -71,7 +72,9 @@ int main(int argc, char *argv[])
 
   curl_global_init(CURL_GLOBAL_NOTHING);
 
-  /* 1- Download history page to get the cookies. */
+  /* 1. Write history page into file and while at it get the cookies (they
+   * will be necessary later on).
+   */
   curl = curl_easy_init();
 
   sprintf(histurl, "https://finance.yahoo.com/quote/%s/history", symbol);
@@ -83,7 +86,6 @@ int main(int argc, char *argv[])
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
   curl_easy_setopt(curl, CURLOPT_COOKIEJAR, "cookies.txt");
   curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
-            
   curl_easy_setopt(curl, CURLOPT_ENCODING, "");
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_file);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
@@ -98,7 +100,7 @@ int main(int argc, char *argv[])
 
   buffer_init(&buf);
 
-  /* 2- Download history page to memory to get the crumb. */
+  /* 2. Write history page into memory. */
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&buf);
             
@@ -109,8 +111,7 @@ int main(int argc, char *argv[])
     return -1;
   }
 
-  /* 3- Extract the crumb value from CrumbStore. */
-  char crumb_key[] = "CrumbStore\":{\"crumb\":\"";
+  /* 3. Extract the crumb value from CrumbStore. */
   char *ptr1 = strstr(buf.data, crumb_key);
   char *crumb = ptr1 + strlen(crumb_key);
   char *ptr3 = strstr(crumb, "\"}");
@@ -130,8 +131,8 @@ int main(int argc, char *argv[])
 
   buffer_init(&buf);
 
-  /* 4- With cookies and crumb, it is ready to download the historical data
-   * (in csv format) to memory and save it to file.
+  /* 4. With cookies and crumb, lets proceed with the download of the historical data
+   * (in csv format) to memory.
    */
   curl_easy_setopt(curl, CURLOPT_URL, fullurl);
   curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
@@ -146,11 +147,11 @@ int main(int argc, char *argv[])
 
   printf("%s\n", buf.data);
 
-  /* 5- Now proceed to save buf.data to file. */
+  /* 5. Now write |buf.data| to file. */
   sprintf(filename, "%s.csv", symbol);
   write_file(filename, buf.data, buf.length);
 
-  /* 6- Read the file to parse the csv and import it to the MySQL table. */
+  /* 6. Read the csv file into memory, parse it and import the data to MySQL. */
   rc = csv_init(&parser, CSV_APPEND_NULL);
   if (rc != 0) {
     fprintf(stderr, "failed to initialize CSV parser\n");
