@@ -64,8 +64,8 @@ int main(int argc, char *argv[])
   strftime(start_date_str, sizeof(start_date_str), "%F", tm);
   start_date = mktime(tm);
 
-  printf("Downloading historical data.\n\n");
-  printf("Symbol: %s\n", symbol);
+  /* TODO: Write this into a log file instead. So it can be inspected after the program ends. */
+  printf("Downloading file...\n\n");
   printf("Start Date: %s\n", start_date_str);
   printf("End Date: %s\n", end_date_str);
   printf("Frequency: Daily\n");
