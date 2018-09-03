@@ -7,8 +7,10 @@
 #define GCC_VERSION_AT_LEAST(major, minor) 0
 #endif
 
-#if defined(__GNUC__)
-#define NORETURN __attribute__((__noreturn__))
+#if defined (__GNUC__)
+#define NORETURN __attribute__ ((__noreturn__))
+#elif _MSC_VER >= 1200
+#define NORETURN __declspec (noreturn)
 #else
 #define NORETURN
 #endif
