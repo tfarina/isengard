@@ -110,15 +110,10 @@ void buffer_reset(buffer_t *b)
 	*b->data = 0;
 }
 
-void buffer_append(buffer_t *b, const void *data, size_t length)
+void buffer_write(buffer_t *b, const void *data, size_t length)
 {
 	_buffer_realloc(b, length);
 	memcpy(b->data + b->length, data, length);
         b->length += length;
         b->data[b->length] = '\0'; /* always 0 terminate data. */
-}
-
-void buffer_append_str(buffer_t *b, const char *str)
-{
-	buffer_append(b, str, strlen(str));
 }

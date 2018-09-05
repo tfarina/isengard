@@ -38,13 +38,8 @@ void buffer_free(buffer_t *b);
 void buffer_reset(buffer_t *b);
 
 /*
- * buffer_append appends the |length| bytes at |data| to the buffer.
+ * buffer_write writes |data| to the buffer.
  */
-void buffer_append(buffer_t *b, const void *data, size_t length);
-
-/*
- * buffer_append_str appends |str| to the buffer.
- */
-void buffer_append_str(buffer_t *b, const char *str);
+void buffer_write(buffer_t *b, const void *data, size_t length);
 
 #endif  /* BUFFER_H_ */
