@@ -11,6 +11,8 @@
 #define NORETURN __attribute__ ((__noreturn__))
 #elif _MSC_VER >= 1200
 #define NORETURN __declspec (noreturn)
+#elif __STDC_VERSION__ >= 201112
+#define NORETURN _Noreturn
 #else
 #define NORETURN
 #endif
