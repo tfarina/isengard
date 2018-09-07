@@ -19,9 +19,8 @@
 
 #define USERCONFFILE ".traderc"
 
-int main(int argc, char *argv[])
+static int download_quotes_from_yahoo(char *symbol)
 {
-  char *symbol;
   time_t start_date;
   time_t end_date;
   struct tm* tm;
@@ -48,13 +47,6 @@ int main(int argc, char *argv[])
   const char *dbname;
   MYSQL *conn = NULL;
   size_t i;
-
-  if (argc != 2) {
-    fputs("usage: gethistdata symbol\n", stderr);
-    return 1;
-  }
-
-  symbol = strdup(argv[1]);
 
   end_date = time(0);   // get time now (today).
   tm = localtime(&end_date);
@@ -218,6 +210,22 @@ int main(int argc, char *argv[])
   printf("%d rows imported\n", stock.ticks_length);
 
   free(stock.ticks);
+
+  return 0;
+}
+
+int main(int argc, char *argv[])
+{
+  char *symbol;
+
+  if (argc != 2) {
+    fputs("usage: gethistdata symbol\n", stderr);
+    return 1;
+  }
+
+  symbol = strdup(argv[1]);
+
+  download_quotes_from_yahoo(symbol);
 
   return 0;
 }
