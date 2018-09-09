@@ -41,8 +41,7 @@ static void *xrealloc(void *oldptr, size_t newsize)
 {
         void *newptr;
 
-	newptr = realloc(oldptr, newsize);
-        if (newptr == NULL) {
+        if ((newptr = realloc(oldptr, newsize)) == NULL) {
                 fatal("out of memory: %lu", newsize);
 	}
 
