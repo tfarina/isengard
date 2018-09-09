@@ -19,6 +19,9 @@ int main(int argc, char *argv[])
   gtk_window_set_title(GTK_WINDOW(window), "Create");
   gtk_container_set_border_width(GTK_CONTAINER(window), 10);
 
+  g_signal_connect(window, "destroy",
+		   G_CALLBACK(gtk_main_quit), NULL);
+
   table = gtk_table_new(3, 2, FALSE);
   gtk_container_add(GTK_CONTAINER(window), table);
 
@@ -39,9 +42,6 @@ int main(int argc, char *argv[])
 		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
 
   gtk_widget_show_all(window);
-
-  g_signal_connect(window, "destroy",
-		   G_CALLBACK(gtk_main_quit), NULL);
 
   gtk_main();
 
