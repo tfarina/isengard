@@ -31,7 +31,7 @@ static void *xmalloc(size_t size)
 	}
 
         if ((ptr = malloc(size)) == NULL) {
-	  fatal("Out of memory, malloc failed, tried to allocate %lu bytes", (unsigned long)size);
+	        fatal("xmalloc failed");
         }
 
         return ptr;
@@ -42,7 +42,7 @@ static void *xrealloc(void *oldptr, size_t newsize)
         void *newptr;
 
         if ((newptr = realloc(oldptr, newsize)) == NULL) {
-                fatal("out of memory: %lu", newsize);
+                fatal("xrealloc failed");
 	}
 
 	return newptr;
