@@ -21,4 +21,7 @@ if (GTK2_FOUND)
 
   add_executable(toolbar toolbar.c)
   target_link_libraries(toolbar ${GTK2_LIBRARIES})
+
+  add_executable(listview listview.c)
+  target_link_libraries(listview ${GTK2_LIBRARIES})
 endif()
