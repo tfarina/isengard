@@ -225,7 +225,7 @@ static void sigchld_handler(int sig) {
   signal(SIGCHLD, sigchld_handler);
 }
 
-static void sigterm_handler(int sig) {
+static void handle_signal(int sig) {
   char *type;
 
   switch (sig) {
@@ -387,8 +387,8 @@ int main(int argc, char **argv) {
   dropto(pw->pw_uid, pw->pw_gid);
 
   signal(SIGCHLD, sigchld_handler);
-  signal(SIGINT, sigterm_handler);
-  signal(SIGTERM, sigterm_handler);
+  signal(SIGINT, handle_signal);
+  signal(SIGTERM, handle_signal);
 
   print_num_child_forked();
 
