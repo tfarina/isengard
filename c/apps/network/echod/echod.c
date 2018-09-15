@@ -16,6 +16,7 @@
 
 #include <arpa/inet.h>
 #include <errno.h>
+#include <getopt.h>
 #include <grp.h>
 #include <netdb.h>
 #include <pwd.h>
@@ -246,9 +247,9 @@ static void handle_signal(int sig) {
 static void usage(void) {
   fprintf(stderr, "usage: %s [-hd] [-p port]\n\n", progname);
   fprintf(stderr, "options:\n"
-          " -h  show usage, options and exit\n"
-	  " -d  run in the foreground\n"
-          " -p  set the tcp port to listen on (default: 7)\n");
+          " -h --help  show usage, options and exit\n"
+	  " -d         run in the foreground\n"
+          " -p         set the tcp port to listen on (default: 7)\n");
 }
 
 static char *get_progname(char *argv0) {
@@ -317,14 +318,15 @@ int main(int argc, char **argv) {
   int clientport;
   pid_t pid;
 
+  static struct option long_options[] = {
+          {"help", no_argument, 0, 'h'},
+          {NULL, 0, 0, 0}
+  };
+
   progname = get_progname(argv[0]);
 
-  while ((ch = getopt(argc, argv, "hdp:")) != -1) {
+  while ((ch = getopt_long(argc, argv, "hdp:", long_options, NULL)) != -1) {
     switch (ch) {
-    case 'h':
-      usage();
-      exit(EXIT_FAILURE);
-
     case 'd':
       debug = 1;
       break;
@@ -343,6 +345,14 @@ int main(int argc, char **argv) {
 
       port = value;
       break;
+
+    case 'h':
+      usage();
+      return EXIT_SUCCESS;
+
+    case '?':
+      usage();
+      return EXIT_SUCCESS;
 
     default:
       usage();
