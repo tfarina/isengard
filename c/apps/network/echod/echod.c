@@ -247,9 +247,9 @@ static void handle_signal(int sig) {
 static void usage(void) {
   fprintf(stderr, "usage: %s [-hd] [-p port]\n\n", progname);
   fprintf(stderr, "options:\n"
-          " -h --help  show usage, options and exit\n"
-	  " -d         run in the foreground\n"
-          " -p         set the tcp port to listen on (default: 7)\n");
+          " -h --help   show usage, options and exit\n"
+	  " -d --debug  run in the foreground\n"
+          " -p --port   set the tcp port to listen on (default: 7)\n");
 }
 
 static char *get_progname(char *argv0) {
@@ -320,6 +320,8 @@ int main(int argc, char **argv) {
 
   static struct option long_options[] = {
           {"help", no_argument, 0, 'h'},
+          {"debug", no_argument, 0, 'd'},
+          {"port", no_argument, 0, 'p'},
           {NULL, 0, 0, 0}
   };
 
