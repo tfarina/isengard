@@ -39,6 +39,7 @@
 
 static const char *progname;
 
+static int stop = 0;
 static unsigned int forked = 0; /* Number of child processes. */
 
 static int log_on_stderr = 1;
@@ -312,7 +313,6 @@ int main(int argc, char **argv) {
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
    * after select(). */
   fd_set rfds_out;
-  int stop = 0;
   int clientfd;
   char clientip[46];
   int clientport;
