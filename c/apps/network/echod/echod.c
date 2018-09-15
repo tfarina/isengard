@@ -252,8 +252,7 @@ static void handle_signal(int sig) {
   log_info("signal %s received, shutting down...", type);
 }
 
-
-static void usage(void) {
+static void ed_show_usage(void) {
   fprintf(stderr, "usage: %s [-hd] [-p port]\n\n", progname);
   fprintf(stderr, "options:\n"
           " -h --help   show usage, options and exit\n"
@@ -357,15 +356,15 @@ int main(int argc, char **argv) {
       break;
 
     case 'h':
-      usage();
+      ed_show_usage();
       return EXIT_SUCCESS;
 
     case '?':
-      usage();
+      ed_show_usage();
       return EXIT_SUCCESS;
 
     default:
-      usage();
+      ed_show_usage();
       exit(EXIT_FAILURE);
       /* NOTREACHED */
     }
@@ -374,7 +373,7 @@ int main(int argc, char **argv) {
   argv += optind;
 
   if (argc > 0) {
-    usage();
+    ed_show_usage();
     exit(EXIT_FAILURE);
   }
 
