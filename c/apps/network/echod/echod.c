@@ -44,6 +44,12 @@ static unsigned int forked = 0; /* Number of child processes. */
 
 static int log_on_stderr = 1;
 
+static char short_options[] =
+    "h"  /* help */
+    "d"  /* debug */
+    "p:" /* tcp port number to listen on */
+    ;
+
 static void log_init(int on_stderr) {
   log_on_stderr = on_stderr;
 
@@ -329,7 +335,7 @@ int main(int argc, char **argv) {
 
   progname = get_progname(argv[0]);
 
-  while ((ch = getopt_long(argc, argv, "hdp:", long_options, NULL)) != -1) {
+  while ((ch = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
     switch (ch) {
     case 'd':
       debug = 1;
