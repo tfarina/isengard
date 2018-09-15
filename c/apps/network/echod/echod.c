@@ -357,8 +357,7 @@ int main(int argc, char **argv) {
 	return EXIT_FAILURE;
       }
       if (!ed_valid_port(value)) {
-	fprintf(stderr, "%s: option -s value %d is not a valid "
-		   "port\n", progname, value);
+	fprintf(stderr, "%s: option -s value %d is not a valid port\n", progname, value);
 	return EXIT_FAILURE;
       }
 
