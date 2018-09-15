@@ -33,8 +33,8 @@
 
 #define ECHOD_USER "_echod"
 #define ECHOD_INTERFACE NULL
-#define ECHOD_TCP_PORT 7
 #define ECHOD_BACKLOG 1024
+#define ED_TCP_PORT 7
 #define BUFSIZE 8129
 #define CRLF "\x0d\x0a"
 
@@ -261,8 +261,9 @@ static void ed_show_usage(void) {
 	  "options:" CRLF
           "  -h --help    show usage, options and exit" CRLF
 	  "  -d --debug   run in the foreground" CRLF
-          "  -p --port=N  set the tcp port to listen on (default: 7)" CRLF
-	  ""
+          "  -p --port=N  set the tcp port to listen on (default: %d)" CRLF
+	  "",
+          ED_TCP_PORT
 	  );
 }
 
@@ -320,7 +321,7 @@ int main(int argc, char **argv) {
   int value;
   struct passwd *pw;
   char *host = ECHOD_INTERFACE;
-  int port = ECHOD_TCP_PORT;
+  int port = ED_TCP_PORT;
   int tcpfd;
   fd_set rfds_in;
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
