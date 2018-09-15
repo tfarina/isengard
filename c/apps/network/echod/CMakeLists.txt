@@ -10,4 +10,4 @@ set(ECHOD_SRCS echod.c)
 add_executable(echod ${ECHOD_SRCS})
 
 install(TARGETS echod RUNTIME DESTINATION sbin)
-install(FILES echod.8 DESTINATION ${CMAKE_INSTALL_PREFIX}/man/man8)
+install(FILES src/echod.8 DESTINATION ${CMAKE_INSTALL_PREFIX}/man/man8)
