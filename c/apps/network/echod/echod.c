@@ -281,7 +281,7 @@ static int ed_valid_port(int port) {
   return 1;
 }
 
-static void dropto(uid_t uid, gid_t gid) {
+static void drop_privileges(uid_t uid, gid_t gid) {
   if (setgroups(1, &gid) != 0) {
     fprintf(stderr, "setgroups failed\n");
     exit(EXIT_FAILURE);
@@ -403,8 +403,9 @@ int main(int argc, char **argv) {
 
   log_info("Server is ready to accept connections on port %d", port);
 
-  dropto(pw->pw_uid, pw->pw_gid);
+  drop_privileges(pw->pw_uid, pw->pw_gid);
 
+  /* Setup signals. */
   signal(SIGCHLD, sigchld_handler);
   signal(SIGINT, handle_signal);
   signal(SIGTERM, handle_signal);
