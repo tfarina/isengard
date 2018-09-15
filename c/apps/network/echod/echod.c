@@ -61,6 +61,56 @@ static struct option long_options[] = {
     { NULL,    0,                 NULL,  0  }
 };
 
+static char *get_progname(char *argv0) {
+  char *name;
+
+  name = strrchr(argv0, '/');
+  if (name == NULL) {
+    name = argv0;
+  } else {
+    name++;
+  }
+
+  return name;
+}
+
+static void ed_show_usage(void) {
+  fprintf(stderr,
+	  "usage: %s [-hd] [-p port]" CRLF CRLF,
+	  progname);
+  fprintf(stderr,
+	  "options:" CRLF
+          "  -h --help    show usage, options and exit" CRLF
+	  "  -d --debug   run in the foreground" CRLF
+          "  -p --port=N  set the tcp port to listen on (default: %d)" CRLF
+	  "",
+          ED_TCP_PORT
+	  );
+}
+
+static int ed_valid_port(int port) {
+  if (port < 1 || port > UINT16_MAX) {
+    return 0;
+  }
+
+  return 1;
+}
+
+static void drop_privileges(uid_t uid, gid_t gid) {
+  if (setgroups(1, &gid) != 0) {
+    fprintf(stderr, "setgroups failed\n");
+    exit(EXIT_FAILURE);
+  }
+  if (setresgid(gid, gid, gid) != 0) {
+    fprintf(stderr, "setresgid failed\n");
+    exit(EXIT_FAILURE);
+  }
+  if (setresuid(uid, uid, uid) != 0) {
+    fprintf(stderr, "setresuid failed\n");
+    exit(EXIT_FAILURE);
+  }
+}
+
 static void log_init(int on_stderr) {
   log_on_stderr = on_stderr;
 
@@ -261,56 +311,6 @@ static void handle_signal(int sig) {
   }
 
   log_info("signal %s received, shutting down...", type);
-}
-
-static void ed_show_usage(void) {
-  fprintf(stderr,
-	  "usage: %s [-hd] [-p port]" CRLF CRLF,
-	  progname);
-  fprintf(stderr,
-	  "options:" CRLF
-          "  -h --help    show usage, options and exit" CRLF
-	  "  -d --debug   run in the foreground" CRLF
-          "  -p --port=N  set the tcp port to listen on (default: %d)" CRLF
-	  "",
-          ED_TCP_PORT
-	  );
-}
-
-static char *get_progname(char *argv0) {
-  char *name;
-
-  name = strrchr(argv0, '/');
-  if (name == NULL) {
-    name = argv0;
-  } else {
-    name++;
-  }
-
-  return name;
-}
-
-static int ed_valid_port(int port) {
-  if (port < 1 || port > UINT16_MAX) {
-    return 0;
-  }
-
-  return 1;
-}
-
-static void drop_privileges(uid_t uid, gid_t gid) {
-  if (setgroups(1, &gid) != 0) {
-    fprintf(stderr, "setgroups failed\n");
-    exit(EXIT_FAILURE);
-  }
-  if (setresgid(gid, gid, gid) != 0) {
-    fprintf(stderr, "setresgid failed\n");
-    exit(EXIT_FAILURE);
-  }
-  if (setresuid(uid, uid, uid) != 0) {
-    fprintf(stderr, "setresuid failed\n");
-    exit(EXIT_FAILURE);
-  }
 }
 
 static void echo_stream(int fd) {
