@@ -50,14 +50,14 @@ static int log_on_stderr = 1;
 
 static char short_options[] =
     "h"  /* help */
-    "d"  /* debug */
+    "d"  /* daemon mode */
     "p:" /* tcp port number to listen on */
     ;
 
 static struct option long_options[] = {
-    { "help",  no_argument,       NULL, 'h' }, /* help */
-    { "debug", no_argument,       NULL, 'd' }, /* debug mode */
-    { "port",  required_argument, NULL, 'p' }, /* tcp port number to listen on */
+    { "help",      no_argument,       NULL, 'h' }, /* help */
+    { "daemonize", no_argument,       NULL, 'd' }, /* daemon mode */
+    { "port",      required_argument, NULL, 'p' }, /* tcp port number to listen on */
     { NULL,    0,                 NULL,  0  }
 };
 
@@ -80,9 +80,9 @@ static void ed_show_usage(void) {
 	  progname);
   fprintf(stderr,
 	  "options:" CRLF
-          "  -h --help    show usage, options and exit" CRLF
-	  "  -d --debug   run in the foreground" CRLF
-          "  -p --port=N  set the tcp port to listen on (default: %d)" CRLF
+          "  -h, --help       show usage, options and exit" CRLF
+	  "  -d, --daemonize  run as a daemon" CRLF
+          "  -p, --port=N     set the tcp port to listen on (default: %d)" CRLF
 	  "",
           ED_TCP_PORT
 	  );
@@ -327,7 +327,7 @@ static void echo_stream(int fd) {
 
 int main(int argc, char **argv) {
   int ch;
-  int debug = 0;
+  int daemonize = 0;
   int value;
   struct passwd *pw;
   char *host = ED_INTERFACE;
@@ -347,7 +347,7 @@ int main(int argc, char **argv) {
   while ((ch = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
     switch (ch) {
     case 'd':
-      debug = 1;
+      daemonize = 1;
       break;
 
     case 'p':
@@ -396,14 +396,14 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  if (!debug) {
+  if (daemonize) {
     if (daemon(0, 0) == -1) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
       exit(EXIT_FAILURE);
     }
   }
 
-  log_init(debug);
+  log_init(!daemonize);
 
   tcpfd = fnet_tcp_socket_listen(host, port, ED_BACKLOG);
   if (tcpfd == FNET_ERR) {
