@@ -326,10 +326,10 @@ int main(int argc, char **argv) {
   pid_t pid;
 
   static struct option long_options[] = {
-          {"help", no_argument, 0, 'h'},
-          {"debug", no_argument, 0, 'd'},
-          {"port", no_argument, 0, 'p'},
-          {NULL, 0, 0, 0}
+          { "help",  no_argument,       NULL, 'h' },
+          { "debug", no_argument,       NULL, 'd' },
+          { "port",  required_argument, NULL, 'p' },
+          { NULL,    0,                 NULL,  0  }
   };
 
   progname = get_progname(argv[0]);
