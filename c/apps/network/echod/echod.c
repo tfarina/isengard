@@ -273,7 +273,7 @@ static char *get_progname(char *argv0) {
   return name;
 }
 
-static int ec_valid_port(int port) {
+static int ed_valid_port(int port) {
   if (port < 1 || port > UINT16_MAX) {
     return 0;
   }
@@ -346,7 +346,7 @@ int main(int argc, char **argv) {
 	fprintf(stderr, "%s: option -p requires a non zero number\n", progname);
 	return EXIT_FAILURE;
       }
-      if (!ec_valid_port(value)) {
+      if (!ed_valid_port(value)) {
 	fprintf(stderr, "%s: option -s value %d is not a valid "
 		   "port\n", progname, value);
 	return EXIT_FAILURE;
