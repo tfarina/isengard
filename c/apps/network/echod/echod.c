@@ -36,6 +36,7 @@
 #define ECHOD_TCP_PORT 7
 #define ECHOD_BACKLOG 1024
 #define BUFSIZE 8129
+#define CRLF "\x0d\x0a"
 
 static const char *progname;
 
@@ -253,11 +254,16 @@ static void handle_signal(int sig) {
 }
 
 static void ed_show_usage(void) {
-  fprintf(stderr, "usage: %s [-hd] [-p port]\n\n", progname);
-  fprintf(stderr, "options:\n"
-          " -h --help   show usage, options and exit\n"
-	  " -d --debug  run in the foreground\n"
-          " -p --port   set the tcp port to listen on (default: 7)\n");
+  fprintf(stderr,
+	  "usage: %s [-hd] [-p port]" CRLF CRLF,
+	  progname);
+  fprintf(stderr,
+	  "options:" CRLF
+          "  -h --help   show usage, options and exit" CRLF
+	  "  -d --debug  run in the foreground" CRLF
+          "  -p --port   set the tcp port to listen on (default: 7)" CRLF
+	  ""
+	  );
 }
 
 static char *get_progname(char *argv0) {
