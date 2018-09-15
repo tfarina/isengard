@@ -31,11 +31,14 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define ECHOD_USER "_echod"
-#define ECHOD_INTERFACE NULL
-#define ECHOD_BACKLOG 1024
+#define ED_USER "_echod"
+
+#define ED_INTERFACE NULL
 #define ED_TCP_PORT 7
+#define ED_BACKLOG 1024
+
 #define BUFSIZE 8129
+
 #define CRLF "\x0d\x0a"
 
 static const char *progname;
@@ -320,7 +323,7 @@ int main(int argc, char **argv) {
   int debug = 0;
   int value;
   struct passwd *pw;
-  char *host = ECHOD_INTERFACE;
+  char *host = ED_INTERFACE;
   int port = ED_TCP_PORT;
   int tcpfd;
   fd_set rfds_in;
@@ -389,8 +392,8 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  if ((pw = getpwnam(ECHOD_USER)) == NULL) {
-    fprintf(stderr, "unknown user %s\n", ECHOD_USER);
+  if ((pw = getpwnam(ED_USER)) == NULL) {
+    fprintf(stderr, "unknown user %s\n", ED_USER);
     exit(EXIT_FAILURE);
   }
 
@@ -403,7 +406,7 @@ int main(int argc, char **argv) {
 
   log_init(debug);
 
-  tcpfd = fnet_tcp_socket_listen(host, port, ECHOD_BACKLOG);
+  tcpfd = fnet_tcp_socket_listen(host, port, ED_BACKLOG);
   if (tcpfd == FNET_ERR) {
     return EXIT_FAILURE;
   }
