@@ -54,6 +54,13 @@ static char short_options[] =
     "p:" /* tcp port number to listen on */
     ;
 
+static struct option long_options[] = {
+    { "help",  no_argument,       NULL, 'h' }, /* help */
+    { "debug", no_argument,       NULL, 'd' }, /* debug mode */
+    { "port",  required_argument, NULL, 'p' }, /* tcp port number to listen on */
+    { NULL,    0,                 NULL,  0  }
+};
+
 static void log_init(int on_stderr) {
   log_on_stderr = on_stderr;
 
@@ -334,13 +341,6 @@ int main(int argc, char **argv) {
   char clientip[46];
   int clientport;
   pid_t pid;
-
-  static struct option long_options[] = {
-          { "help",  no_argument,       NULL, 'h' },
-          { "debug", no_argument,       NULL, 'd' },
-          { "port",  required_argument, NULL, 'p' },
-          { NULL,    0,                 NULL,  0  }
-  };
 
   progname = get_progname(argv[0]);
 
