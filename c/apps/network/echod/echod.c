@@ -259,9 +259,9 @@ static void ed_show_usage(void) {
 	  progname);
   fprintf(stderr,
 	  "options:" CRLF
-          "  -h --help   show usage, options and exit" CRLF
-	  "  -d --debug  run in the foreground" CRLF
-          "  -p --port   set the tcp port to listen on (default: 7)" CRLF
+          "  -h --help    show usage, options and exit" CRLF
+	  "  -d --debug   run in the foreground" CRLF
+          "  -p --port=N  set the tcp port to listen on (default: 7)" CRLF
 	  ""
 	  );
 }
