@@ -39,7 +39,7 @@
 
 static const char *progname;
 
-static int stop = 0;
+static int running = 0;
 static unsigned int forked = 0; /* Number of child processes. */
 
 static int log_on_stderr = 1;
@@ -239,9 +239,11 @@ static void handle_signal(int sig) {
     break;
   }
 
+  if (sig == SIGTERM || sig == SIGINT) {
+    running = 0;
+  }
+
   log_info("signal %s received, shutting down...", type);
-  closelog();
-  exit(EXIT_SUCCESS);
 }
 
 
@@ -408,7 +410,9 @@ int main(int argc, char **argv) {
 
   FD_SET(tcpfd, &rfds_in);
 
-  while (!stop) {
+  running = 1;
+
+  while (running == 1) {
     memcpy(&rfds_out, &rfds_in, sizeof(fd_set));
 
     if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
@@ -443,6 +447,9 @@ int main(int argc, char **argv) {
       }
     }
   }
+
+  closelog();
+  log_info("Stopped");
 
   return EXIT_SUCCESS;
 }
