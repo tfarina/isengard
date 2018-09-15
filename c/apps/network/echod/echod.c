@@ -238,7 +238,7 @@ static void handle_signal(int sig) {
     break;
   }
 
-  log_info("signal %s received. Exiting.", type);
+  log_info("signal %s received, shutting down...", type);
   closelog();
   exit(EXIT_SUCCESS);
 }
