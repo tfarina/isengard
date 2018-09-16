@@ -1,30 +1,20 @@
-.Dd $Mdocdate: August 1 2016 $
-.Dt ECHOD 8
-.Os
-.Sh NAME
-.Nm echod
-.Nd Echo daemon
-.Sh SYNOPSIS
-.Nm echod
-.Op Fl hd
-.Sh DESCRIPTION
-.Nm
-is an Echo Protocol daemon.
-.Pp
-The options are as follows:
-.Bl -tag -width Ds
-.It Fl d
-Do not daemonize.
-If this option is specified,
-.Nm
-will run in the foreground.
-.El
-.Sh SEE ALSO
-.Xr echo 1
-.Sh STANDARDS
-.Rs
-.%A J. Postel
-.%D May 1983
-.%R RFC 862
-.%T Echo Protocol
-.Re
+.TH ECHOD 8 "August 1, 2016"
+.SH NAME
+echod \- Echo daemon
+.SH SYNOPSIS
+.B echod
+.RI [ options ]
+.SH DESCRIPTION
+\fBechod\fP is an Echo Protocol daemon.
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help
+Show usage information and exit.
+.TP
+.BR \-d ", " \-\-daemonize
+Run as a daemon.
+.TP
+.BR \-p ", " \-\-port=\fIport\fP
+Set the tcp \fIport\fP to listen on. (default: 7)
+.SH SEE ALSO
+.BR echo (1)
