@@ -11,6 +11,13 @@
 #define USERCONFFILE ".experimentsrc"
 #define PATH_SEP '/'
 
+typedef struct {
+  const char *host;
+  const char *user;
+  const char *password;
+  const char *dbname;
+} config_t;
+
 /**
  * Gets the current user's home directory.
  */
@@ -160,10 +167,7 @@ int main(int argc, char **argv) {
   const char *homedir;
   char *userconffile;
   dictionary *ini;
-  const char *host;
-  const char *user;
-  const char *password;
-  const char *dbname;
+  config_t config;
   MYSQL *conn = NULL;
 
   homedir = get_home_dir();
@@ -171,12 +175,12 @@ int main(int argc, char **argv) {
 
   ini = iniparser_load(userconffile);
 
-  host = iniparser_getstring(ini, "mysql:host", NULL);
-  user = iniparser_getstring(ini, "mysql:user", NULL);
-  password = iniparser_getstring(ini, "mysql:password", NULL);
-  dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
+  config.host = iniparser_getstring(ini, "mysql:host", NULL);
+  config.user = iniparser_getstring(ini, "mysql:user", NULL);
+  config.password = iniparser_getstring(ini, "mysql:password", NULL);
+  config.dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
 
-  if ((conn = mysql_connect(host, user, password, dbname)) == NULL) {
+  if ((conn = mysql_connect(config.host, config.user, config.password, config.dbname)) == NULL) {
     return -1;
   }
 
