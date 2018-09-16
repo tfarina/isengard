@@ -11,7 +11,7 @@
 #define USERCONFFILE ".experimentsrc"
 #define PATH_SEP '/'
 
-static char *get_homedir(void)
+static char *get_home_dir(void)
 {
   return getenv("HOME");
 }
@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
   const char *dbname;
   MYSQL *conn = NULL;
 
-  homedir = get_homedir();
+  homedir = get_home_dir();
   userconffile = make_file_path(homedir, USERCONFFILE);
 
   ini = iniparser_load(userconffile);
