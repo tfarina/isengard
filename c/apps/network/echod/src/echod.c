@@ -31,6 +31,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "ed_log.h"
+
 #define ED_USER "_echod"
 
 #define ED_INTERFACE NULL
@@ -45,8 +47,6 @@ static const char *progname;
 
 static int running = 0;
 static unsigned int forked = 0; /* Number of child processes. */
-
-static int log_on_stderr = 1;
 
 static char short_options[] =
     "h"  /* help */
@@ -109,46 +109,6 @@ static void drop_privileges(uid_t uid, gid_t gid) {
     fprintf(stderr, "setresuid failed\n");
     exit(EXIT_FAILURE);
   }
-}
-
-static void log_init(int on_stderr) {
-  log_on_stderr = on_stderr;
-
-  if (!log_on_stderr)
-    openlog(progname, LOG_PID | LOG_NDELAY, LOG_DAEMON);
-}
-
-static void vlog(int pri, const char *fmt, va_list ap) {
-  char *nfmt;
-  if (log_on_stderr) {
-    /* Write to stderr */
-    if (asprintf(&nfmt, "%s\n", fmt) == -1) {
-      vfprintf(stderr, fmt, ap);
-      fprintf(stderr, "\n");
-    } else {
-      vfprintf(stderr, nfmt, ap);
-      free(nfmt);
-    }
-    fflush(stderr);
-  } else {
-    vsyslog(pri, fmt, ap);
-  }
-}
-
-static void log_info(const char *emsg, ...) {
-  va_list ap;
-
-  va_start(ap, emsg);
-  vlog(LOG_INFO, emsg, ap);
-  va_end(ap);
-}
-
-static void log_error(const char *emsg, ...) {
-  va_list ap;
-
-  va_start(ap, emsg);
-  vlog(LOG_ERR, emsg, ap);
-  va_end(ap);
 }
 
 #define FNET_OK 0
@@ -395,7 +355,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  log_init(!daemonize);
+  log_init(progname, !daemonize);
 
   tcpfd = fnet_tcp_socket_listen(host, port, ED_BACKLOG);
   if (tcpfd == FNET_ERR) {
