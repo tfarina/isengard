@@ -11,7 +11,7 @@
 #define USERCONFFILE ".experimentsrc"
 #define PATH_SEP '/'
 
-static char *get_home_dir(void)
+static const char *get_home_dir(void)
 {
   return getenv("HOME");
 }
@@ -154,7 +154,7 @@ static int product_list(MYSQL *conn)
 }
 
 int main(int argc, char **argv) {
-  char *homedir;
+  const char *homedir;
   char *userconffile;
   dictionary *ini;
   const char *host;
