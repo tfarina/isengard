@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 
-/*
+/**
  * A buffer_t is a generic memory buffer.
  */
 typedef struct {
@@ -17,27 +17,27 @@ typedef struct {
 	size_t capacity;
 } buffer_t;
 
-/*
+/**
  * buffer_init prepares an uninitialized buffer for use.
  */
 void buffer_init(buffer_t *b);
 
-/*
+/**
  * buffer_alloc creates a new buffer with the specified capacity.
  */
 buffer_t *buffer_alloc(size_t capacity);
 
-/*
+/**
  * buffer_free frees the buffer and all its contents.
  */
 void buffer_free(buffer_t *b);
 
-/*
+/**
  * buffer_reset sets the length and its first byte to zero.
  */
 void buffer_reset(buffer_t *b);
 
-/*
+/**
  * buffer_write writes |data| to the buffer.
  */
 void buffer_write(buffer_t *b, const void *data, size_t length);
