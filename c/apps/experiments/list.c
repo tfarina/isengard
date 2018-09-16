@@ -17,7 +17,7 @@ static char *get_home_dir(void)
 }
 
 /* Code from msmtp:src/tools.c:get_filename */
-static char *make_file_path(const char *directory, const char *name)
+static char *build_filename(const char *directory, const char *name)
 {
   char *path;
   size_t dirlen;
@@ -164,7 +164,7 @@ int main(int argc, char **argv) {
   MYSQL *conn = NULL;
 
   homedir = get_home_dir();
-  userconffile = make_file_path(homedir, USERCONFFILE);
+  userconffile = build_filename(homedir, USERCONFFILE);
 
   ini = iniparser_load(userconffile);
 
