@@ -11,6 +11,9 @@
 #define USERCONFFILE ".experimentsrc"
 #define PATH_SEP '/'
 
+/**
+ * Gets the current user's home directory.
+ */
 static const char *get_home_dir(void)
 {
   return getenv("HOME");
