@@ -151,14 +151,6 @@ static void log_error(const char *emsg, ...) {
   va_end(ap);
 }
 
-static void log_warning(const char *emsg, ...) {
-  va_list ap;
-
-  va_start(ap, emsg);
-  vlog(LOG_WARNING, emsg, ap);
-  va_end(ap);
-}
-
 #define FNET_OK 0
 #define FNET_ERR -1
 
