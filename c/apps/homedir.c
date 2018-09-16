@@ -1,12 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static char *get_home_dir(void) {
+/**
+ * Gets the current user's home directory.
+ */
+static const char *get_home_dir(void)
+{
   return getenv("HOME");
 }
 
 int main(int argc, char **argv) {
-  char *homedir = get_home_dir();
+  const char *homedir;
+
+  homedir = get_home_dir();
 
   printf("%s\n", homedir);
 
