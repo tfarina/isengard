@@ -362,7 +362,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  log_info("Server is ready to accept connections on port %d", port);
+  log_info("%s started (%ld), port %d", progname, (long)getpid(), port);
 
   drop_privileges(pw->pw_uid, pw->pw_gid);
 
