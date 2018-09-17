@@ -4,20 +4,24 @@
 
 #include <stdio.h>
 
-static void
-__cpuid(int dst[4], int ax)
+static void __cpuid(int dst[4], int ax)
 {
 #ifdef __i386__
-        asm volatile(
-               "mov %%ebx, %%edi\n\t"
-                "cpuid\n\t"
-                "xchgl %%ebx, %%edi"
-                : "=a" (dst[0]), "=D" (dst[1]), "=c" (dst[2]), "=d" (dst[3])
-                : "0" (ax));
+        __asm__ volatile("mov %%ebx, %%edi\n\t"
+                         "cpuid\n\t"
+                         "xchgl %%ebx, %%edi"
+                        : "=a" (dst[0]),
+                          "=D" (dst[1]),
+                          "=c" (dst[2]),
+                          "=d" (dst[3])
+                        : "0" (ax));
 #elif defined(__x86_64__)
         asm volatile("cpuid"
-                : "=a" (dst[0]), "=b" (dst[1]), "=c" (dst[2]), "=d" (dst[3])
-                : "0" (ax));
+                   : "=a" (dst[0]),
+	             "=b" (dst[1]),
+                     "=c" (dst[2]),
+                     "=d" (dst[3])
+                   : "0" (ax));
 #else
         dst[0] = dst[1] = dst[2] = dst[3] = 0;
 #endif
@@ -28,7 +32,7 @@ static int cpu_has_sse2(void)
         int info[4];
 
         __cpuid(info, 1);
-        return (info[3] & (1 << 26)) != 0;        // SSE2
+        return (info[3] & (1 << 26)) != 0;
 }
 
 int main(int argc, char **argv)
