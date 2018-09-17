@@ -62,6 +62,13 @@ enum dns_rr_type {
   DNS_RR_TYPE_A = 1, /* An IPv4 host address. */
 };
 
+static const char *dns_rr_class_names[] = {
+  [DNS_RR_CLASS_IN]   = "IN",
+  [DNS_RR_CLASS_CH]   = "CH",
+  [DNS_RR_CLASS_NONE] = "NONE",
+  [DNS_RR_CLASS_ANY]  = "ANY"
+};
+
 #define DNS_DEFAULT_PORT "53"
 
 /*
