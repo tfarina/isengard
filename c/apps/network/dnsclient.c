@@ -121,10 +121,10 @@ typedef struct {
 /*
  * A general purpose lookup table.
  */
-struct lookup_table {
+typedef struct {
   int id;
   const char *name;
-};
+} lookup_t;
 
 /*
  * Looks up the given id in the lookup table.
@@ -132,7 +132,7 @@ struct lookup_table {
  * \param table Lookup table.
  * \param id ID to look up.
  */
-static const struct lookup_table *lookup_by_id(const struct lookup_table *table, int id) {
+static const lookup_t *lookup_by_id(const lookup_t *table, int id) {
   while (table->name != NULL) {
     if (table->id == id) {
       return table;
@@ -145,7 +145,7 @@ static const struct lookup_table *lookup_by_id(const struct lookup_table *table,
 /**
  * DNS reply code names.
  */
-static const struct lookup_table rcode_names[] = {
+static const lookup_t rcode_names[] = {
   { DNS_RCODE_NOERROR, "NOERROR" },
   { DNS_RCODE_FORMERR, "FORMERR" },
   { DNS_RCODE_SERVFAIL, "SERVFAIL" },
@@ -163,7 +163,7 @@ static const struct lookup_table rcode_names[] = {
 /**
  * DNS operation code names.
  */
-static const struct lookup_table opcode_names[] = {
+static const lookup_t opcode_names[] = {
   { DNS_OPCODE_QUERY, "QUERY" },
   { DNS_OPCODE_IQUERY, "IQUERY" },
   { DNS_OPCODE_STATUS, "STATUS" },
@@ -551,10 +551,10 @@ int main(int argc, char **argv) {
   dname_size = dns_dname_wire_check(reply_pkt + DNS_WIRE_HEADER_SIZE, reply_pkt + reply_pktlen);
 
   uint16_t opcode_id = (reply_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
-  const struct lookup_table *opcode = lookup_by_id(opcode_names, opcode_id);
+  const lookup_t *opcode = lookup_by_id(opcode_names, opcode_id);
 
   uint16_t rcode_id = reply_header->flags & RCODE_MASK;
-  const struct lookup_table *rcode = lookup_by_id(rcode_names, rcode_id);
+  const lookup_t *rcode = lookup_by_id(rcode_names, rcode_id);
 
   printf(";; ->>HEADER<<- ");
 
