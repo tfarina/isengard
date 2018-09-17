@@ -329,9 +329,10 @@ static int sockaddr_tostr(char *buf, size_t maxlen, const struct sockaddr *sa) {
     const struct sockaddr_in *s = (const struct sockaddr_in *)sa;
     out = inet_ntop(sa->sa_family, &s->sin_addr, buf, maxlen);
   } else if (sa->sa_family == AF_UNIX) {
-    //    const struct sockaddr_un *s =  (const struct sockaddr_un *)sa;
-    //    size_t ret = strlcpy(buf, s->sun_path, maxlen);
-    //    out = (ret < maxlen) ? buf : NULL;
+    /*    const struct sockaddr_un *s =  (const struct sockaddr_un *)sa;
+     *    size_t ret = strlcpy(buf, s->sun_path, maxlen);
+     *    out = (ret < maxlen) ? buf : NULL;
+     */
   } else {
     return NET_ERR;
   }
@@ -426,8 +427,9 @@ int main(int argc, char **argv) {
 
   owner = strdup(argv[1]);
 
-  // Prepare the packet (header + question) with the query that will be sent to
-  // the DNS server.
+  /* Prepare the packet (header + question) with the query that will be sent to
+   * the DNS server.
+   */
   query_pkt = malloc(MAX_UDP_SIZE);
 
   query_header = malloc(sizeof(*query_header));
@@ -459,7 +461,7 @@ int main(int argc, char **argv) {
 
   uint8_t *position;
 
-  // HEADER
+  /* HEADER */
   dns_pkt_set_id(query_pkt, query_header->id);
   write_uint16(query_pkt + DNS_OFFSET_FLAGS, query_header->flags);
   write_uint16(query_pkt + DNS_OFFSET_QDCOUNT, query_header->qdcount);
@@ -469,29 +471,30 @@ int main(int argc, char **argv) {
 
   position = query_pkt + sizeof(*query_header);
 
-  // QUESTION: QNAME + QTYPE + QCLASS
+  /* QUESTION: QNAME + QTYPE + QCLASS */
 
-  // QNAME
+  /* QNAME */
   memcpy(position, question->qname, question->qnamelen);
   position += question->qnamelen;
 
-  // QTYPE
+  /* QTYPE */
   write_uint16(position, question->qtype);
   position += sizeof(question->qtype);
 
-  // QCLASS
+  /* QCLASS */
   write_uint16(position, question->qclass);
   position += sizeof(question->qclass);
 
   query_pktlen = position - query_pkt;
-  //  printf("PKTLEN: %zu\n", query_pktlen);
+  /*  printf("PKTLEN: %zu\n", query_pktlen); */
 
-  // Resolver settings.
+  /* Resolver settings. */
   server_name = "8.8.8.8";
   def_port = DNS_DEFAULT_PORT;
 
-  // Prepare the UDP socket that will be used to send the query to the DNS
-  // server.
+  /* Prepare the UDP socket that will be used to send the query to the DNS
+   * server.
+   */
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_DGRAM;
@@ -509,13 +512,13 @@ int main(int argc, char **argv) {
   char addr_str[SOCKADDR_STRLEN] = { 0 };
   sockaddr_tostr(addr_str, sizeof(addr_str), addrlist->ai_addr);
 
-  // Create the socket.
+  /* Create the socket. */
   if ((sockfd = socket(addrlist->ai_family, addrlist->ai_socktype, 0)) == -1) {
     fprintf(stderr, "socket creation failed: %s\n", strerror(errno));
     return EXIT_FAILURE;
   }
 
-  // Send the query.
+  /* Send the query. */
   if (sendto(sockfd, query_pkt, query_pktlen, 0, addrlist->ai_addr,
              addrlist->ai_addrlen) != (ssize_t)query_pktlen) {
     fprintf(stderr, "can't send query to %s\n", addr_str);
@@ -523,7 +526,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  // Receive the response.
+  /* Receive the response. */
   reply_pktlen = recvfrom(sockfd, reply_pkt, sizeof(reply_pkt), 0,
                           (struct sockaddr *)&from, &fromlen);
   /* recvfrom() can also return 0. */
@@ -537,7 +540,7 @@ int main(int argc, char **argv) {
 
   free(query_header);
 
-  // Parse reply to the dnsheader structure.
+  /* Parse reply to the dnsheader structure. */
   reply_header = malloc(sizeof(*reply_header));
   memset(reply_header, 0, sizeof(*reply_header));
 
