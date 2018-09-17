@@ -12,6 +12,7 @@
 #include <time.h>
 #include <unistd.h>
 
+/* This type represents a domain name in wire format. */
 typedef uint8_t dns_dname_t;
 
 struct dnsheader {
@@ -40,19 +41,19 @@ struct dnsquestion {
 
 /* Resource Record definitions. */
 
-/*
+/**
  * Resource record class codes.
  *
  * http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml
  */
 enum dns_rr_class {
-  DNS_RR_CLASS_IN = 1, /* Internet */
-  DNS_RR_CLASS_CH = 3, /* Chaos */
+  DNS_RR_CLASS_IN   = 1,   /* Internet */
+  DNS_RR_CLASS_CH   = 3,   /* Chaos */
   DNS_RR_CLASS_NONE = 254, /* QCLASS NONE */
-  DNS_RR_CLASS_ANY = 255 /* QCLASS * (ANY) */
+  DNS_RR_CLASS_ANY  = 255  /* QCLASS * (ANY) */
 };
 
-/*
+/**
  * Resource record types.
  *
  * http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml
@@ -82,16 +83,20 @@ enum dns_rr_type {
 
 #define RCODE_MASK 0x000fU /* 0000 0000 0000 1111 */
 
-/* DNS operation codes. */
+/**
+ * DNS operation codes (OPCODEs).
+ */
 enum dns_opcode {
-  DNS_OPCODE_QUERY = 0, /* Standard query. */
+  DNS_OPCODE_QUERY = 0,  /* Standard query. */
   DNS_OPCODE_IQUERY = 1, /* Inverse query. */
   DNS_OPCODE_STATUS = 2, /* Server status request */
   DNS_OPCODE_NOTIFY = 4, /* Notify message. */
-  DNS_OPCODE_UPDATE = 5 /* Dynamic update. */
+  DNS_OPCODE_UPDATE = 5  /* Dynamic update. */
 };
 
- /* DNS reply codes. */
+/**
+ * DNS reply codes (RCODEs).
+ */
 enum dns_rcode {
   DNS_RCODE_NOERROR = 0, /* No error. */
   DNS_RCODE_FORMERR = 1, /* Format error. */
