@@ -421,7 +421,6 @@ static int dns_dname_size(const uint8_t *name) {
 
 int main(int argc, char **argv) {
   char *owner;
-  struct dnsheader *query_header;
   struct dnsquestion *question;
   uint8_t *query_pkt;
   size_t query_pktlen;
@@ -448,21 +447,11 @@ int main(int argc, char **argv) {
    */
   query_pkt = malloc(MAX_UDP_SIZE);
 
-  query_header = malloc(sizeof(*query_header));
-  memset(query_header, 0, sizeof(*query_header));
-
   unsigned int rand_seed;
   struct timeval tv;
   gettimeofday(&tv, NULL);
   rand_seed = tv.tv_sec ^ tv.tv_usec;
   srandom(rand_seed);
-
-  query_header->id = random();
-  query_header->flags = FLAG_RD;
-  query_header->qdcount = 1;
-  query_header->ancount = 0;
-  query_header->nscount = 0;
-  query_header->arcount = 0;
 
   /* Create QNAME from string. */
   dns_dname_t *qname = dname_from_str(owner);
@@ -478,14 +467,14 @@ int main(int argc, char **argv) {
   uint8_t *position;
 
   /* HEADER */
-  dns_pkt_set_id(query_pkt, query_header->id);
-  write_uint16(query_pkt + DNS_OFFSET_FLAGS, query_header->flags);
-  write_uint16(query_pkt + DNS_OFFSET_QDCOUNT, query_header->qdcount);
-  write_uint16(query_pkt + DNS_OFFSET_ANCOUNT, query_header->ancount);
-  write_uint16(query_pkt + DNS_OFFSET_NSCOUNT, query_header->nscount);
-  write_uint16(query_pkt + DNS_OFFSET_ARCOUNT, query_header->arcount);
+  dns_pkt_set_id(query_pkt, random());
+  write_uint16(query_pkt + DNS_OFFSET_FLAGS, FLAG_RD);
+  write_uint16(query_pkt + DNS_OFFSET_QDCOUNT, 1);
+  write_uint16(query_pkt + DNS_OFFSET_ANCOUNT, 0);
+  write_uint16(query_pkt + DNS_OFFSET_NSCOUNT, 0);
+  write_uint16(query_pkt + DNS_OFFSET_ARCOUNT, 0);
 
-  position = query_pkt + sizeof(*query_header);
+  position = query_pkt + DNS_WIRE_HEADER_SIZE;
 
   /* QUESTION: QNAME + QTYPE + QCLASS */
 
@@ -553,8 +542,6 @@ int main(int argc, char **argv) {
   }
 
   freeaddrinfo(addrlist);
-
-  free(query_header);
 
   /* Parse reply to the dnsheader structure. */
   reply_header = malloc(sizeof(*reply_header));
