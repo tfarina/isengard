@@ -44,8 +44,8 @@ struct dnsquestion {
 #define FLAG_RA     /* 0000 0000 1000 0000 */ 0x0080U /* Recursion Available - server flag */
 #define FLAG_Z      /* 0000 0000 0100 0000 */ 0x0040U /* Reserved for future use. Must be zero */
 #define RCODE_MASK  /* 0000 0000 0000 1111 */ 0x000fU /* Response Code - 4 bit field */
-#define FLAG_AD 0x0020U /* Authenticated Data - server flag */
-#define FLAG_CD 0x0010U /* Checking Disabled - query flag */
+#define FLAG_AD     /* 0000 0000 0010 0000 */ 0x0020U /* Authenticated Data - server flag */
+#define FLAG_CD     /* 0000 0000 0001 0000 */ 0x0010U /* Checking Disabled - query flag */
 
 #define OPCODE_SHIFT 11
 
