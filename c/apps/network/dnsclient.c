@@ -365,8 +365,10 @@ static int sockaddr_tostr(char *buf, size_t maxlen, const struct sockaddr *sa) {
   return written;
 }
 
+#define DNS_LABEL_PTR 0xC0 /* 1100 0000 */
+
 static int is_label_pointer(const uint8_t *pos) {
-  return pos && ((pos[0] & 0xc0) == 0xc0);
+  return pos && ((pos[0] & DNS_LABEL_PTR) == DNS_LABEL_PTR);
 }
 
 /*
