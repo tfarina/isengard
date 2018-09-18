@@ -235,6 +235,11 @@ static uint16_t dns_pkt_get_id(const uint8_t *packet)
   return read_uint16(packet + DNS_OFFSET_ID);
 }
 
+static void dns_pkt_set_qdcount(uint8_t *packet, uint16_t qdcount)
+{
+  write_uint16(packet + DNS_OFFSET_QDCOUNT, qdcount);
+}
+
 static int is_root(const char *name) {
   return name[0] == '.' && name[1] == '\0';
 }
@@ -469,7 +474,7 @@ int main(int argc, char **argv) {
   /* HEADER */
   dns_pkt_set_id(query_pkt, random());
   write_uint16(query_pkt + DNS_OFFSET_FLAGS, FLAG_RD);
-  write_uint16(query_pkt + DNS_OFFSET_QDCOUNT, 1);
+  dns_pkt_set_qdcount(query_pkt, 1);
   write_uint16(query_pkt + DNS_OFFSET_ANCOUNT, 0);
   write_uint16(query_pkt + DNS_OFFSET_NSCOUNT, 0);
   write_uint16(query_pkt + DNS_OFFSET_ARCOUNT, 0);
