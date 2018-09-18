@@ -31,6 +31,11 @@ struct dnsquestion {
   uint16_t qclass;
 };
 
+/**
+ * https://tools.ietf.org/html/rfc1035
+ *
+ * 4.1.1. Header section format
+ */
 #define FLAG_QR 0x8000U /* Query (0) or Response (1) bit field */
 #define FLAG_AA 0x0400U /* Authoritative Answer - server flag */
 #define FLAG_TC 0x0200U /* TrunCated - server flag */
@@ -38,6 +43,11 @@ struct dnsquestion {
 #define FLAG_RA 0x0080U /* Recursion Available - server flag */
 #define FLAG_AD 0x0020U /* Authenticated Data - server flag */
 #define FLAG_CD 0x0010U /* Checking Disabled - query flag */
+
+#define OPCODE_MASK 0x7800U /* 0111 1000 0000 0000 */
+#define OPCODE_SHIFT 11
+
+#define RCODE_MASK 0x000fU /* 0000 0000 0000 1111 */
 
 /* Resource Record definitions. */
 
@@ -84,11 +94,6 @@ static const char *dns_rr_class_names[] = {
  */
 #define DNS_DNAME_MAXLEN 255 /* 1-byte maximum. */
 #define DNS_DNAME_MAXLABELLEN 63 /* 2^6 - 1 */
-
-#define OPCODE_MASK 0x7800U /* 0111 1000 0000 0000 */
-#define OPCODE_SHIFT 11
-
-#define RCODE_MASK 0x000fU /* 0000 0000 0000 1111 */
 
 /**
  * DNS operation codes (OPCODEs).
