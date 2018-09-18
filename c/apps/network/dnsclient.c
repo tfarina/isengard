@@ -230,7 +230,7 @@ static void dns_pkt_set_id(uint8_t *packet, uint16_t id)
   write_uint16(packet + DNS_OFFSET_ID, id);
 }
 
-static uint16_t dns_wire_get_id(const uint8_t *packet)
+static uint16_t dns_pkt_get_id(const uint8_t *packet)
 {
   return read_uint16(packet + DNS_OFFSET_ID);
 }
@@ -560,7 +560,7 @@ int main(int argc, char **argv) {
   reply_header = malloc(sizeof(*reply_header));
   memset(reply_header, 0, sizeof(*reply_header));
 
-  reply_header->id = dns_wire_get_id(reply_pkt);
+  reply_header->id = dns_pkt_get_id(reply_pkt);
   reply_header->flags = read_uint16(reply_pkt + DNS_OFFSET_FLAGS);
   reply_header->qdcount = read_uint16(reply_pkt + DNS_OFFSET_QDCOUNT);
   reply_header->ancount = read_uint16(reply_pkt + DNS_OFFSET_ANCOUNT);
