@@ -12,9 +12,29 @@
 #include <time.h>
 #include <unistd.h>
 
-/* This type represents a domain name in wire format. */
-typedef uint8_t dns_dname_t;
-
+/**
+ * https://tools.ietf.org/html/rfc1035
+ *
+ * 4.1.1. Header section format
+ *
+ * The header contains the following fields:
+ *
+ *                                   1  1  1  1  1  1
+ *     0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
+ *  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *  |                      ID                       |
+ *  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *  |QR|   Opcode  |AA|TC|RD|RA|   Z    |   RCODE   |
+ *  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *  |                    QDCOUNT                    |
+ *  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *  |                    ANCOUNT                    |
+ *  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *  |                    NSCOUNT                    |
+ *  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *  |                    ARCOUNT                    |
+ *  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ */
 struct dnsheader {
   uint16_t id;
   uint16_t flags;
@@ -24,18 +44,6 @@ struct dnsheader {
   uint16_t arcount;
 };
 
-struct dnsquestion {
-  dns_dname_t *qname;
-  size_t qnamelen;
-  uint16_t qtype;
-  uint16_t qclass;
-};
-
-/**
- * https://tools.ietf.org/html/rfc1035
- *
- * 4.1.1. Header section format
- */
 #define FLAG_QR     /* 1000 0000 0000 0000 */ 0x8000U /* Query (0) or Response (1) bit field */
 #define OPCODE_MASK /* 0111 1000 0000 0000 */ 0x7800U
 #define FLAG_AA     /* 0000 0100 0000 0000 */ 0x0400U /* Authoritative Answer - server flag */
@@ -48,6 +56,16 @@ struct dnsquestion {
 #define FLAG_CD     /* 0000 0000 0001 0000 */ 0x0010U /* Checking Disabled - query flag */
 
 #define OPCODE_SHIFT 11
+
+/* This type represents a domain name in wire format. */
+typedef uint8_t dns_dname_t;
+
+struct dnsquestion {
+  dns_dname_t *qname;
+  size_t qnamelen;
+  uint16_t qtype;
+  uint16_t qclass;
+};
 
 /* Resource Record definitions. */
 
