@@ -36,15 +36,15 @@ struct dnsquestion {
  *
  * 4.1.1. Header section format
  */
-#define FLAG_QR 0x8000U /* Query (0) or Response (1) bit field */
-#define FLAG_AA 0x0400U /* Authoritative Answer - server flag */
-#define FLAG_TC 0x0200U /* TrunCated - server flag */
-#define FLAG_RD 0x0100U /* Recursion Desired - query flag */
-#define FLAG_RA 0x0080U /* Recursion Available - server flag */
+#define FLAG_QR     /* 1000 0000 0000 0000 */ 0x8000U /* Query (0) or Response (1) bit field */
+#define OPCODE_MASK /* 0111 1000 0000 0000 */ 0x7800U
+#define FLAG_AA     /* 0000 0100 0000 0000 */ 0x0400U /* Authoritative Answer - server flag */
+#define FLAG_TC     /* 0000 0010 0000 0000 */ 0x0200U /* TrunCated - server flag */
+#define FLAG_RD     /* 0000 0001 0000 0000 */ 0x0100U /* Recursion Desired - query flag */
+#define FLAG_RA     /* 0000 0000 1000 0000 */ 0x0080U /* Recursion Available - server flag */
 #define FLAG_AD 0x0020U /* Authenticated Data - server flag */
 #define FLAG_CD 0x0010U /* Checking Disabled - query flag */
 
-#define OPCODE_MASK 0x7800U /* 0111 1000 0000 0000 */
 #define OPCODE_SHIFT 11
 
 #define RCODE_MASK 0x000fU /* 0000 0000 0000 1111 */
