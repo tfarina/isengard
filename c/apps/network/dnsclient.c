@@ -42,12 +42,11 @@ struct dnsquestion {
 #define FLAG_TC     /* 0000 0010 0000 0000 */ 0x0200U /* TrunCated - server flag */
 #define FLAG_RD     /* 0000 0001 0000 0000 */ 0x0100U /* Recursion Desired - query flag */
 #define FLAG_RA     /* 0000 0000 1000 0000 */ 0x0080U /* Recursion Available - server flag */
+#define RCODE_MASK  /* 0000 0000 0000 1111 */ 0x000fU /* Response Code - 4 bit field */
 #define FLAG_AD 0x0020U /* Authenticated Data - server flag */
 #define FLAG_CD 0x0010U /* Checking Disabled - query flag */
 
 #define OPCODE_SHIFT 11
-
-#define RCODE_MASK 0x000fU /* 0000 0000 0000 1111 */
 
 /* Resource Record definitions. */
 
