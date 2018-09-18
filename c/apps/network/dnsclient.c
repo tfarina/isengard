@@ -240,6 +240,11 @@ static void dns_pkt_set_qdcount(uint8_t *packet, uint16_t qdcount)
   write_uint16(packet + DNS_OFFSET_QDCOUNT, qdcount);
 }
 
+static uint16_t dns_pkt_get_qdcount(uint8_t *packet)
+{
+  return read_uint16(packet + DNS_OFFSET_QDCOUNT);
+}
+
 static int is_root(const char *name) {
   return name[0] == '.' && name[1] == '\0';
 }
@@ -551,7 +556,7 @@ int main(int argc, char **argv) {
 
   reply_header->id = dns_pkt_get_id(reply_pkt);
   reply_header->flags = read_uint16(reply_pkt + DNS_OFFSET_FLAGS);
-  reply_header->qdcount = read_uint16(reply_pkt + DNS_OFFSET_QDCOUNT);
+  reply_header->qdcount = dns_pkt_get_qdcount(reply_pkt);
   reply_header->ancount = read_uint16(reply_pkt + DNS_OFFSET_ANCOUNT);
   reply_header->nscount = read_uint16(reply_pkt + DNS_OFFSET_NSCOUNT);
   reply_header->arcount = read_uint16(reply_pkt + DNS_OFFSET_ARCOUNT);
