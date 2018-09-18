@@ -475,9 +475,6 @@ int main(int argc, char **argv) {
   dns_pkt_set_id(query_pkt, random());
   write_uint16(query_pkt + DNS_OFFSET_FLAGS, FLAG_RD);
   dns_pkt_set_qdcount(query_pkt, 1);
-  write_uint16(query_pkt + DNS_OFFSET_ANCOUNT, 0);
-  write_uint16(query_pkt + DNS_OFFSET_NSCOUNT, 0);
-  write_uint16(query_pkt + DNS_OFFSET_ARCOUNT, 0);
 
   position = query_pkt + DNS_WIRE_HEADER_SIZE;
 
