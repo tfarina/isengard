@@ -10,6 +10,7 @@ set(ECHOD_SRCS src/ed_log.c src/echod.c)
 add_executable(echod ${ECHOD_SRCS})
 
 set(INSTALL_SBIN_DIR "${CMAKE_INSTALL_PREFIX}/sbin" CACHE PATH "Installation directory for system admin executables")
+set(INSTALL_MAN_DIR "${CMAKE_INSTALL_PREFIX}/share/man" CACHE PATH "Installation directory for manual pages")
 
 install(TARGETS echod RUNTIME DESTINATION "${INSTALL_SBIN_DIR}")
-install(FILES man/echod.8 DESTINATION ${CMAKE_INSTALL_PREFIX}/share/man/man8)
+install(FILES man/echod.8 DESTINATION "${INSTALL_MAN_DIR}/man8")
