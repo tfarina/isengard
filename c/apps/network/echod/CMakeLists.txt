@@ -12,4 +12,4 @@ add_executable(echod ${ECHOD_SRCS})
 set(INSTALL_SBIN_DIR "${CMAKE_INSTALL_PREFIX}/sbin" CACHE PATH "Installation directory for system admin executables")
 
 install(TARGETS echod RUNTIME DESTINATION "${INSTALL_SBIN_DIR}")
-install(FILES src/echod.8 DESTINATION ${CMAKE_INSTALL_PREFIX}/man/man8)
+install(FILES man/echod.8 DESTINATION ${CMAKE_INSTALL_PREFIX}/man/man8)
