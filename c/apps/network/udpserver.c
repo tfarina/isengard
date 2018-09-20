@@ -33,7 +33,7 @@ static void fnet_set_error(char *err, const char *fmt, ...) {
 }
 
 
-static int fnet_set_reuse_addr(char *err, int fd) {
+static int fnet_set_reuse_addr(int fd, char *err) {
   int reuse = 1;
 
   if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
@@ -71,7 +71,7 @@ static int udp_socket_listen(char *host, int port) {
       continue;
     }
 
-    if (fnet_set_reuse_addr(NULL, sockfd) == FNET_ERR) {
+    if (fnet_set_reuse_addr(sockfd, NULL) == FNET_ERR) {
       close(sockfd);
       continue;
     }
