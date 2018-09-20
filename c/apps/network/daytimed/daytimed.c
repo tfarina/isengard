@@ -102,25 +102,25 @@ int main(void) {
 
   if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
     error("cannot create socket: %s", strerror(errno));
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
     error("set reuse addr on sd %d failed: %s", sockfd, strerror(errno));
     close(sockfd);
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   if (bind(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1) {
     error("bind on %d failed: %s", sockfd, strerror(errno));
     close(sockfd);
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   if (listen(sockfd, BACKLOG) == -1) {
     error("listen failed: %s", strerror(errno));
     close(sockfd);
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   info("The server is now ready to accept connections on port %d\n", DEFAULT_PORT);
