@@ -14,12 +14,25 @@ CREATE TABLE `exchange` (
 insert into exchange (abbrev, name, city, country, currency, created_date, last_updated_date) values ('B3', 'Brasil, Bolsa, Balcão', 'São Paulo', 'Brazil', 'BRL', NOW(), NOW());
 
 CREATE TABLE `income_statement` (
-
-);
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `stock_id` INT NOT NULL,
+  `revenue` BIGINT,
+  `net_income` BIGINT,
+  `year` YEAR NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
 
 CREATE TABLE `balance_sheet` (
-
-);
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `stock_id` INT NOT NULL,
+  `current_assets` BIGINT,
+  `total_assets` BIGINT,
+  `current_liabilities` BIGINT,
+  `total_liabilities` BIGINT,
+  `shareholders_equity` BIGINT,
+  `year` YEAR NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
 
 CREATE TABLE `cashflow_statement` (
   `currencyCode` CHAR(3),
