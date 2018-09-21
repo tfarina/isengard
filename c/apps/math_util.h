@@ -9,4 +9,9 @@
  */
 long int bin2dec(long int num);
 
+/**
+ * Converts a decimal number to binary.
+ */
+void dec2bin(unsigned n);
+
 #endif /* MATH_UTIL_H_ */
