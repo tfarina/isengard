@@ -114,7 +114,7 @@ static void drop_privileges(uid_t uid, gid_t gid) {
 #define FNET_OK 0
 #define FNET_ERR -1
 
-static int fnet_set_reuse_addr(int fd) {
+static int fnet_set_reuseaddr(int fd) {
   int reuse = 1;
 
   if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
@@ -152,7 +152,7 @@ static int fnet_tcp_socket_listen(char *host, int port, int backlog) {
       continue;
     }
 
-    if (fnet_set_reuse_addr(tcpfd) == FNET_ERR) {
+    if (fnet_set_reuseaddr(tcpfd) == FNET_ERR) {
       close(tcpfd);
       continue;
     }
