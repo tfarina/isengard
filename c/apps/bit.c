@@ -36,5 +36,20 @@ int main(void) {
   printf("%d\n", sixtyfour);
   printf("%d\n", onehundredtwentyeight);
 
+  /* Powers of 2 showing the use of right shift (<<) operator.
+   *
+   * What does it do? It telss the compiler to shift (deslocate) the bit on the most right
+   * to the left by n positions. Since it starts with 0000 0001, it creates the power of 2
+   * effect.
+   */
+  printf("%d\n", BITMASK(0)); /* 0000 0001 */
+  printf("%d\n", BITMASK(1)); /* 0000 0010 */
+  printf("%d\n", BITMASK(2)); /* 0000 0100 */
+  printf("%d\n", BITMASK(3)); /* 0000 1000 */
+  printf("%d\n", BITMASK(4)); /* 0001 0000 */
+  printf("%d\n", BITMASK(5)); /* 0010 0000 */
+  printf("%d\n", BITMASK(6)); /* 0100 0000 */
+  printf("%d\n", BITMASK(7)); /* 1000 0000 */
+
   return 0;
 }
