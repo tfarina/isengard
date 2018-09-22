@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 /**
- * |n| represents the number of periods (i.e., 10 years).
+ * @param n Represents the number of periods (i.e., 10 years).
  */
 static double growth_rate(double present, double past, double n)
 {
