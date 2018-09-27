@@ -15,6 +15,11 @@ int main(void) {
   const uint8_t more_bits = 0b01011110;
   const uint8_t combined_bits = some_bits | more_bits; /* equals to 0b11111110 */ 
 
+  /*
+   * Bits | 7th | 6th | 5th | 4th | 3rd | 2nd | 1st | 0th
+   * 16   |  0  | 0   |  0  |  1  |  0  |  0  |  0  |  0
+   */
+
   /* Powers of 2 in binary */
   const uint8_t zero                  = 0b00000000;
   const uint8_t one                   = 0b00000001;
