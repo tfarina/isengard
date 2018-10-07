@@ -17,6 +17,8 @@ CREATE TABLE `income_statement` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `stock_id` INT NOT NULL,
   `revenue` BIGINT,
+  `cost_of_goods_sold` BIGINT,
+  `gross_profit` BIGINT,
   `net_income` BIGINT,
   `year` YEAR NULL,
   PRIMARY KEY (`id`)
