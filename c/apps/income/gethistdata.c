@@ -64,8 +64,8 @@ static int download_quotes_from_yahoo(char *symbol)
 
   curl_global_init(CURL_GLOBAL_NOTHING);
 
-  /* 1. Write history page into file and while at it get the cookies (they
-   * will be necessary later on).
+  /* 1. Write history page into file and get the cookies.txt file (they
+   * will be used later on).
    */
   curl = curl_easy_init();
 
@@ -143,7 +143,7 @@ static int download_quotes_from_yahoo(char *symbol)
   sprintf(filename, "%s.csv", symbol);
   write_file(filename, buf.data, buf.length);
 
-  /* 6. Read the csv file into memory, parse it and import the data to MySQL. */
+  /* 6. Parse it. */
   rc = csv_init(&parser, CSV_APPEND_NULL);
   if (rc != 0) {
     fprintf(stderr, "failed to initialize CSV parser\n");
@@ -171,6 +171,7 @@ static int download_quotes_from_yahoo(char *symbol)
     return -1;
   }
 
+  /* 7. Import the data into MySQL. */
   homedir = get_home_dir();
   userconffile = make_file_path(homedir, USERCONFFILE);
   ini = iniparser_load(userconffile);
@@ -186,7 +187,7 @@ static int download_quotes_from_yahoo(char *symbol)
   curl_easy_cleanup(curl);
   curl_global_cleanup();
  
-  /* Connect to the database to start importing the data. */
+  /* 8. Connect to the database to start importing the data. */
   if ((conn = db_mysql_connect(host, user, password, dbname)) == NULL) {
     return -1;
   }
