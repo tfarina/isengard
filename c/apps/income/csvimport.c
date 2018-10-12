@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
   size_t bytes_processed;
   size_t i;
 
-  homedir = get_homedir();
+  homedir = get_home_dir();
   userconffile = make_file_path(homedir, USERCONFFILE);
   ini = iniparser_load(userconffile);
   if (ini == NULL) {

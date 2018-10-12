@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 
-char *get_homedir(void)
+char *get_home_dir(void)
 {
   return getenv("HOME");
 }

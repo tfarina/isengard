@@ -171,7 +171,7 @@ static int download_quotes_from_yahoo(char *symbol)
     return -1;
   }
 
-  homedir = get_homedir();
+  homedir = get_home_dir();
   userconffile = make_file_path(homedir, USERCONFFILE);
   ini = iniparser_load(userconffile);
   if (ini == NULL) {
