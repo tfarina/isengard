@@ -25,6 +25,7 @@ add_library(libcsv ${LIBCSV_SRCS})
 add_executable(tst tst.c)
 target_link_libraries(tst libcsv)
 
+add_executable(resolv resolv.c)
 add_executable(readfile readfile.c)
 add_executable(writefile writefile.c)
 add_executable(buildtime buildtime.c)
@@ -34,7 +35,7 @@ add_executable(math_util_test math_util.c math_util_test.c)
 target_link_libraries(math_util_test -lm)
 add_executable(cansse2 cansse2.c)
 add_executable(lexer lexer.c)
-add_executable(lookup lookup.c)
+add_executable(logging logging.c)
 add_executable(execprog execprog.c)
 add_executable(getcwd getcwd.c)
 add_executable(exampled exampled.c)
@@ -62,6 +63,7 @@ add_executable(percentage percentage.c)
 add_executable(growth_rate growth_rate.c)
 target_link_libraries(growth_rate -lm)
 add_executable(pivot pivot.c)
+add_executable(querydate querydate.c)
 add_executable(sizedt sizedt.c)
 add_executable(cprimitivedatatypes cprimitivedatatypes.c)
 add_executable(ccustomdatatypes ccustomdatatypes.c)
@@ -72,3 +74,19 @@ add_executable(stats_test stats_test.c stats.c)
 target_link_libraries(stats_test -lm)
 add_executable(mysql_version mysql_version.c)
 target_link_libraries(mysql_version ${MYSQL_LIBRARY})
+
+
+
+add_executable(ticks ticks.c)
+target_link_libraries(ticks libcsv)
+
+add_executable(csvinfo csvinfo.c)
+target_link_libraries(csvinfo libcsv)
+
+set(LIBCSV_PARSER_SRCS
+    csv_parser.c
+    )
+
+add_library(libcsv_parser ${LIBCSV_PARSER_SRCS})
+add_executable(csvimport csvimport.c)
+target_link_libraries(csvimport libcsv_parser)
