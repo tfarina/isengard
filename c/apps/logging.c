@@ -6,6 +6,8 @@
 
 #include <stdio.h>
 
+#include "lookup.h"
+
 enum log_severity {
         LOG_INFO = 0,
         LOG_WARNING = 1,
@@ -29,12 +31,7 @@ get_log_severity_name(int severity)
         return "unknown";
 }
 
-struct priority_info {
-        int id;
-        const char *name;
-};
-
-static struct priority_info log_priority_info_table[] = {
+static lookup_entry_t log_priority_table[] = {
         { LOG_INFO, "info" },
         { LOG_WARNING, "warning" },
         { LOG_ERROR, "error" },
@@ -42,26 +39,15 @@ static struct priority_info log_priority_info_table[] = {
         { 0, NULL }
 };
 
-static struct priority_info*
-get_priority_info_by_id(struct priority_info table[], int id)
+int
+main(void)
 {
-        struct priority_info *item;
+        lookup_entry_t *priority_entry;
 
-        for (item = table; item; item++) {
-                if (item->id == id) {
-                        return item;
-                }
-        }
-        return NULL;
-}
+        priority_entry = lookup_entry_by_id(log_priority_table, LOG_FATAL);
 
-int main(void) {
-        struct priority_info *pinfo;
-
-        pinfo = get_priority_info_by_id(log_priority_info_table, LOG_FATAL);
-
-        if (pinfo) {
-                printf("%s\n", pinfo->name);
+        if (priority_entry) {
+                printf("%s\n", priority_entry->name);
         }
 
         printf("%s\n", get_log_severity_name(LOG_ERROR));
