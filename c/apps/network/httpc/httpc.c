@@ -172,6 +172,7 @@ int main(int argc, char **argv) {
   int sockfd;
   char request[MIN_BUFLEN];
   const char method[] = "GET";
+  const char path[] = "/";
   size_t bytes_to_send;
   ssize_t bytes_received;
   char data[MIN_BUFLEN];
@@ -225,7 +226,7 @@ int main(int argc, char **argv) {
 	           "Host: %s\r\n"
 	           "Connection: close\r\n"
                    "\r\n",
-          method, "/", host);
+          method, path, host);
 
   bytes_to_send = strlen(request);
 
