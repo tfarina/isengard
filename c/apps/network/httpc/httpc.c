@@ -222,7 +222,10 @@ int main(int argc, char **argv) {
 
   printf("Connection established.\n");
 
-  sprintf(request, "%s %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n",
+  sprintf(request, "%s %s HTTP/1.1\r\n"
+	           "Host: %s\r\n"
+	           "Connection: close\r\n"
+                   "\r\n",
           method, "/", host);
 
   bytes_to_send = strlen(request);
