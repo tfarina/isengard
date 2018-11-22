@@ -212,13 +212,12 @@ int main(int argc, char **argv) {
     sockfd = -1;
   }
 
+  freeaddrinfo(addrlist);
+
   if (sockfd == -1) {
     fprintf(stderr, "Failed to connect to %s\n", host);
-    freeaddrinfo(addrlist);
     return -1;
   }
-
-  freeaddrinfo(addrlist);
 
   printf("Connection established.\n");
 
