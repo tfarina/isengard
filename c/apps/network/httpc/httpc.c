@@ -186,7 +186,7 @@ int main(int argc, char **argv) {
 
   if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
-    exit(EXIT_FAILURE);
+    return -1;
   }
 
   /* Loop through all the results and connect to the first we can. */
@@ -215,7 +215,7 @@ int main(int argc, char **argv) {
   if (sockfd == -1) {
     fprintf(stderr, "Failed to connect to %s\n", host);
     freeaddrinfo(addrlist);
-    exit(EXIT_FAILURE);
+    return -1;
   }
 
   freeaddrinfo(addrlist);
