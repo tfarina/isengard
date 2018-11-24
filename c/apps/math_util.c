@@ -21,10 +21,19 @@ long int bin2dec(long int num) {
  * Do this for all bits from 31 to 0.
  *
  * Code from: www.geeksforgeeks.org/binary-representation-of-a-given-number
+ * New code from: https://www.programiz.com/c-programming/examples/binary-decimal-convert
  */
-void dec2bin(unsigned n) {
-  unsigned i;
-  for (i = 1 << 31; i > 0; i = i / 2) {
-    (n & i) ? printf("1") : printf("0");
-  }
+long long dec2bin(unsigned n) {
+  long long binaryNumber = 0;
+  int remainder, i = 1, step = 1;
+
+  while (n!=0)
+    {
+      remainder = n%2;
+      //printf("Step %d: %d/2, Remainder = %d, Quotient = %d\n", step++, n, remainder, n/2);
+      n /= 2;
+      binaryNumber += remainder*i;
+      i *= 10;
+    }
+  return binaryNumber;
 }

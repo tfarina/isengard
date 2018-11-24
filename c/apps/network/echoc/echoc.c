@@ -15,7 +15,7 @@
 
 #define BUFSIZE 4096
 
-static int tcp_socket_connect(char *host, int port) {
+static int tcp_socket_connect(const char *host, int port) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;

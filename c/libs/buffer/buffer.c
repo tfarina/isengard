@@ -65,15 +65,10 @@ static void *xcalloc(size_t nmemb, size_t size)
  */
 static void _buffer_realloc(buffer_t *b, size_t length)
 {
-	size_t want;
-
-        want = b->length + length;
-        if (b->capacity < want) {
-                b->capacity = 2 * want;
-                if (b->capacity < 64)
-                        b->capacity = 64;
-                b->data = xrealloc(b->data, b->capacity);
-        }
+        b->capacity = length;
+        if (b->capacity < 64)
+	        b->capacity = 64;
+        b->data = xrealloc(b->data, b->capacity);
 }
 
 void buffer_init(buffer_t *b)
@@ -111,7 +106,9 @@ void buffer_reset(buffer_t *b)
 
 void buffer_write(buffer_t *b, const void *data, size_t length)
 {
-	_buffer_realloc(b, length);
+        if (b->capacity < b->length + length) {
+          _buffer_realloc(b, b->length * 2 + length);
+	}
 	memcpy(b->data + b->length, data, length);
         b->length += length;
         b->data[b->length] = '\0'; /* always 0 terminate data. */

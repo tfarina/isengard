@@ -30,6 +30,10 @@ target_link_libraries(print_csv_ticks libcsv ${MYSQL_LIBRARY})
 find_package(CURL REQUIRED)
 if (CURL_FOUND)
   include_directories(${CURL_INCLUDE_DIRS})
+
+  add_executable(download_yahoo download_yahoo.c buffer.c curl_helper.c)
+  target_link_libraries(download_yahoo ${CURL_LIBRARIES})
+
   add_executable(gethistdata gethistdata.c env.c db_mysql.c stock.c file.c buffer.c curl_helper.c csv_helper.c)
   target_link_libraries(gethistdata ${CURL_LIBRARIES} libcsv iniparser ${MYSQL_LIBRARY})
 endif()

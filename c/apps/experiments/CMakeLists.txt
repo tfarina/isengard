@@ -9,6 +9,9 @@ find_package(MySQL)
 set(INIPARSER_SRCS
     dictionary.c
     iniparser.c
+    libconfuse/confuse.c
+    libconfuse/fmemopen.c
+    libconfuse/lexer.c
     )
 
 add_library(iniparser ${INIPARSER_SRCS})

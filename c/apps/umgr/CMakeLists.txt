@@ -52,3 +52,12 @@ add_library(umg ${LIB_SRCS})
 set(EXE_SRCS src/main.c)
 add_executable(umgr ${EXE_SRCS})
 target_link_libraries(umgr umg)
+
+find_package(GTK2 2.6 REQUIRED gtk)
+
+if (GTK2_FOUND)
+  include_directories(${GTK2_INCLUDE_DIRS})
+
+  add_executable(ui src/ui.c)
+  target_link_libraries(ui sqlite3 ${GTK2_LIBRARIES} ${EXTRA_TARGET_LINK_LIBRARIES})
+endif()
