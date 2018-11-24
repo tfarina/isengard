@@ -58,6 +58,7 @@ static int tcp_socket_connect(const char *host, int port) {
   }
 
   freeaddrinfo(addrlist);
+
   return tcpfd;
 }
 
@@ -68,7 +69,7 @@ int main(int argc, char **argv) {
 
   if (argc != 3) {
     fprintf(stderr, "usage: %s [hostname] [port]\n", argv[0]);
-    exit(EXIT_FAILURE);
+    return -1;
   }
 
   sockfd = tcp_socket_connect(argv[1], atoi(argv[2]));
