@@ -163,22 +163,15 @@ static ssize_t fd_read_all(int fd, char *buf, size_t len)
   return b - buf;
 }
 
-int main(int argc, char **argv) {
-  int rv;
-  const char host[] = "reddit.com";
-  int port = 80;
+static int tcp_socket_connect(const char *host, int port)
+{
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
+  int rv;
   int sockfd;
-  char request[MIN_BUFLEN];
-  const char method[] = "GET";
-  const char path[] = "/";
-  size_t bytes_to_send;
-  ssize_t bytes_received;
-  char data[MIN_BUFLEN];
-  buffer_t *response;
 
   snprintf(portstr, sizeof(portstr), "%d", port);
+
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
@@ -219,6 +212,23 @@ int main(int argc, char **argv) {
     fprintf(stderr, "Failed to connect to %s\n", host);
     return -1;
   }
+
+  return sockfd;
+}
+
+int main(int argc, char **argv) {
+  const char host[] = "reddit.com";
+  int port = 80;
+  int sockfd;
+  char request[MIN_BUFLEN];
+  const char method[] = "GET";
+  const char path[] = "/";
+  size_t bytes_to_send;
+  ssize_t bytes_received;
+  char data[MIN_BUFLEN];
+  buffer_t *response;
+
+  sockfd = tcp_socket_connect(host, port);
 
   printf("Connection established.\n");
 
