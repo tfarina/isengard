@@ -224,9 +224,13 @@ int main(int argc, char **argv) {
   const char method[] = "GET";
   const char path[] = "/";
   size_t bytes_to_send;
-  ssize_t bytes_received;
-  char data[MIN_BUFLEN];
+  /*ssize_t bytes_received;*/
+  /*char data[MIN_BUFLEN];*/
   buffer_t *response;
+  char *buf, *p = NULL;
+  size_t bufcap;
+  ssize_t nbytes, nread = 0;
+
 
   host = strdup(argv[1]);
 
@@ -253,10 +257,6 @@ int main(int argc, char **argv) {
   printf("receiving data...\n");
 
   response = buffer_alloc(102400);
-
-  char *buf, *p = NULL;
-  size_t bufcap;
-  ssize_t nbytes, nread = 0;
 
   buf = response->data;
   bufcap = response->cap;
