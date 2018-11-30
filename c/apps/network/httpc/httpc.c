@@ -217,7 +217,7 @@ static int tcp_socket_connect(const char *host, int port)
 }
 
 int main(int argc, char **argv) {
-  const char host[] = "reddit.com";
+  const char *host;
   int port = 80;
   int sockfd;
   char request[MIN_BUFLEN];
@@ -228,7 +228,9 @@ int main(int argc, char **argv) {
   char data[MIN_BUFLEN];
   buffer_t *response;
 
-  sockfd = tcp_socket_connect(host, port);
+  host = strdup(argv[1]);
+
+  sockfd = tcp_socket_connect(argv[1], port);
 
   printf("Connection established.\n");
 
