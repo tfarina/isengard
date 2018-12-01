@@ -231,6 +231,10 @@ int main(int argc, char **argv) {
   size_t bufcap;
   ssize_t nbytes, nread = 0;
 
+  if (argc != 2) {
+    fprintf(stderr, "usage: %s url\n", argv[0]);
+    return EXIT_FAILURE;
+  }
 
   host = strdup(argv[1]);
 
