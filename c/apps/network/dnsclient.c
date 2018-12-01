@@ -586,6 +586,12 @@ int main(int argc, char **argv) {
   memset(reply_header, 0, sizeof(*reply_header));
 
   reply_header->id = dns_pkt_get_id(reply_pkt);
+
+  if (reply_header->id != dns_pkt_get_id(query_pkt)) {
+    fprintf(stderr, "reply ID (%u) is different from query ID (%u)\n", reply_header->id, dns_pkt_get_id(query_pkt));
+    return -1;
+  }
+
   reply_header->flags = read_uint16(reply_pkt + DNS_OFFSET_FLAGS);
   reply_header->qdcount = dns_pkt_get_qdcount(reply_pkt);
   reply_header->ancount = read_uint16(reply_pkt + DNS_OFFSET_ANCOUNT);
