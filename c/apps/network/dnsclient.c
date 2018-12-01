@@ -246,6 +246,36 @@ static uint16_t dns_pkt_get_qdcount(uint8_t *packet)
   return read_uint16(packet + DNS_OFFSET_QDCOUNT);
 }
 
+static void dns_pkt_set_ancount(uint8_t *packet, uint16_t ancount)
+{
+  write_uint16(packet + DNS_OFFSET_ANCOUNT, ancount);
+}
+
+static uint16_t dns_pkt_get_ancount(uint8_t *packet)
+{
+  return read_uint16(packet + DNS_OFFSET_ANCOUNT);
+}
+
+static void dns_pkt_set_nscount(uint8_t *packet, uint16_t nscount)
+{
+  write_uint16(packet + DNS_OFFSET_NSCOUNT, nscount);
+}
+
+static uint16_t dns_pkt_get_nscount(uint8_t *packet)
+{
+  return read_uint16(packet + DNS_OFFSET_NSCOUNT);
+}
+
+static void dns_pkt_set_arcount(uint8_t *packet, uint16_t arcount)
+{
+  write_uint16(packet + DNS_OFFSET_ARCOUNT, arcount);
+}
+
+static uint16_t dns_pkt_get_arcount(uint8_t *packet)
+{
+  return read_uint16(packet + DNS_OFFSET_ARCOUNT);
+}
+
 static int is_root(const char *name) {
   return name[0] == '.' && name[1] == '\0';
 }
