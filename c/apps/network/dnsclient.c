@@ -488,12 +488,6 @@ int main(int argc, char **argv) {
    */
   query_pkt = malloc(MAX_UDP_SIZE);
 
-  unsigned int rand_seed;
-  struct timeval tv;
-  gettimeofday(&tv, NULL);
-  rand_seed = tv.tv_sec ^ tv.tv_usec;
-  srandom(rand_seed);
-
   /* Create QNAME from string. */
   dns_dname_t *qname = dname_from_str(owner);
 
@@ -504,6 +498,12 @@ int main(int argc, char **argv) {
   question->qnamelen = dns_dname_size(qname);
   question->qtype = DNS_RR_TYPE_A;
   question->qclass = DNS_RR_CLASS_IN;
+
+  unsigned int rand_seed;
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  rand_seed = tv.tv_sec ^ tv.tv_usec;
+  srandom(rand_seed);
 
   uint8_t *position;
 
