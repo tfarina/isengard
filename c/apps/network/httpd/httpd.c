@@ -56,7 +56,7 @@ fnet_set_reuseaddr(int fd)
   return FNET_OK;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
   struct sockaddr_in servaddr;
   int listen_fd;
   struct sockaddr_in cliaddr;
