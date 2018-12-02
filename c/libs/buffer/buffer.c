@@ -52,6 +52,10 @@ static void *xcalloc(size_t nmemb, size_t size)
 {
         void *ptr;
 
+	if (size == 0 || nmemb == 0) {
+                fatal("xcalloc: zero size");
+	}
+
         if ((ptr = calloc(nmemb, size)) == NULL) {
 	        fatal("xcalloc failed");
 	}
