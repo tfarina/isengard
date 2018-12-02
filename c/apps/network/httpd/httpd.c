@@ -6,6 +6,7 @@
  * */
 
 #include <arpa/inet.h>
+#include <errno.h>
 #include <netdb.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,6 +40,22 @@ static void handle_client(int fd) {
   exit(1);
 }
 
+#define FNET_OK 0
+#define FNET_ERR -1
+
+static int
+fnet_set_reuseaddr(int fd)
+{
+  int reuse = 1;
+
+  if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
+    fatal("setsockopt SO_REUSEADDR: %s", strerror(errno));
+    return FNET_ERR;
+  }
+
+  return FNET_OK;
+}
+
 int main() {
   struct sockaddr_in servaddr;
   int listen_fd;
@@ -46,7 +63,6 @@ int main() {
   socklen_t clilen = sizeof(cliaddr);
   int client_fd;
   int pid;
-  int opt = 1;
 
   memset(&servaddr, 0, sizeof(servaddr));
 
@@ -57,8 +73,8 @@ int main() {
   if ((listen_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     fatal("cannot create socket");
 
-  if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1)
-    fatal("setsockopt failed");
+  if (fnet_set_reuseaddr(listen_fd) != FNET_OK)
+    fatal("fnet_set_reuseaddr failed");
 
   if (bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
     fatal("bind failed");
