@@ -27,7 +27,7 @@ static void *xmalloc(size_t size)
         void *ptr;
 
         if (size == 0) {
-          fatal("zero size");
+                fatal("xmalloc: zero size");
 	}
 
         if ((ptr = malloc(size)) == NULL) {
