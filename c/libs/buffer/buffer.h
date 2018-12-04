@@ -24,6 +24,9 @@ void buffer_init(buffer_t *b);
 
 /**
  * buffer_alloc creates a new buffer with the specified capacity.
+ *
+ * @param[in] capacity The size (in) bytes to allocate for the buffer.
+ * @return the created buffer
  */
 buffer_t *buffer_alloc(size_t capacity);
 
