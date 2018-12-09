@@ -75,13 +75,6 @@ static void _buffer_realloc(buffer_t *b, size_t length)
         b->data = xrealloc(b->data, b->capacity);
 }
 
-void buffer_init(buffer_t *b)
-{
-	b->data = NULL;
-	b->length = 0;
-	b->capacity = 0;
-}
-
 buffer_t *buffer_alloc(size_t capacity)
 {
         buffer_t *b;

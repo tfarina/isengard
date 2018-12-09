@@ -18,11 +18,6 @@ typedef struct {
 } buffer_t;
 
 /**
- * buffer_init prepares an uninitialized buffer for use.
- */
-void buffer_init(buffer_t *b);
-
-/**
  * buffer_alloc creates a new buffer with the specified capacity.
  *
  * @param[in] capacity The size (in) bytes to allocate for the buffer.
