@@ -2,11 +2,13 @@
 #include <stdio.h>
 
 /**
+ * Compounding Annual Growth Rate (or CAGR).
+ *
  * @param n Represents the number of periods (i.e., 10 years).
  */
-static double growth_rate(double present, double past, double n)
+static double growth_rate(double future_value, double present_value, double n)
 {
-  return (pow((present / past), 1/n) - 1) * 100;
+  return (pow(future_value / present_value, 1/n) - 1) * 100;
 }
 
 int main(int argc, char **argv)
@@ -15,7 +17,7 @@ int main(int argc, char **argv)
 
   gr = growth_rate(310, 205, 10);
 
-  printf("%.2f%%\n", gr);
+  printf("Compound Annual Growth Rate: %.2f%%\n", gr);
 
   return 0;
 }
