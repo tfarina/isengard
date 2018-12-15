@@ -5,7 +5,7 @@ set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-std=c99 -pedantic -Wall")
 
 add_definitions(-D_GNU_SOURCE)
 
-set(SRCS log.c httpd.c)
+set(SRCS log.c net.c httpd.c)
 
 add_executable(httpd ${SRCS})
 

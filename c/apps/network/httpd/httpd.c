@@ -17,6 +17,7 @@
 #include <unistd.h>
 
 #include "log.h"
+#include "net.h"
 
 #define SERVER_PORT 8081
 #define BACKLOG 1024
@@ -38,22 +39,6 @@ static void handle_client(int fd) {
   sleep(1);  /* allow socket to drain before signalling the socket is closed */
   close(fd);
   exit(1);
-}
-
-#define FNET_OK 0
-#define FNET_ERR -1
-
-static int
-fnet_set_reuseaddr(int fd)
-{
-  int reuse = 1;
-
-  if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
-    fatal("setsockopt SO_REUSEADDR: %s", strerror(errno));
-    return FNET_ERR;
-  }
-
-  return FNET_OK;
 }
 
 int main(int argc, char *argv[]) {
