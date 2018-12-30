@@ -100,7 +100,7 @@ static void buffer_append(buffer_t *b, const void *data, size_t len)
         buffer_setlen(b, b->len + len);
 }
 
-static ssize_t fd_write(int fd, char *buf, size_t len)
+static ssize_t fd_write(int fd, const char *buf, size_t len)
 {
   ssize_t rv;
 
@@ -111,7 +111,7 @@ static ssize_t fd_write(int fd, char *buf, size_t len)
   return rv;
 }
 
-static ssize_t fd_write_all(int fd, char *buf, size_t len)
+static ssize_t fd_write_all(int fd, const char *buf, size_t len)
 {
   ssize_t bytes_sent, total_bytes_sent = 0;
 
