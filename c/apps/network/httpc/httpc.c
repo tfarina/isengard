@@ -57,7 +57,13 @@ static void buffer_setlen(buffer_t *b, size_t len)
 
 static buffer_t *buffer_alloc(size_t capacity)
 {
-        buffer_t *b = malloc(sizeof(buffer_t));
+        buffer_t *b;
+
+	b = (buffer_t *)malloc(sizeof(buffer_t));
+
+        if (!b) {
+	        return NULL;
+	}
 
         b->data = malloc(capacity + 1);
         *b->data = 0; /* always 0 terminate data to allow string functions. */
