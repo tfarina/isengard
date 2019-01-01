@@ -73,17 +73,10 @@ static buffer_t *buffer_alloc(size_t capacity)
         return b;
 }
 
-static void buffer_init(buffer_t *b)
-{
-	b->data = NULL;
-	b->len = 0;
-	b->cap = 0;
-}
-
 static void buffer_free(buffer_t *b)
 {
 	free(b->data);
-	buffer_init(b);
+	free(b);
 }
 
 static void buffer_grow(buffer_t *b, size_t extra)
