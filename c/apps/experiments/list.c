@@ -120,7 +120,7 @@ static int product_list(MYSQL *conn)
    * generated with mysql_store_result(), not mysql_use_result().
    */
   mysql_field_seek (res, 0);
-  for (i = 0; i < mysql_num_fields (res); i++) {
+  for (i = 0; i < num_fields; i++) {
     field = mysql_fetch_field (res);
     col_len = strlen (field->name);
     if (col_len < field->max_length)
