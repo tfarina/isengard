@@ -594,9 +594,9 @@ int main(int argc, char **argv) {
 
   reply_header->flags = read_uint16(reply_pkt + DNS_OFFSET_FLAGS);
   reply_header->qdcount = dns_pkt_get_qdcount(reply_pkt);
-  reply_header->ancount = read_uint16(reply_pkt + DNS_OFFSET_ANCOUNT);
-  reply_header->nscount = read_uint16(reply_pkt + DNS_OFFSET_NSCOUNT);
-  reply_header->arcount = read_uint16(reply_pkt + DNS_OFFSET_ARCOUNT);
+  reply_header->ancount = dns_pkt_get_ancount(reply_pkt);
+  reply_header->nscount = dns_pkt_get_nscount(reply_pkt);
+  reply_header->arcount = dns_pkt_get_arcount(reply_pkt);
 
   uint16_t opcode_id = (reply_header->flags & OPCODE_MASK) >> OPCODE_SHIFT;
   const lookup_entry_t *opcode = lookup_by_id(opcode_names, opcode_id);
