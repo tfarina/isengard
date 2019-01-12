@@ -34,6 +34,17 @@ static void logstatus(void) {
   printf(PROGNAME ": status: %d\n", forked);
 }
 
+static int fnet_set_reuseaddr(int fd) {
+  int reuse = 1;
+
+  if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
+    error("setsockopt SO_REUSEADDR: %s", strerror(errno));
+    return -1;
+  }
+
+  return 0;
+}
+
 /* Echo the current day time to the connected client. */
 static void daytime_stream(int sockfd) {
   time_t t;
@@ -93,7 +104,6 @@ static void send_tcp_message(int sockfd) {
 int main(void) {
   struct sockaddr_in servaddr;
   int sockfd;
-  int reuse = 1;
 
   memset(&servaddr, 0, sizeof(servaddr));
   servaddr.sin_family = AF_INET;
@@ -105,8 +115,7 @@ int main(void) {
     return EXIT_FAILURE;
   }
 
-  if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
-    error("set reuse addr on sd %d failed: %s", sockfd, strerror(errno));
+  if (fnet_set_reuseaddr(sockfd) == -1) {
     close(sockfd);
     return EXIT_FAILURE;
   }
