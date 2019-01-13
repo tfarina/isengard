@@ -44,6 +44,15 @@ struct dnsheader {
   uint16_t arcount;
 };
 
+static int check_ids_match(uint16_t query_id, uint16_t reply_id)
+{
+  if (reply_id != query_id) {
+    return 0;
+  }
+
+  return 1;
+}
+
 #define FLAG_QR     /* 1000 0000 0000 0000 */ 0x8000U /* Query (0) or Response (1) bit field */
 #define OPCODE_MASK /* 0111 1000 0000 0000 */ 0x7800U
 #define FLAG_AA     /* 0000 0100 0000 0000 */ 0x0400U /* Authoritative Answer - server flag */
@@ -587,7 +596,7 @@ int main(int argc, char **argv) {
 
   reply_header->id = dns_pkt_get_id(reply_pkt);
 
-  if (reply_header->id != dns_pkt_get_id(query_pkt)) {
+  if (!check_ids_match(dns_pkt_get_id(query_pkt), dns_pkt_get_id(reply_pkt))) {
     fprintf(stderr, "reply ID (%u) is different from query ID (%u)\n", reply_header->id, dns_pkt_get_id(query_pkt));
     return -1;
   }
