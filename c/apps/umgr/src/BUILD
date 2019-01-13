@@ -23,8 +23,8 @@ cc_binary(
 )
 
 cc_binary(
-    name = "insert",
-    srcs = ["insert.c"],
+    name = "add",
+    srcs = ["add.c"],
     copts = ["-std=c99"],
     linkopts = [
         "-pthread",

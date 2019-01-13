@@ -16,10 +16,10 @@ set(LIB_SRCS
 add_library(ulib ${LIB_SRCS})
 target_link_libraries(ulib sqlite3)
 
-set(INSERT_SRCS src/insert.c)
+set(ADD_SRCS src/add.c)
 
-add_executable(insert ${INSERT_SRCS})
-target_link_libraries(insert sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
+add_executable(add ${ADD_SRCS})
+target_link_libraries(add sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
 
 
 set(LIST_SRCS src/list.c)
