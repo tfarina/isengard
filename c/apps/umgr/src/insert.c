@@ -24,22 +24,22 @@ int main(int argc, char **argv) {
   }
 
   if (user_init_database(db)) {
-    sqlite3_close(db);
+    db_close(db);
     return -1;
   }
 
   if (user_exists(db, argv[1])) {
     fprintf(stderr, "%s: user (%s) already exists\n", argv[0], argv[1]);
-    sqlite3_close(db);
+    db_close(db);
     return -1;
   }
 
   if (user_add(db, argv[1], argv[2], argv[3])) {
-    sqlite3_close(db);
+    db_close(db);
     return -1;
   }
 
-  sqlite3_close(db);
+  db_close(db);
 
   return 0;
 }
