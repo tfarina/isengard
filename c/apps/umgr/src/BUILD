@@ -34,8 +34,8 @@ cc_binary(
 )
 
 cc_binary(
-    name = "update",
-    srcs = ["update.c"],
+    name = "change",
+    srcs = ["change.c"],
     copts = ["-std=c99"],
     linkopts = [
         "-pthread",

@@ -19,7 +19,7 @@ int user_add(sqlite3* db,
              const char* password,
              const char* email);
 
-int user_update(sqlite3* db,
+int user_change(sqlite3* db,
                 const char *username,
                 const char *email);
 

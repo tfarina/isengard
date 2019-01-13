@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (user_update(db, argv[1], argv[2])) {
+  if (user_change(db, argv[1], argv[2])) {
     sqlite3_close(db);
     return -1;
   }

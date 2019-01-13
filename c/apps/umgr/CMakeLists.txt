@@ -21,16 +21,15 @@ set(ADD_SRCS src/add.c)
 add_executable(add ${ADD_SRCS})
 target_link_libraries(add sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
 
-
 set(LIST_SRCS src/list.c)
 
 add_executable(list ${LIST_SRCS})
 target_link_libraries(list sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
 
-set(UPDATE_SRCS src/update.c)
+set(CHANGE_SRCS src/change.c)
 
-add_executable(update ${UPDATE_SRCS})
-target_link_libraries(update sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
+add_executable(change ${CHANGE_SRCS})
+target_link_libraries(change sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
 
 add_compile_options(-std=c99)
 add_compile_options(-Wall)
@@ -42,9 +41,9 @@ include_directories(${CMAKE_SOURCE_DIR})
 
 set(LIB_SRCS
     src/cmd_add.c
+    src/cmd_change.c
     src/cmd_del.c
     src/cmd_list.c
-    src/cmd_update.c
     src/commands.h
     )
 add_library(umg ${LIB_SRCS})

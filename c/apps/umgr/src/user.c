@@ -113,7 +113,7 @@ int user_add(sqlite3* db,
   return 0;
 }
 
-int user_update(sqlite3* db,
+int user_change(sqlite3* db,
                 const char *username,
                 const char *email) {
   sqlite3_stmt *stmt;
