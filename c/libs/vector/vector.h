@@ -21,7 +21,7 @@ vector_t *vector_alloc(int capacity);
 void vector_free(vector_t **v);
 void vector_clear(vector_t *v);
 int vector_append(vector_t *v, const void *item, size_t size);
-int vector_length(const vector_t *v);
+size_t vector_length(const vector_t *v);
 void *vector_get(const vector_t *v, int pos);
 
 #endif  /* VECTOR_H_ */

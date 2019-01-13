@@ -10,8 +10,8 @@ typedef struct {
 int main(void) {
         point_t p, p2, p3;
 	vector_t *vp;
-	int vp_len;
-        int i;
+	size_t vp_len;
+        size_t i;
 
         p.x = 2;
         p.y = 3;

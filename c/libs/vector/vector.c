@@ -121,7 +121,7 @@ int vector_append(vector_t *v, const void *elem, size_t size)
   return v ? _vector_add_private(v, elem, size, v->length) : -1;
 }
 
-int vector_length(const vector_t *v)
+size_t vector_length(const vector_t *v)
 {
         return v ? v->length : 0;
 }
