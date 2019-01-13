@@ -2,12 +2,12 @@
 
 #include <stdio.h>
 
-sqlite3* db_open(const char* db_file) {
+sqlite3* db_open(const char* filename) {
   sqlite3* db;
   int rv;
 
-  if ((rv = sqlite3_open(db_file, &db)) != SQLITE_OK) {
-    fprintf(stderr, "error opening SQLite database %s: %s\n", db_file, sqlite3_errstr(rv));
+  if ((rv = sqlite3_open(filename, &db)) != SQLITE_OK) {
+    fprintf(stderr, "error opening SQLite database %s: %s\n", filename, sqlite3_errstr(rv));
     if ((rv = sqlite3_close(db)) != SQLITE_OK) {
       fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errstr(rv));
     }

@@ -3,7 +3,7 @@
 
 #include "third_party/sqlite/amalgamation/sqlite3.h"
 
-sqlite3* db_open(const char* db_file);
+sqlite3* db_open(const char* filename);
 
 void db_close(sqlite3* db);
 
