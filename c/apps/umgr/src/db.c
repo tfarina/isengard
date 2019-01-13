@@ -7,9 +7,9 @@ sqlite3* db_open(const char* db_file) {
   int rv;
 
   if ((rv = sqlite3_open(db_file, &db)) != SQLITE_OK) {
-    fprintf(stderr, "error opening %s: %s\n", db_file, sqlite3_errstr(rv));
+    fprintf(stderr, "error opening SQLite database %s: %s\n", db_file, sqlite3_errstr(rv));
     if ((rv = sqlite3_close(db)) != SQLITE_OK) {
-      fprintf(stderr, "failed to close the user db: %s\n", sqlite3_errstr(rv));
+      fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errstr(rv));
     }
     return NULL;
   }
@@ -20,7 +20,7 @@ sqlite3* db_open(const char* db_file) {
 void db_close(sqlite3 *db) {
   int rv;
   if ((rv = sqlite3_close(db)) != SQLITE_OK) {
-    fprintf(stderr, "failed to close the database: %s\n", sqlite3_errstr(rv));
+    fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errstr(rv));
   }
 }
 
