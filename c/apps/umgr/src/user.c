@@ -140,6 +140,7 @@ int user_delete(sqlite3 *db, const char *username) {
 
 int user_list(void) {
   int err;
+  int column_count;
 
   err = user_open_db();
   if (err)
@@ -154,6 +155,12 @@ int user_list(void) {
     return -1;
   }
 
+  /*
+   * We only need to do this once, because the number of columns won't
+   * change.
+   */
+  column_count = sqlite3_column_count(stmt);
+
   // http://www.csl.mtu.edu/cs1141/www/examples/sqlite/sqlite_select.c
   int col_width[] = {12, 9, 5, 19, 0};
 
@@ -161,7 +168,7 @@ int user_list(void) {
   printf(" -----------+-----------+-----------+-------------------\n");
 
   while (sqlite3_step(stmt) == SQLITE_ROW) {
-    for (int i = 0; i < sqlite3_column_count(stmt); i++) {
+    for (int i = 0; i < column_count; i++) {
       printf(" %*s", col_width[1], sqlite3_column_text(stmt, i));
       if (i < sqlite3_column_count(stmt) - 1) {
         printf("  | ");
