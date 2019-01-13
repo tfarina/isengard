@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
   sqlite3* db;
 
   if (argc != 4) {
-    printf("usage: %s USERNAME PASSWORD E-MAIL\n", argv[0]);
+    printf("usage: %s 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
     return -1;
   }
 

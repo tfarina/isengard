@@ -12,18 +12,18 @@ int user_init_database(sqlite3* db);
 /**
  * Returns 0 if the user does not exists, otherwise returns 1.
  */
-int user_exists(sqlite3* db, const char* username);
+int user_exists(sqlite3* db, const char* email);
 
 int user_add(sqlite3* db,
-             const char* username,
-             const char* password,
+             const char* fname,
+             const char* lname,
              const char* email);
 
 int user_change(sqlite3* db,
-                const char *username,
+                const char *fname,
                 const char *email);
 
-int user_delete(sqlite3 *db, const char *username);
+int user_delete(sqlite3 *db, const char *email);
 
 /**
  * Lists records from the user table.

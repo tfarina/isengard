@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
   sqlite3 *db;
 
   if (argc != 2) {
-    fprintf(stderr, "usage: %s USERNAME\n", argv[0]);
+    fprintf(stderr, "usage: %s 'E-MAIL'\n", argv[0]);
     return -1;
   }
 

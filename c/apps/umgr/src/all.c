@@ -19,16 +19,16 @@ static int callback(void* data, int argc, char** argv, char** column_name) {
 static int db_user_add(sqlite3* db) {
   sqlite3_stmt* stmt;
 
-  const char *sql = "INSERT INTO user (login, pw, email) VALUES (?1, ?2, ?3);";
+  const char *sql = "INSERT INTO user (fname, lname, email) VALUES (?1, ?2, ?3);";
 
   if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
     return -1;
   }
 
-  sqlite3_bind_text(stmt, 1, "jrp", -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 2, "abcdef123", -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 3, "jrp@hotmail.com", -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 1, "John", -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 2, "Smith", -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 3, "jsmith@hotmail.com", -1, SQLITE_STATIC);
   sqlite3_step(stmt);
   sqlite3_finalize(stmt);
 
@@ -36,7 +36,7 @@ static int db_user_add(sqlite3* db) {
 }
 
 static int db_user_get(sqlite3* db) {
-  const char* sql = "SELECT login FROM user WHERE uid=1";
+  const char* sql = "SELECT fname FROM user WHERE uid=1";
   const char* data = "Callback function called";
 
   if (sqlite3_exec(db, sql, callback, (void*)data, NULL) != SQLITE_OK) {

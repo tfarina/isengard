@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
   sqlite3* db;
 
   if (argc != 3) {
-    fprintf(stderr, "usage: %s USERNAME E-MAIL\n", argv[0]);
+    fprintf(stderr, "usage: %s 'FIRST NAME' 'E-MAIL'\n", argv[0]);
     return -1;
   }
 
@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (!user_exists(db, argv[1])) {
+  if (!user_exists(db, argv[2])) {
     fprintf(stderr, "%s: user (%s) does not exist in our database.\n", argv[0],
             argv[1]);
     sqlite3_close(db);

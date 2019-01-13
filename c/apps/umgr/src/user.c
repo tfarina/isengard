@@ -35,8 +35,8 @@ int user_init_database(sqlite3* db) {
   const char* sql =
     "CREATE TABLE IF NOT EXISTS user ("
     "  uid INTEGER PRIMARY KEY,"     /* user id */
-    "  login TEXT NOT NULL UNIQUE,"  /* username */
-    "  pw TEXT NOT NULL,"            /* password */
+    "  fname TEXT NOT NULL UNIQUE,"  /* first name */
+    "  lname TEXT NOT NULL,"         /* last name */
     "  email TEXT"                   /* email */
     ");";
 
@@ -59,11 +59,11 @@ int user_init_database(sqlite3* db) {
   return 0;
 }
 
-int user_exists(sqlite3* db, const char* username) {
+int user_exists(sqlite3* db, const char* email) {
   sqlite3_stmt* stmt;
   int rc;
 
-  char* sql = sqlite3_mprintf("SELECT 1 FROM user WHERE login=%Q", username);
+  char* sql = sqlite3_mprintf("SELECT 1 FROM user WHERE email=%Q", email);
 
   if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(db));
@@ -82,12 +82,12 @@ int user_exists(sqlite3* db, const char* username) {
 }
 
 int user_add(sqlite3* db,
-             const char* username,
-             const char* password,
+             const char* fname,
+             const char* lname,
              const char* email) {
   sqlite3_stmt* stmt;
 
-  const char *sql = "INSERT INTO user (login, pw, email) VALUES (?1, ?2, ?3);";
+  const char *sql = "INSERT INTO user (fname, lname, email) VALUES (?1, ?2, ?3);";
 
   if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing insert statement: %s\n",
@@ -98,8 +98,8 @@ int user_add(sqlite3* db,
 
   user_insert_stmt = stmt;
 
-  sqlite3_bind_text(stmt, 1, username, -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 2, password, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 1, fname, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 2, lname, -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 3, email, -1, SQLITE_STATIC);
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
@@ -114,12 +114,12 @@ int user_add(sqlite3* db,
 }
 
 int user_change(sqlite3* db,
-                const char *username,
+                const char *fname,
                 const char *email) {
   sqlite3_stmt *stmt;
   int rv;
 
-  const char *sql = "UPDATE user SET email=?1 WHERE login=?2;";
+  const char *sql = "UPDATE user SET fname=?1 WHERE email=?2;";
 
   if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing update statement: %s\n",
@@ -127,10 +127,10 @@ int user_change(sqlite3* db,
     return -1;
   }
 
-  rv = sqlite3_bind_text(stmt, 1, email, -1, SQLITE_STATIC);
+  rv = sqlite3_bind_text(stmt, 1, fname, -1, SQLITE_STATIC);
 
   if (rv == SQLITE_OK)
-    rv = sqlite3_bind_text(stmt, 2, username, -1, SQLITE_STATIC);
+    rv = sqlite3_bind_text(stmt, 2, email, -1, SQLITE_STATIC);
 
   if (rv != SQLITE_OK) {
     fprintf(stderr, "error binding a value for the user table: %s\n",
@@ -147,10 +147,10 @@ int user_change(sqlite3* db,
   return 0;
 }
 
-int user_delete(sqlite3 *db, const char *username) {
+int user_delete(sqlite3 *db, const char *email) {
   sqlite3_stmt *stmt;
 
-  const char *sql = "DELETE FROM user WHERE login=?1;";
+  const char *sql = "DELETE FROM user WHERE email=?1;";
 
   if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing delete statement: %s\n",
@@ -158,7 +158,7 @@ int user_delete(sqlite3 *db, const char *username) {
     return -1;
   }
 
-  sqlite3_bind_text(stmt, 1, username, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 1, email, -1, SQLITE_STATIC);
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
     fprintf(stderr, "error deleting user from table: %s\n",
@@ -170,7 +170,6 @@ int user_delete(sqlite3 *db, const char *username) {
 
   return 0;
 }
-
 
 int user_list(void) {
   int err;
@@ -198,7 +197,7 @@ int user_list(void) {
   // http://www.csl.mtu.edu/cs1141/www/examples/sqlite/sqlite_select.c
   int col_width[] = {12, 9, 5, 19, 0};
 
-  printf("      uid   |    login  |     pw    |         email     \n");
+  printf("      uid   |    fname  |     lname    |         email     \n");
   printf(" -----------+-----------+-----------+-------------------\n");
 
   while (sqlite3_step(stmt) == SQLITE_ROW) {

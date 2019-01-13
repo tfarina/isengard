@@ -5,7 +5,6 @@
  *
  */
 
-
 PRAGMA foreign_keys=OFF;
 
 BEGIN TRANSACTION;
@@ -14,9 +13,9 @@ BEGIN TRANSACTION;
 
 CREATE TABLE user (
   uid INTEGER PRIMARY KEY,
-  login TEXT UNIQUE,
-  pw TEXT,
-  email TEXT
+  fname TEXT,
+  lname TEXT,
+  email TEXT UNIQUE
 );
 
 /* Initial Data ------------------------------------------------------------- */
@@ -25,6 +24,6 @@ CREATE TABLE user (
  * Populating with standard values.
  */
 
-INSERT INTO "user" VALUES (1, 'tff', 'abcdef12345', 'tff@gmail.com');
+INSERT INTO "user" VALUES (1, 'John', 'Smith', 'jsmith@yahoo.com');
 
 COMMIT;
