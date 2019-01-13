@@ -6,11 +6,11 @@ int main(int argc, char *argv[])
 
   GtkWidget *table;
 
-  GtkWidget *name_label;
-  GtkWidget *url_label;
+  GtkWidget *fname_label;
+  GtkWidget *lname_label;
 
-  GtkWidget *name_entry;
-  GtkWidget *url_entry;
+  GtkWidget *fname_entry;
+  GtkWidget *lname_entry;
 
   gtk_init(&argc, &argv);
 
@@ -25,20 +25,20 @@ int main(int argc, char *argv[])
   table = gtk_table_new(3, 2, FALSE);
   gtk_container_add(GTK_CONTAINER(window), table);
 
-  name_label = gtk_label_new("Name");
-  url_label = gtk_label_new("URL");
+  fname_label = gtk_label_new("First Name");
+  lname_label = gtk_label_new("Last Name");
 
-  gtk_table_attach(GTK_TABLE(table), name_label, 0, 1, 0, 1,
+  gtk_table_attach(GTK_TABLE(table), fname_label, 0, 1, 0, 1,
 		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
-  gtk_table_attach(GTK_TABLE(table), url_label, 0, 1, 1, 2,
+  gtk_table_attach(GTK_TABLE(table), lname_label, 0, 1, 1, 2,
 		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
 
-  name_entry = gtk_entry_new();
-  url_entry = gtk_entry_new();
+  fname_entry = gtk_entry_new();
+  lname_entry = gtk_entry_new();
 
-  gtk_table_attach(GTK_TABLE(table), name_entry, 1, 2, 0, 1,
+  gtk_table_attach(GTK_TABLE(table), fname_entry, 1, 2, 0, 1,
 		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
-  gtk_table_attach(GTK_TABLE(table), url_entry, 1, 2, 1, 2,
+  gtk_table_attach(GTK_TABLE(table), lname_entry, 1, 2, 1, 2,
 		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
 
   gtk_widget_show_all(window);
