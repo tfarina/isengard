@@ -10,6 +10,7 @@ typedef struct {
 int main(void) {
         point_t p, p2, p3;
 	vector_t *vp;
+	int vp_len;
         int i;
 
         p.x = 2;
@@ -29,9 +30,10 @@ int main(void) {
         vector_append(vp, &p2, sizeof(point_t));
         vector_append(vp, &p3, sizeof(point_t));
 
-        printf("%d\n", vector_length(vp));
+	vp_len = vector_length(vp);
+        printf("%d\n", vp_len);
 
-        for (i = 0; i < vector_length(vp); i++) {
+        for (i = 0; i < vp_len; i++) {
                 point_t *point = vector_get(vp, i);
 
                 printf("x: %d, y: %d\n", point->x, point->y);
