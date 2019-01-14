@@ -33,7 +33,7 @@ int user_open_db(void) {
 int user_init_database(sqlite3* db) {
   int rv;
   sqlite3_stmt *stmt;
-  const char* sql =
+  const char sql[] =
     "CREATE TABLE IF NOT EXISTS user ("
     "  uid INTEGER PRIMARY KEY,"     /* user id */
     "  fname TEXT NOT NULL UNIQUE,"  /* first name */
