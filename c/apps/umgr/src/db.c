@@ -3,27 +3,27 @@
 #include <stdio.h>
 
 int db_open(const char *filename, sqlite3 **db) {
-  int rv;
+  int rc;
 
   *db = NULL;
 
-  rv = sqlite3_open(filename, db);
-  if (rv != SQLITE_OK) {
-    fprintf(stderr, "error opening SQLite database %s: %s\n", filename, sqlite3_errstr(rv));
-    if ((rv = sqlite3_close(*db)) != SQLITE_OK) {
-      fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errstr(rv));
+  rc = sqlite3_open(filename, db);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "error opening SQLite database %s: %s\n", filename, sqlite3_errstr(rc));
+    if ((rc = sqlite3_close(*db)) != SQLITE_OK) {
+      fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errstr(rc));
     }
-    return rv;
+    return rc;
   }
 
   return SQLITE_OK;
 }
 
 void db_close(sqlite3 *db) {
-  int rv;
+  int rc;
 
-  if ((rv = sqlite3_close(db)) != SQLITE_OK) {
-    fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errstr(rv));
+  if ((rc = sqlite3_close(db)) != SQLITE_OK) {
+    fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errstr(rc));
   }
 }
 
