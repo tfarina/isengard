@@ -1,8 +1,7 @@
-/*
- * SQLITE DATABASE SCHEMA FOR THE cli DATABASE.
+/**
+ * SQLITE DATABASE SCHEMA FOR THE 'umgr' APP.
  *
  * To recreate the database: sqlite3 users.db < schema.sql
- *
  */
 
 PRAGMA foreign_keys=OFF;
@@ -20,8 +19,8 @@ CREATE TABLE user (
 
 /* Initial Data ------------------------------------------------------------- */
 
-/*
- * Populating with standard values.
+/**
+ * Populating with some values.
  */
 
 INSERT INTO "user" VALUES (1, 'John', 'Smith', 'jsmith@yahoo.com');
