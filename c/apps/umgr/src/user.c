@@ -174,14 +174,16 @@ int user_delete(sqlite3 *db, const char *email) {
 
 int user_list(void) {
   int err;
+  const char *sql;
+  sqlite3_stmt *stmt;
   int column_count;
+  int i;
 
   err = user_open_db();
   if (err)
     return err;
 
-  sqlite3_stmt *stmt;
-  const char *sql = sqlite3_mprintf("SELECT * FROM user");
+  sql = sqlite3_mprintf("SELECT * FROM user");
 
   if (sqlite3_prepare_v2(user_db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing select statement: %s\n",
@@ -202,7 +204,7 @@ int user_list(void) {
   printf(" -----------+-----------+-----------+-------------------\n");
 
   while (sqlite3_step(stmt) == SQLITE_ROW) {
-    for (int i = 0; i < column_count; i++) {
+    for (i = 0; i < column_count; i++) {
       printf(" %*s", col_width[1], sqlite3_column_text(stmt, i));
       if (i < sqlite3_column_count(stmt) - 1) {
         printf("  | ");
