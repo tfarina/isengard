@@ -3,6 +3,10 @@
 
 #include <stddef.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 /**
  * A buffer_t is a generic memory buffer.
  */
@@ -40,5 +44,9 @@ void buffer_reset(buffer_t *b);
  * buffer_write writes |data| to the buffer.
  */
 void buffer_write(buffer_t *b, const void *data, size_t length);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif  /* BUFFER_H_ */
