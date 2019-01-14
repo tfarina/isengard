@@ -24,23 +24,23 @@ int main(int argc, char **argv) {
   }
 
   if (user_init_database(db)) {
-    sqlite3_close(db);
+    db_close(db);
     return -1;
   }
 
   if (!user_exists(db, argv[1])) {
     fprintf(stderr, "%s: user (%s) does not exist in our database.\n",
             argv[0], argv[1]);
-    sqlite3_close(db);
+    db_close(db);
     return -1;
   }
 
   if (user_delete(db, argv[1])) {
-    sqlite3_close(db);
+    db_close(db);
     return -1;
   }
 
-  sqlite3_close(db);
+  db_close(db);
 
   return 0;
 }
