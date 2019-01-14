@@ -10,9 +10,10 @@ static const char user_db_fname[] = "users.db";
 
 int main(int argc, char **argv) {
   sqlite3* db;
+  int rv;
 
-  db = db_open(user_db_fname);
-  if (!db) {
+  rv = db_open(user_db_fname, &db);
+  if (rv != SQLITE_OK) {
     return -1;
   }
 

@@ -66,8 +66,12 @@ static int db_user_remove(sqlite3* db) {
 
 int main(int argc, char **argv) {
   sqlite3* db;
+  int rvl
 
-  db = db_open(user_db_fname);
+  rv = db_open(user_db_fname, &db);
+  if (rv != SQLITE_OK) {
+    return -1;
+  }
 
   if (user_init_database(db)) {
     sqlite3_close(db);

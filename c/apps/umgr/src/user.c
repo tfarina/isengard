@@ -11,13 +11,14 @@ static sqlite3 *user_db;
 static sqlite3_stmt *user_insert_stmt;
 
 int user_open_db(void) {
+  int rv;
+
   if (user_db) {
     return 0; /* Already open. */
   }
 
-  user_db = db_open(user_db_fname);
-  if (!user_db) {
-    fprintf(stderr, "error opening user database\n");
+  rv = db_open(user_db_fname, &user_db);
+  if (rv != SQLITE_OK) {
     return -1;
   }
 

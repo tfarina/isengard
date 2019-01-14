@@ -12,14 +12,15 @@ static const char user_db_fname[] = "users.db";
 
 int main(int argc, char **argv) {
   sqlite3* db;
+  int rv;
 
   if (argc != 4) {
     printf("usage: %s 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
     return -1;
   }
 
-  db = db_open(user_db_fname);
-  if (!db) {
+  rv = db_open(user_db_fname, &db);
+  if (rv != SQLITE_OK) {
     return -1;
   }
 
