@@ -10,26 +10,6 @@ static const char user_db_fname[] = "users.db";
 static sqlite3 *user_db;
 static sqlite3_stmt *user_insert_stmt;
 
-int user_open_db(void) {
-  int rv;
-
-  if (user_db) {
-    return 0; /* Already open. */
-  }
-
-  rv = db_open(user_db_fname, &user_db);
-  if (rv != SQLITE_OK) {
-    return -1;
-  }
-
-  if (user_init_database(user_db)) {
-    db_close(user_db);
-    return -1;
-  }
-
-  return 0;
-}
-
 int user_init_database(sqlite3* db) {
   int rv;
   sqlite3_stmt *stmt;
@@ -173,15 +153,25 @@ int user_delete(sqlite3 *db, const char *email) {
 }
 
 int user_list(void) {
-  int err;
+  int rv;
   const char *sql;
   sqlite3_stmt *stmt;
   int column_count;
   int i;
 
-  err = user_open_db();
-  if (err)
-    return err;
+  if (user_db) {
+    return 0; /* Already open. */
+  }
+
+  rv = db_open(user_db_fname, &user_db);
+  if (rv != SQLITE_OK) {
+    return -1;
+  }
+
+  if (user_init_database(user_db)) {
+    db_close(user_db);
+    return -1;
+  }
 
   sql = sqlite3_mprintf("SELECT * FROM user");
 
@@ -217,5 +207,5 @@ int user_list(void) {
 
   db_close(user_db);
 
-  return err;
+  return 0;
 }
