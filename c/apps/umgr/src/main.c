@@ -16,7 +16,7 @@ static struct builtin_cmd {
 } cmds[] = {
   { "add", cmd_add },
   { "change", cmd_change },
-  { "delete", cmd_del },
+  { "delete", cmd_delete },
   { "list", cmd_list },
 };
 

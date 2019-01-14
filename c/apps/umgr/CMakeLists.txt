@@ -47,7 +47,7 @@ include_directories(${CMAKE_SOURCE_DIR})
 set(LIB_SRCS
     src/cmd_add.c
     src/cmd_change.c
-    src/cmd_del.c
+    src/cmd_delete.c
     src/cmd_list.c
     src/commands.h
     )
@@ -64,4 +64,7 @@ if (GTK2_FOUND)
 
   add_executable(ui src/ui.c)
   target_link_libraries(ui sqlite3 ${GTK2_LIBRARIES} ${EXTRA_TARGET_LINK_LIBRARIES})
+
+  add_executable(abook src/abook.c)
+  target_link_libraries(abook sqlite3 ${GTK2_LIBRARIES} ${EXTRA_TARGET_LINK_LIBRARIES})
 endif()
