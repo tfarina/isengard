@@ -6,7 +6,8 @@
 /**
  * A buffer_t is a generic memory buffer.
  */
-typedef struct {
+typedef struct buffer_s
+{
         /* The data contained in the buffer. */
 	char *data;
 
