@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 
+#include "third_party/sqlite/amalgamation/sqlite3.h"
+
 #include "db.h"
 
 /* The name of the user database file.  */
@@ -10,6 +12,10 @@ static const char user_db_fname[] = "users.db";
 static sqlite3 *user_db;
 static sqlite3_stmt *user_insert_stmt;
 
+/**
+ * Makes sure the 'user' table is created if it does not exist yet.
+ * Returns 0 on success, -1 otherwise.
+ */
 int user_init_database(sqlite3* db) {
   int rv;
   sqlite3_stmt *stmt;
