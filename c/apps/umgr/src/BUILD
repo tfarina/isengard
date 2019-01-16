@@ -12,17 +12,6 @@ cc_library(
 )
 
 cc_binary(
-    name = "list",
-    srcs = ["list.c"],
-    copts = ["-std=c99"],
-    linkopts = [
-        "-pthread",
-        "-ldl",
-    ],
-    deps = [":umgr"],
-)
-
-cc_binary(
     name = "add",
     srcs = ["add.c"],
     copts = ["-std=c99"],
@@ -56,19 +45,8 @@ cc_binary(
 )
 
 cc_binary(
-    name = "init",
-    srcs = ["init.c"],
-    copts = ["-std=c99"],
-    linkopts = [
-        "-pthread",
-        "-ldl",
-    ],
-    deps = [":umgr"],
-)
-
-cc_binary(
-    name = "all",
-    srcs = ["all.c"],
+    name = "list",
+    srcs = ["list.c"],
     copts = ["-std=c99"],
     linkopts = [
         "-pthread",
