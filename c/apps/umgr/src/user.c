@@ -17,7 +17,7 @@ static sqlite3_stmt *user_insert_stmt;
  * Returns 0 on success, -1 otherwise.
  */
 int user_init_database(sqlite3* db) {
-  int rv;
+  int rc;
   sqlite3_stmt *stmt;
   const char sql[] =
     "CREATE TABLE IF NOT EXISTS user ("
@@ -27,18 +27,18 @@ int user_init_database(sqlite3* db) {
     "  email TEXT"                   /* email */
     ");";
 
-  if ((rv = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL)) != SQLITE_OK) {
-    fprintf(stderr, "error creating user table: %s\n", sqlite3_errstr(rv));
+  if ((rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL)) != SQLITE_OK) {
+    fprintf(stderr, "error creating user table: %s\n", sqlite3_errstr(rc));
     db_close(db);
     return -1;
   }
 
-  rv = sqlite3_step(stmt);
+  rc = sqlite3_step(stmt);
 
   sql_stmt_free(stmt);
 
-  if (rv != SQLITE_DONE) {
-    fprintf(stderr, "error creating user table: %s\n", sqlite3_errstr(rv));
+  if (rc != SQLITE_DONE) {
+    fprintf(stderr, "error creating user table: %s\n", sqlite3_errstr(rc));
     db_close(db);
     return -1;
   }
@@ -210,7 +210,7 @@ int user_delete(const char *email) {
 }
 
 int user_list(void) {
-  int rv;
+  int rc;
   const char *sql;
   sqlite3_stmt *stmt;
   int column_count;
@@ -220,8 +220,8 @@ int user_list(void) {
     return 0; /* Already open. */
   }
 
-  rv = db_open(user_db_fname, &user_db);
-  if (rv != SQLITE_OK) {
+  rc = db_open(user_db_fname, &user_db);
+  if (rc != SQLITE_OK) {
     return -1;
   }
 
