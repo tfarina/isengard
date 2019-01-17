@@ -248,7 +248,7 @@ int user_print_records(void) {
     for (i = 0; i < column_count; i++) {
       printf("%s", sqlite3_column_text(stmt, i));
       if (i < column_count - 1) {
-        printf("  | ");
+        printf("|");
       }
     }
     printf("\n");
