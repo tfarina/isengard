@@ -12,6 +12,9 @@ static const char user_db_fname[] = "users.db";
 static sqlite3 *user_db;
 static sqlite3_stmt *user_insert_stmt;
 
+/* This is the column separator. */
+#define SEP_COL "|"
+
 /**
  * Makes sure the 'user' table is created if it does not exist yet.
  * Returns 0 on success, -1 otherwise.
@@ -248,7 +251,7 @@ int user_print_records(void) {
     for (i = 0; i < column_count; i++) {
       printf("%s", sqlite3_column_text(stmt, i));
       if (i < column_count - 1) {
-        printf("|");
+        printf(SEP_COL);
       }
     }
     printf("\n");
