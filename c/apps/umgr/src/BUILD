@@ -45,8 +45,8 @@ cc_binary(
 )
 
 cc_binary(
-    name = "list",
-    srcs = ["list.c"],
+    name = "showrec",
+    srcs = ["showrec.c"],
     copts = ["-std=c99"],
     linkopts = [
         "-pthread",

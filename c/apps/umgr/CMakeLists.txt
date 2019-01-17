@@ -21,11 +21,6 @@ set(ADD_SRCS src/add.c)
 add_executable(add ${ADD_SRCS})
 target_link_libraries(add sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
 
-set(LIST_SRCS src/list.c)
-
-add_executable(list ${LIST_SRCS})
-target_link_libraries(list sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
-
 set(CHANGE_SRCS src/change.c)
 
 add_executable(change ${CHANGE_SRCS})
@@ -35,6 +30,11 @@ set(DELETE_SRCS src/delete.c)
 
 add_executable(delete ${DELETE_SRCS})
 target_link_libraries(delete sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
+
+set(SHOWREC_SRCS src/showrec.c)
+
+add_executable(showrec ${SHOWREC_SRCS})
+target_link_libraries(showrec sqlite3 ulib ${EXTRA_TARGET_LINK_LIBRARIES})
 
 add_compile_options(-std=c99)
 add_compile_options(-Wall)
