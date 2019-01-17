@@ -244,16 +244,10 @@ int user_print_records(void) {
    */
   column_count = sqlite3_column_count(stmt);
 
-  // http://www.csl.mtu.edu/cs1141/www/examples/sqlite/sqlite_select.c
-  int col_width[] = {12, 9, 5, 19, 0};
-
-  printf("      uid   |    fname  |     lname    |         email     \n");
-  printf(" -----------+-----------+-----------+-------------------\n");
-
   while (sqlite3_step(stmt) == SQLITE_ROW) {
     for (i = 0; i < column_count; i++) {
-      printf(" %*s", col_width[1], sqlite3_column_text(stmt, i));
-      if (i < sqlite3_column_count(stmt) - 1) {
+      printf("%s", sqlite3_column_text(stmt, i));
+      if (i < column_count - 1) {
         printf("  | ");
       }
     }
