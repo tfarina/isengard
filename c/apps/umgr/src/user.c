@@ -209,7 +209,7 @@ int user_delete(const char *email) {
   return 0;
 }
 
-int user_list(void) {
+int user_print_records(void) {
   int rc;
   const char *sql;
   sqlite3_stmt *stmt;

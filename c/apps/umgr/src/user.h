@@ -15,8 +15,8 @@ int user_change(const char *fname, const char *email);
 int user_delete(const char *email);
 
 /**
- * Lists records from the user table.
+ * Prints to standard output all the records found in the table.
  */
-int user_list(void);
+int user_print_records(void);
 
 #endif  /* USER_H_ */
