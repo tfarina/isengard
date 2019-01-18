@@ -49,6 +49,17 @@ int user_init_database(sqlite3* db) {
   return 0;
 }
 
+user_t *user_alloc(void) {
+  user_t *user;
+
+  user = malloc(sizeof(user_t));
+  user->fname = NULL;
+  user->lname = NULL;
+  user->email = NULL;
+
+  return user;
+}
+
 int user_exists(const char* email) {
   sqlite3 *user_db;
   sqlite3_stmt *stmt;
@@ -212,25 +223,20 @@ int user_delete(const char *email) {
   return 0;
 }
 
-int user_print_records(void) {
+alpm_list_t *user_get_records(void) {
   int rc;
   const char *sql;
   sqlite3_stmt *stmt;
-  int column_count;
-  int i;
-
-  if (user_db) {
-    return 0; /* Already open. */
-  }
+  alpm_list_t *users = NULL;
 
   rc = db_open(user_db_fname, &user_db);
   if (rc != SQLITE_OK) {
-    return -1;
+    return NULL;
   }
 
   if (user_init_database(user_db)) {
     db_close(user_db);
-    return -1;
+    return NULL;
   }
 
   sql = sqlite3_mprintf("SELECT * FROM user");
@@ -238,28 +244,33 @@ int user_print_records(void) {
   if (sqlite3_prepare_v2(user_db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing select statement: %s\n",
             sqlite3_errmsg(user_db));
-    return -1;
+    return NULL;
   }
 
-  /*
-   * We only need to do this once, because the number of columns won't
-   * change.
-   */
-  column_count = sqlite3_column_count(stmt);
-
   while (sqlite3_step(stmt) == SQLITE_ROW) {
-    for (i = 0; i < column_count; i++) {
-      printf("%s", sqlite3_column_text(stmt, i));
-      if (i < column_count - 1) {
-        printf(SEP_COL);
-      }
-    }
-    printf("\n");
+    user_t *user = user_alloc();
+    user->fname = strdup((const char *)sqlite3_column_text(stmt, 1));
+    user->lname = strdup((const char *)sqlite3_column_text(stmt, 2));
+    user->email = strdup((const char *)sqlite3_column_text(stmt, 3));
+    users = alpm_list_add(users, user);
   }
 
   sql_stmt_free(stmt);
 
   db_close(user_db);
+
+  return users;
+}
+
+int user_print_records(void) {
+  alpm_list_t *i, *users;
+
+  users = user_get_records();
+
+  for (i = users; i; i = alpm_list_next(i)) {
+    user_t *user = i->data;
+    printf("%s|%s|%s\n", user->fname, user->lname, user->email);
+  }
 
   return 0;
 }

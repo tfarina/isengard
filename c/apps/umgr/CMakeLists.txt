@@ -12,6 +12,7 @@ add_subdirectory(third_party/sqlite)
 set(LIB_SRCS
     src/db.c
     src/user.c
+    src/alpm_list.c
    )
 add_library(ulib ${LIB_SRCS})
 target_link_libraries(ulib sqlite3)
