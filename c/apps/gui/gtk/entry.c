@@ -3,12 +3,8 @@
 int main(int argc, char *argv[])
 {
   GtkWidget *window;
-
   GtkWidget *table;
-
-  GtkWidget *fname_label;
-  GtkWidget *lname_label;
-
+  GtkWidget *label;
   GtkWidget *fname_entry;
   GtkWidget *lname_entry;
 
@@ -24,22 +20,29 @@ int main(int argc, char *argv[])
 
   table = gtk_table_new(3, 2, FALSE);
   gtk_container_add(GTK_CONTAINER(window), table);
+  gtk_container_set_border_width(GTK_CONTAINER(table), 4 );
+  gtk_table_set_row_spacings(GTK_TABLE(table), 4);
+  gtk_table_set_col_spacings(GTK_TABLE(table), 4);
 
-  fname_label = gtk_label_new("First Name");
-  lname_label = gtk_label_new("Last Name");
-
-  gtk_table_attach(GTK_TABLE(table), fname_label, 0, 1, 0, 1,
-		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
-  gtk_table_attach(GTK_TABLE(table), lname_label, 0, 1, 1, 2,
-		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
-
+  /* First row. */
+  label = gtk_label_new("First Name");
   fname_entry = gtk_entry_new();
+
+  gtk_table_attach(GTK_TABLE(table), label, 0, 1, 0, 1,
+		   GTK_FILL, 0, 0, 0);
+  gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+  gtk_table_attach(GTK_TABLE(table), fname_entry, 1, 2, 0, 1,
+		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
+
+  /* Second row. */
+  label = gtk_label_new("Last Name");
   lname_entry = gtk_entry_new();
 
-  gtk_table_attach(GTK_TABLE(table), fname_entry, 1, 2, 0, 1,
-		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
+  gtk_table_attach(GTK_TABLE(table), label, 0, 1, 1, 2,
+		   GTK_FILL, 0, 0, 0);
+  gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
   gtk_table_attach(GTK_TABLE(table), lname_entry, 1, 2, 1, 2,
-		   GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
+		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
   gtk_widget_show_all(window);
 
