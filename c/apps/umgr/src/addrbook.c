@@ -8,6 +8,7 @@ enum {
   LIST_FIRST_NAME,
   LIST_LAST_NAME,
   LIST_EMAIL,
+  LIST_COL_PTR,
   LIST_NUM_COLUMNS
 };
 
@@ -23,6 +24,7 @@ static void insert_item(GtkWidget *list_view, user_t *user)
                      LIST_FIRST_NAME, user->fname,
                      LIST_LAST_NAME, user->lname,
                      LIST_EMAIL, user->email,
+		     LIST_COL_PTR, user,
                      -1);
 }
 
@@ -38,7 +40,7 @@ int main(int argc, char** argv)
 
   gtk_init(&argc, &argv);
 
-  list_store = gtk_list_store_new(LIST_NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+  list_store = gtk_list_store_new(LIST_NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
   g_object_unref(list_store);
 
