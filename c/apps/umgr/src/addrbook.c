@@ -40,21 +40,15 @@ int main(int argc, char** argv)
 
   gtk_init(&argc, &argv);
 
-  list_store = gtk_list_store_new(LIST_NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
-  list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
-  g_object_unref(list_store);
-
-  users = user_get_records();
-
-  for (i = users; i; i = alpm_list_next(i)) {
-    insert_item(list_view, (user_t *)i->data);
-  }
-
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(window), "Address Book");
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
   gtk_container_set_border_width(GTK_CONTAINER(window), 10);
   gtk_window_set_default_size(GTK_WINDOW(window), 270, 250);
+
+  list_store = gtk_list_store_new(LIST_NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
+  list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
+  g_object_unref(list_store);
 
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("First Name",
@@ -78,6 +72,12 @@ int main(int argc, char** argv)
   gtk_box_pack_start(GTK_BOX(vbox), list_view, TRUE, TRUE, 5);
 
   gtk_container_add(GTK_CONTAINER(window), vbox);
+
+  users = user_get_records();
+
+  for (i = users; i; i = alpm_list_next(i)) {
+    insert_item(list_view, (user_t *)i->data);
+  }
 
   g_signal_connect(G_OBJECT(window), "destroy",
                    G_CALLBACK(gtk_main_quit), NULL);
