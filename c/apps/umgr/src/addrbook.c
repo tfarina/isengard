@@ -50,6 +50,9 @@ int main(int argc, char** argv)
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
   g_object_unref(list_store);
 
+  gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list_view), TRUE);
+
+  /* Create the columns. */
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("First Name",
                                                     renderer, "text", LIST_FIRST_NAME, NULL);
@@ -64,8 +67,6 @@ int main(int argc, char** argv)
   column = gtk_tree_view_column_new_with_attributes("Email",
                                                     renderer, "text", LIST_EMAIL, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
-
-  gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list_view), TRUE);
 
   vbox = gtk_vbox_new(FALSE, 0);
 
