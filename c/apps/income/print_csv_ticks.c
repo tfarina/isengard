@@ -56,14 +56,18 @@ int main(int argc, char **argv) {
     return 1;
   }
  
-  printf("%s ticks:\n", stock.symbol);
-
   for (i = 0; i < stock.ticks_length; i++) {
     stock_tick_t *tick = stock.ticks + i;
-    printf("date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
-           tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
-    free(tick->date);
+
+    printf("%s,", tick->date);
+    printf("%.4lf,", tick->open);
+    printf("%.4lf,", tick->high);
+    printf("%.4lf,", tick->low);
+    printf("%.4lf,", tick->close);
+    printf("%.4lf,", tick->adj_close);
+    printf("%d\n", tick->volume);
   }
+
   free(stock.ticks);
  
   return 0;
