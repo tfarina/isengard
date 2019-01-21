@@ -32,6 +32,7 @@ int main(int argc, char** argv)
 {
   GtkWidget *window;
   GtkWidget *vbox;
+  GtkWidget *scrolledwin;
   GtkWidget *list_view;
   GtkListStore *list_store;
   GtkCellRenderer *renderer;
@@ -71,7 +72,13 @@ int main(int argc, char** argv)
                                                     renderer, "text", LIST_EMAIL, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
-  gtk_box_pack_start(GTK_BOX(vbox), list_view, TRUE, TRUE, 0);
+  scrolledwin = gtk_scrolled_window_new(NULL, NULL);
+  gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
+  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwin),
+                                 GTK_POLICY_AUTOMATIC,
+                                 GTK_POLICY_AUTOMATIC);
+
+  gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
 
   users = user_get_records();
 
