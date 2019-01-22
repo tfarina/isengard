@@ -27,11 +27,27 @@ static void insert_item(GtkWidget *list_view, user_t *user)
 		     LIST_COL_PTR, user,
                      -1);
 }
+GtkWidget *window = NULL;
+
+static void new_item_cb(GtkWidget *widget, gpointer data)
+{
+  GtkWidget* dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+                                             GTK_DIALOG_DESTROY_WITH_PARENT,
+                                             GTK_MESSAGE_ERROR,
+                                             GTK_BUTTONS_CLOSE,
+                                             "%s", "Not implemented yet!");
+  gtk_dialog_run(GTK_DIALOG(dialog));
+  gtk_widget_destroy(dialog);
+}
 
 int main(int argc, char** argv)
 {
-  GtkWidget *window;
   GtkWidget *vbox;
+  GtkWidget *handlebox;
+  GtkWidget *toolbar;
+  GtkToolItem *new_item;
+  GtkToolItem *edit_item;
+  GtkToolItem *delete_item;
   GtkWidget *scrolledwin;
   GtkWidget *list_view;
   GtkListStore *list_store;
@@ -49,6 +65,28 @@ int main(int argc, char** argv)
   vbox = gtk_vbox_new(FALSE, 0);
 
   gtk_container_add(GTK_CONTAINER(window), vbox);
+
+  handlebox = gtk_hbox_new(FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), handlebox, FALSE, FALSE, 0);
+
+  toolbar = gtk_toolbar_new();
+  new_item = gtk_tool_button_new_from_stock(GTK_STOCK_NEW);
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), new_item, -1);
+
+  edit_item = gtk_tool_button_new_from_stock(GTK_STOCK_EDIT);
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), edit_item, -1);
+
+  delete_item = gtk_tool_button_new_from_stock(GTK_STOCK_DELETE);
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), delete_item, -1);
+
+  gtk_widget_set_sensitive(GTK_WIDGET(edit_item), FALSE);
+  gtk_widget_set_sensitive(GTK_WIDGET(delete_item), FALSE);
+
+  gtk_container_add(GTK_CONTAINER(handlebox), toolbar);
+  gtk_container_set_border_width(GTK_CONTAINER(handlebox), 0);
+
+  g_signal_connect(G_OBJECT(new_item), "clicked",
+		   G_CALLBACK(new_item_cb), NULL);
 
   list_store = gtk_list_store_new(LIST_NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
