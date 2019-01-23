@@ -3,10 +3,13 @@
 int main(int argc, char *argv[])
 {
   GtkWidget *window;
+  GtkWidget *vbox;
   GtkWidget *table;
   GtkWidget *label;
   GtkWidget *fname_entry;
   GtkWidget *lname_entry;
+  GtkWidget *confirm_area;
+  GtkWidget *ok_btn;
 
   gtk_init(&argc, &argv);
 
@@ -18,11 +21,14 @@ int main(int argc, char *argv[])
   g_signal_connect(window, "destroy",
 		   G_CALLBACK(gtk_main_quit), NULL);
 
+  vbox = gtk_vbox_new(FALSE, 6);
+  gtk_container_add(GTK_CONTAINER(window), vbox);
+
   table = gtk_table_new(3, 2, FALSE);
-  gtk_container_add(GTK_CONTAINER(window), table);
   gtk_container_set_border_width(GTK_CONTAINER(table), 4 );
   gtk_table_set_row_spacings(GTK_TABLE(table), 4);
   gtk_table_set_col_spacings(GTK_TABLE(table), 4);
+  gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 0);
 
   fname_entry = gtk_entry_new();
   lname_entry = gtk_entry_new();
@@ -44,6 +50,15 @@ int main(int argc, char *argv[])
 
   gtk_table_attach(GTK_TABLE(table), lname_entry, 1, 2, 1, 2,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
+
+  confirm_area = gtk_hbutton_box_new();
+  gtk_button_box_set_layout(GTK_BUTTON_BOX(confirm_area), GTK_BUTTONBOX_END);
+  gtk_box_set_spacing(GTK_BOX(confirm_area), 5);
+
+  ok_btn = gtk_button_new_from_stock(GTK_STOCK_OK);
+  gtk_box_pack_start(GTK_BOX(confirm_area), ok_btn, TRUE, TRUE, 0);
+
+  gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
 
   gtk_widget_show_all(window);
 
