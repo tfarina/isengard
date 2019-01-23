@@ -29,6 +29,8 @@ static void insert_item(GtkWidget *list_view, user_t *user)
 }
 
 GtkWidget *window = NULL;
+GtkToolItem *edit_item = NULL;
+GtkToolItem *delete_item = NULL;
 
 static void new_item_cb(GtkWidget *widget, gpointer data)
 {
@@ -41,6 +43,23 @@ static void new_item_cb(GtkWidget *widget, gpointer data)
   gtk_widget_show(new_window);
 }
 
+static void list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
+{
+  gint num_selected;
+
+  num_selected = gtk_tree_selection_count_selected_rows(selection);
+
+  if (num_selected == 1) {
+    gtk_widget_set_sensitive(GTK_WIDGET(edit_item), TRUE);
+  } else {
+    gtk_widget_set_sensitive(GTK_WIDGET(edit_item), FALSE);
+  }
+
+  if (num_selected > 0) {
+    gtk_widget_set_sensitive(GTK_WIDGET(delete_item), TRUE);
+  } else {
+    gtk_widget_set_sensitive(GTK_WIDGET(delete_item), FALSE);
+  }
 }
 
 int main(int argc, char** argv)
@@ -49,10 +68,9 @@ int main(int argc, char** argv)
   GtkWidget *handlebox;
   GtkWidget *toolbar;
   GtkToolItem *new_item;
-  GtkToolItem *edit_item;
-  GtkToolItem *delete_item;
   GtkWidget *scrolledwin;
   GtkWidget *list_view;
+  GtkTreeSelection *list_select;
   GtkListStore *list_store;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
@@ -96,6 +114,10 @@ int main(int argc, char** argv)
   g_object_unref(list_store);
 
   gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list_view), TRUE);
+
+  list_select = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+  g_signal_connect(list_select, "changed",
+		   G_CALLBACK(list_selection_changed_cb), NULL);
 
   /* Create the columns. */
   renderer = gtk_cell_renderer_text_new();
