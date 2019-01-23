@@ -24,23 +24,24 @@ int main(int argc, char *argv[])
   gtk_table_set_row_spacings(GTK_TABLE(table), 4);
   gtk_table_set_col_spacings(GTK_TABLE(table), 4);
 
+  fname_entry = gtk_entry_new();
+  lname_entry = gtk_entry_new();
+
   /* First row. */
   label = gtk_label_new("First Name");
-  fname_entry = gtk_entry_new();
-
   gtk_table_attach(GTK_TABLE(table), label, 0, 1, 0, 1,
 		   GTK_FILL, 0, 0, 0);
   gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
   gtk_table_attach(GTK_TABLE(table), fname_entry, 1, 2, 0, 1,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
   /* Second row. */
   label = gtk_label_new("Last Name");
-  lname_entry = gtk_entry_new();
-
   gtk_table_attach(GTK_TABLE(table), label, 0, 1, 1, 2,
 		   GTK_FILL, 0, 0, 0);
   gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
   gtk_table_attach(GTK_TABLE(table), lname_entry, 1, 2, 1, 2,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
