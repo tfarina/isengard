@@ -27,17 +27,20 @@ static void insert_item(GtkWidget *list_view, user_t *user)
 		     LIST_COL_PTR, user,
                      -1);
 }
+
 GtkWidget *window = NULL;
 
 static void new_item_cb(GtkWidget *widget, gpointer data)
 {
-  GtkWidget* dialog = gtk_message_dialog_new(GTK_WINDOW(window),
-                                             GTK_DIALOG_DESTROY_WITH_PARENT,
-                                             GTK_MESSAGE_ERROR,
-                                             GTK_BUTTONS_CLOSE,
-                                             "%s", "Not implemented yet!");
-  gtk_dialog_run(GTK_DIALOG(dialog));
-  gtk_widget_destroy(dialog);
+  GtkWidget *new_window;
+
+  new_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(new_window), "Create New Person");
+  gtk_window_set_position(GTK_WINDOW(new_window), GTK_WIN_POS_CENTER);
+  gtk_window_set_modal(GTK_WINDOW(new_window), TRUE);
+  gtk_widget_show(new_window);
+}
+
 }
 
 int main(int argc, char** argv)
