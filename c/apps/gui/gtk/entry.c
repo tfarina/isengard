@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
   GtkWidget *fname_entry;
   GtkWidget *lname_entry;
   GtkWidget *confirm_area;
+  GtkWidget *cancel_btn;
   GtkWidget *ok_btn;
 
   gtk_init(&argc, &argv);
@@ -54,6 +55,9 @@ int main(int argc, char *argv[])
   confirm_area = gtk_hbutton_box_new();
   gtk_button_box_set_layout(GTK_BUTTON_BOX(confirm_area), GTK_BUTTONBOX_END);
   gtk_box_set_spacing(GTK_BOX(confirm_area), 5);
+
+  cancel_btn = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+  gtk_box_pack_start(GTK_BOX(confirm_area), cancel_btn, TRUE, TRUE, 0);
 
   ok_btn = gtk_button_new_from_stock(GTK_STOCK_OK);
   gtk_box_pack_start(GTK_BOX(confirm_area), ok_btn, TRUE, TRUE, 0);
