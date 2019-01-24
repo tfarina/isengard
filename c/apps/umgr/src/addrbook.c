@@ -41,6 +41,7 @@ static void new_item_cb(GtkWidget *widget, gpointer data)
   GtkWidget *label;
   GtkWidget *fname_entry;
   GtkWidget *lname_entry;
+  GtkWidget *email_entry;
   GtkWidget *confirm_area;
   GtkWidget *cancel_btn;
   GtkWidget *ok_btn;
@@ -61,6 +62,7 @@ static void new_item_cb(GtkWidget *widget, gpointer data)
 
   fname_entry = gtk_entry_new();
   lname_entry = gtk_entry_new();
+  email_entry = gtk_entry_new();
 
   /* First row. */
   label = gtk_label_new("First Name");
@@ -78,6 +80,15 @@ static void new_item_cb(GtkWidget *widget, gpointer data)
   gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 
   gtk_table_attach(GTK_TABLE(table), lname_entry, 1, 2, 1, 2,
+		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
+
+  /* Third row. */
+  label = gtk_label_new("Email");
+  gtk_table_attach(GTK_TABLE(table), label, 0, 1, 2, 3,
+		   GTK_FILL, 0, 0, 0);
+  gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
+  gtk_table_attach(GTK_TABLE(table), email_entry, 1, 2, 2, 3,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
   confirm_area = gtk_hbutton_box_new();
