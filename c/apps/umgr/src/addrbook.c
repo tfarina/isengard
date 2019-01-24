@@ -31,6 +31,7 @@ static void insert_item(GtkWidget *list_view, user_t *user)
 GtkWidget *window = NULL;
 GtkToolItem *edit_item = NULL;
 GtkToolItem *delete_item = NULL;
+GtkWidget *list_view;
 
 static void new_item_cb(GtkWidget *widget, gpointer data)
 {
@@ -97,6 +98,26 @@ static void new_item_cb(GtkWidget *widget, gpointer data)
   gtk_widget_show_all(new_window);
 }
 
+static void delete_item_cb(GtkWidget *widget, gpointer data)
+{
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+  user_t *user;
+
+  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
+
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+
+  gtk_tree_selection_get_selected(selection, NULL, &iter);
+
+  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (user_t *)&user, -1);
+
+  gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
+
+  user_delete(user->email);
+}
+
 static void list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 {
   gint num_selected;
@@ -123,7 +144,7 @@ int main(int argc, char** argv)
   GtkWidget *toolbar;
   GtkToolItem *new_item;
   GtkWidget *scrolledwin;
-  GtkWidget *list_view;
+
   GtkTreeSelection *list_select;
   GtkListStore *list_store;
   GtkCellRenderer *renderer;
@@ -162,6 +183,9 @@ int main(int argc, char** argv)
 
   g_signal_connect(G_OBJECT(new_item), "clicked",
 		   G_CALLBACK(new_item_cb), NULL);
+
+  g_signal_connect(G_OBJECT(delete_item), "clicked",
+		   G_CALLBACK(delete_item_cb), NULL);
 
   list_store = gtk_list_store_new(LIST_NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
