@@ -126,7 +126,7 @@ static void delete_item_cb(GtkWidget *widget, gpointer data)
 
   gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
 
-  user_delete(user->email);
+  user_delete(user);
 }
 
 static void list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)

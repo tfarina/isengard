@@ -5,6 +5,7 @@
 
 typedef struct user_s
 {
+  int id;
   const char *fname;
   const char *lname;
   const char *email;
@@ -23,9 +24,11 @@ int user_add(const char* fname,
 
 int user_change(const char *fname, const char *email);
 
-int user_delete(const char *email);
+int user_delete(user_t *user);
 
 alpm_list_t *user_get_records(void);
+
+user_t *user_get_by_id(alpm_list_t *users, int id);
 
 /**
  * Prints to standard output all the records found in the table.

@@ -185,7 +185,7 @@ int user_change(const char *fname, const char *email) {
   return 0;
 }
 
-int user_delete(const char *email) {
+int user_delete(user_t *user) {
   sqlite3 *user_db;
   sqlite3_stmt *stmt;
   int rc;
@@ -200,7 +200,7 @@ int user_delete(const char *email) {
     return -1;
   }
 
-  const char *sql = "DELETE FROM user WHERE email=?1;";
+  const char *sql = "DELETE FROM user WHERE uid=?1;";
 
   if (sqlite3_prepare_v2(user_db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing delete statement: %s\n",
@@ -208,7 +208,7 @@ int user_delete(const char *email) {
     return -1;
   }
 
-  sqlite3_bind_text(stmt, 1, email, -1, SQLITE_STATIC);
+  sqlite3_bind_int(stmt, 1, user->id);
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
     fprintf(stderr, "error deleting user from table: %s\n",
@@ -249,6 +249,7 @@ alpm_list_t *user_get_records(void) {
 
   while (sqlite3_step(stmt) == SQLITE_ROW) {
     user_t *user = user_alloc();
+    user->id = sqlite3_column_int(stmt, 0);
     user->fname = strdup((const char *)sqlite3_column_text(stmt, 1));
     user->lname = strdup((const char *)sqlite3_column_text(stmt, 2));
     user->email = strdup((const char *)sqlite3_column_text(stmt, 3));
@@ -260,6 +261,19 @@ alpm_list_t *user_get_records(void) {
   db_close(user_db);
 
   return users;
+}
+
+user_t *user_get_by_id(alpm_list_t *users, int id) {
+  alpm_list_t *i;
+
+  for (i = users; i; i = alpm_list_next(i)) {
+    user_t *user = (user_t *)i->data;
+    if (user->id == id) {
+      return user;
+    }
+  }
+
+  return NULL;
 }
 
 int user_print_records(void) {
