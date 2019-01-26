@@ -6,7 +6,7 @@
 int main(int argc, char **argv) {
   alpm_list_t *users;
   int uid;
-  user_t *user;
+  user_t *user = NULL;
 
   if (argc != 2) {
     fprintf(stderr, "usage: %s 'USER-ID'\n", argv[0]);

@@ -6,7 +6,7 @@
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
 int main(int argc, char **argv) {
-  user_t *user;
+  user_t *user = NULL;
 
   if (argc != 4) {
     printf("usage: %s 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
