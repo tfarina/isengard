@@ -95,9 +95,7 @@ int user_exists(const char* email) {
   return rc;
 }
 
-int user_add(const char* fname,
-             const char* lname,
-             const char* email) {
+int user_add(user_t *user) {
   sqlite3 *user_db;
   sqlite3_stmt *stmt;
   int rc;
@@ -123,9 +121,9 @@ int user_add(const char* fname,
 
   user_insert_stmt = stmt;
 
-  sqlite3_bind_text(stmt, 1, fname, -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 2, lname, -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 3, email, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 1, user->fname, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 2, user->lname, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 3, user->email, -1, SQLITE_STATIC);
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
     fprintf(stderr, "error inserting into user table: %s\n",

@@ -18,9 +18,7 @@ user_t *user_alloc(void);
  */
 int user_exists(const char* email);
 
-int user_add(const char* fname,
-             const char* lname,
-             const char* email);
+int user_add(user_t *user);
 
 int user_change(const char *fname, const char *email);
 
