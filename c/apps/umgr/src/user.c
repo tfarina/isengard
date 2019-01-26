@@ -142,7 +142,7 @@ int user_add(user_t *user) {
   return 0;
 }
 
-int user_change(const char *fname, const char *email) {
+int user_change(user_t *user) {
   sqlite3 *user_db;
   sqlite3_stmt *stmt;
   int rc;
@@ -157,7 +157,7 @@ int user_change(const char *fname, const char *email) {
     return -1;
   }
 
-  const char *sql = "UPDATE user SET fname=?1 WHERE email=?2;";
+  const char *sql = "UPDATE user SET fname=?2, lname=?3, email=?4 WHERE uid=?1;";
 
   if (sqlite3_prepare_v2(user_db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing update statement: %s\n",
@@ -165,15 +165,19 @@ int user_change(const char *fname, const char *email) {
     return -1;
   }
 
-  rc = sqlite3_bind_text(stmt, 1, fname, -1, SQLITE_STATIC);
+  sqlite3_bind_int(stmt, 1, user->id);
+
+  rc = sqlite3_bind_text(stmt, 2, user->fname, -1, SQLITE_STATIC);
 
   if (rc == SQLITE_OK)
-    rc = sqlite3_bind_text(stmt, 2, email, -1, SQLITE_STATIC);
+    rc = sqlite3_bind_text(stmt, 3, user->lname, -1, SQLITE_STATIC);
 
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error binding a value for the user table: %s\n",
             sqlite3_errmsg(user_db));
   }
+
+  rc = sqlite3_bind_text(stmt, 4, user->email, -1, SQLITE_STATIC);
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
     fprintf(stderr, "error updating user table: %s\n", sqlite3_errmsg(user_db));

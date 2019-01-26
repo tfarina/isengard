@@ -16,17 +16,31 @@
 // }
 
 int main(int argc, char **argv) {
-  if (argc != 3) {
-    fprintf(stderr, "usage: %s 'FIRST NAME' 'E-MAIL'\n", argv[0]);
+  alpm_list_t *users;
+  int uid;
+  user_t *user = NULL;
+
+  if (argc != 5) {
+    fprintf(stderr, "usage: %s 'USER-ID' 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
     return -1;
   }
 
-  if (!user_exists(argv[2])) {
-    fprintf(stderr, "%s: user (%s) does not exist in our database.\n", argv[0], argv[2]);
+  users = user_get_records();
+
+  uid = atoi(argv[1]);
+
+  user = user_get_by_id(users, uid);
+  if (!user) {
+    fprintf(stderr, "%s: user (%s) does not exist in our database.\n",
+            argv[0], argv[1]);
     return -1;
   }
 
-  if (user_change(argv[1], argv[2])) {
+  user->fname = argv[2];
+  user->lname = argv[3];
+  user->email = argv[4];
+
+  if (user_change(user)) {
     return -1;
   }
 

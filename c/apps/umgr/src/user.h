@@ -20,7 +20,7 @@ int user_exists(const char* email);
 
 int user_add(user_t *user);
 
-int user_change(const char *fname, const char *email);
+int user_change(user_t *user);
 
 int user_delete(user_t *user);
 
