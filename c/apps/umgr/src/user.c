@@ -285,7 +285,7 @@ int user_print_records(void) {
 
   for (i = users; i; i = alpm_list_next(i)) {
     user_t *user = i->data;
-    printf("%s|%s|%s\n", user->fname, user->lname, user->email);
+    printf("%d|%s|%s|%s\n", user->id, user->fname, user->lname, user->email);
   }
 
   return 0;
