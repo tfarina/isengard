@@ -50,9 +50,13 @@ int user_init_database(sqlite3* db) {
 }
 
 user_t *user_alloc(void) {
-  user_t *user;
+  user_t *user = NULL;
 
   user = malloc(sizeof(user_t));
+  if (user == NULL) {
+    return NULL;
+  }
+
   user->fname = NULL;
   user->lname = NULL;
   user->email = NULL;
