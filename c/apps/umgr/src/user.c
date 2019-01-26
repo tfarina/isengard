@@ -17,7 +17,8 @@ static sqlite3_stmt *user_insert_stmt;
 
 /**
  * Makes sure the 'user' table is created if it does not exist yet.
- * Returns 0 on success, -1 otherwise.
+ *
+ * @return return 0 on success, -1 otherwise.
  */
 int user_init_database(sqlite3* db) {
   int rc;
@@ -25,8 +26,8 @@ int user_init_database(sqlite3* db) {
   const char sql[] =
     "CREATE TABLE IF NOT EXISTS user ("
     "  uid INTEGER PRIMARY KEY,"     /* user id */
-    "  fname TEXT NOT NULL UNIQUE,"  /* first name */
-    "  lname TEXT NOT NULL,"         /* last name */
+    "  fname TEXT,"                  /* first name */
+    "  lname TEXT,"                  /* last name */
     "  email TEXT"                   /* email */
     ");";
 

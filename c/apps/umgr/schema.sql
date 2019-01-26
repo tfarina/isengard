@@ -14,7 +14,7 @@ CREATE TABLE user (
   uid INTEGER PRIMARY KEY,
   fname TEXT,
   lname TEXT,
-  email TEXT UNIQUE
+  email TEXT
 );
 
 /* Initial Data ------------------------------------------------------------- */
