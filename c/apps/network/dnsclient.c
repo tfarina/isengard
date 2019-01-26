@@ -69,7 +69,7 @@ static int check_ids_match(uint16_t query_id, uint16_t reply_id)
 /* This type represents a domain name in wire format. */
 typedef uint8_t dns_dname_t;
 
-struct dnsquestion {
+struct dns_query {
   dns_dname_t *qname;
   size_t qnamelen;
   uint16_t qtype;
@@ -471,7 +471,7 @@ static int dns_dname_size(const uint8_t *name) {
 
 int main(int argc, char **argv) {
   char *owner;
-  struct dnsquestion *question;
+  struct dns_query *question;
   uint8_t *query_pkt;
   size_t query_pktlen;
   char *server_name;
