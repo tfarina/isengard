@@ -35,14 +35,14 @@
  *  |                    ARCOUNT                    |
  *  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
  */
-struct dnsheader {
+typedef struct dns_header_s {
   uint16_t id;
   uint16_t flags;
   uint16_t qdcount;
   uint16_t ancount;
   uint16_t nscount;
   uint16_t arcount;
-};
+} dns_header_t;
 
 static int check_ids_match(uint16_t query_id, uint16_t reply_id)
 {
@@ -69,12 +69,12 @@ static int check_ids_match(uint16_t query_id, uint16_t reply_id)
 /* This type represents a domain name in wire format. */
 typedef uint8_t dns_dname_t;
 
-struct dns_query {
+typedef struct dns_query_s {
   dns_dname_t *qname;
   size_t qnamelen;
   uint16_t qtype;
   uint16_t qclass;
-};
+} dns_query_t;
 
 /* Resource Record definitions. */
 
@@ -471,7 +471,7 @@ static int dns_dname_size(const uint8_t *name) {
 
 int main(int argc, char **argv) {
   char *owner;
-  struct dns_query *question;
+  struct dns_query_s *question;
   uint8_t *query_pkt;
   size_t query_pktlen;
   char *server_name;
@@ -483,7 +483,7 @@ int main(int argc, char **argv) {
   struct sockaddr_storage from;
   socklen_t fromlen = sizeof(from);
   ssize_t reply_pktlen;
-  struct dnsheader *reply_header;
+  struct dns_header_s *reply_header;
 
   if (argc != 2) {
     fprintf(stderr, "usage: %s name\n", argv[0]);
@@ -590,7 +590,7 @@ int main(int argc, char **argv) {
 
   freeaddrinfo(addrlist);
 
-  /* Parse reply to the dnsheader structure. */
+  /* Parse reply to the dns_header_s structure. */
   reply_header = malloc(sizeof(*reply_header));
   memset(reply_header, 0, sizeof(*reply_header));
 
