@@ -20,7 +20,7 @@ static sqlite3_stmt *user_insert_stmt;
  *
  * @return return 0 on success, -1 otherwise.
  */
-int user_init_database(sqlite3* db) {
+static int _user_init_database(sqlite3* db) {
   int rc;
   sqlite3_stmt *stmt;
   const char sql[] =
@@ -75,7 +75,7 @@ int user_add(user_t *user) {
     return -1;
   }
 
-  if (user_init_database(user_db)) {
+  if (_user_init_database(user_db)) {
     db_close(user_db);
     return -1;
   }
@@ -118,7 +118,7 @@ int user_change(user_t *user) {
     return -1;
   }
 
-  if (user_init_database(user_db)) {
+  if (_user_init_database(user_db)) {
     db_close(user_db);
     return -1;
   }
@@ -167,7 +167,7 @@ int user_delete(user_t *user) {
     return -1;
   }
 
-  if (user_init_database(user_db)) {
+  if (_user_init_database(user_db)) {
     db_close(user_db);
     return -1;
   }
@@ -206,7 +206,7 @@ alpm_list_t *user_get_records(void) {
     return NULL;
   }
 
-  if (user_init_database(user_db)) {
+  if (_user_init_database(user_db)) {
     db_close(user_db);
     return NULL;
   }
