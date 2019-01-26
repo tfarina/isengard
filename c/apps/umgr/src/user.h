@@ -13,11 +13,6 @@ typedef struct user_s
 
 user_t *user_alloc(void);
 
-/**
- * Returns 0 if the user does not exists, otherwise returns 1.
- */
-int user_exists(const char* email);
-
 int user_add(user_t *user);
 
 int user_change(user_t *user);

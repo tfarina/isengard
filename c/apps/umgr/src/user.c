@@ -65,41 +65,6 @@ user_t *user_alloc(void) {
   return user;
 }
 
-int user_exists(const char* email) {
-  sqlite3 *user_db;
-  sqlite3_stmt *stmt;
-  int rc;
-
-  rc = db_open(user_db_fname, &user_db);
-  if (rc != SQLITE_OK) {
-    return -1;
-  }
-
-  if (user_init_database(user_db)) {
-    db_close(user_db);
-    return -1;
-  }
-
-  char* sql = sqlite3_mprintf("SELECT 1 FROM user WHERE email=%Q", email);
-
-  if (sqlite3_prepare_v2(user_db, sql, -1, &stmt, NULL) != SQLITE_OK) {
-    fprintf(stderr, "SQLite error: %s\n", sqlite3_errmsg(user_db));
-    return -1;
-  }
-
-  if (sqlite3_step(stmt) != SQLITE_ROW) {
-    rc = 0;
-  } else {
-    rc = 1;
-  }
-
-  sql_stmt_free(stmt);
-
-  db_close(user_db);
-
-  return rc;
-}
-
 int user_add(user_t *user) {
   sqlite3 *user_db;
   sqlite3_stmt *stmt;
