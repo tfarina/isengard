@@ -163,28 +163,33 @@ static int product_list(MYSQL *conn)
   return 0;
 }
 
-int main(int argc, char **argv) {
+static void config_init(config_t *config) {
   const char *homedir;
   char *userconffile;
   dictionary *ini;
-  config_t config;
-  MYSQL *conn = NULL;
 
   homedir = get_home_dir();
   userconffile = build_filename(homedir, USERCONFFILE);
 
   ini = iniparser_load(userconffile);
 
-  config.host = iniparser_getstring(ini, "mysql:host", NULL);
-  config.user = iniparser_getstring(ini, "mysql:user", NULL);
-  config.password = iniparser_getstring(ini, "mysql:password", NULL);
-  config.dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
+  config->host = strdup(iniparser_getstring(ini, "mysql:host", NULL));
+  config->user = strdup(iniparser_getstring(ini, "mysql:user", NULL));
+  config->password = strdup(iniparser_getstring(ini, "mysql:password", NULL));
+  config->dbname = strdup(iniparser_getstring(ini, "mysql:dbname", NULL));
+
+  iniparser_freedict(ini);
+}
+
+int main(int argc, char **argv) {
+  config_t config;
+  MYSQL *conn = NULL;
+
+  config_init(&config);
 
   if ((conn = mysql_connect(config.host, config.user, config.password, config.dbname)) == NULL) {
     return -1;
   }
-
-  iniparser_freedict(ini);
 
   if (product_list(conn) == -1) {
     return -1;
