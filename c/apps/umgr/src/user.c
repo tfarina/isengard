@@ -17,7 +17,7 @@ static const char user_db_fname[] = "users.db";
  *
  * @return return 0 on success, -1 otherwise.
  */
-static int _user_init_database(sqlite3* db) {
+static int _create_tables(sqlite3* db) {
   int rc;
   sqlite3_stmt *stmt;
   const char sql[] =
@@ -73,7 +73,7 @@ int user_add(user_t *user) {
     return -1;
   }
 
-  if (_user_init_database(conn)) {
+  if (_create_tables(conn)) {
     db_close(conn);
     return -1;
   }
@@ -115,7 +115,7 @@ int user_change(user_t *user) {
     return -1;
   }
 
-  if (_user_init_database(conn)) {
+  if (_create_tables(conn)) {
     db_close(conn);
     return -1;
   }
@@ -165,7 +165,7 @@ int user_delete(user_t *user) {
     return -1;
   }
 
-  if (_user_init_database(conn)) {
+  if (_create_tables(conn)) {
     db_close(conn);
     return -1;
   }
@@ -206,7 +206,7 @@ alpm_list_t *user_get_records(void) {
     return NULL;
   }
 
-  if (_user_init_database(conn)) {
+  if (_create_tables(conn)) {
     db_close(conn);
     return NULL;
   }
