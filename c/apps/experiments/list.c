@@ -11,6 +11,8 @@
 #define USERCONFFILE ".experimentsrc"
 #define PATH_SEP '/'
 
+static MYSQL *conn = NULL;
+
 typedef struct {
   const char *host;
   const char *user;
@@ -42,25 +44,24 @@ static char *build_filename(const char *directory, const char *name)
   return path;
 }
 
-static MYSQL *db_connect(const char *host, const char *user,
-                         const char *password, const char *dbname)
+static int db_connect(const char *host, const char *user,
+                      const char *password, const char *dbname)
 {
-  MYSQL *conn;
   unsigned int port = 0;
 
   if ((conn = mysql_init(NULL)) == NULL) {
     fprintf(stderr, "mysql: unable to allocate memory for database connection.\n");
-    return NULL;
+    return -1;
   }
 
   if (mysql_real_connect(conn, host, user, password, dbname, port,
                          NULL, 0) == NULL) {
     fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(conn));
     mysql_close(conn);
-    return NULL;
+    return -1;
   }
 
-  return conn;
+  return 0;
 }
 
 /*
@@ -89,7 +90,7 @@ static void print_dashes(MYSQL_RES *res)
   fputc('\n', stdout);
 }
 
-static int product_list(MYSQL *conn)
+static int product_list(void)
 {
   char query[256];
   MYSQL_RES *res = NULL;
@@ -183,15 +184,14 @@ static void config_init(config_t *config) {
 
 int main(int argc, char **argv) {
   config_t config;
-  MYSQL *conn = NULL;
 
   config_init(&config);
 
-  if ((conn = db_connect(config.host, config.user, config.password, config.dbname)) == NULL) {
+  if (db_connect(config.host, config.user, config.password, config.dbname)) {
     return -1;
   }
 
-  if (product_list(conn) == -1) {
+  if (product_list()) {
     return -1;
   }
 
