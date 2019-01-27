@@ -29,7 +29,7 @@ static int _create_tables(sqlite3* db) {
     ");";
 
   if ((rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL)) != SQLITE_OK) {
-    fprintf(stderr, "error creating user table: %s\n", sqlite3_errstr(rc));
+    fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errstr(rc));
     db_close(db);
     return -1;
   }
