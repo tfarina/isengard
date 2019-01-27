@@ -9,8 +9,6 @@
 /* The name of the user database file.  */
 static const char user_db_fname[] = "users.db";
 
-static sqlite3 *user_db;
-
 /* This is the column separator. */
 #define SEP_COL "|"
 
@@ -199,6 +197,7 @@ int user_delete(user_t *user) {
 alpm_list_t *user_get_records(void) {
   int rc;
   const char *sql;
+  sqlite3 *user_db;
   sqlite3_stmt *stmt;
   alpm_list_t *users = NULL;
 
