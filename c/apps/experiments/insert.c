@@ -32,8 +32,8 @@ static char *make_file_path(const char *directory, const char *name)
   return path;
 }
 
-static MYSQL *mysql_connect(const char *host, const char *user,
-                            const char *password, const char *dbname)
+static MYSQL *db_connect(const char *host, const char *user,
+                        const char *password, const char *dbname)
 {
   MYSQL *conn;
   unsigned int port = 0;
@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
   password = iniparser_getstring(ini, "mysql:password", NULL);
   dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
 
-  if ((conn = mysql_connect(host, user, password, dbname)) == NULL) {
+  if ((conn = db_connect(host, user, password, dbname)) == NULL) {
     return -1;
   }
 

@@ -42,8 +42,8 @@ static char *build_filename(const char *directory, const char *name)
   return path;
 }
 
-static MYSQL *mysql_connect(const char *host, const char *user,
-                            const char *password, const char *dbname)
+static MYSQL *db_connect(const char *host, const char *user,
+                         const char *password, const char *dbname)
 {
   MYSQL *conn;
   unsigned int port = 0;
@@ -187,7 +187,7 @@ int main(int argc, char **argv) {
 
   config_init(&config);
 
-  if ((conn = mysql_connect(config.host, config.user, config.password, config.dbname)) == NULL) {
+  if ((conn = db_connect(config.host, config.user, config.password, config.dbname)) == NULL) {
     return -1;
   }
 
