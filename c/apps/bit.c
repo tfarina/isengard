@@ -41,7 +41,7 @@ int main(void) {
   printf("%d\n", sixtyfour);
   printf("%d\n", onehundredtwentyeight);
 
-  /* Powers of 2 showing the use of right shift (<<) operator.
+  /* Powers of 2 showing the use of left shift (<<) operator.
    *
    * What does it do? It telss the compiler to shift (deslocate) the bit on the most right
    * to the left by n positions. Since it starts with 0000 0001, it creates the power of 2
