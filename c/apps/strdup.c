@@ -3,8 +3,9 @@
 #include <string.h>
 
 /**
- * Duplicate a string.
+ * Duplicates a string.
  *
+ * @param src (nullable): the string to duplicate
  */
 static char *xstrdup(const char *src) {
   char *dst;
