@@ -10,7 +10,6 @@
 static const char user_db_fname[] = "users.db";
 
 static sqlite3 *user_db;
-static sqlite3_stmt *user_insert_stmt;
 
 /* This is the column separator. */
 #define SEP_COL "|"
@@ -89,8 +88,6 @@ int user_add(user_t *user) {
     db_close(user_db);
     return -1;
   }
-
-  user_insert_stmt = stmt;
 
   sqlite3_bind_text(stmt, 1, user->fname, -1, SQLITE_STATIC);
   sqlite3_bind_text(stmt, 2, user->lname, -1, SQLITE_STATIC);
