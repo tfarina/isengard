@@ -39,7 +39,8 @@ static int _user_init_database(sqlite3* db) {
 
   rc = sqlite3_step(stmt);
 
-  sql_stmt_free(stmt);
+  sqlite3_finalize(stmt);
+  stmt = NULL;
 
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "error creating user table: %s\n", sqlite3_errstr(rc));
@@ -101,7 +102,8 @@ int user_add(user_t *user) {
     return -1;
   }
 
-  sql_stmt_free(stmt);
+  sqlite3_finalize(stmt);
+  stmt = NULL;
 
   db_close(user_db);
 
@@ -150,7 +152,8 @@ int user_change(user_t *user) {
     return -1;
   }
 
-  sql_stmt_free(stmt);
+  sqlite3_finalize(stmt);
+  stmt = NULL;
 
   db_close(user_db);
 
@@ -188,7 +191,8 @@ int user_delete(user_t *user) {
     return -1;
   }
 
-  sql_stmt_free(stmt);
+  sqlite3_finalize(stmt);
+  stmt = NULL;
 
   db_close(user_db);
 
@@ -228,7 +232,8 @@ alpm_list_t *user_get_records(void) {
     users = alpm_list_add(users, user);
   }
 
-  sql_stmt_free(stmt);
+  sqlite3_finalize(stmt);
+  stmt = NULL;
 
   db_close(user_db);
 
