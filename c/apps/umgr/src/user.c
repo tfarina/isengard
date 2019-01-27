@@ -64,26 +64,26 @@ user_t *user_alloc(void) {
 }
 
 int user_add(user_t *user) {
-  sqlite3 *user_db;
+  sqlite3 *conn;
   sqlite3_stmt *stmt;
   int rc;
 
-  rc = db_open(user_db_fname, &user_db);
+  rc = db_open(user_db_fname, &conn);
   if (rc != SQLITE_OK) {
     return -1;
   }
 
-  if (_user_init_database(user_db)) {
-    db_close(user_db);
+  if (_user_init_database(conn)) {
+    db_close(conn);
     return -1;
   }
 
   const char *sql = "INSERT INTO user (fname, lname, email) VALUES (?1, ?2, ?3);";
 
-  if (sqlite3_prepare_v2(user_db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing insert statement: %s\n",
-            sqlite3_errmsg(user_db));
-    db_close(user_db);
+            sqlite3_errmsg(conn));
+    db_close(conn);
     return -1;
   }
 
@@ -93,38 +93,38 @@ int user_add(user_t *user) {
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
     fprintf(stderr, "error inserting into user table: %s\n",
-            sqlite3_errmsg(user_db));
+            sqlite3_errmsg(conn));
     return -1;
   }
 
   sqlite3_finalize(stmt);
   stmt = NULL;
 
-  db_close(user_db);
+  db_close(conn);
 
   return 0;
 }
 
 int user_change(user_t *user) {
-  sqlite3 *user_db;
+  sqlite3 *conn;
   sqlite3_stmt *stmt;
   int rc;
 
-  rc = db_open(user_db_fname, &user_db);
+  rc = db_open(user_db_fname, &conn);
   if (rc != SQLITE_OK) {
     return -1;
   }
 
-  if (_user_init_database(user_db)) {
-    db_close(user_db);
+  if (_user_init_database(conn)) {
+    db_close(conn);
     return -1;
   }
 
   const char *sql = "UPDATE user SET fname=?2, lname=?3, email=?4 WHERE uid=?1;";
 
-  if (sqlite3_prepare_v2(user_db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing update statement: %s\n",
-            sqlite3_errmsg(user_db));
+            sqlite3_errmsg(conn));
     return -1;
   }
 
@@ -137,44 +137,44 @@ int user_change(user_t *user) {
 
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error binding a value for the user table: %s\n",
-            sqlite3_errmsg(user_db));
+            sqlite3_errmsg(conn));
   }
 
   rc = sqlite3_bind_text(stmt, 4, user->email, -1, SQLITE_STATIC);
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
-    fprintf(stderr, "error updating user table: %s\n", sqlite3_errmsg(user_db));
+    fprintf(stderr, "error updating user table: %s\n", sqlite3_errmsg(conn));
     return -1;
   }
 
   sqlite3_finalize(stmt);
   stmt = NULL;
 
-  db_close(user_db);
+  db_close(conn);
 
   return 0;
 }
 
 int user_delete(user_t *user) {
-  sqlite3 *user_db;
+  sqlite3 *conn;
   sqlite3_stmt *stmt;
   int rc;
 
-  rc = db_open(user_db_fname, &user_db);
+  rc = db_open(user_db_fname, &conn);
   if (rc != SQLITE_OK) {
     return -1;
   }
 
-  if (_user_init_database(user_db)) {
-    db_close(user_db);
+  if (_user_init_database(conn)) {
+    db_close(conn);
     return -1;
   }
 
   const char *sql = "DELETE FROM user WHERE uid=?1;";
 
-  if (sqlite3_prepare_v2(user_db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing delete statement: %s\n",
-            sqlite3_errmsg(user_db));
+            sqlite3_errmsg(conn));
     return -1;
   }
 
@@ -182,14 +182,14 @@ int user_delete(user_t *user) {
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
     fprintf(stderr, "error deleting user from table: %s\n",
-            sqlite3_errmsg(user_db));
+            sqlite3_errmsg(conn));
     return -1;
   }
 
   sqlite3_finalize(stmt);
   stmt = NULL;
 
-  db_close(user_db);
+  db_close(conn);
 
   return 0;
 }
@@ -197,25 +197,25 @@ int user_delete(user_t *user) {
 alpm_list_t *user_get_records(void) {
   int rc;
   const char *sql;
-  sqlite3 *user_db;
+  sqlite3 *conn;
   sqlite3_stmt *stmt;
   alpm_list_t *users = NULL;
 
-  rc = db_open(user_db_fname, &user_db);
+  rc = db_open(user_db_fname, &conn);
   if (rc != SQLITE_OK) {
     return NULL;
   }
 
-  if (_user_init_database(user_db)) {
-    db_close(user_db);
+  if (_user_init_database(conn)) {
+    db_close(conn);
     return NULL;
   }
 
   sql = sqlite3_mprintf("SELECT * FROM user");
 
-  if (sqlite3_prepare_v2(user_db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing select statement: %s\n",
-            sqlite3_errmsg(user_db));
+            sqlite3_errmsg(conn));
     return NULL;
   }
 
@@ -231,7 +231,7 @@ alpm_list_t *user_get_records(void) {
   sqlite3_finalize(stmt);
   stmt = NULL;
 
-  db_close(user_db);
+  db_close(conn);
 
   return users;
 }
