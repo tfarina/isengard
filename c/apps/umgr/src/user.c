@@ -67,6 +67,7 @@ int user_add(user_t *user) {
   sqlite3 *conn;
   sqlite3_stmt *stmt;
   int rc;
+  const char *sql;
 
   rc = db_open(user_db_fname, &conn);
   if (rc != SQLITE_OK) {
@@ -78,7 +79,7 @@ int user_add(user_t *user) {
     return -1;
   }
 
-  const char *sql = "INSERT INTO user (fname, lname, email) VALUES (?1, ?2, ?3);";
+  sql = "INSERT INTO user (fname, lname, email) VALUES (?1, ?2, ?3);";
 
   if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing insert statement: %s\n",
@@ -109,6 +110,7 @@ int user_change(user_t *user) {
   sqlite3 *conn;
   sqlite3_stmt *stmt;
   int rc;
+  const char *sql;
 
   rc = db_open(user_db_fname, &conn);
   if (rc != SQLITE_OK) {
@@ -120,7 +122,7 @@ int user_change(user_t *user) {
     return -1;
   }
 
-  const char *sql = "UPDATE user SET fname=?2, lname=?3, email=?4 WHERE uid=?1;";
+  sql = "UPDATE user SET fname=?2, lname=?3, email=?4 WHERE uid=?1;";
 
   if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing update statement: %s\n",
@@ -159,6 +161,7 @@ int user_delete(user_t *user) {
   sqlite3 *conn;
   sqlite3_stmt *stmt;
   int rc;
+  const char *sql;
 
   rc = db_open(user_db_fname, &conn);
   if (rc != SQLITE_OK) {
@@ -170,7 +173,7 @@ int user_delete(user_t *user) {
     return -1;
   }
 
-  const char *sql = "DELETE FROM user WHERE uid=?1;";
+  sql = "DELETE FROM user WHERE uid=?1;";
 
   if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing delete statement: %s\n",
@@ -195,10 +198,10 @@ int user_delete(user_t *user) {
 }
 
 alpm_list_t *user_get_records(void) {
-  int rc;
-  const char *sql;
   sqlite3 *conn;
   sqlite3_stmt *stmt;
+  int rc;
+  const char *sql;
   alpm_list_t *users = NULL;
 
   rc = db_open(user_db_fname, &conn);
@@ -211,7 +214,7 @@ alpm_list_t *user_get_records(void) {
     return NULL;
   }
 
-  sql = sqlite3_mprintf("SELECT * FROM user");
+  sql = "SELECT * FROM user";
 
   if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing select statement: %s\n",
