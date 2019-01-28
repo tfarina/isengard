@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
   gtk_container_add(GTK_CONTAINER(window), vbox);
 
   toolbar = gtk_toolbar_new();
-  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
+  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH);
 
   new_item = gtk_tool_button_new_from_stock(GTK_STOCK_NEW);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), new_item, -1);

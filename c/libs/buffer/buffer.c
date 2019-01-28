@@ -22,21 +22,6 @@ static void NORETURN fatal(const char *msg, ...)
         exit(EXIT_FAILURE);
 }
 
-static void *xmalloc(size_t size)
-{
-        void *ptr;
-
-        if (size == 0) {
-                fatal("xmalloc: zero size");
-	}
-
-        if ((ptr = malloc(size)) == NULL) {
-	        fatal("xmalloc failed");
-        }
-
-        return ptr;
-}
-
 static void *xrealloc(void *oldptr, size_t newsize)
 {
         void *newptr;
@@ -46,21 +31,6 @@ static void *xrealloc(void *oldptr, size_t newsize)
 	}
 
 	return newptr;
-}
-
-static void *xcalloc(size_t nmemb, size_t size)
-{
-        void *ptr;
-
-	if (size == 0 || nmemb == 0) {
-                fatal("xcalloc: zero size");
-	}
-
-        if ((ptr = calloc(nmemb, size)) == NULL) {
-	        fatal("xcalloc failed");
-	}
-
-        return ptr;
 }
 
 /*
@@ -79,11 +49,19 @@ buffer_t *buffer_alloc(size_t capacity)
 {
         buffer_t *b;
 
-	b = xcalloc(1, sizeof *b);
+	b = malloc(sizeof(buffer_t));
 
-	b->data = xmalloc(capacity);
+	if (b == NULL) {
+	        return NULL;
+	}
+
+	b->data = malloc(capacity);
+        if (b->data == NULL) {
+	        free(b);
+                return NULL;
+	}
+
 	b->capacity = capacity;
-
 	b->length = 0;
 
         return b;

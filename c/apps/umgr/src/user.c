@@ -63,6 +63,25 @@ user_t *user_alloc(void) {
   return user;
 }
 
+static sqlite3* dbh = NULL;
+
+int user_init(void) {
+  int rc;
+
+  rc = db_open(user_db_fname, &dbh);
+  if (rc != SQLITE_OK) {
+    return -1;
+  }
+
+  if (_create_tables(dbh)) {
+    db_close(dbh);
+    return -1;
+  }
+
+  return 0;
+
+}
+
 int user_add(user_t *user) {
   sqlite3 *conn;
   sqlite3_stmt *stmt;

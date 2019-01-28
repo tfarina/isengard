@@ -13,6 +13,8 @@ typedef struct user_s
 
 user_t *user_alloc(void);
 
+int user_init(void);
+
 int user_add(user_t *user);
 
 int user_change(user_t *user);

@@ -32,6 +32,32 @@ GtkWidget *window = NULL;
 GtkToolItem *edit_item = NULL;
 GtkToolItem *delete_item = NULL;
 GtkWidget *list_view;
+GtkWidget *fname_entry;
+GtkWidget *lname_entry;
+GtkWidget *email_entry;
+
+static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled) {
+  user_t *user;
+  char *name;
+
+  printf("OK button clicked\n");
+
+  user = user_alloc();
+
+  name = gtk_editable_get_chars(GTK_EDITABLE(fname_entry), 0, -1);
+  user->fname = name;
+  printf("%s\n", name);
+
+  name = gtk_editable_get_chars(GTK_EDITABLE(lname_entry), 0, -1);
+  user->lname = name;
+  printf("%s\n", name);
+
+  name = gtk_editable_get_chars(GTK_EDITABLE(email_entry), 0, -1);
+  user->email = name;
+  printf("%s\n", name);
+
+  user_add(user);
+}
 
 static void new_item_cb(GtkWidget *widget, gpointer data)
 {
@@ -39,9 +65,6 @@ static void new_item_cb(GtkWidget *widget, gpointer data)
   GtkWidget *vbox;
   GtkWidget *table;
   GtkWidget *label;
-  GtkWidget *fname_entry;
-  GtkWidget *lname_entry;
-  GtkWidget *email_entry;
   GtkWidget *confirm_area;
   GtkWidget *cancel_btn;
   GtkWidget *ok_btn;
@@ -102,6 +125,9 @@ static void new_item_cb(GtkWidget *widget, gpointer data)
   gtk_box_pack_start(GTK_BOX(confirm_area), ok_btn, TRUE, TRUE, 0);
 
   gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
+
+  g_signal_connect(G_OBJECT(ok_btn), "clicked",
+                   G_CALLBACK(ok_btn_cb), NULL);
 
   g_signal_connect_swapped(cancel_btn, "clicked",
 			   G_CALLBACK(gtk_widget_destroy), new_window);
