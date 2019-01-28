@@ -5,7 +5,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
+#endif
 
 /**
  * A buffer_t is a generic memory buffer.
@@ -25,8 +25,8 @@ typedef struct buffer_s
 /**
  * buffer_alloc creates a new buffer with the specified capacity.
  *
- * @param[in] capacity The size (in) bytes to allocate for the buffer.
- * @return the created buffer
+ * @param[in] capacity the size (in) bytes to allocate for the buffer.
+ * @return the created buffer.
  */
 buffer_t *buffer_alloc(size_t capacity);
 
@@ -47,6 +47,6 @@ void buffer_write(buffer_t *b, const void *data, size_t length);
 
 #ifdef __cplusplus
 }
-#endif /* __cplusplus */
+#endif
 
 #endif  /* BUFFER_H_ */
