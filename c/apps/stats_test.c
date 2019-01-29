@@ -8,7 +8,10 @@ static void print_array(double a[], size_t size)
   size_t i;
 
   for (i = 0; i < size; i++) {
-    printf("%f ", a[i]);
+    if (i) {
+      printf(", ");
+    }
+    printf("%f", a[i]);
   }
 
   printf("\n\n");
