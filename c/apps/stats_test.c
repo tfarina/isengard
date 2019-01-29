@@ -11,7 +11,7 @@ static void print_array(double a[], size_t size)
     if (i) {
       printf(", ");
     }
-    printf("%f", a[i]);
+    printf("%.1f", a[i]);
   }
 
   printf("\n\n");
