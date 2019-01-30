@@ -10,25 +10,8 @@
 #include "util.h"
 
 #define USERCONFFILE ".experimentsrc"
-#define PATH_SEP '/'
 
 static MYSQL *conn = NULL;
-
-/* Code from msmtp:src/tools.c:get_filename */
-static char *make_file_path(const char *directory, const char *name)
-{
-  char *path;
-  size_t dirlen;
-
-  dirlen = strlen(directory);
-  path = malloc((dirlen + strlen(name) + 2) * sizeof(char));
-  strcpy(path, directory);
-  if (dirlen == 0 || path[dirlen - 1] != PATH_SEP) {
-    path[dirlen++] = PATH_SEP;
-  }
-  strcpy(path + dirlen, name);
-  return path;
-}
 
 static int db_connect(const char *host, const char *user,
                       const char *password, const char *dbname)
@@ -76,7 +59,7 @@ int main(int argc, char **argv) {
   const char *dbname;
 
   homedir = f_get_home_dir();
-  userconffile = make_file_path(homedir, USERCONFFILE);
+  userconffile = f_build_filename(homedir, USERCONFFILE);
   ini = iniparser_load(userconffile);
   host = iniparser_getstring(ini, "mysql:host", NULL);
   user = iniparser_getstring(ini, "mysql:user", NULL);
