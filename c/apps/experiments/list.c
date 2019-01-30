@@ -7,6 +7,7 @@
 #include <mysql/mysql.h>
 
 #include "iniparser.h"
+#include "util.h"
 
 #define USERCONFFILE ".experimentsrc"
 #define PATH_SEP '/'
@@ -19,14 +20,6 @@ typedef struct {
   const char *password;
   const char *dbname;
 } config_t;
-
-/**
- * Gets the current user's home directory.
- */
-static const char *get_home_dir(void)
-{
-  return getenv("HOME");
-}
 
 /* Code from msmtp:src/tools.c:get_filename */
 static char *build_filename(const char *directory, const char *name)
@@ -169,7 +162,7 @@ static void config_init(config_t *config) {
   char *userconffile;
   dictionary *ini;
 
-  homedir = get_home_dir();
+  homedir = f_get_home_dir();
   userconffile = build_filename(homedir, USERCONFFILE);
 
   ini = iniparser_load(userconffile);

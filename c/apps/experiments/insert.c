@@ -7,16 +7,12 @@
 #include <mysql/mysql.h>
 
 #include "iniparser.h"
+#include "util.h"
 
 #define USERCONFFILE ".experimentsrc"
 #define PATH_SEP '/'
 
 static MYSQL *conn = NULL;
-
-static char *get_homedir(void)
-{
-  return getenv("HOME");
-}
 
 /* Code from msmtp:src/tools.c:get_filename */
 static char *make_file_path(const char *directory, const char *name)
@@ -71,7 +67,7 @@ static int product_add(const char *name, int quantity, double price)
 }
 
 int main(int argc, char **argv) {
-  char *homedir;
+  const char *homedir;
   char *userconffile;
   dictionary *ini;
   const char *host;
@@ -79,7 +75,7 @@ int main(int argc, char **argv) {
   const char *password;
   const char *dbname;
 
-  homedir = get_homedir();
+  homedir = f_get_home_dir();
   userconffile = make_file_path(homedir, USERCONFFILE);
   ini = iniparser_load(userconffile);
   host = iniparser_getstring(ini, "mysql:host", NULL);
