@@ -67,7 +67,7 @@ static void print_dashes(MYSQL_RES *res)
   fputc('\n', stdout);
 }
 
-static int product_list(void)
+static int print_product_records(void)
 {
   char query[256];
   MYSQL_RES *res = NULL;
@@ -168,7 +168,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (product_list()) {
+  if (print_product_records()) {
     return -1;
   }
 
