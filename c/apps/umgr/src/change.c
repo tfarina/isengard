@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
   user->lname = argv[3];
   user->email = argv[4];
 
-  if (user_change(user)) {
+  if (ab_change_user(user)) {
     return -1;
   }
 

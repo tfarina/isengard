@@ -65,7 +65,7 @@ user_t *user_alloc(void) {
 
 static sqlite3* dbh = NULL;
 
-int user_init(void) {
+int ab_init(void) {
   int rc;
 
   rc = db_open(user_db_fname, &dbh);
@@ -82,7 +82,7 @@ int user_init(void) {
 
 }
 
-int user_add(user_t *user) {
+int ab_add_user(user_t *user) {
   sqlite3 *conn;
   sqlite3_stmt *stmt;
   int rc;
@@ -125,7 +125,7 @@ int user_add(user_t *user) {
   return 0;
 }
 
-int user_change(user_t *user) {
+int ab_change_user(user_t *user) {
   sqlite3 *conn;
   sqlite3_stmt *stmt;
   int rc;
@@ -176,7 +176,7 @@ int user_change(user_t *user) {
   return 0;
 }
 
-int user_delete(user_t *user) {
+int ab_delete_user(user_t *user) {
   sqlite3 *conn;
   sqlite3_stmt *stmt;
   int rc;

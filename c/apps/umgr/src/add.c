@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
   user->email = argv[3];
 
   /* It's okay to add duplicate records. */
-  if (user_add(user)) {
+  if (ab_add_user(user)) {
     return -1;
   }
 

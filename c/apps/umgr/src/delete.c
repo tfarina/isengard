@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (user_delete(user)) {
+  if (ab_delete_user(user)) {
     return -1;
   }
 

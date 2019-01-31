@@ -56,7 +56,7 @@ static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled) {
   user->email = name;
   printf("%s\n", name);
 
-  user_add(user);
+  ab_add_user(user);
 }
 
 static void new_item_cb(GtkWidget *widget, gpointer data)
@@ -152,7 +152,7 @@ static void delete_item_cb(GtkWidget *widget, gpointer data)
 
   gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
 
-  user_delete(user);
+  ab_delete_user(user);
 }
 
 static void list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
