@@ -258,7 +258,7 @@ int main(int argc, char** argv)
 
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
 
-  users = user_get_records();
+  users = ab_get_user_list();
 
   for (i = users; i; i = alpm_list_next(i)) {
     insert_item(list_view, (user_t *)i->data);

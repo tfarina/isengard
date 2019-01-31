@@ -3,7 +3,7 @@
 int main(int argc, char **argv) {
   int rc;
 
-  rc = user_print_records();
+  rc = ab_print_user_records();
 
   return rc;
 }

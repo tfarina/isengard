@@ -13,11 +13,11 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  users = user_get_records();
+  users = ab_get_user_list();
 
   uid = atoi(argv[1]);
 
-  user = user_get_by_id(users, uid);
+  user = ab_get_user_by_id(users, uid);
   if (!user) {
     fprintf(stderr, "%s: user (%s) does not exist in our database.\n",
             argv[0], argv[1]);

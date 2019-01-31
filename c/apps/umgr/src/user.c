@@ -216,7 +216,7 @@ int user_delete(user_t *user) {
   return 0;
 }
 
-alpm_list_t *user_get_records(void) {
+alpm_list_t *ab_get_user_list(void) {
   sqlite3 *conn;
   sqlite3_stmt *stmt;
   int rc;
@@ -258,7 +258,7 @@ alpm_list_t *user_get_records(void) {
   return users;
 }
 
-user_t *user_get_by_id(alpm_list_t *users, int id) {
+user_t *ab_get_user_by_id(alpm_list_t *users, int id) {
   alpm_list_t *i;
 
   for (i = users; i; i = alpm_list_next(i)) {
@@ -271,10 +271,10 @@ user_t *user_get_by_id(alpm_list_t *users, int id) {
   return NULL;
 }
 
-int user_print_records(void) {
-  alpm_list_t *i, *users;
+int ab_print_user_records(void) {
+  alpm_list_t *users, *i;
 
-  users = user_get_records();
+  users = ab_get_user_list();
 
   for (i = users; i; i = alpm_list_next(i)) {
     user_t *user = i->data;
