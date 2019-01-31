@@ -13,6 +13,8 @@ int main(int argc, char **argv) {
     return -1;
   }
 
+  ab_init();
+
   users = ab_get_user_list();
 
   uid = atoi(argv[1]);
@@ -27,6 +29,8 @@ int main(int argc, char **argv) {
   if (ab_delete_user(user)) {
     return -1;
   }
+
+  ab_close();
 
   return 0;
 }

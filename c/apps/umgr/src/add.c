@@ -13,6 +13,8 @@ int main(int argc, char **argv) {
     return -1;
   }
 
+  ab_init();
+
   user = user_alloc();
   user->fname = argv[1];
   user->lname = argv[2];
@@ -22,6 +24,8 @@ int main(int argc, char **argv) {
   if (ab_add_user(user)) {
     return -1;
   }
+
+  ab_close();
 
   return 0;
 }

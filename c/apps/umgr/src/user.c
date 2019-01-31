@@ -63,30 +63,15 @@ user_t *user_alloc(void) {
   return user;
 }
 
-static sqlite3* dbh = NULL;
+static sqlite3* conn = NULL;
 
 int ab_init(void) {
   int rc;
 
-  rc = db_open(user_db_fname, &dbh);
-  if (rc != SQLITE_OK) {
-    return -1;
+  /* Do nothing if the database handle has been set. */
+  if (conn) {
+    return 0;
   }
-
-  if (_create_tables(dbh)) {
-    db_close(dbh);
-    return -1;
-  }
-
-  return 0;
-
-}
-
-int ab_add_user(user_t *user) {
-  sqlite3 *conn;
-  sqlite3_stmt *stmt;
-  int rc;
-  const char *sql;
 
   rc = db_open(user_db_fname, &conn);
   if (rc != SQLITE_OK) {
@@ -97,6 +82,18 @@ int ab_add_user(user_t *user) {
     db_close(conn);
     return -1;
   }
+
+  return 0;
+}
+
+int ab_close(void) {
+  db_close(conn);
+  conn = NULL;
+}
+
+int ab_add_user(user_t *user) {
+  const char *sql;
+  sqlite3_stmt *stmt;
 
   sql = "INSERT INTO user (fname, lname, email) VALUES (?1, ?2, ?3);";
 
@@ -120,26 +117,13 @@ int ab_add_user(user_t *user) {
   sqlite3_finalize(stmt);
   stmt = NULL;
 
-  db_close(conn);
-
   return 0;
 }
 
 int ab_change_user(user_t *user) {
-  sqlite3 *conn;
+  const char *sql;
   sqlite3_stmt *stmt;
   int rc;
-  const char *sql;
-
-  rc = db_open(user_db_fname, &conn);
-  if (rc != SQLITE_OK) {
-    return -1;
-  }
-
-  if (_create_tables(conn)) {
-    db_close(conn);
-    return -1;
-  }
 
   sql = "UPDATE user SET fname=?2, lname=?3, email=?4 WHERE uid=?1;";
 
@@ -171,26 +155,12 @@ int ab_change_user(user_t *user) {
   sqlite3_finalize(stmt);
   stmt = NULL;
 
-  db_close(conn);
-
   return 0;
 }
 
 int ab_delete_user(user_t *user) {
-  sqlite3 *conn;
-  sqlite3_stmt *stmt;
-  int rc;
   const char *sql;
-
-  rc = db_open(user_db_fname, &conn);
-  if (rc != SQLITE_OK) {
-    return -1;
-  }
-
-  if (_create_tables(conn)) {
-    db_close(conn);
-    return -1;
-  }
+  sqlite3_stmt *stmt;
 
   sql = "DELETE FROM user WHERE uid=?1;";
 
@@ -211,27 +181,13 @@ int ab_delete_user(user_t *user) {
   sqlite3_finalize(stmt);
   stmt = NULL;
 
-  db_close(conn);
-
   return 0;
 }
 
 alpm_list_t *ab_get_user_list(void) {
-  sqlite3 *conn;
-  sqlite3_stmt *stmt;
-  int rc;
   const char *sql;
+  sqlite3_stmt *stmt;
   alpm_list_t *users = NULL;
-
-  rc = db_open(user_db_fname, &conn);
-  if (rc != SQLITE_OK) {
-    return NULL;
-  }
-
-  if (_create_tables(conn)) {
-    db_close(conn);
-    return NULL;
-  }
 
   sql = "SELECT * FROM user";
 
@@ -252,8 +208,6 @@ alpm_list_t *ab_get_user_list(void) {
 
   sqlite3_finalize(stmt);
   stmt = NULL;
-
-  db_close(conn);
 
   return users;
 }

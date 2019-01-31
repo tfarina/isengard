@@ -14,6 +14,7 @@ typedef struct user_s
 user_t *user_alloc(void);
 
 int ab_init(void);
+int ab_close(void);
 
 int ab_add_user(user_t *user);
 
