@@ -46,18 +46,15 @@ add_compile_options(-Wno-unused-parameter)
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-set(LIB_SRCS
+set(UMGR_SRCS
     src/cmd_add.c
     src/cmd_change.c
     src/cmd_delete.c
     src/cmd_list.c
     src/commands.h
+    src/main.c
     )
-add_library(umg ${LIB_SRCS})
-
-set(EXE_SRCS src/main.c)
-add_executable(umgr ${EXE_SRCS})
-target_link_libraries(umgr umg)
+add_executable(umgr ${UMGR_SRCS})
 
 find_package(GTK2 2.6 REQUIRED gtk)
 
