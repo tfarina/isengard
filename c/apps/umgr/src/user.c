@@ -5,6 +5,7 @@
 #include "third_party/sqlite/amalgamation/sqlite3.h"
 
 #include "db.h"
+#include "strutils.h"
 
 /* The name of the user database file.  */
 static const char user_db_fname[] = "users.db";
@@ -89,6 +90,7 @@ int ab_init(void) {
 int ab_close(void) {
   db_close(conn);
   conn = NULL;
+  return 0;
 }
 
 int ab_add_user(user_t *user) {
@@ -200,9 +202,9 @@ alpm_list_t *ab_get_user_list(void) {
   while (sqlite3_step(stmt) == SQLITE_ROW) {
     user_t *user = user_alloc();
     user->id = sqlite3_column_int(stmt, 0);
-    user->fname = strdup((const char *)sqlite3_column_text(stmt, 1));
-    user->lname = strdup((const char *)sqlite3_column_text(stmt, 2));
-    user->email = strdup((const char *)sqlite3_column_text(stmt, 3));
+    user->fname = f_strdup((const char *)sqlite3_column_text(stmt, 1));
+    user->lname = f_strdup((const char *)sqlite3_column_text(stmt, 2));
+    user->email = f_strdup((const char *)sqlite3_column_text(stmt, 3));
     users = alpm_list_add(users, user);
   }
 
