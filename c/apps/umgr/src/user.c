@@ -7,11 +7,11 @@
 #include "db.h"
 #include "strutils.h"
 
-static const char dbname[] = "users.db";
+static const char dbname[] = "abdb.sqlite3";
 static sqlite3* conn = NULL;
 
 /**
- * Makes sure the 'user' table is created if it does not exist yet.
+ * Makes sure the 'contacts' table is created if it does not exist yet.
  *
  * @return return 0 on success, -1 otherwise.
  */
@@ -19,11 +19,11 @@ static int _create_tables(sqlite3* db) {
   int rc;
   sqlite3_stmt *stmt;
   const char sql[] =
-    "CREATE TABLE IF NOT EXISTS user ("
-    "  uid INTEGER PRIMARY KEY,"     /* user id */
-    "  fname TEXT,"                  /* first name */
-    "  lname TEXT,"                  /* last name */
-    "  email TEXT"                   /* email */
+    "CREATE TABLE IF NOT EXISTS contacts ("
+    "  id INTEGER PRIMARY KEY,"     /* id */
+    "  fname TEXT,"                 /* first name */
+    "  lname TEXT,"                 /* last name */
+    "  email TEXT"                  /* email */
     ");";
 
   if ((rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL)) != SQLITE_OK) {
@@ -38,7 +38,7 @@ static int _create_tables(sqlite3* db) {
   stmt = NULL;
 
   if (rc != SQLITE_DONE) {
-    fprintf(stderr, "error creating user table: %s\n", sqlite3_errstr(rc));
+    fprintf(stderr, "error creating contacts table: %s\n", sqlite3_errstr(rc));
     db_close(db);
     return -1;
   }
@@ -46,19 +46,19 @@ static int _create_tables(sqlite3* db) {
   return 0;
 }
 
-user_t *user_alloc(void) {
-  user_t *user = NULL;
+ab_contact_t *ab_contact_alloc(void) {
+  ab_contact_t *contact = NULL;
 
-  user = malloc(sizeof(user_t));
-  if (user == NULL) {
+  contact = malloc(sizeof(ab_contact_t));
+  if (contact == NULL) {
     return NULL;
   }
 
-  user->fname = NULL;
-  user->lname = NULL;
-  user->email = NULL;
+  contact->fname = NULL;
+  contact->lname = NULL;
+  contact->email = NULL;
 
-  return user;
+  return contact;
 }
 
 int ab_init(void) {
@@ -89,11 +89,11 @@ int ab_close(void) {
   return 0;
 }
 
-int ab_add_user(user_t *user) {
+int ab_add_contact(ab_contact_t *contact) {
   const char *sql;
   sqlite3_stmt *stmt;
 
-  sql = "INSERT INTO user (fname, lname, email) VALUES (?1, ?2, ?3);";
+  sql = "INSERT INTO contacts (fname, lname, email) VALUES (?1, ?2, ?3);";
 
   if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing insert statement: %s\n",
@@ -102,12 +102,12 @@ int ab_add_user(user_t *user) {
     return -1;
   }
 
-  sqlite3_bind_text(stmt, 1, user->fname, -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 2, user->lname, -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 3, user->email, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 1, contact->fname, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 2, contact->lname, -1, SQLITE_STATIC);
+  sqlite3_bind_text(stmt, 3, contact->email, -1, SQLITE_STATIC);
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
-    fprintf(stderr, "error inserting into user table: %s\n",
+    fprintf(stderr, "error inserting into contacts table: %s\n",
             sqlite3_errmsg(conn));
     return -1;
   }
@@ -118,12 +118,12 @@ int ab_add_user(user_t *user) {
   return 0;
 }
 
-int ab_change_user(user_t *user) {
+int ab_change_contact(ab_contact_t *contact) {
   const char *sql;
   sqlite3_stmt *stmt;
   int rc;
 
-  sql = "UPDATE user SET fname=?2, lname=?3, email=?4 WHERE uid=?1;";
+  sql = "UPDATE contacts SET fname=?2, lname=?3, email=?4 WHERE id=?1;";
 
   if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing update statement: %s\n",
@@ -131,22 +131,22 @@ int ab_change_user(user_t *user) {
     return -1;
   }
 
-  sqlite3_bind_int(stmt, 1, user->id);
+  sqlite3_bind_int(stmt, 1, contact->id);
 
-  rc = sqlite3_bind_text(stmt, 2, user->fname, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(stmt, 2, contact->fname, -1, SQLITE_STATIC);
 
   if (rc == SQLITE_OK)
-    rc = sqlite3_bind_text(stmt, 3, user->lname, -1, SQLITE_STATIC);
+    rc = sqlite3_bind_text(stmt, 3, contact->lname, -1, SQLITE_STATIC);
 
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "error binding a value for the user table: %s\n",
+    fprintf(stderr, "error binding a value for the contacts table: %s\n",
             sqlite3_errmsg(conn));
   }
 
-  rc = sqlite3_bind_text(stmt, 4, user->email, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(stmt, 4, contact->email, -1, SQLITE_STATIC);
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
-    fprintf(stderr, "error updating user table: %s\n", sqlite3_errmsg(conn));
+    fprintf(stderr, "error updating contacts table: %s\n", sqlite3_errmsg(conn));
     return -1;
   }
 
@@ -156,11 +156,11 @@ int ab_change_user(user_t *user) {
   return 0;
 }
 
-int ab_delete_user(user_t *user) {
+int ab_delete_contact(ab_contact_t *contact) {
   const char *sql;
   sqlite3_stmt *stmt;
 
-  sql = "DELETE FROM user WHERE uid=?1;";
+  sql = "DELETE FROM contacts WHERE id=?1;";
 
   if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing delete statement: %s\n",
@@ -168,10 +168,10 @@ int ab_delete_user(user_t *user) {
     return -1;
   }
 
-  sqlite3_bind_int(stmt, 1, user->id);
+  sqlite3_bind_int(stmt, 1, contact->id);
 
   if (sqlite3_step(stmt) != SQLITE_DONE) {
-    fprintf(stderr, "error deleting user from table: %s\n",
+    fprintf(stderr, "error deleting contacts from table: %s\n",
             sqlite3_errmsg(conn));
     return -1;
   }
@@ -182,12 +182,12 @@ int ab_delete_user(user_t *user) {
   return 0;
 }
 
-alpm_list_t *ab_get_user_list(void) {
+alpm_list_t *ab_get_contact_list(void) {
   const char *sql;
   sqlite3_stmt *stmt;
-  alpm_list_t *users = NULL;
+  alpm_list_t *list = NULL;
 
-  sql = "SELECT * FROM user";
+  sql = "SELECT * FROM contacts";
 
   if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing select statement: %s\n",
@@ -196,41 +196,41 @@ alpm_list_t *ab_get_user_list(void) {
   }
 
   while (sqlite3_step(stmt) == SQLITE_ROW) {
-    user_t *user = user_alloc();
-    user->id = sqlite3_column_int(stmt, 0);
-    user->fname = f_strdup((const char *)sqlite3_column_text(stmt, 1));
-    user->lname = f_strdup((const char *)sqlite3_column_text(stmt, 2));
-    user->email = f_strdup((const char *)sqlite3_column_text(stmt, 3));
-    users = alpm_list_add(users, user);
+    ab_contact_t *contact = ab_contact_alloc();
+    contact->id = sqlite3_column_int(stmt, 0);
+    contact->fname = f_strdup((const char *)sqlite3_column_text(stmt, 1));
+    contact->lname = f_strdup((const char *)sqlite3_column_text(stmt, 2));
+    contact->email = f_strdup((const char *)sqlite3_column_text(stmt, 3));
+    list = alpm_list_add(list, contact);
   }
 
   sqlite3_finalize(stmt);
   stmt = NULL;
 
-  return users;
+  return list;
 }
 
-user_t *ab_get_user_by_id(alpm_list_t *users, int id) {
+ab_contact_t *ab_get_contact_by_id(alpm_list_t *list, int id) {
   alpm_list_t *i;
 
-  for (i = users; i; i = alpm_list_next(i)) {
-    user_t *user = (user_t *)i->data;
-    if (user->id == id) {
-      return user;
+  for (i = list; i; i = alpm_list_next(i)) {
+    ab_contact_t *contact = (ab_contact_t *)i->data;
+    if (contact->id == id) {
+      return contact;
     }
   }
 
   return NULL;
 }
 
-int ab_print_user_records(void) {
-  alpm_list_t *users, *i;
+int ab_print_contact_records(void) {
+  alpm_list_t *list, *i;
 
-  users = ab_get_user_list();
+  list = ab_get_contact_list();
 
-  for (i = users; i; i = alpm_list_next(i)) {
-    user_t *user = i->data;
-    printf("%d|%s|%s|%s\n", user->id, user->fname, user->lname, user->email);
+  for (i = list; i; i = alpm_list_next(i)) {
+    ab_contact_t *contact = (ab_contact_t *)i->data;
+    printf("%d|%s|%s|%s\n", contact->id, contact->fname, contact->lname, contact->email);
   }
 
   return 0;

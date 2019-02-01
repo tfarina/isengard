@@ -6,7 +6,7 @@
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
 int main(int argc, char **argv) {
-  user_t *user = NULL;
+  ab_contact_t *contact = NULL;
 
   if (argc != 4) {
     printf("usage: %s 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
@@ -15,13 +15,13 @@ int main(int argc, char **argv) {
 
   ab_init();
 
-  user = user_alloc();
-  user->fname = argv[1];
-  user->lname = argv[2];
-  user->email = argv[3];
+  contact = ab_contact_alloc();
+  contact->fname = argv[1];
+  contact->lname = argv[2];
+  contact->email = argv[3];
 
   /* It's okay to add duplicate records. */
-  if (ab_add_user(user)) {
+  if (ab_add_contact(contact)) {
     return -1;
   }
 

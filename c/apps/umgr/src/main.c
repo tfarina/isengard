@@ -24,10 +24,10 @@ static void usage(void) {
         static const char *usage_msg =
                 "usage: %s COMMAND [ARGS]\n\n"
                 "The commands are:\n"
-                "   add       Add a new user\n"
-                "   change    Change a user\n"
-                "   delete    Delete the specified user\n"
-                "   list      List all users\n"
+                "   add       Add a new contact\n"
+                "   change    Change a contact\n"
+                "   delete    Delete the specified contact\n"
+                "   list      List all contacts\n"
                 "";
         fprintf(stderr, usage_msg, progname);
         exit(EXIT_FAILURE);

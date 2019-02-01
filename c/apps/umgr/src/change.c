@@ -16,33 +16,33 @@
 // }
 
 int main(int argc, char **argv) {
-  alpm_list_t *users;
-  int uid;
-  user_t *user = NULL;
+  alpm_list_t *list;
+  int id;
+  ab_contact_t *contact = NULL;
 
   if (argc != 5) {
-    fprintf(stderr, "usage: %s 'USER-ID' 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
+    fprintf(stderr, "usage: %s 'ID' 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
     return -1;
   }
 
   ab_init();
 
-  users = ab_get_user_list();
+  list = ab_get_contact_list();
 
-  uid = atoi(argv[1]);
+  id = atoi(argv[1]);
 
-  user = ab_get_user_by_id(users, uid);
-  if (!user) {
-    fprintf(stderr, "%s: user (%s) does not exist in our database.\n",
+  contact = ab_get_contact_by_id(list, id);
+  if (!contact) {
+    fprintf(stderr, "%s: contact (%s) does not exist in our database.\n",
             argv[0], argv[1]);
     return -1;
   }
 
-  user->fname = argv[2];
-  user->lname = argv[3];
-  user->email = argv[4];
+  contact->fname = argv[2];
+  contact->lname = argv[3];
+  contact->email = argv[4];
 
-  if (ab_change_user(user)) {
+  if (ab_change_contact(contact)) {
     return -1;
   }
 

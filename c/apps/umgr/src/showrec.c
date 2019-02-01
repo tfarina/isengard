@@ -5,7 +5,7 @@ int main(int argc, char **argv) {
 
   ab_init();
 
-  rc = ab_print_user_records();
+  rc = ab_print_contact_records();
 
   ab_close();
 

@@ -12,7 +12,7 @@ enum {
   LIST_NUM_COLUMNS
 };
 
-static void insert_item(GtkWidget *list_view, user_t *user)
+static void insert_item(GtkWidget *list_view, ab_contact_t *contact)
 {
   GtkTreeModel *model = NULL;
   GtkTreeIter iter;
@@ -21,10 +21,10 @@ static void insert_item(GtkWidget *list_view, user_t *user)
 
   gtk_list_store_append(GTK_LIST_STORE(model), &iter);
   gtk_list_store_set(GTK_LIST_STORE(model), &iter,
-                     LIST_FIRST_NAME, user->fname,
-                     LIST_LAST_NAME, user->lname,
-                     LIST_EMAIL, user->email,
-		     LIST_COL_PTR, user,
+                     LIST_FIRST_NAME, contact->fname,
+                     LIST_LAST_NAME, contact->lname,
+                     LIST_EMAIL, contact->email,
+		     LIST_COL_PTR, contact,
                      -1);
 }
 
@@ -37,26 +37,26 @@ GtkWidget *lname_entry;
 GtkWidget *email_entry;
 
 static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled) {
-  user_t *user;
+  ab_contact_t *contact;
   char *name;
 
   printf("OK button clicked\n");
 
-  user = user_alloc();
+  contact = ab_contact_alloc();
 
   name = gtk_editable_get_chars(GTK_EDITABLE(fname_entry), 0, -1);
-  user->fname = name;
+  contact->fname = name;
   printf("%s\n", name);
 
   name = gtk_editable_get_chars(GTK_EDITABLE(lname_entry), 0, -1);
-  user->lname = name;
+  contact->lname = name;
   printf("%s\n", name);
 
   name = gtk_editable_get_chars(GTK_EDITABLE(email_entry), 0, -1);
-  user->email = name;
+  contact->email = name;
   printf("%s\n", name);
 
-  ab_add_user(user);
+  ab_add_contact(contact);
 }
 
 static void new_item_cb(GtkWidget *widget, gpointer data)
@@ -140,7 +140,7 @@ static void delete_item_cb(GtkWidget *widget, gpointer data)
   GtkTreeModel *model;
   GtkTreeSelection *selection;
   GtkTreeIter iter;
-  user_t *user;
+  ab_contact_t *contact;
 
   model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
 
@@ -148,11 +148,11 @@ static void delete_item_cb(GtkWidget *widget, gpointer data)
 
   gtk_tree_selection_get_selected(selection, NULL, &iter);
 
-  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (user_t *)&user, -1);
+  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
 
   gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
 
-  ab_delete_user(user);
+  ab_delete_contact(contact);
 }
 
 static void list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
@@ -186,7 +186,7 @@ int main(int argc, char** argv)
   GtkListStore *list_store;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
-  alpm_list_t *users, *i;
+  alpm_list_t *list, *i;
 
   gtk_init(&argc, &argv);
 
@@ -260,10 +260,10 @@ int main(int argc, char** argv)
 
   ab_init();
 
-  users = ab_get_user_list();
+  list = ab_get_contact_list();
 
-  for (i = users; i; i = alpm_list_next(i)) {
-    insert_item(list_view, (user_t *)i->data);
+  for (i = list; i; i = alpm_list_next(i)) {
+    insert_item(list_view, (ab_contact_t *)i->data);
   }
 
   g_signal_connect(G_OBJECT(window), "destroy",
