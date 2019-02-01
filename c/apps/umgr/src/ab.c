@@ -70,7 +70,7 @@ int ab_init(void) {
   }
 
   rc = db_open(dbname, &conn);
-  if (rc != SQLITE_OK) {
+  if (rc) {
     return -1;
   }
 

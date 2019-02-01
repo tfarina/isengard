@@ -13,10 +13,10 @@ int db_open(const char *filename, sqlite3 **db) {
     if ((rc = sqlite3_close(*db)) != SQLITE_OK) {
       fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errmsg(*db));
     }
-    return rc;
+    return -1;
   }
 
-  return SQLITE_OK;
+  return 0;
 }
 
 void db_close(sqlite3 *db) {
