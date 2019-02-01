@@ -10,10 +10,10 @@ include_directories(${CMAKE_SOURCE_DIR})
 add_subdirectory(third_party/sqlite)
 
 set(LIB_SRCS
+    src/ab.c
+    src/alpm_list.c
     src/db.c
     src/strutils.c
-    src/user.c
-    src/alpm_list.c
    )
 add_library(ab ${LIB_SRCS})
 target_link_libraries(ab sqlite3)

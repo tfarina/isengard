@@ -2,7 +2,7 @@
 
 #include <gtk/gtk.h>
 
-#include "user.h"
+#include "ab.h"
 
 enum {
   LIST_FIRST_NAME,

@@ -2,11 +2,11 @@ cc_library(
     name = "umgr",
     srcs = [
         "db.c",
-        "user.c",
+        "ab.c",
     ],
     hdrs = [
         "db.h",
-        "user.h",
+        "ab.h",
     ],
     deps = ["//third_party/sqlite:sqlite3"],
 )

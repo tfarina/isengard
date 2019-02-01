@@ -1,5 +1,5 @@
-#ifndef USER_H_
-#define USER_H_
+#ifndef AB_H_
+#define AB_H_
 
 #include "alpm_list.h"
 
@@ -31,4 +31,4 @@ ab_contact_t *ab_get_contact_by_id(alpm_list_t *list, int id);
  */
 int ab_print_contact_records(void);
 
-#endif  /* USER_H_ */
+#endif  /* AB_H_ */
