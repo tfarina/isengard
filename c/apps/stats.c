@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-double stats_min(double a[], size_t size)
+double stats_min(double *a, size_t size)
 {
   size_t i;
   double min = +INFINITY;
@@ -20,7 +20,7 @@ double stats_min(double a[], size_t size)
   return min;
 }
 
-double stats_max(double a[], size_t size)
+double stats_max(double *a, size_t size)
 {
   size_t i;
   double max = -INFINITY;
@@ -38,7 +38,7 @@ double stats_max(double a[], size_t size)
   return max;
 }
 
-double stats_sum(double a[], size_t size)
+double stats_sum(double *a, size_t size)
 {
   double sum = 0.0;
   size_t i;
@@ -50,7 +50,7 @@ double stats_sum(double a[], size_t size)
   return sum;
 }
 
-double stats_average(double a[], size_t size)
+double stats_average(double *a, size_t size)
 {
   double sum = 0.0;
 
@@ -59,7 +59,7 @@ double stats_average(double a[], size_t size)
   return sum / size;
 }
 
-double stats_var(double a[], size_t size)
+double stats_var(double *a, size_t size)
 {
   double avg = 0.0;
   double sum = 0.0;
@@ -74,7 +74,7 @@ double stats_var(double a[], size_t size)
   return sum / (size - 1);
 }
 
-double stats_stdev(double a[], size_t size)
+double stats_stdev(double *a, size_t size)
 {
   return sqrt(stats_var(a, size));
 }
