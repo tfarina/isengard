@@ -7,11 +7,8 @@
 #include "db.h"
 #include "strutils.h"
 
-/* The name of the user database file.  */
-static const char user_db_fname[] = "users.db";
-
-/* This is the column separator. */
-#define SEP_COL "|"
+static const char dbname[] = "users.db";
+static sqlite3* conn = NULL;
 
 /**
  * Makes sure the 'user' table is created if it does not exist yet.
@@ -64,8 +61,6 @@ user_t *user_alloc(void) {
   return user;
 }
 
-static sqlite3* conn = NULL;
-
 int ab_init(void) {
   int rc;
 
@@ -74,7 +69,7 @@ int ab_init(void) {
     return 0;
   }
 
-  rc = db_open(user_db_fname, &conn);
+  rc = db_open(dbname, &conn);
   if (rc != SQLITE_OK) {
     return -1;
   }
@@ -90,6 +85,7 @@ int ab_init(void) {
 int ab_close(void) {
   db_close(conn);
   conn = NULL;
+
   return 0;
 }
 
