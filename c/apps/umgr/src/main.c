@@ -4,9 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "arraysize.h"
 #include "commands.h"
-
-#define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 
 static const char *progname;
 
