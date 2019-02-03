@@ -112,9 +112,11 @@ static ssize_t fd_write(int fd, const char *buf, size_t len)
 
 static ssize_t fd_write_all(int fd, const char *buf, size_t len)
 {
-  ssize_t bytes_sent, total_bytes_sent = 0;
+  ssize_t total_bytes_sent = 0;
 
   while (len) {
+    ssize_t bytes_sent;
+
     bytes_sent = fd_write(fd, buf, len);
     if (bytes_sent == 0)
       return total_bytes_sent;
