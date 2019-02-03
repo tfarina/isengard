@@ -118,16 +118,19 @@ static ssize_t fd_write_all(int fd, const char *buf, size_t len)
     ssize_t bytes_sent;
 
     bytes_sent = fd_write(fd, buf, len);
+
+    if (bytes_sent < 0)
+      return bytes_sent;
+
     if (bytes_sent == 0)
-      return total_bytes_sent;
-    if (bytes_sent == -1)
-      return -1;
+      break;
 
     printf("# sent %zd bytes\n", bytes_sent);
 
+    total_bytes_sent += bytes_sent;
+
     buf += bytes_sent;
     len -= bytes_sent;
-    total_bytes_sent += bytes_sent;
   }
 
   return total_bytes_sent;
