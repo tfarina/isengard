@@ -125,7 +125,7 @@ static ssize_t fd_write_all(int fd, const char *buf, size_t len)
     if (bytes_sent == 0)
       break;
 
-    printf("# sent %zd bytes\n", bytes_sent);
+    printf("[DEBUG]: bytes sent: %zd\n", bytes_sent);
 
     total_bytes_sent += bytes_sent;
 
