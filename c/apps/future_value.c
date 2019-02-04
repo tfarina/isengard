@@ -6,7 +6,7 @@
  *
  * @param pv   a present value
  * @param rate an interest 'rate' compounded once per period
- * @param n    number of periods (i.e., 10 years)
+ * @param n    the number of periods (e.g., 10 years)
  *
  * @return the value at the end of 'n' periods
  */
