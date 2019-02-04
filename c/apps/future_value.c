@@ -2,11 +2,17 @@
 #include <stdio.h>
 
 /**
- * @param n Represents the number of periods (i.e., 10 years).
+ * Computes the future value.
+ *
+ * @param pv   a present value
+ * @param rate an interest 'rate' compounded once per period
+ * @param n    number of periods (i.e., 10 years)
+ *
+ * @return the value at the end of 'n' periods
  */
-static double future_value(double present_value, double interest_rate, double n)
+static double future_value(double pv, double rate, double n)
 {
-  return present_value * pow(1 + interest_rate, n);
+  return pv * pow(1 + rate, n);
 }
 
 int main(int argc, char **argv)
