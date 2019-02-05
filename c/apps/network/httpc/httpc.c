@@ -254,7 +254,7 @@ int main(int argc, char **argv) {
 
   bytes_to_send = strlen(request);
 
-  printf("bytes to send: %zd\n", bytes_to_send);
+  printf("[DEBUG]: bytes to send: %zd\n", bytes_to_send);
 
   if (fd_write_all(sockfd, request, bytes_to_send) != bytes_to_send) {
     fatal("Failed to write the HTTP request");
@@ -262,7 +262,7 @@ int main(int argc, char **argv) {
 
   printf("HTTP request sent, awaiting response...\n"),
 
-  printf("receiving data...\n");
+  printf("[DEBUG]: receiving data...\n");
 
   response = buffer_alloc(102400);
 
@@ -270,7 +270,7 @@ int main(int argc, char **argv) {
   bufcap = response->cap;
 
   while ((nbytes = fd_read(sockfd, buf + nread, bufcap - nread)) > 0) {
-    printf("nbytes %zd nread %zd bufcap %zu\n", nbytes, nread, bufcap);
+    printf("[DEBUG]: nbytes %zd nread %zd bufcap %zu\n", nbytes, nread, bufcap);
     nread += nbytes;
     buf[nread] = 0;
 
@@ -288,7 +288,7 @@ int main(int argc, char **argv) {
       /* found end-of-header */
       *p = 0;
 
-      printf("# got header %zd bytes:\n%s\n\n", p - buf, buf);
+      printf("[DEBUG]: got header %zd bytes:\n%s\n\n", p - buf, buf);
     }
 
     printf("%s", buf);
@@ -300,7 +300,7 @@ int main(int argc, char **argv) {
   }
 
   */
-  printf("finished receiving data.\n\n");
+  printf("\n\n[DEBUG]: finished receiving data.\n\n");
 
   //printf("%s\n", response->data);
 
