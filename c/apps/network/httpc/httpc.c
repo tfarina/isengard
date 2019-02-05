@@ -195,7 +195,7 @@ static int tcp_socket_connect(const char *host, int port)
                           NI_NUMERICHOST | NI_NUMERICSERV)) != 0) {
       fatal("getnameinfo failed: %.100s", gai_strerror(rv));
     }
-    printf("Connecting to %.200s port %s.\n", addr, strport);
+    printf("Connecting to %.200s:%d...", addr, port);
 
     if ((sockfd = socket(cur->ai_family, cur->ai_socktype,
                          cur->ai_protocol)) == -1) {
@@ -203,6 +203,7 @@ static int tcp_socket_connect(const char *host, int port)
     }
 
     if (connect(sockfd, cur->ai_addr, cur->ai_addrlen) == 0) {
+      printf("connected.\n");
       break;
     }
 
@@ -242,9 +243,7 @@ int main(int argc, char **argv) {
 
   host = strdup(argv[1]);
 
-  sockfd = tcp_socket_connect(argv[1], port);
-
-  printf("Connection established.\n");
+  sockfd = tcp_socket_connect(host, port);
 
   sprintf(request, "%s %s HTTP/1.1\r\n"
 	           "Host: %s\r\n"
