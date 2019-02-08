@@ -1,5 +1,5 @@
 cc_library(
-    name = "umgr",
+    name = "sab",
     srcs = [
         "db.c",
         "ab.c",
@@ -19,7 +19,7 @@ cc_binary(
         "-pthread",
         "-ldl",
     ],
-    deps = [":umgr"],
+    deps = [":sab"],
 )
 
 cc_binary(
@@ -30,7 +30,7 @@ cc_binary(
         "-pthread",
         "-ldl",
     ],
-    deps = [":umgr"],
+    deps = [":sab"],
 )
 
 cc_binary(
@@ -41,7 +41,7 @@ cc_binary(
         "-pthread",
         "-ldl",
     ],
-    deps = [":umgr"],
+    deps = [":sab"],
 )
 
 cc_binary(
@@ -52,5 +52,5 @@ cc_binary(
         "-pthread",
         "-ldl",
     ],
-    deps = [":umgr"],
+    deps = [":sab"],
 )

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(umgr C)
+project(sab C)
 
 add_compile_options(-std=c99)
 add_compile_options(-pedantic)
@@ -47,7 +47,7 @@ add_compile_options(-Wno-unused-parameter)
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-set(UMGR_SRCS
+set(SRCS
     src/cmd_add.c
     src/cmd_change.c
     src/cmd_delete.c
@@ -55,7 +55,7 @@ set(UMGR_SRCS
     src/commands.h
     src/main.c
     )
-add_executable(umgr ${UMGR_SRCS})
+add_executable(sab ${SRCS})
 
 find_package(GTK2 2.6 REQUIRED gtk)
 
