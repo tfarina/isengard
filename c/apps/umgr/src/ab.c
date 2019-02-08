@@ -26,7 +26,7 @@ static int _create_tables(sqlite3 *db) {
     "  email TEXT"                  /* email */
     ");";
 
-  if ((rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL)) != SQLITE_OK) {
+  if ((rc = sqlite3_prepare(db, sql, -1, &stmt, NULL)) != SQLITE_OK) {
     fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errmsg(db));
     db_close(db);
     return -1;
@@ -95,7 +95,7 @@ int ab_add_contact(ab_contact_t *contact) {
 
   sql = "INSERT INTO contacts (fname, lname, email) VALUES (?1, ?2, ?3);";
 
-  if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing insert statement: %s\n",
             sqlite3_errmsg(conn));
     db_close(conn);
@@ -125,7 +125,7 @@ int ab_change_contact(ab_contact_t *contact) {
 
   sql = "UPDATE contacts SET fname=?2, lname=?3, email=?4 WHERE id=?1;";
 
-  if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing update statement: %s\n",
             sqlite3_errmsg(conn));
     return -1;
@@ -162,7 +162,7 @@ int ab_delete_contact(ab_contact_t *contact) {
 
   sql = "DELETE FROM contacts WHERE id=?1;";
 
-  if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing delete statement: %s\n",
             sqlite3_errmsg(conn));
     return -1;
@@ -189,7 +189,7 @@ alpm_list_t *ab_get_contact_list(void) {
 
   sql = "SELECT * FROM contacts";
 
-  if (sqlite3_prepare_v2(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing select statement: %s\n",
             sqlite3_errmsg(conn));
     return NULL;
