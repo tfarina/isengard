@@ -15,7 +15,7 @@ static sqlite3 *conn = NULL;
  *
  * @return return 0 on success, -1 otherwise.
  */
-static int _create_tables(sqlite3 *db) {
+static int _create_tables(void) {
   int rc;
   sqlite3_stmt *stmt;
   const char sql[] =
@@ -26,9 +26,9 @@ static int _create_tables(sqlite3 *db) {
     "  email TEXT"                  /* email */
     ");";
 
-  if (sqlite3_prepare(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
-    fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errmsg(db));
-    db_close(db);
+  if (sqlite3_prepare(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
+    fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errmsg(conn));
+    db_close(conn);
     return -1;
   }
 
@@ -38,8 +38,8 @@ static int _create_tables(sqlite3 *db) {
   stmt = NULL;
 
   if (rc != SQLITE_DONE) {
-    fprintf(stderr, "error creating contacts table: %s\n", sqlite3_errmsg(db));
-    db_close(db);
+    fprintf(stderr, "error creating contacts table: %s\n", sqlite3_errmsg(conn));
+    db_close(conn);
     return -1;
   }
 
@@ -74,7 +74,7 @@ int ab_init(void) {
     return -1;
   }
 
-  if (_create_tables(conn)) {
+  if (_create_tables()) {
     db_close(conn);
     return -1;
   }
