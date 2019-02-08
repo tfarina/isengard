@@ -26,7 +26,7 @@ static int _create_tables(sqlite3 *db) {
     "  email TEXT"                  /* email */
     ");";
 
-  if ((rc = sqlite3_prepare(db, sql, -1, &stmt, NULL)) != SQLITE_OK) {
+  if (sqlite3_prepare(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errmsg(db));
     db_close(db);
     return -1;
