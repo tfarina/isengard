@@ -8,14 +8,14 @@
 #include "strutils.h"
 
 static const char dbname[] = "abdb.sqlite3";
-static sqlite3* conn = NULL;
+static sqlite3 *conn = NULL;
 
 /**
  * Makes sure the 'contacts' table is created if it does not exist yet.
  *
  * @return return 0 on success, -1 otherwise.
  */
-static int _create_tables(sqlite3* db) {
+static int _create_tables(sqlite3 *db) {
   int rc;
   sqlite3_stmt *stmt;
   const char sql[] =
@@ -27,7 +27,7 @@ static int _create_tables(sqlite3* db) {
     ");";
 
   if ((rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL)) != SQLITE_OK) {
-    fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errstr(rc));
+    fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errmsg(db));
     db_close(db);
     return -1;
   }
@@ -38,7 +38,7 @@ static int _create_tables(sqlite3* db) {
   stmt = NULL;
 
   if (rc != SQLITE_DONE) {
-    fprintf(stderr, "error creating contacts table: %s\n", sqlite3_errstr(rc));
+    fprintf(stderr, "error creating contacts table: %s\n", sqlite3_errmsg(db));
     db_close(db);
     return -1;
   }
