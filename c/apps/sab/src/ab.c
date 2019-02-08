@@ -10,6 +10,10 @@
 static const char dbname[] = "abdb.sqlite3";
 static sqlite3 *conn = NULL;
 
+static sqlite3_stmt *insert_stmt;
+static const char insert_sql[] = 
+  "INSERT INTO contacts (fname, lname, email) VALUES (?1, ?2, ?3);";
+
 /**
  * Makes sure the 'contacts' table is created if it does not exist yet.
  *
@@ -79,10 +83,20 @@ int ab_init(void) {
     return -1;
   }
 
+  if (sqlite3_prepare(conn, insert_sql, -1, &insert_stmt, NULL) != SQLITE_OK) {
+    fprintf(stderr, "error preparing insert statement: %s\n",
+            sqlite3_errmsg(conn));
+    db_close(conn);
+    return -1;
+  }
+
   return 0;
 }
 
 int ab_close(void) {
+  sqlite3_finalize(insert_stmt);
+  insert_stmt = NULL;
+
   db_close(conn);
   conn = NULL;
 
@@ -90,30 +104,17 @@ int ab_close(void) {
 }
 
 int ab_add_contact(ab_contact_t *contact) {
-  const char *sql;
-  sqlite3_stmt *stmt;
+  sqlite3_bind_text(insert_stmt, 1, contact->fname, -1, SQLITE_STATIC);
+  sqlite3_bind_text(insert_stmt, 2, contact->lname, -1, SQLITE_STATIC);
+  sqlite3_bind_text(insert_stmt, 3, contact->email, -1, SQLITE_STATIC);
 
-  sql = "INSERT INTO contacts (fname, lname, email) VALUES (?1, ?2, ?3);";
-
-  if (sqlite3_prepare(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
-    fprintf(stderr, "error preparing insert statement: %s\n",
-            sqlite3_errmsg(conn));
-    db_close(conn);
-    return -1;
-  }
-
-  sqlite3_bind_text(stmt, 1, contact->fname, -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 2, contact->lname, -1, SQLITE_STATIC);
-  sqlite3_bind_text(stmt, 3, contact->email, -1, SQLITE_STATIC);
-
-  if (sqlite3_step(stmt) != SQLITE_DONE) {
+  if (sqlite3_step(insert_stmt) != SQLITE_DONE) {
     fprintf(stderr, "error inserting into contacts table: %s\n",
             sqlite3_errmsg(conn));
     return -1;
   }
 
-  sqlite3_finalize(stmt);
-  stmt = NULL;
+  sqlite3_reset(insert_stmt);
 
   return 0;
 }
