@@ -158,21 +158,10 @@ int ab_add_contact(ab_contact_t *contact) {
 }
 
 int ab_change_contact(ab_contact_t *contact) {
-  int rc;
-
   sqlite3_bind_int(update_stmt, 1, contact->id);
-
-  rc = sqlite3_bind_text(update_stmt, 2, contact->fname, -1, SQLITE_STATIC);
-
-  if (rc == SQLITE_OK)
-    rc = sqlite3_bind_text(update_stmt, 3, contact->lname, -1, SQLITE_STATIC);
-
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "error binding a value for the contacts table: %s\n",
-            sqlite3_errmsg(conn));
-  }
-
-  rc = sqlite3_bind_text(update_stmt, 4, contact->email, -1, SQLITE_STATIC);
+  sqlite3_bind_text(update_stmt, 2, contact->fname, -1, SQLITE_STATIC);
+  sqlite3_bind_text(update_stmt, 3, contact->lname, -1, SQLITE_STATIC);
+  sqlite3_bind_text(update_stmt, 4, contact->email, -1, SQLITE_STATIC);
 
   if (sqlite3_step(update_stmt) != SQLITE_DONE) {
     fprintf(stderr, "error updating contacts table: %s\n", sqlite3_errmsg(conn));
