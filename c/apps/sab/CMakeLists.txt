@@ -65,6 +65,6 @@ if (GTK2_FOUND)
   add_executable(ui src/ui.c)
   target_link_libraries(ui sqlite3 ${GTK2_LIBRARIES} ${EXTRA_TARGET_LINK_LIBRARIES})
 
-  add_executable(addrbook src/addrbook.c)
-  target_link_libraries(addrbook ab sqlite3 ${GTK2_LIBRARIES} ${EXTRA_TARGET_LINK_LIBRARIES})
+  add_executable(ab_gui src/ab_gui.c)
+  target_link_libraries(ab_gui ab sqlite3 ${GTK2_LIBRARIES} ${EXTRA_TARGET_LINK_LIBRARIES})
 endif()
