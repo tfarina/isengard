@@ -22,6 +22,9 @@ static sqlite3_stmt *delete_stmt;
 static const char delete_sql[] =
   "DELETE FROM contacts WHERE id=?1;";
 
+static sqlite3_stmt *select_stmt;
+static const char select_sql[] = "SELECT * FROM contacts";
+
 /**
  * Makes sure the 'contacts' table is created if it does not exist yet.
  *
@@ -110,6 +113,12 @@ int ab_init(void) {
     return -1;
   }
 
+  if (sqlite3_prepare(conn, select_sql, -1, &select_stmt, NULL) != SQLITE_OK) {
+    fprintf(stderr, "error preparing select statement: %s\n",
+            sqlite3_errmsg(conn));
+    return -1;
+  }
+
   return 0;
 }
 
@@ -122,6 +131,9 @@ int ab_close(void) {
 
   sqlite3_finalize(delete_stmt);
   delete_stmt = NULL;
+
+  sqlite3_finalize(select_stmt);
+  select_stmt = NULL;
 
   db_close(conn);
   conn = NULL;
@@ -187,29 +199,18 @@ int ab_delete_contact(ab_contact_t *contact) {
 }
 
 alpm_list_t *ab_get_contact_list(void) {
-  const char *sql;
-  sqlite3_stmt *stmt;
   alpm_list_t *list = NULL;
 
-  sql = "SELECT * FROM contacts";
-
-  if (sqlite3_prepare(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
-    fprintf(stderr, "error preparing select statement: %s\n",
-            sqlite3_errmsg(conn));
-    return NULL;
-  }
-
-  while (sqlite3_step(stmt) == SQLITE_ROW) {
+  while (sqlite3_step(select_stmt) == SQLITE_ROW) {
     ab_contact_t *contact = ab_contact_alloc();
-    contact->id = sqlite3_column_int(stmt, 0);
-    contact->fname = f_strdup((const char *)sqlite3_column_text(stmt, 1));
-    contact->lname = f_strdup((const char *)sqlite3_column_text(stmt, 2));
-    contact->email = f_strdup((const char *)sqlite3_column_text(stmt, 3));
+    contact->id = sqlite3_column_int(select_stmt, 0);
+    contact->fname = f_strdup((const char *)sqlite3_column_text(select_stmt, 1));
+    contact->lname = f_strdup((const char *)sqlite3_column_text(select_stmt, 2));
+    contact->email = f_strdup((const char *)sqlite3_column_text(select_stmt, 3));
     list = alpm_list_add(list, contact);
   }
 
-  sqlite3_finalize(stmt);
-  stmt = NULL;
+  sqlite3_reset(select_stmt);
 
   return list;
 }
