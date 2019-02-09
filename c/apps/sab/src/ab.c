@@ -18,6 +18,10 @@ static sqlite3_stmt *update_stmt;
 static const char update_sql[] =
   "UPDATE contacts SET fname=?2, lname=?3, email=?4 WHERE id=?1;";
 
+static sqlite3_stmt *delete_stmt;
+static const char delete_sql[] =
+  "DELETE FROM contacts WHERE id=?1;";
+
 /**
  * Makes sure the 'contacts' table is created if it does not exist yet.
  *
@@ -100,6 +104,12 @@ int ab_init(void) {
     return -1;
   }
 
+  if (sqlite3_prepare(conn, delete_sql, -1, &delete_stmt, NULL) != SQLITE_OK) {
+    fprintf(stderr, "error preparing delete statement: %s\n",
+            sqlite3_errmsg(conn));
+    return -1;
+  }
+
   return 0;
 }
 
@@ -109,6 +119,9 @@ int ab_close(void) {
 
   sqlite3_finalize(update_stmt);
   update_stmt = NULL;
+
+  sqlite3_finalize(delete_stmt);
+  delete_stmt = NULL;
 
   db_close(conn);
   conn = NULL;
@@ -160,27 +173,15 @@ int ab_change_contact(ab_contact_t *contact) {
 }
 
 int ab_delete_contact(ab_contact_t *contact) {
-  const char *sql;
-  sqlite3_stmt *stmt;
+  sqlite3_bind_int(delete_stmt, 1, contact->id);
 
-  sql = "DELETE FROM contacts WHERE id=?1;";
-
-  if (sqlite3_prepare(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
-    fprintf(stderr, "error preparing delete statement: %s\n",
-            sqlite3_errmsg(conn));
-    return -1;
-  }
-
-  sqlite3_bind_int(stmt, 1, contact->id);
-
-  if (sqlite3_step(stmt) != SQLITE_DONE) {
+  if (sqlite3_step(delete_stmt) != SQLITE_DONE) {
     fprintf(stderr, "error deleting contacts from table: %s\n",
             sqlite3_errmsg(conn));
     return -1;
   }
 
-  sqlite3_finalize(stmt);
-  stmt = NULL;
+  sqlite3_reset(delete_stmt);
 
   return 0;
 }
