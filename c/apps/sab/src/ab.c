@@ -14,6 +14,10 @@ static sqlite3_stmt *insert_stmt;
 static const char insert_sql[] = 
   "INSERT INTO contacts (fname, lname, email) VALUES (?1, ?2, ?3);";
 
+static sqlite3_stmt *update_stmt;
+static const char update_sql[] =
+  "UPDATE contacts SET fname=?2, lname=?3, email=?4 WHERE id=?1;";
+
 /**
  * Makes sure the 'contacts' table is created if it does not exist yet.
  *
@@ -90,12 +94,21 @@ int ab_init(void) {
     return -1;
   }
 
+  if (sqlite3_prepare(conn, update_sql, -1, &update_stmt, NULL) != SQLITE_OK) {
+    fprintf(stderr, "error preparing update statement: %s\n",
+            sqlite3_errmsg(conn));
+    return -1;
+  }
+
   return 0;
 }
 
 int ab_close(void) {
   sqlite3_finalize(insert_stmt);
   insert_stmt = NULL;
+
+  sqlite3_finalize(update_stmt);
+  update_stmt = NULL;
 
   db_close(conn);
   conn = NULL;
@@ -120,39 +133,28 @@ int ab_add_contact(ab_contact_t *contact) {
 }
 
 int ab_change_contact(ab_contact_t *contact) {
-  const char *sql;
-  sqlite3_stmt *stmt;
   int rc;
 
-  sql = "UPDATE contacts SET fname=?2, lname=?3, email=?4 WHERE id=?1;";
+  sqlite3_bind_int(update_stmt, 1, contact->id);
 
-  if (sqlite3_prepare(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
-    fprintf(stderr, "error preparing update statement: %s\n",
-            sqlite3_errmsg(conn));
-    return -1;
-  }
-
-  sqlite3_bind_int(stmt, 1, contact->id);
-
-  rc = sqlite3_bind_text(stmt, 2, contact->fname, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(update_stmt, 2, contact->fname, -1, SQLITE_STATIC);
 
   if (rc == SQLITE_OK)
-    rc = sqlite3_bind_text(stmt, 3, contact->lname, -1, SQLITE_STATIC);
+    rc = sqlite3_bind_text(update_stmt, 3, contact->lname, -1, SQLITE_STATIC);
 
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error binding a value for the contacts table: %s\n",
             sqlite3_errmsg(conn));
   }
 
-  rc = sqlite3_bind_text(stmt, 4, contact->email, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(update_stmt, 4, contact->email, -1, SQLITE_STATIC);
 
-  if (sqlite3_step(stmt) != SQLITE_DONE) {
+  if (sqlite3_step(update_stmt) != SQLITE_DONE) {
     fprintf(stderr, "error updating contacts table: %s\n", sqlite3_errmsg(conn));
     return -1;
   }
 
-  sqlite3_finalize(stmt);
-  stmt = NULL;
+  sqlite3_reset(update_stmt);
 
   return 0;
 }
