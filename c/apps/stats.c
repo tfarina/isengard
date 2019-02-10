@@ -38,7 +38,7 @@ double stats_max(double *a, size_t size)
   return max;
 }
 
-double stats_sum(double *a, size_t size)
+int stats_sum(double *a, size_t size, double *res)
 {
   double sum = 0.0;
   size_t i;
@@ -47,14 +47,16 @@ double stats_sum(double *a, size_t size)
     sum += a[i];
   }
 
-  return sum;
+  *res = sum;
+
+  return 0;
 }
 
 double stats_average(double *a, size_t size)
 {
   double sum = 0.0;
 
-  sum = stats_sum(a, size);
+  stats_sum(a, size, &sum);
 
   return sum / size;
 }

@@ -30,7 +30,7 @@ int main(void)
   printf("Array:\n");
   print_array(a, ARRAY_SIZE(a));
 
-  sum = stats_sum(a, ARRAY_SIZE(a));
+  stats_sum(a, ARRAY_SIZE(a), &sum);
   avg = stats_average(a, ARRAY_SIZE(a));
   variance = stats_var(a, ARRAY_SIZE(a));
   stdev = stats_stdev(a, ARRAY_SIZE(a));

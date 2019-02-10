@@ -24,7 +24,7 @@ double stats_max(double *a, size_t size);
  *
  * @param a The array.
  */
-double stats_sum(double *a, size_t size);
+int stats_sum(double *a, size_t size, double *res);
 
 /**
  * Returns the arithmetic mean of the entries in the specified array.
