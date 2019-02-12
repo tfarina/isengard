@@ -77,15 +77,12 @@ ab_contact_t *ab_contact_alloc(void) {
 }
 
 int ab_init(void) {
-  int rc;
-
   /* Do nothing if the database handle has been set. */
   if (conn) {
     return 0;
   }
 
-  rc = db_open(dbname, &conn);
-  if (rc) {
+  if (db_open(dbname, &conn)) {
     return -1;
   }
 
