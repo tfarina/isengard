@@ -174,6 +174,11 @@ static void list_selection_changed_cb(GtkTreeSelection *selection, gpointer data
   }
 }
 
+static void app_quit_cb(GtkAction *action, gpointer data)
+{
+  gtk_main_quit();
+}
+
 int main(int argc, char** argv)
 {
   GtkWidget *vbox;
@@ -285,7 +290,7 @@ int main(int argc, char** argv)
                    G_CALLBACK(gtk_main_quit), NULL);
 
   g_signal_connect(G_OBJECT(quit_item), "activate",
-		   G_CALLBACK(gtk_main_quit), NULL);
+		   G_CALLBACK(app_quit_cb), NULL);
 
   gtk_widget_show_all(window);
 
