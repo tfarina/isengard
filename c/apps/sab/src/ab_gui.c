@@ -36,7 +36,8 @@ GtkWidget *fname_entry;
 GtkWidget *lname_entry;
 GtkWidget *email_entry;
 
-static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled) {
+static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
+{
   ab_contact_t *contact;
   char *name;
 
@@ -133,6 +134,24 @@ static void new_item_cb(GtkWidget *widget, gpointer data)
 			   G_CALLBACK(gtk_widget_destroy), new_window);
 
   gtk_widget_show_all(new_window);
+}
+
+static void edit_item_cb(GtkWidget *widget, gpointer data)
+{
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+  ab_contact_t *contact;
+
+  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
+
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+
+  gtk_tree_selection_get_selected(selection, NULL, &iter);
+
+  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
+
+  printf("%s\n", contact->fname);
 }
 
 static void delete_item_cb(GtkWidget *widget, gpointer data)
@@ -240,6 +259,9 @@ int main(int argc, char** argv)
 
   g_signal_connect(G_OBJECT(new_item), "clicked",
 		   G_CALLBACK(new_item_cb), NULL);
+
+  g_signal_connect(G_OBJECT(edit_item), "clicked",
+		   G_CALLBACK(edit_item_cb), NULL);
 
   g_signal_connect(G_OBJECT(delete_item), "clicked",
 		   G_CALLBACK(delete_item_cb), NULL);
