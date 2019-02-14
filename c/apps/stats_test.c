@@ -31,7 +31,7 @@ int main(void)
   print_array(a, ARRAY_SIZE(a));
 
   stats_sum(a, ARRAY_SIZE(a), &sum);
-  avg = stats_average(a, ARRAY_SIZE(a));
+  stats_average(a, ARRAY_SIZE(a), &avg);
   variance = stats_var_sam(a, ARRAY_SIZE(a));
   stdev = stats_stdev_sam(a, ARRAY_SIZE(a));
   stats_min(a, ARRAY_SIZE(a), &min);

@@ -31,7 +31,7 @@ int stats_sum(double const *a, size_t size, double *res);
  *
  * @param a The array.
  */
-double stats_average(double const *a, size_t size);
+int stats_average(double const *a, size_t size, double *res);
 
 /**
  * Returns the sample variance of the entries in the specified array.
