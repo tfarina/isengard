@@ -60,7 +60,7 @@ static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
   ab_add_contact(contact);
 }
 
-static void new_item_cb(GtkWidget *widget, gpointer data)
+static void ab_show_editor(ab_contact_t *contact)
 {
   GtkWidget *new_window;
   GtkWidget *vbox;
@@ -70,8 +70,16 @@ static void new_item_cb(GtkWidget *widget, gpointer data)
   GtkWidget *cancel_btn;
   GtkWidget *ok_btn;
 
+  char const *title;
+
+  if (contact) {
+    title = "Edit Person";
+  } else {
+    title = "Create New Person";
+  }
+
   new_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(new_window), "Create New Person");
+  gtk_window_set_title(GTK_WINDOW(new_window), title);
   gtk_window_set_transient_for(GTK_WINDOW(new_window), GTK_WINDOW(window));
   gtk_window_set_modal(GTK_WINDOW(new_window), TRUE);
 
@@ -133,7 +141,18 @@ static void new_item_cb(GtkWidget *widget, gpointer data)
   g_signal_connect_swapped(cancel_btn, "clicked",
 			   G_CALLBACK(gtk_widget_destroy), new_window);
 
+  if (contact) {
+    gtk_entry_set_text(GTK_ENTRY(fname_entry), contact->fname);
+    gtk_entry_set_text(GTK_ENTRY(lname_entry), contact->lname);
+    gtk_entry_set_text(GTK_ENTRY(email_entry), contact->email);
+  }
+
   gtk_widget_show_all(new_window);
+}
+
+static void new_item_cb(GtkWidget *widget, gpointer data)
+{
+  ab_show_editor(NULL);
 }
 
 static void edit_item_cb(GtkWidget *widget, gpointer data)
@@ -151,7 +170,7 @@ static void edit_item_cb(GtkWidget *widget, gpointer data)
 
   gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
 
-  printf("%s\n", contact->fname);
+  ab_show_editor(contact);
 }
 
 static void delete_item_cb(GtkWidget *widget, gpointer data)
