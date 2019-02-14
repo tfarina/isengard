@@ -32,8 +32,8 @@ int main(void)
 
   stats_sum(a, ARRAY_SIZE(a), &sum);
   avg = stats_average(a, ARRAY_SIZE(a));
-  variance = stats_var(a, ARRAY_SIZE(a));
-  stdev = stats_stdev(a, ARRAY_SIZE(a));
+  variance = stats_var_sam(a, ARRAY_SIZE(a));
+  stdev = stats_stdev_sam(a, ARRAY_SIZE(a));
   stats_min(a, ARRAY_SIZE(a), &min);
   stats_max(a, ARRAY_SIZE(a), &max);
 

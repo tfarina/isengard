@@ -73,7 +73,7 @@ double stats_average(double const *a, size_t size)
   return sum / size;
 }
 
-double stats_var(double const *a, size_t size)
+double stats_var_sam(double const *a, size_t size)
 {
   double avg = 0.0;
   double sum = 0.0;
@@ -88,7 +88,7 @@ double stats_var(double const *a, size_t size)
   return sum / (size - 1);
 }
 
-double stats_stdev(double const *a, size_t size)
+double stats_stdev_sam(double const *a, size_t size)
 {
-  return sqrt(stats_var(a, size));
+  return sqrt(stats_var_sam(a, size));
 }

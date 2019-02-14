@@ -38,13 +38,13 @@ double stats_average(double const *a, size_t size);
  *
  * @param a The array.
  */
-double stats_var(double const *a, size_t size);
+double stats_var_sam(double const *a, size_t size);
 
 /**
  * Returns the sample standard deviation of the entries in the specified array.
  *
  * @param a The array.
  */
-double stats_stdev(double const *a, size_t size);
+double stats_stdev_sam(double const *a, size_t size);
 
 #endif /* STATS_H_ */
