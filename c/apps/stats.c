@@ -2,10 +2,14 @@
 
 #include <math.h>
 
-double stats_min(double *a, size_t size)
+int stats_min(double const *a, size_t size, double *res)
 {
   size_t i;
   double min = +INFINITY;
+
+  if (size <= 0) {
+    return -1;
+  }
 
   for (i = 0; i < size; i++) {
     if(isnan(a[i])) {
@@ -17,13 +21,19 @@ double stats_min(double *a, size_t size)
     }
   }
 
-  return min;
+  *res = min;
+
+  return 0;
 }
 
-double stats_max(double *a, size_t size)
+int stats_max(double const *a, size_t size, double *res)
 {
   size_t i;
   double max = -INFINITY;
+
+  if (size <= 0) {
+    return -1;
+  }
 
   for (i = 0; i < size; i++) {
     if(isnan(a[i])) {
@@ -35,10 +45,12 @@ double stats_max(double *a, size_t size)
     }
   }
 
-  return max;
+  *res = max;
+
+  return 0;
 }
 
-int stats_sum(double *a, size_t size, double *res)
+int stats_sum(double const *a, size_t size, double *res)
 {
   double sum = 0.0;
   size_t i;
@@ -52,7 +64,7 @@ int stats_sum(double *a, size_t size, double *res)
   return 0;
 }
 
-double stats_average(double *a, size_t size)
+double stats_average(double const *a, size_t size)
 {
   double sum = 0.0;
 
@@ -61,7 +73,7 @@ double stats_average(double *a, size_t size)
   return sum / size;
 }
 
-double stats_var(double *a, size_t size)
+double stats_var(double const *a, size_t size)
 {
   double avg = 0.0;
   double sum = 0.0;
@@ -76,7 +88,7 @@ double stats_var(double *a, size_t size)
   return sum / (size - 1);
 }
 
-double stats_stdev(double *a, size_t size)
+double stats_stdev(double const *a, size_t size)
 {
   return sqrt(stats_var(a, size));
 }

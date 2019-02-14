@@ -34,8 +34,8 @@ int main(void)
   avg = stats_average(a, ARRAY_SIZE(a));
   variance = stats_var(a, ARRAY_SIZE(a));
   stdev = stats_stdev(a, ARRAY_SIZE(a));
-  min = stats_min(a, ARRAY_SIZE(a));
-  max = stats_max(a, ARRAY_SIZE(a));
+  stats_min(a, ARRAY_SIZE(a), &min);
+  stats_max(a, ARRAY_SIZE(a), &max);
 
   printf("The sum is %f\n", sum);
   printf("The average is %f\n", avg);
