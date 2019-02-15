@@ -247,14 +247,16 @@ int main(int argc, char** argv)
   gtk_container_add(GTK_CONTAINER(window), vbox);
 
   menubar = gtk_menu_bar_new();
+
   file_menu = gtk_menu_new();
-
   file_item = gtk_menu_item_new_with_label("File");
-  quit_item = gtk_menu_item_new_with_label("Quit");
 
-  gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_item), file_menu);
-  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), quit_item);
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), file_item);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_item), file_menu);
+
+  quit_item = gtk_menu_item_new_with_label("Quit");
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), quit_item);
+
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
 
   handlebox = gtk_hbox_new(FALSE, 0);
