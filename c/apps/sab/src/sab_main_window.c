@@ -217,6 +217,20 @@ static void app_quit_cb(GtkAction *action, gpointer data)
   gtk_main_quit();
 }
 
+/**
+ * Handle destroy signal.
+ *
+ * This function is called when the main application window receives the
+ * destroy signal, i.e., it is destroyed.
+ */
+static void app_destroy_cb(GtkWidget *widget, gpointer data)
+{
+  (void)widget;
+  (void)data;
+
+  gtk_main_quit();
+}
+
 int main(int argc, char** argv)
 {
   GtkWidget *vbox;
@@ -332,7 +346,7 @@ int main(int argc, char** argv)
   }
 
   g_signal_connect(G_OBJECT(window), "destroy",
-                   G_CALLBACK(gtk_main_quit), NULL);
+                   G_CALLBACK(app_destroy_cb), NULL);
 
   gtk_widget_show_all(window);
 
