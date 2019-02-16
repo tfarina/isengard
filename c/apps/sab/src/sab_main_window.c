@@ -5,11 +5,11 @@
 #include "ab.h"
 
 enum {
-  LIST_FIRST_NAME,
-  LIST_LAST_NAME,
-  LIST_EMAIL,
+  LIST_COL_FIRST_NAME = 0,
+  LIST_COL_LAST_NAME,
+  LIST_COL_EMAIL,
   LIST_COL_PTR,
-  LIST_NUM_COLUMNS
+  LIST_COL_NUM
 };
 
 static void insert_item(GtkWidget *list_view, ab_contact_t *contact)
@@ -21,9 +21,9 @@ static void insert_item(GtkWidget *list_view, ab_contact_t *contact)
 
   gtk_list_store_append(GTK_LIST_STORE(model), &iter);
   gtk_list_store_set(GTK_LIST_STORE(model), &iter,
-                     LIST_FIRST_NAME, contact->fname,
-                     LIST_LAST_NAME, contact->lname,
-                     LIST_EMAIL, contact->email,
+                     LIST_COL_FIRST_NAME, contact->fname,
+                     LIST_COL_LAST_NAME, contact->lname,
+                     LIST_COL_EMAIL, contact->email,
 		     LIST_COL_PTR, contact,
                      -1);
 }
@@ -306,7 +306,7 @@ int main(int argc, char** argv)
   g_signal_connect(G_OBJECT(delete_item), "clicked",
 		   G_CALLBACK(delete_item_cb), NULL);
 
-  list_store = gtk_list_store_new(LIST_NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
+  list_store = gtk_list_store_new(LIST_COL_NUM, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
   g_object_unref(list_store);
 
@@ -319,17 +319,17 @@ int main(int argc, char** argv)
   /* Create the columns. */
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("First Name",
-                                                    renderer, "text", LIST_FIRST_NAME, NULL);
+                                                    renderer, "text", LIST_COL_FIRST_NAME, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("Last Name",
-                                                    renderer, "text", LIST_LAST_NAME, NULL);
+                                                    renderer, "text", LIST_COL_LAST_NAME, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("Email",
-                                                    renderer, "text", LIST_EMAIL, NULL);
+                                                    renderer, "text", LIST_COL_EMAIL, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   scrolledwin = gtk_scrolled_window_new(NULL, NULL);
