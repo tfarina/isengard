@@ -60,7 +60,7 @@ static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
   ab_add_contact(contact);
 }
 
-static void ab_show_editor(ab_contact_t *contact)
+static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
 {
   GtkWidget *new_window;
   GtkWidget *vbox;
@@ -80,7 +80,7 @@ static void ab_show_editor(ab_contact_t *contact)
 
   new_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(new_window), title);
-  gtk_window_set_transient_for(GTK_WINDOW(new_window), GTK_WINDOW(window));
+  gtk_window_set_transient_for(GTK_WINDOW(new_window), parent);
   gtk_window_set_modal(GTK_WINDOW(new_window), TRUE);
 
   vbox = gtk_vbox_new(FALSE, 6);
@@ -152,7 +152,7 @@ static void ab_show_editor(ab_contact_t *contact)
 
 static void new_item_cb(GtkWidget *widget, gpointer data)
 {
-  ab_show_editor(NULL);
+  ab_show_editor(NULL, GTK_WINDOW(window));
 }
 
 static void edit_item_cb(GtkWidget *widget, gpointer data)
@@ -170,7 +170,7 @@ static void edit_item_cb(GtkWidget *widget, gpointer data)
 
   gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
 
-  ab_show_editor(contact);
+  ab_show_editor(contact, GTK_WINDOW(window));
 }
 
 static void delete_item_cb(GtkWidget *widget, gpointer data)
