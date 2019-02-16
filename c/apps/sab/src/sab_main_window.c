@@ -255,6 +255,8 @@ int main(int argc, char** argv)
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_item), file_menu);
 
   quit_item = gtk_menu_item_new_with_label("Quit");
+  g_signal_connect(G_OBJECT(quit_item), "activate",
+		   G_CALLBACK(app_quit_cb), NULL);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), quit_item);
 
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
@@ -331,9 +333,6 @@ int main(int argc, char** argv)
 
   g_signal_connect(G_OBJECT(window), "destroy",
                    G_CALLBACK(gtk_main_quit), NULL);
-
-  g_signal_connect(G_OBJECT(quit_item), "activate",
-		   G_CALLBACK(app_quit_cb), NULL);
 
   gtk_widget_show_all(window);
 
