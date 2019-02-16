@@ -82,7 +82,9 @@ int ab_init(void) {
     return 0;
   }
 
-  if (db_open(dbname, &conn)) {
+  if (sqlite3_open(dbname, &conn) != SQLITE_OK) {
+    fprintf(stderr, "error opening SQLite database %s: %s\n", dbname, sqlite3_errmsg(conn));
+    sqlite3_close(conn);
     return -1;
   }
 
