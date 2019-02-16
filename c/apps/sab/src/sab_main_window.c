@@ -36,6 +36,8 @@ GtkWidget *fname_entry;
 GtkWidget *lname_entry;
 GtkWidget *email_entry;
 
+GtkWidget *editor_window;
+
 static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
 {
   ab_contact_t *contact;
@@ -58,11 +60,12 @@ static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
   printf("%s\n", name);
 
   ab_add_contact(contact);
+
+  gtk_widget_hide(editor_window);
 }
 
 static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
 {
-  GtkWidget *new_window;
   GtkWidget *vbox;
   GtkWidget *table;
   GtkWidget *label;
@@ -78,13 +81,13 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
     title = "Create New Person";
   }
 
-  new_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(new_window), title);
-  gtk_window_set_transient_for(GTK_WINDOW(new_window), parent);
-  gtk_window_set_modal(GTK_WINDOW(new_window), TRUE);
+  editor_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(editor_window), title);
+  gtk_window_set_transient_for(GTK_WINDOW(editor_window), parent);
+  gtk_window_set_modal(GTK_WINDOW(editor_window), TRUE);
 
   vbox = gtk_vbox_new(FALSE, 6);
-  gtk_container_add(GTK_CONTAINER(new_window), vbox);
+  gtk_container_add(GTK_CONTAINER(editor_window), vbox);
 
   table = gtk_table_new(3, 2, FALSE);
   gtk_container_set_border_width(GTK_CONTAINER(table), 4 );
@@ -139,7 +142,7 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
                    G_CALLBACK(ok_btn_cb), NULL);
 
   g_signal_connect_swapped(cancel_btn, "clicked",
-			   G_CALLBACK(gtk_widget_destroy), new_window);
+			   G_CALLBACK(gtk_widget_destroy), editor_window);
 
   if (contact) {
     gtk_entry_set_text(GTK_ENTRY(fname_entry), contact->fname);
@@ -147,7 +150,7 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
     gtk_entry_set_text(GTK_ENTRY(email_entry), contact->email);
   }
 
-  gtk_widget_show_all(new_window);
+  gtk_widget_show_all(editor_window);
 }
 
 static void new_item_cb(GtkWidget *widget, gpointer data)
