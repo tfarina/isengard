@@ -306,7 +306,12 @@ int main(int argc, char** argv)
   g_signal_connect(G_OBJECT(delete_item), "clicked",
 		   G_CALLBACK(delete_item_cb), NULL);
 
-  list_store = gtk_list_store_new(LIST_COL_NUM, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
+  list_store = gtk_list_store_new(LIST_COL_NUM,
+                                  G_TYPE_STRING, /* First name */
+                                  G_TYPE_STRING, /* Last name */
+                                  G_TYPE_STRING, /* Email */
+                                  G_TYPE_POINTER /* Contact pointer */
+                                  );
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
   g_object_unref(list_store);
 
