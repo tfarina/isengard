@@ -152,7 +152,7 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
 
 static void new_item_cb(GtkWidget *widget, gpointer data)
 {
-  ab_show_editor(NULL, GTK_WINDOW(window));
+  ab_show_editor(NULL, GTK_WINDOW(data));
 }
 
 static void edit_item_cb(GtkWidget *widget, gpointer data)
@@ -170,7 +170,7 @@ static void edit_item_cb(GtkWidget *widget, gpointer data)
 
   gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
 
-  ab_show_editor(contact, GTK_WINDOW(window));
+  ab_show_editor(contact, GTK_WINDOW(data));
 }
 
 static void delete_item_cb(GtkWidget *widget, gpointer data)
@@ -298,10 +298,10 @@ int main(int argc, char** argv)
   gtk_container_set_border_width(GTK_CONTAINER(handlebox), 0);
 
   g_signal_connect(G_OBJECT(new_item), "clicked",
-		   G_CALLBACK(new_item_cb), NULL);
+		   G_CALLBACK(new_item_cb), window);
 
   g_signal_connect(G_OBJECT(edit_item), "clicked",
-		   G_CALLBACK(edit_item_cb), NULL);
+		   G_CALLBACK(edit_item_cb), window);
 
   g_signal_connect(G_OBJECT(delete_item), "clicked",
 		   G_CALLBACK(delete_item_cb), NULL);
