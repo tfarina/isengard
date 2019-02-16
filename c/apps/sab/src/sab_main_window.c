@@ -64,6 +64,11 @@ static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
   gtk_widget_hide(editor_window);
 }
 
+static void cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
+{
+  gtk_widget_hide(editor_window);
+}
+
 static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
 {
   GtkWidget *vbox;
@@ -142,7 +147,7 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
                    G_CALLBACK(ok_btn_cb), NULL);
 
   g_signal_connect_swapped(cancel_btn, "clicked",
-			   G_CALLBACK(gtk_widget_destroy), editor_window);
+			   G_CALLBACK(cancel_btn_cb), NULL);
 
   if (contact) {
     gtk_entry_set_text(GTK_ENTRY(fname_entry), contact->fname);
