@@ -231,6 +231,9 @@ static void app_destroy_cb(GtkWidget *widget, gpointer data)
   gtk_main_quit();
 }
 
+#define WINDOW_WIDTH 700
+#define WINDOW_HEIGHT 700
+
 int main(int argc, char** argv)
 {
   GtkWidget *vbox;
@@ -254,7 +257,7 @@ int main(int argc, char** argv)
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(window), "Address Book");
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-  gtk_window_set_default_size(GTK_WINDOW(window), 700, 700);
+  gtk_window_set_default_size(GTK_WINDOW(window), WINDOW_WIDTH, WINDOW_HEIGHT);
 
   vbox = gtk_vbox_new(FALSE, 0);
 
