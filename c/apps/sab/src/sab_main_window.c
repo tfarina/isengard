@@ -43,21 +43,16 @@ static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
   ab_contact_t *contact;
   char *name;
 
-  printf("OK button clicked\n");
-
   contact = ab_contact_alloc();
 
   name = gtk_editable_get_chars(GTK_EDITABLE(fname_entry), 0, -1);
   contact->fname = name;
-  printf("%s\n", name);
 
   name = gtk_editable_get_chars(GTK_EDITABLE(lname_entry), 0, -1);
   contact->lname = name;
-  printf("%s\n", name);
 
   name = gtk_editable_get_chars(GTK_EDITABLE(email_entry), 0, -1);
   contact->email = name;
-  printf("%s\n", name);
 
   ab_add_contact(contact);
 
