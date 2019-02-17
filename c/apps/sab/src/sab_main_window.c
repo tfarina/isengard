@@ -270,6 +270,9 @@ int main(int argc, char** argv)
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
   gtk_window_set_default_size(GTK_WINDOW(window), WINDOW_WIDTH, WINDOW_HEIGHT);
 
+  g_signal_connect(G_OBJECT(window), "destroy",
+                   G_CALLBACK(app_destroy_cb), NULL);
+
   vbox = gtk_vbox_new(FALSE, 0);
 
   gtk_container_add(GTK_CONTAINER(window), vbox);
@@ -365,9 +368,6 @@ int main(int argc, char** argv)
   for (i = list; i; i = alpm_list_next(i)) {
     insert_item(list_view, (ab_contact_t *)i->data);
   }
-
-  g_signal_connect(G_OBJECT(window), "destroy",
-                   G_CALLBACK(app_destroy_cb), NULL);
 
   gtk_main();
 
