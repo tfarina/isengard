@@ -89,6 +89,7 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
   editor_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(editor_window), title);
   gtk_window_set_transient_for(GTK_WINDOW(editor_window), parent);
+  gtk_window_set_position(GTK_WINDOW(editor_window), GTK_WIN_POS_CENTER_ON_PARENT);
   gtk_window_set_modal(GTK_WINDOW(editor_window), TRUE);
 
   vbox = gtk_vbox_new(FALSE, 6);
