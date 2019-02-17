@@ -356,6 +356,8 @@ int main(int argc, char** argv)
 
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
 
+  gtk_widget_show_all(window);
+
   ab_init();
 
   list = ab_get_contact_list();
@@ -366,8 +368,6 @@ int main(int argc, char** argv)
 
   g_signal_connect(G_OBJECT(window), "destroy",
                    G_CALLBACK(app_destroy_cb), NULL);
-
-  gtk_widget_show_all(window);
 
   gtk_main();
 
