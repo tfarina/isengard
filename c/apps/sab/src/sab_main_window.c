@@ -161,6 +161,7 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
   }
 
   gtk_widget_show_all(editor_window);
+  gtk_widget_grab_focus(fname_entry);
 }
 
 static void new_toolbar_button_cb(GtkWidget *widget, gpointer data)
