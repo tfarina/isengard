@@ -62,6 +62,8 @@ static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
   ab_add_contact(contact);
 
   gtk_widget_hide(editor_window);
+
+  insert_item(list_view, contact);
 }
 
 static void cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
