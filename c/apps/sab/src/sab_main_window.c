@@ -91,12 +91,13 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
   gtk_window_set_transient_for(GTK_WINDOW(editor_window), parent);
   gtk_window_set_position(GTK_WINDOW(editor_window), GTK_WIN_POS_CENTER_ON_PARENT);
   gtk_window_set_modal(GTK_WINDOW(editor_window), TRUE);
+  gtk_container_set_border_width(GTK_CONTAINER(editor_window), 6);
 
   vbox = gtk_vbox_new(FALSE, 6);
   gtk_container_add(GTK_CONTAINER(editor_window), vbox);
 
   table = gtk_table_new(3, 2, FALSE);
-  gtk_container_set_border_width(GTK_CONTAINER(table), 4 );
+  gtk_container_set_border_width(GTK_CONTAINER(table), 4);
   gtk_table_set_row_spacings(GTK_TABLE(table), 4);
   gtk_table_set_col_spacings(GTK_TABLE(table), 4);
   gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 0);
@@ -135,6 +136,7 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
   confirm_area = gtk_hbutton_box_new();
   gtk_button_box_set_layout(GTK_BUTTON_BOX(confirm_area), GTK_BUTTONBOX_END);
   gtk_box_set_spacing(GTK_BOX(confirm_area), 5);
+  gtk_container_set_border_width(GTK_CONTAINER(confirm_area), 4);
 
   cancel_btn = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
   gtk_box_pack_start(GTK_BOX(confirm_area), cancel_btn, TRUE, TRUE, 0);
