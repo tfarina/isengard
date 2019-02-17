@@ -163,7 +163,7 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
   gtk_widget_show_all(editor_window);
 }
 
-static void new_item_cb(GtkWidget *widget, gpointer data)
+static void new_toolbar_button_cb(GtkWidget *widget, gpointer data)
 {
   ab_show_editor(NULL, GTK_WINDOW(data));
 }
@@ -256,7 +256,7 @@ int main(int argc, char** argv)
   GtkWidget *quit_item;
   GtkWidget *handlebox;
   GtkWidget *toolbar;
-  GtkToolItem *new_item;
+  GtkToolItem *new_toolbar_button;
   GtkWidget *scrolledwin;
 
   GtkTreeSelection *list_select;
@@ -298,9 +298,9 @@ int main(int argc, char** argv)
   gtk_box_pack_start(GTK_BOX(vbox), handlebox, FALSE, FALSE, 0);
 
   toolbar = gtk_toolbar_new();
-  new_item = gtk_tool_button_new_from_stock(GTK_STOCK_NEW);
-  gtk_widget_set_tooltip_text(GTK_WIDGET(new_item), "New contact");
-  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), new_item, -1);
+  new_toolbar_button = gtk_tool_button_new_from_stock(GTK_STOCK_NEW);
+  gtk_widget_set_tooltip_text(GTK_WIDGET(new_toolbar_button), "New contact");
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), new_toolbar_button, -1);
 
   edit_toolbar_button = gtk_tool_button_new_from_stock(GTK_STOCK_EDIT);
   gtk_widget_set_tooltip_text(GTK_WIDGET(edit_toolbar_button), "Edit contact");
@@ -316,8 +316,8 @@ int main(int argc, char** argv)
   gtk_container_add(GTK_CONTAINER(handlebox), toolbar);
   gtk_container_set_border_width(GTK_CONTAINER(handlebox), 0);
 
-  g_signal_connect(G_OBJECT(new_item), "clicked",
-		   G_CALLBACK(new_item_cb), window);
+  g_signal_connect(G_OBJECT(new_toolbar_button), "clicked",
+		   G_CALLBACK(new_toolbar_button_cb), window);
 
   g_signal_connect(G_OBJECT(edit_toolbar_button), "clicked",
 		   G_CALLBACK(edit_toolbar_button_cb), window);
