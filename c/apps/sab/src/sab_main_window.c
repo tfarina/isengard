@@ -317,6 +317,12 @@ int main(int argc, char** argv)
   g_signal_connect(G_OBJECT(delete_item), "clicked",
 		   G_CALLBACK(delete_item_cb), NULL);
 
+  scrolledwin = gtk_scrolled_window_new(NULL, NULL);
+  gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
+  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwin),
+                                 GTK_POLICY_AUTOMATIC,
+                                 GTK_POLICY_AUTOMATIC);
+
   list_store = gtk_list_store_new(LIST_COL_NUM,
                                   G_TYPE_STRING, /* First name */
                                   G_TYPE_STRING, /* Last name */
@@ -347,12 +353,6 @@ int main(int argc, char** argv)
   column = gtk_tree_view_column_new_with_attributes("Email",
                                                     renderer, "text", LIST_COL_EMAIL, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
-
-  scrolledwin = gtk_scrolled_window_new(NULL, NULL);
-  gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
-  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwin),
-                                 GTK_POLICY_AUTOMATIC,
-                                 GTK_POLICY_AUTOMATIC);
 
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
 
