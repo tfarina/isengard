@@ -31,7 +31,6 @@ static void usage(void) {
                 "   list      List all contacts\n"
                 "";
         fprintf(stderr, usage_msg, progname);
-        exit(EXIT_FAILURE);
 }
 
 static struct builtin_cmd *get_builtin(const char *name) {
@@ -52,12 +51,16 @@ int main(int argc, char **argv) {
 
         progname = basename(argv[0]);
 
-        if (argc < 2)
+        if (argc < 2) {
                 usage();
+		return EXIT_SUCCESS;
+	}
 
         cmd = get_builtin(argv[1]);
-        if (!cmd)
+        if (!cmd) {
                 usage();
+		return EXIT_SUCCESS;
+	}
 
         rc = cmd->exec(argc - 1, argv + 1);
 
