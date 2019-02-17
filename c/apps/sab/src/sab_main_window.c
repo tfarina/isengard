@@ -297,12 +297,15 @@ int main(int argc, char** argv)
 
   toolbar = gtk_toolbar_new();
   new_item = gtk_tool_button_new_from_stock(GTK_STOCK_NEW);
+  gtk_widget_set_tooltip_text(GTK_WIDGET(new_item), "New contact");
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), new_item, -1);
 
   edit_toolbar_button = gtk_tool_button_new_from_stock(GTK_STOCK_EDIT);
+  gtk_widget_set_tooltip_text(GTK_WIDGET(edit_toolbar_button), "Edit contact");
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), edit_toolbar_button, -1);
 
   delete_toolbar_button = gtk_tool_button_new_from_stock(GTK_STOCK_DELETE);
+  gtk_widget_set_tooltip_text(GTK_WIDGET(delete_toolbar_button), "Delete contact");
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), delete_toolbar_button, -1);
 
   gtk_widget_set_sensitive(GTK_WIDGET(edit_toolbar_button), FALSE);
