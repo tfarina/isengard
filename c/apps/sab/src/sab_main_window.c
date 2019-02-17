@@ -29,8 +29,8 @@ static void insert_item(GtkWidget *list_view, ab_contact_t *contact)
 }
 
 GtkWidget *window = NULL;
-GtkToolItem *edit_item = NULL;
-GtkToolItem *delete_item = NULL;
+GtkToolItem *edit_toolbar_button = NULL;
+GtkToolItem *delete_toolbar_button = NULL;
 GtkWidget *list_view;
 GtkWidget *fname_entry;
 GtkWidget *lname_entry;
@@ -166,7 +166,7 @@ static void new_item_cb(GtkWidget *widget, gpointer data)
   ab_show_editor(NULL, GTK_WINDOW(data));
 }
 
-static void edit_item_cb(GtkWidget *widget, gpointer data)
+static void edit_toolbar_button_cb(GtkWidget *widget, gpointer data)
 {
   GtkTreeModel *model;
   GtkTreeSelection *selection;
@@ -184,7 +184,7 @@ static void edit_item_cb(GtkWidget *widget, gpointer data)
   ab_show_editor(contact, GTK_WINDOW(data));
 }
 
-static void delete_item_cb(GtkWidget *widget, gpointer data)
+static void delete_toolbar_button_cb(GtkWidget *widget, gpointer data)
 {
   GtkTreeModel *model;
   GtkTreeSelection *selection;
@@ -211,15 +211,15 @@ static void list_selection_changed_cb(GtkTreeSelection *selection, gpointer data
   num_selected = gtk_tree_selection_count_selected_rows(selection);
 
   if (num_selected == 1) {
-    gtk_widget_set_sensitive(GTK_WIDGET(edit_item), TRUE);
+    gtk_widget_set_sensitive(GTK_WIDGET(edit_toolbar_button), TRUE);
   } else {
-    gtk_widget_set_sensitive(GTK_WIDGET(edit_item), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(edit_toolbar_button), FALSE);
   }
 
   if (num_selected > 0) {
-    gtk_widget_set_sensitive(GTK_WIDGET(delete_item), TRUE);
+    gtk_widget_set_sensitive(GTK_WIDGET(delete_toolbar_button), TRUE);
   } else {
-    gtk_widget_set_sensitive(GTK_WIDGET(delete_item), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(delete_toolbar_button), FALSE);
   }
 }
 
@@ -299,14 +299,14 @@ int main(int argc, char** argv)
   new_item = gtk_tool_button_new_from_stock(GTK_STOCK_NEW);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), new_item, -1);
 
-  edit_item = gtk_tool_button_new_from_stock(GTK_STOCK_EDIT);
-  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), edit_item, -1);
+  edit_toolbar_button = gtk_tool_button_new_from_stock(GTK_STOCK_EDIT);
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), edit_toolbar_button, -1);
 
-  delete_item = gtk_tool_button_new_from_stock(GTK_STOCK_DELETE);
-  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), delete_item, -1);
+  delete_toolbar_button = gtk_tool_button_new_from_stock(GTK_STOCK_DELETE);
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), delete_toolbar_button, -1);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(edit_item), FALSE);
-  gtk_widget_set_sensitive(GTK_WIDGET(delete_item), FALSE);
+  gtk_widget_set_sensitive(GTK_WIDGET(edit_toolbar_button), FALSE);
+  gtk_widget_set_sensitive(GTK_WIDGET(delete_toolbar_button), FALSE);
 
   gtk_container_add(GTK_CONTAINER(handlebox), toolbar);
   gtk_container_set_border_width(GTK_CONTAINER(handlebox), 0);
@@ -314,11 +314,11 @@ int main(int argc, char** argv)
   g_signal_connect(G_OBJECT(new_item), "clicked",
 		   G_CALLBACK(new_item_cb), window);
 
-  g_signal_connect(G_OBJECT(edit_item), "clicked",
-		   G_CALLBACK(edit_item_cb), window);
+  g_signal_connect(G_OBJECT(edit_toolbar_button), "clicked",
+		   G_CALLBACK(edit_toolbar_button_cb), window);
 
-  g_signal_connect(G_OBJECT(delete_item), "clicked",
-		   G_CALLBACK(delete_item_cb), NULL);
+  g_signal_connect(G_OBJECT(delete_toolbar_button), "clicked",
+		   G_CALLBACK(delete_toolbar_button_cb), NULL);
 
   scrolledwin = gtk_scrolled_window_new(NULL, NULL);
   gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
