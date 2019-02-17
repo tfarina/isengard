@@ -28,7 +28,7 @@ static void insert_item(GtkWidget *list_view, ab_contact_t *contact)
                      -1);
 }
 
-GtkWidget *window = NULL;
+GtkWidget *main_window = NULL;
 GtkToolItem *edit_toolbar_button = NULL;
 GtkToolItem *delete_toolbar_button = NULL;
 GtkWidget *list_view;
@@ -268,17 +268,17 @@ int main(int argc, char** argv)
 
   gtk_init(&argc, &argv);
 
-  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(window), "Address Book");
-  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-  gtk_window_set_default_size(GTK_WINDOW(window), WINDOW_WIDTH, WINDOW_HEIGHT);
+  main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(main_window), "Address Book");
+  gtk_window_set_position(GTK_WINDOW(main_window), GTK_WIN_POS_CENTER);
+  gtk_window_set_default_size(GTK_WINDOW(main_window), WINDOW_WIDTH, WINDOW_HEIGHT);
 
-  g_signal_connect(G_OBJECT(window), "destroy",
+  g_signal_connect(G_OBJECT(main_window), "destroy",
                    G_CALLBACK(app_destroy_cb), NULL);
 
   vbox = gtk_vbox_new(FALSE, 0);
 
-  gtk_container_add(GTK_CONTAINER(window), vbox);
+  gtk_container_add(GTK_CONTAINER(main_window), vbox);
 
   menubar = gtk_menu_bar_new();
 
@@ -318,10 +318,10 @@ int main(int argc, char** argv)
   gtk_container_set_border_width(GTK_CONTAINER(handlebox), 0);
 
   g_signal_connect(G_OBJECT(new_toolbar_button), "clicked",
-		   G_CALLBACK(new_toolbar_button_cb), window);
+		   G_CALLBACK(new_toolbar_button_cb), main_window);
 
   g_signal_connect(G_OBJECT(edit_toolbar_button), "clicked",
-		   G_CALLBACK(edit_toolbar_button_cb), window);
+		   G_CALLBACK(edit_toolbar_button_cb), main_window);
 
   g_signal_connect(G_OBJECT(delete_toolbar_button), "clicked",
 		   G_CALLBACK(delete_toolbar_button_cb), NULL);
@@ -365,7 +365,7 @@ int main(int argc, char** argv)
 
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
 
-  gtk_widget_show_all(window);
+  gtk_widget_show_all(main_window);
 
   ab_init();
 
