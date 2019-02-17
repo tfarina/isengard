@@ -76,6 +76,18 @@ ab_contact_t *ab_contact_alloc(void) {
   return contact;
 }
 
+void ab_contact_set_first_name(ab_contact_t *contact, char const *fname) {
+  contact->fname = fname;
+}
+
+void ab_contact_set_last_name(ab_contact_t *contact, char const *lname) {
+  contact->lname = lname;
+}
+
+void ab_contact_set_email(ab_contact_t *contact, char const *email) {
+  contact->email = email;
+}
+
 int ab_init(void) {
   /* Do nothing if the database handle has been set. */
   if (conn) {

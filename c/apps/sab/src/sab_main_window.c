@@ -46,13 +46,13 @@ static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
   contact = ab_contact_alloc();
 
   name = gtk_editable_get_chars(GTK_EDITABLE(fname_entry), 0, -1);
-  contact->fname = name;
+  ab_contact_set_first_name(contact, name);
 
   name = gtk_editable_get_chars(GTK_EDITABLE(lname_entry), 0, -1);
-  contact->lname = name;
+  ab_contact_set_last_name(contact, name);
 
   name = gtk_editable_get_chars(GTK_EDITABLE(email_entry), 0, -1);
-  contact->email = name;
+  ab_contact_set_email(contact, name);
 
   ab_add_contact(contact);
 

@@ -13,6 +13,10 @@ typedef struct ab_contact_s
 
 ab_contact_t *ab_contact_alloc(void);
 
+void ab_contact_set_first_name(ab_contact_t *contact, char const *fname);
+void ab_contact_set_last_name(ab_contact_t *contact, char const *lname);
+void ab_contact_set_email(ab_contact_t *contact, char const *email);
+
 int ab_init(void);
 int ab_close(void);
 

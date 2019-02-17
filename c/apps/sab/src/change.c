@@ -38,9 +38,9 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  contact->fname = argv[2];
-  contact->lname = argv[3];
-  contact->email = argv[4];
+  ab_contact_set_first_name(contact, argv[2]);
+  ab_contact_set_last_name(contact, argv[3]);
+  ab_contact_set_email(contact, argv[4]);
 
   if (ab_change_contact(contact)) {
     return -1;

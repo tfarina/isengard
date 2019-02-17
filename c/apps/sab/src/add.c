@@ -16,9 +16,9 @@ int main(int argc, char **argv) {
   ab_init();
 
   contact = ab_contact_alloc();
-  contact->fname = argv[1];
-  contact->lname = argv[2];
-  contact->email = argv[3];
+  ab_contact_set_first_name(contact, argv[1]);
+  ab_contact_set_last_name(contact, argv[2]);
+  ab_contact_set_email(contact, argv[3]);
 
   /* It's okay to add duplicate records. */
   if (ab_add_contact(contact)) {
