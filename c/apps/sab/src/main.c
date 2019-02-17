@@ -9,14 +9,16 @@
 
 static const char *progname;
 
-static struct builtin_cmd {
+struct builtin_cmd {
         const char *name;
         int (*exec)(int, char **);
-} cmds[] = {
-  { "add", cmd_add },
-  { "change", cmd_change },
-  { "delete", cmd_delete },
-  { "list", cmd_list },
+};
+
+static struct builtin_cmd cmds[] = {
+        { "add", cmd_add },
+        { "change", cmd_change },
+        { "delete", cmd_delete },
+        { "list", cmd_list },
 };
 
 static void usage(void) {
