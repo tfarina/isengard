@@ -48,6 +48,7 @@ static struct builtin_cmd *get_builtin(const char *name) {
 
 int main(int argc, char **argv) {
         struct builtin_cmd *cmd;
+        int rc;
 
         progname = basename(argv[0]);
 
@@ -58,7 +59,7 @@ int main(int argc, char **argv) {
         if (!cmd)
                 usage();
 
-        cmd->exec(argc - 1, argv + 1);
+        rc = cmd->exec(argc - 1, argv + 1);
 
-        return 0;
+        return rc;
 }
