@@ -11,7 +11,7 @@ static const char *progname;
 
 struct builtin_cmd {
         const char *name;
-        int (*exec)(int, char **);
+        int (*exec)(int argc, char **argv);
 };
 
 static struct builtin_cmd cmds[] = {
