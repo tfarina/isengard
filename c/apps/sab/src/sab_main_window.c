@@ -61,14 +61,14 @@ static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
 
   ab_add_contact(contact);
 
-  gtk_widget_hide(editor_window);
+  gtk_widget_destroy(editor_window);
 
   insert_item(list_view, contact);
 }
 
 static void cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
 {
-  gtk_widget_hide(editor_window);
+  gtk_widget_destroy(editor_window);
 }
 
 static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
