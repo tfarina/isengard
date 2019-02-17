@@ -24,7 +24,7 @@ static struct builtin_cmd cmds[] = {
 static void usage(void) {
         static const char *usage_msg =
                 "usage: %s <comand> [<args>]\n\n"
-                "The commands are:\n"
+                "The available commands are as follows:\n\n"
                 "   add       Add a new contact\n"
                 "   change    Change a contact\n"
                 "   delete    Delete the specified contact\n"
