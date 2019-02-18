@@ -41,17 +41,17 @@ GtkWidget *editor_window;
 static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
 {
   ab_contact_t *contact;
-  char *name;
+  char const *name;
 
   contact = ab_contact_alloc();
 
-  name = gtk_editable_get_chars(GTK_EDITABLE(fname_entry), 0, -1);
+  name = g_strdup(gtk_entry_get_text(GTK_ENTRY(fname_entry))); 
   ab_contact_set_first_name(contact, name);
 
-  name = gtk_editable_get_chars(GTK_EDITABLE(lname_entry), 0, -1);
+  name = g_strdup(gtk_entry_get_text(GTK_ENTRY(lname_entry)));
   ab_contact_set_last_name(contact, name);
 
-  name = gtk_editable_get_chars(GTK_EDITABLE(email_entry), 0, -1);
+  name = g_strdup(gtk_entry_get_text(GTK_ENTRY(email_entry)));
   ab_contact_set_email(contact, name);
 
   ab_add_contact(contact);
