@@ -184,6 +184,25 @@ static void sab_new_contact_post_cb(ab_contact_t *contact)
   insert_item(list_view, contact);
 }
 
+static void sab_edit_contact_post_cb(ab_contact_t *contact)
+{
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+
+  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
+
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+
+  gtk_tree_selection_get_selected(selection, NULL, &iter);
+
+  gtk_list_store_set(GTK_LIST_STORE(model), &iter,
+                     LIST_COL_FIRST_NAME, contact->fname,
+                     LIST_COL_LAST_NAME, contact->lname,
+                     LIST_COL_EMAIL, contact->email,
+                     -1);
+}
+
 static void new_toolbar_button_cb(GtkWidget *widget, gpointer data)
 {
   ab_show_editor(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
@@ -204,7 +223,7 @@ static void edit_toolbar_button_cb(GtkWidget *widget, gpointer data)
 
   gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
 
-  ab_show_editor(GTK_WINDOW(data), AC_EDIT, contact, NULL);
+  ab_show_editor(GTK_WINDOW(data), AC_EDIT, contact, sab_edit_contact_post_cb);
 }
 
 static void delete_toolbar_button_cb(GtkWidget *widget, gpointer data)
