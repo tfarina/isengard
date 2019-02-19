@@ -12,6 +12,11 @@ enum {
   LIST_COL_NUM
 };
 
+enum action_code_e {
+  AC_ADD = 0,
+  AC_EDIT,
+};
+
 static void insert_item(GtkWidget *list_view, ab_contact_t *contact)
 {
   GtkTreeModel *model = NULL;
@@ -37,28 +42,37 @@ GtkWidget *lname_entry;
 GtkWidget *email_entry;
 
 GtkWidget *editor_window;
+static enum action_code_e action_code;
+static ab_contact_t *current_contact;
 
 static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
 {
-  ab_contact_t *contact;
   char const *name;
 
-  contact = ab_contact_alloc();
+  if (action_code == AC_ADD) {
+    current_contact = ab_contact_alloc();
+  }
 
   name = g_strdup(gtk_entry_get_text(GTK_ENTRY(fname_entry))); 
-  ab_contact_set_first_name(contact, name);
+  ab_contact_set_first_name(current_contact, name);
 
   name = g_strdup(gtk_entry_get_text(GTK_ENTRY(lname_entry)));
-  ab_contact_set_last_name(contact, name);
+  ab_contact_set_last_name(current_contact, name);
 
   name = g_strdup(gtk_entry_get_text(GTK_ENTRY(email_entry)));
-  ab_contact_set_email(contact, name);
+  ab_contact_set_email(current_contact, name);
 
-  ab_add_contact(contact);
+  if (action_code == AC_ADD) {
+    ab_add_contact(current_contact);
+  } else {
+    ab_change_contact(current_contact);
+  }
 
   gtk_widget_destroy(editor_window);
 
-  insert_item(list_view, contact);
+  if (action_code == AC_ADD) {
+    insert_item(list_view, current_contact);
+  }
 }
 
 static void cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
@@ -66,7 +80,7 @@ static void cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
   gtk_widget_destroy(editor_window);
 }
 
-static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
+static void ab_show_editor(GtkWindow *parent, enum action_code_e ac, ab_contact_t *contact)
 {
   GtkWidget *vbox;
   GtkWidget *table;
@@ -77,7 +91,10 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
 
   char const *title;
 
-  if (contact) {
+  action_code = ac;
+  current_contact = contact;
+
+  if (current_contact) {
     title = "Edit Person";
   } else {
     title = "Create New Person";
@@ -149,10 +166,10 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
   g_signal_connect_swapped(cancel_btn, "clicked",
 			   G_CALLBACK(cancel_btn_cb), NULL);
 
-  if (contact) {
-    gtk_entry_set_text(GTK_ENTRY(fname_entry), contact->fname);
-    gtk_entry_set_text(GTK_ENTRY(lname_entry), contact->lname);
-    gtk_entry_set_text(GTK_ENTRY(email_entry), contact->email);
+  if (current_contact) {
+    gtk_entry_set_text(GTK_ENTRY(fname_entry), current_contact->fname);
+    gtk_entry_set_text(GTK_ENTRY(lname_entry), current_contact->lname);
+    gtk_entry_set_text(GTK_ENTRY(email_entry), current_contact->email);
   }
 
   gtk_widget_show_all(editor_window);
@@ -161,7 +178,7 @@ static void ab_show_editor(ab_contact_t *contact, GtkWindow *parent)
 
 static void new_toolbar_button_cb(GtkWidget *widget, gpointer data)
 {
-  ab_show_editor(NULL, GTK_WINDOW(data));
+  ab_show_editor(GTK_WINDOW(data), AC_ADD, NULL /*contact*/);
 }
 
 static void edit_toolbar_button_cb(GtkWidget *widget, gpointer data)
@@ -179,7 +196,7 @@ static void edit_toolbar_button_cb(GtkWidget *widget, gpointer data)
 
   gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
 
-  ab_show_editor(contact, GTK_WINDOW(data));
+  ab_show_editor(GTK_WINDOW(data), AC_EDIT, contact);
 }
 
 static void delete_toolbar_button_cb(GtkWidget *widget, gpointer data)
