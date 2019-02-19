@@ -44,6 +44,8 @@ GtkWidget *email_entry;
 GtkWidget *editor_window;
 static enum action_code_e action_code;
 static ab_contact_t *current_contact;
+typedef void (*editor_post_cb_t)(ab_contact_t *contact);
+static editor_post_cb_t add_edit_post_cb = NULL;
 
 static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
 {
@@ -70,8 +72,8 @@ static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
 
   gtk_widget_destroy(editor_window);
 
-  if (action_code == AC_ADD) {
-    insert_item(list_view, current_contact);
+  if (add_edit_post_cb) {
+    add_edit_post_cb(current_contact);
   }
 }
 
@@ -80,7 +82,7 @@ static void cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
   gtk_widget_destroy(editor_window);
 }
 
-static void ab_show_editor(GtkWindow *parent, enum action_code_e ac, ab_contact_t *contact)
+static void ab_show_editor(GtkWindow *parent, enum action_code_e ac, ab_contact_t *contact, void (*post_cb)(ab_contact_t *contact))
 {
   GtkWidget *vbox;
   GtkWidget *table;
@@ -93,6 +95,7 @@ static void ab_show_editor(GtkWindow *parent, enum action_code_e ac, ab_contact_
 
   action_code = ac;
   current_contact = contact;
+  add_edit_post_cb = post_cb;
 
   if (current_contact) {
     title = "Edit Person";
@@ -176,9 +179,14 @@ static void ab_show_editor(GtkWindow *parent, enum action_code_e ac, ab_contact_
   gtk_widget_grab_focus(fname_entry);
 }
 
+static void sab_new_contact_post_cb(ab_contact_t *contact)
+{
+  insert_item(list_view, contact);
+}
+
 static void new_toolbar_button_cb(GtkWidget *widget, gpointer data)
 {
-  ab_show_editor(GTK_WINDOW(data), AC_ADD, NULL /*contact*/);
+  ab_show_editor(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
 }
 
 static void edit_toolbar_button_cb(GtkWidget *widget, gpointer data)
@@ -196,7 +204,7 @@ static void edit_toolbar_button_cb(GtkWidget *widget, gpointer data)
 
   gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
 
-  ab_show_editor(GTK_WINDOW(data), AC_EDIT, contact);
+  ab_show_editor(GTK_WINDOW(data), AC_EDIT, contact, NULL);
 }
 
 static void delete_toolbar_button_cb(GtkWidget *widget, gpointer data)
