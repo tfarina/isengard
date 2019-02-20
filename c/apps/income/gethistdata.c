@@ -116,6 +116,9 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
     return -1;
   }
 
+  curl_easy_cleanup(curl);
+  curl_global_cleanup();
+
   /* TODO: This function should stop here and return buf! */
   printf("%s\n", buf.data);
 
@@ -164,9 +167,6 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   password = iniparser_getstring(ini, "mysql:password", NULL);
   dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
 
-  curl_easy_cleanup(curl);
-  curl_global_cleanup();
- 
   /* 8. Connect to the database to start importing the data. */
   if ((conn = db_mysql_connect(host, user, password, dbname)) == NULL) {
     return -1;
