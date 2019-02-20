@@ -45,30 +45,13 @@ static int get_crumb(const char *response_text, char *crumb) {
   return 0;
 }
 
-static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t end_date)
+static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t end_date, buffer_t *out_csv)
 {
   CURL *curl;
   CURLcode result;
   buffer_t html;
-  char histurl[255];
-  buffer_t buf;
+  char histurl[128];
   char downloadurl[256];
-  char filename[255];
-  struct csv_parser parser;
-  int rc;
-  stock_info_t stock;
-  size_t bytes_processed;
-  char *homedir;
-  char *userconffile;
-  dictionary *ini;
-  const char *host;
-  const char *user;
-  const char *password;
-  const char *dbname;
-  MYSQL *conn = NULL;
-  size_t i;
-
-  buffer_init(&html);
 
   curl_global_init(CURL_GLOBAL_NOTHING);
 
@@ -81,8 +64,11 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
   curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "br, gzip");
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
+
+  buffer_init(&html);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&html);
 
+  memset(histurl, 0, 128);
   sprintf(histurl, "https://finance.yahoo.com/quote/%s/history", symbol);
   curl_easy_setopt(curl, CURLOPT_URL, histurl);
 
@@ -99,16 +85,15 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
     return -1;
   }
 
-  buffer_init(&buf);
+  buffer_init(out_csv);
+  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)out_csv);
 
   memset(downloadurl, 0, 256);
   sprintf(downloadurl,
          "https://query1.finance.yahoo.com/v7/finance/download/%s?period1=%ld&period2=%ld&interval=1d&events=history&crumb=%s",
 	  symbol, start_date, end_date, crumb);
-
   printf("downloadurl = %s\n", downloadurl);
   curl_easy_setopt(curl, CURLOPT_URL, downloadurl);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&buf);
 
   result = curl_easy_perform(curl);
   if (result != CURLE_OK) {
@@ -118,6 +103,56 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
 
   curl_easy_cleanup(curl);
   curl_global_cleanup();
+
+  return 0;
+}
+
+int main(int argc, char *argv[])
+{
+  char *symbol;
+  time_t now;
+  time_t one_year_ago;
+  struct tm* now_tm;
+  char start_date_str[12];
+  char end_date_str[12];
+  buffer_t buf;
+  char filename[255];
+  struct csv_parser parser;
+  int rc;
+  stock_info_t stock;
+  size_t bytes_processed;
+  char *homedir;
+  char *userconffile;
+  dictionary *ini;
+  const char *host;
+  const char *user;
+  const char *password;
+  const char *dbname;
+  MYSQL *conn = NULL;
+  size_t i;
+
+  if (argc != 2) {
+    fputs("usage: gethistdata symbol\n", stderr);
+    return 1;
+  }
+
+  symbol = strdup(argv[1]);
+
+  now = time(NULL); /* get time right now */
+  now_tm = localtime(&now);
+  strftime(end_date_str, sizeof(end_date_str), "%F", now_tm);
+
+  now_tm->tm_year = now_tm->tm_year - 1; /* Calculate 1 year ago date */
+  strftime(start_date_str, sizeof(start_date_str), "%F", now_tm);
+  one_year_ago = mktime(now_tm);
+
+  /* TODO: Write this into a log file instead. So it can be inspected after the program ends. */
+  printf("Downloading file...\n\n");
+  printf("Start Date: %s\n", start_date_str);
+  printf("End Date: %s\n", end_date_str);
+  printf("Frequency: Daily\n");
+
+  download_quotes_from_yahoo(symbol, one_year_ago, now, &buf);
 
   /* TODO: This function should stop here and return buf! */
   printf("%s\n", buf.data);
@@ -186,41 +221,6 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   printf("Imported %d items for %s\n", stock.ticks_length, stock.symbol);
 
   free(stock.ticks);
-
-  return 0;
-}
-
-int main(int argc, char *argv[])
-{
-  char *symbol;
-  time_t now;
-  time_t one_year_ago;
-  struct tm* now_tm;
-  char start_date_str[12];
-  char end_date_str[12];
-
-  if (argc != 2) {
-    fputs("usage: gethistdata symbol\n", stderr);
-    return 1;
-  }
-
-  symbol = strdup(argv[1]);
-
-  now = time(NULL); /* get time right now */
-  now_tm = localtime(&now);
-  strftime(end_date_str, sizeof(end_date_str), "%F", now_tm);
-
-  now_tm->tm_year = now_tm->tm_year - 1; /* Calculate 1 year ago date */
-  strftime(start_date_str, sizeof(start_date_str), "%F", now_tm);
-  one_year_ago = mktime(now_tm);
-
-  /* TODO: Write this into a log file instead. So it can be inspected after the program ends. */
-  printf("Downloading file...\n\n");
-  printf("Start Date: %s\n", start_date_str);
-  printf("End Date: %s\n", end_date_str);
-  printf("Frequency: Daily\n");
-
-  download_quotes_from_yahoo(symbol, one_year_ago, now);
 
   return 0;
 }
