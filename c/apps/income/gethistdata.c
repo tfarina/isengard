@@ -45,13 +45,8 @@ static int get_crumb(const char *response_text, char *crumb) {
   return 0;
 }
 
-static int download_quotes_from_yahoo(char *symbol)
+static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t end_date)
 {
-  time_t start_date;
-  time_t end_date;
-  struct tm* tm;
-  char start_date_str[12];
-  char end_date_str[12];
   CURL *curl;
   CURLcode result;
   char histurl[255];
@@ -71,20 +66,6 @@ static int download_quotes_from_yahoo(char *symbol)
   const char *dbname;
   MYSQL *conn = NULL;
   size_t i;
-
-  end_date = time(0);   // get time now (today).
-  tm = localtime(&end_date);
-  strftime(end_date_str, sizeof(end_date_str), "%F", tm);
-
-  tm->tm_year = tm->tm_year - 1; // 1 year ago from today.
-  strftime(start_date_str, sizeof(start_date_str), "%F", tm);
-  start_date = mktime(tm);
-
-  /* TODO: Write this into a log file instead. So it can be inspected after the program ends. */
-  printf("Downloading file...\n\n");
-  printf("Start Date: %s\n", start_date_str);
-  printf("End Date: %s\n", end_date_str);
-  printf("Frequency: Daily\n");
 
   buffer_t html;
   buffer_init(&html);
@@ -213,6 +194,11 @@ static int download_quotes_from_yahoo(char *symbol)
 int main(int argc, char *argv[])
 {
   char *symbol;
+  time_t start_date;
+  time_t end_date;
+  struct tm* tm;
+  char start_date_str[12];
+  char end_date_str[12];
 
   if (argc != 2) {
     fputs("usage: gethistdata symbol\n", stderr);
@@ -221,7 +207,21 @@ int main(int argc, char *argv[])
 
   symbol = strdup(argv[1]);
 
-  download_quotes_from_yahoo(symbol);
+  end_date = time(0);   // get time now (today).
+  tm = localtime(&end_date);
+  strftime(end_date_str, sizeof(end_date_str), "%F", tm);
+
+  tm->tm_year = tm->tm_year - 1; // 1 year ago from today.
+  strftime(start_date_str, sizeof(start_date_str), "%F", tm);
+  start_date = mktime(tm);
+
+  /* TODO: Write this into a log file instead. So it can be inspected after the program ends. */
+  printf("Downloading file...\n\n");
+  printf("Start Date: %s\n", start_date_str);
+  printf("End Date: %s\n", end_date_str);
+  printf("Frequency: Daily\n");
+
+  download_quotes_from_yahoo(symbol, start_date, end_date);
 
   return 0;
 }
