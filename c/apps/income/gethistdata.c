@@ -49,6 +49,7 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
 {
   CURL *curl;
   CURLcode result;
+  buffer_t html;
   char histurl[255];
   buffer_t buf;
   char downloadurl[256];
@@ -67,7 +68,6 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   MYSQL *conn = NULL;
   size_t i;
 
-  buffer_t html;
   buffer_init(&html);
 
   curl_global_init(CURL_GLOBAL_NOTHING);
@@ -99,6 +99,8 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
     return -1;
   }
 
+  buffer_init(&buf);
+
   memset(downloadurl, 0, 256);
   sprintf(downloadurl,
          "https://query1.finance.yahoo.com/v7/finance/download/%s?period1=%ld&period2=%ld&interval=1d&events=history&crumb=%s",
@@ -106,10 +108,6 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
 
   printf("downloadurl = %s\n", downloadurl);
   curl_easy_setopt(curl, CURLOPT_URL, downloadurl);
-
-  buffer_init(&buf);
-
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&buf);
 
   result = curl_easy_perform(curl);
@@ -118,6 +116,7 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
     return -1;
   }
 
+  /* TODO: This function should stop here and return buf! */
   printf("%s\n", buf.data);
 
   /* 5. Now write |buf.data| to file. */
