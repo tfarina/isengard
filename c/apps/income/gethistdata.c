@@ -193,9 +193,9 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
 int main(int argc, char *argv[])
 {
   char *symbol;
-  time_t start_date;
-  time_t end_date;
-  struct tm* tm;
+  time_t now;
+  time_t one_year_ago;
+  struct tm* now_tm;
   char start_date_str[12];
   char end_date_str[12];
 
@@ -206,13 +206,13 @@ int main(int argc, char *argv[])
 
   symbol = strdup(argv[1]);
 
-  end_date = time(0);   // get time now (today).
-  tm = localtime(&end_date);
-  strftime(end_date_str, sizeof(end_date_str), "%F", tm);
+  now = time(NULL); /* get time right now */
+  now_tm = localtime(&now);
+  strftime(end_date_str, sizeof(end_date_str), "%F", now_tm);
 
-  tm->tm_year = tm->tm_year - 1; // 1 year ago from today.
-  strftime(start_date_str, sizeof(start_date_str), "%F", tm);
-  start_date = mktime(tm);
+  now_tm->tm_year = now_tm->tm_year - 1; /* Calculate 1 year ago date */
+  strftime(start_date_str, sizeof(start_date_str), "%F", now_tm);
+  one_year_ago = mktime(now_tm);
 
   /* TODO: Write this into a log file instead. So it can be inspected after the program ends. */
   printf("Downloading file...\n\n");
@@ -220,7 +220,7 @@ int main(int argc, char *argv[])
   printf("End Date: %s\n", end_date_str);
   printf("Frequency: Daily\n");
 
-  download_quotes_from_yahoo(symbol, start_date, end_date);
+  download_quotes_from_yahoo(symbol, one_year_ago, now);
 
   return 0;
 }
