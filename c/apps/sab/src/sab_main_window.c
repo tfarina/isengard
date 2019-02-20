@@ -37,11 +37,11 @@ GtkWidget *main_window = NULL;
 GtkToolItem *edit_toolbar_button = NULL;
 GtkToolItem *delete_toolbar_button = NULL;
 GtkWidget *list_view;
-GtkWidget *fname_entry;
-GtkWidget *lname_entry;
-GtkWidget *email_entry;
 
-GtkWidget *editor_window;
+static GtkWidget *editor_window;
+static GtkWidget *fname_entry;
+static GtkWidget *lname_entry;
+static GtkWidget *email_entry;
 static enum action_code_e action_code;
 static ab_contact_t *current_contact;
 typedef void (*editor_post_cb_t)(ab_contact_t *contact);
