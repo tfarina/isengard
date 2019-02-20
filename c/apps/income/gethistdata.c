@@ -19,6 +19,32 @@
 
 #define USERCONFFILE ".traderc"
 
+static char *crumb;
+
+/*https://github.com/jerryvig/cython-project1/blob/351aece6a910ecff8867708fa16155a6bc444217/compute_statistics.c#L53*/
+static int get_crumb(const char *response_text, char *crumb) {
+  const char *crumbstore = strstr(response_text, "CrumbStore");
+  if (crumbstore == NULL) {
+    puts("Failed to find crumbstore....");
+    return 1;
+  }
+  const char *colon_quote = strstr(crumbstore, ":\"");
+  const char *end_quote = strstr(&colon_quote[2], "\"");
+  char crumbclean[128];
+  memset(crumbclean, 0, 128);
+  strncpy(crumb, &colon_quote[2], strlen(&colon_quote[2]) - strlen(end_quote));
+  const char *twofpos = strstr(crumb, "\\u002F");
+
+  if (twofpos) {
+    strncpy(crumbclean, crumb, twofpos - crumb);
+    strcat(crumbclean, "%2F");
+    strcat(crumbclean, &twofpos[6]);
+    memset(crumb, 0, 128);
+    strcpy(crumb, crumbclean);
+  }
+  return 0;
+}
+
 static int download_quotes_from_yahoo(char *symbol)
 {
   time_t start_date;
@@ -29,10 +55,8 @@ static int download_quotes_from_yahoo(char *symbol)
   CURL *curl;
   CURLcode result;
   char histurl[255];
-  FILE *fp;
   buffer_t buf;
-  char crumb_key[] = "CrumbStore\":{\"crumb\":\"";
-  char fullurl[255];
+  char downloadurl[256];
   char filename[255];
   struct csv_parser parser;
   int rc;
@@ -62,6 +86,10 @@ static int download_quotes_from_yahoo(char *symbol)
   printf("End Date: %s\n", end_date_str);
   printf("Frequency: Daily\n");
 
+
+  buffer_t html;
+  buffer_init(&html);
+
   curl_global_init(CURL_GLOBAL_NOTHING);
 
   /* 1. Write history page into file and get the cookies.txt file (they
@@ -69,26 +97,28 @@ static int download_quotes_from_yahoo(char *symbol)
    */
   curl = curl_easy_init();
 
-  sprintf(histurl, "https://finance.yahoo.com/quote/%s/history", symbol);
-
-  fp = fopen("history.html", "w");
-
-  curl_easy_setopt(curl, CURLOPT_URL, histurl);
-  curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
-  curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
-  curl_easy_setopt(curl, CURLOPT_COOKIEJAR, "cookies.txt");
+  curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
   curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
-  curl_easy_setopt(curl, CURLOPT_ENCODING, "");
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_file);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+  curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "br, gzip");
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
+  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&html);
+
+  sprintf(histurl, "https://finance.yahoo.com/quote/%s/history", symbol);
+  curl_easy_setopt(curl, CURLOPT_URL, histurl);
 
   result = curl_easy_perform(curl);
-  fclose(fp);
-
   if (result != CURLE_OK) {
     fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
     return -1;
   }
+
+  crumb = (char*)malloc(128 * sizeof(char));
+  memset(crumb, 0, 128);
+  int crumb_failure = get_crumb(html.data, crumb);
+  if (crumb_failure) {
+    return -1;
+  }
+
 
   buffer_init(&buf);
 
@@ -103,21 +133,14 @@ static int download_quotes_from_yahoo(char *symbol)
     return -1;
   }
 
-  /* 3. Extract the crumb value from CrumbStore. */
-  char *ptr1 = strstr(buf.data, crumb_key);
-  char *crumb = ptr1 + strlen(crumb_key);
-  char *ptr3 = strstr(crumb, "\"}");
-  if (ptr3 != NULL) {
-    *ptr3 = '\0';
-  }
-
-  printf("crumb: %s\n", crumb);
-
-  sprintf(fullurl,
+  memset(downloadurl, 0, 256);
+  sprintf(downloadurl,
          "https://query1.finance.yahoo.com/v7/finance/download/%s?period1=%ld&period2=%ld&interval=1d&events=history&crumb=%s",
 	  symbol, start_date, end_date, crumb);
 
-  printf("url: %s\n", fullurl);
+  printf("downloadurl = %s\n", downloadurl);
+  curl_easy_setopt(curl, CURLOPT_URL, downloadurl);
+
 
   free(buf.data);
 
@@ -126,8 +149,6 @@ static int download_quotes_from_yahoo(char *symbol)
   /* 4. With cookies and crumb, lets proceed with the download of the historical data
    * (in csv format) to memory.
    */
-  curl_easy_setopt(curl, CURLOPT_URL, fullurl);
-  curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&buf);
 
@@ -201,14 +222,9 @@ static int download_quotes_from_yahoo(char *symbol)
 
     if (stock_add_tick(conn, &stock, tick) != -1) {
     }
-
-    printf("date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
-           tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
-
-    free(tick->date);
   }
 
-  printf("%d rows imported\n", stock.ticks_length);
+  printf("Imported %d items for %s\n", stock.ticks_length, stock.symbol);
 
   free(stock.ticks);
 
