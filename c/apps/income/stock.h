@@ -16,15 +16,21 @@ typedef struct {
 } stock_tick_t;
  
 typedef enum {
-  DATE, OPEN, HIGH, LOW, CLOSE, ADJ_CLOSE, VOLUME
-} stock_tick_field_t;
+  CSV_COLUMN_DATE,
+  CSV_COLUMN_OPEN,
+  CSV_COLUMN_HIGH,
+  CSV_COLUMN_LOW,
+  CSV_COLUMN_CLOSE,
+  CSV_COLUMN_ADJ_CLOSE,
+  CSV_COLUMN_VOLUME
+} csv_column_t;
  
 typedef struct {
   char *symbol;
   stock_tick_t *ticks;
   size_t ticks_capacity;
   size_t ticks_length;
-  stock_tick_field_t cur_field;
+  csv_column_t curr_column;
   int error;
 } stock_info_t;
 

@@ -31,8 +31,8 @@ void process_field(void *field,
     return;
   }
  
-  switch (stock->cur_field) {
-  case DATE:
+  switch (stock->curr_column) {
+  case CSV_COLUMN_DATE:
     /* Start of a new record; check if we need to reallocate. */
     /* If the number of entries in the vector has reached the capacity, resize. */
     if (stock->ticks_length == stock->ticks_capacity) {
@@ -54,46 +54,49 @@ void process_field(void *field,
     cur_tick->date = strdup((char*)field);
     break;
  
-  case OPEN:
-  case HIGH:
-  case LOW:
-  case CLOSE:
-  case ADJ_CLOSE:
+  case CSV_COLUMN_OPEN:
+  case CSV_COLUMN_HIGH:
+  case CSV_COLUMN_LOW:
+  case CSV_COLUMN_CLOSE:
+  case CSV_COLUMN_ADJ_CLOSE:
     if (strcmp((char*)field, "null") != 0) {
       dval = strtod((char*)field, &endptr);
       if (*endptr != '\0') {
         fprintf(stderr,
                 "non-float value in record %zu, field %u: \"%s\"\n",
-                 stock->ticks_length + 1, stock->cur_field + 1, field);
+                 stock->ticks_length + 1, stock->curr_column + 1, field);
         stock->error = 1;
         return;
       }
  
-      if (stock->cur_field == OPEN)
+      if (stock->curr_column == CSV_COLUMN_OPEN)
         cur_tick->open = dval;
-      else if (stock->cur_field == HIGH)
+      else if (stock->curr_column == CSV_COLUMN_HIGH)
         cur_tick->high = dval;
-      else if (stock->cur_field == LOW)
+      else if (stock->curr_column == CSV_COLUMN_LOW)
         cur_tick->low = dval;
-      else if (stock->cur_field == CLOSE)
+      else if (stock->curr_column == CSV_COLUMN_CLOSE)
         cur_tick->close = dval;
-      else if (stock->cur_field == ADJ_CLOSE)
+      else if (stock->curr_column == CSV_COLUMN_ADJ_CLOSE)
         cur_tick->adj_close = dval;
     }
-  case VOLUME:
+  case CSV_COLUMN_VOLUME:
     cur_tick->volume = atoi((char*)field);
   }
  
 
-  if (stock->cur_field == VOLUME) stock->ticks_length++;
-  stock->cur_field = (stock->cur_field + 1) % 7;
+  if (stock->curr_column == CSV_COLUMN_VOLUME) {
+    stock->ticks_length++;
+  }
+
+  stock->curr_column = (stock->curr_column + 1) % 7;
 }
  
 void process_row(int delim UNUSED, void *ctx) {
   stock_info_t *stock = (stock_info_t *)ctx;
   if (stock->error) return;
  
-  if (stock->cur_field != DATE) {
+  if (stock->curr_column != CSV_COLUMN_DATE) {
     fprintf(stderr, "not enough fields in row %zu\n", stock->ticks_length);
     stock->error = 1;
   }
