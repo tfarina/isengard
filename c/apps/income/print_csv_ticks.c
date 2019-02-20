@@ -45,8 +45,8 @@ int main(int argc, char **argv) {
   }
  
   bytes_processed = csv_parse(&parser, (void*)csvdata, csvdata_len,
-                              process_field, process_row, &stock);
-  rc = csv_fini(&parser, process_field, process_row, &stock);
+                              csv_column_cb, csv_row_cb, &stock);
+  rc = csv_fini(&parser, csv_column_cb, csv_row_cb, &stock);
   free(csvdata);
  
   if (stock.error || rc != 0 || bytes_processed < csvdata_len) {

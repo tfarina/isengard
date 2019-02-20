@@ -6,7 +6,7 @@
 
 #include "stock.h"
 
-void process_field(void *field,
+void csv_column_cb(void *field,
 		   size_t field_len UNUSED,
 		   void *ctx)
 {
@@ -92,7 +92,7 @@ void process_field(void *field,
   stock->curr_column = (stock->curr_column + 1) % 7;
 }
  
-void process_row(int delim UNUSED, void *ctx) {
+void csv_row_cb(int delim UNUSED, void *ctx) {
   stock_info_t *stock = (stock_info_t *)ctx;
   if (stock->error) return;
  

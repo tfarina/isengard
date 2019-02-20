@@ -5,7 +5,7 @@
 
 #define UNUSED __attribute__((unused))
 
-void process_field(void *field, size_t field_len UNUSED, void *ctx);
-void process_row(int delim UNUSED, void *ctx);
+void csv_column_cb(void *field, size_t field_len UNUSED, void *ctx);
+void csv_row_cb(int delim UNUSED, void *ctx);
 
 #endif  /* CSV_HELPER_H_ */
