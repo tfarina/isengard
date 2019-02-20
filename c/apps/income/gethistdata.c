@@ -86,7 +86,6 @@ static int download_quotes_from_yahoo(char *symbol)
   printf("End Date: %s\n", end_date_str);
   printf("Frequency: Daily\n");
 
-
   buffer_t html;
   buffer_init(&html);
 
@@ -119,20 +118,6 @@ static int download_quotes_from_yahoo(char *symbol)
     return -1;
   }
 
-
-  buffer_init(&buf);
-
-  /* 2. Write history page into memory. */
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&buf);
-            
-  result = curl_easy_perform(curl);
-            
-  if (result != CURLE_OK) {
-    fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
-    return -1;
-  }
-
   memset(downloadurl, 0, 256);
   sprintf(downloadurl,
          "https://query1.finance.yahoo.com/v7/finance/download/%s?period1=%ld&period2=%ld&interval=1d&events=history&crumb=%s",
@@ -141,14 +126,8 @@ static int download_quotes_from_yahoo(char *symbol)
   printf("downloadurl = %s\n", downloadurl);
   curl_easy_setopt(curl, CURLOPT_URL, downloadurl);
 
-
-  free(buf.data);
-
   buffer_init(&buf);
 
-  /* 4. With cookies and crumb, lets proceed with the download of the historical data
-   * (in csv format) to memory.
-   */
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&buf);
 
