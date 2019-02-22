@@ -33,11 +33,13 @@ static void sab_main_window_insert_item(GtkWidget *list_view, ab_contact_t *cont
                      -1);
 }
 
-GtkWidget *main_window = NULL;
-GtkToolItem *edit_toolbar_button = NULL;
-GtkToolItem *delete_toolbar_button = NULL;
-GtkWidget *list_view;
+/* Main Window variables/widgets */
+static GtkWidget *main_window;
+static GtkToolItem *edit_toolbar_button;
+static GtkToolItem *delete_toolbar_button;
+static GtkWidget *list_view;
 
+/* Editor dialog variables/widgets */
 static GtkWidget *editor_window;
 static GtkWidget *fname_entry;
 static GtkWidget *lname_entry;
