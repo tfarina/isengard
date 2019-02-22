@@ -12,10 +12,10 @@ enum {
   LIST_COL_NUM
 };
 
-enum action_code_e {
+typedef enum action_code_e {
   AC_ADD = 0,
   AC_EDIT,
-};
+} action_code_t;
 
 static void insert_item(GtkWidget *list_view, ab_contact_t *contact)
 {
@@ -42,7 +42,7 @@ static GtkWidget *editor_window;
 static GtkWidget *fname_entry;
 static GtkWidget *lname_entry;
 static GtkWidget *email_entry;
-static enum action_code_e action_code;
+static action_code_t action_code;
 static ab_contact_t *current_contact;
 typedef void (*editor_post_cb_t)(ab_contact_t *contact);
 static editor_post_cb_t add_edit_post_cb = NULL;
@@ -82,7 +82,7 @@ static void cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
   gtk_widget_destroy(editor_window);
 }
 
-static void ab_show_editor(GtkWindow *parent, enum action_code_e ac, ab_contact_t *contact, void (*post_cb)(ab_contact_t *contact))
+static void ab_show_editor(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, void (*post_cb)(ab_contact_t *contact))
 {
   GtkWidget *vbox;
   GtkWidget *table;
