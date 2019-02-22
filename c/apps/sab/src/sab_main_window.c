@@ -17,7 +17,7 @@ typedef enum action_code_e {
   AC_EDIT,
 } action_code_t;
 
-static void insert_item(GtkWidget *list_view, ab_contact_t *contact)
+static void sab_main_window_insert_item(GtkWidget *list_view, ab_contact_t *contact)
 {
   GtkTreeModel *model = NULL;
   GtkTreeIter iter;
@@ -181,7 +181,7 @@ static void ab_show_editor(GtkWindow *parent, action_code_t ac, ab_contact_t *co
 
 static void sab_new_contact_post_cb(ab_contact_t *contact)
 {
-  insert_item(list_view, contact);
+  sab_main_window_insert_item(list_view, contact);
 }
 
 static void sab_edit_contact_post_cb(ab_contact_t *contact)
@@ -429,7 +429,7 @@ int main(int argc, char** argv)
   list = ab_get_contact_list();
 
   for (i = list; i; i = alpm_list_next(i)) {
-    insert_item(list_view, (ab_contact_t *)i->data);
+    sab_main_window_insert_item(list_view, (ab_contact_t *)i->data);
   }
 
   gtk_main();
