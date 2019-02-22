@@ -232,6 +232,8 @@ static void delete_toolbar_button_cb(GtkWidget *widget, gpointer data)
   GtkTreeSelection *selection;
   GtkTreeIter iter;
   ab_contact_t *contact;
+  gboolean has_row = FALSE;
+  gint n;
 
   model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
 
@@ -241,9 +243,25 @@ static void delete_toolbar_button_cb(GtkWidget *widget, gpointer data)
 
   gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
 
-  gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
+  has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
 
   ab_delete_contact(contact);
+
+  /* From claws-mail src/editaddress.c:edit_person_email_delete() */
+  if (!has_row) {
+    /* The removed row was the last in the list, so iter is not
+     * valid. Find out if there is at least one row remaining
+     * in the list, and select the last one if so. */
+    n = gtk_tree_model_iter_n_children(model, NULL);
+    if (n > 0 && gtk_tree_model_iter_nth_child(model, &iter, NULL, n-1)) {
+      /* It exists */
+      has_row = TRUE;
+    }
+  }
+
+  if (has_row) {
+    gtk_tree_selection_select_iter(selection, &iter);
+  }
 }
 
 static void list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
