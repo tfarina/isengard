@@ -162,8 +162,7 @@ int main(int argc, char *argv[])
   write_file(filename, buf.data, buf.length);
 
   /* 6. Parse it. */
-  rc = csv_init(&parser, CSV_APPEND_NULL);
-  if (rc != 0) {
+  if (csv_init(&parser, CSV_APPEND_NULL) != 0) {;
     fprintf(stderr, "failed to initialize CSV parser\n");
     return -1;
   }
