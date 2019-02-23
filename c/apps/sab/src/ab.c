@@ -4,7 +4,6 @@
 
 #include "third_party/sqlite/amalgamation/sqlite3.h"
 
-#include "db.h"
 #include "strutils.h"
 
 static const char dbname[] = "abdb.sqlite3";
@@ -24,6 +23,12 @@ static const char delete_sql[] =
 
 static sqlite3_stmt *select_stmt;
 static const char select_sql[] = "SELECT * FROM contacts";
+
+static void db_close(sqlite3 *db) {
+  if (sqlite3_close(db) != SQLITE_OK) {
+    fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errmsg(db));
+  }
+}
 
 /**
  * Makes sure the 'contacts' table is created if it does not exist yet.
