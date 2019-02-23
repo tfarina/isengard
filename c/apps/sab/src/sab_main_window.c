@@ -177,8 +177,8 @@ static void ab_show_editor(GtkWindow *parent, action_code_t ac, ab_contact_t *co
     gtk_entry_set_text(GTK_ENTRY(email_entry), current_contact->email);
   }
 
-  gtk_widget_show_all(editor_window);
   gtk_widget_grab_focus(fname_entry);
+  gtk_widget_show_all(editor_window);
 }
 
 static void sab_new_contact_post_cb(ab_contact_t *contact)
@@ -423,6 +423,8 @@ int main(int argc, char** argv)
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
+
+  gtk_widget_grab_focus(GTK_WIDGET(list_view));
 
   gtk_widget_show_all(main_window);
 
