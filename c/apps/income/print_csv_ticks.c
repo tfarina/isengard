@@ -54,7 +54,9 @@ int main(int argc, char **argv) {
 	    bytes_processed, csvdata_len, csv_strerror(csv_error(&parser)));
     return 1;
   }
- 
+
+  csv_free(&parser);
+
   for (i = 0; i < stock.ticks_length; i++) {
     stock_tick_t *tick = stock.ticks + i;
 
