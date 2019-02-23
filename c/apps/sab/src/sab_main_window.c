@@ -205,12 +205,12 @@ static void sab_edit_contact_post_cb(ab_contact_t *contact)
                      -1);
 }
 
-static void new_toolbar_button_cb(GtkWidget *widget, gpointer data)
+static void sab_main_window_new_button_cb(GtkWidget *widget, gpointer data)
 {
   sab_contact_edit_dialog(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
 }
 
-static void edit_toolbar_button_cb(GtkWidget *widget, gpointer data)
+static void sab_main_window_edit_button_cb(GtkWidget *widget, gpointer data)
 {
   GtkTreeModel *model;
   GtkTreeSelection *selection;
@@ -228,7 +228,7 @@ static void edit_toolbar_button_cb(GtkWidget *widget, gpointer data)
   sab_contact_edit_dialog(GTK_WINDOW(data), AC_EDIT, contact, sab_edit_contact_post_cb);
 }
 
-static void delete_toolbar_button_cb(GtkWidget *widget, gpointer data)
+static void sab_main_window_delete_button_cb(GtkWidget *widget, gpointer data)
 {
   GtkTreeModel *model;
   GtkTreeSelection *selection;
@@ -266,7 +266,7 @@ static void delete_toolbar_button_cb(GtkWidget *widget, gpointer data)
   }
 }
 
-static void list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
+static void sab_main_window_list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 {
   gint num_selected;
 
@@ -377,13 +377,13 @@ int main(int argc, char** argv)
   gtk_container_set_border_width(GTK_CONTAINER(handlebox), 0);
 
   g_signal_connect(G_OBJECT(new_toolbar_button), "clicked",
-		   G_CALLBACK(new_toolbar_button_cb), main_window);
+		   G_CALLBACK(sab_main_window_new_button_cb), main_window);
 
   g_signal_connect(G_OBJECT(edit_toolbar_button), "clicked",
-		   G_CALLBACK(edit_toolbar_button_cb), main_window);
+		   G_CALLBACK(sab_main_window_edit_button_cb), main_window);
 
   g_signal_connect(G_OBJECT(delete_toolbar_button), "clicked",
-		   G_CALLBACK(delete_toolbar_button_cb), NULL);
+		   G_CALLBACK(sab_main_window_delete_button_cb), NULL);
 
   scrolledwin = gtk_scrolled_window_new(NULL, NULL);
   gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
@@ -404,7 +404,7 @@ int main(int argc, char** argv)
 
   list_select = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
   g_signal_connect(list_select, "changed",
-		   G_CALLBACK(list_selection_changed_cb), NULL);
+		   G_CALLBACK(sab_main_window_list_selection_changed_cb), NULL);
 
   /* Create the columns. */
   renderer = gtk_cell_renderer_text_new();
