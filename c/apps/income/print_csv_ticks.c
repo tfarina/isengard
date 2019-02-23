@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
 
   if (csv_init(&parser, CSV_APPEND_NULL) != 0) {
     free(csvdata);
-    fputs("failed to initialize CSV parser\n", stderr);
+    fprintf(stderr, "failed to initialize CSV parser\n");
     return 1;
   }
  
