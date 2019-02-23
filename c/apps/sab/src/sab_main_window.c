@@ -49,7 +49,7 @@ static ab_contact_t *current_contact;
 typedef void (*editor_post_cb_t)(ab_contact_t *contact);
 static editor_post_cb_t add_edit_post_cb = NULL;
 
-static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
+static void sab_contact_edit_dialog_ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
 {
   char const *name;
 
@@ -79,7 +79,7 @@ static void ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
   }
 }
 
-static void cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
+static void sab_contact_edit_dialog_cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
 {
   gtk_widget_destroy(editor_window);
 }
@@ -166,10 +166,10 @@ static void sab_contact_edit_dialog(GtkWindow *parent, action_code_t ac, ab_cont
   gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
 
   g_signal_connect(G_OBJECT(ok_btn), "clicked",
-                   G_CALLBACK(ok_btn_cb), NULL);
+                   G_CALLBACK(sab_contact_edit_dialog_ok_btn_cb), NULL);
 
   g_signal_connect_swapped(cancel_btn, "clicked",
-			   G_CALLBACK(cancel_btn_cb), NULL);
+			   G_CALLBACK(sab_contact_edit_dialog_cancel_btn_cb), NULL);
 
   if (current_contact) {
     gtk_entry_set_text(GTK_ENTRY(fname_entry), current_contact->fname);
