@@ -27,8 +27,7 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  rc = csv_init(&parser, CSV_APPEND_NULL);
-  if (rc != 0) {
+  if (csv_init(&parser, CSV_APPEND_NULL) != 0) {
     free(csvdata);
     fputs("failed to initialize CSV parser\n", stderr);
     return 1;
