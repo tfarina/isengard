@@ -9,7 +9,7 @@
 #include "file.h"
 #include "stock.h"
 
-static long unsigned num_rows;
+static int num_rows;
 static double *close;
 
 static long unsigned colnum;
@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
   FILE *fp;
   char buf[1024];
   size_t bytes_read;
-  long unsigned i;
+  int i;
 
   if (argc != 3) {
     fputs("usage: print_csv_stats filename.csv SYMBOL\n", stderr);
@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
 
   fclose(fp);
 
-  printf("Found %lu rows\n", num_rows);
+  printf("Found %d rows\n", num_rows);
 
   /* Now do a second parse to read the close prices into the array. */ 
   close = malloc(num_rows * sizeof(double));
