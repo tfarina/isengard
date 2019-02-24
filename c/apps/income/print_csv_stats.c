@@ -8,6 +8,7 @@
 #include "csv_helper.h"
 #include "file.h"
 #include "stock.h"
+#include "stats.h"
 
 static int num_rows;
 static double *close;
@@ -126,6 +127,12 @@ int main(int argc, char **argv) {
   for (i = 0; i < num_rows; i++) {
     printf("%f\n", close[i]);
   }
+
+  double max_close;
+
+  stats_max(close, num_rows, &max_close);
+
+  printf("Max: %f\n", max_close);
 
   return 0;
 }

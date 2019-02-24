@@ -27,8 +27,8 @@ find_package(MySQL)
 add_executable(print_csv_ticks print_csv_ticks.c file.c csv_helper.c stock.c)
 target_link_libraries(print_csv_ticks libcsv ${MYSQL_LIBRARY})
 
-add_executable(print_csv_stats print_csv_stats.c csv_helper.c)
-target_link_libraries(print_csv_stats libcsv ${MYSQL_LIBRARY})
+add_executable(print_csv_stats print_csv_stats.c csv_helper.c stats.c)
+target_link_libraries(print_csv_stats libcsv ${MYSQL_LIBRARY} -lm)
 
 find_package(CURL REQUIRED)
 if (CURL_FOUND)
