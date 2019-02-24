@@ -17,7 +17,7 @@ int stock_add_tick(MYSQL *conn, stock_info_t *stock, stock_tick_t *tick)
   /* Determine if this is an insert or update operation. */
   sprintf(query, "SELECT symbol FROM historicaldata WHERE symbol = \"%s\" and date = \"%s\"", stock->symbol, tick->date);
   if (mysql_query(conn, query)) {
-    fprintf(stderr, "mysql: sql insert failed: %s\n", mysql_error(conn));
+    fprintf(stderr, "mysql: select query failed: %s\n", mysql_error(conn));
     mysql_close(conn);
     return -1;
   }
