@@ -75,7 +75,7 @@ int stats_average(double const *a, int size, double *res)
   return 0;
 }
 
-double stats_var_sam(double const *a, int size)
+int stats_var_sam(double const *a, int size, double *res)
 {
   double avg = 0.0;
   double sum = 0.0;
@@ -87,10 +87,17 @@ double stats_var_sam(double const *a, int size)
     sum += (a[i] - avg) * (a[i] - avg);
   }
 
-  return sum / (size - 1);
+  *res = sum / (size - 1);
+
+  return 0;
 }
 
-double stats_stdev_sam(double const *a, int size)
+int stats_stdev_sam(double const *a, int size, double *res)
 {
-  return sqrt(stats_var_sam(a, size));
+  double var = 0.0;
+
+  stats_var_sam(a, size, &var);
+  *res = sqrt(var);
+
+  return 0;
 }
