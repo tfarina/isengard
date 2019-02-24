@@ -2,9 +2,9 @@
 
 #include <math.h>
 
-int stats_min(double const *a, size_t size, double *res)
+int stats_min(double const *a, int size, double *res)
 {
-  size_t i;
+  int i;
   double min = +INFINITY;
 
   if (size <= 0) {
@@ -26,9 +26,9 @@ int stats_min(double const *a, size_t size, double *res)
   return 0;
 }
 
-int stats_max(double const *a, size_t size, double *res)
+int stats_max(double const *a, int size, double *res)
 {
-  size_t i;
+  int i;
   double max = -INFINITY;
 
   if (size <= 0) {
@@ -50,10 +50,10 @@ int stats_max(double const *a, size_t size, double *res)
   return 0;
 }
 
-int stats_sum(double const *a, size_t size, double *res)
+int stats_sum(double const *a, int size, double *res)
 {
   double sum = 0.0;
-  size_t i;
+  int i;
 
   for (i = 0; i < size; i++) {
     sum += a[i];
@@ -64,7 +64,7 @@ int stats_sum(double const *a, size_t size, double *res)
   return 0;
 }
 
-int stats_average(double const *a, size_t size, double *res)
+int stats_average(double const *a, int size, double *res)
 {
   double sum = 0.0;
 
@@ -75,11 +75,11 @@ int stats_average(double const *a, size_t size, double *res)
   return 0;
 }
 
-double stats_var_sam(double const *a, size_t size)
+double stats_var_sam(double const *a, int size)
 {
   double avg = 0.0;
   double sum = 0.0;
-  size_t i;
+  int i;
 
   stats_average(a, size, &avg);
 
@@ -90,7 +90,7 @@ double stats_var_sam(double const *a, size_t size)
   return sum / (size - 1);
 }
 
-double stats_stdev_sam(double const *a, size_t size)
+double stats_stdev_sam(double const *a, int size)
 {
   return sqrt(stats_var_sam(a, size));
 }
