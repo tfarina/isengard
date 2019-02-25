@@ -10,15 +10,10 @@
 #include "stock.h"
 #include "stats.h"
 
-static int num_rows;
 static double *close;
 
 static long unsigned colnum;
 static long unsigned rownum;
-
-static void csv_count_cb(int c, void *data) {
-  num_rows++;
-}
 
 static void csv_column_cb1(void *p1, size_t s, void *p2) {
   char *endptr;
@@ -51,6 +46,7 @@ int main(int argc, char **argv) {
   char buf[1024];
   size_t bytes_read;
   int i;
+  int num_rows;
 
   if (argc != 3) {
     fputs("usage: print_csv_stats filename.csv SYMBOL\n", stderr);
@@ -87,6 +83,8 @@ int main(int argc, char **argv) {
   }
 
   fclose(fp);
+
+  num_rows = csv_num_rows();
 
   printf("Found %d rows\n", num_rows);
 

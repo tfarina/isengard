@@ -16,7 +16,12 @@ typedef enum {
   CSV_COLUMN_VOLUME
 } csv_column_t;
 
+static int num_rows;
 static unsigned colnum; /* current column - zero based index */
+
+void csv_count_cb(int c, void *data) {
+  num_rows++;
+}
 
 void csv_column_cb(void *field,
 		   size_t field_len UNUSED,
@@ -114,4 +119,8 @@ void csv_row_cb(int delim UNUSED, void *ctx) {
   }
 
   colnum = 0;
+}
+
+int csv_num_rows(void) {
+  return num_rows;
 }
