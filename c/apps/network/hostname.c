@@ -6,14 +6,16 @@
 #include <unistd.h>
 
 int main(void) {
-  char buf[HOST_NAME_MAX];
+  char hostname[HOST_NAME_MAX];
 
-  if (gethostname(buf, sizeof(buf)) == -1) {
-    fprintf(stderr, "gethostname() failed: %s.\n", strerror(errno));
-    exit(EXIT_FAILURE);
+  if (gethostname(hostname, sizeof(hostname)) < 0) {
+    fprintf(stderr, "gethostname() failed: %s\n", strerror(errno));
+    return EXIT_FAILURE;
   }
 
-  printf("%s\n", buf);
+  hostname[HOST_NAME_MAX - 1] = '\0';
 
-  return 0;
+  printf("%s\n", hostname);
+
+  return EXIT_SUCCESS;
 }
