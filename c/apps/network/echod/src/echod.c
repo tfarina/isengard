@@ -62,6 +62,13 @@ static struct option long_options[] = {
     { NULL,    0,                 NULL,  0  }
 };
 
+/** \struct instance
+ * @brief An instance of Echo daemon.
+ */
+struct instance {
+  char *log_filename; /* log filename */
+};
+
 static char *get_progname(char *argv0) {
   char *name;
 
@@ -73,6 +80,10 @@ static char *get_progname(char *argv0) {
   }
 
   return name;
+}
+
+static void ed_set_default_options(struct instance *edi) {
+  edi->log_filename = NULL;
 }
 
 static void ed_show_usage(void) {
@@ -174,6 +185,9 @@ int main(int argc, char **argv) {
   char clientip[46];
   int clientport;
   pid_t pid;
+  struct instance edi;
+
+  ed_set_default_options(&edi);
 
   progname = get_progname(argv[0]);
 
