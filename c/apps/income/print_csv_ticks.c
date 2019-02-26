@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "csv.h"
+#include "third_party/libcsv/csv.h"
 #include "csv_helper.h"
 #include "file.h"
 #include "stock.h"

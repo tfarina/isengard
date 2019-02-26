@@ -4,7 +4,7 @@
 #include <string.h>
 #include <mysql/mysql.h>
 
-#include "csv.h"
+#include "third_party/libcsv/csv.h"
 #include "csv_helper.h"
 #include "third_party/iniparser/iniparser.h"
 #include "db_mysql.h"

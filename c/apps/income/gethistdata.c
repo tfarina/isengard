@@ -9,7 +9,7 @@
 
 #include "buffer.h"
 #include "curl_helper.h"
-#include "csv.h"
+#include "third_party/libcsv/csv.h"
 #include "csv_helper.h"
 #include "third_party/iniparser/iniparser.h"
 #include "env.h"

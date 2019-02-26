@@ -4,7 +4,7 @@
 #include <string.h>
 #include <errno.h>
 
-#include "csv.h"
+#include "third_party/libcsv/csv.h"
 #include "csv_helper.h"
 #include "file.h"
 #include "stock.h"
