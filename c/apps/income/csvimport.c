@@ -6,7 +6,7 @@
 
 #include "csv.h"
 #include "csv_helper.h"
-#include "iniparser.h"
+#include "third_party/iniparser/iniparser.h"
 #include "db_mysql.h"
 #include "env.h"
 #include "file.h"

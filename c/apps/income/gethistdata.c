@@ -11,7 +11,7 @@
 #include "curl_helper.h"
 #include "csv.h"
 #include "csv_helper.h"
-#include "iniparser.h"
+#include "third_party/iniparser/iniparser.h"
 #include "env.h"
 #include "db_mysql.h"
 #include "stock.h"

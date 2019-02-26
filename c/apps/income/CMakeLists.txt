@@ -9,18 +9,13 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -std=c99 -pedantic")
 
 add_definitions(-D_GNU_SOURCE)
 
+add_subdirectory(third_party/iniparser)
+
 set(LIBCSV_SRCS
     libcsv.c
     )
 
 add_library(libcsv ${LIBCSV_SRCS})
-
-set(INIPARSER_SRCS
-    dictionary.c
-    iniparser.c
-    )
-
-add_library(iniparser ${INIPARSER_SRCS})
 
 find_package(MySQL)
 
