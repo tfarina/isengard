@@ -16,7 +16,7 @@ set(INIPARSER_SRCS
 
 add_library(iniparser ${INIPARSER_SRCS})
 
-add_executable(list util.c list.c)
-add_executable(insert util.c insert.c)
+add_executable(list ffileutils.c list.c)
+add_executable(insert ffileutils.c insert.c)
 target_link_libraries(list ${MYSQL_LIBRARY} iniparser)
 target_link_libraries(insert ${MYSQL_LIBRARY} iniparser)

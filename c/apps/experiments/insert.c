@@ -7,7 +7,7 @@
 #include <mysql/mysql.h>
 
 #include "iniparser.h"
-#include "util.h"
+#include "ffileutils.h"
 
 #define USERCONFFILE ".experimentsrc"
 
