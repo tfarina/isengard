@@ -26,9 +26,9 @@ static void sab_main_window_insert_item(GtkWidget *list_view, ab_contact_t *cont
 
   gtk_list_store_append(GTK_LIST_STORE(model), &iter);
   gtk_list_store_set(GTK_LIST_STORE(model), &iter,
-                     LIST_COL_FIRST_NAME, contact->fname,
-                     LIST_COL_LAST_NAME, contact->lname,
-                     LIST_COL_EMAIL, contact->email,
+                     LIST_COL_FIRST_NAME, ab_contact_get_first_name(contact),
+                     LIST_COL_LAST_NAME, ab_contact_get_last_name(contact),
+                     LIST_COL_EMAIL, ab_contact_get_email(contact),
 		     LIST_COL_PTR, contact,
                      -1);
 }
@@ -172,9 +172,9 @@ static void sab_contact_edit_dialog(GtkWindow *parent, action_code_t ac, ab_cont
 			   G_CALLBACK(sab_contact_edit_dialog_cancel_btn_cb), NULL);
 
   if (current_contact) {
-    gtk_entry_set_text(GTK_ENTRY(fname_entry), current_contact->fname);
-    gtk_entry_set_text(GTK_ENTRY(lname_entry), current_contact->lname);
-    gtk_entry_set_text(GTK_ENTRY(email_entry), current_contact->email);
+    gtk_entry_set_text(GTK_ENTRY(fname_entry), ab_contact_get_first_name(current_contact));
+    gtk_entry_set_text(GTK_ENTRY(lname_entry), ab_contact_get_last_name(current_contact));
+    gtk_entry_set_text(GTK_ENTRY(email_entry), ab_contact_get_email(current_contact));
   }
 
   gtk_widget_grab_focus(fname_entry);
@@ -199,9 +199,9 @@ static void sab_edit_contact_post_cb(ab_contact_t *contact)
   gtk_tree_selection_get_selected(selection, NULL, &iter);
 
   gtk_list_store_set(GTK_LIST_STORE(model), &iter,
-                     LIST_COL_FIRST_NAME, contact->fname,
-                     LIST_COL_LAST_NAME, contact->lname,
-                     LIST_COL_EMAIL, contact->email,
+                     LIST_COL_FIRST_NAME, ab_contact_get_first_name(contact),
+                     LIST_COL_LAST_NAME, ab_contact_get_last_name(contact),
+                     LIST_COL_EMAIL, ab_contact_get_email(contact),
                      -1);
 }
 

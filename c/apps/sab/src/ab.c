@@ -93,6 +93,18 @@ void ab_contact_set_email(ab_contact_t *contact, char const *email) {
   contact->email = email;
 }
 
+char const *ab_contact_get_first_name(ab_contact_t *contact) {
+  return contact->fname;
+}
+
+char const *ab_contact_get_last_name(ab_contact_t *contact) {
+  return contact->lname;
+}
+
+char const *ab_contact_get_email(ab_contact_t *contact) {
+  return contact->email;
+}
+
 int ab_init(void) {
   /* Do nothing if the database handle has been set. */
   if (conn) {
