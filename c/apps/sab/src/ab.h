@@ -6,9 +6,9 @@
 typedef struct ab_contact_s
 {
   int id;
-  const char *fname;
-  const char *lname;
-  const char *email;
+  char const *fname;
+  char const *lname;
+  char const *email;
 } ab_contact_t;
 
 ab_contact_t *ab_contact_alloc(void);
