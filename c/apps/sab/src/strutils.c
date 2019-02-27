@@ -6,6 +6,7 @@
 
 /**
  * Duplicates a string.
+ * The returned string should be freed when no longer needed.
  *
  * @param src (nullable): the string to duplicate
  */
@@ -20,5 +21,7 @@ char *f_strdup(char const *src) {
   len = strlen(src) + 1;
   dst = malloc(len);
 
-  return memcpy(dst, src, len);
+  memcpy(dst, src, len);
+
+  return dst;
 }
