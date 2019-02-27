@@ -13,7 +13,6 @@ add_subdirectory(third_party/sqlite)
 set(LIB_SRCS
     src/ab.c
     src/alpm_list.c
-    src/db.c
     src/strutils.c
    )
 add_library(ab ${LIB_SRCS})
@@ -64,6 +63,9 @@ if (GTK2_FOUND)
 
   add_executable(ui src/ui.c)
   target_link_libraries(ui sqlite3 ${GTK2_LIBRARIES} ${EXTRA_TARGET_LINK_LIBRARIES})
+
+  add_executable(graph src/graph.c)
+  target_link_libraries(graph -lm ${GTK2_LIBRARIES} ${EXTRA_TARGET_LINK_LIBRARIES})
 
   add_executable(sab_gui src/sab_main_window.c)
   target_link_libraries(sab_gui ab sqlite3 ${GTK2_LIBRARIES} ${EXTRA_TARGET_LINK_LIBRARIES})
