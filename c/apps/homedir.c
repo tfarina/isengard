@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "fileutil.h"
+#include "futils.h"
 
 int main(int argc, char **argv) {
   const char *homedir;
