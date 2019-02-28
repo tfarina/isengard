@@ -105,6 +105,19 @@ char const *ab_contact_get_email(ab_contact_t *contact) {
   return contact->email;
 }
 
+static alpm_list_t *contact_list;
+
+static void load_contacts(void) {
+  while (sqlite3_step(select_stmt) == SQLITE_ROW) {
+    ab_contact_t *contact = ab_contact_alloc();
+    contact->id = sqlite3_column_int(select_stmt, 0);
+    contact->fname = f_strdup((const char *)sqlite3_column_text(select_stmt, 1));
+    contact->lname = f_strdup((const char *)sqlite3_column_text(select_stmt, 2));
+    contact->email = f_strdup((const char *)sqlite3_column_text(select_stmt, 3));
+    contact_list = alpm_list_add(contact_list, contact);
+  }
+}
+
 int ab_init(void) {
   /* Do nothing if the database handle has been set. */
   if (conn) {
@@ -147,6 +160,8 @@ int ab_init(void) {
     return -1;
   }
 
+  load_contacts();
+
   return 0;
 }
 
@@ -170,6 +185,8 @@ int ab_close(void) {
 }
 
 int ab_add_contact(ab_contact_t *contact) {
+  contact_list = alpm_list_add(contact_list, contact);
+
   sqlite3_bind_text(insert_stmt, 1, contact->fname, -1, SQLITE_STATIC);
   sqlite3_bind_text(insert_stmt, 2, contact->lname, -1, SQLITE_STATIC);
   sqlite3_bind_text(insert_stmt, 3, contact->email, -1, SQLITE_STATIC);
@@ -201,7 +218,17 @@ int ab_change_contact(ab_contact_t *contact) {
   return 0;
 }
 
+static int _ab_contact_cmp(void const *p1, void const *p2) {
+  ab_contact_t *c1 = (ab_contact_t *)p1;
+  ab_contact_t *c2 = (ab_contact_t *)p2;
+  return c1->id == c2->id;
+}
+
 int ab_delete_contact(ab_contact_t *contact) {
+  void *vc;
+
+  contact_list = alpm_list_remove(contact_list, contact, _ab_contact_cmp, &vc);
+
   sqlite3_bind_int(delete_stmt, 1, contact->id);
 
   if (sqlite3_step(delete_stmt) != SQLITE_DONE) {
@@ -216,26 +243,13 @@ int ab_delete_contact(ab_contact_t *contact) {
 }
 
 alpm_list_t *ab_get_contact_list(void) {
-  alpm_list_t *list = NULL;
-
-  while (sqlite3_step(select_stmt) == SQLITE_ROW) {
-    ab_contact_t *contact = ab_contact_alloc();
-    contact->id = sqlite3_column_int(select_stmt, 0);
-    contact->fname = f_strdup((const char *)sqlite3_column_text(select_stmt, 1));
-    contact->lname = f_strdup((const char *)sqlite3_column_text(select_stmt, 2));
-    contact->email = f_strdup((const char *)sqlite3_column_text(select_stmt, 3));
-    list = alpm_list_add(list, contact);
-  }
-
-  sqlite3_reset(select_stmt);
-
-  return list;
+  return contact_list;
 }
 
 ab_contact_t *ab_get_contact_by_id(alpm_list_t *list, int id) {
   alpm_list_t *i;
 
-  for (i = list; i; i = alpm_list_next(i)) {
+  for (i = contact_list; i; i = alpm_list_next(i)) {
     ab_contact_t *contact = (ab_contact_t *)i->data;
     if (contact->id == id) {
       return contact;
@@ -246,11 +260,9 @@ ab_contact_t *ab_get_contact_by_id(alpm_list_t *list, int id) {
 }
 
 int ab_print_contact_records(void) {
-  alpm_list_t *list, *i;
+  alpm_list_t *i;
 
-  list = ab_get_contact_list();
-
-  for (i = list; i; i = alpm_list_next(i)) {
+  for (i = contact_list; i; i = alpm_list_next(i)) {
     ab_contact_t *contact = (ab_contact_t *)i->data;
     printf("%d|%s|%s|%s\n", contact->id, contact->fname, contact->lname, contact->email);
   }
