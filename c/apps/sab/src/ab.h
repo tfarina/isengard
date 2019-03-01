@@ -32,7 +32,7 @@ int ab_delete_contact(ab_contact_t *contact);
 
 alpm_list_t *ab_get_contact_list(void);
 
-ab_contact_t *ab_get_contact_by_id(alpm_list_t *list, int id);
+ab_contact_t *ab_get_contact_by_id(int id);
 
 /**
  * Prints to standard output all the records found in the table.

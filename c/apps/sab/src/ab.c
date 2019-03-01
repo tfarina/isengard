@@ -246,7 +246,7 @@ alpm_list_t *ab_get_contact_list(void) {
   return contact_list;
 }
 
-ab_contact_t *ab_get_contact_by_id(alpm_list_t *list, int id) {
+ab_contact_t *ab_get_contact_by_id(int id) {
   alpm_list_t *i;
 
   for (i = contact_list; i; i = alpm_list_next(i)) {

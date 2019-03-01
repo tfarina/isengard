@@ -4,7 +4,6 @@
 #include "ab.h"
 
 int main(int argc, char **argv) {
-  alpm_list_t *list;
   int id;
   ab_contact_t *contact = NULL;
 
@@ -15,11 +14,9 @@ int main(int argc, char **argv) {
 
   ab_init();
 
-  list = ab_get_contact_list();
-
   id = atoi(argv[1]);
 
-  contact = ab_get_contact_by_id(list, id);
+  contact = ab_get_contact_by_id(id);
   if (!contact) {
     fprintf(stderr, "%s: contact (%s) does not exist in our database.\n",
             argv[0], argv[1]);
