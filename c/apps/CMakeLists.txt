@@ -10,15 +10,15 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 find_package(MySQL)
 
 set(SRCS
-    dictionary.c
-    iniparser.c
-    )
+  dictionary.c
+  iniparser.c
+)
 
 add_library(iniparser ${SRCS})
 
 set(LIBCSV_SRCS
-    libcsv.c
-    )
+  libcsv.c
+)
 
 add_library(libcsv ${LIBCSV_SRCS})
 
@@ -91,8 +91,8 @@ add_executable(csvinfo csvinfo.c)
 target_link_libraries(csvinfo libcsv)
 
 set(LIBCSV_PARSER_SRCS
-    csv_parser.c
-    )
+  csv_parser.c
+)
 
 add_library(libcsv_parser ${LIBCSV_PARSER_SRCS})
 add_executable(csvimport csvimport.c)
