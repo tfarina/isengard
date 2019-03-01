@@ -9,12 +9,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 find_package(MySQL)
 
-set(SRCS
-  dictionary.c
-  iniparser.c
-)
-
-add_library(iniparser ${SRCS})
+add_subdirectory(third_party/iniparser)
 
 set(LIBCSV_SRCS
   libcsv.c
