@@ -11,6 +11,7 @@ add_definitions(-D_GNU_SOURCE)
 
 add_subdirectory(third_party/iniparser)
 add_subdirectory(third_party/libcsv)
+add_subdirectory(third_party/sqlite)
 
 find_package(MySQL)
 
