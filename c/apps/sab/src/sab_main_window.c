@@ -293,6 +293,16 @@ static void app_quit_cb(GtkAction *action, gpointer data)
   gtk_widget_destroy(main_window);
 }
 
+static gint app_delete_event_cb(GtkWidget *widget, GdkEventAny *event,
+				 gpointer data)
+{
+  (void)widget;
+  (void)event;
+  (void)data;
+
+  return FALSE;
+}
+
 /**
  * Handle destroy signal.
  *
@@ -335,6 +345,8 @@ int main(int argc, char** argv)
   gtk_window_set_position(GTK_WINDOW(main_window), GTK_WIN_POS_CENTER);
   gtk_window_set_default_size(GTK_WINDOW(main_window), WINDOW_WIDTH, WINDOW_HEIGHT);
 
+  g_signal_connect(G_OBJECT(main_window), "delete_event",
+                   G_CALLBACK(app_delete_event_cb), NULL);
   g_signal_connect(G_OBJECT(main_window), "destroy",
                    G_CALLBACK(app_destroy_cb), NULL);
 
