@@ -301,7 +301,6 @@ static void app_quit_cb(GtkAction *action, gpointer data)
  */
 static void app_destroy_cb(GtkWidget *widget, gpointer data)
 {
-  printf("app_destroy_cb called\n");
   (void)widget;
   (void)data;
 
