@@ -287,7 +287,10 @@ static void sab_main_window_list_selection_changed_cb(GtkTreeSelection *selectio
 
 static void app_quit_cb(GtkAction *action, gpointer data)
 {
-  gtk_main_quit();
+  (void)action;
+  (void)data;
+
+  gtk_widget_destroy(main_window);
 }
 
 /**
@@ -298,6 +301,7 @@ static void app_quit_cb(GtkAction *action, gpointer data)
  */
 static void app_destroy_cb(GtkWidget *widget, gpointer data)
 {
+  printf("app_destroy_cb called\n");
   (void)widget;
   (void)data;
 
