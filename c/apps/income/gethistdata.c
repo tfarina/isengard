@@ -12,10 +12,10 @@
 #include "third_party/libcsv/csv.h"
 #include "csv_helper.h"
 #include "third_party/iniparser/iniparser.h"
-#include "env.h"
 #include "db_mysql.h"
 #include "stock.h"
 #include "file.h"
+#include "futils.h"
 
 #define USERCONFFILE ".traderc"
 
@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
   int rc;
   stock_info_t stock;
   size_t bytes_processed;
-  char *homedir;
+  char const *homedir;
   char *userconffile;
   dictionary *ini;
   const char *host;
@@ -189,7 +189,7 @@ int main(int argc, char *argv[])
   }
 
   /* 7. Import the data into MySQL. */
-  homedir = get_home_dir();
+  homedir = f_get_home_dir();
   userconffile = make_file_path(homedir, USERCONFFILE);
   ini = iniparser_load(userconffile);
   if (ini == NULL) {

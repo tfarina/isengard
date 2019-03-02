@@ -28,9 +28,9 @@ if (CURL_FOUND)
   add_executable(download_yahoo download_yahoo.c buffer.c curl_helper.c)
   target_link_libraries(download_yahoo ${CURL_LIBRARIES})
 
-  add_executable(gethistdata gethistdata.c env.c db_mysql.c stock.c file.c buffer.c curl_helper.c csv_helper.c)
+  add_executable(gethistdata gethistdata.c futils.c db_mysql.c stock.c file.c buffer.c curl_helper.c csv_helper.c)
   target_link_libraries(gethistdata ${CURL_LIBRARIES} libcsv iniparser ${MYSQL_LIBRARY})
 endif()
 
-add_executable(csvimport csvimport.c file.c db_mysql.c env.c stock.c csv_helper.c)
+add_executable(csvimport csvimport.c file.c futils.c db_mysql.c stock.c csv_helper.c)
 target_link_libraries(csvimport iniparser libcsv ${MYSQL_LIBRARY})
