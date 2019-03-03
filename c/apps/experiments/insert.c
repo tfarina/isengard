@@ -14,11 +14,9 @@
 
 static MYSQL *conn = NULL;
 
-static int db_connect(const char *host, const char *user,
+static int db_connect(const char *host, int unsigned port, const char *user,
                       const char *password, const char *dbname)
 {
-  unsigned int port = 0;
-
   if ((conn = mysql_init(NULL)) == NULL) {
     fprintf(stderr, "mysql: unable to allocate memory for database connection.\n");
     return -1;
@@ -55,6 +53,7 @@ int main(int argc, char **argv) {
   char *userconffile;
   dictionary *ini;
   const char *host;
+  int unsigned port;
   const char *user;
   const char *password;
   const char *dbname;
@@ -63,11 +62,12 @@ int main(int argc, char **argv) {
   userconffile = f_build_filename(homedir, USERCONFFILE);
   ini = iniparser_load(userconffile);
   host = iniparser_getstring(ini, "mysql:host", NULL);
+  port = 0;
   user = iniparser_getstring(ini, "mysql:user", NULL);
   password = iniparser_getstring(ini, "mysql:password", NULL);
   dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
 
-  if (db_connect(host, user, password, dbname)) {
+  if (db_connect(host, port, user, password, dbname)) {
     return -1;
   }
 

@@ -15,18 +15,17 @@
 static MYSQL *conn = NULL;
 
 typedef struct {
-  const char *host;
-  const char *user;
-  const char *password;
-  const char *dbname;
+  char const *host;
+  int unsigned port;
+  char const *user;
+  char const *password;
+  char const *dbname;
 } config_t;
 
 
-static int db_connect(const char *host, const char *user,
+static int db_connect(const char *host, int unsigned port, const char *user,
                       const char *password, const char *dbname)
 {
-  unsigned int port = 0;
-
   if ((conn = mysql_init(NULL)) == NULL) {
     fprintf(stderr, "mysql: unable to allocate memory for database connection.\n");
     return -1;
@@ -153,6 +152,7 @@ static void config_init(config_t *config) {
   ini = iniparser_load(userconffile);
 
   config->host = strdup(iniparser_getstring(ini, "mysql:host", NULL));
+  config->port = 0;
   config->user = strdup(iniparser_getstring(ini, "mysql:user", NULL));
   config->password = strdup(iniparser_getstring(ini, "mysql:password", NULL));
   config->dbname = strdup(iniparser_getstring(ini, "mysql:dbname", NULL));
@@ -165,7 +165,7 @@ int main(int argc, char **argv) {
 
   config_init(&config);
 
-  if (db_connect(config.host, config.user, config.password, config.dbname)) {
+  if (db_connect(config.host, config.port, config.user, config.password, config.dbname)) {
     return -1;
   }
 
