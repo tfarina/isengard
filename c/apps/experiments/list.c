@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <mysql/mysql.h>
 
+#include "db.h"
 #include "third_party/iniparser/iniparser.h"
 #include "ffileutils.h"
 #include "futils.h"
@@ -13,14 +14,6 @@
 #define USERCONFFILE ".experimentsrc"
 
 static MYSQL *conn = NULL;
-
-typedef struct {
-  char const *host;
-  char const *user;
-  char const *password;
-  char const *dbname;
-  int unsigned port;
-} db_config_t;
 
 static int db_connect(const char *host, int unsigned port, const char *user,
                       const char *password, const char *dbname)
