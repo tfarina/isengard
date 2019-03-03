@@ -6,11 +6,7 @@
 #include <stdlib.h>
 #include <mysql/mysql.h>
 
-#include "third_party/iniparser/iniparser.h"
-#include "ffileutils.h"
-#include "futils.h"
-
-#define USERCONFFILE ".experimentsrc"
+#include "db.h"
 
 static MYSQL *conn = NULL;
 
@@ -49,25 +45,11 @@ static int product_add(const char *name, int quantity, double price)
 }
 
 int main(int argc, char **argv) {
-  const char *homedir;
-  char *userconffile;
-  dictionary *ini;
-  const char *host;
-  int unsigned port;
-  const char *user;
-  const char *password;
-  const char *dbname;
+  db_config_t config;
 
-  homedir = f_get_home_dir();
-  userconffile = f_build_filename(homedir, USERCONFFILE);
-  ini = iniparser_load(userconffile);
-  host = iniparser_getstring(ini, "mysql:host", NULL);
-  port = 0;
-  user = iniparser_getstring(ini, "mysql:user", NULL);
-  password = iniparser_getstring(ini, "mysql:password", NULL);
-  dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
+  db_config_init(&config);
 
-  if (db_connect(host, port, user, password, dbname)) {
+  if (db_connect(config.host, config.port, config.user, config.password, config.dbname)) {
     return -1;
   }
 
