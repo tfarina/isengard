@@ -55,6 +55,7 @@ set(SRCS
     src/main.c
     )
 add_executable(sab ${SRCS})
+target_link_libraries(sab ab sqlite3 ${EXTRA_TARGET_LINK_LIBRARIES})
 
 find_package(GTK2 2.6 REQUIRED gtk)
 

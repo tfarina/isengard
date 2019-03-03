@@ -1,11 +1,15 @@
 #include "commands.h"
 
-#include <stdio.h>
+#include "ab.h"
 
 int cmd_list(int argc, char **argv) {
-  printf("New argc count: %d\n", argc);
-  printf("New argv[0]: %s\n", argv[0]);
-  printf("function: cmd_list() called!\n");
+  int rc;
 
-  return 0;
+  ab_init();
+
+  rc = ab_print_contact_records();
+
+  ab_close();
+
+  return rc;
 }
