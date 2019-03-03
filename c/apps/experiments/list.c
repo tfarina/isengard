@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <mysql/mysql.h>
 
-#include "iniparser.h"
+#include "third_party/iniparser/iniparser.h"
 #include "ffileutils.h"
 #include "futils.h"
 
