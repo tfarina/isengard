@@ -4,14 +4,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <mysql/mysql.h>
 
 #include "db.h"
-#include "third_party/iniparser/iniparser.h"
-#include "ffileutils.h"
-#include "futils.h"
-
-#define USERCONFFILE ".experimentsrc"
 
 static MYSQL *conn = NULL;
 
@@ -131,25 +127,6 @@ static int print_product_records(void)
   mysql_free_result(res);
 
   return 0;
-}
-
-static void db_config_init(db_config_t *config) {
-  const char *homedir;
-  char *userconffile;
-  dictionary *ini;
-
-  homedir = f_get_home_dir();
-  userconffile = f_build_filename(homedir, USERCONFFILE);
-
-  ini = iniparser_load(userconffile);
-
-  config->host = strdup(iniparser_getstring(ini, "mysql:host", NULL));
-  config->port = 0;
-  config->user = strdup(iniparser_getstring(ini, "mysql:user", NULL));
-  config->password = strdup(iniparser_getstring(ini, "mysql:password", NULL));
-  config->dbname = strdup(iniparser_getstring(ini, "mysql:dbname", NULL));
-
-  iniparser_freedict(ini);
 }
 
 int main(int argc, char **argv) {
