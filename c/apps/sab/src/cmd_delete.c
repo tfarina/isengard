@@ -2,10 +2,33 @@
 
 #include <stdio.h>
 
+#include "ab.h"
+
 int cmd_delete(int argc, char **argv) {
-  printf("New argc count: %d\n", argc);
-  printf("New argv[0]: %s\n", argv[0]);
-  printf("function: cmd_delete() called!\n");
+  int id;
+  ab_contact_t *contact = NULL;
+
+  if (argc != 2) {
+    fprintf(stderr, "usage: %s 'ID'\n", argv[0]);
+    return -1;
+  }
+
+  ab_init();
+
+  id = atoi(argv[1]);
+
+  contact = ab_get_contact_by_id(id);
+  if (!contact) {
+    fprintf(stderr, "%s: contact (%s) does not exist in our database.\n",
+            argv[0], argv[1]);
+    return -1;
+  }
+
+  if (ab_delete_contact(contact)) {
+    return -1;
+  }
+
+  ab_close();
 
   return 0;
 }
