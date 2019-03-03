@@ -7,12 +7,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 find_package(MySQL)
 
 set(INIPARSER_SRCS
-    dictionary.c
-    iniparser.c
-    libconfuse/confuse.c
-    libconfuse/fmemopen.c
-    libconfuse/lexer.c
-    )
+  dictionary.c
+  iniparser.c
+)
 
 add_library(iniparser ${INIPARSER_SRCS})
 
