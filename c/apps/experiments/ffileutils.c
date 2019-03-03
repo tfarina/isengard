@@ -5,11 +5,6 @@
 
 #define PATH_SEP '/'
 
-const char *f_get_home_dir(void)
-{
-  return getenv("HOME");
-}
-
 /* Code from msmtp:src/tools.c:get_filename */
 char *f_build_filename(const char *directory, const char *name)
 {

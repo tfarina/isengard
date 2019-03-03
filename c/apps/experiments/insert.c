@@ -8,6 +8,7 @@
 
 #include "iniparser.h"
 #include "ffileutils.h"
+#include "futils.h"
 
 #define USERCONFFILE ".experimentsrc"
 
