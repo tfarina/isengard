@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
  
-#include "csv.h"
+#include "third_party/libcsv/csv.h"
  
 static char *read_file(char *filename, size_t *len) {
   // open file for reading

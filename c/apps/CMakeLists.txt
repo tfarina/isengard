@@ -10,12 +10,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 find_package(MySQL)
 
 add_subdirectory(third_party/iniparser)
-
-set(LIBCSV_SRCS
-  libcsv.c
-)
-
-add_library(libcsv ${LIBCSV_SRCS})
+add_subdirectory(third_party/libcsv)
 
 add_executable(tst tst.c)
 target_link_libraries(tst libcsv)
@@ -48,6 +43,7 @@ add_executable(cjson_test cJSON.c cJSONTest.c)
 target_link_libraries(cjson_test -lm)
 add_executable(pointers pointers.c)
 add_executable(pointers2 pointers2.c)
+add_executable(pointers3 pointers3.c)
 add_executable(arrays_n_pointers arrays_n_pointers.c)
 add_executable(postfixoperator postfixoperator.c)
 add_executable(inheritance inheritance.c)
