@@ -67,6 +67,7 @@ static struct option long_options[] = {
  */
 struct instance {
   char *log_filename; /* log filename */
+  pid_t pid;          /* process id */
 };
 
 static char *get_progname(char *argv0) {
@@ -191,6 +192,8 @@ int main(int argc, char **argv) {
 
   progname = get_progname(argv[0]);
 
+  edi.pid = getpid();
+
   while ((ch = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
     switch (ch) {
     case 'd':
@@ -257,7 +260,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  log_info("%s started (%ld), port %d", progname, (long)getpid(), port);
+  log_info("%s started on %d, port %d", progname, edi.pid, port);
 
   drop_privileges(pw->pw_uid, pw->pw_gid);
 
