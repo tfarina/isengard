@@ -22,11 +22,9 @@ add_executable(print_csv_stats print_csv_stats.c strutils.c csv_helper.c stats.c
 target_link_libraries(print_csv_stats libcsv ${MYSQL_LIBRARY} -lm)
 
 find_package(CURL REQUIRED)
+
 if (CURL_FOUND)
   include_directories(${CURL_INCLUDE_DIRS})
-
-  add_executable(download_yahoo download_yahoo.c buffer.c curl_helper.c)
-  target_link_libraries(download_yahoo ${CURL_LIBRARIES})
 
   add_executable(gethistdata gethistdata.c strutils.c futils.c db_mysql.c stock.c file.c buffer.c curl_helper.c csv_helper.c)
   target_link_libraries(gethistdata ${CURL_LIBRARIES} libcsv iniparser ${MYSQL_LIBRARY})
