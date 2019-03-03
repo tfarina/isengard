@@ -16,6 +16,7 @@
 #include "stock.h"
 #include "file.h"
 #include "futils.h"
+#include "strutils.h"
 
 #define USERCONFFILE ".traderc"
 
@@ -136,7 +137,7 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  symbol = strdup(argv[1]);
+  symbol = f_strdup(argv[1]);
 
   now = time(NULL); /* get time right now */
   now_tm = localtime(&now);

@@ -7,6 +7,7 @@
 #include "csv_helper.h"
 #include "file.h"
 #include "stock.h"
+#include "strutils.h"
 
 int main(int argc, char **argv) {
   char *csvdata;
@@ -34,7 +35,7 @@ int main(int argc, char **argv) {
   }
  
   memset((void *)&stock, 0, sizeof(stock_info_t));
-  stock.symbol = strdup(argv[2]);
+  stock.symbol = f_strdup(argv[2]);
   stock_ticks_alloc(&stock, 2);
   if (stock.ticks == NULL) {
     fprintf(stderr, "failed to allocate %zu bytes for stock data\n",

@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
   }
  
   memset((void *)&stock, 0, sizeof(stock_info_t));
-  stock.symbol = strdup(argv[2]);
+  stock.symbol = f_strdup(argv[2]);
   stock.ticks_capacity = 2;
   stock.ticks = malloc(stock.ticks_capacity * sizeof(stock_tick_t));
   if (stock.ticks == NULL) {

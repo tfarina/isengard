@@ -7,6 +7,7 @@
 
 #include "third_party/libcsv/csv.h"
 #include "stock.h"
+#include "strutils.h"
 
 typedef enum {
   CSV_COLUMN_DATE,
@@ -70,7 +71,7 @@ void csv_column_cb(void *field,
     }
  
     // anyway, we just got tick data
-    cur_tick->date = strdup((char*)field);
+    cur_tick->date = f_strdup((char*)field);
     break;
  
   case CSV_COLUMN_OPEN:

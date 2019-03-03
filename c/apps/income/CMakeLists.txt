@@ -15,10 +15,10 @@ add_subdirectory(third_party/sqlite)
 
 find_package(MySQL)
 
-add_executable(print_csv_ticks print_csv_ticks.c file.c csv_helper.c stock.c)
+add_executable(print_csv_ticks print_csv_ticks.c strutils.c file.c csv_helper.c stock.c)
 target_link_libraries(print_csv_ticks libcsv ${MYSQL_LIBRARY})
 
-add_executable(print_csv_stats print_csv_stats.c csv_helper.c stats.c)
+add_executable(print_csv_stats print_csv_stats.c strutils.c csv_helper.c stats.c)
 target_link_libraries(print_csv_stats libcsv ${MYSQL_LIBRARY} -lm)
 
 find_package(CURL REQUIRED)
@@ -28,9 +28,9 @@ if (CURL_FOUND)
   add_executable(download_yahoo download_yahoo.c buffer.c curl_helper.c)
   target_link_libraries(download_yahoo ${CURL_LIBRARIES})
 
-  add_executable(gethistdata gethistdata.c futils.c db_mysql.c stock.c file.c buffer.c curl_helper.c csv_helper.c)
+  add_executable(gethistdata gethistdata.c strutils.c futils.c db_mysql.c stock.c file.c buffer.c curl_helper.c csv_helper.c)
   target_link_libraries(gethistdata ${CURL_LIBRARIES} libcsv iniparser ${MYSQL_LIBRARY})
 endif()
 
-add_executable(csvimport csvimport.c file.c futils.c db_mysql.c stock.c csv_helper.c)
+add_executable(csvimport csvimport.c strutils.c file.c futils.c db_mysql.c stock.c csv_helper.c)
 target_link_libraries(csvimport iniparser libcsv ${MYSQL_LIBRARY})
