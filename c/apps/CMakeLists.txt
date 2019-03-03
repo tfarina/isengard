@@ -15,6 +15,12 @@ add_subdirectory(third_party/libcsv)
 add_executable(tst tst.c)
 target_link_libraries(tst libcsv)
 
+add_executable(ticks ticks.c)
+target_link_libraries(ticks libcsv)
+
+add_executable(csvinfo csvinfo.c)
+target_link_libraries(csvinfo libcsv)
+
 add_executable(readfile readfile.c)
 add_executable(writefile writefile.c)
 add_executable(buildtime buildtime.c)
@@ -72,14 +78,6 @@ add_executable(stats_test stats_test.c stats.c)
 target_link_libraries(stats_test -lm)
 add_executable(mysql_version mysql_version.c)
 target_link_libraries(mysql_version ${MYSQL_LIBRARY})
-
-
-
-add_executable(ticks ticks.c)
-target_link_libraries(ticks libcsv)
-
-add_executable(csvinfo csvinfo.c)
-target_link_libraries(csvinfo libcsv)
 
 set(LIBCSV_PARSER_SRCS
   csv_parser.c
