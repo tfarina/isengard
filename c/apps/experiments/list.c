@@ -16,12 +16,11 @@ static MYSQL *conn = NULL;
 
 typedef struct {
   char const *host;
-  int unsigned port;
   char const *user;
   char const *password;
   char const *dbname;
-} config_t;
-
+  int unsigned port;
+} db_config_t;
 
 static int db_connect(const char *host, int unsigned port, const char *user,
                       const char *password, const char *dbname)
@@ -141,7 +140,7 @@ static int print_product_records(void)
   return 0;
 }
 
-static void config_init(config_t *config) {
+static void db_config_init(db_config_t *config) {
   const char *homedir;
   char *userconffile;
   dictionary *ini;
@@ -161,9 +160,9 @@ static void config_init(config_t *config) {
 }
 
 int main(int argc, char **argv) {
-  config_t config;
+  db_config_t config;
 
-  config_init(&config);
+  db_config_init(&config);
 
   if (db_connect(config.host, config.port, config.user, config.password, config.dbname)) {
     return -1;
