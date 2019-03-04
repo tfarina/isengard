@@ -155,7 +155,6 @@ int main(int argc, char *argv[])
 
   download_quotes_from_yahoo(symbol, one_year_ago, now, &buf);
 
-  /* TODO: This function should stop here and return buf! */
   printf("%s\n", buf.data);
 
   /* 5. Now write |buf.data| to file. */
