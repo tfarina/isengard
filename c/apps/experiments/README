@@ -1,8 +1,5 @@
-Install the server (mysqld):
-$ sudo apt install mysql-server-core-5.7
-
-Install the client (mysql):
-$ sudo apt install mysql-client-core-5.7
+Install MySQL server
+$ sudo apt install mysql-server
 
 Install the library (mysql.h):
 $ sudo apt install libmysqlclient-dev
