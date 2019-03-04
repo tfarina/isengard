@@ -8,7 +8,7 @@ find_package(MySQL)
 
 add_subdirectory(third_party/iniparser)
 
-add_executable(list db.c futils.c ffileutils.c list.c)
-add_executable(insert db.c futils.c ffileutils.c insert.c)
-target_link_libraries(list ${MYSQL_LIBRARY} iniparser)
-target_link_libraries(insert ${MYSQL_LIBRARY} iniparser)
+add_executable(showrec db.c futils.c ffileutils.c showrec.c)
+add_executable(add db.c futils.c ffileutils.c add.c)
+target_link_libraries(showrec ${MYSQL_LIBRARY} iniparser)
+target_link_libraries(add ${MYSQL_LIBRARY} iniparser)
