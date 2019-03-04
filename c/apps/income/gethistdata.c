@@ -211,10 +211,7 @@ int main(int argc, char *argv[])
   printf("Importing records...\n");
 
   for (i = 0; i < stock.ticks_length; i++) {
-    stock_tick_t *tick = stock.ticks + i;
-
-    if (stock_add_tick(conn, &stock, tick) != -1) {
-    }
+    stock_add_tick(conn, &stock, stock.ticks + i);
   }
 
   printf("Imported %d items for %s\n", stock.ticks_length, stock.symbol);
