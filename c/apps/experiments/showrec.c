@@ -55,7 +55,7 @@ static void print_dashes(MYSQL_RES *res)
   fputc('\n', stdout);
 }
 
-static int print_product_records(void)
+static int ab_print_contact_records(void)
 {
   char query[256];
   MYSQL_RES *res = NULL;
@@ -65,7 +65,7 @@ static int print_product_records(void)
   MYSQL_ROW row;
   int i;
 
-  sprintf(query, "SELECT productCode, productName, productLine FROM products");
+  sprintf(query, "SELECT * FROM contacts");
 
   if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: sql select failed: %s\n", mysql_error(conn));
@@ -138,7 +138,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (print_product_records()) {
+  if (ab_print_contact_records()) {
     return -1;
   }
 

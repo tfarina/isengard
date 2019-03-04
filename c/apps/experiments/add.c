@@ -28,12 +28,12 @@ static int db_connect(const char *host, int unsigned port, const char *user,
   return 0;
 }
 
-static int product_add(const char *name, int quantity, double price)
+static int ab_add_contact(const char *fname, const char *lname, const char *email)
 {
   char query[256];
 
-  sprintf(query, "INSERT INTO products (`productName`, `productLine`, `quantityInStock`, `buyPrice`) VALUES ('%s', 'Motorcycles', %d, %f)",
-          name, quantity, price);
+  sprintf(query, "INSERT INTO contacts (fname, lname, email) VALUES ('%s', '%s', '%s')",
+          fname, lname, email);
 
   if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: sql insert failed: %s\n", mysql_error(conn));
@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (product_add("Ducati", 25, 8999.00) == -1) {
+  if (ab_add_contact("Bill", "Gates", "gates@microsoft.com") == -1) {
     return -1;
   }
 
