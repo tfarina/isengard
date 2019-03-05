@@ -13,7 +13,7 @@ static MYSQL *conn = NULL;
 
 static int db_mysql_connect(const char *host, const char *user,
                             const char *password, const char *dbname,
-                            int unsigned port )
+                            int unsigned port)
 {
   if ((conn = mysql_init(NULL)) == NULL) {
     fprintf(stderr, "mysql: unable to allocate memory for database connection.\n");

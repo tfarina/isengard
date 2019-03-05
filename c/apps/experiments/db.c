@@ -21,7 +21,7 @@ void db_config_init(db_config_t *config) {
   config->user = f_strdup(iniparser_getstring(ini, "mysql:user", NULL));
   config->password = f_strdup(iniparser_getstring(ini, "mysql:password", NULL));
   config->dbname = f_strdup(iniparser_getstring(ini, "mysql:dbname", NULL));
-  config->port = 0;
+  config->port = iniparser_getint(ini, "mysql:port", 3306);
 
   iniparser_freedict(ini);
 }
