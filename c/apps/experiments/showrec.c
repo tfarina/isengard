@@ -29,6 +29,13 @@ static int db_mysql_connect(const char *host, int unsigned port, const char *use
   return 0;
 }
 
+static int db_mysql_disconnect(void)
+{
+  mysql_close(conn);
+  conn = NULL;
+  return 0;
+}
+
 /*
  * http://www.kitebird.com/mysql-book/ch06-3ed.pdf
  */
@@ -69,13 +76,13 @@ static int ab_print_contact_records(void)
 
   if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: sql select failed: %s\n", mysql_error(conn));
-    mysql_close(conn);
+    db_mysql_disconnect();
     return -1;
   }
 
   if ((res = mysql_store_result(conn)) == NULL) {
     fprintf(stderr, "mysql: sql result retrieval failed: %s\n", mysql_error(conn));
-    mysql_close(conn);
+    db_mysql_disconnect();
     return -1;
   }
 
@@ -142,7 +149,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  mysql_close(conn);
+  db_mysql_disconnect();
 
   return 0;
 }

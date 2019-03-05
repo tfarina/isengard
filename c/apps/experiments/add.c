@@ -28,6 +28,13 @@ static int db_mysql_connect(const char *host, int unsigned port, const char *use
   return 0;
 }
 
+static int db_mysql_disconnect(void)
+{
+  mysql_close(conn);
+  conn = NULL;
+  return 0;
+}
+
 static int ab_add_contact(const char *fname, const char *lname, const char *email)
 {
   char query[256];
@@ -37,7 +44,7 @@ static int ab_add_contact(const char *fname, const char *lname, const char *emai
 
   if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: sql insert failed: %s\n", mysql_error(conn));
-    mysql_close(conn);
+    db_mysql_disconnect();
     return -1;
   }
 
@@ -57,7 +64,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  mysql_close(conn);
+  db_mysql_disconnect();
 
   return 0;
 }
