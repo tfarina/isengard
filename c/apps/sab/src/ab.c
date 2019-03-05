@@ -24,7 +24,7 @@ static const char delete_sql[] =
 static sqlite3_stmt *select_stmt;
 static const char select_sql[] = "SELECT * FROM contacts";
 
-static void db_close(sqlite3 *db) {
+static void _ab_sqlite_disconnect(sqlite3 *db) {
   if (sqlite3_close(db) != SQLITE_OK) {
     fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errmsg(db));
   }
@@ -48,7 +48,7 @@ static int _create_tables(void) {
 
   if (sqlite3_prepare(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errmsg(conn));
-    db_close(conn);
+    _ab_sqlite_disconnect(conn);
     return -1;
   }
 
@@ -59,7 +59,7 @@ static int _create_tables(void) {
 
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "error creating contacts table: %s\n", sqlite3_errmsg(conn));
-    db_close(conn);
+    _ab_sqlite_disconnect(conn);
     return -1;
   }
 
@@ -131,14 +131,14 @@ int ab_init(void) {
   }
 
   if (_create_tables()) {
-    db_close(conn);
+    _ab_sqlite_disconnect(conn);
     return -1;
   }
 
   if (sqlite3_prepare(conn, insert_sql, -1, &insert_stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing insert statement: %s\n",
             sqlite3_errmsg(conn));
-    db_close(conn);
+    _ab_sqlite_disconnect(conn);
     return -1;
   }
 
@@ -178,7 +178,7 @@ int ab_close(void) {
   sqlite3_finalize(select_stmt);
   select_stmt = NULL;
 
-  db_close(conn);
+  _ab_sqlite_disconnect(conn);
   conn = NULL;
 
   return 0;
