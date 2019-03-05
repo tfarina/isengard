@@ -10,8 +10,9 @@
 
 static MYSQL *conn = NULL;
 
-static int db_mysql_connect(const char *host, int unsigned port, const char *user,
-                            const char *password, const char *dbname)
+static int db_mysql_connect(const char *host, const char *user,
+                            const char *password, const char *dbname,
+                            int unsigned port)
 {
   if ((conn = mysql_init(NULL)) == NULL) {
     fprintf(stderr, "mysql: unable to allocate memory for database connection.\n");
@@ -56,7 +57,7 @@ int main(int argc, char **argv) {
 
   db_config_init(&config);
 
-  if (db_mysql_connect(config.host, config.port, config.user, config.password, config.dbname)) {
+  if (db_mysql_connect(config.host, config.user, config.password, config.dbname, config.port)) {
     return -1;
   }
 
