@@ -225,23 +225,23 @@ int main(int argc, char **argv) {
 
   if (argc > 0) {
     ed_show_usage();
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   if (geteuid() != 0) {
     fprintf(stderr, "%s: need root privileges\n", progname);
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   if ((pw = getpwnam(ED_USER)) == NULL) {
     fprintf(stderr, "%s: cannot find user '%s' to switch to\n", progname, ED_USER);
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   if (instance.daemonize) {
     if (daemon(0, 0) == -1) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
-      exit(EXIT_FAILURE);
+      return EXIT_FAILURE;
     }
   }
 
