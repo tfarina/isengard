@@ -65,7 +65,7 @@ static struct option long_options[] = {
 /** \struct instance
  * @brief An instance of Echo daemon.
  */
-struct instance {
+struct ed_instance {
   int daemonize;      /* daemon mode */
   char *log_filename; /* log filename */
   pid_t pid;          /* process id */
@@ -84,9 +84,9 @@ static char *get_progname(char *argv0) {
   return name;
 }
 
-static void ed_set_default_options(struct instance *edi) {
-  edi->daemonize = 0;
-  edi->log_filename = NULL;
+static void ed_set_default_options(struct ed_instance *instance) {
+  instance->daemonize = 0;
+  instance->log_filename = NULL;
 }
 
 static void ed_show_usage(void) {
@@ -187,18 +187,18 @@ int main(int argc, char **argv) {
   char clientip[46];
   int clientport;
   pid_t pid;
-  struct instance edi;
+  struct ed_instance instance;
 
-  ed_set_default_options(&edi);
+  ed_set_default_options(&instance);
 
   progname = get_progname(argv[0]);
 
-  edi.pid = getpid();
+  instance.pid = getpid();
 
   while ((ch = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
     switch (ch) {
     case 'd':
-      edi.daemonize = 1;
+      instance.daemonize = 1;
       break;
 
     case 'p':
@@ -247,21 +247,21 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  if (edi.daemonize) {
+  if (instance.daemonize) {
     if (daemon(0, 0) == -1) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
       exit(EXIT_FAILURE);
     }
   }
 
-  log_init(progname, !edi.daemonize);
+  log_init(progname, !instance.daemonize);
 
   tcpfd = fnet_tcp_socket_listen(host, port, ED_BACKLOG);
   if (tcpfd == FNET_ERR) {
     return EXIT_FAILURE;
   }
 
-  log_info("%s started on %d, port %d", progname, edi.pid, port);
+  log_info("%s started on %d, port %d", progname, instance.pid, port);
 
   drop_privileges(pw->pw_uid, pw->pw_gid);
 
