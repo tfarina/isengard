@@ -31,6 +31,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "ed_instance.h"
 #include "ed_log.h"
 #include "ed_net.h"
 
@@ -62,15 +63,6 @@ static struct option long_options[] = {
     { NULL,    0,                 NULL,  0  }
 };
 
-/** \struct instance
- * @brief An instance of Echo daemon.
- */
-typedef struct ed_instance_s {
-  int daemonize;      /* daemon mode */
-  char *log_filename; /* log filename */
-  pid_t pid;          /* process id */
-} ed_instance_t;
-
 static char *get_progname(char *argv0) {
   char *name;
 
@@ -82,12 +74,6 @@ static char *get_progname(char *argv0) {
   }
 
   return name;
-}
-
-static void ed_instance_init(ed_instance_t *instance) {
-  instance->daemonize = 0;
-  instance->log_filename = NULL;
-  instance->pid = getpid();
 }
 
 static void ed_show_usage(void) {
