@@ -232,7 +232,7 @@ int main(int argc, char **argv) {
   }
 
   if ((pw = getpwnam(ED_USER)) == NULL) {
-    fprintf(stderr, "unknown user %s\n", ED_USER);
+    fprintf(stderr, "%s: cannot find user '%s' to switch to\n", progname, ED_USER);
     exit(EXIT_FAILURE);
   }
 
