@@ -64,19 +64,6 @@ static struct option long_options[] = {
     { NULL,    0,                 NULL,  0  }
 };
 
-static char *get_progname(char *argv0) {
-  char *name;
-
-  name = strrchr(argv0, '/');
-  if (name == NULL) {
-    name = argv0;
-  } else {
-    name++;
-  }
-
-  return name;
-}
-
 static void ed_show_usage(void) {
   fprintf(stderr,
 	  "usage: %s [-hd] [-l interface] [-p port] [-b backlog]" CRLF CRLF,
@@ -175,7 +162,7 @@ int main(int argc, char **argv) {
 
   ed_instance_init(&instance);
 
-  progname = get_progname(argv[0]);
+  progname = ed_get_progname(argv[0]);
 
   while ((ch = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
     switch (ch) {
