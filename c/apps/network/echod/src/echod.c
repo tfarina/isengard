@@ -66,6 +66,7 @@ static struct option long_options[] = {
  * @brief An instance of Echo daemon.
  */
 struct instance {
+  int daemonize;      /* daemon mode */
   char *log_filename; /* log filename */
   pid_t pid;          /* process id */
 };
@@ -84,6 +85,7 @@ static char *get_progname(char *argv0) {
 }
 
 static void ed_set_default_options(struct instance *edi) {
+  edi->daemonize = 0;
   edi->log_filename = NULL;
 }
 
@@ -172,7 +174,6 @@ static void echo_stream(int fd) {
 
 int main(int argc, char **argv) {
   int ch;
-  int daemonize = 0;
   int value;
   struct passwd *pw;
   char *host = ED_INTERFACE;
@@ -197,7 +198,7 @@ int main(int argc, char **argv) {
   while ((ch = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
     switch (ch) {
     case 'd':
-      daemonize = 1;
+      edi.daemonize = 1;
       break;
 
     case 'p':
@@ -246,14 +247,14 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  if (daemonize) {
+  if (edi.daemonize) {
     if (daemon(0, 0) == -1) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
       exit(EXIT_FAILURE);
     }
   }
 
-  log_init(progname, !daemonize);
+  log_init(progname, !edi.daemonize);
 
   tcpfd = fnet_tcp_socket_listen(host, port, ED_BACKLOG);
   if (tcpfd == FNET_ERR) {
