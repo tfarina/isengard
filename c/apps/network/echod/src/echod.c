@@ -87,6 +87,7 @@ static char *get_progname(char *argv0) {
 static void ed_instance_init(ed_instance_t *instance) {
   instance->daemonize = 0;
   instance->log_filename = NULL;
+  instance->pid = getpid();
 }
 
 static void ed_show_usage(void) {
@@ -192,8 +193,6 @@ int main(int argc, char **argv) {
   ed_instance_init(&instance);
 
   progname = get_progname(argv[0]);
-
-  instance.pid = getpid();
 
   while ((ch = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
     switch (ch) {
