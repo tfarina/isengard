@@ -39,7 +39,6 @@
 #define ED_USER "_echod"
 
 #define ED_INTERFACE NULL
-#define ED_TCP_PORT 7
 #define ED_BACKLOG 1024
 
 #define BUFSIZE 8129
@@ -157,7 +156,6 @@ int main(int argc, char **argv) {
   int value;
   struct passwd *pw;
   char *host = ED_INTERFACE;
-  int port = ED_TCP_PORT;
   int tcpfd;
   fd_set rfds_in;
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
@@ -190,7 +188,7 @@ int main(int argc, char **argv) {
 	return EXIT_FAILURE;
       }
 
-      port = value;
+      instance.port = value;
       break;
 
     case 'h':
@@ -234,12 +232,12 @@ int main(int argc, char **argv) {
 
   log_init(progname, !instance.daemonize);
 
-  tcpfd = fnet_tcp_socket_listen(host, port, ED_BACKLOG);
+  tcpfd = fnet_tcp_socket_listen(host, instance.port, ED_BACKLOG);
   if (tcpfd == FNET_ERR) {
     return EXIT_FAILURE;
   }
 
-  log_info("%s started on %d, port %d", progname, instance.pid, port);
+  log_info("%s started on %d, port %d", progname, instance.pid, instance.port);
 
   drop_privileges(pw->pw_uid, pw->pw_gid);
 
