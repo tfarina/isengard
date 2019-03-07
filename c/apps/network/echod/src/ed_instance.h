@@ -3,6 +3,7 @@
 
 #include <unistd.h>
 
+#define ED_INTERFACE NULL
 #define ED_TCP_PORT 7
 #define ED_BACKLOG 1024
 
@@ -13,6 +14,7 @@ typedef struct ed_instance_s {
   int daemonize;      /* daemon mode */
   char *log_filename; /* log filename */
   pid_t pid;          /* process id */
+  char *interface;    /* network: listening interface */
   int port;           /* network: tcp listening port */
   int backlog;        /* network: tcp backlog */
 } ed_instance_t;

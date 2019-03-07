@@ -38,8 +38,6 @@
 
 #define ED_USER "_echod"
 
-#define ED_INTERFACE NULL
-
 #define BUFSIZE 8129
 
 #define CRLF "\x0d\x0a"
@@ -52,6 +50,7 @@ static unsigned int forked = 0; /* Number of child processes. */
 static char short_options[] =
     "h"  /* help */
     "d"  /* daemon mode */
+    "l:" /* interface to listen on */
     "p:" /* tcp port number to listen on */
     "b:" /* tcp backlog queue limit */
     ;
@@ -59,6 +58,7 @@ static char short_options[] =
 static struct option long_options[] = {
     { "help",      no_argument,       NULL, 'h' }, /* help */
     { "daemonize", no_argument,       NULL, 'd' }, /* daemon mode */
+    { "interface", required_argument, NULL, 'l' }, /* interface to listen on */
     { "port",      required_argument, NULL, 'p' }, /* tcp port number to listen on */
     { "backlog",   required_argument, NULL, 'b' }, /* tcp backlog queue limit */
     { NULL,    0,                 NULL,  0  }
@@ -79,16 +79,18 @@ static char *get_progname(char *argv0) {
 
 static void ed_show_usage(void) {
   fprintf(stderr,
-	  "usage: %s [-hd] [-p port] [-b backlog]" CRLF CRLF,
+	  "usage: %s [-hd] [-l interface] [-p port] [-b backlog]" CRLF CRLF,
 	  progname);
   fprintf(stderr,
 	  "options:" CRLF
-          "  -h, --help       show usage, options and exit" CRLF
-	  "  -d, --daemonize  run as a daemon" CRLF
-          "  -p, --port=N     set the tcp port to listen on (default: %d)" CRLF
-          "  -b, --backlog=N  the backlog argument of listen() applied to the" CRLF
-	  "                   listening socket (default: %d)" CRLF
+          "  -h, --help         show usage, options and exit" CRLF
+	  "  -d, --daemonize    run as a daemon" CRLF
+          "  -l, --interface=S  interface to listen on (default: %s)" CRLF
+          "  -p, --port=N       set the tcp port to listen on (default: %d)" CRLF
+          "  -b, --backlog=N    the backlog argument of listen() applied to the" CRLF
+	  "                     listening socket (default: %d)" CRLF
 	  "",
+          ED_INTERFACE != NULL ? ED_INTERFACE : "all interfaces",
           ED_TCP_PORT, ED_BACKLOG
 	  );
 }
@@ -160,7 +162,6 @@ int main(int argc, char **argv) {
   int ch;
   int value;
   struct passwd *pw;
-  char *host = ED_INTERFACE;
   int tcpfd;
   fd_set rfds_in;
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
@@ -180,6 +181,10 @@ int main(int argc, char **argv) {
     switch (ch) {
     case 'd':
       instance.daemonize = 1;
+      break;
+
+    case 'l':
+      instance.interface = optarg;
       break;
 
     case 'p':
@@ -247,7 +252,7 @@ int main(int argc, char **argv) {
 
   log_init(progname, !instance.daemonize);
 
-  tcpfd = fnet_tcp_socket_listen(host, instance.port, instance.backlog);
+  tcpfd = fnet_tcp_socket_listen(instance.interface, instance.port, instance.backlog);
   if (tcpfd == FNET_ERR) {
     return EXIT_FAILURE;
   }
