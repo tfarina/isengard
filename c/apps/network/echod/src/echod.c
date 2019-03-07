@@ -39,7 +39,6 @@
 #define ED_USER "_echod"
 
 #define ED_INTERFACE NULL
-#define ED_BACKLOG 1024
 
 #define BUFSIZE 8129
 
@@ -54,12 +53,14 @@ static char short_options[] =
     "h"  /* help */
     "d"  /* daemon mode */
     "p:" /* tcp port number to listen on */
+    "b:" /* tcp backlog queue limit */
     ;
 
 static struct option long_options[] = {
     { "help",      no_argument,       NULL, 'h' }, /* help */
     { "daemonize", no_argument,       NULL, 'd' }, /* daemon mode */
     { "port",      required_argument, NULL, 'p' }, /* tcp port number to listen on */
+    { "backlog",   required_argument, NULL, 'b' }, /* tcp backlog queue limit */
     { NULL,    0,                 NULL,  0  }
 };
 
@@ -78,15 +79,17 @@ static char *get_progname(char *argv0) {
 
 static void ed_show_usage(void) {
   fprintf(stderr,
-	  "usage: %s [-hd] [-p port]" CRLF CRLF,
+	  "usage: %s [-hd] [-p port] [-b backlog]" CRLF CRLF,
 	  progname);
   fprintf(stderr,
 	  "options:" CRLF
           "  -h, --help       show usage, options and exit" CRLF
 	  "  -d, --daemonize  run as a daemon" CRLF
           "  -p, --port=N     set the tcp port to listen on (default: %d)" CRLF
+          "  -b, --backlog=N  the backlog argument of listen() applied to the" CRLF
+	  "                   listening socket (default: %d)" CRLF
 	  "",
-          ED_TCP_PORT
+          ED_TCP_PORT, ED_BACKLOG
 	  );
 }
 
@@ -191,6 +194,16 @@ int main(int argc, char **argv) {
       instance.port = value;
       break;
 
+    case 'b':
+      value = atoi(optarg);
+      if (value <= 0) {
+	fprintf(stderr, "%s: option -b requires a non zero number\n", progname);
+	return EXIT_FAILURE;
+      }
+
+      instance.backlog = value;
+      break;
+
     case 'h':
       ed_show_usage();
       return EXIT_SUCCESS;
@@ -232,12 +245,12 @@ int main(int argc, char **argv) {
 
   log_init(progname, !instance.daemonize);
 
-  tcpfd = fnet_tcp_socket_listen(host, instance.port, ED_BACKLOG);
+  tcpfd = fnet_tcp_socket_listen(host, instance.port, instance.backlog);
   if (tcpfd == FNET_ERR) {
     return EXIT_FAILURE;
   }
 
-  log_info("%s started on %d, port %d", progname, instance.pid, instance.port);
+  log_info("%s started on %d, port %d, backlog %d", progname, instance.pid, instance.port, instance.backlog);
 
   drop_privileges(pw->pw_uid, pw->pw_gid);
 
