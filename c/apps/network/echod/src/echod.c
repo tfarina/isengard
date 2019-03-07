@@ -93,19 +93,21 @@ static void ed_show_usage(void) {
 	  );
 }
 
-static void drop_privileges(uid_t uid, gid_t gid) {
+static int drop_privileges(uid_t uid, gid_t gid) {
   if (setgroups(1, &gid) != 0) {
     fprintf(stderr, "setgroups failed\n");
-    exit(EXIT_FAILURE);
+    return -1;
   }
   if (setresgid(gid, gid, gid) != 0) {
     fprintf(stderr, "setresgid failed\n");
-    exit(EXIT_FAILURE);
+    return -1;
   }
   if (setresuid(uid, uid, uid) != 0) {
     fprintf(stderr, "setresuid failed\n");
-    exit(EXIT_FAILURE);
+    return -1;
   }
+
+  return 0;
 }
 
 static void print_num_child_forked(void) {
@@ -252,7 +254,9 @@ int main(int argc, char **argv) {
 
   log_info("%s started on %d, port %d, backlog %d", progname, instance.pid, instance.port, instance.backlog);
 
-  drop_privileges(pw->pw_uid, pw->pw_gid);
+  if (drop_privileges(pw->pw_uid, pw->pw_gid)) {
+    return EXIT_FAILURE;
+  }
 
   /* Setup signals. */
   signal(SIGCHLD, sigchld_handler);
