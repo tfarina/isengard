@@ -84,7 +84,7 @@ static char *get_progname(char *argv0) {
   return name;
 }
 
-static void ed_set_default_options(ed_instance_t *instance) {
+static void ed_instance_init(ed_instance_t *instance) {
   instance->daemonize = 0;
   instance->log_filename = NULL;
 }
@@ -189,7 +189,7 @@ int main(int argc, char **argv) {
   pid_t pid;
   ed_instance_t instance;
 
-  ed_set_default_options(&instance);
+  ed_instance_init(&instance);
 
   progname = get_progname(argv[0]);
 
