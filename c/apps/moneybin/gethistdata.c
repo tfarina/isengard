@@ -108,6 +108,35 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   return 0;
 }
 
+typedef struct {
+  char const *host;
+  char const *user;
+  char const *password;
+  char const *dbname;
+  int unsigned port;
+} db_config_t;
+
+static int db_config_init(db_config_t *config)
+{
+  char const *homedir;
+  char *userconffile;
+  dictionary *ini;
+
+  homedir = f_get_home_dir();
+  userconffile = make_file_path(homedir, USERCONFFILE);
+  ini = iniparser_load(userconffile);
+  if (ini == NULL) {
+    fprintf(stderr, "Cannot read configuration file: %s\n", userconffile);
+    return -1;
+  }
+  config->host = f_strdup(iniparser_getstring(ini, "mysql:host", NULL));
+  config->user = f_strdup(iniparser_getstring(ini, "mysql:user", NULL));
+  config->password = f_strdup(iniparser_getstring(ini, "mysql:password", NULL));
+  config->dbname = f_strdup(iniparser_getstring(ini, "mysql:dbname", NULL));
+
+  return 0;
+}
+
 int main(int argc, char *argv[])
 {
   char *symbol;
@@ -122,13 +151,7 @@ int main(int argc, char *argv[])
   int rc;
   stock_info_t stock;
   size_t bytes_processed;
-  char const *homedir;
-  char *userconffile;
-  dictionary *ini;
-  const char *host;
-  const char *user;
-  const char *password;
-  const char *dbname;
+  db_config_t config;
   MYSQL *conn = NULL;
   size_t i;
 
@@ -189,24 +212,12 @@ int main(int argc, char *argv[])
   }
 
   /* 7. Import the data into MySQL. */
-  homedir = f_get_home_dir();
-  userconffile = make_file_path(homedir, USERCONFFILE);
-  ini = iniparser_load(userconffile);
-  if (ini == NULL) {
-    fprintf(stderr, "Cannot read configuration file: %s\n", userconffile);
-    return -1;
-  }
-  host = iniparser_getstring(ini, "mysql:host", NULL);
-  user = iniparser_getstring(ini, "mysql:user", NULL);
-  password = iniparser_getstring(ini, "mysql:password", NULL);
-  dbname = iniparser_getstring(ini, "mysql:dbname", NULL);
+  db_config_init(&config);
 
   /* 8. Connect to the database to start importing the data. */
-  if ((conn = db_mysql_connect(host, user, password, dbname)) == NULL) {
+  if ((conn = db_mysql_connect(config.host, config.user, config.password, config.dbname)) == NULL) {
     return -1;
   }
-
-  iniparser_freedict(ini);
 
   printf("Importing records...\n");
 
