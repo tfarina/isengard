@@ -86,6 +86,7 @@ static int drop_privileges(uid_t uid, gid_t gid) {
   if (setgroups(1, &gid) != 0) {
     fprintf(stderr, "setgroups failed\n");
     return -1;
+
   }
   if (setresgid(gid, gid, gid) != 0) {
     fprintf(stderr, "setresgid failed\n");
@@ -235,6 +236,8 @@ int main(int argc, char **argv) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
       return EXIT_FAILURE;
     }
+    /* update pid */
+    instance.pid = getpid();
   }
 
   log_init(progname, !instance.daemonize);
