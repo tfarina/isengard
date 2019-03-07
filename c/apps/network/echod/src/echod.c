@@ -34,6 +34,7 @@
 #include "ed_instance.h"
 #include "ed_log.h"
 #include "ed_net.h"
+#include "ed_utils.h"
 
 #define ED_USER "_echod"
 
@@ -88,14 +89,6 @@ static void ed_show_usage(void) {
 	  "",
           ED_TCP_PORT
 	  );
-}
-
-static int ed_valid_port(int port) {
-  if (port < 1 || port > UINT16_MAX) {
-    return 0;
-  }
-
-  return 1;
 }
 
 static void drop_privileges(uid_t uid, gid_t gid) {

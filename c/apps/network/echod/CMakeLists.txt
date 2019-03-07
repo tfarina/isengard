@@ -14,7 +14,7 @@ endif()
 
 add_definitions(-D_GNU_SOURCE)
 
-set(ECHOD_SRCS src/ed_instance.c src/ed_log.c src/ed_net.c src/echod.c)
+set(ECHOD_SRCS src/ed_utils.c src/ed_instance.c src/ed_log.c src/ed_net.c src/echod.c)
 
 add_executable(echod ${ECHOD_SRCS})
 
