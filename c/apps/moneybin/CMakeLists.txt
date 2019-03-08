@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(trade C)
+project(moneybin C)
 
 set(CMAKE_MODULE_PATH
   ${CMAKE_MODULE_PATH}
