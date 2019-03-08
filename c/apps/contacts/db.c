@@ -5,7 +5,7 @@
 #include "strutils.h"
 #include "third_party/iniparser/iniparser.h"
 
-#define USERCONFFILE ".experimentsrc"
+#define USERCONFFILE ".contactsrc"
 
 void db_config_init(db_config_t *config) {
   const char *homedir;
