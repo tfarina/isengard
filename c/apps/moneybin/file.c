@@ -9,27 +9,27 @@
 #define PATH_SEP '/'
 
 char *read_file(const char *filename, size_t *len) {
-  FILE *fh;
+  FILE *fp;
   int rc;
   long l;
   char *contents;
   size_t read = 0;
 
-  fh = fopen(filename, "r");
-  if (fh == NULL) {
+  fp = fopen(filename, "r");
+  if (fp == NULL) {
     perror("fopen()");
     return NULL;
   }
  
   /* Go to the end of the file. */
-  rc = fseek(fh, 0, SEEK_END);
+  rc = fseek(fp, 0, SEEK_END);
   if (rc < 0) {
     perror("fseek(END)");
     return NULL;
   }
 
   /* To get the size of the file. */
-  l = ftell(fh);
+  l = ftell(fp);
   if (l < 0) {
     perror("ftell()");
     return NULL;
@@ -37,7 +37,7 @@ char *read_file(const char *filename, size_t *len) {
   *len = l;
  
   /* Go back to the start of the file. */
-  rc = fseek(fh, 0, SEEK_SET);
+  rc = fseek(fp, 0, SEEK_SET);
   if (rc < 0) {
     perror("fseek(SET)");
     return NULL;
@@ -51,14 +51,14 @@ char *read_file(const char *filename, size_t *len) {
   }
 
   while (read < *len) {
-    size_t r = fread(contents + read, 1, *len - read, fh);
+    size_t r = fread(contents + read, 1, *len - read, fp);
     if (r == 0) {
-      if (ferror(fh)) {
+      if (ferror(fp)) {
 	fputs("error reading input\n", stderr);
 	free(contents);
-	fclose(fh);
+	fclose(fp);
 	return NULL;
-      } else if (feof(fh)) {
+      } else if (feof(fp)) {
 	fprintf(stderr,
 		"EOF encountered after %zu bytes (expected %zu)\n",
 		read, *len);
@@ -69,7 +69,7 @@ char *read_file(const char *filename, size_t *len) {
     read += r;
   }
  
-  fclose(fh);
+  fclose(fp);
 
   return contents;
 }
