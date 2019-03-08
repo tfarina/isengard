@@ -124,15 +124,19 @@ static int db_config_init(db_config_t *config)
 
   homedir = f_get_home_dir();
   userconffile = make_file_path(homedir, USERCONFFILE);
+
   ini = iniparser_load(userconffile);
   if (ini == NULL) {
     fprintf(stderr, "Cannot read configuration file: %s\n", userconffile);
     return -1;
   }
+
   config->host = f_strdup(iniparser_getstring(ini, "mysql:host", NULL));
   config->user = f_strdup(iniparser_getstring(ini, "mysql:user", NULL));
   config->password = f_strdup(iniparser_getstring(ini, "mysql:password", NULL));
   config->dbname = f_strdup(iniparser_getstring(ini, "mysql:dbname", NULL));
+
+  iniparser_freedict(ini);
 
   return 0;
 }
