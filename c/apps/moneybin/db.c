@@ -5,7 +5,7 @@
 #include "strutils.h"
 #include "third_party/iniparser/iniparser.h"
 
-#define USERCONFFILE ".traderc"
+#define USERCONFFILE ".moneybinrc"
 
 int db_config_init(db_config_t *config) {
   const char *homedir;
