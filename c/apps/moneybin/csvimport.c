@@ -43,8 +43,7 @@ int main(int argc, char **argv) {
  
   memset((void *)&stock, 0, sizeof(stock_info_t));
   stock.symbol = f_strdup(argv[2]);
-  stock.ticks_capacity = 2;
-  stock.ticks = malloc(stock.ticks_capacity * sizeof(stock_tick_t));
+  stock_ticks_alloc(&stock, 2);
   if (stock.ticks == NULL) {
     fprintf(stderr, "failed to allocate %zu bytes for stock data\n",
 	    stock.ticks_capacity * sizeof(stock_tick_t));
