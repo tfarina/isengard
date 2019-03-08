@@ -9,13 +9,17 @@
 #define PATH_SEP '/'
 
 char *read_file(const char *filename, size_t *len) {
-  FILE *fh = fopen(filename, "r");
+  FILE *fh;
+  int rc;
+  long l;
+  char *contents;
+  size_t read = 0;
+
+  fh = fopen(filename, "r");
   if (fh == NULL) {
     perror("fopen()");
     return NULL;
   }
- 
-  int rc;
  
   /* Go to the end of the file. */
   rc = fseek(fh, 0, SEEK_END);
@@ -25,7 +29,7 @@ char *read_file(const char *filename, size_t *len) {
   }
 
   /* To get the size of the file. */
-  long l = ftell(fh);
+  l = ftell(fh);
   if (l < 0) {
     perror("ftell()");
     return NULL;
@@ -40,13 +44,12 @@ char *read_file(const char *filename, size_t *len) {
   }
  
   /* Allocate buffer memory for that file size. */
-  char *contents = malloc(*len);
+  contents = malloc(*len);
   if (contents == NULL) {
     perror("malloc");
     return NULL;
   }
 
-  size_t read = 0;
   while (read < *len) {
     size_t r = fread(contents + read, 1, *len - read, fh);
     if (r == 0) {
