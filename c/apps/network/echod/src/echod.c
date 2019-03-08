@@ -303,7 +303,8 @@ int main(int argc, char **argv) {
   }
 
   closelog();
-  log_info("Stopped");
+
+  log_info("Terminated. Bye!");
 
   return EXIT_SUCCESS;
 }
