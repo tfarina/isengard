@@ -11,7 +11,7 @@
 char *read_file(const char *filename, size_t *len) {
   FILE *fp;
   int rc;
-  long l;
+  long bufsize;
   char *contents;
   size_t read = 0;
 
@@ -29,12 +29,12 @@ char *read_file(const char *filename, size_t *len) {
   }
 
   /* To get the size of the file. */
-  l = ftell(fp);
-  if (l < 0) {
+  bufsize = ftell(fp);
+  if (bufsize < 0) {
     perror("ftell()");
     return NULL;
   }
-  *len = l;
+  *len = bufsize;
  
   /* Go back to the start of the file. */
   rc = fseek(fp, 0, SEEK_SET);
