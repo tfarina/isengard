@@ -816,5 +816,5 @@ CREATE TABLE `exchange` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-insert into exchange (abbrev, name, city, country, currency, created_date, last_updated_date)
+insert into exchange (abbrev, name, city, country, currency, created_at, updated_at)
 values ('B3', 'Brasil, Bolsa, Balcão', 'São Paulo', 'Brazil', 'BRL', NOW(), NOW());
