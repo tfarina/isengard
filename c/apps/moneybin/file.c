@@ -11,7 +11,7 @@ char *read_file(const char *filename, size_t *len) {
   int rc;
   long bufsize;
   char *contents;
-  size_t read = 0;
+  long read = 0;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
@@ -32,7 +32,6 @@ char *read_file(const char *filename, size_t *len) {
     perror("ftell()");
     return NULL;
   }
-  *len = bufsize;
  
   /* Go back to the start of the file. */
   rc = fseek(fp, 0, SEEK_SET);
@@ -42,14 +41,14 @@ char *read_file(const char *filename, size_t *len) {
   }
  
   /* Allocate buffer memory for that file size. */
-  contents = malloc(*len);
+  contents = malloc(bufsize);
   if (contents == NULL) {
     perror("malloc");
     return NULL;
   }
 
-  while (read < *len) {
-    size_t r = fread(contents + read, 1, *len - read, fp);
+  while (read < bufsize) {
+    size_t r = fread(contents + read, 1, bufsize - read, fp);
     if (r == 0) {
       if (ferror(fp)) {
 	fputs("error reading input\n", stderr);
@@ -58,9 +57,9 @@ char *read_file(const char *filename, size_t *len) {
 	return NULL;
       } else if (feof(fp)) {
 	fprintf(stderr,
-		"EOF encountered after %zu bytes (expected %zu)\n",
-		read, *len);
-	*len = read;
+		"EOF encountered after %lu bytes (expected %lu)\n",
+		read, bufsize);
+	bufsize = read;
 	break;
       }
     }
@@ -68,6 +67,10 @@ char *read_file(const char *filename, size_t *len) {
   }
  
   fclose(fp);
+
+  if (len) {
+    *len = bufsize;
+  }
 
   return contents;
 }
