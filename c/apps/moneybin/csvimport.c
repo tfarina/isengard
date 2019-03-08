@@ -11,6 +11,7 @@
 #include "file.h"
 #include "futils.h"
 #include "stock.h"
+#include "strutils.h"
 
 #define USERCONFFILE ".traderc"
 
