@@ -26,9 +26,9 @@ find_package(CURL REQUIRED)
 if (CURL_FOUND)
   include_directories(${CURL_INCLUDE_DIRS})
 
-  add_executable(gethistdata gethistdata.c ffileutils.c strutils.c futils.c db_mysql.c stock.c file.c buffer.c curl_helper.c csv_helper.c)
+  add_executable(gethistdata gethistdata.c ffileutils.c strutils.c futils.c db.c db_mysql.c stock.c file.c buffer.c curl_helper.c csv_helper.c)
   target_link_libraries(gethistdata ${CURL_LIBRARIES} libcsv iniparser ${MYSQL_LIBRARY})
 endif()
 
-add_executable(csvimport csvimport.c ffileutils.c strutils.c file.c futils.c db_mysql.c stock.c csv_helper.c)
+add_executable(csvimport csvimport.c ffileutils.c strutils.c file.c futils.c db.c db_mysql.c stock.c csv_helper.c)
 target_link_libraries(csvimport iniparser libcsv ${MYSQL_LIBRARY})
