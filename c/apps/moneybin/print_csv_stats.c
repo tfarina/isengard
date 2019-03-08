@@ -13,6 +13,7 @@ int main(int argc, char **argv) {
   int num_rows;
   double min_close;
   double max_close;
+  double avg;
 
   if (argc != 3) {
     fputs("usage: print_csv_stats filename.csv SYMBOL\n", stderr);
@@ -26,9 +27,11 @@ int main(int argc, char **argv) {
 
   stats_min(close, num_rows, &min_close);
   stats_max(close, num_rows, &max_close);
+  stats_average(close, num_rows, &avg);
 
   printf("Min: %f\n", min_close);
   printf("Max: %f\n", max_close);
+  printf("Avg: %f\n", avg);
 
   return 0;
 }
