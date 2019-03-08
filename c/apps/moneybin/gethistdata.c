@@ -186,7 +186,8 @@ int main(int argc, char *argv[])
   db_config_init(&config);
 
   /* 8. Connect to the database to start importing the data. */
-  if ((conn = db_mysql_connect(config.host, config.user, config.password, config.dbname)) == NULL) {
+  rc = db_mysql_connect(&conn, config.host, config.user, config.password, config.dbname);
+  if (rc < 0) {
     return -1;
   }
 

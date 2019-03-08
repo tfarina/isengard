@@ -3,7 +3,7 @@
 
 #include <mysql/mysql.h>
 
-MYSQL *db_mysql_connect(const char *host, const char *user,
-                        const char *password, const char *dbname);
+int db_mysql_connect(MYSQL **conn, const char *host, const char *user,
+                     const char *password, const char *dbname);
 
 #endif /* DB_MYSQL_H_ */
