@@ -9,6 +9,7 @@
 #include "third_party/iniparser/iniparser.h"
 #include "db_mysql.h"
 #include "file.h"
+#include "ffileutils.h"
 #include "futils.h"
 #include "stock.h"
 #include "strutils.h"
@@ -30,7 +31,7 @@ static int db_config_init(db_config_t *config)
   dictionary *ini;
 
   homedir = f_get_home_dir();
-  userconffile = make_file_path(homedir, USERCONFFILE);
+  userconffile = f_build_filename(homedir, USERCONFFILE);
 
   ini = iniparser_load(userconffile);
   if (ini == NULL) {
