@@ -134,7 +134,7 @@ static double *close;
 static long unsigned currentrow;
 static long unsigned currentcolumn;
 
-void csv_column_cb1(void *p1, size_t s, void *p2) {
+void csv_column_cb1(void *buffer, size_t len, void *data) {
   char *endptr;
   double dval;
 
@@ -146,9 +146,9 @@ void csv_column_cb1(void *p1, size_t s, void *p2) {
 
   switch (currentcolumn++) {
   case CSV_COLUMN_CLOSE:
-    printf(" %s ", (char *)p1);
+    printf(" %s ", (char *)buffer);
 
-    dval = strtod((char*)p1, &endptr);
+    dval = strtod((char*)buffer, &endptr);
     close[currentrow] = dval;
 
     break;
