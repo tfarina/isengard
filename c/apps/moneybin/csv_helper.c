@@ -129,33 +129,38 @@ int csv_num_rows(void) {
 }
 
 static double *close;
-
-/*static long unsigned colnum;*/
-static long unsigned rownum;
+static long unsigned currentrow;
+static long unsigned currentcolumn;
 
 void csv_column_cb1(void *p1, size_t s, void *p2) {
   char *endptr;
   double dval;
 
-  if (rownum == 0) {
+  if (currentrow == 0) {
     return;
   }
 
-  printf("%u, ", colnum);
-  switch (colnum++) {
+  printf("%lu, ", currentcolumn);
+
+  switch (currentcolumn++) {
   case CSV_COLUMN_CLOSE:
     printf(" %s ", (char *)p1);
+
     dval = strtod((char*)p1, &endptr);
-    close[rownum] = dval;
+    close[currentrow] = dval;
+
     break;
   }
 }
 
 void csv_row_cb2(int c, void *data) {
-  printf("ROW: %lu\n", rownum);
+  printf("ROW: %lu\n", currentrow);
 
-  colnum = 0;
-  rownum = rownum + 1;
+  /* We got a row, increment the counter. */
+  currentrow = currentrow + 1;
+
+  /* We got a row, reset the index of the column counter. */
+  currentcolumn = 0;
 }
 
 int load_close_prices(char const *filename) {
