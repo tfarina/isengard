@@ -30,17 +30,19 @@ void csv_column_cb(void *field,
 		   size_t field_len UNUSED,
 		   void *ctx)
 {
-  stock_info_t *stock = (stock_info_t *)ctx;
-  if (stock->error) return;
-
-  stock_tick_t *cur_tick = stock->ticks + stock->ticks_length;
- 
-  // used for parsing floating-point values:
-  // (declaring these in a switch/case is annoying)
+  stock_info_t *stock;
+  stock_tick_t *cur_tick;
   char *endptr;
   double dval;
 
-  // Skip the first (header) line?
+  stock = (stock_info_t *)ctx;
+  if (stock->error) {
+    return;
+  }
+
+  cur_tick = stock->ticks + stock->ticks_length;
+
+  /* Skip the first (header) line? */
   if (strcmp((char*)field, "Date") == 0 ||
       strcmp((char*)field, "Open") == 0 ||
       strcmp((char*)field, "High") == 0 ||
