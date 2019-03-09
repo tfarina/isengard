@@ -72,7 +72,6 @@ void csv_column_cb(void *field,
       cur_tick = stock->ticks + stock->ticks_length;
     }
  
-    // anyway, we just got tick data
     cur_tick->date = f_strdup((char*)field);
     break;
  
