@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
   if (csvdata == NULL)
     return 1;
  
-  if (csv_init(&parser, CSV_APPEND_NULL) != 0) {
+  if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL) != 0) {
     free(csvdata);
     fprintf(stderr, "failed to initialize CSV parser\n");
     return 1;
