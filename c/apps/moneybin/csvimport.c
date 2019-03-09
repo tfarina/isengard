@@ -16,7 +16,8 @@
 #include "strutils.h"
 
 int main(int argc, char **argv) {
-  MYSQL *conn = NULL;
+  char *filename;
+  char *symbol;
   size_t len;
   char *csvdata;
   struct csv_parser parser;
@@ -24,14 +25,18 @@ int main(int argc, char **argv) {
   stock_info_t stock;
   size_t bytes_processed;
   db_config_t config;
+  MYSQL *conn = NULL;
   size_t i;
 
   if (argc != 3) {
     fputs("usage: csvimport filename.csv symbol\n", stderr);
     return 1;
   }
- 
-  csvdata = read_file(argv[1], &len);
+
+  filename = f_strdup(argv[1]);
+  symbol = f_strdup(argv[2]);
+
+  csvdata = read_file(filename, &len);
   if (csvdata == NULL)
     return 1;
  
@@ -42,7 +47,7 @@ int main(int argc, char **argv) {
   }
  
   memset((void *)&stock, 0, sizeof(stock_info_t));
-  stock.symbol = f_strdup(argv[2]);
+  stock.symbol = symbol;
   stock_ticks_alloc(&stock, 2);
   if (stock.ticks == NULL) {
     fprintf(stderr, "failed to allocate %zu bytes for stock data\n",
