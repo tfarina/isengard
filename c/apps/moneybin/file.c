@@ -11,7 +11,7 @@ char *read_file(const char *filename, size_t *len) {
   int rc;
   long bufsize;
   char *contents;
-  long read = 0;
+  size_t bytes_read;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
@@ -40,33 +40,27 @@ char *read_file(const char *filename, size_t *len) {
     return NULL;
   }
  
-  /* Allocate buffer memory for that file size. */
-  contents = malloc(bufsize);
+  /* Allocate buffer memory for that file size.
+   * The +1 is to add room for adding the NULL-terminator at the end.
+   */
+  contents = malloc(sizeof(char) * bufsize + 1);
   if (contents == NULL) {
     perror("malloc");
     return NULL;
   }
 
-  while (read < bufsize) {
-    size_t r = fread(contents + read, 1, bufsize - read, fp);
-    if (r == 0) {
-      if (ferror(fp)) {
-	fputs("error reading input\n", stderr);
-	free(contents);
-	fclose(fp);
-	return NULL;
-      } else if (feof(fp)) {
-	fprintf(stderr,
-		"EOF encountered after %lu bytes (expected %lu)\n",
-		read, bufsize);
-	bufsize = read;
-	break;
-      }
-    }
-    read += r;
+  bytes_read = fread(contents, sizeof(char), bufsize, fp);
+
+  if ((bytes_read == 0 && ferror(fp)) || feof(fp)) {
+    fprintf(stderr, "Error reading file \"%s\"\n", filename);
+    free(contents);
+    fclose(fp);
+    return NULL;
   }
  
   fclose(fp);
+
+  contents[++bytes_read] = '\0'; /* NULL-terminate the string, just to be safe. */
 
   if (len) {
     *len = bufsize;
