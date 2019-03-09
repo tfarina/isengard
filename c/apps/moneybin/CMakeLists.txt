@@ -32,3 +32,6 @@ endif()
 
 add_executable(csvimport csvimport.c ffileutils.c strutils.c file.c futils.c db.c db_mysql.c stock.c csv_helper.c)
 target_link_libraries(csvimport iniparser libcsv ${MYSQL_LIBRARY})
+
+add_executable(lastdate lastdate.c strutils.c ffileutils.c futils.c db.c db_mysql.c)
+target_link_libraries(lastdate iniparser ${MYSQL_LIBRARY})
