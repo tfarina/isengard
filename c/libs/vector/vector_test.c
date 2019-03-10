@@ -26,9 +26,9 @@ int main(void) {
 
         printf("%d\n", vector_length(vp));
 
-        vector_append(vp, &p, sizeof(point_t));
-        vector_append(vp, &p2, sizeof(point_t));
-        vector_append(vp, &p3, sizeof(point_t));
+        vector_append(vp, &p);
+        vector_append(vp, &p2);
+        vector_append(vp, &p3);
 
 	vp_len = vector_length(vp);
         printf("%d\n", vp_len);

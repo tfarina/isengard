@@ -60,7 +60,7 @@ static void *xrealloc(void *oldptr, size_t newsize)
 	return newptr;
 }
 
-static int _vector_add_private(vector_t *v, const void *elem, size_t size, int pos)
+static int _vector_add_private(vector_t *v, const void *elem, int pos)
 {
         void *elemp;
 
@@ -68,8 +68,7 @@ static int _vector_add_private(vector_t *v, const void *elem, size_t size, int p
 	        return -1;
 	}
 
-        elemp = xmalloc(size);
-        memcpy(elemp, elem, size);
+        elemp = (void *)elem;
 
         if (v->capacity == v->length) {
                 v->entries = xrealloc(v->entries, (v->capacity *= 2) * sizeof(void *));
@@ -97,8 +96,11 @@ vector_t * vector_alloc(int capacity)
 void vector_free(vector_t **v)
 {
         if (v && *v) {
-                vector_clear(*v);
+                /*vector_clear(*v);*/
                 free((*v)->entries);
+                (*v)->entries = NULL;
+                (*v)->capacity = 0;
+                (*v)->length = 0;
                 free(*v);
         }
 }
@@ -116,9 +118,9 @@ void vector_clear(vector_t *v)
         }
 }
 
-int vector_append(vector_t *v, const void *elem, size_t size)
+int vector_append(vector_t *v, const void *elem)
 {
-  return v ? _vector_add_private(v, elem, size, v->length) : -1;
+  return v ? _vector_add_private(v, elem, v->length) : -1;
 }
 
 size_t vector_length(const vector_t *v)
