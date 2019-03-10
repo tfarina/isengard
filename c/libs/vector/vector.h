@@ -22,6 +22,6 @@ void vector_free(vector_t **v);
 void vector_clear(vector_t *v);
 int vector_append(vector_t *v, void const *item);
 size_t vector_size(vector_t const *v);
-void *vector_get(vector_t const *v, int pos);
+void *vector_get(vector_t const *v, int index);
 
 #endif  /* VECTOR_H_ */
