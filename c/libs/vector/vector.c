@@ -64,19 +64,19 @@ static int _vector_add_private(vector_t *v, void const *elem, int pos)
 {
         void *elemp;
 
-        if (pos < 0 || !v || pos > v->length) {
+        if (pos < 0 || !v || pos > v->size) {
 	        return -1;
 	}
 
         elemp = (void *)elem;
 
-        if (v->capacity == v->length) {
+        if (v->capacity == v->size) {
                 v->entries = xrealloc(v->entries, (v->capacity *= 2) * sizeof(void *));
 	}
 
-        memmove(&v->entries[pos + 1], &v->entries[pos], (v->length - pos) * sizeof(void *));
+        memmove(&v->entries[pos + 1], &v->entries[pos], (v->size - pos) * sizeof(void *));
 
-        v->length++;
+        v->size++;
 
         v->entries[pos] = elemp;
 
@@ -100,7 +100,7 @@ void vector_free(vector_t **v)
                 free((*v)->entries);
                 (*v)->entries = NULL;
                 (*v)->capacity = 0;
-                (*v)->length = 0;
+                (*v)->size = 0;
                 free(*v);
         }
 }
@@ -110,27 +110,27 @@ void vector_clear(vector_t *v)
         int i;
 
         if (v) {
-                for (i = 0; i < v->length; i++) {
+                for (i = 0; i < v->size; i++) {
                         free(v->entries[i]);
                 }
 
-                v->length = 0;
+                v->size = 0;
         }
 }
 
 int vector_append(vector_t *v, void const *elem)
 {
-        return v ? _vector_add_private(v, elem, v->length) : -1;
+        return v ? _vector_add_private(v, elem, v->size) : -1;
 }
 
-size_t vector_length(vector_t const *v)
+size_t vector_size(vector_t const *v)
 {
-        return v ? v->length : 0;
+        return v ? v->size : 0;
 }
 
 void *vector_get(vector_t const *v, int pos)
 {
-        if (pos < 0 || !v || pos >= v->length) {
+        if (pos < 0 || !v || pos >= v->size) {
                 return NULL;
         }
 

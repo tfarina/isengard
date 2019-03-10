@@ -24,13 +24,13 @@ int main(void) {
 
         vp = vector_alloc(2);
 
-        printf("%d\n", vector_length(vp));
+        printf("%d\n", vector_size(vp));
 
         vector_append(vp, &p);
         vector_append(vp, &p2);
         vector_append(vp, &p3);
 
-	vp_len = vector_length(vp);
+	vp_len = vector_size(vp);
         printf("%d\n", vp_len);
 
         for (i = 0; i < vp_len; i++) {
@@ -41,7 +41,7 @@ int main(void) {
 
 	vector_free(&vp);
 
-        printf("%d\n", vector_length(vp));
+        printf("%d\n", vector_size(vp));
 
         return 0;
 }
