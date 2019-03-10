@@ -8,12 +8,12 @@
  */
 typedef struct {
         /* This is a pointer to an array of elements of any type. */
-        void **entries; /* void *entries[] */
+        void **elements; /* void *elements[] */
 
-        /* The max number of allocated entries. */
+        /* The max number of allocated elements. */
 	size_t capacity;
 
-        /* The current number of entries in the array. */
+        /* The current number of elements in the array. */
 	size_t size;
 } vector_t;
 
@@ -25,13 +25,13 @@ typedef struct {
 vector_t *vector_alloc(int capacity);
 
 /**
- * Inserts the specified item to the back of the array.
+ * Inserts the specified element to the back of the array.
  *
  * @param v The vector instance (must not be NULL).
- * @param item The element to be inserted.
+ * @param element The element to be inserted.
  * @return 0 on success, -1 on error.
  */
-int vector_append(vector_t *v, void const *item);
+int vector_append(vector_t *v, void const *element);
 
 /**
  * Returns the current number of elements store in the array.

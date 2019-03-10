@@ -71,14 +71,14 @@ static int _vector_add_private(vector_t *v, void const *elem, int index)
         elemp = (void *)elem;
 
         if (v->capacity == v->size) {
-                v->entries = xrealloc(v->entries, (v->capacity *= 2) * sizeof(void *));
+                v->elements = xrealloc(v->elements, (v->capacity *= 2) * sizeof(void *));
 	}
 
-        memmove(&v->entries[index + 1], &v->entries[index], (v->size - index) * sizeof(void *));
+        memmove(&v->elements[index + 1], &v->elements[index], (v->size - index) * sizeof(void *));
 
         v->size++;
 
-        v->entries[index] = elemp;
+        v->elements[index] = elemp;
 
         return index;
 }
@@ -87,7 +87,7 @@ vector_t * vector_alloc(int capacity)
 {
         vector_t *v = xcalloc(1, sizeof(vector_t));
 
-        v->entries = xmalloc(capacity * sizeof(void *));
+        v->elements = xmalloc(capacity * sizeof(void *));
         v->capacity = capacity;
 
         return v;
@@ -97,8 +97,8 @@ void vector_free(vector_t **v)
 {
         if (v && *v) {
                 /*vector_clear(*v);*/
-                free((*v)->entries);
-                (*v)->entries = NULL;
+                free((*v)->elements);
+                (*v)->elements = NULL;
                 (*v)->capacity = 0;
                 (*v)->size = 0;
                 free(*v);
@@ -111,16 +111,16 @@ void vector_clear(vector_t *v)
 
         if (v) {
                 for (i = 0; i < v->size; i++) {
-                        free(v->entries[i]);
+                        free(v->elements[i]);
                 }
 
                 v->size = 0;
         }
 }
 
-int vector_append(vector_t *v, void const *elem)
+int vector_append(vector_t *v, void const *element)
 {
-        return v ? _vector_add_private(v, elem, v->size) : -1;
+        return v ? _vector_add_private(v, element, v->size) : -1;
 }
 
 size_t vector_size(vector_t const *v)
@@ -134,5 +134,5 @@ void *vector_get(vector_t const *v, int index)
                 return NULL;
         }
 
-        return v->entries[index];
+        return v->elements[index];
 }
