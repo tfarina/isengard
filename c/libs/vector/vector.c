@@ -83,56 +83,58 @@ static int _vector_add_private(vector_t *v, void const *elem, int index)
         return index;
 }
 
-vector_t * vector_alloc(int capacity)
+vector_t *vector_alloc(int capacity)
 {
-        vector_t *v = xcalloc(1, sizeof(vector_t));
+        vector_t *self = NULL;
 
-        v->elements = xmalloc(capacity * sizeof(void *));
-        v->capacity = capacity;
+        self = xcalloc(1, sizeof(vector_t));
 
-        return v;
+        self->elements = xmalloc(capacity * sizeof(void *));
+        self->capacity = capacity;
+
+        return self;
 }
 
-void vector_free(vector_t **v)
+void vector_free(vector_t **self)
 {
-        if (v && *v) {
-                /*vector_clear(*v);*/
-                free((*v)->elements);
-                (*v)->elements = NULL;
-                (*v)->capacity = 0;
-                (*v)->size = 0;
-                free(*v);
+        if (self && *self) {
+                /*vector_clear(*self);*/
+                free((*self)->elements);
+                (*self)->elements = NULL;
+                (*self)->capacity = 0;
+                (*self)->size = 0;
+                free(*self);
         }
 }
 
-void vector_clear(vector_t *v)
+void vector_clear(vector_t *self)
 {
         int i;
 
-        if (v) {
-                for (i = 0; i < v->size; i++) {
-                        free(v->elements[i]);
+        if (self) {
+                for (i = 0; i < self->size; i++) {
+                        free(self->elements[i]);
                 }
 
-                v->size = 0;
+                self->size = 0;
         }
 }
 
-int vector_append(vector_t *v, void const *element)
+int vector_append(vector_t *self, void const *element)
 {
-        return v ? _vector_add_private(v, element, v->size) : -1;
+        return self ? _vector_add_private(self, element, self->size) : -1;
 }
 
-size_t vector_size(vector_t const *v)
+size_t vector_size(vector_t const *self)
 {
-        return v ? v->size : 0;
+        return self ? self->size : 0;
 }
 
-void *vector_get(vector_t const *v, int index)
+void *vector_get(vector_t const *self, int index)
 {
-        if (index < 0 || !v || index >= v->size) {
+        if (index < 0 || !self || index >= self->size) {
                 return NULL;
         }
 
-        return v->elements[index];
+        return self->elements[index];
 }

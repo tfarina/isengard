@@ -31,7 +31,7 @@ vector_t *vector_alloc(int capacity);
  * @param element The element to be inserted.
  * @return 0 on success, -1 on error.
  */
-int vector_append(vector_t *v, void const *element);
+int vector_append(vector_t *self, void const *element);
 
 /**
  * Returns the current number of elements store in the array.
@@ -39,7 +39,7 @@ int vector_append(vector_t *v, void const *element);
  * @param v The vector instance (must not be NULL).
  * @return The number of elements in the array.
  */
-size_t vector_size(vector_t const *v);
+size_t vector_size(vector_t const *self);
 
 /**
  * Returns the element at the specified index in the array.
@@ -48,14 +48,14 @@ size_t vector_size(vector_t const *v);
  * @param index The index of the element.
  * @return The element at specified index.
  */
-void *vector_get(vector_t const *v, int index);
+void *vector_get(vector_t const *self, int index);
 
 /**
  * Removes all elements from the array.
  *
  * @param v The vector instance (must not be NULL).
  */
-void vector_clear(vector_t *v);
+void vector_clear(vector_t *self);
 
 /**
  * Frees this instance of vector_t.
@@ -63,6 +63,6 @@ void vector_clear(vector_t *v);
  *
  * @param v The vector instance to be deleted.
  */
-void vector_free(vector_t **v);
+void vector_free(vector_t **self);
 
 #endif  /* VECTOR_H_ */
