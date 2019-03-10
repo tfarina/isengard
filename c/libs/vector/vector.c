@@ -130,7 +130,7 @@ size_t vector_size(vector_t const *self)
         return self ? self->size : 0;
 }
 
-void *vector_get(vector_t const *self, int index)
+void *vector_get(vector_t const * const self, int const index)
 {
         if (index < 0 || !self || index >= self->size) {
                 return NULL;

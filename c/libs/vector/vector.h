@@ -48,7 +48,7 @@ size_t vector_size(vector_t const *self);
  * @param index The index of the element.
  * @return The element at specified index.
  */
-void *vector_get(vector_t const *self, int index);
+void *vector_get(vector_t const * const self, int const index);
 
 /**
  * Removes all elements from the array.
