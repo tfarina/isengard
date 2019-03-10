@@ -39,7 +39,7 @@ int vector_append(vector_t *self, void const *element);
  * @param v The vector instance (must not be NULL).
  * @return The number of elements in the array.
  */
-size_t vector_size(vector_t const *self);
+size_t vector_size(vector_t const * const self);
 
 /**
  * Returns the element at the specified index in the array.

@@ -125,7 +125,7 @@ int vector_append(vector_t *self, void const *element)
         return self ? _vector_add_private(self, element, self->size) : -1;
 }
 
-size_t vector_size(vector_t const *self)
+size_t vector_size(vector_t const * const self)
 {
         return self ? self->size : 0;
 }
