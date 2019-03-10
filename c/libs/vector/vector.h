@@ -3,8 +3,8 @@
 
 #include <stddef.h>
 
-/*
- * A vector_t is a generic vector.
+/**
+ * A vector_t is a variable length array.
  */
 typedef struct {
         /* This is a pointer to an array of elements of any type. */
