@@ -20,8 +20,8 @@ typedef struct {
 vector_t *vector_alloc(int capacity);
 void vector_free(vector_t **v);
 void vector_clear(vector_t *v);
-int vector_append(vector_t *v, const void *item);
-size_t vector_length(const vector_t *v);
-void *vector_get(const vector_t *v, int pos);
+int vector_append(vector_t *v, void const *item);
+size_t vector_length(vector_t const *v);
+void *vector_get(vector_t const *v, int pos);
 
 #endif  /* VECTOR_H_ */

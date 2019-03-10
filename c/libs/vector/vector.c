@@ -60,7 +60,7 @@ static void *xrealloc(void *oldptr, size_t newsize)
 	return newptr;
 }
 
-static int _vector_add_private(vector_t *v, const void *elem, int pos)
+static int _vector_add_private(vector_t *v, void const *elem, int pos)
 {
         void *elemp;
 
@@ -118,17 +118,17 @@ void vector_clear(vector_t *v)
         }
 }
 
-int vector_append(vector_t *v, const void *elem)
+int vector_append(vector_t *v, void const *elem)
 {
-  return v ? _vector_add_private(v, elem, v->length) : -1;
+        return v ? _vector_add_private(v, elem, v->length) : -1;
 }
 
-size_t vector_length(const vector_t *v)
+size_t vector_length(vector_t const *v)
 {
         return v ? v->length : 0;
 }
 
-void *vector_get(const vector_t *v, int pos)
+void *vector_get(vector_t const *v, int pos)
 {
         if (pos < 0 || !v || pos >= v->length) {
                 return NULL;
