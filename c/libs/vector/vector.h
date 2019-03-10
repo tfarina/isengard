@@ -7,8 +7,8 @@
  * A vector_t is a generic vector.
  */
 typedef struct {
-        /* This is a pointer that forms an array of pointers to elements. */
-	void **entries;
+        /* This is a pointer to an array of elements of any type. */
+        void **entries; /* void *entries[] */
 
         /* The current number of entries in the vector. */
 	size_t length;
