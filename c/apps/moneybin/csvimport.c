@@ -15,6 +15,25 @@
 #include "stock.h"
 #include "strutils.h"
 
+static void csv_read_ticks(char const *filename) {
+  FILE* fp;
+  struct csv_parser parser;
+  char buf[1024];
+  size_t bytes_read;
+
+  fp = fopen(filename, "r");
+  if (fp == NULL) {
+    return;
+  }
+
+  while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
+    if (csv_parse(&parser, buf, bytes_read, NULL, NULL, NULL) != bytes_read) {
+    }
+  }
+
+  fclose(fp);
+}
+
 int main(int argc, char **argv) {
   char *filename;
   char *symbol;
@@ -36,8 +55,8 @@ int main(int argc, char **argv) {
   filename = f_strdup(argv[1]);
   symbol = f_strdup(argv[2]);
 
-  csvdata = read_file(filename, &len);
-  if (csvdata == NULL)
+  rc = read_file(filename, &csvdata, &len);
+  if (rc < 0)
     return 1;
  
   if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL) != 0) {
@@ -77,7 +96,7 @@ int main(int argc, char **argv) {
 
   /* NOTE: This will overwrite existing data. */
   printf("Importing records...\n");
-
+  exit(1);
   for (i = 0; i < stock.ticks_length; i++) {
     stock_tick_t *tick = stock.ticks + i;
 

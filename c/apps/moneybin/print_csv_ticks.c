@@ -23,8 +23,8 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  csvdata = read_file(argv[1], &csvdata_len);
-  if (csvdata == NULL) {
+  rc = read_file(argv[1], &csvdata, &csvdata_len);
+  if (rc < 0) {
     return 1;
   }
 

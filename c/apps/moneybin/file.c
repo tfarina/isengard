@@ -6,7 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 
-char *read_file(const char *filename, size_t *len) {
+int read_file(const char *filename, char **contents_out, size_t *len) {
   FILE *fp;
   int rc;
   long bufsize;
@@ -16,28 +16,28 @@ char *read_file(const char *filename, size_t *len) {
   fp = fopen(filename, "r");
   if (fp == NULL) {
     perror("fopen()");
-    return NULL;
+    return -1;
   }
  
   /* Go to the end of the file. */
   rc = fseek(fp, 0, SEEK_END);
   if (rc < 0) {
     perror("fseek(END)");
-    return NULL;
+    return -1;
   }
 
   /* To get the size of the file. */
   bufsize = ftell(fp);
   if (bufsize < 0) {
     perror("ftell()");
-    return NULL;
+    return -1;
   }
  
   /* Go back to the start of the file. */
   rc = fseek(fp, 0, SEEK_SET);
   if (rc < 0) {
     perror("fseek(SET)");
-    return NULL;
+    return -1;
   }
  
   /* Allocate buffer memory for that file size.
@@ -46,7 +46,7 @@ char *read_file(const char *filename, size_t *len) {
   contents = malloc(sizeof(char) * bufsize + 1);
   if (contents == NULL) {
     perror("malloc");
-    return NULL;
+    return -1;
   }
 
   bytes_read = fread(contents, sizeof(char), bufsize, fp);
@@ -55,7 +55,7 @@ char *read_file(const char *filename, size_t *len) {
     fprintf(stderr, "Error reading file \"%s\"\n", filename);
     free(contents);
     fclose(fp);
-    return NULL;
+    return -1;
   }
  
   fclose(fp);
@@ -66,7 +66,9 @@ char *read_file(const char *filename, size_t *len) {
     *len = bufsize;
   }
 
-  return contents;
+  *contents_out = contents;
+
+  return 0;
 }
 
 int write_file(const char *filename, const char *data, size_t size)
