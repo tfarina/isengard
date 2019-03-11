@@ -141,7 +141,6 @@ int main(int argc, char **argv) {
     return 1;
  
   memset((void *)&stock, 0, sizeof(stock_info_t));
-  stock.symbol = symbol;
   stock_ticks_alloc(&stock, 2);
   if (stock.ticks == NULL) {
     fprintf(stderr, "failed to allocate %zu bytes for stock data\n",
@@ -181,11 +180,11 @@ int main(int argc, char **argv) {
   for (i = 0; i < stock.ticks_length; i++) {
     stock_tick_t *tick = stock.ticks + i;
 
-    if (quote_exists(conn, stock.symbol, tick)) {
-      quote_update(conn, stock.symbol, tick);
+    if (quote_exists(conn, symbol, tick)) {
+      quote_update(conn, symbol, tick);
       num_updates++;
     } else {
-      quote_insert(conn, stock.symbol, tick);
+      quote_insert(conn, symbol, tick);
       num_inserts++;
     }
 
