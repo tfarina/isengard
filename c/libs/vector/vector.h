@@ -27,7 +27,7 @@ vector_t *vector_alloc(int capacity);
 /**
  * Inserts the specified element to the back of the array.
  *
- * @param v The vector instance (must not be NULL).
+ * @param self The vector instance (must not be NULL).
  * @param element The element to be inserted.
  * @return 0 on success, -1 on error.
  */
@@ -36,7 +36,7 @@ int vector_append(vector_t *self, void const *element);
 /**
  * Returns the current number of elements store in the array.
  *
- * @param v The vector instance (must not be NULL).
+ * @param self The vector instance (must not be NULL).
  * @return The number of elements in the array.
  */
 size_t vector_size(vector_t const * const self);
@@ -44,7 +44,7 @@ size_t vector_size(vector_t const * const self);
 /**
  * Returns the element at the specified index in the array.
  *
- * @param v The vector instance (must not be NULL).
+ * @param self The vector instance (must not be NULL).
  * @param index The index of the element.
  * @return The element at specified index.
  */
