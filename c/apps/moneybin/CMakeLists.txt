@@ -15,23 +15,40 @@ add_subdirectory(third_party/sqlite)
 
 find_package(MySQL)
 
-add_executable(csvdump csvdump.c strutils.c file.c csv_helper.c stock.c)
-target_link_libraries(csvdump libcsv ${MYSQL_LIBRARY})
+set(SRCS
+  buffer.c
+  csv_helper.c
+  curl_helper.c
+  db.c
+  db_mysql.c
+  ffileutils.c
+  file.c
+  futils.c
+  stats.c
+  stock.c
+  strutils.c
+)
 
-add_executable(csvstats csvstats.c strutils.c csv_helper.c stats.c)
-target_link_libraries(csvstats libcsv ${MYSQL_LIBRARY} -lm)
+add_library(moneybin ${SRCS})
+target_link_libraries(moneybin iniparser libcsv ${MYSQL_LIBRARY})
+
+add_executable(csvdump csvdump.c)
+target_link_libraries(csvdump libcsv ${MYSQL_LIBRARY} moneybin)
+
+add_executable(csvstats csvstats.c)
+target_link_libraries(csvstats libcsv ${MYSQL_LIBRARY} -lm moneybin)
 
 find_package(CURL REQUIRED)
 
 if (CURL_FOUND)
   include_directories(${CURL_INCLUDE_DIRS})
 
-  add_executable(gethistdata gethistdata.c ffileutils.c strutils.c futils.c db.c db_mysql.c stock.c file.c buffer.c curl_helper.c csv_helper.c)
-  target_link_libraries(gethistdata ${CURL_LIBRARIES} libcsv iniparser ${MYSQL_LIBRARY})
+  add_executable(gethistdata gethistdata.c)
+  target_link_libraries(gethistdata ${CURL_LIBRARIES} libcsv iniparser ${MYSQL_LIBRARY} moneybin)
 endif()
 
-add_executable(csvimport csvimport.c ffileutils.c strutils.c file.c futils.c db.c db_mysql.c stock.c csv_helper.c)
-target_link_libraries(csvimport iniparser libcsv ${MYSQL_LIBRARY})
+add_executable(csvimport csvimport.c)
+target_link_libraries(csvimport iniparser libcsv ${MYSQL_LIBRARY} moneybin)
 
-add_executable(lastdate lastdate.c strutils.c ffileutils.c futils.c db.c db_mysql.c)
-target_link_libraries(lastdate iniparser ${MYSQL_LIBRARY})
+add_executable(lastdate lastdate.c)
+target_link_libraries(lastdate iniparser ${MYSQL_LIBRARY} moneybin)
