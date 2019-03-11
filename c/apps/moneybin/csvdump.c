@@ -18,8 +18,8 @@ int main(int argc, char **argv) {
   size_t bytes_processed;
   size_t i;
 
-  if (argc != 3) {
-    fputs("usage: ticks filename.csv SYMBOL\n", stderr);
+  if (argc != 2) {
+    fputs("usage: csvdump filename.csv\n", stderr);
     return 1;
   }
 
@@ -35,7 +35,6 @@ int main(int argc, char **argv) {
   }
  
   memset((void *)&stock, 0, sizeof(stock_info_t));
-  stock.symbol = f_strdup(argv[2]);
   stock_ticks_alloc(&stock, 2);
   if (stock.ticks == NULL) {
     fprintf(stderr, "failed to allocate %zu bytes for stock data\n",
