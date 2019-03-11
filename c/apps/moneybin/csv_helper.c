@@ -22,18 +22,36 @@ typedef enum {
 static int num_rows;
 static unsigned colnum; /* current column - zero based index */
 
+typedef enum result_code_e {
+  RC_OK,
+  RC_ERROR,
+} result_code_t;
+
+static double parse_price(char const *field, size_t length, result_code_t *rc) {
+  char *endptr;
+  double price;
+
+  price = (double)strtod(field, &endptr);
+  if (length > 0 && (endptr == NULL || *endptr == '\0')) {
+    *rc = RC_OK;
+    return price;
+  }
+
+  *rc = RC_ERROR;
+  return -1.0f;
+}
+
 void csv_count_cb(int c, void *data) {
   num_rows++;
 }
 
 void csv_column_cb(void *field,
-		   size_t field_len UNUSED,
+		   size_t field_length,
 		   void *data)
 {
   stock_info_t *stock;
   stock_tick_t *cur_tick;
-  char *endptr;
-  double dval;
+  result_code_t rc;
 
   stock = (stock_info_t *)data;
   if (stock->error) {
@@ -76,31 +94,23 @@ void csv_column_cb(void *field,
     break;
  
   case CSV_COLUMN_OPEN:
+    cur_tick->open = parse_price((char *)field, field_length, &rc);
+    break;
+
   case CSV_COLUMN_HIGH:
+    cur_tick->high = parse_price((char *)field, field_length, &rc);
+    break;
+
   case CSV_COLUMN_LOW:
+    cur_tick->low = parse_price((char *)field, field_length, &rc);
+    break;
+
   case CSV_COLUMN_CLOSE:
+    cur_tick->close = parse_price((char *)field, field_length, &rc);
+    break;
+
   case CSV_COLUMN_ADJ_CLOSE:
-    if (strcmp((char*)field, "null") != 0) {
-      dval = strtod((char*)field, &endptr);
-      if (*endptr != '\0') {
-        fprintf(stderr,
-                "non-float value in record %zu, field %u: \"%s\"\n",
-                 stock->ticks_length + 1, colnum + 1, field);
-        stock->error = 1;
-        return;
-      }
- 
-      if (colnum == CSV_COLUMN_OPEN)
-        cur_tick->open = dval;
-      else if (colnum == CSV_COLUMN_HIGH)
-        cur_tick->high = dval;
-      else if (colnum == CSV_COLUMN_LOW)
-        cur_tick->low = dval;
-      else if (colnum == CSV_COLUMN_CLOSE)
-        cur_tick->close = dval;
-      else if (colnum == CSV_COLUMN_ADJ_CLOSE)
-        cur_tick->adj_close = dval;
-    }
+    cur_tick->adj_close = parse_price((char *)field, field_length, &rc);
     break;
 
   case CSV_COLUMN_VOLUME:
@@ -108,7 +118,6 @@ void csv_column_cb(void *field,
     break;
   }
  
-
   if (colnum == CSV_COLUMN_VOLUME) {
     stock->ticks_length++;
   }
