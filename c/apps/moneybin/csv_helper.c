@@ -134,6 +134,10 @@ void csv_column_cb(void *field,
   case CSV_COLUMN_VOLUME:
     cur_tick->volume = atoi(buffer);
     break;
+
+  default:
+    rc = RC_ERROR;
+    break;
   }
 
   free(buffer);
