@@ -34,6 +34,7 @@ static void csv_read_quotes(char const *filename) {
 
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
     if (csv_parse(&parser, buf, bytes_read, csv_quote_column_cb, csv_quote_row_cb, NULL) != bytes_read) {
+      fprintf(stderr, "Error while parsing file: %s\n", csv_strerror(csv_error(&parser)));
     }
   }
 
