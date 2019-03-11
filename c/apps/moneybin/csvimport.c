@@ -15,6 +15,12 @@
 #include "stock.h"
 #include "strutils.h"
 
+static void csv_quote_column_cb(void *buffer, size_t len, void *data) {
+}
+
+static void csv_quote_row_cb(int c, void *data) {
+}
+
 static void csv_read_quotes(char const *filename) {
   FILE* fp;
   struct csv_parser parser;
@@ -27,7 +33,7 @@ static void csv_read_quotes(char const *filename) {
   }
 
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
-    if (csv_parse(&parser, buf, bytes_read, NULL, NULL, NULL) != bytes_read) {
+    if (csv_parse(&parser, buf, bytes_read, csv_quote_column_cb, csv_quote_row_cb, NULL) != bytes_read) {
     }
   }
 
