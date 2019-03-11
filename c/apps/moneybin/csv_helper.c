@@ -135,6 +135,8 @@ void csv_column_cb(void *field,
     cur_tick->volume = atoi(buffer);
     break;
   }
+
+  free(buffer);
  
   if (colnum == CSV_COLUMN_VOLUME) {
     stock->ticks_length++;
