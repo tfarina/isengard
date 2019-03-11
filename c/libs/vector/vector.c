@@ -66,7 +66,7 @@ static int _vector_insert(vector_t *self, int index, void *element)
 	        return -1;
 	}
 
-        if (self->capacity == self->size) {
+        if (self->size + 1 > self->capacity) {
                 self->elements = xrealloc(self->elements, (self->capacity *= 2) * sizeof(void *));
 	}
 
