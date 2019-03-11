@@ -161,8 +161,6 @@ int main(int argc, char **argv) {
 
     printf("symbol=\"%s\"; date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
            stock.symbol, tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
-
-    free(tick->date);
   }
 
   printf("%d rows imported\n", stock.ticks_length);
