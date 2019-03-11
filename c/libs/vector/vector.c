@@ -75,7 +75,7 @@ static int _vector_insert(vector_t *self, int index, void *element)
         self->elements[index] = element;
         self->size++;
 
-        return index;
+        return 0;
 }
 
 vector_t *vector_alloc(int capacity)
