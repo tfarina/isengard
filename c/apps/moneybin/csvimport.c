@@ -108,6 +108,8 @@ int main(int argc, char **argv) {
   db_config_t config;
   MYSQL *conn = NULL;
   size_t i;
+  int num_updates = 0;
+  int num_inserts = 0;
 
   if (argc != 3) {
     fputs("usage: csvimport filename.csv symbol\n", stderr);
@@ -158,19 +160,24 @@ int main(int argc, char **argv) {
 
   /* NOTE: This will overwrite existing data. */
   printf("Importing records...\n");
-  exit(1);
 
   for (i = 0; i < stock.ticks_length; i++) {
     stock_tick_t *tick = stock.ticks + i;
 
-    if (stock_add_tick(conn, &stock, tick) != -1) {
+    if (quote_exists(conn, stock.symbol, tick)) {
+      quote_update(conn, stock.symbol, tick);
+      num_updates++;
+    } else {
+      quote_insert(conn, stock.symbol, tick);
+      num_inserts++;
     }
 
     printf("date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
            tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
   }
 
-  printf("%d rows imported\n", stock.ticks_length);
+  printf("%d rows updated\n", num_updates);
+  printf("%d rows inserted\n", num_inserts);
 
   free(stock.ticks);
  
