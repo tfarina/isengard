@@ -15,8 +15,8 @@ add_subdirectory(third_party/sqlite)
 
 find_package(MySQL)
 
-add_executable(print_csv_ticks print_csv_ticks.c strutils.c file.c csv_helper.c stock.c)
-target_link_libraries(print_csv_ticks libcsv ${MYSQL_LIBRARY})
+add_executable(csvdump csvdump.c strutils.c file.c csv_helper.c stock.c)
+target_link_libraries(csvdump libcsv ${MYSQL_LIBRARY})
 
 add_executable(csvstats csvstats.c strutils.c csv_helper.c stats.c)
 target_link_libraries(csvstats libcsv ${MYSQL_LIBRARY} -lm)
