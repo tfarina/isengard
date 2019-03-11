@@ -159,8 +159,8 @@ int main(int argc, char **argv) {
     if (stock_add_tick(conn, &stock, tick) != -1) {
     }
 
-    printf("symbol=\"%s\"; date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
-           stock.symbol, tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
+    printf("date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
+           tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
   }
 
   printf("%d rows imported\n", stock.ticks_length);
