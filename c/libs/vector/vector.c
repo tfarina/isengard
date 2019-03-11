@@ -60,7 +60,7 @@ static void *xrealloc(void *oldptr, size_t newsize)
 	return newptr;
 }
 
-static int _vector_insert(vector_t *v, int index, void *elem)
+static int _vector_insert(vector_t *v, int index, void *element)
 {
         if (index < 0 || !v || index > v->size) {
 	        return -1;
@@ -74,7 +74,7 @@ static int _vector_insert(vector_t *v, int index, void *elem)
 
         v->size++;
 
-        v->elements[index] = elem;
+        v->elements[index] = element;
 
         return index;
 }
