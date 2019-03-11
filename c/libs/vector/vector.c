@@ -67,7 +67,9 @@ static int _vector_insert(vector_t *self, int index, void *element)
 	}
 
         if (self->size + 1 > self->capacity) {
-                self->elements = xrealloc(self->elements, (self->capacity *= 2) * sizeof(void *));
+                size_t const new_capacity = (self->size + 1) * 2;
+                self->elements = xrealloc(self->elements, new_capacity * sizeof(void *));
+                self->capacity = new_capacity;
 	}
 
         memmove(&self->elements[index + 1], &self->elements[index], (self->size - index) * sizeof(void *));
