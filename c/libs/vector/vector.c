@@ -100,11 +100,6 @@ int vector_push_back(vector_t *self, void const *element)
         return self ? _vector_insert(self, self->size, element) : -1;
 }
 
-size_t vector_size(vector_t const * const self)
-{
-        return self ? self->size : 0;
-}
-
 void *vector_get(vector_t const * const self, int const index)
 {
         if (index < 0 || !self || index >= self->size) {
@@ -112,6 +107,11 @@ void *vector_get(vector_t const * const self, int const index)
         }
 
         return self->elements[index];
+}
+
+size_t vector_size(vector_t const * const self)
+{
+        return self ? self->size : 0;
 }
 
 void vector_free(vector_t *self)

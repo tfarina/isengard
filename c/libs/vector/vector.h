@@ -34,14 +34,6 @@ vector_t *vector_alloc(int capacity);
 int vector_push_back(vector_t *self, void const *element);
 
 /**
- * Returns the current number of elements store in the array.
- *
- * @param self The vector instance (must not be NULL).
- * @return The number of elements in the array.
- */
-size_t vector_size(vector_t const * const self);
-
-/**
  * Returns the element at the specified index in the array.
  *
  * @param self The vector instance (must not be NULL).
@@ -49,6 +41,14 @@ size_t vector_size(vector_t const * const self);
  * @return The element at specified index.
  */
 void *vector_get(vector_t const * const self, int const index);
+
+/**
+ * Returns the current number of elements store in the array.
+ *
+ * @param self The vector instance (must not be NULL).
+ * @return The number of elements in the array.
+ */
+size_t vector_size(vector_t const * const self);
 
 /**
  * Frees this instance of vector_t.
