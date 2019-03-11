@@ -157,15 +157,16 @@ int csv_num_rows(void) {
   return num_rows;
 }
 
-static double *close;
+static int ignore_first_line = 1;
 static long unsigned currentrow;
 static long unsigned currentcolumn;
+static double *close;
 
 void csv_column_cb1(void *buffer, size_t len, void *data) {
   char *endptr;
   double dval;
 
-  if (currentrow == 0) {
+  if (ignore_first_line) {
     return;
   }
 
@@ -183,13 +184,17 @@ void csv_column_cb1(void *buffer, size_t len, void *data) {
 }
 
 void csv_row_cb2(int c, void *data) {
-  printf("ROW: %lu\n", currentrow);
+  if (ignore_first_line) {
+    ignore_first_line = 0;
+  } else {
+    printf("ROW: %lu\n", currentrow);
 
-  /* We got a row, increment the counter. */
-  currentrow = currentrow + 1;
+    /* We got a row, increment the counter. */
+    currentrow = currentrow + 1;
 
-  /* We got a row, reset the index of the column counter. */
-  currentcolumn = 0;
+    /* We got a row, reset the index of the column counter. */
+    currentcolumn = 0;
+  }
 }
 
 int load_close_prices(char const *filename) {
