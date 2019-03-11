@@ -28,14 +28,14 @@ void csv_count_cb(int c, void *data) {
 
 void csv_column_cb(void *field,
 		   size_t field_len UNUSED,
-		   void *ctx)
+		   void *data)
 {
   stock_info_t *stock;
   stock_tick_t *cur_tick;
   char *endptr;
   double dval;
 
-  stock = (stock_info_t *)ctx;
+  stock = (stock_info_t *)data;
   if (stock->error) {
     return;
   }
@@ -116,8 +116,8 @@ void csv_column_cb(void *field,
   colnum = (colnum + 1) % 7;
 }
  
-void csv_row_cb(int delim UNUSED, void *ctx) {
-  stock_info_t *stock = (stock_info_t *)ctx;
+void csv_row_cb(int delim UNUSED, void *data) {
+  stock_info_t *stock = (stock_info_t *)data;
   if (stock->error) return;
  
   if (colnum != CSV_COLUMN_DATE) {
