@@ -72,9 +72,8 @@ static int _vector_insert(vector_t *v, int index, void *element)
 
         memmove(&v->elements[index + 1], &v->elements[index], (v->size - index) * sizeof(void *));
 
-        v->size++;
-
         v->elements[index] = element;
+        v->size++;
 
         return index;
 }
