@@ -38,6 +38,15 @@ static void csv_read_quotes(char const *filename) {
     }
   }
 
+  csv_fini(&parser, csv_quote_column_cb, csv_quote_row_cb, NULL);
+  csv_free(&parser);
+
+  if (ferror(fp)) {
+    fprintf(stderr, "error reading file %s\n", filename);
+    fclose(fp);
+    return;
+  }
+
   fclose(fp);
 }
 
