@@ -106,7 +106,7 @@ void vector_free(vector_t *self)
         }
 }
 
-int vector_append(vector_t *self, void const *element)
+int vector_push_back(vector_t *self, void const *element)
 {
         return self ? _vector_insert(self, self->size, element) : -1;
 }

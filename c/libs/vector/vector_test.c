@@ -26,9 +26,9 @@ int main(void) {
 
         printf("%d\n", vector_size(vp));
 
-        vector_append(vp, &p);
-        vector_append(vp, &p2);
-        vector_append(vp, &p3);
+        vector_push_back(vp, &p);
+        vector_push_back(vp, &p2);
+        vector_push_back(vp, &p3);
 
 	vp_len = vector_size(vp);
         printf("%d\n", vp_len);

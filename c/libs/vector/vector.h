@@ -31,7 +31,7 @@ vector_t *vector_alloc(int capacity);
  * @param element The element to be inserted.
  * @return 0 on success, -1 on error.
  */
-int vector_append(vector_t *self, void const *element);
+int vector_push_back(vector_t *self, void const *element);
 
 /**
  * Returns the current number of elements store in the array.
