@@ -51,6 +51,7 @@ void csv_column_cb(void *field,
 {
   stock_info_t *stock;
   stock_tick_t *cur_tick;
+  char *buffer;
   result_code_t rc;
 
   stock = (stock_info_t *)data;
@@ -70,7 +71,11 @@ void csv_column_cb(void *field,
       strcmp((char*)field, "Volume") == 0) {
     return;
   }
- 
+
+  buffer = (char *)malloc((field_length + 1) * sizeof(char));
+  strncpy(buffer, field, field_length);
+  buffer[field_length] = '\0';  /* NULL terminate the string. */
+
   switch (colnum) {
   case CSV_COLUMN_DATE:
     /* Start of a new record; check if we need to reallocate. */
@@ -94,27 +99,27 @@ void csv_column_cb(void *field,
     break;
  
   case CSV_COLUMN_OPEN:
-    cur_tick->open = parse_price((char *)field, field_length, &rc);
+    cur_tick->open = parse_price(buffer, field_length, &rc);
     break;
 
   case CSV_COLUMN_HIGH:
-    cur_tick->high = parse_price((char *)field, field_length, &rc);
+    cur_tick->high = parse_price(buffer, field_length, &rc);
     break;
 
   case CSV_COLUMN_LOW:
-    cur_tick->low = parse_price((char *)field, field_length, &rc);
+    cur_tick->low = parse_price(buffer, field_length, &rc);
     break;
 
   case CSV_COLUMN_CLOSE:
-    cur_tick->close = parse_price((char *)field, field_length, &rc);
+    cur_tick->close = parse_price(buffer, field_length, &rc);
     break;
 
   case CSV_COLUMN_ADJ_CLOSE:
-    cur_tick->adj_close = parse_price((char *)field, field_length, &rc);
+    cur_tick->adj_close = parse_price(buffer, field_length, &rc);
     break;
 
   case CSV_COLUMN_VOLUME:
-    cur_tick->volume = atoi((char*)field);
+    cur_tick->volume = atoi(buffer);
     break;
   }
  
