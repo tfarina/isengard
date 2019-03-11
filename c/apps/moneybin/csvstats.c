@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
   double avg;
 
   if (argc != 3) {
-    fputs("usage: print_csv_stats filename.csv SYMBOL\n", stderr);
+    fputs("usage: csvstats filename.csv SYMBOL\n", stderr);
     return 1;
   }
 
