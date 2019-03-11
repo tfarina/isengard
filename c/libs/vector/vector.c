@@ -60,20 +60,20 @@ static void *xrealloc(void *oldptr, size_t newsize)
 	return newptr;
 }
 
-static int _vector_insert(vector_t *v, int index, void *element)
+static int _vector_insert(vector_t *self, int index, void *element)
 {
-        if (index < 0 || !v || index > v->size) {
+        if (index < 0 || !self || index > self->size) {
 	        return -1;
 	}
 
-        if (v->capacity == v->size) {
-                v->elements = xrealloc(v->elements, (v->capacity *= 2) * sizeof(void *));
+        if (self->capacity == self->size) {
+                self->elements = xrealloc(self->elements, (self->capacity *= 2) * sizeof(void *));
 	}
 
-        memmove(&v->elements[index + 1], &v->elements[index], (v->size - index) * sizeof(void *));
+        memmove(&self->elements[index + 1], &self->elements[index], (self->size - index) * sizeof(void *));
 
-        v->elements[index] = element;
-        v->size++;
+        self->elements[index] = element;
+        self->size++;
 
         return index;
 }
