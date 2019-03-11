@@ -27,6 +27,19 @@ typedef enum result_code_e {
   RC_ERROR,
 } result_code_t;
 
+static char *parse_str(char const *field, size_t length, result_code_t *rc) {
+  if (length > 0) {
+    char *str = (char *)malloc((length + 1) * sizeof(char));
+    strncpy(str, field, length + 1);
+
+    *rc = RC_OK;
+    return str;
+  } else {
+    *rc = RC_ERROR;
+    return NULL;
+  }
+}
+
 static double parse_price(char const *field, size_t length, result_code_t *rc) {
   char *endptr;
   double price;
@@ -95,7 +108,7 @@ void csv_column_cb(void *field,
       cur_tick = stock->ticks + stock->ticks_length;
     }
  
-    cur_tick->date = f_strdup((char*)field);
+    cur_tick->date = parse_str(buffer, field_length, &rc);
     break;
  
   case CSV_COLUMN_OPEN:
