@@ -114,12 +114,6 @@ int main(int argc, char **argv) {
   if (rc < 0)
     return 1;
  
-  if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL) != 0) {
-    free(csvdata);
-    fprintf(stderr, "failed to initialize CSV parser\n");
-    return 1;
-  }
- 
   memset((void *)&stock, 0, sizeof(stock_info_t));
   stock.symbol = symbol;
   stock_ticks_alloc(&stock, 2);
@@ -130,6 +124,12 @@ int main(int argc, char **argv) {
     return 1;
   }
  
+  if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL) != 0) {
+    free(csvdata);
+    fprintf(stderr, "failed to initialize CSV parser\n");
+    return 1;
+  }
+
   bytes_processed = csv_parse(&parser, (void*)csvdata, len,
                               csv_column_cb, csv_row_cb, &stock);
   rc = csv_fini(&parser, csv_column_cb, csv_row_cb, &stock);
