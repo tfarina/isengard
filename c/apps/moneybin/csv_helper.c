@@ -101,8 +101,11 @@ void csv_column_cb(void *field,
       else if (colnum == CSV_COLUMN_ADJ_CLOSE)
         cur_tick->adj_close = dval;
     }
+    break;
+
   case CSV_COLUMN_VOLUME:
     cur_tick->volume = atoi((char*)field);
+    break;
   }
  
 
