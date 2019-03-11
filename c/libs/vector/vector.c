@@ -106,19 +106,6 @@ void vector_free(vector_t *self)
         }
 }
 
-void vector_clear(vector_t *self)
-{
-        int i;
-
-        if (self) {
-                for (i = 0; i < self->size; i++) {
-                        free(self->elements[i]);
-                }
-
-                self->size = 0;
-        }
-}
-
 int vector_append(vector_t *self, void const *element)
 {
         return self ? _vector_insert(self, self->size, element) : -1;

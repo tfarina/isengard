@@ -51,13 +51,6 @@ size_t vector_size(vector_t const * const self);
 void *vector_get(vector_t const * const self, int const index);
 
 /**
- * Removes all elements from the array.
- *
- * @param v The vector instance (must not be NULL).
- */
-void vector_clear(vector_t *self);
-
-/**
  * Frees this instance of vector_t.
  * If 'self' is NULL no action will be performed.
  *
