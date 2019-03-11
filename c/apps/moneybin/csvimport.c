@@ -15,10 +15,18 @@
 #include "stock.h"
 #include "strutils.h"
 
-static void csv_quote_column_cb(void *buffer, size_t len, void *data) {
+/**
+ * This functions is called each time a new csv field has been found.
+ * It is responsible for determining which field is being parsed, and
+ * updating the current_tick object.
+ */
+static void csv_new_field_cb(void *buffer, size_t len, void *data) {
 }
 
-static void csv_quote_row_cb(int c, void *data) {
+/**
+ * This functions is called each time a new row has been found.
+ */
+static void csv_new_row_cb(int c, void *data) {
 }
 
 static void csv_read_quotes(char const *filename) {
@@ -33,12 +41,12 @@ static void csv_read_quotes(char const *filename) {
   }
 
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
-    if (csv_parse(&parser, buf, bytes_read, csv_quote_column_cb, csv_quote_row_cb, NULL) != bytes_read) {
+    if (csv_parse(&parser, buf, bytes_read, csv_new_field_cb, csv_new_row_cb, NULL) != bytes_read) {
       fprintf(stderr, "Error while parsing file: %s\n", csv_strerror(csv_error(&parser)));
     }
   }
 
-  csv_fini(&parser, csv_quote_column_cb, csv_quote_row_cb, NULL);
+  csv_fini(&parser, csv_new_field_cb, csv_new_row_cb, NULL);
   csv_free(&parser);
 
   if (ferror(fp)) {
