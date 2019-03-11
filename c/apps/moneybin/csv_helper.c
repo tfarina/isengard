@@ -150,14 +150,6 @@ void csv_column_cb(void *field,
 }
  
 void csv_row_cb(int delim UNUSED, void *data) {
-  stock_info_t *stock = (stock_info_t *)data;
-  if (stock->error) return;
- 
-  if (colnum != CSV_COLUMN_DATE) {
-    fprintf(stderr, "not enough fields in row %zu\n", stock->ticks_length);
-    stock->error = 1;
-  }
-
   colnum = 0;
 }
 
