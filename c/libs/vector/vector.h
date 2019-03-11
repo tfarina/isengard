@@ -59,10 +59,10 @@ void vector_clear(vector_t *self);
 
 /**
  * Frees this instance of vector_t.
- * If 'v' is NULL no action will be performed.
+ * If 'self' is NULL no action will be performed.
  *
- * @param v The vector instance to be deleted.
+ * @param self The vector instance to be deleted.
  */
-void vector_free(vector_t **self);
+void vector_free(vector_t *self);
 
 #endif  /* VECTOR_H_ */

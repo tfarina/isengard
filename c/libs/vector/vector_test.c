@@ -39,7 +39,7 @@ int main(void) {
                 printf("x: %d, y: %d\n", point->x, point->y);
         }
 
-	vector_free(&vp);
+	vector_free(vp);
 
         printf("%d\n", vector_size(vp));
 

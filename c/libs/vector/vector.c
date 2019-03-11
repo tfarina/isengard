@@ -95,15 +95,14 @@ vector_t *vector_alloc(int capacity)
         return self;
 }
 
-void vector_free(vector_t **self)
+void vector_free(vector_t *self)
 {
-        if (self && *self) {
-                /*vector_clear(*self);*/
-                free((*self)->elements);
-                (*self)->elements = NULL;
-                (*self)->capacity = 0;
-                (*self)->size = 0;
-                free(*self);
+        if (self) {
+                free(self->elements);
+                self->elements = NULL;
+                self->capacity = 0;
+                self->size = 0;
+                free(self);
         }
 }
 
