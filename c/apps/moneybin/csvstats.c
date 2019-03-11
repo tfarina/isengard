@@ -1,4 +1,3 @@
-/*https://www.quora.com/How-do-I-read-a-csv-file-and-then-use-those-fields-to-create-an-array-structure-in-C*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,8 +14,8 @@ int main(int argc, char **argv) {
   double max_close;
   double avg;
 
-  if (argc != 3) {
-    fputs("usage: csvstats filename.csv SYMBOL\n", stderr);
+  if (argc != 2) {
+    fputs("usage: csvstats filename.csv\n", stderr);
     return 1;
   }
 
