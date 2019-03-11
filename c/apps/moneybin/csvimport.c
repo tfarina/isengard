@@ -20,7 +20,7 @@
  * It is responsible for determining which field is being parsed, and
  * updating the current_tick object.
  */
-static void csv_new_field_cb(void *buffer, size_t len, void *data) {
+static void csv_new_field_cb(void *field, size_t field_length, void *data) {
 }
 
 /**
