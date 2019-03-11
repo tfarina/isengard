@@ -196,6 +196,8 @@ int main(int argc, char **argv) {
   printf("%d rows inserted\n", num_inserts);
 
   free(stock.ticks);
+  free(filename);
+  free(symbol);
  
   return 0;
 }
