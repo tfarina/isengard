@@ -34,6 +34,61 @@ static void csv_read_ticks(char const *filename) {
   fclose(fp);
 }
 
+static int quote_exists(MYSQL *conn, char const *symbol, stock_tick_t *tick)
+{
+  char query[256];
+  MYSQL_RES *res;
+
+  /* Determine if this is an insert or update operation. */
+  sprintf(query, "SELECT symbol FROM historicaldata WHERE symbol = \"%s\" and date = \"%s\"", symbol, tick->date);
+  if (mysql_query(conn, query)) {
+    fprintf(stderr, "mysql: select query failed: %s\n", mysql_error(conn));
+    mysql_close(conn);
+    return 0;
+  }
+
+  res = mysql_store_result(conn);
+  if (res == NULL) {
+    fprintf(stderr, "mysql: mysql_store_result failed: %s\n", mysql_error(conn));
+    mysql_close(conn);
+    return 0;
+  }
+
+  return mysql_num_rows(res) > 0;
+}
+
+static int quote_update(MYSQL *conn, char const *symbol, stock_tick_t *tick)
+{
+  char query[256];
+
+  sprintf(query, "UPDATE historicaldata SET open=%f, high=%f, low=%f, close=%f, adjClose=%f, volume=%d WHERE symbol = \"%s\" and date = \"%s\"",
+          tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume, symbol, tick->date);
+
+  if (mysql_query(conn, query)) {
+    fprintf(stderr, "mysql: sql operation failed: %s\n", mysql_error(conn));
+    mysql_close(conn);
+    return -1;
+  }
+
+  return 0;
+}
+
+static int quote_insert(MYSQL *conn, char const *symbol, stock_tick_t *tick)
+{
+  char query[256];
+
+  sprintf(query, "INSERT INTO historicaldata (symbol, date, open, high, low, close, adjClose, volume) VALUES ('%s', '%s', %f, %f, %f, %f, %f, %d)",
+          symbol, tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
+
+  if (mysql_query(conn, query)) {
+    fprintf(stderr, "mysql: sql operation failed: %s\n", mysql_error(conn));
+    mysql_close(conn);
+    return -1;
+  }
+
+  return 0;
+}
+
 int main(int argc, char **argv) {
   char *filename;
   char *symbol;
@@ -97,6 +152,7 @@ int main(int argc, char **argv) {
   /* NOTE: This will overwrite existing data. */
   printf("Importing records...\n");
   exit(1);
+
   for (i = 0; i < stock.ticks_length; i++) {
     stock_tick_t *tick = stock.ticks + i;
 
