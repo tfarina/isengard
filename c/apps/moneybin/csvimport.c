@@ -15,7 +15,7 @@
 #include "stock.h"
 #include "strutils.h"
 
-static void csv_read_ticks(char const *filename) {
+static void csv_read_quotes(char const *filename) {
   FILE* fp;
   struct csv_parser parser;
   char buf[1024];
