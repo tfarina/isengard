@@ -60,7 +60,7 @@ static void *xrealloc(void *oldptr, size_t newsize)
 	return newptr;
 }
 
-static int _vector_add_private(vector_t *v, void const *elem, int index)
+static int _vector_insert(vector_t *v, int index, void const *elem)
 {
         void *elemp;
 
@@ -122,7 +122,7 @@ void vector_clear(vector_t *self)
 
 int vector_append(vector_t *self, void const *element)
 {
-        return self ? _vector_add_private(self, element, self->size) : -1;
+        return self ? _vector_insert(self, self->size, element) : -1;
 }
 
 size_t vector_size(vector_t const * const self)
