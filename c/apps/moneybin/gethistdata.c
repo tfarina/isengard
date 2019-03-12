@@ -5,19 +5,10 @@
 #include <unistd.h>
  
 #include <curl/curl.h>
-#include <mysql/mysql.h>
 
 #include "buffer.h"
 #include "curl_helper.h"
-#include "third_party/libcsv/csv.h"
-#include "csv_helper.h"
-#include "third_party/iniparser/iniparser.h"
-#include "db.h"
-#include "db_mysql.h"
-#include "stock.h"
 #include "file.h"
-#include "ffileutils.h"
-#include "futils.h"
 #include "strutils.h"
 
 static char *crumb;
@@ -118,13 +109,6 @@ int main(int argc, char *argv[])
   char end_date_str[12];
   buffer_t buf;
   char filename[255];
-  struct csv_parser parser;
-  int rc;
-  stock_info_t stock;
-  size_t bytes_processed;
-  db_config_t config;
-  MYSQL *conn = NULL;
-  size_t i;
 
   if (argc != 2) {
     fputs("usage: gethistdata symbol\n", stderr);
@@ -149,57 +133,11 @@ int main(int argc, char *argv[])
 
   download_quotes_from_yahoo(symbol, one_year_ago, now, &buf);
 
+  /* TODO: do not print this by default. */
   printf("%s\n", buf.data);
 
-  /* 5. Now write |buf.data| to file. */
   sprintf(filename, "%s.csv", symbol);
   write_file(filename, buf.data, buf.length);
-
-  /* 6. Parse it. */
-  if (csv_init(&parser, CSV_APPEND_NULL) != 0) {;
-    fprintf(stderr, "failed to initialize CSV parser\n");
-    return -1;
-  }
-
-  memset((void *)&stock, 0, sizeof(stock_info_t));
-  stock.symbol = symbol;
-  stock.ticks_capacity = 2;
-  stock.ticks = malloc(stock.ticks_capacity * sizeof(stock_tick_t));
-  if (stock.ticks == NULL) {
-    fprintf(stderr, "failed to allocate %zu bytes for stock data\n",
-            stock.ticks_capacity * sizeof(stock_tick_t));
-    return -1;
-  }
- 
-  bytes_processed = csv_parse(&parser, (void*)buf.data, buf.length,
-                              csv_column_cb, csv_row_cb, &stock);
-  rc = csv_fini(&parser, csv_column_cb, csv_row_cb, &stock);
- 
-  if (stock.error || rc != 0 || bytes_processed < buf.length) {
-    fprintf(stderr,
-            "read %zu bytes out of %zu: %s\n",
-	    bytes_processed, buf.length, csv_strerror(csv_error(&parser)));
-    return -1;
-  }
-
-  /* 7. Import the data into MySQL. */
-  db_config_init(&config);
-
-  /* 8. Connect to the database to start importing the data. */
-  rc = db_mysql_connect(&conn, config.host, config.user, config.password, config.dbname);
-  if (rc < 0) {
-    return -1;
-  }
-
-  printf("Importing records...\n");
-
-  for (i = 0; i < stock.ticks_length; i++) {
-    stock_add_tick(conn, &stock, stock.ticks + i);
-  }
-
-  printf("Imported %d items for %s\n", stock.ticks_length, stock.symbol);
-
-  free(stock.ticks);
 
   return 0;
 }
