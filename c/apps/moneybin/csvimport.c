@@ -184,8 +184,8 @@ static void csv_read_quotes(char const *filename, vector_t *ticks) {
   memset(&state, 0, sizeof(csv_state_t));
   state.ticks = ticks;
 
-  if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL) != 0) {
-    fprintf(stderr, "failed to initialize csv parser\n");
+  if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
+    fprintf(stderr, "Failed to initialize csv parser\n");
     return;
   }
 
