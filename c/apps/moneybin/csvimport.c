@@ -1,4 +1,4 @@
-/*https://www.quora.com/How-do-I-read-a-csv-file-and-then-use-those-fields-to-create-an-array-structure-in-C*/
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -178,6 +178,7 @@ static void csv_read_quotes(char const *filename, vector_t *ticks) {
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
+    fprintf(stderr, "Failed to open file %s: %s\n", filename, strerror(errno));
     return;
   }
 
