@@ -1,10 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "csv_helper.h"
-#include "file.h"
-#include "stock.h"
 #include "stats.h"
 
 int main(int argc, char **argv) {
