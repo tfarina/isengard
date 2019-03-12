@@ -54,7 +54,7 @@ if (CURL_FOUND)
   include_directories(${CURL_INCLUDE_DIRS})
 
   add_executable(gethistdata gethistdata.c)
-  target_link_libraries(gethistdata ${CURL_LIBRARIES} libcsv iniparser ${MYSQL_LIBRARY} moneybin)
+  target_link_libraries(gethistdata ${CURL_LIBRARIES} ${MYSQL_LIBRARY} moneybin)
 endif()
 
 add_executable(csvimport csvimport.c)
