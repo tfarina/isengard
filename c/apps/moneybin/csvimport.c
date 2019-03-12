@@ -40,6 +40,11 @@ static void csv_read_quotes(char const *filename) {
     return;
   }
 
+  if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL) != 0) {
+    fprintf(stderr, "failed to initialize csv parser\n");
+    return;
+  }
+
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
     if (csv_parse(&parser, buf, bytes_read, csv_new_field_cb, csv_new_row_cb, NULL) != bytes_read) {
       fprintf(stderr, "Error while parsing file: %s\n", csv_strerror(csv_error(&parser)));
