@@ -4,16 +4,78 @@
 #include <string.h>
 #include <mysql/mysql.h>
 
-#include "third_party/libcsv/csv.h"
-#include "csv_helper.h"
-#include "third_party/iniparser/iniparser.h"
 #include "db.h"
 #include "db_mysql.h"
-#include "file.h"
-#include "ffileutils.h"
-#include "futils.h"
 #include "stock.h"
 #include "strutils.h"
+#include "vector.h"
+#include "third_party/iniparser/iniparser.h"
+#include "third_party/libcsv/csv.h"
+
+typedef enum result_code_e {
+  RC_OK,
+  RC_ERROR,
+} result_code_t;
+
+typedef struct csv_state_s {
+  /**
+   * The next field (column number) to parse. */
+  int field;
+
+  /**
+   * Determines wheter there has been any error during parsing.
+   */
+  int any_error;
+
+  /**
+   * Data of the tick that we are currently parsing.
+   */
+  stock_tick_t cur_tick;
+
+  /**
+   * List of ticks parsed so far.
+   */
+  vector_t *ticks;
+} csv_state_t;
+
+typedef enum csv_column_e {
+  CSV_COLUMN_DATE,
+  CSV_COLUMN_OPEN,
+  CSV_COLUMN_HIGH,
+  CSV_COLUMN_LOW,
+  CSV_COLUMN_CLOSE,
+  CSV_COLUMN_ADJ_CLOSE,
+  CSV_COLUMN_VOLUME
+} csv_column_t;
+
+static int ignore_first_line = 1;
+
+static char *parse_str(char const *field, size_t length, result_code_t *rc) {
+  if (length > 0) {
+    char *str = (char *)malloc((length + 1) * sizeof(char));
+    strncpy(str, field, length + 1);
+
+    *rc = RC_OK;
+    return str;
+  } else {
+    *rc = RC_ERROR;
+    return NULL;
+  }
+}
+
+static double parse_price(char const *field, size_t length, result_code_t *rc) {
+  char *endptr;
+  double price;
+
+  price = (double)strtod(field, &endptr);
+  if (length > 0 && (endptr == NULL || *endptr == '\0')) {
+    *rc = RC_OK;
+    return price;
+  }
+
+  *rc = RC_ERROR;
+  return -1.0f;
+}
 
 /**
  * This functions is called each time a new csv field has been found.
@@ -21,24 +83,106 @@
  * updating the current_tick object.
  */
 static void csv_new_field_cb(void *field, size_t field_length, void *data) {
+  csv_state_t *state = (csv_state_t *)data;
+  char *buffer;
+  result_code_t rc;
+
+  if (state->field == -1) {
+    return;
+  }
+
+  if (ignore_first_line) {
+    return;
+  }
+
+  buffer = (char *)malloc((field_length + 1) * sizeof(char));
+  strncpy(buffer, field, field_length);
+  buffer[field_length] = '\0';
+
+  switch (state->field) {
+  case CSV_COLUMN_DATE:
+    state->cur_tick.date = parse_str(buffer, field_length, &rc);
+    break;
+  case CSV_COLUMN_OPEN:
+    state->cur_tick.open = parse_price(buffer, field_length, &rc);
+    break;
+  case CSV_COLUMN_HIGH:
+    state->cur_tick.high = parse_price(buffer, field_length, &rc);
+    break;
+  case CSV_COLUMN_LOW:
+    state->cur_tick.low = parse_price(buffer, field_length, &rc);
+    break;
+  case CSV_COLUMN_CLOSE:
+    state->cur_tick.close = parse_price(buffer, field_length, &rc);
+    break;
+  case CSV_COLUMN_ADJ_CLOSE:
+    state->cur_tick.adj_close = parse_price(buffer, field_length, &rc);
+    break;
+  case CSV_COLUMN_VOLUME:
+    state->cur_tick.volume = atoi(buffer);
+    break;
+  default:
+    rc = RC_ERROR;
+    break;
+  }
+
+  free(buffer);
+
+  if (rc == RC_OK) {
+    state->field++;
+  } else {
+    state->any_error = 1;
+    state->field = -1;
+  }
 }
 
 /**
  * This functions is called each time a new row has been found.
  */
 static void csv_new_row_cb(int c, void *data) {
+  csv_state_t *state = (csv_state_t *)data;
+
+  if (ignore_first_line) {
+    ignore_first_line = 0;
+    return;
+  }
+
+  if (state->field != -1) {
+    /**
+     * This makes a copy of cur_tick, and smells like a hack. But that
+     * is because 'vector_push_back' does not make a copy and the lifetime
+     * of cur_tick is short, so it does not outlive the call to
+     * csv_read_quotes and without a copy we end up with pointers pointing
+     * to garbage ticks.
+     */
+    stock_tick_t *copy = malloc(sizeof(stock_tick_t));
+    copy->date = state->cur_tick.date;
+    copy->open = state->cur_tick.open;
+    copy->high = state->cur_tick.high;
+    copy->low = state->cur_tick.low;
+    copy->close = state->cur_tick.close;
+    copy->adj_close = state->cur_tick.adj_close;
+    copy->volume = state->cur_tick.volume;
+    vector_push_back(state->ticks, copy);
+  }
+
+  state->field = 0;
 }
 
-static void csv_read_quotes(char const *filename) {
+static void csv_read_quotes(char const *filename, vector_t *ticks) {
   FILE* fp;
   struct csv_parser parser;
   char buf[1024];
   size_t bytes_read;
+  csv_state_t state;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
     return;
   }
+
+  memset(&state, 0, sizeof(csv_state_t));
+  state.ticks = ticks;
 
   if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL) != 0) {
     fprintf(stderr, "failed to initialize csv parser\n");
@@ -46,12 +190,12 @@ static void csv_read_quotes(char const *filename) {
   }
 
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
-    if (csv_parse(&parser, buf, bytes_read, csv_new_field_cb, csv_new_row_cb, NULL) != bytes_read) {
+    if (csv_parse(&parser, buf, bytes_read, csv_new_field_cb, csv_new_row_cb, &state) != bytes_read) {
       fprintf(stderr, "Error while parsing file: %s\n", csv_strerror(csv_error(&parser)));
     }
   }
 
-  csv_fini(&parser, csv_new_field_cb, csv_new_row_cb, NULL);
+  csv_fini(&parser, csv_new_field_cb, csv_new_row_cb, &state);
   csv_free(&parser);
 
   if (ferror(fp)) {
@@ -70,6 +214,7 @@ static int quote_exists(MYSQL *conn, char const *symbol, stock_tick_t *tick)
 
   /* Determine if this is an insert or update operation. */
   sprintf(query, "SELECT symbol FROM historicaldata WHERE symbol = \"%s\" and date = \"%s\"", symbol, tick->date);
+
   if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: select query failed: %s\n", mysql_error(conn));
     mysql_close(conn);
@@ -121,12 +266,8 @@ static int quote_insert(MYSQL *conn, char const *symbol, stock_tick_t *tick)
 int main(int argc, char **argv) {
   char *filename;
   char *symbol;
-  size_t len;
-  char *csvdata;
-  struct csv_parser parser;
+  vector_t *ticks;
   int rc;
-  stock_info_t stock;
-  size_t bytes_processed;
   db_config_t config;
   MYSQL *conn = NULL;
   size_t i;
@@ -141,36 +282,9 @@ int main(int argc, char **argv) {
   filename = f_strdup(argv[1]);
   symbol = f_strdup(argv[2]);
 
-  rc = read_file(filename, &csvdata, &len);
-  if (rc < 0)
-    return 1;
- 
-  memset((void *)&stock, 0, sizeof(stock_info_t));
-  stock_ticks_alloc(&stock, 2);
-  if (stock.ticks == NULL) {
-    fprintf(stderr, "failed to allocate %zu bytes for stock data\n",
-	    stock.ticks_capacity * sizeof(stock_tick_t));
-    free(csvdata);
-    return 1;
-  }
- 
-  if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL) != 0) {
-    free(csvdata);
-    fprintf(stderr, "failed to initialize CSV parser\n");
-    return 1;
-  }
+  ticks = vector_alloc(256);
 
-  bytes_processed = csv_parse(&parser, (void*)csvdata, len,
-                              csv_column_cb, csv_row_cb, &stock);
-  rc = csv_fini(&parser, csv_column_cb, csv_row_cb, &stock);
-  free(csvdata);
- 
-  if (stock.error || rc != 0 || bytes_processed < len) {
-    fprintf(stderr,
-            "read %zu bytes out of %zu: %s\n",
-	    bytes_processed, len, csv_strerror(csv_error(&parser)));
-    return 1;
-  }
+  csv_read_quotes(filename, ticks);
 
   db_config_init(&config);
 
@@ -179,11 +293,10 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  /* NOTE: This will overwrite existing data. */
   printf("Importing records...\n");
 
-  for (i = 0; i < stock.ticks_length; i++) {
-    stock_tick_t *tick = stock.ticks + i;
+  for (i = 0; i < vector_size(ticks); i++) {
+    stock_tick_t *tick = vector_get(ticks, i);
 
     if (quote_exists(conn, symbol, tick)) {
       quote_update(conn, symbol, tick);
@@ -200,7 +313,7 @@ int main(int argc, char **argv) {
   printf("%d rows updated\n", num_updates);
   printf("%d rows inserted\n", num_inserts);
 
-  free(stock.ticks);
+  vector_free(ticks);
   free(filename);
   free(symbol);
  

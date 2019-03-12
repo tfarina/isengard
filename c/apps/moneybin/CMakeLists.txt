@@ -7,6 +7,15 @@ set(CMAKE_MODULE_PATH
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -std=c99 -pedantic")
 
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
+  set(CMAKE_BUILD_TYPE "Debug")
+endif()
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+  set(CMAKE_C_FLAGS "-g -O2")
+elseif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  set(CMAKE_C_FLAGS "-g -O0")
+endif()
+
 add_definitions(-D_GNU_SOURCE)
 
 add_subdirectory(third_party/iniparser)
@@ -27,6 +36,7 @@ set(SRCS
   stats.c
   stock.c
   strutils.c
+  vector.c
 )
 
 add_library(moneybin ${SRCS})
