@@ -193,6 +193,9 @@ static void csv_read_quotes(char const *filename, vector_t *ticks) {
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
     if (csv_parse(&parser, buf, bytes_read, csv_new_field_cb, csv_new_row_cb, &state) != bytes_read) {
       fprintf(stderr, "Error while parsing %s: %s\n", filename, csv_strerror(csv_error(&parser)));
+      csv_free(&parser);
+      fclose(fp);
+      return;
     }
   }
 
