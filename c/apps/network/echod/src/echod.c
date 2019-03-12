@@ -44,7 +44,7 @@
 
 static const char *progname;
 
-static int running = 0;
+static sig_atomic_t quit;
 static unsigned int forked = 0; /* Number of child processes. */
 
 static char short_options[] =
@@ -128,7 +128,7 @@ static void handle_signal(int sig) {
   }
 
   if (sig == SIGTERM || sig == SIGINT) {
-    running = 0;
+    quit = 1;
   }
 
   log_info("signal %s received, shutting down...", type);
@@ -264,9 +264,11 @@ int main(int argc, char **argv) {
 
   FD_SET(tcpfd, &rfds_in);
 
-  running = 1;
+  while (1) {
+    if (quit == 1) {
+      break;
+    }
 
-  while (running == 1) {
     memcpy(&rfds_out, &rfds_in, sizeof(fd_set));
 
     if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
