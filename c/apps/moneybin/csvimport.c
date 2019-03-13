@@ -2,20 +2,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include <mysql/mysql.h>
 
 #include "db.h"
 #include "db_mysql.h"
-#include "stock.h"
 #include "strutils.h"
 #include "vector.h"
-#include "third_party/iniparser/iniparser.h"
 #include "third_party/libcsv/csv.h"
 
 typedef enum result_code_e {
   RC_OK,
   RC_ERROR,
 } result_code_t;
+
+typedef struct quote_s {
+  char *date;
+  double open;
+  double high;
+  double low;
+  double close;
+  double adj_close;
+  int volume;
+} quote_t;
 
 typedef struct csv_state_s {
   /**
@@ -28,14 +37,14 @@ typedef struct csv_state_s {
   int any_error;
 
   /**
-   * Data of the tick that we are currently parsing.
+   * Data of the quote that we are currently parsing.
    */
-  stock_tick_t cur_tick;
+  quote_t cur_quote;
 
   /**
-   * List of ticks parsed so far.
+   * List of quotes parsed so far.
    */
-  vector_t *ticks;
+  vector_t *quotes;
 } csv_state_t;
 
 typedef enum csv_column_e {
@@ -80,7 +89,7 @@ static double parse_price(char const *field, size_t length, result_code_t *rc) {
 /**
  * This functions is called each time a new csv field has been found.
  * It is responsible for determining which field is being parsed, and
- * updating the current_tick object.
+ * updating the cur_quote object.
  */
 static void csv_new_field_cb(void *field, size_t field_length, void *data) {
   csv_state_t *state = (csv_state_t *)data;
@@ -101,25 +110,25 @@ static void csv_new_field_cb(void *field, size_t field_length, void *data) {
 
   switch (state->field) {
   case CSV_COLUMN_DATE:
-    state->cur_tick.date = parse_str(buffer, field_length, &rc);
+    state->cur_quote.date = parse_str(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_OPEN:
-    state->cur_tick.open = parse_price(buffer, field_length, &rc);
+    state->cur_quote.open = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_HIGH:
-    state->cur_tick.high = parse_price(buffer, field_length, &rc);
+    state->cur_quote.high = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_LOW:
-    state->cur_tick.low = parse_price(buffer, field_length, &rc);
+    state->cur_quote.low = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_CLOSE:
-    state->cur_tick.close = parse_price(buffer, field_length, &rc);
+    state->cur_quote.close = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_ADJ_CLOSE:
-    state->cur_tick.adj_close = parse_price(buffer, field_length, &rc);
+    state->cur_quote.adj_close = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_VOLUME:
-    state->cur_tick.volume = atoi(buffer);
+    state->cur_quote.volume = atoi(buffer);
     break;
   default:
     rc = RC_ERROR;
@@ -149,27 +158,27 @@ static void csv_new_row_cb(int c, void *data) {
 
   if (state->field != -1) {
     /**
-     * This makes a copy of cur_tick, and smells like a hack. But that
+     * This makes a copy of cur_quote, and smells like a hack. But that
      * is because 'vector_push_back' does not make a copy and the lifetime
-     * of cur_tick is short, so it does not outlive the call to
+     * of cur_quote is short, so it does not outlive the call to
      * csv_read_quotes and without a copy we end up with pointers pointing
-     * to garbage ticks.
+     * to garbage qutotes.
      */
-    stock_tick_t *copy = malloc(sizeof(stock_tick_t));
-    copy->date = state->cur_tick.date;
-    copy->open = state->cur_tick.open;
-    copy->high = state->cur_tick.high;
-    copy->low = state->cur_tick.low;
-    copy->close = state->cur_tick.close;
-    copy->adj_close = state->cur_tick.adj_close;
-    copy->volume = state->cur_tick.volume;
-    vector_push_back(state->ticks, copy);
+    quote_t *copy = malloc(sizeof(quote_t));
+    copy->date = state->cur_quote.date;
+    copy->open = state->cur_quote.open;
+    copy->high = state->cur_quote.high;
+    copy->low = state->cur_quote.low;
+    copy->close = state->cur_quote.close;
+    copy->adj_close = state->cur_quote.adj_close;
+    copy->volume = state->cur_quote.volume;
+    vector_push_back(state->quotes, copy);
   }
 
   state->field = 0;
 }
 
-static void csv_read_quotes(char const *filename, vector_t *ticks) {
+static void csv_read_quotes(char const *filename, vector_t *quotes) {
   FILE* fp;
   struct csv_parser parser;
   char buf[1024];
@@ -183,7 +192,7 @@ static void csv_read_quotes(char const *filename, vector_t *ticks) {
   }
 
   memset(&state, 0, sizeof(csv_state_t));
-  state.ticks = ticks;
+  state.quotes = quotes;
 
   if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
     fprintf(stderr, "Failed to initialize csv parser\n");
@@ -211,13 +220,13 @@ static void csv_read_quotes(char const *filename, vector_t *ticks) {
   fclose(fp);
 }
 
-static int quote_exists(MYSQL *conn, char const *symbol, stock_tick_t *tick)
+static int quote_exists(MYSQL *conn, char const *symbol, quote_t *quote)
 {
   char query[256];
   MYSQL_RES *res;
 
   /* Determine if this is an insert or update operation. */
-  sprintf(query, "SELECT symbol FROM historicaldata WHERE symbol = \"%s\" and date = \"%s\"", symbol, tick->date);
+  sprintf(query, "SELECT symbol FROM historicaldata WHERE symbol = \"%s\" and date = \"%s\"", symbol, quote->date);
 
   if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: select query failed: %s\n", mysql_error(conn));
@@ -235,12 +244,12 @@ static int quote_exists(MYSQL *conn, char const *symbol, stock_tick_t *tick)
   return mysql_num_rows(res) > 0;
 }
 
-static int quote_update(MYSQL *conn, char const *symbol, stock_tick_t *tick)
+static int quote_update(MYSQL *conn, char const *symbol, quote_t *quote)
 {
   char query[256];
 
   sprintf(query, "UPDATE historicaldata SET open=%f, high=%f, low=%f, close=%f, adjClose=%f, volume=%d WHERE symbol = \"%s\" and date = \"%s\"",
-          tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume, symbol, tick->date);
+          quote->open, quote->high, quote->low, quote->close, quote->adj_close, quote->volume, symbol, quote->date);
 
   if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: sql operation failed: %s\n", mysql_error(conn));
@@ -251,12 +260,12 @@ static int quote_update(MYSQL *conn, char const *symbol, stock_tick_t *tick)
   return 0;
 }
 
-static int quote_insert(MYSQL *conn, char const *symbol, stock_tick_t *tick)
+static int quote_insert(MYSQL *conn, char const *symbol, quote_t *quote)
 {
   char query[256];
 
   sprintf(query, "INSERT INTO historicaldata (symbol, date, open, high, low, close, adjClose, volume) VALUES ('%s', '%s', %f, %f, %f, %f, %f, %d)",
-          symbol, tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
+          symbol, quote->date, quote->open, quote->high, quote->low, quote->close, quote->adj_close, quote->volume);
 
   if (mysql_query(conn, query)) {
     fprintf(stderr, "mysql: sql operation failed: %s\n", mysql_error(conn));
@@ -270,7 +279,7 @@ static int quote_insert(MYSQL *conn, char const *symbol, stock_tick_t *tick)
 int main(int argc, char **argv) {
   char *filename;
   char *symbol;
-  vector_t *ticks;
+  vector_t *quotes;
   int rc;
   db_config_t config;
   MYSQL *conn = NULL;
@@ -286,9 +295,9 @@ int main(int argc, char **argv) {
   filename = f_strdup(argv[1]);
   symbol = f_strdup(argv[2]);
 
-  ticks = vector_alloc(256);
+  quotes = vector_alloc(256);
 
-  csv_read_quotes(filename, ticks);
+  csv_read_quotes(filename, quotes);
 
   db_config_init(&config);
 
@@ -299,25 +308,25 @@ int main(int argc, char **argv) {
 
   printf("Importing records...\n");
 
-  for (i = 0; i < vector_size(ticks); i++) {
-    stock_tick_t *tick = vector_get(ticks, i);
+  for (i = 0; i < vector_size(quotes); i++) {
+    quote_t *quote = vector_get(quotes, i);
 
-    if (quote_exists(conn, symbol, tick)) {
-      quote_update(conn, symbol, tick);
+    if (quote_exists(conn, symbol, quote)) {
+      quote_update(conn, symbol, quote);
       num_updates++;
     } else {
-      quote_insert(conn, symbol, tick);
+      quote_insert(conn, symbol, quote);
       num_inserts++;
     }
 
     printf("date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
-           tick->date, tick->open, tick->high, tick->low, tick->close, tick->adj_close, tick->volume);
+           quote->date, quote->open, quote->high, quote->low, quote->close, quote->adj_close, quote->volume);
   }
 
   printf("%d rows updated\n", num_updates);
   printf("%d rows inserted\n", num_inserts);
 
-  vector_free(ticks);
+  vector_free(quotes);
   free(filename);
   free(symbol);
  
