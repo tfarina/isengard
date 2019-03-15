@@ -23,7 +23,4 @@ typedef struct {
   int error;
 } stock_info_t;
 
-void stock_ticks_alloc(stock_info_t *stock, int capacity);
-int stock_add_tick(MYSQL *conn, stock_info_t *stock, stock_tick_t *tick);
- 
 #endif  /* STOCK_H_ */

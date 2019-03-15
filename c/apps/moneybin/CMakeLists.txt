@@ -34,7 +34,6 @@ set(SRCS
   file.c
   futils.c
   stats.c
-  stock.c
   strutils.c
   vector.c
 )
