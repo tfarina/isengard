@@ -21,12 +21,12 @@ typedef enum {
 static int num_rows;
 static unsigned colnum; /* current column - zero based index */
 
-typedef enum result_code_e {
+typedef enum return_code_e {
   RC_OK,
   RC_ERROR,
-} result_code_t;
+} return_code_t;
 
-static char *parse_str(char const *field, size_t length, result_code_t *rc) {
+static char *parse_str(char const *field, size_t length, return_code_t *rc) {
   if (length > 0) {
     char *str = (char *)malloc((length + 1) * sizeof(char));
     strncpy(str, field, length + 1);
@@ -39,7 +39,7 @@ static char *parse_str(char const *field, size_t length, result_code_t *rc) {
   }
 }
 
-static double parse_price(char const *field, size_t length, result_code_t *rc) {
+static double parse_price(char const *field, size_t length, return_code_t *rc) {
   char *endptr;
   double price;
 
@@ -64,7 +64,7 @@ void csv_column_cb(void *field,
   stock_info_t *stock;
   stock_tick_t *cur_tick;
   char *buffer;
-  result_code_t rc;
+  return_code_t rc;
 
   stock = (stock_info_t *)data;
   if (stock->error) {

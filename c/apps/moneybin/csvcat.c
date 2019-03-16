@@ -7,10 +7,10 @@
 #include "vector.h"
 #include "third_party/libcsv/csv.h"
 
-typedef enum result_code_e {
+typedef enum return_code_e {
   RC_OK,
   RC_ERROR,
-} result_code_t;
+} return_code_t;
 
 typedef struct quote_s {
   char *date;
@@ -55,7 +55,7 @@ typedef enum csv_column_e {
 
 static int ignore_first_line = 1;
 
-static char *parse_str(char const *field, size_t length, result_code_t *rc) {
+static char *parse_str(char const *field, size_t length, return_code_t *rc) {
   if (length > 0) {
     char *str = (char *)malloc((length + 1) * sizeof(char));
     strncpy(str, field, length + 1);
@@ -68,7 +68,7 @@ static char *parse_str(char const *field, size_t length, result_code_t *rc) {
   }
 }
 
-static double parse_price(char const *field, size_t length, result_code_t *rc) {
+static double parse_price(char const *field, size_t length, return_code_t *rc) {
   char *endptr;
   double price;
 
@@ -90,7 +90,7 @@ static double parse_price(char const *field, size_t length, result_code_t *rc) {
 static void csv_new_field_cb(void *field, size_t field_length, void *data) {
   csv_state_t *state = (csv_state_t *)data;
   char *buffer;
-  result_code_t rc;
+  return_code_t rc;
 
   if (state->field == -1) {
     return;
