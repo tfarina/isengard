@@ -50,6 +50,7 @@ static unsigned int forked = 0; /* Number of child processes. */
 static char short_options[] =
     "h"  /* help */
     "d"  /* daemon mode */
+    "o:" /* output logfile */
     "l:" /* interface to listen on */
     "p:" /* tcp port number to listen on */
     "b:" /* tcp backlog queue limit */
@@ -58,6 +59,7 @@ static char short_options[] =
 static struct option long_options[] = {
     { "help",      no_argument,       NULL, 'h' }, /* help */
     { "daemonize", no_argument,       NULL, 'd' }, /* daemon mode */
+    { "output",    required_argument, NULL, 'o' }, /* output logfile */
     { "interface", required_argument, NULL, 'l' }, /* interface to listen on */
     { "port",      required_argument, NULL, 'p' }, /* tcp port number to listen on */
     { "backlog",   required_argument, NULL, 'b' }, /* tcp backlog queue limit */
@@ -66,17 +68,19 @@ static struct option long_options[] = {
 
 static void ed_show_usage(void) {
   fprintf(stderr,
-	  "usage: %s [-hd] [-l interface] [-p port] [-b backlog]" CRLF CRLF,
+	  "usage: %s [-hd] [-o output logfile] [-l interface] [-p port] [-b backlog]" CRLF CRLF,
 	  progname);
   fprintf(stderr,
 	  "options:" CRLF
           "  -h, --help         show usage, options and exit" CRLF
 	  "  -d, --daemonize    run as a daemon" CRLF
+          "  -o, --output       set the debug logging file (default: %s)" CRLF
           "  -l, --interface=S  interface to listen on (default: %s)" CRLF
           "  -p, --port=N       set the tcp port to listen on (default: %d)" CRLF
           "  -b, --backlog=N    the backlog argument of listen() applied to the" CRLF
 	  "                     listening socket (default: %d)" CRLF
 	  "",
+          "stderr",
           ED_INTERFACE != NULL ? ED_INTERFACE : "all interfaces",
           ED_TCP_PORT, ED_BACKLOG
 	  );
@@ -171,6 +175,10 @@ int main(int argc, char **argv) {
       instance.daemonize = 1;
       break;
 
+    case 'o':
+      instance.log_filename = optarg;
+      break;
+
     case 'l':
       instance.interface = optarg;
       break;
@@ -247,7 +255,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  log_info("%s started on %d, port %d, backlog %d", progname, instance.pid, instance.port, instance.backlog);
+  log_info("%s started on %d, port %d, backlog %d, logfile %s", progname, instance.pid, instance.port, instance.backlog, instance.log_filename);
 
   if (drop_privileges(pw->pw_uid, pw->pw_gid)) {
     return EXIT_FAILURE;
