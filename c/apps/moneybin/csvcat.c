@@ -222,7 +222,7 @@ int main(int argc, char **argv) {
   size_t i;
 
   if (argc != 2) {
-    fputs("usage: csvdump filename.csv\n", stderr);
+    fputs("usage: csvcat filename.csv\n", stderr);
     return 1;
   }
 

@@ -41,8 +41,8 @@ set(SRCS
 add_library(moneybin ${SRCS})
 target_link_libraries(moneybin iniparser libcsv ${MYSQL_LIBRARY})
 
-add_executable(csvdump csvdump.c)
-target_link_libraries(csvdump libcsv ${MYSQL_LIBRARY} moneybin)
+add_executable(csvcat csvcat.c)
+target_link_libraries(csvcat libcsv ${MYSQL_LIBRARY} moneybin)
 
 add_executable(csvstats csvstats.c)
 target_link_libraries(csvstats libcsv ${MYSQL_LIBRARY} -lm moneybin)
