@@ -31,7 +31,6 @@ set(SRCS
   db.c
   db_mysql.c
   ffileutils.c
-  file.c
   futils.c
   stats.c
   strutils.c

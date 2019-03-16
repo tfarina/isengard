@@ -8,7 +8,7 @@
 
 #include "buffer.h"
 #include "curl_helper.h"
-#include "file.h"
+#include "ffileutils.h"
 #include "strutils.h"
 
 static char *crumb;
@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
   printf("%s\n", buf.data);
 
   sprintf(filename, "%s.csv", symbol);
-  write_file(filename, buf.data, buf.length);
+  f_write_file(filename, buf.data, buf.length);
 
   return 0;
 }
