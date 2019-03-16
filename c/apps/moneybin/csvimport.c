@@ -7,7 +7,7 @@
 
 #include "db.h"
 #include "db_mysql.h"
-#include "strutils.h"
+#include "fstrutils.h"
 #include "vector.h"
 #include "third_party/libcsv/csv.h"
 

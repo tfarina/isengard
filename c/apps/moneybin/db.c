@@ -1,8 +1,8 @@
 #include "db.h"
 
 #include "ffileutils.h"
+#include "fstrutils.h"
 #include "futils.h"
-#include "strutils.h"
 #include "third_party/iniparser/iniparser.h"
 
 #define USERCONFFILE ".moneybinrc"

@@ -7,7 +7,6 @@
 
 #include "third_party/libcsv/csv.h"
 #include "stock.h"
-#include "strutils.h"
 
 typedef enum {
   CSV_COLUMN_DATE,

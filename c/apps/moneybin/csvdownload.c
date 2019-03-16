@@ -9,7 +9,7 @@
 #include "buffer.h"
 #include "curl_helper.h"
 #include "ffileutils.h"
-#include "strutils.h"
+#include "fstrutils.h"
 
 static char *crumb;
 

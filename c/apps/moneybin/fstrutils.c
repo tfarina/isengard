@@ -1,4 +1,4 @@
-#include "strutils.h"
+#include "fstrutils.h"
 
 #include <stdio.h>
 #include <stdlib.h>
