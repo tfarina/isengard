@@ -7,5 +7,7 @@
 #define NORETURN
 #endif
 
+#define UNUSED __attribute__((unused))
+
 #endif  /* MACROS_H_ */
 

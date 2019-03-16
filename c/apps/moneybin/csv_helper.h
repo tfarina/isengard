@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 
-#define UNUSED __attribute__((unused))
+#include "macros.h"
 
 void csv_count_cb(int c, void *data);
 void csv_column_cb(void *field, size_t field_len UNUSED, void *ctx);
