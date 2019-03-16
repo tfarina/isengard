@@ -172,15 +172,15 @@ int main(int argc, char **argv) {
   while ((ch = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
     switch (ch) {
     case 'd':
-      instance.daemonize = 1;
+      instance.options.daemonize = 1;
       break;
 
     case 'o':
-      instance.log_filename = optarg;
+      instance.options.log_filename = optarg;
       break;
 
     case 'l':
-      instance.interface = optarg;
+      instance.options.interface = optarg;
       break;
 
     case 'p':
@@ -194,7 +194,7 @@ int main(int argc, char **argv) {
 	return EXIT_FAILURE;
       }
 
-      instance.port = value;
+      instance.options.port = value;
       break;
 
     case 'b':
@@ -204,7 +204,7 @@ int main(int argc, char **argv) {
 	return EXIT_FAILURE;
       }
 
-      instance.backlog = value;
+      instance.options.backlog = value;
       break;
 
     case 'h':
@@ -239,7 +239,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  if (instance.daemonize) {
+  if (instance.options.daemonize) {
     if (daemon(0, 0) == -1) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
       return EXIT_FAILURE;
@@ -248,14 +248,18 @@ int main(int argc, char **argv) {
     instance.pid = getpid();
   }
 
-  log_init(progname, !instance.daemonize);
+  log_init(progname, !instance.options.daemonize);
 
-  tcpfd = fnet_tcp_socket_listen(instance.interface, instance.port, instance.backlog);
+  tcpfd = fnet_tcp_socket_listen(instance.options.interface, instance.options.port, instance.options.backlog);
   if (tcpfd == FNET_ERR) {
     return EXIT_FAILURE;
   }
 
-  log_info("%s started on %d, port %d, backlog %d, logfile %s", progname, instance.pid, instance.port, instance.backlog, instance.log_filename);
+  log_info("%s started on %d, port %d, backlog %d, logfile %s", progname,
+           instance.pid,
+           instance.options.port,
+           instance.options.backlog,
+           instance.options.log_filename);
 
   if (drop_privileges(pw->pw_uid, pw->pw_gid)) {
     return EXIT_FAILURE;
