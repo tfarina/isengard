@@ -18,6 +18,7 @@ set(ECHOD_SRCS
   src/echod.c
   src/ed_instance.c
   src/ed_log.c
+  src/ed_logger.c
   src/ed_net.c
   src/ed_pid.c
   src/ed_utils.c

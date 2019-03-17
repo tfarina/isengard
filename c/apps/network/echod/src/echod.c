@@ -33,6 +33,7 @@
 
 #include "ed_instance.h"
 #include "ed_log.h"
+#include "ed_logger.h"
 #include "ed_net.h"
 #include "ed_utils.h"
 
@@ -256,6 +257,10 @@ int main(int argc, char **argv) {
     }
     /* update pid */
     instance.pid = getpid();
+  }
+
+  if (instance.options.log_filename != NULL) {
+    ed_logger_open(&instance.logger, instance.options.log_filename);
   }
 
   if (instance.options.pid_filename != NULL) {
