@@ -150,6 +150,8 @@ static void echo_stream(int fd) {
   exit(EXIT_SUCCESS);
 }
 
+#include "ed_pid.h"
+
 int main(int argc, char **argv) {
   int ch;
   int value;
@@ -247,6 +249,8 @@ int main(int argc, char **argv) {
     /* update pid */
     instance.pid = getpid();
   }
+
+  ed_pid_create(instance.pid, "/var/run/echod.pid");
 
   log_init(progname, !instance.options.daemonize);
 
