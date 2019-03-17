@@ -77,7 +77,7 @@ static void ed_show_usage(void) {
 	  "options:" CRLF
           "  -h, --help         show usage, options and exit" CRLF
 	  "  -d, --daemonize    run as a daemon" CRLF
-          "  -o, --output       set the debug logging file (default: %s)" CRLF
+          "  -o, --output=S     set the debug logging file (default: %s)" CRLF
           "  -P, --pidfile=S    store pid in a file (default: not stored)" CRLF
           "  -l, --interface=S  interface to listen on (default: %s)" CRLF
           "  -p, --port=N       set the tcp port to listen on (default: %d)" CRLF
