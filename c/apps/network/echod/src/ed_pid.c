@@ -33,6 +33,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include "echod.h"
+
 void ed_pid_init(void) {
 
 }
@@ -46,19 +48,19 @@ int ed_pid_create(pid_t pid, char const *filename) {
 
   fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
   if (fd < 0) {
-    return -1;
+    return ED_ERROR;
   }
 
   pidstr_len = snprintf(pidstr, sizeof(pidstr), "%d\n", pid);
 
   bytes_written = write(fd, pidstr, pidstr_len);
   if (bytes_written < 0) {
-    return -1;
+    return ED_ERROR;
   }
 
   rc = close(fd);
   if (rc < 0) {
-    return -1;
+    return ED_ERROR;
   }
 
   return 0;
@@ -69,7 +71,7 @@ int ed_pid_unlink(char const *filename) {
 
   rc = unlink(filename);
   if (rc < 0) {
-    return -1;
+    return ED_ERROR;
   }
 
   return 0;
