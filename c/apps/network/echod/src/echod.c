@@ -31,6 +31,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "ed_daemon.h"
 #include "ed_instance.h"
 #include "ed_log.h"
 #include "ed_logger.h"
@@ -251,7 +252,7 @@ int main(int argc, char **argv) {
   }
 
   if (instance.options.daemonize) {
-    if (daemon(0, 0) == -1) {
+    if (ed_daemonize(0) != 0) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
       return EXIT_FAILURE;
     }
