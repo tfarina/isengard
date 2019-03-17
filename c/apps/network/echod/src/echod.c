@@ -51,6 +51,7 @@ static char short_options[] =
     "h"  /* help */
     "d"  /* daemon mode */
     "o:" /* output logfile */
+    "P:" /* pid file */
     "l:" /* interface to listen on */
     "p:" /* tcp port number to listen on */
     "b:" /* tcp backlog queue limit */
@@ -60,6 +61,7 @@ static struct option long_options[] = {
     { "help",      no_argument,       NULL, 'h' }, /* help */
     { "daemonize", no_argument,       NULL, 'd' }, /* daemon mode */
     { "output",    required_argument, NULL, 'o' }, /* output logfile */
+    { "pidfile",   required_argument, NULL, 'P' }, /* pid file */
     { "interface", required_argument, NULL, 'l' }, /* interface to listen on */
     { "port",      required_argument, NULL, 'p' }, /* tcp port number to listen on */
     { "backlog",   required_argument, NULL, 'b' }, /* tcp backlog queue limit */
@@ -68,13 +70,15 @@ static struct option long_options[] = {
 
 static void ed_show_usage(void) {
   fprintf(stderr,
-	  "usage: %s [-hd] [-o output logfile] [-l interface] [-p port] [-b backlog]" CRLF CRLF,
+	  "usage: %s [-hd] [-o output logfile] [-P pid file]" CRLF
+	  "          [-l interface] [-p port] [-b backlog]" CRLF CRLF,
 	  progname);
   fprintf(stderr,
 	  "options:" CRLF
           "  -h, --help         show usage, options and exit" CRLF
 	  "  -d, --daemonize    run as a daemon" CRLF
           "  -o, --output       set the debug logging file (default: %s)" CRLF
+          "  -P, --pidfile=S    store pid in a file (default: not stored)" CRLF
           "  -l, --interface=S  interface to listen on (default: %s)" CRLF
           "  -p, --port=N       set the tcp port to listen on (default: %d)" CRLF
           "  -b, --backlog=N    the backlog argument of listen() applied to the" CRLF
@@ -181,6 +185,10 @@ int main(int argc, char **argv) {
       instance.options.log_filename = optarg;
       break;
 
+    case 'P':
+      instance.options.pid_filename = optarg;
+      break;
+
     case 'l':
       instance.options.interface = optarg;
       break;
@@ -250,7 +258,9 @@ int main(int argc, char **argv) {
     instance.pid = getpid();
   }
 
-  ed_pid_create(instance.pid, "/var/run/echod.pid");
+  if (instance.options.pid_filename != NULL) {
+    ed_pid_create(instance.pid, instance.options.pid_filename);
+  }
 
   log_init(progname, !instance.options.daemonize);
 

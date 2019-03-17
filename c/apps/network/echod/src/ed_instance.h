@@ -10,7 +10,7 @@
 typedef struct ed_options_s {
   int daemonize;      /* daemon mode */
   char *log_filename; /* log filename */
-
+  char *pid_filename; /* process: pid file */
   char *interface;    /* network: listening interface */
   int port;           /* network: tcp listening port */
   int backlog;        /* network: tcp backlog */
