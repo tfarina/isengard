@@ -33,6 +33,11 @@ Assuming echod is listening on localhost, this examples connects via TCP:
 
 $ telnet localhost 7
 
+Terminate process
+-----------------
+
+$ sudo kill -SIGTERM <pid>
+
 License
 -------
 echod is licensed under the GNU GPL license. See LICENSE for details.
