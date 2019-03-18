@@ -7,7 +7,11 @@
 #define NORETURN
 #endif
 
+#if defined(__GNUC__)
 #define UNUSED __attribute__((unused))
+#else
+#define UNUSED
+#endif
 
 #endif  /* MACROS_H_ */
 
