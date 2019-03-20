@@ -257,7 +257,8 @@ int main(int argc, char **argv) {
   }
 
   if (instance.options.daemonize) {
-    if (ed_daemonize(0) != 0) {
+    rc = ed_daemonize(0);
+    if (rc != ED_OK) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
       return EXIT_FAILURE;
     }

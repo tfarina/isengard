@@ -135,5 +135,5 @@ int ed_daemonize(int dump_core)
         }
     }
 
-    return 0;
+    return ED_OK;
 }
