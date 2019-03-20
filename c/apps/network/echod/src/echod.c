@@ -334,8 +334,6 @@ int main(int argc, char **argv) {
     }
   }
 
-  closelog();
-
   ed_logger_log_info("Terminated. Bye!");
 
   return EXIT_SUCCESS;
