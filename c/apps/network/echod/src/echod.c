@@ -261,8 +261,10 @@ int main(int argc, char **argv) {
   }
 
   if (instance.options.log_filename != NULL) {
-    ed_logger_open(&instance.logger, instance.options.log_filename);
+    ed_logger_open(instance.options.log_filename);
   }
+
+  ed_logger_log_error("something went wrong");
 
   if (instance.options.pid_filename != NULL) {
     ed_pid_create(instance.pid, instance.options.pid_filename);

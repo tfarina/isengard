@@ -1,5 +1,7 @@
 #include "ed_instance.h"
 
+#include "ed_logger.h"
+
 static void ed_options_init(ed_options_t *options) {
   options->daemonize = 0;
   options->log_filename = NULL;
@@ -12,6 +14,6 @@ static void ed_options_init(ed_options_t *options) {
 void ed_instance_init(ed_instance_t *instance) {
   instance->pid = getpid();
 
-  ed_logger_init(&instance->logger);
+  ed_logger_init();
   ed_options_init(&instance->options);
 }

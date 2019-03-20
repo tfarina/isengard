@@ -1,10 +1,4 @@
 /*
- * Odyssey.
- *
- * Scalable PostgreSQL connection pooler.
- */
-
-/*
  * twemcache - Twitter memcached.
  * Copyright (c) 2012, Twitter, Inc.
  * All rights reserved.
@@ -33,73 +27,11 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "ed_logger.h"
+#ifndef ED_PRINTF_H_
+#define ED_PRINTF_H_
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
+#include <stddef.h>
 
-#include "ed_printf.h"
+int ed_scnprintf(char *buf, size_t size, const char *fmt, ...);
 
-#define LOG_MAX_LEN 256
-
-static int log_fd = -1;
-
-static char const * const level_names[] = {
-  "DEBUG",
-  "NOTICE",
-  "INFO",
-  "WARN",
-  "ERROR",
-  "FATAL"
-};
-
-void ed_logger_init(void) {
-  log_fd = STDERR_FILENO;
-}
-
-int ed_logger_open(char const *filename) {
-  log_fd = open(filename, O_RDWR | O_CREAT | O_APPEND, 0644);
-  if (log_fd == -1) {
-    return -1;
-  }
-
-  return 0;
-}
-
-void ed_logger_close(void) {
-  if (log_fd != -1 && log_fd != STDERR_FILENO) {
-    close(log_fd);
-  }
-
-  log_fd = -1;
-}
-
-void ed_logger_write(ed_logger_level_t level, char const *file, int line, char const *func, char const *fmt, ...) {
-  time_t t;
-  struct tm *localtm;
-  char timestr[32];
-  int len, maxlen;
-  va_list args;
-  char buf[LOG_MAX_LEN];
-
-  len = 0;
-  maxlen = LOG_MAX_LEN;
-
-  t = time(NULL);
-  localtm = localtime(&t);
-
-  strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S", localtm);
-
-  len += ed_scnprintf(buf + len, maxlen - len, "%.*s [%s] %s:%d:%s ", strlen(timestr), timestr, level_names[level], file, line, func);
-
-  va_start(args, fmt);
-  len += vsnprintf(buf + len, maxlen - len, fmt, args);
-  va_end(args);
-
-  buf[len++] = '\n';
-
-  write(log_fd, buf, len);
-}
+#endif  /* ED_PRINTF_H_ */

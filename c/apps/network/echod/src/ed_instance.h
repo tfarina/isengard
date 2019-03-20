@@ -3,8 +3,6 @@
 
 #include <unistd.h>
 
-#include "ed_logger.h"
-
 #define ED_INTERFACE NULL
 #define ED_TCP_PORT 7
 #define ED_BACKLOG 1024
@@ -23,7 +21,6 @@ typedef struct ed_options_s {
  */
 typedef struct ed_instance_s {
   pid_t pid;          /* process id */
-  ed_logger_t logger;
   ed_options_t options;
 } ed_instance_t;
 

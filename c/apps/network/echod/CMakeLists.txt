@@ -22,6 +22,7 @@ set(ECHOD_SRCS
   src/ed_logger.c
   src/ed_net.c
   src/ed_pid.c
+  src/ed_printf.c
   src/ed_utils.c
 )
 
