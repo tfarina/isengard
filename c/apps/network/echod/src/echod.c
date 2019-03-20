@@ -33,7 +33,6 @@
 
 #include "ed_daemon.h"
 #include "ed_instance.h"
-#include "ed_log.h"
 #include "ed_logger.h"
 #include "ed_net.h"
 #include "ed_utils.h"
@@ -111,7 +110,7 @@ static int drop_privileges(uid_t uid, gid_t gid) {
 }
 
 static void print_num_child_forked(void) {
-  log_info("num child forked: %d", forked);
+  ed_logger_log_info("num child forked: %d", forked);
 }
 
 static void sigchld_handler(int sig) {
@@ -119,7 +118,7 @@ static void sigchld_handler(int sig) {
   int status;
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
     --forked;
-    log_info("pid %d status %d", pid, status);
+    ed_logger_log_info("pid %d status %d", pid, status);
     print_num_child_forked();
   }
   signal(SIGCHLD, sigchld_handler);
@@ -141,7 +140,7 @@ static void handle_signal(int sig) {
     quit = 1;
   }
 
-  log_info("signal %s received, shutting down...", type);
+  ed_logger_log_info("signal %s received, shutting down...", type);
 }
 
 static void echo_stream(int fd) {
@@ -270,18 +269,16 @@ int main(int argc, char **argv) {
     ed_pid_create(instance.pid, instance.options.pid_filename);
   }
 
-  log_init(progname, !instance.options.daemonize);
-
   tcpfd = fnet_tcp_socket_listen(instance.options.interface, instance.options.port, instance.options.backlog);
   if (tcpfd == FNET_ERR) {
     return EXIT_FAILURE;
   }
 
-  log_info("%s started on %d, port %d, backlog %d, logfile %s", progname,
-           instance.pid,
-           instance.options.port,
-           instance.options.backlog,
-           instance.options.log_filename);
+  ed_logger_log_info("%s started on %d, port %d, backlog %d, logfile %s", progname,
+                     instance.pid,
+                     instance.options.port,
+                     instance.options.backlog,
+                     instance.options.log_filename);
 
   if (drop_privileges(pw->pw_uid, pw->pw_gid)) {
     return EXIT_FAILURE;
@@ -312,7 +309,7 @@ int main(int argc, char **argv) {
 	  return EXIT_FAILURE;
 	}
 
-	log_info("Accepted connection from %s:%d", clientip, clientport);
+	ed_logger_log_info("Accepted connection from %s:%d", clientip, clientport);
 
         ++forked;
         print_num_child_forked();
@@ -332,7 +329,7 @@ int main(int argc, char **argv) {
 
         default:
           close(clientfd); /* we are the parent so look for another connection. */
-         log_info("pid: %d", pid);
+          ed_logger_log_info("pid: %d", pid);
         }
       }
     }
@@ -340,7 +337,7 @@ int main(int argc, char **argv) {
 
   closelog();
 
-  log_info("Terminated. Bye!");
+  ed_logger_log_info("Terminated. Bye!");
 
   return EXIT_SUCCESS;
 }
