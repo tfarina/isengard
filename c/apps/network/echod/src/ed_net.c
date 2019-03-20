@@ -8,13 +8,13 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "ed_log.h"
+#include "ed_logger.h"
 
 int fnet_set_reuseaddr(int fd) {
   int reuse = 1;
 
   if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
-    log_error("setsockopt SO_REUSEADDR: %s", strerror(errno));
+    ed_logger_log_error("setsockopt SO_REUSEADDR: %s", strerror(errno));
     return FNET_ERR;
   }
 
@@ -36,7 +36,7 @@ int fnet_tcp_socket_listen(char *host, int port, int backlog) {
   hints.ai_flags = AI_PASSIVE;
 
   if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
-    log_error("getaddrinfo failed: %s", gai_strerror(rv));
+    ed_logger_log_error("getaddrinfo failed: %s", gai_strerror(rv));
     return FNET_ERR;
   }
 
@@ -44,7 +44,7 @@ int fnet_tcp_socket_listen(char *host, int port, int backlog) {
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
     if ((tcpfd = socket(cur->ai_family, cur->ai_socktype,
                         cur->ai_protocol)) == -1) {
-      log_error("socket failed: %s", strerror(errno));
+      ed_logger_log_error("socket failed: %s", strerror(errno));
       continue;
     }
 
@@ -54,7 +54,7 @@ int fnet_tcp_socket_listen(char *host, int port, int backlog) {
     }
 
     if (bind(tcpfd, cur->ai_addr, cur->ai_addrlen) == -1) {
-      log_error("bind to port %s failed: %.200s", portstr, strerror(errno));
+      ed_logger_log_error("bind to port %s failed: %.200s", portstr, strerror(errno));
       close(tcpfd);
       continue;
     }
@@ -65,12 +65,12 @@ int fnet_tcp_socket_listen(char *host, int port, int backlog) {
   freeaddrinfo(addrlist);
 
   if (cur == NULL) {
-    log_error("failed to bind");
+    ed_logger_log_error("failed to bind");
     return FNET_ERR;
   }
 
   if (listen(tcpfd, backlog) == -1) {
-    log_error("listen on %d failed: %s", tcpfd, strerror(errno));
+    ed_logger_log_error("listen on %d failed: %s", tcpfd, strerror(errno));
     close(tcpfd);
     return FNET_ERR;
   }
@@ -86,7 +86,7 @@ static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen
       if (errno == EINTR) {
         continue;
       } else {
-        log_error("accept failed: %s", strerror(errno));
+        ed_logger_log_error("accept failed: %s", strerror(errno));
         return FNET_ERR;
       }
     }
