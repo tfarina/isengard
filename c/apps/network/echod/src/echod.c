@@ -35,6 +35,7 @@
 #include "ed_instance.h"
 #include "ed_logger.h"
 #include "ed_net.h"
+#include "ed_pid.h"
 #include "ed_utils.h"
 
 #define ED_USER "_echod"
@@ -154,8 +155,6 @@ static void echo_stream(int fd) {
 
   exit(EXIT_SUCCESS);
 }
-
-#include "ed_pid.h"
 
 int main(int argc, char **argv) {
   int ch;
