@@ -48,10 +48,8 @@ typedef enum ed_logger_level_e {
   ED_LOGGER_LEVEL_MAX
 } ed_logger_level_t;
 
-void ed_logger_init(void);
-
-int ed_logger_open(char const *filename);
-void ed_logger_close(void);
+int ed_logger_init(char const *filename);
+void ed_logger_deinit(void);
 
 void ed_logger_write(ed_logger_level_t level,
 		     char const *file,

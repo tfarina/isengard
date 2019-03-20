@@ -249,6 +249,8 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
+  ed_logger_init(instance.options.log_filename);
+
   if (instance.options.daemonize) {
     if (ed_daemonize(0) != 0) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
@@ -256,10 +258,6 @@ int main(int argc, char **argv) {
     }
     /* update pid */
     instance.pid = getpid();
-  }
-
-  if (instance.options.log_filename != NULL) {
-    ed_logger_open(instance.options.log_filename);
   }
 
   ed_logger_log_error("something went wrong");

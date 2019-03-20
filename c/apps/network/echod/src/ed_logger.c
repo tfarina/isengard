@@ -56,23 +56,25 @@ static char const * const level_names[] = {
   "FATAL"
 };
 
-void ed_logger_init(void) {
-  log_fd = STDERR_FILENO;
-}
-
-int ed_logger_open(char const *filename) {
-  log_fd = open(filename, O_RDWR | O_CREAT | O_APPEND, 0644);
-  if (log_fd == -1) {
-    return -1;
+int ed_logger_init(char const *filename) {
+  if (filename == NULL || !strlen(filename)) {
+    log_fd = STDERR_FILENO;
+  } else {
+    log_fd = open(filename, O_RDWR | O_CREAT | O_APPEND, 0644);
+    if (log_fd < 0) {
+      return -1;
+    }
   }
 
   return 0;
 }
 
-void ed_logger_close(void) {
-  if (log_fd != -1 && log_fd != STDERR_FILENO) {
-    close(log_fd);
+void ed_logger_deinit(void) {
+  if (log_fd < 0 || log_fd == STDERR_FILENO) {
+    return;
   }
+
+  close(log_fd);
 
   log_fd = -1;
 }
