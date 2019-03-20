@@ -256,9 +256,9 @@ int main(int argc, char **argv) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
       return EXIT_FAILURE;
     }
-    /* update pid */
-    instance.pid = getpid();
   }
+
+  instance.pid = getpid();
 
   ed_logger_log_error("something went wrong");
 

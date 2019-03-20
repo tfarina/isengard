@@ -12,7 +12,7 @@ static void ed_options_init(ed_options_t *options) {
 }
 
 void ed_instance_init(ed_instance_t *instance) {
-  instance->pid = getpid();
+  instance->pid = (pid_t) -1;
 
   ed_options_init(&instance->options);
 }
