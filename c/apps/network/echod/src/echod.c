@@ -31,6 +31,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "echod.h"
 #include "ed_daemon.h"
 #include "ed_instance.h"
 #include "ed_logger.h"
@@ -160,6 +161,7 @@ int main(int argc, char **argv) {
   int ch;
   int value;
   struct passwd *pw;
+  int rc;
   int tcpfd;
   fd_set rfds_in;
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
@@ -249,7 +251,10 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  ed_logger_init(instance.options.log_filename);
+  rc = ed_logger_init(instance.options.log_filename);
+  if (rc != ED_OK) {
+    return rc;
+  }
 
   if (instance.options.daemonize) {
     if (ed_daemonize(0) != 0) {
