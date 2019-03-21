@@ -283,15 +283,15 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
+  if (drop_privileges(pw->pw_uid, pw->pw_gid)) {
+    return EXIT_FAILURE;
+  }
+
   ed_logger_log_info("%s started on %d, port %d, backlog %d, logfile %s", progname,
                      instance.pid,
                      instance.options.port,
                      instance.options.backlog,
                      instance.options.log_filename);
-
-  if (drop_privileges(pw->pw_uid, pw->pw_gid)) {
-    return EXIT_FAILURE;
-  }
 
   print_num_child_forked();
 
