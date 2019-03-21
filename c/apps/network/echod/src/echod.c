@@ -293,8 +293,6 @@ int main(int argc, char **argv) {
                      instance.options.backlog,
                      instance.options.log_filename);
 
-  print_num_child_forked();
-
   FD_ZERO(&rfds_in);
 
   FD_SET(tcpfd, &rfds_in);
