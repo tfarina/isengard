@@ -260,16 +260,17 @@ int main(int argc, char **argv) {
     rc = ed_daemonize(0);
     if (rc != ED_OK) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
-      return EXIT_FAILURE;
+      return rc;
     }
   }
 
   instance.pid = getpid();
 
-  ed_logger_log_error("something went wrong");
-
   if (instance.options.pid_filename != NULL) {
-    ed_pid_create(instance.pid, instance.options.pid_filename);
+    rc = ed_pid_create(instance.pid, instance.options.pid_filename);
+    if (rc != ED_OK) {
+      return rc;
+    }
   }
 
   tcpfd = fnet_tcp_socket_listen(instance.options.interface, instance.options.port, instance.options.backlog);

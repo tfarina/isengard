@@ -63,7 +63,7 @@ int ed_pid_create(pid_t pid, char const *filename) {
     return ED_ERROR;
   }
 
-  return 0;
+  return ED_OK;
 }
 
 int ed_pid_unlink(char const *filename) {
@@ -74,6 +74,6 @@ int ed_pid_unlink(char const *filename) {
     return ED_ERROR;
   }
 
-  return 0;
+  return ED_OK;
 }
 
