@@ -48,7 +48,7 @@
 static const char *progname;
 
 static sig_atomic_t quit;
-static unsigned int forked = 0; /* Number of child processes. */
+static unsigned int connected_clients = 0; /* Number of child processes. */
 
 static char short_options[] =
     "h"  /* help */
@@ -111,17 +111,17 @@ static int drop_privileges(uid_t uid, gid_t gid) {
   return 0;
 }
 
-static void print_num_child_forked(void) {
-  ed_logger_log_info("num child forked: %d", forked);
+static void print_stats(void) {
+  ed_logger_log_info("connected clients: %d", connected_clients);
 }
 
 static void sigchld_handler(int sig) {
   pid_t pid;
   int status;
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
-    --forked;
+    --connected_clients;
     ed_logger_log_info("pid %d status %d", pid, status);
-    print_num_child_forked();
+    print_stats();
   }
   signal(SIGCHLD, sigchld_handler);
 }
@@ -313,15 +313,15 @@ int main(int argc, char **argv) {
 
 	ed_logger_log_info("Accepted connection from %s:%d", clientip, clientport);
 
-        ++forked;
-        print_num_child_forked();
+        ++connected_clients;
+        print_stats();
 
         pid = fork();
         switch (pid) {
         case -1:
           close(clientfd);
-          --forked;
-          print_num_child_forked();
+          --connected_clients;
+          print_stats();
           break;
 
         case 0:
