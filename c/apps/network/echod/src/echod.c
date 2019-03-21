@@ -273,6 +273,11 @@ int main(int argc, char **argv) {
     }
   }
 
+  /* Setup signals. */
+  signal(SIGCHLD, sigchld_handler);
+  signal(SIGINT, handle_signal);
+  signal(SIGTERM, handle_signal);
+
   tcpfd = fnet_tcp_socket_listen(instance.options.interface, instance.options.port, instance.options.backlog);
   if (tcpfd == FNET_ERR) {
     return EXIT_FAILURE;
@@ -287,11 +292,6 @@ int main(int argc, char **argv) {
   if (drop_privileges(pw->pw_uid, pw->pw_gid)) {
     return EXIT_FAILURE;
   }
-
-  /* Setup signals. */
-  signal(SIGCHLD, sigchld_handler);
-  signal(SIGINT, handle_signal);
-  signal(SIGTERM, handle_signal);
 
   print_num_child_forked();
 
