@@ -35,11 +35,7 @@
 
 #include "echod.h"
 
-void ed_pid_init(void) {
-
-}
-
-int ed_pid_create(pid_t pid, char const *filename) {
+int ed_pid_create_file(pid_t pid, char const *filename) {
   int fd;
   char pidstr[32];
   int pidstr_len;
@@ -66,7 +62,7 @@ int ed_pid_create(pid_t pid, char const *filename) {
   return ED_OK;
 }
 
-int ed_pid_unlink(char const *filename) {
+int ed_pid_remove_file(char const *filename) {
   int rc;
 
   rc = unlink(filename);

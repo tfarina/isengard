@@ -267,7 +267,7 @@ int main(int argc, char **argv) {
   instance.pid = getpid();
 
   if (instance.options.pid_filename != NULL) {
-    rc = ed_pid_create(instance.pid, instance.options.pid_filename);
+    rc = ed_pid_create_file(instance.pid, instance.options.pid_filename);
     if (rc != ED_OK) {
       return rc;
     }

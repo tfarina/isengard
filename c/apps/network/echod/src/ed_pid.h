@@ -3,8 +3,7 @@
 
 #include <sys/types.h>
 
-void ed_pid_init(void);
-int ed_pid_create(pid_t pid, char const *filename);
-int ed_pid_unlink(char const *filename);
+int ed_pid_create_file(pid_t pid, char const *filename);
+int ed_pid_remove_file(char const *filename);
 
 #endif  /* ED_PID_H_ */
