@@ -179,6 +179,10 @@ int main(int argc, char **argv) {
 
   while ((ch = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
     switch (ch) {
+    case 'h':
+      ed_show_usage();
+      return EXIT_SUCCESS;
+
     case 'd':
       instance.options.daemonize = 1;
       break;
@@ -218,10 +222,6 @@ int main(int argc, char **argv) {
 
       instance.options.backlog = value;
       break;
-
-    case 'h':
-      ed_show_usage();
-      return EXIT_SUCCESS;
 
     case '?':
       ed_show_usage();
