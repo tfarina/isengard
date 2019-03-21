@@ -228,8 +228,8 @@ int main(int argc, char **argv) {
       return EXIT_SUCCESS;
 
     default:
-      ed_show_usage();
-      exit(EXIT_FAILURE);
+      fprintf(stderr, "%s: invalid option -- '%c'", progname, optopt);
+      return ED_ERROR;
       /* NOTREACHED */
     }
   }
