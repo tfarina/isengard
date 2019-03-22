@@ -64,7 +64,7 @@ static struct option long_options[] = {
     { "help",      no_argument,       NULL, 'h' }, /* help */
     { "daemonize", no_argument,       NULL, 'd' }, /* daemon mode */
     { "output",    required_argument, NULL, 'o' }, /* output logfile */
-    { "pidfile",   required_argument, NULL, 'P' }, /* pid file */
+    { "pid-file",  required_argument, NULL, 'P' }, /* pid file */
     { "interface", required_argument, NULL, 'l' }, /* interface to listen on */
     { "port",      required_argument, NULL, 'p' }, /* tcp port number to listen on */
     { "backlog",   required_argument, NULL, 'b' }, /* tcp backlog queue limit */
@@ -81,7 +81,7 @@ static void ed_show_usage(void) {
           "  -h, --help         show usage, options and exit" CRLF
 	  "  -d, --daemonize    run as a daemon" CRLF
           "  -o, --output=S     set the debug logging file (default: %s)" CRLF
-          "  -P, --pidfile=S    store pid in a file (default: not stored)" CRLF
+          "  -P, --pid-file=S   store pid in a file (default: not stored)" CRLF
           "  -l, --interface=S  interface to listen on (default: %s)" CRLF
           "  -p, --port=N       set the tcp port to listen on (default: %d)" CRLF
           "  -b, --backlog=N    the backlog argument of listen() applied to the" CRLF
