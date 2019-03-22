@@ -126,7 +126,7 @@ static void sigchld_handler(int sig) {
   signal(SIGCHLD, sigchld_handler);
 }
 
-static void handle_signal(int sig) {
+static void ed_signal_handler(int sig) {
   char *type;
 
   switch (sig) {
@@ -275,8 +275,8 @@ int main(int argc, char **argv) {
 
   /* Setup signals. */
   signal(SIGCHLD, sigchld_handler);
-  signal(SIGINT, handle_signal);
-  signal(SIGTERM, handle_signal);
+  signal(SIGINT, ed_signal_handler);
+  signal(SIGTERM, ed_signal_handler);
 
   tcpfd = ed_net_tcp_socket_listen(instance.options.interface, instance.options.port, instance.options.backlog);
   if (tcpfd == ED_NET_ERR) {
