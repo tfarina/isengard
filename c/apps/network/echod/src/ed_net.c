@@ -10,18 +10,18 @@
 
 #include "ed_logger.h"
 
-int fnet_set_reuseaddr(int fd) {
+int ed_net_set_reuseaddr(int fd) {
   int reuse = 1;
 
   if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
     ed_logger_log_error("setsockopt SO_REUSEADDR: %s", strerror(errno));
-    return FNET_ERR;
+    return ED_NET_ERR;
   }
 
-  return FNET_OK;
+  return ED_NET_OK;
 }
 
-int fnet_tcp_socket_listen(char *host, int port, int backlog) {
+int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
@@ -37,7 +37,7 @@ int fnet_tcp_socket_listen(char *host, int port, int backlog) {
 
   if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
     ed_logger_log_error("getaddrinfo failed: %s", gai_strerror(rv));
-    return FNET_ERR;
+    return ED_NET_ERR;
   }
 
   /* Loop through all the results and bind to the first we can. */
@@ -48,7 +48,7 @@ int fnet_tcp_socket_listen(char *host, int port, int backlog) {
       continue;
     }
 
-    if (fnet_set_reuseaddr(tcpfd) == FNET_ERR) {
+    if (ed_net_set_reuseaddr(tcpfd) == ED_NET_ERR) {
       close(tcpfd);
       continue;
     }
@@ -66,19 +66,19 @@ int fnet_tcp_socket_listen(char *host, int port, int backlog) {
 
   if (cur == NULL) {
     ed_logger_log_error("failed to bind");
-    return FNET_ERR;
+    return ED_NET_ERR;
   }
 
   if (listen(tcpfd, backlog) == -1) {
     ed_logger_log_error("listen on %d failed: %s", tcpfd, strerror(errno));
     close(tcpfd);
-    return FNET_ERR;
+    return ED_NET_ERR;
   }
 
   return tcpfd;
 }
 
-static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen) {
+static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen) {
   int fd;
 
   for (;;) {
@@ -87,7 +87,7 @@ static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen
         continue;
       } else {
         ed_logger_log_error("accept failed: %s", strerror(errno));
-        return FNET_ERR;
+        return ED_NET_ERR;
       }
     }
     break;
@@ -96,14 +96,14 @@ static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen
   return fd;
 }
 
-int fnet_tcp_socket_accept(int tcpfd, char *ipbuf, size_t ipbuf_len, int *port) {
+int ed_net_tcp_socket_accept(int tcpfd, char *ipbuf, size_t ipbuf_len, int *port) {
   struct sockaddr_storage ss;
   struct sockaddr *sa = (struct sockaddr *)&ss;
   socklen_t sslen = sizeof(ss);
   int fd;
 
-  if ((fd = fnet_generic_accept(tcpfd, sa, &sslen)) == FNET_ERR) {
-    return FNET_ERR;
+  if ((fd = ed_net_generic_accept(tcpfd, sa, &sslen)) == ED_NET_ERR) {
+    return ED_NET_ERR;
   }
 
   if (ss.ss_family == AF_INET) {

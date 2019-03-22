@@ -278,8 +278,8 @@ int main(int argc, char **argv) {
   signal(SIGINT, handle_signal);
   signal(SIGTERM, handle_signal);
 
-  tcpfd = fnet_tcp_socket_listen(instance.options.interface, instance.options.port, instance.options.backlog);
-  if (tcpfd == FNET_ERR) {
+  tcpfd = ed_net_tcp_socket_listen(instance.options.interface, instance.options.port, instance.options.backlog);
+  if (tcpfd == ED_NET_ERR) {
     return EXIT_FAILURE;
   }
 
@@ -306,8 +306,8 @@ int main(int argc, char **argv) {
 
     if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
       if (FD_ISSET(tcpfd, &rfds_out)) {
-        clientfd = fnet_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
-	if (clientfd == FNET_ERR) {
+        clientfd = ed_net_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
+	if (clientfd == ED_NET_ERR) {
 	  return EXIT_FAILURE;
 	}
 
