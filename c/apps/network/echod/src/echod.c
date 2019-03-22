@@ -158,6 +158,7 @@ static void echo_stream(int fd) {
 }
 
 int main(int argc, char **argv) {
+  ed_instance_t instance;
   int c, value;
   struct passwd *pw;
   int rc;
@@ -166,15 +167,14 @@ int main(int argc, char **argv) {
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
    * after select(). */
   fd_set rfds_out;
-  int clientfd;
   char clientip[46];
   int clientport;
+  int clientfd;
   pid_t pid;
-  ed_instance_t instance;
-
-  ed_instance_init(&instance);
 
   progname = ed_get_progname(argv[0]);
+
+  ed_instance_init(&instance);
 
   for (;;) {
     c = getopt_long(argc, argv, short_options, long_options, NULL);
