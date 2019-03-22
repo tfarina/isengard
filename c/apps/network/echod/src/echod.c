@@ -93,16 +93,24 @@ static void ed_show_usage(void) {
 	  );
 }
 
-static int drop_privileges(uid_t uid, gid_t gid) {
+static int drop_privileges(struct passwd *pw) {
+  gid_t gid;
+  uid_t uid;
+
+  gid = pw->pw_gid;
+  uid = pw->pw_uid;
+
   if (setgroups(1, &gid) != 0) {
     fprintf(stderr, "setgroups failed\n");
     return -1;
 
   }
+
   if (setresgid(gid, gid, gid) != 0) {
     fprintf(stderr, "setresgid failed\n");
     return -1;
   }
+
   if (setresuid(uid, uid, uid) != 0) {
     fprintf(stderr, "setresuid failed\n");
     return -1;
@@ -288,7 +296,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  if (drop_privileges(pw->pw_uid, pw->pw_gid)) {
+  if (drop_privileges(pw)) {
     return EXIT_FAILURE;
   }
 
