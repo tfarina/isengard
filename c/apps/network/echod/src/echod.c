@@ -158,8 +158,7 @@ static void echo_stream(int fd) {
 }
 
 int main(int argc, char **argv) {
-  int ch;
-  int value;
+  int c, value;
   struct passwd *pw;
   int rc;
   int tcpfd;
@@ -178,13 +177,13 @@ int main(int argc, char **argv) {
   progname = ed_get_progname(argv[0]);
 
   for (;;) {
-    ch = getopt_long(argc, argv, short_options, long_options, NULL);
-    if (ch == -1) {
+    c = getopt_long(argc, argv, short_options, long_options, NULL);
+    if (c == -1) {
       /* no more options */
       break;
     }
 
-    switch (ch) {
+    switch (c) {
     case 'h':
       ed_show_usage();
       return EXIT_SUCCESS;
