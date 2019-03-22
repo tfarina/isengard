@@ -177,7 +177,13 @@ int main(int argc, char **argv) {
 
   progname = ed_get_progname(argv[0]);
 
-  while ((ch = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
+  for (;;) {
+    ch = getopt_long(argc, argv, short_options, long_options, NULL);
+    if (ch == -1) {
+      /* no more options */
+      break;
+    }
+
     switch (ch) {
     case 'h':
       ed_show_usage();
