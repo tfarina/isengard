@@ -310,7 +310,7 @@ int main(int argc, char **argv) {
 
   FD_SET(tcpfd, &rfds_in);
 
-  while (1) {
+  for (;;) {
     if (quit == 1) {
       break;
     }
