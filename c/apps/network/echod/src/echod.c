@@ -120,7 +120,7 @@ static int drop_privileges(struct passwd *pw) {
 }
 
 static void print_stats(void) {
-  ed_logger_log_info("connected clients: %d", connected_clients);
+  ed_logger_log_info("connected_clients=%d", connected_clients);
 }
 
 static void sigchld_handler(int sig) {
