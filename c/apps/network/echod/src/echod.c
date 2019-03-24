@@ -103,16 +103,17 @@ static int drop_privileges(struct passwd *pw) {
   if (setgroups(1, &gid) != 0) {
     fprintf(stderr, "setgroups failed\n");
     return -1;
-
   }
 
   if (setresgid(gid, gid, gid) != 0) {
-    fprintf(stderr, "setresgid failed\n");
+    fprintf(stderr, "%s: setting group id to user '%s' failed: %s\n",
+            progname, ED_USER, strerror(errno));
     return -1;
   }
 
   if (setresuid(uid, uid, uid) != 0) {
-    fprintf(stderr, "setresuid failed\n");
+    fprintf(stderr, "%s: setting user id to user '%s' failed: %s\n",
+            progname, ED_USER, strerror(errno));
     return -1;
   }
 
