@@ -37,7 +37,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "echod.h"
+#include "ed_rcode.h"
 
 int ed_daemonize(int dump_core)
 {

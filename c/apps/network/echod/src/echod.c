@@ -31,12 +31,12 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include "echod.h"
 #include "ed_daemon.h"
 #include "ed_instance.h"
 #include "ed_logger.h"
 #include "ed_net.h"
 #include "ed_pid.h"
+#include "ed_rcode.h"
 #include "ed_utils.h"
 
 #define BUFSIZE 8129

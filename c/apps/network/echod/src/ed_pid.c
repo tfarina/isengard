@@ -33,7 +33,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "echod.h"
+#include "ed_rcode.h"
 
 int ed_pid_create_file(pid_t pid, char const *filename) {
   int fd;
