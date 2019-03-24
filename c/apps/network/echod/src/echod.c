@@ -39,8 +39,6 @@
 #include "ed_pid.h"
 #include "ed_utils.h"
 
-#define ED_USER "_echod"
-
 #define BUFSIZE 8129
 
 #define CRLF "\x0d\x0a"
@@ -260,8 +258,8 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  if ((pw = getpwnam(ED_USER)) == NULL) {
-    fprintf(stderr, "%s: cannot find user '%s' to switch to\n", progname, ED_USER);
+  if ((pw = getpwnam(instance.options.username)) == NULL) {
+    fprintf(stderr, "%s: cannot find user '%s' to switch to\n", progname, instance.options.username);
     return EXIT_FAILURE;
   }
 
@@ -297,7 +295,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  if (drop_privileges(pw, ED_USER)) {
+  if (drop_privileges(pw, instance.options.username)) {
     return EXIT_FAILURE;
   }
 

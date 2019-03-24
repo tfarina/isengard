@@ -3,12 +3,14 @@
 
 #include <unistd.h>
 
+#define ED_USER "_echod"
 #define ED_INTERFACE NULL
 #define ED_TCP_PORT 7
 #define ED_BACKLOG 1024
 
 typedef struct ed_options_s {
   int daemonize;      /* daemon mode */
+  char *username;     /* process: run as another user */
   char *log_filename; /* log filename */
   char *pid_filename; /* process: pid file */
   char *interface;    /* network: listening interface */

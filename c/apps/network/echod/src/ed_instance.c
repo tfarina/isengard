@@ -4,6 +4,7 @@
 
 static void ed_options_init(ed_options_t *options) {
   options->daemonize = 0;
+  options->username = ED_USER;
   options->log_filename = NULL;
   options->pid_filename = NULL;
   options->interface = ED_INTERFACE;
