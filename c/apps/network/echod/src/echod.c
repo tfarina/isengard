@@ -258,7 +258,8 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  if ((pw = getpwnam(instance.options.username)) == NULL) {
+  pw = getpwnam(instance.options.username);
+  if (pw == NULL) {
     fprintf(stderr, "%s: cannot find user '%s' to switch to\n", progname, instance.options.username);
     return EXIT_FAILURE;
   }
