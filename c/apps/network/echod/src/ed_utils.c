@@ -3,10 +3,12 @@
 #include <stdint.h>
 #include <string.h>
 
+#define ED_DIR_SEP '/'
+
 char *ed_get_progname(char *argv0) {
   char *name;
 
-  name = strrchr(argv0, '/');
+  name = strrchr(argv0, ED_DIR_SEP);
   if (name == NULL) {
     name = argv0;
   } else {
