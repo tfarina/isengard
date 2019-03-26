@@ -303,8 +303,9 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  if (drop_privileges(pw, instance.options.username)) {
-    return EXIT_FAILURE;
+  rc = drop_privileges(pw, instance.options.username);
+  if (rc != ED_OK) {
+    return rc;
   }
 
   ed_logger_log_info("%s started on %d, port %d, backlog %d, logfile %s, user %s", progname,
