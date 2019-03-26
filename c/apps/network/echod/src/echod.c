@@ -43,6 +43,8 @@
 
 #define CRLF "\x0d\x0a"
 
+#define ED_MAXIMIZE_COREFILE 0
+
 static const char *progname;
 
 static sig_atomic_t quit;
@@ -277,7 +279,7 @@ int main(int argc, char **argv) {
   }
 
   if (instance.options.daemonize) {
-    rc = ed_daemonize(0);
+    rc = ed_daemonize(ED_MAXIMIZE_COREFILE);
     if (rc != ED_OK) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
       return rc;
