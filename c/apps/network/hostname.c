@@ -5,15 +5,17 @@
 #include <string.h>
 #include <unistd.h>
 
+#define NET_MAXHOSTNAMELEN 256
+
 int main(void) {
-  char hostname[HOST_NAME_MAX];
+  char hostname[NET_MAXHOSTNAMELEN];
 
   if (gethostname(hostname, sizeof(hostname)) < 0) {
     fprintf(stderr, "gethostname() failed: %s\n", strerror(errno));
     return EXIT_FAILURE;
   }
 
-  hostname[HOST_NAME_MAX - 1] = '\0';
+  hostname[sizeof(hostname) - 1] = '\0'; /* Null terminate, just to be safe. */
 
   printf("%s\n", hostname);
 
