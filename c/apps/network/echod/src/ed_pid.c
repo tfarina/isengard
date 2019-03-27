@@ -63,6 +63,8 @@ int ed_pid_create_file(pid_t pid, char const *filename) {
 
   rc = close(fd);
   if (rc < 0) {
+    ed_logger_log_error("close pid file '%s' failed: %s", filename,
+                        strerror(errno));
     return ED_ERROR;
   }
 
