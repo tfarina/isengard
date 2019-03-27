@@ -43,8 +43,6 @@
 
 #define CRLF "\x0d\x0a"
 
-#define ED_MAXIMIZE_COREFILE 0
-
 static const char *progname;
 
 static sig_atomic_t quit;

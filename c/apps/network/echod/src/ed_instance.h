@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #define ED_USER "_echod"
+#define ED_MAXIMIZE_COREFILE 0
 #define ED_INTERFACE NULL
 #define ED_TCP_PORT 7
 #define ED_BACKLOG 1024
