@@ -29,10 +29,13 @@
 
 #include "ed_pid.h"
 
+#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
+#include "ed_logger.h"
 #include "ed_rcode.h"
 
 int ed_pid_create_file(pid_t pid, char const *filename) {
@@ -44,6 +47,8 @@ int ed_pid_create_file(pid_t pid, char const *filename) {
 
   fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
   if (fd < 0) {
+    ed_logger_log_error("opening pid file '%s' failed: %s", filename,
+	                strerror(errno));
     return ED_ERROR;
   }
 
@@ -51,6 +56,8 @@ int ed_pid_create_file(pid_t pid, char const *filename) {
 
   bytes_written = write(fd, pidstr, pidstr_len);
   if (bytes_written < 0) {
+    ed_logger_log_error("write to pid file '%s' failed: %s", filename,
+                        strerror(errno));
     return ED_ERROR;
   }
 
@@ -67,6 +74,8 @@ int ed_pid_remove_file(char const *filename) {
 
   rc = unlink(filename);
   if (rc < 0) {
+    ed_logger_log_error("unlink of pid file '%s' failed, ignored: %s", filename,
+                        strerror(errno));
     return ED_ERROR;
   }
 
