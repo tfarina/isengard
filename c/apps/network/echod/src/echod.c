@@ -139,14 +139,14 @@ static void sigchld_handler(int sig) {
 }
 
 static void ed_signal_handler(int sig) {
-  char *type;
+  char *signame;
 
   switch (sig) {
   case SIGINT:
-    type = "SIGINT";
+    signame = "SIGINT";
     break;
   case SIGTERM:
-    type = "SIGTERM";
+    signame = "SIGTERM";
     break;
   }
 
@@ -154,7 +154,7 @@ static void ed_signal_handler(int sig) {
     quit = 1;
   }
 
-  ed_logger_log_info("signal %s received, shutting down...", type);
+  ed_logger_log_info("signal %d (%s) received, shutting down...", sig, signame);
 }
 
 static void echo_stream(int fd) {
