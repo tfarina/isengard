@@ -94,7 +94,12 @@ static void ed_show_usage(void) {
 	  );
 }
 
-static int drop_privileges(struct passwd *pw, char const *username) {
+/**
+ * This functions changes from the superuser (root) to the user
+ * specified in 'username'. Effectively dropping the priviledges
+ * that this application have.
+ */
+static int ed_change_user(struct passwd *pw, char const *username) {
   gid_t gid;
   uid_t uid;
 
@@ -303,7 +308,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  rc = drop_privileges(pw, instance.options.username);
+  rc = ed_change_user(pw, instance.options.username);
   if (rc != ED_OK) {
     return rc;
   }
