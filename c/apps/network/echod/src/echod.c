@@ -204,23 +204,23 @@ int main(int argc, char **argv) {
       return EXIT_SUCCESS;
 
     case 'd':
-      instance.options.daemonize = 1;
+      instance.config.daemonize = 1;
       break;
 
     case 'o':
-      instance.options.log_filename = optarg;
+      instance.config.log_filename = optarg;
       break;
 
     case 'P':
-      instance.options.pid_filename = optarg;
+      instance.config.pid_filename = optarg;
       break;
 
     case 'u':
-      instance.options.username = optarg;
+      instance.config.username = optarg;
       break;
 
     case 'l':
-      instance.options.interface = optarg;
+      instance.config.interface = optarg;
       break;
 
     case 'p':
@@ -234,7 +234,7 @@ int main(int argc, char **argv) {
 	return EXIT_FAILURE;
       }
 
-      instance.options.port = value;
+      instance.config.port = value;
       break;
 
     case 'b':
@@ -244,7 +244,7 @@ int main(int argc, char **argv) {
 	return EXIT_FAILURE;
       }
 
-      instance.options.backlog = value;
+      instance.config.backlog = value;
       break;
 
     case '?':
@@ -270,18 +270,18 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  pw = getpwnam(instance.options.username);
+  pw = getpwnam(instance.config.username);
   if (pw == NULL) {
-    fprintf(stderr, "%s: cannot find user '%s' to switch to\n", progname, instance.options.username);
+    fprintf(stderr, "%s: cannot find user '%s' to switch to\n", progname, instance.config.username);
     return EXIT_FAILURE;
   }
 
-  rc = ed_logger_init(instance.options.log_filename);
+  rc = ed_logger_init(instance.config.log_filename);
   if (rc != ED_OK) {
     return rc;
   }
 
-  if (instance.options.daemonize) {
+  if (instance.config.daemonize) {
     rc = ed_daemonize(ED_MAXIMIZE_COREFILE);
     if (rc != ED_OK) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
@@ -291,8 +291,8 @@ int main(int argc, char **argv) {
 
   instance.pid = getpid();
 
-  if (instance.options.pid_filename != NULL) {
-    rc = ed_pid_create_file(instance.pid, instance.options.pid_filename);
+  if (instance.config.pid_filename != NULL) {
+    rc = ed_pid_create_file(instance.pid, instance.config.pid_filename);
     if (rc != ED_OK) {
       return rc;
     }
@@ -303,22 +303,22 @@ int main(int argc, char **argv) {
   signal(SIGINT, ed_signal_handler);
   signal(SIGTERM, ed_signal_handler);
 
-  tcpfd = ed_net_tcp_socket_listen(instance.options.interface, instance.options.port, instance.options.backlog);
+  tcpfd = ed_net_tcp_socket_listen(instance.config.interface, instance.config.port, instance.config.backlog);
   if (tcpfd == ED_NET_ERR) {
     return EXIT_FAILURE;
   }
 
-  rc = ed_change_user(pw, instance.options.username);
+  rc = ed_change_user(pw, instance.config.username);
   if (rc != ED_OK) {
     return rc;
   }
 
   ed_logger_log_info("%s started on %d, port %d, backlog %d, logfile %s, user %s", progname,
                      instance.pid,
-                     instance.options.port,
-                     instance.options.backlog,
-                     instance.options.log_filename,
-                     instance.options.username);
+                     instance.config.port,
+                     instance.config.backlog,
+                     instance.config.log_filename,
+                     instance.config.username);
 
   FD_ZERO(&rfds_in);
 

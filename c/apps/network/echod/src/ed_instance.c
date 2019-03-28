@@ -2,18 +2,18 @@
 
 #include "ed_logger.h"
 
-static void ed_options_init(ed_options_t *options) {
-  options->daemonize = 0;
-  options->username = ED_USER;
-  options->log_filename = NULL;
-  options->pid_filename = NULL;
-  options->interface = ED_INTERFACE;
-  options->port = ED_TCP_PORT;
-  options->backlog = ED_BACKLOG;
+static void ed_config_init(ed_config_t *config) {
+  config->daemonize = 0;
+  config->username = ED_USER;
+  config->log_filename = NULL;
+  config->pid_filename = NULL;
+  config->interface = ED_INTERFACE;
+  config->port = ED_TCP_PORT;
+  config->backlog = ED_BACKLOG;
 }
 
 void ed_instance_init(ed_instance_t *instance) {
   instance->pid = (pid_t) -1;
 
-  ed_options_init(&instance->options);
+  ed_config_init(&instance->config);
 }
