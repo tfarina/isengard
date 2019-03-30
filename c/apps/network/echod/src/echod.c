@@ -331,7 +331,8 @@ int main(int argc, char **argv) {
 
     memcpy(&rfds_out, &rfds_in, sizeof(fd_set));
 
-    if (select(tcpfd + 1, &rfds_out, NULL, NULL, NULL) > 0) {
+    rc = select(tcpfd + 1, &rfds_out, NULL, NULL, NULL);
+    if (rc > 0) {
       if (FD_ISSET(tcpfd, &rfds_out)) {
         clientfd = ed_net_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
 	if (clientfd == ED_NET_ERR) {
