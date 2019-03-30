@@ -96,7 +96,11 @@ vector_t *vector_alloc(int capacity)
 
 int vector_push_back(vector_t *self, void *element)
 {
-        return self ? _vector_insert(self, self->size, element) : -1;
+        if (self == NULL) {
+                return -1;
+        }
+
+        return _vector_insert(self, self->size, element);
 }
 
 void *vector_get(vector_t const * const self, int const index)
@@ -110,16 +114,22 @@ void *vector_get(vector_t const * const self, int const index)
 
 size_t vector_size(vector_t const * const self)
 {
-        return self ? self->size : 0;
+        if (self == NULL) {
+	        return 0;
+	}
+
+        return self->size;
 }
 
 void vector_free(vector_t *self)
 {
-        if (self) {
-                free(self->elements);
-                self->elements = NULL;
-                self->capacity = 0;
-                self->size = 0;
-                free(self);
+        if (self == NULL) {
+                return;
         }
+
+        free(self->elements);
+        self->elements = NULL;
+        self->capacity = 0;
+        self->size = 0;
+        free(self);
 }
