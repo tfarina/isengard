@@ -27,11 +27,12 @@ static void *xmalloc(size_t size)
         void *ptr;
 
         if (size == 0) {
-          fatal("zero size");
+                fatal("zero size");
 	}
 
-        if ((ptr = malloc(size)) == NULL) {
-	  fatal("Out of memory, malloc failed, tried to allocate %lu bytes", (unsigned long)size);
+        ptr = malloc(size);
+        if (ptr == NULL) {
+	        fatal("Out of memory, malloc failed, tried to allocate %lu bytes", (unsigned long)size);
         }
 
         return ptr;
@@ -41,7 +42,8 @@ static void *xcalloc(size_t nmemb, size_t size)
 {
         void *ptr;
 
-        if ((ptr = calloc(nmemb, size)) == NULL) {
+        ptr = calloc(nmemb, size);
+        if (ptr == NULL) {
 	        fatal("xcalloc failed");
 	}
 
