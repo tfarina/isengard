@@ -8,13 +8,13 @@
 #define ED_BACKLOG 1024
 
 typedef struct ed_config_s {
-  int daemonize;      /* daemon mode */
-  char *username;     /* process: run as another user */
-  char *log_filename; /* log filename */
-  char *pid_filename; /* process: pid file */
-  char *interface;    /* network: listening interface */
-  int port;           /* network: tcp listening port */
-  int backlog;        /* network: tcp backlog */
+  int  daemonize;      /* process: daemon mode */
+  char *username;      /* process: run as another user */
+  char *log_filename;  /* debug:   log filename */
+  char *pid_filename;  /* process: pid file */
+  char *interface;     /* network: listening interface */
+  int  port;           /* network: tcp listening port */
+  int  backlog;        /* network: tcp backlog */
 } ed_config_t;
 
 void ed_config_init(ed_config_t *config);
