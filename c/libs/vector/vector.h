@@ -40,7 +40,7 @@ int vector_push_back(vector_t *self, void *element);
  * @param index The index of the element.
  * @return The element at specified index.
  */
-void *vector_get(vector_t const * const self, int const index);
+void *vector_get(vector_t const * const self, int unsigned const index);
 
 /**
  * Returns the current number of elements store in the array.

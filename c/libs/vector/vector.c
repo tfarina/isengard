@@ -103,9 +103,13 @@ int vector_push_back(vector_t *self, void *element)
         return _vector_insert(self, self->size, element);
 }
 
-void *vector_get(vector_t const * const self, int const index)
+void *vector_get(vector_t const * const self, int unsigned const index)
 {
-        if (index < 0 || !self || index >= self->size) {
+        if (self == NULL) {
+                return NULL;
+        }
+
+        if (index >= self->size) {
                 return NULL;
         }
 
