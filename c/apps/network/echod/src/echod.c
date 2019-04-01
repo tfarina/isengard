@@ -71,11 +71,11 @@ static struct option long_options[] = {
     { NULL,    0,                 NULL,  0  }
 };
 
-static void ed_show_usage(void) {
+static void ed_show_usage(char const *program_name) {
   fprintf(stderr,
 	  "usage: %s [-hd] [-o output logfile] [-P pid file] [-u user]" CRLF
 	  "             [-l interface] [-p port] [-b backlog]" CRLF CRLF,
-	  progname);
+	  program_name);
   fprintf(stderr,
 	  "options:" CRLF
           "  -h, --help         show usage, options and exit" CRLF
@@ -200,7 +200,7 @@ int main(int argc, char **argv) {
 
     switch (c) {
     case 'h':
-      ed_show_usage();
+      ed_show_usage(progname);
       return EXIT_SUCCESS;
 
     case 'd':
@@ -248,7 +248,7 @@ int main(int argc, char **argv) {
       break;
 
     case '?':
-      ed_show_usage();
+      ed_show_usage(progname);
       return EXIT_SUCCESS;
 
     default:
@@ -261,7 +261,7 @@ int main(int argc, char **argv) {
   argv += optind;
 
   if (argc > 0) {
-    ed_show_usage();
+    ed_show_usage(progname);
     return EXIT_FAILURE;
   }
 
