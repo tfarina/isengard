@@ -365,7 +365,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  ed_logger_log_info("Terminated. Bye!");
+  ed_logger_log_info("Shutdown completed");
   ed_logger_deinit();
 
   return EXIT_SUCCESS;
