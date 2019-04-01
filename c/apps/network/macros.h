@@ -10,7 +10,7 @@
 #endif
 
 #ifndef ATTRIBUTE_PRINTF
-#define ATTRIBUTE_PRINTF(m, n) __attribute__ ((__format__ (__printf__, m, n)))
+#define ATTRIBUTE_PRINTF(string_index, first_to_check) __attribute__ ((__format__ (__printf__, string_index, first_to_check)))
 #endif
 
 #endif  /* MACROS_H_ */
