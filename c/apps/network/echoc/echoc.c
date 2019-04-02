@@ -1,18 +1,13 @@
 /* https://vcansimplify.wordpress.com/2013/03/14/c-socket-tutorial-echo-server/ */
 
-#include <arpa/inet.h>
-#include <errno.h>
-#include <netdb.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-#include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
 
 #include "ec_net.h"
-#include "log.h"
 
 #define BUFSIZE 4096
 
