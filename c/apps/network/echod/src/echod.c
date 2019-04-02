@@ -60,15 +60,15 @@ static char short_options[] =
     ;
 
 static struct option long_options[] = {
-    { "help",      no_argument,       NULL, 'h' }, /* help */
-    { "daemonize", no_argument,       NULL, 'd' }, /* daemon mode */
-    { "output",    required_argument, NULL, 'o' }, /* output logfile */
-    { "pid-file",  required_argument, NULL, 'P' }, /* pid file */
-    { "user",      required_argument, NULL, 'u' }, /* user identity to run as */
-    { "interface", required_argument, NULL, 'l' }, /* interface to listen on */
-    { "port",      required_argument, NULL, 'p' }, /* tcp port number to listen on */
-    { "backlog",   required_argument, NULL, 'b' }, /* tcp backlog queue limit */
-    { NULL,    0,                 NULL,  0  }
+    { "help",        no_argument,       NULL, 'h' }, /* help */
+    { "daemonize",   no_argument,       NULL, 'd' }, /* daemon mode */
+    { "output-file", required_argument, NULL, 'o' }, /* output logfile */
+    { "pid-file",    required_argument, NULL, 'P' }, /* pid file */
+    { "user",        required_argument, NULL, 'u' }, /* user identity to run as */
+    { "interface",   required_argument, NULL, 'l' }, /* interface to listen on */
+    { "port",        required_argument, NULL, 'p' }, /* tcp port number to listen on */
+    { "backlog",     required_argument, NULL, 'b' }, /* tcp backlog queue limit */
+    { NULL,          0,                 NULL,  0  }
 };
 
 static void ed_show_usage(char const *program_name) {
@@ -78,15 +78,15 @@ static void ed_show_usage(char const *program_name) {
 	  program_name);
   fprintf(stderr,
 	  "options:" CRLF
-          "  -h, --help         show usage, options and exit" CRLF
-	  "  -d, --daemonize    run as a daemon" CRLF
-          "  -o, --output=S     set the debug logging file (default: %s)" CRLF
-          "  -P, --pid-file=S   store pid in a file (default: not stored)" CRLF
-          "  -u, --user=S       user identity to run as" CRLF
-          "  -l, --interface=S  interface to listen on (default: %s)" CRLF
-          "  -p, --port=N       set the tcp port to listen on (default: %d)" CRLF
-          "  -b, --backlog=N    the backlog argument of listen() applied to the" CRLF
-	  "                     listening socket (default: %d)" CRLF
+          "  -h, --help              show usage, options and exit" CRLF
+          "  -d, --daemonize         run as a daemon" CRLF
+          "  -o, --output-file=S     set the debug logging file (default: %s)" CRLF
+          "  -P, --pid-file=S        store pid in a file (default: not stored)" CRLF
+          "  -u, --user=S            user identity to run as" CRLF
+          "  -l, --interface=S       interface to listen on (default: %s)" CRLF
+          "  -p, --port=N            set the tcp port to listen on (default: %d)" CRLF
+          "  -b, --backlog=N         the backlog argument of listen() applied to the" CRLF
+          "                          listening socket (default: %d)" CRLF
 	  "",
           "stderr",
           ED_INTERFACE != NULL ? ED_INTERFACE : "all interfaces",
