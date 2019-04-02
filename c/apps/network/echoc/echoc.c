@@ -15,6 +15,8 @@
 
 #define CRLF "\x0d\x0a"
 
+#define EC_TCP_PORT 7
+
 static char const *progname;
 
 static char short_options[] =
@@ -40,7 +42,7 @@ static void ec_show_usage(char const *program_name) {
           "  -a, --address=          server address" CRLF
           "  -p, --port=N            set the tcp port of the server (default: %d)" CRLF
 	  "",
-          7);
+          EC_TCP_PORT);
 }
 
 int main(int argc, char **argv) {
@@ -52,6 +54,8 @@ int main(int argc, char **argv) {
   int port;
 
   progname = ec_get_progname(argv[0]);
+
+  port = EC_TCP_PORT;
 
   for (;;) {
     c = getopt_long(argc, argv, short_options, long_options, NULL);
