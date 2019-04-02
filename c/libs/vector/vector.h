@@ -51,6 +51,15 @@ void *vector_get(vector_t const * const self, int unsigned const index);
 size_t vector_size(vector_t const * const self);
 
 /**
+ * Returns the number of elements the container can store without having
+ * to expand.
+ *
+ * @param self The vector instance (must not be NULL).
+ * @return The number of elements that can be stored before having to expand.
+ */
+size_t vector_capacity(vector_t const * const self);
+
+/**
  * Frees this instance of vector_t.
  * If 'self' is NULL no action will be performed.
  *

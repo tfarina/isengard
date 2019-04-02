@@ -125,6 +125,15 @@ size_t vector_size(vector_t const * const self)
         return self->size;
 }
 
+size_t vector_capacity(vector_t const * const self)
+{
+        if (self == NULL) {
+	        return 0;
+	}
+
+        return self->capacity;
+}
+
 void vector_free(vector_t *self)
 {
         if (self == NULL) {
