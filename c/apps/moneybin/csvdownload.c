@@ -47,9 +47,6 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
 
   result = curl_global_init(CURL_GLOBAL_DEFAULT);
 
-  /* 1. Write history page into file and get the cookies.txt file (they
-   * will be used later on).
-   */
   curl = curl_easy_init();
 
   curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
