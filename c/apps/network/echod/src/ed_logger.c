@@ -95,7 +95,7 @@ void ed_logger_write(ed_logger_level_t level, char const *file, int line, char c
 
   strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S", localtm);
 
-  len += ed_scnprintf(buf + len, maxlen - len, "%.*s [%s] %s:%d:%s ", strlen(timestr), timestr, level_names[level], file, line, func);
+  len += ed_scnprintf(buf + len, maxlen - len, "%.*s [%s] %s:%d %s() ", strlen(timestr), timestr, level_names[level], file, line, func);
 
   va_start(args, fmt);
   len += vsnprintf(buf + len, maxlen - len, fmt, args);
