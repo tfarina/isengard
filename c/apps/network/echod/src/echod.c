@@ -35,7 +35,7 @@
 
 #include "ed_daemon.h"
 #include "ed_instance.h"
-#include "ed_logger.h"
+#include "ed_log.h"
 #include "ed_net.h"
 #include "ed_pid.h"
 #include "ed_rcode.h"
@@ -129,7 +129,7 @@ static int ed_change_user(struct passwd *pw, char const *username) {
 }
 
 static void print_stats(void) {
-  ed_logger_log_info("connected_clients=%d", connected_clients);
+  ed_log_info("connected_clients=%d", connected_clients);
 }
 
 static void sigchld_handler(int sig) {
@@ -137,7 +137,7 @@ static void sigchld_handler(int sig) {
   int status;
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
     --connected_clients;
-    ed_logger_log_info("pid %d status %d", pid, status);
+    ed_log_info("pid %d status %d", pid, status);
     print_stats();
   }
   signal(SIGCHLD, sigchld_handler);
@@ -159,7 +159,7 @@ static void ed_signal_handler(int sig) {
     quit = 1;
   }
 
-  ed_logger_log_info("signal %d (%s) received, shutting down...", sig, signame);
+  ed_log_info("signal %d (%s) received, shutting down...", sig, signame);
 }
 
 static void echo_stream(int fd) {
@@ -278,7 +278,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  rc = ed_logger_init(instance.config.log_filename);
+  rc = ed_log_init(instance.config.log_filename);
   if (rc != ED_OK) {
     return rc;
   }
@@ -315,12 +315,12 @@ int main(int argc, char **argv) {
     return rc;
   }
 
-  ed_logger_log_info("%s started on %d, port %d, backlog %d, logfile %s, user %s", progname,
-                     instance.pid,
-                     instance.config.port,
-                     instance.config.backlog,
-                     instance.config.log_filename,
-                     instance.config.username);
+  ed_log_info("%s started on %d, port %d, backlog %d, logfile %s, user %s", progname,
+              instance.pid,
+              instance.config.port,
+              instance.config.backlog,
+              instance.config.log_filename,
+              instance.config.username);
 
   FD_ZERO(&rfds_in);
 
@@ -341,7 +341,7 @@ int main(int argc, char **argv) {
 	  return EXIT_FAILURE;
 	}
 
-	ed_logger_log_info("Accepted connection from %s:%d", clientip, clientport);
+	ed_log_info("Accepted connection from %s:%d", clientip, clientport);
 
         ++connected_clients;
         print_stats();
@@ -361,14 +361,14 @@ int main(int argc, char **argv) {
 
         default:
           close(clientfd); /* we are the parent so look for another connection. */
-          ed_logger_log_info("pid: %d", pid);
+          ed_log_info("pid: %d", pid);
         }
       }
     }
   }
 
-  ed_logger_log_info("Shutdown completed");
-  ed_logger_deinit();
+  ed_log_info("Shutdown completed");
+  ed_log_deinit();
 
   return EXIT_SUCCESS;
 }

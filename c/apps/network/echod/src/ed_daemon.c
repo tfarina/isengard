@@ -37,7 +37,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "ed_logger.h"
+#include "ed_log.h"
 #include "ed_rcode.h"
 
 int ed_daemonize(int dump_core)
@@ -50,7 +50,7 @@ int ed_daemonize(int dump_core)
     pid = fork();
     switch (pid) {
     case -1:
-        ed_logger_log_error("fork() failed: %s", strerror(errno));
+        ed_log_error("fork() failed: %s", strerror(errno));
         return ED_ERROR;
 
     case 0:
@@ -68,7 +68,7 @@ int ed_daemonize(int dump_core)
     }
 
     if (signal(SIGHUP, SIG_IGN) == SIG_ERR) {
-        ed_logger_log_error("signal(SIGHUP, SIG_IGN) failed: %s", strerror(errno));
+        ed_log_error("signal(SIGHUP, SIG_IGN) failed: %s", strerror(errno));
         return ED_ERROR;
     }
 
@@ -76,7 +76,7 @@ int ed_daemonize(int dump_core)
     pid = fork();
     switch (pid) {
     case -1:
-        ed_logger_log_error("fork() failed: %s", strerror(errno));
+        ed_log_error("fork() failed: %s", strerror(errno));
         return ED_ERROR;
 
     case 0:
@@ -91,7 +91,7 @@ int ed_daemonize(int dump_core)
     if (dump_core == 0) {
         rc = chdir("/");
         if (rc < 0) {
-	    ed_logger_log_error("chdir(\"/\") failed: %s", strerror(errno));
+	    ed_log_error("chdir(\"/\") failed: %s", strerror(errno));
             return ED_ERROR;
         }
     }
@@ -103,27 +103,27 @@ int ed_daemonize(int dump_core)
 
     fd = open("/dev/null", O_RDWR);
     if (fd < 0) {
-        ed_logger_log_error("open(\"/dev/null\") failed: %s", strerror(errno));
+        ed_log_error("open(\"/dev/null\") failed: %s", strerror(errno));
         return ED_ERROR;
     }
 
     rc = dup2(fd, STDIN_FILENO);
     if (rc < 0) {
-        ed_logger_log_error("dup2(%d, STDIN) failed: %s", fd, strerror(errno));
+        ed_log_error("dup2(%d, STDIN) failed: %s", fd, strerror(errno));
         close(fd);
         return ED_ERROR;
     }
 
     rc = dup2(fd, STDOUT_FILENO);
     if (rc < 0) {
-        ed_logger_log_error("dup2(%d, STDOUT) failed: %s", fd, strerror(errno));
+        ed_log_error("dup2(%d, STDOUT) failed: %s", fd, strerror(errno));
         close(fd);
         return ED_ERROR;
     }
 
     rc = dup2(fd, STDERR_FILENO);
     if (rc < 0) {
-        ed_logger_log_error("dup2(%d, STDERR) failed: %s", fd, strerror(errno));
+        ed_log_error("dup2(%d, STDERR) failed: %s", fd, strerror(errno));
         close(fd);
         return ED_ERROR;
     }
@@ -131,7 +131,7 @@ int ed_daemonize(int dump_core)
     if (fd > STDERR_FILENO) {
         rc = close(fd);
         if (rc < 0) {
-	    ed_logger_log_error("close(%d) failed: %s", fd, strerror(errno));
+	    ed_log_error("close(%d) failed: %s", fd, strerror(errno));
             return ED_ERROR;
         }
     }

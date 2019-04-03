@@ -8,7 +8,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "ed_logger.h"
+#include "ed_log.h"
 
 int ed_net_set_reuseaddr(int sd) {
   int reuse;
@@ -37,7 +37,7 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   hints.ai_flags = AI_PASSIVE;
 
   if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
-    ed_logger_log_error("getaddrinfo failed: %s", gai_strerror(rv));
+    ed_log_error("getaddrinfo failed: %s", gai_strerror(rv));
     return ED_NET_ERR;
   }
 
@@ -45,19 +45,19 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
     if ((tcpfd = socket(cur->ai_family, cur->ai_socktype,
                         cur->ai_protocol)) == -1) {
-      ed_logger_log_error("socket failed: %s", strerror(errno));
+      ed_log_error("socket failed: %s", strerror(errno));
       continue;
     }
 
     rv = ed_net_set_reuseaddr(tcpfd);
     if (rv != ED_NET_OK) {
-      ed_logger_log_warn("set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
+      ed_log_warn("set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
       close(tcpfd);
       continue;
     }
 
     if (bind(tcpfd, cur->ai_addr, cur->ai_addrlen) == -1) {
-      ed_logger_log_error("bind to port %s failed: %.200s", portstr, strerror(errno));
+      ed_log_error("bind to port %s failed: %.200s", portstr, strerror(errno));
       close(tcpfd);
       continue;
     }
@@ -68,12 +68,12 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   freeaddrinfo(addrlist);
 
   if (cur == NULL) {
-    ed_logger_log_error("failed to bind");
+    ed_log_error("failed to bind");
     return ED_NET_ERR;
   }
 
   if (listen(tcpfd, backlog) == -1) {
-    ed_logger_log_error("listen on %d failed: %s", tcpfd, strerror(errno));
+    ed_log_error("listen on %d failed: %s", tcpfd, strerror(errno));
     close(tcpfd);
     return ED_NET_ERR;
   }
@@ -89,7 +89,7 @@ static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *sal
       if (errno == EINTR) {
         continue;
       } else {
-        ed_logger_log_error("accept failed: %s", strerror(errno));
+        ed_log_error("accept failed: %s", strerror(errno));
         return ED_NET_ERR;
       }
     }

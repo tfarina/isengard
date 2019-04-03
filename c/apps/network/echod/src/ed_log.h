@@ -33,33 +33,33 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef ED_LOGGER_H_
-#define ED_LOGGER_H_
+#ifndef ED_LOG_H_
+#define ED_LOG_H_
 
 #include <stdarg.h>
 
-typedef enum ed_logger_level_e {
-  ED_LOGGER_LEVEL_DEBUG = 0,
-  ED_LOGGER_LEVEL_NOTICE,
-  ED_LOGGER_LEVEL_INFO,
-  ED_LOGGER_LEVEL_WARN,
-  ED_LOGGER_LEVEL_ERROR,
-  ED_LOGGER_LEVEL_MAX
-} ed_logger_level_t;
+typedef enum ed_log_level_e {
+  ED_LOG_LEVEL_DEBUG = 0,
+  ED_LOG_LEVEL_NOTICE,
+  ED_LOG_LEVEL_INFO,
+  ED_LOG_LEVEL_WARN,
+  ED_LOG_LEVEL_ERROR,
+  ED_LOG_LEVEL_MAX
+} ed_log_level_t;
 
-int ed_logger_init(char const *filename);
-void ed_logger_deinit(void);
+int ed_log_init(char const *filename);
+void ed_log_deinit(void);
 
-void ed_logger_write(ed_logger_level_t level,
-		     char const *file,
-		     int line,
-		     char const *func,
-		     char const *format, ...);
+void ed_log_write(ed_log_level_t level,
+	          char const *file,
+		  int line,
+		  char const *func,
+		  char const *format, ...);
 
-#define ed_logger_log_debug(...) ed_logger_write(ED_LOGGER_LEVEL_DEBUG, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define ed_logger_log_notice(...) ed_logger_write(ED_LOGGER_LEVEL_NOTICE, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define ed_logger_log_info(...) ed_logger_write(ED_LOGGER_LEVEL_INFO, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define ed_logger_log_warn(...) ed_logger_write(ED_LOGGER_LEVEL_WARN, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define ed_logger_log_error(...) ed_logger_write(ED_LOGGER_LEVEL_ERROR, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define ed_log_debug(...) ed_log_write(ED_LOG_LEVEL_DEBUG, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define ed_log_notice(...) ed_log_write(ED_LOG_LEVEL_NOTICE, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define ed_log_info(...) ed_log_write(ED_LOG_LEVEL_INFO, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define ed_log_warn(...) ed_log_write(ED_LOG_LEVEL_WARN, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define ed_log_error(...) ed_log_write(ED_LOG_LEVEL_ERROR, __FILE__, __LINE__, __func__, __VA_ARGS__)
 
-#endif  /* ED_LOGGER_H_ */
+#endif  /* ED_LOG_H_ */

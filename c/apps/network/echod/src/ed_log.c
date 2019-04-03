@@ -33,7 +33,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "ed_logger.h"
+#include "ed_log.h"
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -56,7 +56,7 @@ static char const * const level_names[] = {
   "FATAL"
 };
 
-int ed_logger_init(char const *filename) {
+int ed_log_init(char const *filename) {
   if (filename == NULL || !strlen(filename)) {
     log_fd = STDERR_FILENO;
   } else {
@@ -69,7 +69,7 @@ int ed_logger_init(char const *filename) {
   return 0;
 }
 
-void ed_logger_deinit(void) {
+void ed_log_deinit(void) {
   if (log_fd < 0 || log_fd == STDERR_FILENO) {
     return;
   }
@@ -79,7 +79,7 @@ void ed_logger_deinit(void) {
   log_fd = -1;
 }
 
-void ed_logger_write(ed_logger_level_t level, char const *file, int line, char const *func, char const *fmt, ...) {
+void ed_log_write(ed_log_level_t level, char const *file, int line, char const *func, char const *fmt, ...) {
   time_t t;
   struct tm *localtm;
   char timestr[32];
