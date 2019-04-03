@@ -43,8 +43,8 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
 
   /* Loop through all the results and bind to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    if ((sd = socket(cur->ai_family, cur->ai_socktype,
-                     cur->ai_protocol)) == -1) {
+    sd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
+    if (sd < 0) {
       ed_log_error("socket failed: %s", strerror(errno));
       continue;
     }
