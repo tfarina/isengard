@@ -8,6 +8,6 @@
 
 int ed_net_set_reuseaddr(int sd);
 int ed_net_tcp_socket_listen(char *host, int port, int backlog);
-int ed_net_tcp_socket_accept(int tcpfd, char *ipbuf, size_t ipbuf_len, int *port);
+int ed_net_tcp_socket_accept(int sd, char *ipbuf, size_t ipbuf_len, int *port);
 
 #endif /* ED_NET_H_ */

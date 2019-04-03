@@ -26,7 +26,7 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
-  int tcpfd;
+  int sd;
 
   snprintf(portstr, sizeof(portstr), "%d", port);
 
@@ -43,22 +43,22 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
 
   /* Loop through all the results and bind to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    if ((tcpfd = socket(cur->ai_family, cur->ai_socktype,
-                        cur->ai_protocol)) == -1) {
+    if ((sd = socket(cur->ai_family, cur->ai_socktype,
+                     cur->ai_protocol)) == -1) {
       ed_log_error("socket failed: %s", strerror(errno));
       continue;
     }
 
-    rv = ed_net_set_reuseaddr(tcpfd);
+    rv = ed_net_set_reuseaddr(sd);
     if (rv != ED_NET_OK) {
-      ed_log_warn("set reuse addr on sd %d failed: %s", tcpfd, strerror(errno));
-      close(tcpfd);
+      ed_log_warn("set reuse addr on sd %d failed: %s", sd, strerror(errno));
+      close(sd);
       continue;
     }
 
-    if (bind(tcpfd, cur->ai_addr, cur->ai_addrlen) == -1) {
+    if (bind(sd, cur->ai_addr, cur->ai_addrlen) == -1) {
       ed_log_error("bind to port %s failed: %.200s", portstr, strerror(errno));
-      close(tcpfd);
+      close(sd);
       continue;
     }
 
@@ -72,13 +72,13 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
     return ED_NET_ERR;
   }
 
-  if (listen(tcpfd, backlog) == -1) {
-    ed_log_error("listen on %d failed: %s", tcpfd, strerror(errno));
-    close(tcpfd);
+  if (listen(sd, backlog) == -1) {
+    ed_log_error("listen on %d failed: %s", sd, strerror(errno));
+    close(sd);
     return ED_NET_ERR;
   }
 
-  return tcpfd;
+  return sd;
 }
 
 static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen) {
@@ -99,13 +99,13 @@ static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *sal
   return fd;
 }
 
-int ed_net_tcp_socket_accept(int tcpfd, char *ipbuf, size_t ipbuf_len, int *port) {
+int ed_net_tcp_socket_accept(int sd, char *ipbuf, size_t ipbuf_len, int *port) {
   struct sockaddr_storage ss;
   struct sockaddr *sa = (struct sockaddr *)&ss;
   socklen_t sslen = sizeof(ss);
   int fd;
 
-  if ((fd = ed_net_generic_accept(tcpfd, sa, &sslen)) == ED_NET_ERR) {
+  if ((fd = ed_net_generic_accept(sd, sa, &sslen)) == ED_NET_ERR) {
     return ED_NET_ERR;
   }
 
