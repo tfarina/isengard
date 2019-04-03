@@ -44,7 +44,6 @@ typedef enum ed_logger_level_e {
   ED_LOGGER_LEVEL_INFO,
   ED_LOGGER_LEVEL_WARN,
   ED_LOGGER_LEVEL_ERROR,
-  ED_LOGGER_LEVEL_FATAL,
   ED_LOGGER_LEVEL_MAX
 } ed_logger_level_t;
 
