@@ -135,11 +135,13 @@ static void print_stats(void) {
 static void sigchld_handler(int sig) {
   pid_t pid;
   int status;
+
   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
     --connected_clients;
-    ed_log_info("pid %d status %d", pid, status);
+    ed_log_info("pid %lu with status %d", (unsigned long)pid, status);
     print_stats();
   }
+
   signal(SIGCHLD, sigchld_handler);
 }
 
