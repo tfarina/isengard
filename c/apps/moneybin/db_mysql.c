@@ -2,6 +2,39 @@
 
 #include <stdio.h>
 
+typedef struct db_mysql_data_s {
+  MYSQL *mysql;
+  MYSQL_RES *result;
+} db_mysql_data_t;
+
+int db_mysql_alloc(mb_sql_connection_t *conn)
+{
+  db_mysql_data_t *data;
+
+  data = calloc(1, sizeof(*data));
+  if (data == NULL) {
+    return -1 /*ENOMEM*/;
+  }
+
+  conn->data = data;
+
+  return 0;
+}
+
+int db_mysql_free(mb_sql_connection_t *conn)
+{
+  db_mysql_data_t *data;
+
+  data = conn->data;
+
+  free(data->mysql);
+  free(data);
+
+  conn->data = NULL;
+
+  return 0;
+}
+
 int db_mysql_connect(MYSQL **conn, const char *host, const char *user,
                      const char *password, const char *dbname)
 {
