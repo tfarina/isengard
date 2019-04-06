@@ -35,10 +35,9 @@ int db_mysql_free(mb_sql_connection_t *conn)
   return 0;
 }
 
-int db_mysql_connect(MYSQL **conn, const char *host, const char *user,
-                     const char *password, const char *dbname)
+int db_mysql_connect(MYSQL **conn, const char *host, int unsigned port,
+                     const char *user, const char *password, const char *dbname)
 {
-  unsigned int port = 0;
   unsigned long sql_flags = 0;
 
   if ((*conn = mysql_init(NULL)) == NULL) {

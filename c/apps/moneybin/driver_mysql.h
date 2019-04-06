@@ -10,7 +10,7 @@ typedef struct mb_sql_connection_s {
 int db_mysql_alloc(mb_sql_connection_t *conn);
 int db_mysql_free(mb_sql_connection_t *conn);
 
-int db_mysql_connect(MYSQL **conn, const char *host, const char *user,
-                     const char *password, const char *dbname);
+int db_mysql_connect(MYSQL **conn, const char *host, int unsigned port,
+                     const char *user, const char *password, const char *dbname);
 
 #endif /* DRIVER_MYSQL_H_ */
