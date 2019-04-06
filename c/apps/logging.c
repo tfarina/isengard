@@ -16,14 +16,14 @@ enum log_severity {
         LOG_NUM_SEVERITIES = 4,
 };
 
-const char *const log_severity_names[LOG_NUM_SEVERITIES] = {
+static const char *const log_severity_names[LOG_NUM_SEVERITIES] = {
         "info",
         "warning",
         "error",
         "fatal",
 };
 
-const char *
+static const char *
 get_log_severity_name(int severity)
 {
         if (severity >= 0 && severity < LOG_NUM_SEVERITIES)
