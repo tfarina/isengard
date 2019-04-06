@@ -29,7 +29,7 @@ set(SRCS
   csv_helper.c
   curl_helper.c
   db.c
-  db_mysql.c
+  driver_mysql.c
   ffileutils.c
   fstrutils.c
   futils.c

@@ -6,7 +6,7 @@
 #include <mysql/mysql.h>
 
 #include "db.h"
-#include "db_mysql.h"
+#include "driver_mysql.h"
 #include "fstrutils.h"
 #include "vector.h"
 #include "third_party/libcsv/csv.h"
