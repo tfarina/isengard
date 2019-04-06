@@ -39,7 +39,7 @@ int db_mysql_connect(MYSQL **conn, const char *host, int unsigned port,
                      const char *user, const char *password, const char *dbname)
 {
   char *unix_socket_name = NULL;
-  unsigned long sql_flags = 0;
+  unsigned long client_flags = 0;
 
   if ((*conn = mysql_init(NULL)) == NULL) {
     fprintf(stderr, "mysql: unable to allocate memory for database connection.\n");
@@ -47,7 +47,7 @@ int db_mysql_connect(MYSQL **conn, const char *host, int unsigned port,
   }
 
   if (mysql_real_connect(*conn, host, user, password, dbname, port,
-                         unix_socket_name, sql_flags) == NULL) {
+                         unix_socket_name, client_flags) == NULL) {
     fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(*conn));
     mysql_close(*conn);
     return -1;
