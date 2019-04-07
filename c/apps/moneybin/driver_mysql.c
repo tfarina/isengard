@@ -37,8 +37,7 @@ static int db_mysql_free(mb_sql_connection_t *conn)
   return 0;
 }
 
-int db_mysql_connect(MYSQL **conn, const char *host, int unsigned port,
-                     const char *user, const char *password, const char *dbname)
+int db_mysql_connect(MYSQL **conn, db_config_t *config)
 {
   MYSQL *mysql;
   char *unix_socket_name = NULL;
@@ -52,8 +51,14 @@ int db_mysql_connect(MYSQL **conn, const char *host, int unsigned port,
 
   mysql_init(mysql);
 
-  if (mysql_real_connect(mysql, host, user, password, dbname, port,
-                         unix_socket_name, client_flags) == NULL) {
+  if (mysql_real_connect(mysql,
+                         config->host,
+                         config->user,
+                         config->password,
+                         config->dbname,
+                         config->port,
+                         unix_socket_name,
+                         client_flags) == NULL) {
     fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(mysql));
     mysql_close(mysql);
     return -1;

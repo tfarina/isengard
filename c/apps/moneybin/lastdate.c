@@ -16,7 +16,7 @@ int main(void)
 
   db_config_init(&config);
 
-  rc = db_mysql_connect(&conn, config.host, config.port, config.user, config.password, config.dbname);
+  rc = db_mysql_connect(&conn, &config);
   if (rc < 0) {
     return -1;
   }
