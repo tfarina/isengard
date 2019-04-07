@@ -9,7 +9,7 @@ typedef struct mysql_drv_data_s {
   MYSQL_RES *result;
 } mysql_drv_data_t;
 
-static int db_mysql_alloc(mb_sql_connection_t *conn)
+static int db_mysql_alloc(dba_conn_t *conn)
 {
   mysql_drv_data_t *data;
 
@@ -23,7 +23,7 @@ static int db_mysql_alloc(mb_sql_connection_t *conn)
   return 0;
 }
 
-static int db_mysql_free(mb_sql_connection_t *conn)
+static int db_mysql_free(dba_conn_t *conn)
 {
   mysql_drv_data_t *data;
 
