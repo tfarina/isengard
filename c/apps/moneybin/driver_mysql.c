@@ -40,20 +40,26 @@ static int db_mysql_free(mb_sql_connection_t *conn)
 int db_mysql_connect(MYSQL **conn, const char *host, int unsigned port,
                      const char *user, const char *password, const char *dbname)
 {
+  MYSQL *mysql;
   char *unix_socket_name = NULL;
   unsigned long client_flags = 0;
 
-  if ((*conn = mysql_init(NULL)) == NULL) {
+  mysql = malloc(sizeof(MYSQL));
+  if (mysql == NULL) {
     fprintf(stderr, "mysql: unable to allocate memory for database connection.\n");
+    return -1 /*ENOMEM;*/;
+  }
+
+  mysql_init(mysql);
+
+  if (mysql_real_connect(mysql, host, user, password, dbname, port,
+                         unix_socket_name, client_flags) == NULL) {
+    fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(mysql));
+    mysql_close(mysql);
     return -1;
   }
 
-  if (mysql_real_connect(*conn, host, user, password, dbname, port,
-                         unix_socket_name, client_flags) == NULL) {
-    fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(*conn));
-    mysql_close(*conn);
-    return -1;
-  }
+  *conn = mysql;
 
   return 0;
 }
