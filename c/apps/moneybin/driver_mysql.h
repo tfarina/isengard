@@ -3,9 +3,7 @@
 
 #include <mysql/mysql.h>
 
-typedef struct mb_sql_connection_s {
-  void *data;
-} mb_sql_connection_t;
+#include "sql.h"
 
 int db_mysql_alloc(mb_sql_connection_t *conn);
 int db_mysql_free(mb_sql_connection_t *conn);
