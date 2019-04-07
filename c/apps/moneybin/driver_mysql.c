@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-#include "sql.h"
+#include "dba.h"
 
 typedef struct mysql_drv_data_s {
   MYSQL *mysql;
