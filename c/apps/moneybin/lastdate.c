@@ -29,13 +29,14 @@ int main(void)
     return -1;
   }
 
-  if ((res = mysql_store_result(conn)) == NULL) {
+  res = mysql_store_result(conn);
+  if (res == NULL) {
     fprintf(stderr, "mysql: sql result retrieval failed: %s\n", mysql_error(conn));
     //db_mysql_disconnect();
     return -1;
   }
 
-  num_rows =  mysql_num_rows(res);
+  num_rows = mysql_num_rows(res);
   if (num_rows <= 0) {
     fprintf(stderr, "No rows found\n");
     return -1;
