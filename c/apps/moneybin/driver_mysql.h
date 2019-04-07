@@ -3,11 +3,6 @@
 
 #include <mysql/mysql.h>
 
-#include "sql.h"
-
-int db_mysql_alloc(mb_sql_connection_t *conn);
-int db_mysql_free(mb_sql_connection_t *conn);
-
 int db_mysql_connect(MYSQL **conn, const char *host, int unsigned port,
                      const char *user, const char *password, const char *dbname);
 

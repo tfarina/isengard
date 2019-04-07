@@ -2,12 +2,14 @@
 
 #include <stdio.h>
 
+#include "sql.h"
+
 typedef struct db_mysql_data_s {
   MYSQL *mysql;
   MYSQL_RES *result;
 } db_mysql_data_t;
 
-int db_mysql_alloc(mb_sql_connection_t *conn)
+static int db_mysql_alloc(mb_sql_connection_t *conn)
 {
   db_mysql_data_t *data;
 
@@ -21,7 +23,7 @@ int db_mysql_alloc(mb_sql_connection_t *conn)
   return 0;
 }
 
-int db_mysql_free(mb_sql_connection_t *conn)
+static int db_mysql_free(mb_sql_connection_t *conn)
 {
   db_mysql_data_t *data;
 
