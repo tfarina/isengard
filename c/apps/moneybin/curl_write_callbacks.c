@@ -1,4 +1,4 @@
-#include "curl_helper.h"
+#include "curl_write_callbacks.h"
 
 #include <stdio.h>
 #include <stdlib.h>

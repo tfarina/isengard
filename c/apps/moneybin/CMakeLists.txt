@@ -27,7 +27,7 @@ find_package(MySQL)
 set(SRCS
   buffer.c
   csv_helper.c
-  curl_helper.c
+  curl_write_callbacks.c
   db.c
   driver_mysql.c
   ffileutils.c

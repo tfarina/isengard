@@ -7,7 +7,7 @@
 #include <curl/curl.h>
 
 #include "buffer.h"
-#include "curl_helper.h"
+#include "curl_write_callbacks.h"
 #include "ffileutils.h"
 #include "fstrutils.h"
 
