@@ -37,6 +37,50 @@ static int mysql_drv_free(dba_conn_t *conn)
   return 0;
 }
 
+static int mysql_drv_connect(dba_conn_t *conn)
+{
+  mysql_drv_data_t *data;
+  char *unix_socket_name = NULL;
+  unsigned long client_flags = 0;
+
+  data = conn->data;
+
+  data->mysql = malloc(sizeof(MYSQL));
+  if (data->mysql == NULL) {
+    return -1 /*ENOMEM*/;
+  }
+
+  mysql_init(data->mysql);
+
+  if (mysql_real_connect(data->mysql,
+                         conn->host,
+                         conn->user,
+                         conn->password,
+                         conn->dbname,
+                         conn->port,
+                         unix_socket_name,
+                         client_flags) == NULL) {
+    fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(data->mysql));
+    mysql_close(data->mysql);
+    return -1;
+  }
+
+  return 0;
+}
+
+static int mysql_drv_disconnect(dba_conn_t *conn)
+{
+  mysql_drv_data_t *data;
+
+  data = conn->data;
+
+  mysql_close(data->mysql);
+  free(data->mysql);
+  data->mysql = NULL;
+
+  return 0;
+}
+
 int db_mysql_connect(MYSQL **conn, db_config_t *config)
 {
   MYSQL *mysql;
