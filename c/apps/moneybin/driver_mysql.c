@@ -4,14 +4,14 @@
 
 #include "sql.h"
 
-typedef struct db_mysql_data_s {
+typedef struct mysql_drv_data_s {
   MYSQL *mysql;
   MYSQL_RES *result;
-} db_mysql_data_t;
+} mysql_drv_data_t;
 
 static int db_mysql_alloc(mb_sql_connection_t *conn)
 {
-  db_mysql_data_t *data;
+  mysql_drv_data_t *data;
 
   data = calloc(1, sizeof(*data));
   if (data == NULL) {
@@ -25,7 +25,7 @@ static int db_mysql_alloc(mb_sql_connection_t *conn)
 
 static int db_mysql_free(mb_sql_connection_t *conn)
 {
-  db_mysql_data_t *data;
+  mysql_drv_data_t *data;
 
   data = conn->data;
 
