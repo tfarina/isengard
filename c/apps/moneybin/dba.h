@@ -2,6 +2,11 @@
 #define MB_DBA_H_
 
 typedef struct dba_conn_s {
+  char const *host;
+  char const *user;
+  char const *password;
+  char const *dbname;
+  int unsigned port;
   void *data;
 } dba_conn_t;
 
