@@ -12,7 +12,8 @@ int main(void)
   char query[256];
   MYSQL_RES *res = NULL;
   size_t num_rows;
-  MYSQL_ROW row;
+  MYSQL_ROW row; /* char ** */
+  char *lastdate;
 
   config_init(&config);
 
@@ -48,7 +49,10 @@ int main(void)
     fprintf(stderr, "No row found\n");
     return -1;
   }
-  printf("%s\n", row[0]);
+
+  lastdate = row[0];
+
+  printf("%s\n", lastdate);
   
   return 0;
 }
