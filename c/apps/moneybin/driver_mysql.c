@@ -81,6 +81,14 @@ static int mysql_drv_disconnect(dba_conn_t *conn)
   return 0;
 }
 
+static dba_driver_ops_t mysql_drv_ops = {
+  "mysql",
+  mysql_drv_alloc,
+  mysql_drv_free,
+  mysql_drv_connect,
+  mysql_drv_disconnect
+};
+
 int db_mysql_connect(MYSQL **conn, db_config_t *config)
 {
   MYSQL *mysql;
