@@ -107,6 +107,28 @@ static int mysql_drv_release_result(dba_conn_t *conn)
   return 0;
 }
 
+static int mysql_drv_num_columns(dba_conn_t *conn, size_t *out_ncol)
+{
+  mysql_drv_data_t *data;
+
+  data = conn->data;
+
+  *out_ncol = mysql_num_fields(data->result);
+
+  return 0;
+}
+
+static int mysql_drv_num_rows(dba_conn_t *conn, size_t *out_nrow)
+{
+  mysql_drv_data_t *data;
+
+  data = conn->data;
+
+  *out_nrow = mysql_num_rows(data->result);
+
+  return 0;
+}
+
 static dba_driver_ops_t mysql_drv_ops = {
   "mysql",
   mysql_drv_alloc,
