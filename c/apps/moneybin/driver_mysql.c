@@ -81,6 +81,17 @@ static int mysql_drv_disconnect(dba_conn_t *conn)
   return 0;
 }
 
+static int mysql_drv_query(dba_conn_t *conn, char *query)
+{
+  mysql_drv_data_t *data;
+
+  data = conn->data;
+
+  mysql_query(data->mysql, query);
+
+  return 0;
+}
+
 static int mysql_drv_store_result(dba_conn_t *conn)
 {
   mysql_drv_data_t *data;
