@@ -89,7 +89,7 @@ static dba_driver_ops_t mysql_drv_ops = {
   mysql_drv_disconnect
 };
 
-int db_mysql_connect(MYSQL **conn, db_config_t *config)
+int db_mysql_connect(MYSQL **conn, config_t *config)
 {
   MYSQL *mysql;
   char *unix_socket_name = NULL;

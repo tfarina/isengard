@@ -1,4 +1,4 @@
-#include "db.h"
+#include "config.h"
 
 #include "ffileutils.h"
 #include "fstrutils.h"
@@ -7,7 +7,7 @@
 
 #define USERCONFFILE ".moneybinrc"
 
-int db_config_init(db_config_t *config) {
+int config_init(config_t *config) {
   const char *homedir;
   char *userconffile;
   dictionary *ini;

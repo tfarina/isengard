@@ -5,7 +5,7 @@
 
 #include <mysql/mysql.h>
 
-#include "db.h"
+#include "config.h"
 #include "driver_mysql.h"
 #include "fstrutils.h"
 #include "vector.h"
@@ -281,7 +281,7 @@ int main(int argc, char **argv) {
   char *symbol;
   vector_t *quotes;
   int rc;
-  db_config_t config;
+  config_t config;
   MYSQL *conn = NULL;
   size_t i;
   int num_updates = 0;
@@ -299,7 +299,7 @@ int main(int argc, char **argv) {
 
   csv_read_quotes(filename, quotes);
 
-  db_config_init(&config);
+  config_init(&config);
 
   rc = db_mysql_connect(&conn, &config);
   if (rc < 0) {

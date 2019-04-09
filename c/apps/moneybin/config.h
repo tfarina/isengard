@@ -1,5 +1,5 @@
-#ifndef DB_H_
-#define DB_H_
+#ifndef CONFIG_H_
+#define CONFIG_H_
 
 typedef struct {
   char const *host;
@@ -7,8 +7,8 @@ typedef struct {
   char const *password;
   char const *dbname;
   int unsigned port;
-} db_config_t;
+} config_t;
 
-int db_config_init(db_config_t *config);
+int config_init(config_t *config);
 
-#endif  /* DB_H_ */
+#endif  /* CONFIG_H_ */

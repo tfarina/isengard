@@ -28,7 +28,7 @@ set(SRCS
   buffer.c
   csv_helper.c
   curl_write_callbacks.c
-  db.c
+  config.c
   driver_mysql.c
   ffileutils.c
   fstrutils.c

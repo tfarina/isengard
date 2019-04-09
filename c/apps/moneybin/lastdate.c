@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "db.h"
+#include "config.h"
 #include "driver_mysql.h"
 
 int main(void)
 {
-  db_config_t config;
+  config_t config;
   MYSQL *conn;
   int rc;
   char query[256];
@@ -14,7 +14,7 @@ int main(void)
   size_t num_rows;
   MYSQL_ROW row;
 
-  db_config_init(&config);
+  config_init(&config);
 
   rc = db_mysql_connect(&conn, &config);
   if (rc < 0) {
