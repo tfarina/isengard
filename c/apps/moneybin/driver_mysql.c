@@ -81,6 +81,32 @@ static int mysql_drv_disconnect(dba_conn_t *conn)
   return 0;
 }
 
+static int mysql_drv_store_result(dba_conn_t *conn)
+{
+  mysql_drv_data_t *data;
+
+  data = conn->data;
+
+  data->result = mysql_store_result(data->mysql);
+  if (data->result == NULL) {
+    return -1;
+  }
+
+  return 0;
+}
+
+static int mysql_drv_release_result(dba_conn_t *conn)
+{
+  mysql_drv_data_t *data;
+
+  data = conn->data;
+
+  mysql_free_result(data->result);
+  data->result = NULL;
+
+  return 0;
+}
+
 static dba_driver_ops_t mysql_drv_ops = {
   "mysql",
   mysql_drv_alloc,
