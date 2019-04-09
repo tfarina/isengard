@@ -29,9 +29,8 @@ vector_t *vector_alloc(int capacity);
  *
  * @param self The vector instance (must not be NULL).
  * @param element The element to be inserted.
- * @return 0 on success, -1 on error.
  */
-int vector_push_back(vector_t *self, void *element);
+void vector_push_back(vector_t *self, void *element);
 
 /**
  * Returns the element at the specified index in the array.
