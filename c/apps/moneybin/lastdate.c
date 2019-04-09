@@ -4,6 +4,29 @@
 #include "config.h"
 #include "driver_mysql.h"
 
+static int get_column_data(MYSQL_RES *result, size_t nrow, size_t ncol, char **outdata)
+{
+  size_t num_rows;
+  MYSQL_ROW row;
+
+  num_rows = mysql_num_rows(result);
+  if (num_rows <= 0) {
+    fprintf(stderr, "No rows found\n");
+    return -1;
+  }
+
+  mysql_data_seek(result, nrow);
+  row = mysql_fetch_row(result);
+  if (row == NULL) {
+    fprintf(stderr, "No row found\n");
+    return -1;
+  }
+
+  *outdata = row[ncol];
+
+  return 0;
+}
+
 int main(void)
 {
   config_t config;
@@ -11,8 +34,6 @@ int main(void)
   int rc;
   char query[256];
   MYSQL_RES *res = NULL;
-  size_t num_rows;
-  MYSQL_ROW row; /* char ** */
   char *lastdate;
 
   config_init(&config);
@@ -37,20 +58,10 @@ int main(void)
     return -1;
   }
 
-  num_rows = mysql_num_rows(res);
-  if (num_rows <= 0) {
-    fprintf(stderr, "No rows found\n");
+  rc = get_column_data(res, 0, 0, &lastdate);
+  if (rc < 0) {
     return -1;
   }
-
-  mysql_data_seek(res, 0);
-  row = mysql_fetch_row(res);
-  if (row == NULL) {
-    fprintf(stderr, "No row found\n");
-    return -1;
-  }
-
-  lastdate = row[0];
 
   printf("%s\n", lastdate);
   
