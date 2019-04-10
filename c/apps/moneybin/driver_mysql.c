@@ -142,7 +142,7 @@ static int mysql_drv_num_rows(dba_t *handle, size_t *out_nrow)
   return 0;
 }
 
-static dba_ops_t mysql_dba_ops = {
+dba_ops_t mysql_dba_ops = {
   mysql_drv_alloc,
   mysql_drv_connect,
   mysql_drv_disconnect,

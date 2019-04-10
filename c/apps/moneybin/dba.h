@@ -23,4 +23,6 @@ int dba_connect(dba_t *handle, char const *host, int unsigned port,
 int dba_disconnect(dba_t *handle);
 int dba_query(dba_t *handle, char const *query, long unsigned length);
 
+extern dba_ops_t mysql_dba_ops;
+
 #endif  /* MB_DBA_H_ */
