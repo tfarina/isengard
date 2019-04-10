@@ -11,17 +11,13 @@ typedef struct dba_driver_ops_s {
   int (*disconnect)(struct dba_conn_s *conn);
 } dba_driver_ops_t;
 
-typedef struct dba_driver_s {
-  dba_driver_ops_t *ops;
-} dba_driver_t;
-
 typedef struct dba_conn_s {
   char const *host;
   char const *user;
   char const *password;
   char const *dbname;
   int unsigned port;
-  dba_driver_t *driver;
+  dba_driver_ops_t *ops;
   void *data;
 } dba_conn_t;
 
