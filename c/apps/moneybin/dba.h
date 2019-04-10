@@ -4,8 +4,6 @@
 struct dba_conn_s;
 
 typedef struct dba_driver_ops_s {
-  char *name;
-
   int (*alloc)(struct dba_conn_s *conn);
   int (*free)(struct dba_conn_s *conn);
 
