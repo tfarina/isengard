@@ -17,12 +17,6 @@ typedef struct dba_conn_s {
   void *data;
 } dba_conn_t;
 
-int dba_conn_alloc(dba_conn_t *conn);
-int dba_conn_free(dba_conn_t *conn);
-
-int dba_conn_connect(dba_conn_t *conn);
-int dba_conn_disconnect(dba_conn_t *conn);
-
 typedef struct dba_s dba_t;
 
 int dba_init(dba_t **handle, char const *backend);
