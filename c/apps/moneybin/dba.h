@@ -1,23 +1,21 @@
 #ifndef MB_DBA_H_
 #define MB_DBA_H_
 
-struct dba_conn_s;
+typedef struct dba_s dba_t;
 
 typedef struct dba_ops_s {
-  int (*alloc)(struct dba_conn_s *conn);
-  int (*free)(struct dba_conn_s *conn);
+  int (*alloc)(dba_t *handle);
+  int (*free)(dba_t *handle);
 
-  int (*connect)(struct dba_conn_s *conn, char const *host, int unsigned port,
+  int (*connect)(dba_t *handle, char const *host, int unsigned port,
                  char const *username, char const *password, char const *dbname);
-  int (*disconnect)(struct dba_conn_s *conn);
+  int (*disconnect)(dba_t *handle);
 } dba_ops_t;
 
-typedef struct dba_conn_s {
+struct dba_s {
   dba_ops_t *ops;
   void *data;
-} dba_conn_t;
-
-typedef struct dba_s dba_t;
+};
 
 int dba_init(dba_t **handle, char const *backend);
 int dba_connect(dba_t *handle, char const *host, int port, char const *username, char const *password, char const *dbname);

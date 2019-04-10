@@ -9,7 +9,7 @@ typedef struct mysql_drv_data_s {
   MYSQL_RES *result;
 } mysql_drv_data_t;
 
-static int mysql_drv_alloc(dba_conn_t *conn)
+static int mysql_drv_alloc(dba_t *handle)
 {
   mysql_drv_data_t *data;
 
@@ -18,26 +18,26 @@ static int mysql_drv_alloc(dba_conn_t *conn)
     return -1 /*ENOMEM*/;
   }
 
-  conn->data = data;
+  handle->data = data;
 
   return 0;
 }
 
-static int mysql_drv_free(dba_conn_t *conn)
+static int mysql_drv_free(dba_t *handle)
 {
   mysql_drv_data_t *data;
 
-  data = conn->data;
+  data = handle->data;
 
   free(data->mysql);
   free(data);
 
-  conn->data = NULL;
+  handle->data = NULL;
 
   return 0;
 }
 
-static int mysql_drv_connect(dba_conn_t *conn, char const *host, int unsigned port,
+static int mysql_drv_connect(dba_t *handle, char const *host, int unsigned port,
                              char const *username, char const *password,
 			     char const *dbname)
 {
@@ -45,7 +45,7 @@ static int mysql_drv_connect(dba_conn_t *conn, char const *host, int unsigned po
   char *unix_socket_name = NULL;
   unsigned long client_flags = 0;
 
-  data = conn->data;
+  data = handle->data;
 
   data->mysql = malloc(sizeof(MYSQL));
   if (data->mysql == NULL) {
@@ -70,11 +70,11 @@ static int mysql_drv_connect(dba_conn_t *conn, char const *host, int unsigned po
   return 0;
 }
 
-static int mysql_drv_disconnect(dba_conn_t *conn)
+static int mysql_drv_disconnect(dba_t *handle)
 {
   mysql_drv_data_t *data;
 
-  data = conn->data;
+  data = handle->data;
 
   mysql_close(data->mysql);
   free(data->mysql);
@@ -83,22 +83,22 @@ static int mysql_drv_disconnect(dba_conn_t *conn)
   return 0;
 }
 
-static int mysql_drv_query(dba_conn_t *conn, char *query)
+static int mysql_drv_query(dba_t *handle, char *query)
 {
   mysql_drv_data_t *data;
 
-  data = conn->data;
+  data = handle->data;
 
   mysql_query(data->mysql, query);
 
   return 0;
 }
 
-static int mysql_drv_store_result(dba_conn_t *conn)
+static int mysql_drv_store_result(dba_t *handle)
 {
   mysql_drv_data_t *data;
 
-  data = conn->data;
+  data = handle->data;
 
   data->result = mysql_store_result(data->mysql);
   if (data->result == NULL) {
@@ -108,11 +108,11 @@ static int mysql_drv_store_result(dba_conn_t *conn)
   return 0;
 }
 
-static int mysql_drv_release_result(dba_conn_t *conn)
+static int mysql_drv_release_result(dba_t *handle)
 {
   mysql_drv_data_t *data;
 
-  data = conn->data;
+  data = handle->data;
 
   mysql_free_result(data->result);
   data->result = NULL;
@@ -120,29 +120,29 @@ static int mysql_drv_release_result(dba_conn_t *conn)
   return 0;
 }
 
-static int mysql_drv_num_columns(dba_conn_t *conn, size_t *out_ncol)
+static int mysql_drv_num_columns(dba_t *handle, size_t *out_ncol)
 {
   mysql_drv_data_t *data;
 
-  data = conn->data;
+  data = handle->data;
 
   *out_ncol = mysql_num_fields(data->result);
 
   return 0;
 }
 
-static int mysql_drv_num_rows(dba_conn_t *conn, size_t *out_nrow)
+static int mysql_drv_num_rows(dba_t *handle, size_t *out_nrow)
 {
   mysql_drv_data_t *data;
 
-  data = conn->data;
+  data = handle->data;
 
   *out_nrow = mysql_num_rows(data->result);
 
   return 0;
 }
 
-static dba_driver_ops_t mysql_drv_ops = {
+static dba_ops_t mysql_dba_ops = {
   mysql_drv_alloc,
   mysql_drv_free,
   mysql_drv_connect,
