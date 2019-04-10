@@ -83,7 +83,7 @@ static int mysql_drv_disconnect(dba_t *handle)
   return 0;
 }
 
-static int mysql_drv_query(dba_t *handle, char *query)
+static int mysql_drv_query(dba_t *handle, char const *query, long unsigned length)
 {
   mysql_drv_data_t *data;
 
@@ -144,9 +144,9 @@ static int mysql_drv_num_rows(dba_t *handle, size_t *out_nrow)
 
 static dba_ops_t mysql_dba_ops = {
   mysql_drv_alloc,
-  mysql_drv_free,
   mysql_drv_connect,
-  mysql_drv_disconnect
+  mysql_drv_disconnect,
+  mysql_drv_query
 };
 
 int db_mysql_connect(MYSQL **conn, config_t *config)

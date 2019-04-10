@@ -4,12 +4,11 @@
 typedef struct dba_s dba_t;
 
 typedef struct dba_ops_s {
-  int (*alloc)(dba_t *handle);
-  int (*free)(dba_t *handle);
-
+  int (*init)(dba_t *handle);
   int (*connect)(dba_t *handle, char const *host, int unsigned port,
                  char const *username, char const *password, char const *dbname);
   int (*disconnect)(dba_t *handle);
+  int (*query)(dba_t *handle, char const *query, long unsigned length);
 } dba_ops_t;
 
 struct dba_s {
@@ -18,7 +17,8 @@ struct dba_s {
 };
 
 int dba_init(dba_t **handle, char const *backend);
-int dba_connect(dba_t *handle, char const *host, int port, char const *username, char const *password, char const *dbname);
+int dba_connect(dba_t *handle, char const *host, int unsigned port,
+                char const *username, char const *password, char const *dbname);
 int dba_disconnect(dba_t *handle);
 int dba_query(dba_t *handle, char const *query, long unsigned length);
 
