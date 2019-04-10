@@ -37,7 +37,9 @@ static int mysql_drv_free(dba_conn_t *conn)
   return 0;
 }
 
-static int mysql_drv_connect(dba_conn_t *conn)
+static int mysql_drv_connect(dba_conn_t *conn, char const *host, int unsigned port,
+                             char const *username, char const *password,
+			     char const *dbname)
 {
   mysql_drv_data_t *data;
   char *unix_socket_name = NULL;
@@ -53,11 +55,11 @@ static int mysql_drv_connect(dba_conn_t *conn)
   mysql_init(data->mysql);
 
   if (mysql_real_connect(data->mysql,
-                         conn->host,
-                         conn->user,
-                         conn->password,
-                         conn->dbname,
-                         conn->port,
+                         host,
+                         username,
+                         password,
+                         dbname,
+                         port,
                          unix_socket_name,
                          client_flags) == NULL) {
     fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(data->mysql));

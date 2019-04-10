@@ -7,16 +7,12 @@ typedef struct dba_driver_ops_s {
   int (*alloc)(struct dba_conn_s *conn);
   int (*free)(struct dba_conn_s *conn);
 
-  int (*connect)(struct dba_conn_s *conn);
+  int (*connect)(struct dba_conn_s *conn, char const *host, int unsigned port,
+                 char const *username, char const *password, char const *dbname);
   int (*disconnect)(struct dba_conn_s *conn);
 } dba_driver_ops_t;
 
 typedef struct dba_conn_s {
-  char const *host;
-  char const *user;
-  char const *password;
-  char const *dbname;
-  int unsigned port;
   dba_driver_ops_t *ops;
   void *data;
 } dba_conn_t;
