@@ -11,6 +11,7 @@ struct dba_s {
 
 struct dba_ops_s {
   int (*init)(dba_t *handle);
+  int (*deinit)(dba_t *handle);
   int (*connect)(dba_t *handle, char const *host, int unsigned port,
                  char const *username, char const *password, char const *dbname);
   int (*disconnect)(dba_t *handle);
@@ -18,6 +19,7 @@ struct dba_ops_s {
 };
 
 int dba_init(dba_t **handle, char const *backend);
+int dba_deinit(dba_t *handle);
 int dba_connect(dba_t *handle, char const *host, int unsigned port,
                 char const *username, char const *password, char const *dbname);
 int dba_disconnect(dba_t *handle);
