@@ -3,6 +3,9 @@
 
 typedef enum dba_err_e {
   DBA_ERR_SUCCESS = 0,
+  DBA_ERR_PARAM,
+  DBA_ERR_NOMEM,
+  DBA_ERR_NOOP,
   DBA_MAX_ERRNO
 } dba_err_t;
 
