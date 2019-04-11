@@ -15,12 +15,12 @@ static int mysql_drv_alloc(dba_t *handle)
 
   data = calloc(1, sizeof(*data));
   if (data == NULL) {
-    return -1 /*ENOMEM*/;
+    return -DBA_ERR_NOMEM;
   }
 
   handle->data = data;
 
-  return 0;
+  return DBA_ERR_SUCCESS;
 }
 
 static int mysql_drv_free(dba_t *handle)
@@ -34,7 +34,7 @@ static int mysql_drv_free(dba_t *handle)
 
   handle->data = NULL;
 
-  return 0;
+  return DBA_ERR_SUCCESS;
 }
 
 static int mysql_drv_connect(dba_t *handle, char const *host, int unsigned port,
@@ -49,7 +49,7 @@ static int mysql_drv_connect(dba_t *handle, char const *host, int unsigned port,
 
   data->mysql = malloc(sizeof(MYSQL));
   if (data->mysql == NULL) {
-    return -1 /*ENOMEM*/;
+    return -DBA_ERR_NOMEM;
   }
 
   mysql_init(data->mysql);
@@ -67,7 +67,7 @@ static int mysql_drv_connect(dba_t *handle, char const *host, int unsigned port,
     return -1;
   }
 
-  return 0;
+  return DBA_ERR_SUCCESS;
 }
 
 static int mysql_drv_disconnect(dba_t *handle)
@@ -80,7 +80,7 @@ static int mysql_drv_disconnect(dba_t *handle)
   free(data->mysql);
   data->mysql = NULL;
 
-  return 0;
+  return DBA_ERR_SUCCESS;
 }
 
 static int mysql_drv_query(dba_t *handle, char const *query, long unsigned length)
@@ -91,7 +91,7 @@ static int mysql_drv_query(dba_t *handle, char const *query, long unsigned lengt
 
   mysql_query(data->mysql, query);
 
-  return 0;
+  return DBA_ERR_SUCCESS;
 }
 
 static int mysql_drv_store_result(dba_t *handle)
@@ -105,7 +105,7 @@ static int mysql_drv_store_result(dba_t *handle)
     return -1;
   }
 
-  return 0;
+  return DBA_ERR_SUCCESS;
 }
 
 static int mysql_drv_release_result(dba_t *handle)
@@ -117,7 +117,7 @@ static int mysql_drv_release_result(dba_t *handle)
   mysql_free_result(data->result);
   data->result = NULL;
 
-  return 0;
+  return DBA_ERR_SUCCESS;
 }
 
 static int mysql_drv_num_columns(dba_t *handle, size_t *out_ncol)
@@ -128,7 +128,7 @@ static int mysql_drv_num_columns(dba_t *handle, size_t *out_ncol)
 
   *out_ncol = mysql_num_fields(data->result);
 
-  return 0;
+  return DBA_ERR_SUCCESS;
 }
 
 static int mysql_drv_num_rows(dba_t *handle, size_t *out_nrow)
@@ -139,7 +139,7 @@ static int mysql_drv_num_rows(dba_t *handle, size_t *out_nrow)
 
   *out_nrow = mysql_num_rows(data->result);
 
-  return 0;
+  return DBA_ERR_SUCCESS;
 }
 
 dba_ops_t mysql_dba_ops = {
