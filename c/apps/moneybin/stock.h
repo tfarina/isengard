@@ -3,8 +3,6 @@
 
 #include <stddef.h>
 
-#include <mysql/mysql.h>
-
 typedef struct {
   char *date;
   double open;
