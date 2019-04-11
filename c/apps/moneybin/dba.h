@@ -1,6 +1,11 @@
 #ifndef MB_DBA_H_
 #define MB_DBA_H_
 
+typedef enum dba_err_e {
+  DBA_ERR_SUCCESS = 0,
+  DBA_MAX_ERRNO
+} dba_err_t;
+
 typedef struct dba_s dba_t;
 typedef struct dba_ops_s dba_ops_t;
 
@@ -20,6 +25,7 @@ struct dba_ops_s {
 
 int dba_init(dba_t **handle, char const *backend);
 int dba_deinit(dba_t *handle);
+char *dba_strerror(int const dba_errno);
 int dba_connect(dba_t *handle, char const *host, int unsigned port,
                 char const *username, char const *password, char const *dbname);
 int dba_disconnect(dba_t *handle);
