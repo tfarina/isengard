@@ -8,6 +8,7 @@ typedef enum dba_err_e {
   DBA_ERR_NOOP,
   DBA_ERR_NOTEXIST,
   DBA_ERR_HANDLE,
+  DBA_ERR_BACKEND,
   DBA_MAX_ERRNO
 } dba_err_t;
 
