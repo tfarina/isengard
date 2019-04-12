@@ -2,6 +2,7 @@
 #define CONFIG_H_
 
 typedef struct {
+  char const *database;
   char const *host;
   char const *user;
   char const *password;
