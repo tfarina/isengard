@@ -88,7 +88,7 @@ static int mysql_drv_query(dba_t *handle, char const *query, long unsigned lengt
 
   data = handle->data;
 
-  if (mysql_query(data->mysql, query) != 0) {
+  if (mysql_real_query(data->mysql, query, length) != 0) {
     return -DBA_ERR_BACKEND;
   }
 
