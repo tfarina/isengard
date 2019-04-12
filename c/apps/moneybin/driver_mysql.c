@@ -62,7 +62,6 @@ static int mysql_drv_connect(dba_t *handle, char const *host, int unsigned port,
                          port,
                          unix_socket_name,
                          client_flags) == NULL) {
-    fprintf(stderr, "mysql: connection to database failed: %s\n", mysql_error(data->mysql));
     mysql_close(data->mysql);
     return -DBA_ERR_BACKEND;
   }
