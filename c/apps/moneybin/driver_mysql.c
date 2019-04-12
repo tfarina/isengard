@@ -104,7 +104,7 @@ static int mysql_drv_store_result(dba_t *handle)
 
   data->result = mysql_store_result(data->mysql);
   if (data->result == NULL) {
-    return -1;
+    return -DBA_ERR_BACKEND;
   }
 
   return DBA_ERR_SUCCESS;
