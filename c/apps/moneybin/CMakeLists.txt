@@ -23,7 +23,7 @@ add_subdirectory(third_party/libcsv)
 add_subdirectory(third_party/sqlite)
 
 include(FindMySQL)
-find_package(MySQL)
+find_package(MySQL REQUIRED)
 
 set(SRCS
   buffer.c
