@@ -12,6 +12,13 @@ typedef enum dba_err_e {
   DBA_MAX_ERRNO
 } dba_err_t;
 
+/** DBA result return values */
+typedef enum dba_result_code_e {
+  DBA_RES_DONE,
+  DBA_RES_NOROWS,
+  DBA_RES_ROWS
+} dba_result_code_t;
+
 typedef struct dba_s dba_t;
 typedef struct dba_ops_s dba_ops_t;
 typedef struct dba_result_s dba_result_t;
