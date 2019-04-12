@@ -19,6 +19,12 @@ typedef enum dba_result_code_e {
   DBA_RES_ROWS
 } dba_result_code_t;
 
+/** DBA row return values */
+typedef enum dba_row_code_e {
+  DBA_ROW_DONE,
+  DBA_ROW_NEXT
+} dba_row_code_t;
+
 typedef struct dba_s dba_t;
 typedef struct dba_ops_s dba_ops_t;
 typedef struct dba_result_s dba_result_t;
