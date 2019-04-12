@@ -29,6 +29,7 @@ struct dba_ops_s {
   int (*disconnect)(dba_t *handle);
   int (*query)(dba_t *handle, char const *query, long unsigned length);
   int (*result_init)(dba_t *handle, dba_result_t **result);
+  int (*result_deinit)(dba_result_t *result);
 };
 
 struct dba_result_s {
@@ -44,6 +45,7 @@ int dba_connect(dba_t *handle, char const *host, int unsigned port,
 int dba_disconnect(dba_t *handle);
 int dba_query(dba_t *handle, char const *query, long unsigned length);
 int dba_result_init(dba_t *handle, dba_result_t **result);
+int dba_result_deinit(dba_result_t *result);
 
 extern dba_ops_t mysql_dba_ops;
 
