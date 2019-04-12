@@ -52,7 +52,7 @@ struct dba_result_s {
 
 int dba_init(dba_t **handle, char const *backend);
 int dba_deinit(dba_t *handle);
-char *dba_strerror(int const dba_errno);
+char const *dba_strerror(int const dba_errno);
 int dba_connect(dba_t *handle, char const *host, int unsigned port,
                 char const *username, char const *password, char const *dbname);
 int dba_disconnect(dba_t *handle);
