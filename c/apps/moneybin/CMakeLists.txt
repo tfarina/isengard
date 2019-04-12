@@ -22,6 +22,7 @@ add_subdirectory(third_party/iniparser)
 add_subdirectory(third_party/libcsv)
 add_subdirectory(third_party/sqlite)
 
+include(FindMySQL)
 find_package(MySQL)
 
 set(SRCS
