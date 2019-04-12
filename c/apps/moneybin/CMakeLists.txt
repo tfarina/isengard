@@ -22,6 +22,8 @@ add_subdirectory(third_party/iniparser)
 add_subdirectory(third_party/libcsv)
 add_subdirectory(third_party/sqlite)
 
+option(WITH_MYSQL "Use MySQL library" ON)
+
 include(FindMySQL)
 find_package(MySQL REQUIRED)
 
