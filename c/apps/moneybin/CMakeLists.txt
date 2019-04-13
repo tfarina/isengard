@@ -33,6 +33,7 @@ set(SRCS
   csv_helper.c
   curl_write_callbacks.c
   config.c
+  dba.c
   driver_mysql.c
   ffileutils.c
   fstrutils.c
