@@ -60,6 +60,4 @@ int dba_query(dba_t *handle, char const *query, long unsigned length);
 int dba_result_init(dba_t *handle, dba_result_t **result);
 int dba_result_deinit(dba_result_t *result);
 
-extern dba_ops_t mysql_dba_ops;
-
 #endif  /* MB_DBA_H_ */
