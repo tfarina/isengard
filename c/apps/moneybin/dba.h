@@ -44,6 +44,7 @@ struct dba_ops_s {
   int (*result_init)(dba_t *handle, dba_result_t **result);
   int (*result_deinit)(dba_result_t *result);
   int (*result_fetch_row)(dba_result_t *result);
+  char const *(*result_get_field_value)(dba_result_t *result, long unsigned index);
 };
 
 struct dba_result_s {
@@ -61,5 +62,6 @@ int dba_query(dba_t *handle, char const *query, long unsigned length);
 int dba_result_init(dba_t *handle, dba_result_t **result);
 int dba_result_deinit(dba_result_t *result);
 int dba_result_fetch_row(dba_result_t *result);
+char const *dba_result_get_field_value(dba_result_t *result, long unsigned index);
 
 #endif  /* MB_DBA_H_ */

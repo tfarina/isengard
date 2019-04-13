@@ -204,6 +204,23 @@ static int mysql_dba_result_fetch_row(dba_result_t *result)
   return DBA_ROW_NEXT;
 }
 
+static char const *mysql_dba_result_get_field_value(dba_result_t *result, long unsigned index)
+{
+  mysql_dba_res_data_t *res_data;
+
+  res_data = result->data;
+
+  if (res_data == NULL) {
+    return NULL;
+  }
+
+  if (res_data != NULL && index < res_data->columns) {
+    return (char const *)res_data->row[index];
+  }
+
+  return NULL;
+}
+
 dba_ops_t mysql_dba_ops = {
   mysql_dba_init,
   mysql_dba_deinit,
