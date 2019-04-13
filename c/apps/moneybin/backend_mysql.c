@@ -6,10 +6,10 @@
 
 typedef struct mysql_dba_data_s {
   MYSQL *mysql;
-  MYSQL_RES *result;
 } mysql_dba_data_t;
 
 typedef struct mysql_dba_res_data_s {
+  MYSQL_RES *result;
   MYSQL_ROW row;
   MYSQL_FIELD *fields;
   long unsigned *lengths;
