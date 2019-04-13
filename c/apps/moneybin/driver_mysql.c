@@ -102,54 +102,6 @@ static int mysql_drv_query(dba_t *handle, char const *query, long unsigned lengt
   return DBA_ERR_SUCCESS;
 }
 
-static int mysql_drv_store_result(dba_t *handle)
-{
-  mysql_drv_data_t *data;
-
-  data = handle->data;
-
-  data->result = mysql_store_result(data->mysql);
-  if (data->result == NULL) {
-    return -DBA_ERR_BACKEND;
-  }
-
-  return DBA_ERR_SUCCESS;
-}
-
-static int mysql_drv_release_result(dba_t *handle)
-{
-  mysql_drv_data_t *data;
-
-  data = handle->data;
-
-  mysql_free_result(data->result);
-  data->result = NULL;
-
-  return DBA_ERR_SUCCESS;
-}
-
-static int mysql_drv_num_columns(dba_t *handle, size_t *out_ncol)
-{
-  mysql_drv_data_t *data;
-
-  data = handle->data;
-
-  *out_ncol = mysql_num_fields(data->result);
-
-  return DBA_ERR_SUCCESS;
-}
-
-static int mysql_drv_num_rows(dba_t *handle, size_t *out_nrow)
-{
-  mysql_drv_data_t *data;
-
-  data = handle->data;
-
-  *out_nrow = mysql_num_rows(data->result);
-
-  return DBA_ERR_SUCCESS;
-}
-
 dba_ops_t mysql_dba_ops = {
   mysql_drv_init,
   mysql_drv_deinit,
