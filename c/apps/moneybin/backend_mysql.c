@@ -176,6 +176,34 @@ static int mysql_dba_result_deinit(dba_result_t *result)
   return DBA_ERR_SUCCESS;
 }
 
+static int mysql_dba_result_fetch_row(dba_result_t *result)
+{
+  mysql_dba_res_data_t *res_data;
+  MYSQL_RES *res;
+
+  res_data = result->data;
+
+  if (res_data == NULL) {
+    return -DBA_ERR_PARAM;
+  }
+
+  res = res_data->result;
+  if (res == NULL) {
+    return -DBA_ERR_PARAM;
+  }
+
+  res_data->row = mysql_fetch_row(res);
+  if (res_data->row == NULL) {
+    res_data->lengths = NULL;
+
+    return DBA_ROW_DONE;
+  }
+
+  res_data->lengths = mysql_fetch_lengths(res);
+
+  return DBA_ROW_NEXT;
+}
+
 dba_ops_t mysql_dba_ops = {
   mysql_dba_init,
   mysql_dba_deinit,
