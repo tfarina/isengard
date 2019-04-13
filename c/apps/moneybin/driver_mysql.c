@@ -9,6 +9,13 @@ typedef struct mysql_drv_data_s {
   MYSQL_RES *result;
 } mysql_drv_data_t;
 
+typedef struct mysql_drv_res_data_s {
+  MYSQL_ROW row;
+  MYSQL_FIELD *fields;
+  long unsigned *lengths;
+  long unsigned columns;
+} mysql_drv_res_data_t;
+
 static int mysql_drv_alloc(dba_t *handle)
 {
   mysql_drv_data_t *data;
