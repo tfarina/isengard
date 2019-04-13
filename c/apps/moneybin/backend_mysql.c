@@ -181,5 +181,7 @@ dba_ops_t mysql_dba_ops = {
   mysql_dba_deinit,
   mysql_dba_connect,
   mysql_dba_disconnect,
-  mysql_dba_query
+  mysql_dba_query,
+  mysql_dba_result_init,
+  mysql_dba_result_deinit
 };
