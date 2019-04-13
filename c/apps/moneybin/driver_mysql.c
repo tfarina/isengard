@@ -4,21 +4,21 @@
 
 #include "dba.h"
 
-typedef struct mysql_drv_data_s {
+typedef struct mysql_dba_data_s {
   MYSQL *mysql;
   MYSQL_RES *result;
-} mysql_drv_data_t;
+} mysql_dba_data_t;
 
-typedef struct mysql_drv_res_data_s {
+typedef struct mysql_dba_res_data_s {
   MYSQL_ROW row;
   MYSQL_FIELD *fields;
   long unsigned *lengths;
   long unsigned columns;
-} mysql_drv_res_data_t;
+} mysql_dba_res_data_t;
 
-static int mysql_drv_init(dba_t *handle)
+static int mysql_dba_init(dba_t *handle)
 {
-  mysql_drv_data_t *data;
+  mysql_dba_data_t *data;
 
   data = calloc(1, sizeof(*data));
   if (data == NULL) {
@@ -30,9 +30,9 @@ static int mysql_drv_init(dba_t *handle)
   return DBA_ERR_SUCCESS;
 }
 
-static int mysql_drv_deinit(dba_t *handle)
+static int mysql_dba_deinit(dba_t *handle)
 {
-  mysql_drv_data_t *data;
+  mysql_dba_data_t *data;
 
   data = handle->data;
 
@@ -44,11 +44,11 @@ static int mysql_drv_deinit(dba_t *handle)
   return DBA_ERR_SUCCESS;
 }
 
-static int mysql_drv_connect(dba_t *handle, char const *host, int unsigned port,
+static int mysql_dba_connect(dba_t *handle, char const *host, int unsigned port,
                              char const *username, char const *password,
 			     char const *dbname)
 {
-  mysql_drv_data_t *data;
+  mysql_dba_data_t *data;
   char *unix_socket_name = NULL;
   unsigned long client_flags = 0;
 
@@ -76,9 +76,9 @@ static int mysql_drv_connect(dba_t *handle, char const *host, int unsigned port,
   return DBA_ERR_SUCCESS;
 }
 
-static int mysql_drv_disconnect(dba_t *handle)
+static int mysql_dba_disconnect(dba_t *handle)
 {
-  mysql_drv_data_t *data;
+  mysql_dba_data_t *data;
 
   data = handle->data;
 
@@ -89,9 +89,9 @@ static int mysql_drv_disconnect(dba_t *handle)
   return DBA_ERR_SUCCESS;
 }
 
-static int mysql_drv_query(dba_t *handle, char const *query, long unsigned length)
+static int mysql_dba_query(dba_t *handle, char const *query, long unsigned length)
 {
-  mysql_drv_data_t *data;
+  mysql_dba_data_t *data;
 
   data = handle->data;
 
@@ -103,11 +103,11 @@ static int mysql_drv_query(dba_t *handle, char const *query, long unsigned lengt
 }
 
 dba_ops_t mysql_dba_ops = {
-  mysql_drv_init,
-  mysql_drv_deinit,
-  mysql_drv_connect,
-  mysql_drv_disconnect,
-  mysql_drv_query
+  mysql_dba_init,
+  mysql_dba_deinit,
+  mysql_dba_connect,
+  mysql_dba_disconnect,
+  mysql_dba_query
 };
 
 int db_mysql_connect(MYSQL **conn, config_t *config)
