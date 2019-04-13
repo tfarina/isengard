@@ -28,6 +28,7 @@ include(FindMySQL)
 find_package(MySQL REQUIRED)
 
 set(SRCS
+  backend_mysql.c
   buffer.c
   csv_helper.c
   curl_write_callbacks.c
