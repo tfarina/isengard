@@ -153,6 +153,29 @@ static int mysql_dba_result_init(dba_t *handle, dba_result_t **result)
   return DBA_RES_ROWS;
 }
 
+static int mysql_dba_result_deinit(dba_result_t *result)
+{
+  mysql_dba_res_data_t *res_data;
+
+  res_data = result->data;
+
+  if (res_data == NULL) {
+    return -DBA_ERR_PARAM;
+  }
+
+  if (res_data->result != NULL) {
+    mysql_free_result(res_data->result);
+    res_data->result = NULL;
+  }
+
+  free(res_data);
+  res_data = NULL;
+
+  free(result);
+
+  return DBA_ERR_SUCCESS;
+}
+
 dba_ops_t mysql_dba_ops = {
   mysql_dba_init,
   mysql_dba_deinit,
