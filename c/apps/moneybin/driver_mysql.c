@@ -16,7 +16,7 @@ typedef struct mysql_drv_res_data_s {
   long unsigned columns;
 } mysql_drv_res_data_t;
 
-static int mysql_drv_alloc(dba_t *handle)
+static int mysql_drv_init(dba_t *handle)
 {
   mysql_drv_data_t *data;
 
@@ -30,7 +30,7 @@ static int mysql_drv_alloc(dba_t *handle)
   return DBA_ERR_SUCCESS;
 }
 
-static int mysql_drv_free(dba_t *handle)
+static int mysql_drv_deinit(dba_t *handle)
 {
   mysql_drv_data_t *data;
 
@@ -151,8 +151,8 @@ static int mysql_drv_num_rows(dba_t *handle, size_t *out_nrow)
 }
 
 dba_ops_t mysql_dba_ops = {
-  mysql_drv_alloc,
-  mysql_drv_free,
+  mysql_drv_init,
+  mysql_drv_deinit,
   mysql_drv_connect,
   mysql_drv_disconnect,
   mysql_drv_query
