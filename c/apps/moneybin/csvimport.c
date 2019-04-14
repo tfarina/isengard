@@ -3,10 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <mysql/mysql.h>
-
 #include "config.h"
-#include "driver_mysql.h"
+#include "dba.h"
 #include "fstrutils.h"
 #include "vector.h"
 #include "third_party/libcsv/csv.h"
@@ -220,58 +218,96 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
   fclose(fp);
 }
 
-static int quote_exists(MYSQL *conn, char const *symbol, quote_t *quote)
+/**
+ * Return value:
+ *     -1 -- error
+ *      0 -- no record found
+ *      1 -- extracted value
+ */
+static int quote_id(dba_t *handle, char const *symbol, quote_t *quote)
 {
+  int err;
   char query[256];
-  MYSQL_RES *res;
+  dba_result_t *result = NULL;
+  int out = 0;
 
   /* Determine if this is an insert or update operation. */
-  sprintf(query, "SELECT symbol FROM historicaldata WHERE symbol = \"%s\" and date = \"%s\"", symbol, quote->date);
+  sprintf(query, "SELECT id FROM historicaldata WHERE symbol = \"%s\" and date = \"%s\"", symbol, quote->date);
 
-  if (mysql_query(conn, query)) {
-    fprintf(stderr, "mysql: select query failed: %s\n", mysql_error(conn));
-    mysql_close(conn);
-    return 0;
-  }
-
-  res = mysql_store_result(conn);
-  if (res == NULL) {
-    fprintf(stderr, "mysql: mysql_store_result failed: %s\n", mysql_error(conn));
-    mysql_close(conn);
-    return 0;
-  }
-
-  return mysql_num_rows(res) > 0;
-}
-
-static int quote_update(MYSQL *conn, char const *symbol, quote_t *quote)
-{
-  char query[256];
-
-  sprintf(query, "UPDATE historicaldata SET open=%f, high=%f, low=%f, close=%f, adjClose=%f, volume=%d WHERE symbol = \"%s\" and date = \"%s\"",
-          quote->open, quote->high, quote->low, quote->close, quote->adj_close, quote->volume, symbol, quote->date);
-
-  if (mysql_query(conn, query)) {
-    fprintf(stderr, "mysql: sql operation failed: %s\n", mysql_error(conn));
-    mysql_close(conn);
+  err = dba_query(handle, query, 0);
+  if (err < 0) {
+    fprintf(stderr, "dba_query(): %s\n", dba_strerror(err));
     return -1;
   }
 
-  return 0;
+  err = dba_result_init(handle, &result);
+  if (err < 0) {
+    fprintf(stderr, "dba_result_init(): %s\n", dba_strerror(err));
+    return -1;
+  }
+
+  for (;;) {
+    err = dba_result_fetch_row(result);
+    if (err == DBA_ROW_DONE) {
+      break;
+    } else if (err < 0) {
+      fprintf(stderr, "dba_result_fetch_row(): %s\n", dba_strerror(err));
+      return -1;
+    }
+
+    if (out == 0) {
+      char *p;
+      const char *op;
+
+      op = dba_result_get_field_value(result, 0);
+      if (op == NULL) {
+        fprintf(stderr, "unexpected NULL value\n");
+        dba_result_deinit(result);
+        return -1;
+      }
+
+      out = strtol(op, &p, 10);
+      if (*p != '\0') {
+        fprintf(stderr, "malformed integer\n");
+        dba_result_deinit(result);
+        return -1;
+      }
+    }
+  }
+
+  dba_result_deinit(result);
+
+  return out;
 }
 
-static int quote_insert(MYSQL *conn, char const *symbol, quote_t *quote)
+static int quote_insert(dba_t *handle, char const *symbol, quote_t *quote)
 {
+  int err;
   char query[256];
+  dba_result_t *result = NULL;
 
   sprintf(query, "INSERT INTO historicaldata (symbol, date, open, high, low, close, adjClose, volume) VALUES ('%s', '%s', %f, %f, %f, %f, %f, %d)",
           symbol, quote->date, quote->open, quote->high, quote->low, quote->close, quote->adj_close, quote->volume);
 
-  if (mysql_query(conn, query)) {
-    fprintf(stderr, "mysql: sql operation failed: %s\n", mysql_error(conn));
-    mysql_close(conn);
+  fprintf(stderr, "> %s\n", query);
+
+  err = dba_query(handle, query, 0);
+  if (err < 0) {
+    fprintf(stderr, "dba_query(): %s\n", dba_strerror(err));
     return -1;
   }
+
+  err = dba_result_init(handle, &result);
+  if (err < 0) {
+    fprintf(stderr, "dba_result(): %s\n", dba_strerror(err));
+    return -1;
+  }
+
+  if (err != 2) {
+    return -1;
+  }
+
+  dba_result_deinit(result);
 
   return 0;
 }
@@ -282,9 +318,9 @@ int main(int argc, char **argv) {
   vector_t *quotes;
   int rc;
   config_t config;
-  MYSQL *conn = NULL;
+  dba_t *handle = NULL;
   size_t i;
-  int num_updates = 0;
+  int num_skipped = 0;
   int num_inserts = 0;
 
   if (argc != 3) {
@@ -301,34 +337,61 @@ int main(int argc, char **argv) {
 
   config_init(&config);
 
-  rc = db_mysql_connect(&conn, &config);
+  rc = dba_init(&handle, config.database);
   if (rc < 0) {
+    fprintf(stderr, "dba_init(): %s\n", dba_strerror(rc));
+    return -1;
+  }
+
+  rc = dba_connect(handle, config.host, config.port, config.user, config.password, config.dbname);
+  if (rc < 0) {
+    fprintf(stderr, "dba_connect(): %s\n", dba_strerror(rc));
+    (void)dba_deinit(handle);
     return -1;
   }
 
   printf("Importing records...\n");
 
+  int id;
+
   for (i = 0; i < vector_size(quotes); i++) {
     quote_t *quote = vector_get(quotes, i);
 
-    if (quote_exists(conn, symbol, quote)) {
-      quote_update(conn, symbol, quote);
-      num_updates++;
-    } else {
-      quote_insert(conn, symbol, quote);
+    id = quote_id(handle, symbol, quote);
+    if (id == -1) {
+      /* error */
+      break;
+    } else if (id == 0) {
+      quote_insert(handle, symbol, quote);
       num_inserts++;
+    } else if (id > 0) {
+      printf("%d\n", id);
+      num_skipped++;
     }
 
-    printf("date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
-           quote->date, quote->open, quote->high, quote->low, quote->close, quote->adj_close, quote->volume);
+    //printf("date=\"%s\"; open=%.4lf; high=%.4lf; low=%.4lf; close=%.4lf; adj_close=%.4lf; volume=%d\n",
+    //           quote->date, quote->open, quote->high, quote->low, quote->close, quote->adj_close, quote->volume);
   }
 
-  printf("%d rows updated\n", num_updates);
+  printf("%d rows skipped\n", num_skipped);
   printf("%d rows inserted\n", num_inserts);
+
+  rc = dba_disconnect(handle);
+  if (rc < 0) {
+    fprintf(stderr, "dba_disconnect(): %s\n", dba_strerror(rc));
+    (void)dba_deinit(handle);
+    return -1;
+  }
+
+  rc = dba_deinit(handle);
+  if (rc < 0) {
+    fprintf(stderr, "dba_deinit() failed\n");
+    return -1;
+  }
 
   vector_free(quotes);
   free(filename);
   free(symbol);
- 
+
   return 0;
 }
