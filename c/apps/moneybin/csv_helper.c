@@ -206,7 +206,7 @@ int load_close_prices(char const *filename) {
 
   if (csv_init(&parser, 0) != 0) {
     fprintf(stderr, "failed to initialize csv parser\n");
-    return -11;
+    return -1;
   }
 
   fp = fopen(filename, "rb");
