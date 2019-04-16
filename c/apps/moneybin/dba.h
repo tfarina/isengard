@@ -1,16 +1,22 @@
 #ifndef MB_DBA_H_
 #define MB_DBA_H_
 
-typedef enum dba_err_e {
-  DBA_ERR_SUCCESS = 0,
-  DBA_ERR_PARAM,
-  DBA_ERR_NOMEM,
-  DBA_ERR_NOOP,
-  DBA_ERR_NOTEXIST,
-  DBA_ERR_HANDLE,
-  DBA_ERR_BACKEND,
+/**
+ * Error Handling: this api follows the error reporting conventions of
+ * the errno.h. Functions return a non-error code to indicate an error
+ * and 0 to indicate success. You should check the return status of the
+ * functions that you call.
+ */
+enum {
+  DBA_SUCCESS = 0,
+  DBA_EINVAL,
+  DBA_ENOMEM,
+  DBA_ENOOP,
+  DBA_ENOTEXIST,
+  DBA_EHANDLE,
+  DBA_EBACKEND,
   DBA_MAX_ERRNO
-} dba_err_t;
+};
 
 /** DBA result return values */
 typedef enum dba_result_code_e {

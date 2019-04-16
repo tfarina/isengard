@@ -23,12 +23,12 @@ static int mysql_dba_init(dba_t *handle)
 
   data = calloc(1, sizeof(*data));
   if (data == NULL) {
-    return -DBA_ERR_NOMEM;
+    return -DBA_ENOMEM;
   }
 
   handle->data = data;
 
-  return DBA_ERR_SUCCESS;
+  return DBA_SUCCESS;
 }
 
 static int mysql_dba_deinit(dba_t *handle)
@@ -42,7 +42,7 @@ static int mysql_dba_deinit(dba_t *handle)
 
   handle->data = NULL;
 
-  return DBA_ERR_SUCCESS;
+  return DBA_SUCCESS;
 }
 
 static int mysql_dba_connect(dba_t *handle, char const *host, int unsigned port,
@@ -57,7 +57,7 @@ static int mysql_dba_connect(dba_t *handle, char const *host, int unsigned port,
 
   data->mysql = malloc(sizeof(MYSQL));
   if (data->mysql == NULL) {
-    return -DBA_ERR_NOMEM;
+    return -DBA_ENOMEM;
   }
 
   mysql_init(data->mysql);
@@ -71,10 +71,10 @@ static int mysql_dba_connect(dba_t *handle, char const *host, int unsigned port,
                          unix_socket_name,
                          client_flags) == NULL) {
     mysql_close(data->mysql);
-    return -DBA_ERR_BACKEND;
+    return -DBA_EBACKEND;
   }
 
-  return DBA_ERR_SUCCESS;
+  return DBA_SUCCESS;
 }
 
 static int mysql_dba_disconnect(dba_t *handle)
@@ -87,7 +87,7 @@ static int mysql_dba_disconnect(dba_t *handle)
   free(data->mysql);
   data->mysql = NULL;
 
-  return DBA_ERR_SUCCESS;
+  return DBA_SUCCESS;
 }
 
 static int mysql_dba_query(dba_t *handle, char const *query, long unsigned length)
@@ -97,12 +97,12 @@ static int mysql_dba_query(dba_t *handle, char const *query, long unsigned lengt
   data = handle->data;
 
   if (mysql_real_query(data->mysql, query, length) != 0) {
-    return -DBA_ERR_BACKEND;
+    return -DBA_EBACKEND;
   }
 
   data->first_result = 1;
 
-  return DBA_ERR_SUCCESS;
+  return DBA_SUCCESS;
 }
 
 static int mysql_dba_result_init(dba_t *handle, dba_result_t **result)
@@ -120,7 +120,7 @@ static int mysql_dba_result_init(dba_t *handle, dba_result_t **result)
 
   res = malloc(sizeof(dba_result_t));
   if (res == NULL) {
-    return -DBA_ERR_NOMEM;
+    return -DBA_ENOMEM;
   }
 
   *result = res;
@@ -130,7 +130,7 @@ static int mysql_dba_result_init(dba_t *handle, dba_result_t **result)
     free(res);
     res = NULL;
 
-    return -DBA_ERR_NOMEM;
+    return -DBA_ENOMEM;
   }
 
   res->data = res_data;
@@ -145,7 +145,7 @@ static int mysql_dba_result_init(dba_t *handle, dba_result_t **result)
     free(res_data);
     *result = NULL;
 
-    return -DBA_ERR_BACKEND;
+    return -DBA_EBACKEND;
   }
 
   res_data->fields = mysql_fetch_fields(res_data->result);
@@ -160,7 +160,7 @@ static int mysql_dba_result_deinit(dba_result_t *result)
   res_data = result->data;
 
   if (res_data == NULL) {
-    return -DBA_ERR_PARAM;
+    return -DBA_EINVAL;
   }
 
   if (res_data->result != NULL) {
@@ -173,7 +173,7 @@ static int mysql_dba_result_deinit(dba_result_t *result)
 
   free(result);
 
-  return DBA_ERR_SUCCESS;
+  return DBA_SUCCESS;
 }
 
 static int mysql_dba_result_fetch_row(dba_result_t *result)
@@ -184,12 +184,12 @@ static int mysql_dba_result_fetch_row(dba_result_t *result)
   res_data = result->data;
 
   if (res_data == NULL) {
-    return -DBA_ERR_PARAM;
+    return -DBA_EINVAL;
   }
 
   res = res_data->result;
   if (res == NULL) {
-    return -DBA_ERR_PARAM;
+    return -DBA_EINVAL;
   }
 
   res_data->row = mysql_fetch_row(res);

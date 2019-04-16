@@ -31,7 +31,7 @@ int main(void)
   sprintf(query, "SELECT max(date) FROM historicaldata");
 
   rc = dba_query(handle, query, 0);
-  if (rc != DBA_ERR_SUCCESS) {
+  if (rc != DBA_SUCCESS) {
     fprintf(stderr, "dba_query(): %s\n", dba_strerror(rc));
     (void)dba_disconnect(handle);
     (void)dba_deinit(handle);
