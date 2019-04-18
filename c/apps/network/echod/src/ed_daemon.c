@@ -40,7 +40,7 @@
 #include "ed_log.h"
 #include "ed_rcode.h"
 
-int ed_daemonize(int dump_core)
+int ed_daemon_detach(int dump_core)
 {
     int rc;
     pid_t pid, sid;

@@ -286,7 +286,7 @@ int main(int argc, char **argv) {
   }
 
   if (instance.config.daemonize) {
-    rc = ed_daemonize(ED_MAXIMIZE_COREFILE);
+    rc = ed_daemon_detach(ED_MAXIMIZE_COREFILE);
     if (rc != ED_OK) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
       return rc;

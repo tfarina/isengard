@@ -15,6 +15,6 @@ https://github.com/Netflix/dynomite/blob/032a6f3dc4523e55beebbfff04d993ad60a43de
  *
  * @return 0 on success or -1 on error.
  */
-int ed_daemonize(int dump_core);
+int ed_daemon_detach(int dump_core);
 
 #endif  /* ED_DAEMON_H_ */
