@@ -47,6 +47,7 @@
 
 static const char *progname;
 
+static int show_help;
 static sig_atomic_t quit;
 static unsigned int connected_clients = 0; /* Number of child processes. */
 
@@ -94,6 +95,81 @@ static void ed_show_usage(char const *program_name) {
           ED_INTERFACE != NULL ? ED_INTERFACE : "all interfaces",
           ED_TCP_PORT, ED_BACKLOG
 	  );
+}
+
+static int ed_cmdline_parse(int argc, char **argv, ed_instance_t *instance) {
+  int c, value;
+
+  opterr = 0;
+
+  for (;;) {
+    c = getopt_long(argc, argv, short_options, long_options, NULL);
+    if (c == -1) {
+      /* no more options */
+      break;
+    }
+
+    switch (c) {
+    case 'h':
+      show_help = 1;
+      break;
+
+    case 'd':
+      instance->config.daemonize = 1;
+      break;
+
+    case 'o':
+      instance->config.log_filename = optarg;
+      break;
+
+    case 'P':
+      instance->config.pid_filename = optarg;
+      break;
+
+    case 'u':
+      instance->config.username = optarg;
+      break;
+
+    case 'l':
+      instance->config.interface = optarg;
+      break;
+
+    case 'p':
+      value = atoi(optarg);
+      if (value <= 0) {
+	fprintf(stderr, "%s: option -p requires a non zero number\n", progname);
+	return ED_ERROR;
+      }
+      if (!ed_valid_port(value)) {
+	fprintf(stderr, "%s: option -s value %d is not a valid port\n", progname, value);
+	return ED_ERROR;
+      }
+
+      instance->config.port = value;
+      break;
+
+    case 'b':
+      value = atoi(optarg);
+      if (value <= 0) {
+	fprintf(stderr, "%s: option -b requires a non zero number\n", progname);
+	return ED_ERROR;
+      }
+
+      instance->config.backlog = value;
+      break;
+
+    case '?':
+      fprintf(stderr, "%s: invalid option -- '%c'\n", progname, optopt);
+      return ED_ERROR;
+
+    default:
+      fprintf(stderr, "%s: invalid option -- '%c'\n", progname, optopt);
+      return ED_ERROR;
+      /* NOTREACHED */
+    }
+  }
+
+  return ED_OK;
 }
 
 /**
@@ -178,7 +254,6 @@ static void echo_stream(int fd) {
 
 int main(int argc, char **argv) {
   ed_instance_t instance;
-  int c, value;
   struct passwd *pw;
   int rc;
   int tcpfd;
@@ -195,78 +270,15 @@ int main(int argc, char **argv) {
 
   ed_instance_init(&instance);
 
-  for (;;) {
-    c = getopt_long(argc, argv, short_options, long_options, NULL);
-    if (c == -1) {
-      /* no more options */
-      break;
-    }
-
-    switch (c) {
-    case 'h':
-      ed_show_usage(progname);
-      return EXIT_SUCCESS;
-
-    case 'd':
-      instance.config.daemonize = 1;
-      break;
-
-    case 'o':
-      instance.config.log_filename = optarg;
-      break;
-
-    case 'P':
-      instance.config.pid_filename = optarg;
-      break;
-
-    case 'u':
-      instance.config.username = optarg;
-      break;
-
-    case 'l':
-      instance.config.interface = optarg;
-      break;
-
-    case 'p':
-      value = atoi(optarg);
-      if (value <= 0) {
-	fprintf(stderr, "%s: option -p requires a non zero number\n", progname);
-	return EXIT_FAILURE;
-      }
-      if (!ed_valid_port(value)) {
-	fprintf(stderr, "%s: option -s value %d is not a valid port\n", progname, value);
-	return EXIT_FAILURE;
-      }
-
-      instance.config.port = value;
-      break;
-
-    case 'b':
-      value = atoi(optarg);
-      if (value <= 0) {
-	fprintf(stderr, "%s: option -b requires a non zero number\n", progname);
-	return EXIT_FAILURE;
-      }
-
-      instance.config.backlog = value;
-      break;
-
-    case '?':
-      ed_show_usage(progname);
-      return EXIT_SUCCESS;
-
-    default:
-      fprintf(stderr, "%s: invalid option -- '%c'", progname, optopt);
-      return ED_ERROR;
-      /* NOTREACHED */
-    }
-  }
-  argc -= optind;
-  argv += optind;
-
-  if (argc > 0) {
+  rc = ed_cmdline_parse(argc, argv, &instance);
+  if (rc != ED_OK) {
     ed_show_usage(progname);
     return EXIT_FAILURE;
+  }
+
+  if (show_help) {
+    ed_show_usage(progname);
+    return EXIT_SUCCESS;
   }
 
   if (geteuid() != 0) {
