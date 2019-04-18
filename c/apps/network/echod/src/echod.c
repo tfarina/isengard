@@ -48,7 +48,7 @@
 static const char *progname;
 
 static int show_help;
-static sig_atomic_t quit;
+static sig_atomic_t volatile quit;
 static unsigned int connected_clients = 0; /* Number of child processes. */
 
 static char short_options[] =
