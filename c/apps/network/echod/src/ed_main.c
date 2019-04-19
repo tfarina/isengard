@@ -247,6 +247,15 @@ static void ed_signal_handler(int sig) {
   ed_log_info("signal %d (%s) received, shutting down...", sig, signame);
 }
 
+/**
+ * Setup signals.
+ */
+static void ed_signal_init(void) {
+  signal(SIGCHLD, sigchld_handler);
+  signal(SIGINT, ed_signal_handler);
+  signal(SIGTERM, ed_signal_handler);
+}
+
 static void echo_stream(int fd) {
   char buf[BUFSIZE];
   int ret;
@@ -321,10 +330,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  /* Setup signals. */
-  signal(SIGCHLD, sigchld_handler);
-  signal(SIGINT, ed_signal_handler);
-  signal(SIGTERM, ed_signal_handler);
+  ed_signal_init();
 
   tcpfd = ed_net_tcp_socket_listen(instance.config.interface, instance.config.port, instance.config.backlog);
   if (tcpfd == ED_NET_ERR) {
