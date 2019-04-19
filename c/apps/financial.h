@@ -1,5 +1,5 @@
-#ifndef FINANCE_H_
-#define FINANCE_H_
+#ifndef FINANCIAL_H_
+#define FINANCIAL_H_
 
 /**
  * Computes the return between two values.
@@ -28,4 +28,4 @@ double future_value(double pv, double rate, double n);
  */
 double present_value(double fv, double rate, double n);
 
-#endif  /* FINANCE_H_ */
+#endif  /* FINANCIAL_H_ */
