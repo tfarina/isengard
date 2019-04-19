@@ -15,11 +15,11 @@ endif()
 add_definitions(-D_GNU_SOURCE)
 
 set(ECHOD_SRCS
-  src/echod.c
   src/ed_config.c
   src/ed_daemon.c
   src/ed_instance.c
   src/ed_log.c
+  src/ed_main.c
   src/ed_net.c
   src/ed_pid.c
   src/ed_printf.c
