@@ -54,6 +54,7 @@ static unsigned int connected_clients = 0; /* Number of child processes. */
 static char short_options[] =
     "h"  /* help */
     "d"  /* daemon mode */
+    "c:" /* configuration file */
     "o:" /* output logfile */
     "P:" /* pid file */
     "u:" /* user identity to run as */
@@ -65,6 +66,7 @@ static char short_options[] =
 static struct option long_options[] = {
     { "help",        no_argument,       NULL, 'h' }, /* help */
     { "daemonize",   no_argument,       NULL, 'd' }, /* daemon mode */
+    { "conf-file",   required_argument, NULL, 'c' },  /* configuration file */
     { "output-file", required_argument, NULL, 'o' }, /* output logfile */
     { "pid-file",    required_argument, NULL, 'P' }, /* pid file */
     { "user",        required_argument, NULL, 'u' }, /* user identity to run as */
@@ -83,6 +85,7 @@ static void ed_show_usage(char const *program_name) {
 	  "options:" CRLF
           "  -h, --help              show usage, options and exit" CRLF
           "  -d, --daemonize         run as a daemon" CRLF
+          "  -c, --conf-file=S       set configuration file" CRLF
           "  -o, --output-file=S     set the debug logging file (default: %s)" CRLF
           "  -P, --pid-file=S        store pid in a file (default: not stored)" CRLF
           "  -u, --user=S            user identity to run as" CRLF
@@ -116,6 +119,10 @@ static int ed_cmdline_parse(int argc, char **argv, ed_instance_t *instance) {
 
     case 'd':
       instance->config.daemonize = 1;
+      break;
+
+    case 'c':
+      instance->config.conf_filename = optarg;
       break;
 
     case 'o':
