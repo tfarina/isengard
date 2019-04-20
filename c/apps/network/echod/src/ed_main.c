@@ -33,6 +33,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "ed_config.h"
 #include "ed_daemon.h"
 #include "ed_instance.h"
 #include "ed_log.h"
@@ -106,7 +107,7 @@ static void ed_show_usage(char const *program_name) {
 	  );
 }
 
-static int ed_cmdline_parse(int argc, char **argv, ed_instance_t *instance) {
+static int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
   int c, value;
 
   opterr = 0;
@@ -128,27 +129,27 @@ static int ed_cmdline_parse(int argc, char **argv, ed_instance_t *instance) {
       break;
 
     case 'd':
-      instance->config.daemonize = 1;
+      config->daemonize = 1;
       break;
 
     case 'c':
-      instance->config.conf_filename = optarg;
+      config->conf_filename = optarg;
       break;
 
     case 'o':
-      instance->config.log_filename = optarg;
+      config->log_filename = optarg;
       break;
 
     case 'P':
-      instance->config.pid_filename = optarg;
+      config->pid_filename = optarg;
       break;
 
     case 'u':
-      instance->config.username = optarg;
+      config->username = optarg;
       break;
 
     case 'l':
-      instance->config.interface = optarg;
+      config->interface = optarg;
       break;
 
     case 'p':
@@ -162,7 +163,7 @@ static int ed_cmdline_parse(int argc, char **argv, ed_instance_t *instance) {
 	return ED_ERROR;
       }
 
-      instance->config.port = value;
+      config->port = value;
       break;
 
     case 'b':
@@ -172,7 +173,7 @@ static int ed_cmdline_parse(int argc, char **argv, ed_instance_t *instance) {
 	return ED_ERROR;
       }
 
-      instance->config.backlog = value;
+      config->backlog = value;
       break;
 
     case '?':
@@ -280,6 +281,7 @@ static void echo_stream(int fd) {
 
 int main(int argc, char **argv) {
   ed_instance_t instance;
+  ed_config_t config;
   struct passwd *pw;
   int rc;
   int tcpfd;
@@ -295,8 +297,9 @@ int main(int argc, char **argv) {
   progname = ed_get_progname(argv[0]);
 
   ed_instance_init(&instance);
+  ed_config_init(&config);
 
-  rc = ed_cmdline_parse(argc, argv, &instance);
+  rc = ed_cmdline_parse(argc, argv, &config);
   if (rc != ED_OK) {
     ed_show_usage(progname);
     return EXIT_FAILURE;
@@ -317,18 +320,18 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  pw = getpwnam(instance.config.username);
+  pw = getpwnam(config.username);
   if (pw == NULL) {
-    fprintf(stderr, "%s: cannot find user '%s' to switch to\n", progname, instance.config.username);
+    fprintf(stderr, "%s: cannot find user '%s' to switch to\n", progname, config.username);
     return EXIT_FAILURE;
   }
 
-  rc = ed_log_init(instance.config.log_filename);
+  rc = ed_log_init(config.log_filename);
   if (rc != ED_OK) {
     return rc;
   }
 
-  if (instance.config.daemonize) {
+  if (config.daemonize) {
     rc = ed_daemon_detach(ED_MAXIMIZE_COREFILE);
     if (rc != ED_OK) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);
@@ -338,8 +341,8 @@ int main(int argc, char **argv) {
 
   instance.pid = getpid();
 
-  if (instance.config.pid_filename != NULL) {
-    rc = ed_pid_create_file(instance.pid, instance.config.pid_filename);
+  if (config.pid_filename != NULL) {
+    rc = ed_pid_create_file(instance.pid, config.pid_filename);
     if (rc != ED_OK) {
       return rc;
     }
@@ -347,22 +350,22 @@ int main(int argc, char **argv) {
 
   ed_signal_init();
 
-  tcpfd = ed_net_tcp_socket_listen(instance.config.interface, instance.config.port, instance.config.backlog);
+  tcpfd = ed_net_tcp_socket_listen(config.interface, config.port, config.backlog);
   if (tcpfd == ED_NET_ERR) {
     return EXIT_FAILURE;
   }
 
-  rc = ed_change_user(pw, instance.config.username);
+  rc = ed_change_user(pw, config.username);
   if (rc != ED_OK) {
     return rc;
   }
 
   ed_log_info("%s started on %d, port %d, backlog %d, logfile %s, user %s", progname,
               instance.pid,
-              instance.config.port,
-              instance.config.backlog,
-              instance.config.log_filename,
-              instance.config.username);
+              config.port,
+              config.backlog,
+              config.log_filename,
+              config.username);
 
   FD_ZERO(&rfds_in);
 
