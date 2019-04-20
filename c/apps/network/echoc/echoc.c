@@ -21,7 +21,7 @@ static char const *progname;
 
 static char short_options[] =
     "h"  /* help */
-    "a"  /* server address */
+    "a:"  /* server address */
     "p:" /* tcp port number of the server */
     ;
 
