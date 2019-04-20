@@ -41,6 +41,8 @@
 #include "ed_rcode.h"
 #include "ed_utils.h"
 
+#define ED_VERSION_STRING "0.0.1"
+
 #define BUFSIZE 8129
 
 #define CRLF "\x0d\x0a"
@@ -48,11 +50,13 @@
 static const char *progname;
 
 static int show_help;
+static int show_version;
 static sig_atomic_t volatile quit;
 static unsigned int connected_clients = 0; /* Number of child processes. */
 
 static char short_options[] =
     "h"  /* help */
+    "v"  /* version */
     "d"  /* daemon mode */
     "c:" /* configuration file */
     "o:" /* output logfile */
@@ -65,6 +69,7 @@ static char short_options[] =
 
 static struct option long_options[] = {
     { "help",        no_argument,       NULL, 'h' }, /* help */
+    { "version",     no_argument,       NULL, 'v' }, /* version */
     { "daemonize",   no_argument,       NULL, 'd' }, /* daemon mode */
     { "conf-file",   required_argument, NULL, 'c' },  /* configuration file */
     { "output-file", required_argument, NULL, 'o' }, /* output logfile */
@@ -84,6 +89,7 @@ static void ed_show_usage(char const *program_name) {
   fprintf(stderr,
 	  "options:" CRLF
           "  -h, --help              show usage, options and exit" CRLF
+          "  -v, --version           show version and exit" CRLF
           "  -d, --daemonize         run as a daemon" CRLF
           "  -c, --conf-file=S       set configuration file" CRLF
           "  -o, --output-file=S     set the debug logging file (default: %s)" CRLF
@@ -115,6 +121,10 @@ static int ed_cmdline_parse(int argc, char **argv, ed_instance_t *instance) {
     switch (c) {
     case 'h':
       show_help = 1;
+      break;
+
+    case 'v':
+      show_version = 1;
       break;
 
     case 'd':
@@ -294,6 +304,11 @@ int main(int argc, char **argv) {
 
   if (show_help) {
     ed_show_usage(progname);
+    return EXIT_SUCCESS;
+  }
+
+  if (show_version) {
+    printf("%s version %s\n", progname, ED_VERSION_STRING);
     return EXIT_SUCCESS;
   }
 
