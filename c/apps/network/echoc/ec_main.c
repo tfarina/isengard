@@ -21,13 +21,13 @@ static char const *progname;
 
 static char short_options[] =
     "h"  /* help */
-    "a:"  /* server address */
+    "s:"  /* server address */
     "p:" /* tcp port number of the server */
     ;
 
 static struct option long_options[] = {
     { "help",        no_argument,       NULL, 'h' }, /* help */
-    { "address",     required_argument, NULL, 'a' }, /* server address */
+    { "server",      required_argument, NULL, 's' }, /* server address */
     { "port",        required_argument, NULL, 'p' }, /* tcp port number of the server */
     { NULL,          0,                 NULL,  0  }
 };
@@ -39,7 +39,7 @@ static void ec_show_usage(char const *program_name) {
   fprintf(stderr,
 	  "options:" CRLF
           "  -h, --help              show usage, options and exit" CRLF
-          "  -a, --address=          server address" CRLF
+          "  -s, --server=           server address" CRLF
           "  -p, --port=N            set the tcp port of the server (default: %d)" CRLF
 	  "",
           EC_TCP_PORT);
@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
   int sockfd;
   char sendline[BUFSIZE];
   char recvline[BUFSIZE];
-  char *address;
+  char *server;
   int port;
 
   progname = ec_get_progname(argv[0]);
@@ -69,8 +69,8 @@ int main(int argc, char **argv) {
       ec_show_usage(progname);
       return EXIT_SUCCESS;
 
-    case 'a':
-      address = optarg;
+    case 's':
+      server = optarg;
       break;
 
     case 'p':
@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  sockfd = ec_net_tcp_socket_connect(address, port);
+  sockfd = ec_net_tcp_socket_connect(server, port);
 
   memset(sendline, 0, sizeof(sendline));
   memset(recvline, 0, sizeof(recvline));
