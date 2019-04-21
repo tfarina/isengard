@@ -10,7 +10,7 @@
 
 #include "ec_log.h"
 
-int ec_net_tcp_socket_connect(char const *host, int port) {
+int ec_net_tcp_socket_connect(char const *host, int port, int *out_sd) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
@@ -56,5 +56,6 @@ int ec_net_tcp_socket_connect(char const *host, int port) {
     return -1;
   }
 
-  return sd;
+  *out_sd = sd;
+  return 0;
 }

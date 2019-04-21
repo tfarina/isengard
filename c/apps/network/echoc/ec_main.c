@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  sd = ec_net_tcp_socket_connect(server, port);
+  ec_net_tcp_socket_connect(server, port, &sd);
 
   memset(sendline, 0, sizeof(sendline));
   memset(recvline, 0, sizeof(recvline));
