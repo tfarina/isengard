@@ -22,22 +22,6 @@ static void NORETURN fatal(const char *msg, ...)
         exit(EXIT_FAILURE);
 }
 
-static void *xmalloc(size_t size)
-{
-        void *ptr;
-
-        if (size == 0) {
-                fatal("zero size");
-	}
-
-        ptr = malloc(size);
-        if (ptr == NULL) {
-	        fatal("Out of memory, malloc failed, tried to allocate %lu bytes", (unsigned long)size);
-        }
-
-        return ptr;
-}
-
 static void *xrealloc(void *oldptr, size_t newsize)
 {
         void *newptr;
@@ -79,7 +63,12 @@ vector_t *vector_alloc(int capacity)
 	        return NULL;
 	}
 
-        self->elements = xmalloc(capacity * sizeof(void *));
+        self->elements = malloc(capacity * sizeof(void *));
+        if (self->elements == NULL) {
+	        free(self);
+	        return NULL;
+	}
+
         self->capacity = capacity;
 
         return self;
