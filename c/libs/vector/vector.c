@@ -38,18 +38,6 @@ static void *xmalloc(size_t size)
         return ptr;
 }
 
-static void *xcalloc(size_t nmemb, size_t size)
-{
-        void *ptr;
-
-        ptr = calloc(nmemb, size);
-        if (ptr == NULL) {
-	        fatal("xcalloc failed");
-	}
-
-        return ptr;
-}
-
 static void *xrealloc(void *oldptr, size_t newsize)
 {
         void *newptr;
@@ -86,7 +74,10 @@ vector_t *vector_alloc(int capacity)
 {
         vector_t *self = NULL;
 
-        self = xcalloc(1, sizeof(vector_t));
+        self = calloc(1, sizeof(vector_t));
+        if (self == NULL) {
+	        return NULL;
+	}
 
         self->elements = xmalloc(capacity * sizeof(void *));
         self->capacity = capacity;
