@@ -39,13 +39,14 @@ int ec_net_tcp_socket_connect(char const *host, int port) {
     }
 
     rv = connect(sd, cur->ai_addr, cur->ai_addrlen);
-    if (rv == 0) {
-      break;
+    if (rv < 0) {
+      /* If we can't connect, try the next one. */
+      close(sd);
+      sd = -1;
+      continue;
     }
 
-    /* If we can't connect, try the next one. */
-    close(sd);
-    sd = -1;
+    break;
   }
 
   /* Oops, we couldn't connect to any address. */
