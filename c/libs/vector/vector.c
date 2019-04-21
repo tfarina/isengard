@@ -57,18 +57,20 @@ static int _vector_insert(vector_t *self, int index, void *element)
 vector_t *vector_alloc(int capacity)
 {
         vector_t *self = NULL;
+        void **temp;
 
         self = calloc(1, sizeof(vector_t));
         if (self == NULL) {
 	        return NULL;
 	}
 
-        self->elements = malloc(capacity * sizeof(void *));
-        if (self->elements == NULL) {
+        temp = malloc(capacity * sizeof(void *));
+        if (temp == NULL) {
 	        free(self);
 	        return NULL;
 	}
 
+        self->elements = temp;
         self->capacity = capacity;
 
         return self;
