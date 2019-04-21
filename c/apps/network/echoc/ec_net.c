@@ -33,7 +33,7 @@ int ec_net_tcp_socket_connect(char const *host, int port) {
   /* Loop through all the results and connect to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
     sd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
-    if (sd == -1) {
+    if (sd < 0) {
       error("socket failed: %s", strerror(errno));
       break;
     }
