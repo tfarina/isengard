@@ -35,7 +35,7 @@ int ec_net_tcp_socket_connect(char const *host, int port) {
     sd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
     if (sd < 0) {
       error("socket failed: %s", strerror(errno));
-      break;
+      continue;
     }
 
     rv = connect(sd, cur->ai_addr, cur->ai_addrlen);
