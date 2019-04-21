@@ -1,4 +1,4 @@
-#include "log.h"
+#include "ec_log.h"
 
 #include <stdarg.h>
 #include <stdio.h>

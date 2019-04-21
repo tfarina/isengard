@@ -8,7 +8,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "log.h"
+#include "ec_log.h"
 
 int ec_net_tcp_socket_connect(char const *host, int port) {
   char portstr[6];  /* strlen("65535") + 1; */
