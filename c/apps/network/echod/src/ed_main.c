@@ -57,7 +57,7 @@ static unsigned int connected_clients = 0; /* Number of child processes. */
 
 static char short_options[] =
     "h"  /* help */
-    "v"  /* version */
+    "V"  /* version */
     "d"  /* daemon mode */
     "c:" /* configuration file */
     "o:" /* output logfile */
@@ -70,7 +70,7 @@ static char short_options[] =
 
 static struct option long_options[] = {
     { "help",        no_argument,       NULL, 'h' }, /* help */
-    { "version",     no_argument,       NULL, 'v' }, /* version */
+    { "version",     no_argument,       NULL, 'V' }, /* version */
     { "daemonize",   no_argument,       NULL, 'd' }, /* daemon mode */
     { "conf-file",   required_argument, NULL, 'c' },  /* configuration file */
     { "output-file", required_argument, NULL, 'o' }, /* output logfile */
@@ -90,7 +90,7 @@ static void ed_show_usage(char const *program_name) {
   fprintf(stderr,
 	  "options:" CRLF
           "  -h, --help              show usage, options and exit" CRLF
-          "  -v, --version           show version and exit" CRLF
+          "  -V, --version           show version and exit" CRLF
           "  -d, --daemonize         run as a daemon" CRLF
           "  -c, --conf-file=S       set configuration file" CRLF
           "  -o, --output-file=S     set the debug logging file (default: %s)" CRLF
@@ -124,7 +124,7 @@ static int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       show_help = 1;
       break;
 
-    case 'v':
+    case 'V':
       show_version = 1;
       break;
 
