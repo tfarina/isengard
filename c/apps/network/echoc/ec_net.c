@@ -49,13 +49,12 @@ int ec_net_tcp_socket_connect(char const *host, int port) {
     break;
   }
 
+  freeaddrinfo(addrlist);
+
   /* Oops, we couldn't connect to any address. */
   if (sd == -1 && cur == NULL) {
-    freeaddrinfo(addrlist);
     return -1;
   }
-
-  freeaddrinfo(addrlist);
 
   return sd;
 }
