@@ -5,44 +5,22 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "macros.h"
-
-static void NORETURN fatal(const char *msg, ...)
-{
-        va_list args;
-
-        va_start(args, msg);
-
-        fprintf(stderr, "fatal: ");
-        vfprintf(stderr, msg, args);
-        fprintf(stderr, "\n");
-
-        va_end(args);
-
-        exit(EXIT_FAILURE);
-}
-
-static void *xrealloc(void *oldptr, size_t newsize)
-{
-        void *newptr;
-
-	newptr = realloc(oldptr, newsize);
-        if (newptr == NULL) {
-                fatal("out of memory: %lu", newsize);
-	}
-
-	return newptr;
-}
-
 static int _vector_insert(vector_t *self, int index, void *element)
 {
+        void **temp;
+
         if (index < 0 || !self || index > self->size) {
 	        return -1;
 	}
 
         if (self->size + 1 > self->capacity) {
                 size_t const new_capacity = (self->size + 1) * 2;
-                self->elements = xrealloc(self->elements, new_capacity * sizeof(void *));
+                temp = realloc(self->elements, new_capacity * sizeof(void *));
+                if (temp == NULL) {
+                        return -1;
+                }
+
+                self->elements = temp;
                 self->capacity = new_capacity;
 	}
 
