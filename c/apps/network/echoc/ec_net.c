@@ -14,7 +14,7 @@ int ec_net_tcp_socket_connect(char const *host, int port) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
-  int tcpfd;
+  int sd;
 
   snprintf(portstr, sizeof(portstr), "%d", port);
 
@@ -31,28 +31,28 @@ int ec_net_tcp_socket_connect(char const *host, int port) {
 
   /* Loop through all the results and connect to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    if ((tcpfd = socket(cur->ai_family, cur->ai_socktype,
-                        cur->ai_protocol)) == -1) {
+    if ((sd = socket(cur->ai_family, cur->ai_socktype,
+                     cur->ai_protocol)) == -1) {
       error("socket failed: %s", strerror(errno));
       break;
     }
 
-    if (connect(tcpfd, cur->ai_addr, cur->ai_addrlen) == 0) {
+    if (connect(sd, cur->ai_addr, cur->ai_addrlen) == 0) {
       break;
     }
 
     /* If we can't connect, try the next one. */
-    close(tcpfd);
-    tcpfd = -1;
+    close(sd);
+    sd = -1;
   }
 
   /* Oops, we couldn't connect to any address. */
-  if (tcpfd == -1 && cur == NULL) {
+  if (sd == -1 && cur == NULL) {
     freeaddrinfo(addrlist);
     return -1;
   }
 
   freeaddrinfo(addrlist);
 
-  return tcpfd;
+  return sd;
 }
