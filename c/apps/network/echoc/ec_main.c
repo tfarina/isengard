@@ -48,6 +48,7 @@ static void ec_show_usage(char const *program_name) {
 int main(int argc, char **argv) {
   int c, value;
   int sd;
+  int err;
   char sendline[BUFSIZE];
   char recvline[BUFSIZE];
   char *server;
@@ -98,7 +99,10 @@ int main(int argc, char **argv) {
     }
   }
 
-  ec_net_tcp_socket_connect(server, port, &sd);
+  err = ec_net_tcp_socket_connect(server, port, &sd);
+  if (err < 0) {
+    return -1;
+  }
 
   memset(sendline, 0, sizeof(sendline));
   memset(recvline, 0, sizeof(recvline));
