@@ -47,7 +47,7 @@ static void ec_show_usage(char const *program_name) {
 
 int main(int argc, char **argv) {
   int c, value;
-  int sockfd;
+  int sd;
   char sendline[BUFSIZE];
   char recvline[BUFSIZE];
   char *server;
@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  sockfd = ec_net_tcp_socket_connect(server, port);
+  sd = ec_net_tcp_socket_connect(server, port);
 
   memset(sendline, 0, sizeof(sendline));
   memset(recvline, 0, sizeof(recvline));
@@ -106,9 +106,9 @@ int main(int argc, char **argv) {
   while (1) {
     fgets(sendline, BUFSIZE, stdin); /*stdin = 0 , for standard input */
 
-    write(sockfd, sendline, strlen(sendline) + 1);
+    write(sd, sendline, strlen(sendline) + 1);
 
-    read(sockfd, recvline, BUFSIZE);
+    read(sd, recvline, BUFSIZE);
     fputs(recvline, stdout);
   }
 
