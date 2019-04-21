@@ -24,20 +24,22 @@ int ec_net_tcp_socket_connect(char const *host, int port) {
   hints.ai_protocol = IPPROTO_TCP;
   hints.ai_flags = AI_PASSIVE;
 
-  if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
+  rv = getaddrinfo(host, portstr, &hints, &addrlist);
+  if (rv != 0) {
     error("getaddrinfo failed: %s", gai_strerror(rv));
     return -1;
   }
 
   /* Loop through all the results and connect to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    if ((sd = socket(cur->ai_family, cur->ai_socktype,
-                     cur->ai_protocol)) == -1) {
+    sd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
+    if (sd == -1) {
       error("socket failed: %s", strerror(errno));
       break;
     }
 
-    if (connect(sd, cur->ai_addr, cur->ai_addrlen) == 0) {
+    rv = connect(sd, cur->ai_addr, cur->ai_addrlen);
+    if (rv == 0) {
       break;
     }
 
