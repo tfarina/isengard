@@ -3,7 +3,7 @@
 
 #include <sys/types.h>
 
-int ed_pid_file_write(pid_t pid, char const *filename);
+int ed_pid_file_write(char const *filename, pid_t pid);
 int ed_pid_file_unlink(char const *filename);
 
 #endif  /* ED_PID_H_ */

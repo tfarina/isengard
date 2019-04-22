@@ -38,7 +38,7 @@
 #include "ed_log.h"
 #include "ed_rcode.h"
 
-int ed_pid_file_write(pid_t pid, char const *filename) {
+int ed_pid_file_write(char const *filename, pid_t pid) {
   int fd;
   char pidstr[32];
   int pidstr_len;
