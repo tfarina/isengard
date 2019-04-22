@@ -75,6 +75,10 @@ int ed_pid_file_write(char const *filename, pid_t pid) {
 int ed_pid_file_unlink(char const *filename) {
   int rc;
 
+  if (filename == NULL) {
+    return ED_ERROR;
+  }
+
   rc = unlink(filename);
   if (rc < 0) {
     ed_log_error("unlink of pid file '%s' failed, ignored: %s", filename,
