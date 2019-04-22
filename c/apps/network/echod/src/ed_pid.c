@@ -58,6 +58,7 @@ int ed_pid_file_write(pid_t pid, char const *filename) {
   if (bytes_written < 0) {
     ed_log_error("write to pid file '%s' failed: %s", filename,
                  strerror(errno));
+    close(fd);
     return ED_ERROR;
   }
 
