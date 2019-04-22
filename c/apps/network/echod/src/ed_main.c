@@ -195,9 +195,16 @@ static int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
  * specified in 'username'. Effectively dropping the priviledges
  * that this application have.
  */
-static int ed_change_user(struct passwd *pw, char const *username) {
+static int ed_change_user(char const *username) {
+  struct passwd *pw;
   gid_t gid;
   uid_t uid;
+
+  pw = getpwnam(username);
+  if (pw == NULL) {
+    ed_log_error("cannot find user '%s' to switch to", progname, username);
+    return ED_ERROR;
+  }
 
   gid = pw->pw_gid;
   uid = pw->pw_uid;
@@ -341,7 +348,6 @@ static int ed_main_loop(int tcpfd) {
 int main(int argc, char **argv) {
   ed_instance_t instance;
   ed_config_t config;
-  struct passwd *pw;
   int rc;
   int tcpfd;
 
@@ -368,12 +374,6 @@ int main(int argc, char **argv) {
 
   if (geteuid() != 0) {
     fprintf(stderr, "%s: need root privileges\n", progname);
-    return EXIT_FAILURE;
-  }
-
-  pw = getpwnam(config.username);
-  if (pw == NULL) {
-    fprintf(stderr, "%s: cannot find user '%s' to switch to\n", progname, config.username);
     return EXIT_FAILURE;
   }
 
@@ -406,7 +406,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  rc = ed_change_user(pw, config.username);
+  rc = ed_change_user(config.username);
   if (rc != ED_OK) {
     return rc;
   }
