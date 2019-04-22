@@ -279,20 +279,71 @@ static void echo_stream(int fd) {
   exit(EXIT_SUCCESS);
 }
 
+static int ed_main_loop(int tcpfd) {
+  fd_set rfds_in;
+  /* We need to have a copy of the fd set as it's not safe to reuse FD sets
+   * after select(). */
+  fd_set rfds_out;
+  int rc;
+  char clientip[46];
+  int clientport;
+  int clientfd;
+  pid_t pid;
+
+  FD_ZERO(&rfds_in);
+
+  FD_SET(tcpfd, &rfds_in);
+
+  for (;;) {
+    if (quit == 1) {
+      break;
+    }
+
+    memcpy(&rfds_out, &rfds_in, sizeof(fd_set));
+
+    rc = select(tcpfd + 1, &rfds_out, NULL, NULL, NULL);
+    if (rc > 0) {
+      if (FD_ISSET(tcpfd, &rfds_out)) {
+        clientfd = ed_net_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
+	if (clientfd == ED_NET_ERR) {
+	  return -1;
+	}
+
+	ed_log_info("Accepted connection from %s:%d", clientip, clientport);
+
+        ++connected_clients;
+        print_stats();
+
+        pid = fork();
+        switch (pid) {
+        case -1:
+          close(clientfd);
+          --connected_clients;
+          print_stats();
+          break;
+
+        case 0:
+          close(tcpfd);
+          echo_stream(clientfd);
+          break;
+
+        default:
+          close(clientfd); /* we are the parent so look for another connection. */
+          ed_log_info("pid: %d", pid);
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
 int main(int argc, char **argv) {
   ed_instance_t instance;
   ed_config_t config;
   struct passwd *pw;
   int rc;
   int tcpfd;
-  fd_set rfds_in;
-  /* We need to have a copy of the fd set as it's not safe to reuse FD sets
-   * after select(). */
-  fd_set rfds_out;
-  char clientip[46];
-  int clientport;
-  int clientfd;
-  pid_t pid;
 
   progname = ed_get_progname(argv[0]);
 
@@ -367,50 +418,7 @@ int main(int argc, char **argv) {
               config.log_filename,
               config.username);
 
-  FD_ZERO(&rfds_in);
-
-  FD_SET(tcpfd, &rfds_in);
-
-  for (;;) {
-    if (quit == 1) {
-      break;
-    }
-
-    memcpy(&rfds_out, &rfds_in, sizeof(fd_set));
-
-    rc = select(tcpfd + 1, &rfds_out, NULL, NULL, NULL);
-    if (rc > 0) {
-      if (FD_ISSET(tcpfd, &rfds_out)) {
-        clientfd = ed_net_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
-	if (clientfd == ED_NET_ERR) {
-	  return EXIT_FAILURE;
-	}
-
-	ed_log_info("Accepted connection from %s:%d", clientip, clientport);
-
-        ++connected_clients;
-        print_stats();
-
-        pid = fork();
-        switch (pid) {
-        case -1:
-          close(clientfd);
-          --connected_clients;
-          print_stats();
-          break;
-
-        case 0:
-          close(tcpfd);
-          echo_stream(clientfd);
-          break;
-
-        default:
-          close(clientfd); /* we are the parent so look for another connection. */
-          ed_log_info("pid: %d", pid);
-        }
-      }
-    }
-  }
+  ed_main_loop(tcpfd);
 
   ed_log_info("Shutdown completed");
   ed_log_deinit();
