@@ -1,23 +1,14 @@
 #include "config.h"
 
-#include "ffileutils.h"
 #include "fstrutils.h"
-#include "futils.h"
 #include "third_party/iniparser/iniparser.h"
 
-#define USERCONFFILE ".moneybinrc"
-
-int config_init(config_t *config) {
-  const char *homedir;
-  char *userconffile;
+int config_init(config_t *config, char const *cfgfile) {
   dictionary *ini;
 
-  homedir = f_get_home_dir();
-  userconffile = f_build_filename(homedir, USERCONFFILE);
-
-  ini = iniparser_load(userconffile);
+  ini = iniparser_load(cfgfile);
   if (ini == NULL) {
-    fprintf(stderr, "Cannot read configuration file: %s\n", userconffile);
+    fprintf(stderr, "Cannot read configuration file: %s\n", cfgfile);
     return -1;
   }
 

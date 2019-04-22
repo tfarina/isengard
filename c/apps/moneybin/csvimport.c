@@ -5,9 +5,13 @@
 
 #include "config.h"
 #include "dba.h"
+#include "ffileutils.h"
 #include "fstrutils.h"
+#include "futils.h"
 #include "vector.h"
 #include "third_party/libcsv/csv.h"
+
+#define USERCONFFILE ".moneybinrc"
 
 typedef enum return_code_e {
   RC_OK,
@@ -317,6 +321,8 @@ int main(int argc, char **argv) {
   char *symbol;
   vector_t *quotes;
   int rc;
+  char const *homedir;
+  char const *userconffile;
   config_t config;
   dba_t *handle = NULL;
   size_t i;
@@ -335,7 +341,10 @@ int main(int argc, char **argv) {
 
   csv_read_quotes(filename, quotes);
 
-  config_init(&config);
+  homedir = f_get_home_dir();
+  userconffile = f_build_filename(homedir, USERCONFFILE);
+
+  config_init(&config, userconffile);
 
   rc = dba_init(&handle, config.database);
   if (rc < 0) {

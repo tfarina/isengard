@@ -3,9 +3,15 @@
 
 #include "config.h"
 #include "dba.h"
+#include "ffileutils.h"
+#include "futils.h"
+
+#define USERCONFFILE ".moneybinrc"
 
 int main(void)
 {
+  char const *homedir;
+  char const *userconffile;
   config_t config;
   int rc;
   char query[256];
@@ -13,7 +19,10 @@ int main(void)
   dba_result_t *result = NULL;
   char const *lastdate;
 
-  config_init(&config);
+  homedir = f_get_home_dir();
+  userconffile = f_build_filename(homedir, USERCONFFILE);
+
+  config_init(&config, userconffile);
 
   rc = dba_init(&handle, config.database);
   if (rc < 0) {

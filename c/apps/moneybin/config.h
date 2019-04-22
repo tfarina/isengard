@@ -10,6 +10,6 @@ typedef struct {
   int unsigned port;
 } config_t;
 
-int config_init(config_t *config);
+int config_init(config_t *config, char const *cfgfile);
 
 #endif  /* CONFIG_H_ */
