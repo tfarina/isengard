@@ -393,7 +393,7 @@ int main(int argc, char **argv) {
   instance.pid = getpid();
 
   if (config.pid_filename != NULL) {
-    rc = ed_pid_create_file(instance.pid, config.pid_filename);
+    rc = ed_pid_file_write(instance.pid, config.pid_filename);
     if (rc != ED_OK) {
       return rc;
     }

@@ -38,7 +38,7 @@
 #include "ed_log.h"
 #include "ed_rcode.h"
 
-int ed_pid_create_file(pid_t pid, char const *filename) {
+int ed_pid_file_write(pid_t pid, char const *filename) {
   int fd;
   char pidstr[32];
   int pidstr_len;
@@ -71,7 +71,7 @@ int ed_pid_create_file(pid_t pid, char const *filename) {
   return ED_OK;
 }
 
-int ed_pid_remove_file(char const *filename) {
+int ed_pid_file_unlink(char const *filename) {
   int rc;
 
   rc = unlink(filename);
