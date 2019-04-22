@@ -344,7 +344,8 @@ int main(int argc, char **argv) {
   homedir = f_get_home_dir();
   userconffile = f_build_filename(homedir, USERCONFFILE);
 
-  config_init(&config, userconffile);
+  config_init(&config);
+  config_load(&config, userconffile);
 
   rc = dba_init(&handle, config.database);
   if (rc < 0) {

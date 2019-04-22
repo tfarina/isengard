@@ -3,7 +3,18 @@
 #include "fstrutils.h"
 #include "third_party/iniparser/iniparser.h"
 
-int config_init(config_t *config, char const *cfgfile) {
+int config_init(config_t *config) {
+  config->database = NULL;
+  config->host = NULL;
+  config->user = NULL;
+  config->password = NULL;
+  config->dbname = NULL;
+  config->port = 0;
+
+  return 0;
+}
+
+int config_load(config_t *config, char const *cfgfile) {
   dictionary *ini;
 
   ini = iniparser_load(cfgfile);
