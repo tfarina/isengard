@@ -28,4 +28,11 @@ double future_value(double pv, double rate, double n);
  */
 double present_value(double fv, double rate, double n);
 
+/**
+ * Compounding Annual Growth Rate (or CAGR).
+ *
+ * @param n Represents the number of periods (i.e., 10 years).
+ */
+double growth_rate(double future_value, double present_value, double n);
+
 #endif  /* FINANCIAL_H_ */
