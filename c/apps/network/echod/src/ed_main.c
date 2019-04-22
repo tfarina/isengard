@@ -203,19 +203,19 @@ static int ed_change_user(struct passwd *pw, char const *username) {
   uid = pw->pw_uid;
 
   if (setgroups(1, &gid) != 0) {
-    fprintf(stderr, "setgroups failed\n");
+    ed_log_error("setgroups failed");
     return ED_ERROR;
   }
 
   if (setresgid(gid, gid, gid) != 0) {
-    fprintf(stderr, "%s: setting group id to user '%s' failed: %s\n",
-            progname, username, strerror(errno));
+    ed_log_error("%s: setting group id to user '%s' failed: %s\n",
+                 progname, username, strerror(errno));
     return ED_ERROR;
   }
 
   if (setresuid(uid, uid, uid) != 0) {
-    fprintf(stderr, "%s: setting user id to user '%s' failed: %s\n",
-            progname, username, strerror(errno));
+    ed_log_error("%s: setting user id to user '%s' failed: %s\n",
+                 progname, username, strerror(errno));
     return ED_ERROR;
   }
 
