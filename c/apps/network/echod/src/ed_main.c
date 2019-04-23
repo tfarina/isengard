@@ -106,6 +106,11 @@ static void ed_show_usage(char const *program_name) {
 	  );
 }
 
+static void ed_version(void) {
+  printf("%s version %s\n", progname, ED_VERSION_STR);
+  fflush(stdout);
+}
+
 static int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
   int c, value;
 
@@ -367,7 +372,7 @@ int main(int argc, char **argv) {
   }
 
   if (show_version) {
-    printf("%s version %s\n", progname, ED_VERSION_STR);
+    ed_version();
     return EXIT_SUCCESS;
   }
 
