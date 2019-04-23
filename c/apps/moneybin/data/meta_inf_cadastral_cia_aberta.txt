@@ -1,0 +1,360 @@
+-----------------------
+Campo: CNPJ_CIA
+-----------------------
+   Descrição: CNPJ da companhia
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 20
+   Scale: 0
+-----------------------
+Campo: DENOM_SOCIAL
+-----------------------
+   Descrição: Denominação Social
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: DENOM_COMERC
+-----------------------
+   Descrição: Denominação Comercial
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: DT_REG
+-----------------------
+   Descrição: Data de registro
+   Domínio: AAAA-MM-DD
+   Tipo dados: date
+   Precisão: 10
+   Scale: 0
+-----------------------
+Campo: DT_CONST
+-----------------------
+   Descrição: Data de constituição
+   Domínio: AAAA-MM-DD
+   Tipo dados: date
+   Precisão: 10
+   Scale: 0
+-----------------------
+Campo: DT_CANCEL
+-----------------------
+   Descrição: Data de cancelamento
+   Domínio: AAAA-MM-DD
+   Tipo dados: date
+   Precisão: 10
+   Scale: 0
+-----------------------
+Campo: MOTIVO_CANCEL
+-----------------------
+   Descrição: Motivo de cancelamento
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 80
+   Scale: 0
+-----------------------
+Campo: SIT
+-----------------------
+   Descrição: Situação
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 40
+   Scale: 0
+-----------------------
+Campo: DT_INI_SIT
+-----------------------
+   Descrição: Data início da situação
+   Domínio: AAAA-MM-DD
+   Tipo dados: date
+   Precisão: 10
+   Scale: 0
+-----------------------
+Campo: CD_CVM
+-----------------------
+   Descrição: Código CVM
+   Domínio: Numérico
+   Tipo dados: numeric
+   Precisão: 7
+   Scale: 0
+-----------------------
+Campo: SETOR_ATIV
+-----------------------
+   Descrição: Setor de atividade
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: CATEG_REG
+-----------------------
+   Descrição: Categoria do registro
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 20
+   Scale: 0
+-----------------------
+Campo: DT_INI_CATEG
+-----------------------
+   Descrição: Data início da categoria do registro
+   Domínio: AAAA-MM-DD
+   Tipo dados: date
+   Precisão: 10
+   Scale: 0
+-----------------------
+Campo: SIT_EMISSOR
+-----------------------
+   Descrição: Descrição da situação do emissor
+   Domínio: Alfanumérico
+   Tipo dados: char
+   Precisão: 80
+   Scale: 0
+-----------------------
+Campo: DT_INI_SIT_EMISSOR
+-----------------------
+   Descrição: Data início da situação do emissor
+   Domínio: AAAA-MM-DD
+   Tipo dados: date
+   Precisão: 10
+   Scale: 0
+-----------------------
+Campo: TP_ENDER
+-----------------------
+   Descrição: Tipo de endereço
+   Domínio: Alfanumérico
+   Tipo dados: char
+   Precisão: 30
+   Scale: 0
+-----------------------
+Campo: LOGRADOURO
+-----------------------
+   Descrição: Logradouro
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: COMPL
+-----------------------
+   Descrição: Complemento de endereço
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: BAIRRO
+-----------------------
+   Descrição: Bairro
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 30
+   Scale: 0
+-----------------------
+Campo: MUN
+-----------------------
+   Descrição: Nome do município
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: UF
+-----------------------
+   Descrição: Unidade da Federação
+   Domínio: Alfanumérico
+   Tipo dados: char
+   Precisão: 2
+   Scale: 0
+-----------------------
+Campo: PAIS
+-----------------------
+   Descrição: País
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: CEP
+-----------------------
+   Descrição: CEP
+   Domínio: Numérico
+   Tipo dados: numeric
+   Precisão: 8
+   Scale: 0
+-----------------------
+Campo: DDD_TEL
+-----------------------
+   Descrição: Código de DDD (Telefone)
+   Domínio: Numérico
+   Tipo dados: varchar
+   Precisão: 4
+   Scale: 0
+-----------------------
+Campo: TEL
+-----------------------
+   Descrição: Telefone
+   Domínio: Numérico
+   Tipo dados: numeric
+   Precisão: 15
+   Scale: 0
+-----------------------
+Campo: DDD_FAX
+-----------------------
+   Descrição: Código de DDD (FAX)
+   Domínio: Numérico
+   Tipo dados: varchar
+   Precisão: 4
+   Scale: 0
+-----------------------
+Campo: FAX
+-----------------------
+   Descrição: FAX
+   Domínio: Numérico
+   Tipo dados: numeric
+   Precisão: 15
+   Scale: 0
+-----------------------
+Campo: EMAIL
+-----------------------
+   Descrição: Endereço de e-mail
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: TP_RESP
+-----------------------
+   Descrição: Tipo de responsável
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: RESP
+-----------------------
+   Descrição: Nome do Responsável
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 60
+   Scale: 0
+-----------------------
+Campo: DT_INI_RESP
+-----------------------
+   Descrição: Data início de atuação do responsável
+   Domínio: AAAA-MM-DD
+   Tipo dados: date
+   Precisão: 10
+   Scale: 0
+-----------------------
+Campo: LOGRADOURO_RESP
+-----------------------
+   Descrição: Logradouro do responsável
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 30
+   Scale: 0
+-----------------------
+Campo: COMPL_RESP
+-----------------------
+   Descrição: Complemento de endereço do responsável
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 18
+   Scale: 0
+-----------------------
+Campo: BAIRRO_RESP
+-----------------------
+   Descrição: Bairro do responsável
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 30
+   Scale: 0
+-----------------------
+Campo: MUN_RESP
+-----------------------
+   Descrição: Nome do município do responsável
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: UF_RESP
+-----------------------
+   Descrição: Unidade da Federação do responsável
+   Domínio: Alfanumérico
+   Tipo dados: char
+   Precisão: 2
+   Scale: 0
+-----------------------
+Campo: PAIS_RESP
+-----------------------
+   Descrição: País do responsável
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: CEP_RESP
+-----------------------
+   Descrição: CEP do responsável
+   Domínio: Numérico
+   Tipo dados: numeric
+   Precisão: 8
+   Scale: 0
+-----------------------
+Campo: DDD_TEL_RESP
+-----------------------
+   Descrição: Código de DDD (Telefone) do responsável
+   Domínio: Numérico
+   Tipo dados: varchar
+   Precisão: 4
+   Scale: 0
+-----------------------
+Campo: TEL_RESP
+-----------------------
+   Descrição: Telefone do responsável
+   Domínio: Numérico
+   Tipo dados: varchar
+   Precisão: 30
+   Scale: 0
+-----------------------
+Campo: DDD_FAX_RESP
+-----------------------
+   Descrição: Código de DDD (FAX) do responsável
+   Domínio: Numérico
+   Tipo dados: varchar
+   Precisão: 4
+   Scale: 0
+-----------------------
+Campo: FAX_RESP
+-----------------------
+   Descrição: FAX do responsável
+   Domínio: Numérico
+   Tipo dados: varchar
+   Precisão: 30
+   Scale: 0
+-----------------------
+Campo: EMAIL_RESP
+-----------------------
+   Descrição: Endereço de e-mail do responsável
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
+-----------------------
+Campo: CNPJ_AUDITOR
+-----------------------
+   Descrição: CNPJ do Auditor
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 20
+   Scale: 0
+-----------------------
+Campo: AUDITOR
+-----------------------
+   Descrição: Nome do Auditor
+   Domínio: Alfanumérico
+   Tipo dados: varchar
+   Precisão: 100
+   Scale: 0
