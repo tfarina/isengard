@@ -9,11 +9,10 @@
 #include <sys/select.h>
 #include <sys/time.h>
 
-int main(void) {
-  int fd = 0; /* File descriptor for standard input (STDIN). */
-  double timeout = 2500.0; /* This is in milliseconds. */
+static int poll_timeout(double timeout) {
   struct timeval tv;
   fd_set readfds;
+  int fd = 0; /* File descriptor for standard input (STDIN). */
   ssize_t rv;
 
   tv.tv_sec = (long)(timeout / 1000.0);
@@ -38,6 +37,14 @@ int main(void) {
     printf("A key was pressed.\n");
   else
     printf("Timed out.\n");
+
+  return 0;
+}
+
+int main(void) {
+  double timeout = 2500.0; /* This is in milliseconds. */
+
+  poll_timeout(timeout);
 
   return 0;
 }
