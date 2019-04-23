@@ -42,13 +42,13 @@ set(SRCS
 )
 
 add_library(moneybin ${SRCS})
-target_link_libraries(moneybin iniparser libcsv ${MYSQL_LIBRARY})
+target_link_libraries(moneybin iniparser libcsv ${MYSQL_LIBRARIES})
 
 add_executable(csvcat csvcat.c)
-target_link_libraries(csvcat libcsv ${MYSQL_LIBRARY} moneybin)
+target_link_libraries(csvcat libcsv moneybin ${MYSQL_LIBRARIES})
 
 add_executable(csvstats csvstats.c)
-target_link_libraries(csvstats libcsv ${MYSQL_LIBRARY} -lm moneybin)
+target_link_libraries(csvstats libcsv moneybin -lm ${MYSQL_LIBRARIES})
 
 find_package(CURL REQUIRED)
 
@@ -56,11 +56,11 @@ if (CURL_FOUND)
   include_directories(${CURL_INCLUDE_DIRS})
 
   add_executable(csvget csvget.c)
-  target_link_libraries(csvget ${CURL_LIBRARIES} ${MYSQL_LIBRARY} moneybin)
+  target_link_libraries(csvget moneybin ${CURL_LIBRARIES} ${MYSQL_LIBRARIES})
 endif()
 
 add_executable(csvimport csvimport.c)
-target_link_libraries(csvimport iniparser libcsv ${MYSQL_LIBRARY} moneybin)
+target_link_libraries(csvimport iniparser libcsv moneybin ${MYSQL_LIBRARIES})
 
 add_executable(lastdate lastdate.c)
-target_link_libraries(lastdate iniparser ${MYSQL_LIBRARY} moneybin)
+target_link_libraries(lastdate iniparser moneybin ${MYSQL_LIBRARIES})
