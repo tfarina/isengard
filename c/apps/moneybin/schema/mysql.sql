@@ -803,6 +803,16 @@ insert into symbol_code (symbol, code) values ('ATOM', 'ATOM3');
 insert into symbol_code (symbol, code) values ('AZEV', 'AZEV3');
 insert into symbol_code (symbol, code) values ('AZEV', 'AZEV4');
 
+CREATE TABLE `tickers` (
+  `cvm` int NOT NULL,
+  `ticker` varchar(12) DEFAULT NULL,
+  `class` INT NOT NULL,
+  PRIMARY KEY (cvm, class)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into tickers values(20257, "TAEE3", 3);
+insert into tickers values(20257, "TAEE4", 4);
+
 CREATE TABLE `exchange` (
   `id` int NOT NULL AUTO_INCREMENT,
   `abbrev` varchar(32) NOT NULL,
