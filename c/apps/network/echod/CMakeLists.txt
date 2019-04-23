@@ -12,6 +12,17 @@ elseif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   set(CMAKE_C_FLAGS "-g -O0")
 endif()
 
+# Echod Version
+set(ED_VERSION_MAJOR  0)
+set(ED_VERSION_MINOR  0)
+set(ED_VERSION_PATCH  1)
+set(ED_VERSION_STR "${ED_VERSION_MAJOR}.${ED_VERSION_MINOR}.${ED_VERSION_PATCH}")
+
+configure_file(
+  "${PROJECT_SOURCE_DIR}/src/ed_info.h.in"
+  "${PROJECT_SOURCE_DIR}/src/ed_info.h"
+)
+
 add_definitions(-D_GNU_SOURCE)
 
 set(ECHOD_SRCS

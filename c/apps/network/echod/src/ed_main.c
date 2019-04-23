@@ -35,14 +35,13 @@
 
 #include "ed_config.h"
 #include "ed_daemon.h"
+#include "ed_info.h"
 #include "ed_instance.h"
 #include "ed_log.h"
 #include "ed_net.h"
 #include "ed_pid.h"
 #include "ed_rcode.h"
 #include "ed_utils.h"
-
-#define ED_VERSION_STRING "0.0.1"
 
 #define BUFSIZE 8129
 
@@ -368,7 +367,7 @@ int main(int argc, char **argv) {
   }
 
   if (show_version) {
-    printf("%s version %s\n", progname, ED_VERSION_STRING);
+    printf("%s version %s\n", progname, ED_VERSION_STR);
     return EXIT_SUCCESS;
   }
 
