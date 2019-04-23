@@ -81,7 +81,7 @@ static struct option long_options[] = {
     { NULL,          0,                 NULL,  0  }
 };
 
-static void ed_show_usage(char const *program_name) {
+static void ed_cmdline_help(char const *program_name) {
   fprintf(stderr,
 	  "usage: %s [-hd] [-o output logfile] [-P pid file] [-u user]" CRLF
 	  "             [-l interface] [-p port] [-b backlog]" CRLF CRLF,
@@ -362,12 +362,12 @@ int main(int argc, char **argv) {
 
   rc = ed_cmdline_parse(argc, argv, &config);
   if (rc != ED_OK) {
-    ed_show_usage(progname);
+    ed_cmdline_help(progname);
     return EXIT_FAILURE;
   }
 
   if (show_help) {
-    ed_show_usage(progname);
+    ed_cmdline_help(progname);
     return EXIT_SUCCESS;
   }
 
