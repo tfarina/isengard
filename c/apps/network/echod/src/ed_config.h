@@ -3,9 +3,9 @@
 
 #define ED_USER "_echod"
 #define ED_MAXIMIZE_COREFILE 0
-#define ED_INTERFACE "0.0.0.0"
-#define ED_TCP_PORT 7
-#define ED_BACKLOG 1024
+#define ED_DEFAULT_LISTEN_ADDR "0.0.0.0"
+#define ED_DEFAULT_LISTEN_PORT 7
+#define ED_DEFAULT_LISTEN_BACKLOG 1024
 
 typedef struct ed_config_s {
   int  daemonize;      /* process: daemon mode */

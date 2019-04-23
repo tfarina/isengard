@@ -8,7 +8,7 @@ void ed_config_init(ed_config_t *config) {
   config->conf_filename = NULL;
   config->log_filename = NULL;
   config->pid_filename = NULL;
-  config->interface = ED_INTERFACE;
-  config->port = ED_TCP_PORT;
-  config->backlog = ED_BACKLOG;
+  config->interface = ED_DEFAULT_LISTEN_ADDR;
+  config->port = ED_DEFAULT_LISTEN_PORT;
+  config->backlog = ED_DEFAULT_LISTEN_BACKLOG;
 }

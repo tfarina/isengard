@@ -101,8 +101,9 @@ static void ed_cmdline_help(char const *program_name) {
           "                          listening socket (default: %d)" CRLF
 	  "",
           "stderr",
-          ED_INTERFACE != NULL ? ED_INTERFACE : "all interfaces",
-          ED_TCP_PORT, ED_BACKLOG
+          ED_DEFAULT_LISTEN_ADDR,
+          ED_DEFAULT_LISTEN_PORT,
+          ED_DEFAULT_LISTEN_BACKLOG
 	  );
 }
 
