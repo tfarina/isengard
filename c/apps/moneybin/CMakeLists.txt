@@ -55,8 +55,8 @@ find_package(CURL REQUIRED)
 if (CURL_FOUND)
   include_directories(${CURL_INCLUDE_DIRS})
 
-  add_executable(csvdownload csvdownload.c)
-  target_link_libraries(csvdownload ${CURL_LIBRARIES} ${MYSQL_LIBRARY} moneybin)
+  add_executable(csvget csvget.c)
+  target_link_libraries(csvget ${CURL_LIBRARIES} ${MYSQL_LIBRARY} moneybin)
 endif()
 
 add_executable(csvimport csvimport.c)

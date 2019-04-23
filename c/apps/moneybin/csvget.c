@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
   char filename[255];
 
   if (argc != 2) {
-    fputs("usage: csvdownload symbol\n", stderr);
+    fputs("usage: csvget symbol\n", stderr);
     return 1;
   }
 
