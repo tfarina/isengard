@@ -36,13 +36,13 @@
 #include "ed_cmdline.h"
 #include "ed_config.h"
 #include "ed_daemon.h"
-#include "ed_info.h"
 #include "ed_instance.h"
 #include "ed_log.h"
 #include "ed_net.h"
 #include "ed_pid.h"
 #include "ed_rcode.h"
 #include "ed_utils.h"
+#include "ed_version.h"
 
 #define BUFSIZE 8129
 
