@@ -68,12 +68,11 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   freeaddrinfo(addrlist);
 
   if (cur == NULL) {
-    ed_log_error("failed to bind");
     return ED_NET_ERR;
   }
 
   if (listen(sd, backlog) == -1) {
-    ed_log_error("listen on %d failed: %s", sd, strerror(errno));
+    ed_log_error("cannot listen on %s port %d: %s", host, port, strerror(errno));
     close(sd);
     return ED_NET_ERR;
   }
