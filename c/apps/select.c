@@ -10,16 +10,16 @@
 #include <sys/time.h>
 
 static int poll_timeout(double timeout) {
-  struct timeval tv;
-  fd_set readfds;
   int fd = 0; /* File descriptor for standard input (STDIN). */
+  fd_set readfds;
+  struct timeval tv;
   ssize_t rv;
-
-  tv.tv_sec = (long)(timeout / 1000.0);
-  tv.tv_usec = (long)(timeout * 1000.0) % 1000000;
 
   FD_ZERO(&readfds);
   FD_SET(fd, &readfds);
+
+  tv.tv_sec = (long)(timeout / 1000.0);
+  tv.tv_usec = (long)(timeout * 1000.0) % 1000000;
 
   /* Don't care about writefds and exceptfds. */
   rv = select(fd + 1, &readfds, NULL, NULL, &tv);
