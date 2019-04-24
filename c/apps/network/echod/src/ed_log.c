@@ -48,12 +48,11 @@
 static int log_fd = -1;
 
 static char const * const level_names[] = {
-  "DEBUG",
+  "ERROR",
+  "WARN",
   "NOTICE",
   "INFO",
-  "WARN",
-  "ERROR",
-  "FATAL"
+  "DEBUG",
 };
 
 int ed_log_init(char const *filename) {

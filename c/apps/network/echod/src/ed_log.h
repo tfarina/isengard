@@ -39,11 +39,11 @@
 #include <stdarg.h>
 
 typedef enum ed_log_level_e {
-  ED_LOG_LEVEL_DEBUG = 0,  /* debug messages */
-  ED_LOG_LEVEL_NOTICE,     /* normal but significant messages */
-  ED_LOG_LEVEL_INFO,       /* informational messages */
-  ED_LOG_LEVEL_WARN,       /* warning conditions */
-  ED_LOG_LEVEL_ERROR,      /* error conditions */
+  ED_LOG_LEVEL_ERROR  = 0,  /* error conditions */
+  ED_LOG_LEVEL_WARN   = 1,  /* warning conditions */
+  ED_LOG_LEVEL_NOTICE = 2,  /* normal but significant messages */
+  ED_LOG_LEVEL_INFO   = 3,  /* informational messages */
+  ED_LOG_LEVEL_DEBUG  = 4,  /* debug messages */
   ED_LOG_LEVEL_MAX
 } ed_log_level_t;
 
