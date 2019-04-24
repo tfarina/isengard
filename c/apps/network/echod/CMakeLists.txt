@@ -26,6 +26,7 @@ configure_file(
 add_definitions(-D_GNU_SOURCE)
 
 set(ECHOD_SRCS
+  src/ed_cmdline.c
   src/ed_config.c
   src/ed_daemon.c
   src/ed_instance.c

@@ -33,6 +33,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "ed_cmdline.h"
 #include "ed_config.h"
 #include "ed_daemon.h"
 #include "ed_info.h"
@@ -49,150 +50,12 @@
 
 static const char *progname;
 
-static int show_help;
-static int show_version;
 static sig_atomic_t volatile quit;
 static unsigned int connected_clients = 0; /* Number of child processes. */
-
-static char short_options[] =
-    "h"  /* help */
-    "V"  /* version */
-    "d"  /* daemon mode */
-    "c:" /* configuration file */
-    "o:" /* output logfile */
-    "P:" /* pid file */
-    "u:" /* user identity to run as */
-    "l:" /* interface to listen on */
-    "p:" /* tcp port number to listen on */
-    "b:" /* tcp backlog queue limit */
-    ;
-
-static struct option long_options[] = {
-    { "help",        no_argument,       NULL, 'h' }, /* help */
-    { "version",     no_argument,       NULL, 'V' }, /* version */
-    { "daemonize",   no_argument,       NULL, 'd' }, /* daemon mode */
-    { "conf-file",   required_argument, NULL, 'c' },  /* configuration file */
-    { "output-file", required_argument, NULL, 'o' }, /* output logfile */
-    { "pid-file",    required_argument, NULL, 'P' }, /* pid file */
-    { "user",        required_argument, NULL, 'u' }, /* user identity to run as */
-    { "interface",   required_argument, NULL, 'l' }, /* interface to listen on */
-    { "port",        required_argument, NULL, 'p' }, /* tcp port number to listen on */
-    { "backlog",     required_argument, NULL, 'b' }, /* tcp backlog queue limit */
-    { NULL,          0,                 NULL,  0  }
-};
-
-static void ed_cmdline_help(char const *program_name) {
-  fprintf(stderr,
-	  "usage: %s [-hd] [-o output logfile] [-P pid file] [-u user]" CRLF
-	  "             [-l interface] [-p port] [-b backlog]" CRLF CRLF,
-	  program_name);
-  fprintf(stderr,
-	  "options:" CRLF
-          "  -h, --help              show usage, options and exit" CRLF
-          "  -V, --version           show version and exit" CRLF
-          "  -d, --daemonize         run as a daemon" CRLF
-          "  -c, --conf-file=S       set configuration file" CRLF
-          "  -o, --output-file=S     set the debug logging file (default: %s)" CRLF
-          "  -P, --pid-file=S        store pid in a file (default: not stored)" CRLF
-          "  -u, --user=S            user identity to run as" CRLF
-          "  -l, --interface=S       interface to listen on (default: %s)" CRLF
-          "  -p, --port=N            set the tcp port to listen on (default: %d)" CRLF
-          "  -b, --backlog=N         the backlog argument of listen() applied to the" CRLF
-          "                          listening socket (default: %d)" CRLF
-	  "",
-          "stderr",
-          ED_DEFAULT_LISTEN_ADDR,
-          ED_DEFAULT_LISTEN_PORT,
-          ED_DEFAULT_LISTEN_BACKLOG
-	  );
-}
 
 static void ed_version(void) {
   printf("%s version %s\n", progname, ED_VERSION_STR);
   fflush(stdout);
-}
-
-static int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
-  int c, value;
-
-  opterr = 0;
-
-  for (;;) {
-    c = getopt_long(argc, argv, short_options, long_options, NULL);
-    if (c == -1) {
-      /* no more options */
-      break;
-    }
-
-    switch (c) {
-    case 'h':
-      show_help = 1;
-      break;
-
-    case 'V':
-      show_version = 1;
-      break;
-
-    case 'd':
-      config->daemonize = 1;
-      break;
-
-    case 'c':
-      config->conf_filename = optarg;
-      break;
-
-    case 'o':
-      config->log_filename = optarg;
-      break;
-
-    case 'P':
-      config->pid_filename = optarg;
-      break;
-
-    case 'u':
-      config->username = optarg;
-      break;
-
-    case 'l':
-      config->interface = optarg;
-      break;
-
-    case 'p':
-      value = atoi(optarg);
-      if (value <= 0) {
-	fprintf(stderr, "%s: option -p requires a non zero number\n", progname);
-	return ED_ERROR;
-      }
-      if (!ed_valid_port(value)) {
-	fprintf(stderr, "%s: option -s value %d is not a valid port\n", progname, value);
-	return ED_ERROR;
-      }
-
-      config->port = value;
-      break;
-
-    case 'b':
-      value = atoi(optarg);
-      if (value <= 0) {
-	fprintf(stderr, "%s: option -b requires a non zero number\n", progname);
-	return ED_ERROR;
-      }
-
-      config->backlog = value;
-      break;
-
-    case '?':
-      fprintf(stderr, "%s: invalid option -- '%c'\n", progname, optopt);
-      return ED_ERROR;
-
-    default:
-      fprintf(stderr, "%s: invalid option -- '%c'\n", progname, optopt);
-      return ED_ERROR;
-      /* NOTREACHED */
-    }
-  }
-
-  return ED_OK;
 }
 
 /**
@@ -361,7 +224,7 @@ int main(int argc, char **argv) {
   ed_instance_init(&instance);
   ed_config_init(&config);
 
-  rc = ed_cmdline_parse(argc, argv, &config);
+  rc = ed_cmdline_parse(argc, argv, progname, &config);
   if (rc != ED_OK) {
     ed_cmdline_help(progname);
     return EXIT_FAILURE;
