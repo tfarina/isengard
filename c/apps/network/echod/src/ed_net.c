@@ -63,18 +63,19 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
       continue;
     }
 
+    rv = listen(sd, backlog);
+    if (rv < 0) {
+      ed_log_error("cannot listen on %s port %d: %s", host, port, strerror(errno));
+      close(sd);
+      continue;
+    }
+
     break;
   }
 
   freeaddrinfo(addrlist);
 
   if (cur == NULL) {
-    return ED_NET_ERR;
-  }
-
-  if (listen(sd, backlog) == -1) {
-    ed_log_error("cannot listen on %s port %d: %s", host, port, strerror(errno));
-    close(sd);
     return ED_NET_ERR;
   }
 
