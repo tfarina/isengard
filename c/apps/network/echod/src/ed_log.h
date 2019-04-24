@@ -56,10 +56,15 @@ void ed_log_write(ed_log_level_t level,
 		  char const *func,
 		  char const *format, ...);
 
+#ifdef NDEBUG
+#define ed_log_debug(...) do { } while (0)
+#else
 #define ed_log_debug(...) ed_log_write(ED_LOG_LEVEL_DEBUG, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#endif
+
 #define ed_log_notice(...) ed_log_write(ED_LOG_LEVEL_NOTICE, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define ed_log_info(...) ed_log_write(ED_LOG_LEVEL_INFO, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define ed_log_warn(...) ed_log_write(ED_LOG_LEVEL_WARN, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define ed_log_error(...) ed_log_write(ED_LOG_LEVEL_ERROR, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define ed_log_info(...)   ed_log_write(ED_LOG_LEVEL_INFO, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define ed_log_warn(...)   ed_log_write(ED_LOG_LEVEL_WARN, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define ed_log_error(...)  ed_log_write(ED_LOG_LEVEL_ERROR, __FILE__, __LINE__, __func__, __VA_ARGS__)
 
 #endif  /* ED_LOG_H_ */
