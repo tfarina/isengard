@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-int main(void) {
-  char b[] = "Built on: " __DATE__ " " __TIME__;
+static char const BUILT_STR[] = __DATE__ " " __TIME__;
 
-  printf("%s\n", b);
+int main(void) {
+  printf("Built on: %s\n", BUILT_STR);
 
   return 0;
 }
