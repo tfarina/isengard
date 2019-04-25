@@ -29,7 +29,7 @@ static struct option long_options[] = {
     { "help",        no_argument,       NULL, 'h' }, /* help */
     { "version",     no_argument,       NULL, 'V' }, /* version */
     { "daemonize",   no_argument,       NULL, 'd' }, /* daemon mode */
-    { "conf-file",   required_argument, NULL, 'c' },  /* configuration file */
+    { "config",      required_argument, NULL, 'c' },  /* configuration file */
     { "output-file", required_argument, NULL, 'o' }, /* output logfile */
     { "pid-file",    required_argument, NULL, 'P' }, /* pid file */
     { "user",        required_argument, NULL, 'u' }, /* user identity to run as */
@@ -132,7 +132,7 @@ void ed_cmdline_help(char const *program_name) {
           "  -h, --help              show usage, options and exit" CRLF
           "  -V, --version           show version and exit" CRLF
           "  -d, --daemonize         run as a daemon" CRLF
-          "  -c, --conf-file=S       set configuration file" CRLF
+          "  -c, --config=S          set configuration file" CRLF
           "  -o, --output-file=S     set the debug logging file (default: %s)" CRLF
           "  -P, --pid-file=S        store pid in a file (default: not stored)" CRLF
           "  -u, --user=S            user identity to run as" CRLF
