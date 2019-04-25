@@ -9,10 +9,10 @@
 
 typedef struct ed_config_s {
   int  daemonize;      /* process: daemon mode */
-  char *username;      /* process: run as another user */
   char *conf_filename; /* process: configuration filename */
-  char *log_filename;  /* debug:   log filename */
-  char *pid_filename;  /* process: pid file */
+  char *logfile;       /* debug:   log filename */
+  char *pidfile;       /* process: pid file */
+  char *username;      /* process: run as another user */
   char *interface;     /* network: listening interface */
   int  port;           /* network: tcp listening port */
   int  backlog;        /* network: tcp backlog */

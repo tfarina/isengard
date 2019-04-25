@@ -245,7 +245,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  rc = ed_log_init(config.log_filename);
+  rc = ed_log_init(config.logfile);
   if (rc != ED_OK) {
     return rc;
   }
@@ -260,8 +260,8 @@ int main(int argc, char **argv) {
 
   instance.pid = getpid();
 
-  if (config.pid_filename != NULL) {
-    rc = ed_pid_file_write(config.pid_filename, instance.pid);
+  if (config.pidfile != NULL) {
+    rc = ed_pid_file_write(config.pidfile, instance.pid);
     if (rc != ED_OK) {
       return rc;
     }
@@ -283,7 +283,7 @@ int main(int argc, char **argv) {
               instance.pid,
               config.port,
               config.backlog,
-              config.log_filename,
+              config.logfile,
               config.username);
 
   ed_main_loop(tcpfd);

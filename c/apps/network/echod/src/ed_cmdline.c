@@ -17,7 +17,7 @@ static char short_options[] =
     "V"  /* version */
     "d"  /* daemon mode */
     "c:" /* configuration file */
-    "o:" /* output logfile */
+    "L:" /* log file */
     "P:" /* pid file */
     "u:" /* user identity to run as */
     "l:" /* interface to listen on */
@@ -29,9 +29,9 @@ static struct option long_options[] = {
     { "help",        no_argument,       NULL, 'h' }, /* help */
     { "version",     no_argument,       NULL, 'V' }, /* version */
     { "daemonize",   no_argument,       NULL, 'd' }, /* daemon mode */
-    { "config",      required_argument, NULL, 'c' },  /* configuration file */
-    { "output-file", required_argument, NULL, 'o' }, /* output logfile */
-    { "pid-file",    required_argument, NULL, 'P' }, /* pid file */
+    { "config",      required_argument, NULL, 'c' }, /* configuration file */
+    { "logfile",     required_argument, NULL, 'L' }, /* log file */
+    { "pidfile",     required_argument, NULL, 'P' }, /* pid file */
     { "user",        required_argument, NULL, 'u' }, /* user identity to run as */
     { "interface",   required_argument, NULL, 'l' }, /* interface to listen on */
     { "port",        required_argument, NULL, 'p' }, /* tcp port number to listen on */
@@ -68,12 +68,12 @@ int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_
       config->conf_filename = optarg;
       break;
 
-    case 'o':
-      config->log_filename = optarg;
+    case 'L':
+      config->logfile = optarg;
       break;
 
     case 'P':
-      config->pid_filename = optarg;
+      config->pidfile = optarg;
       break;
 
     case 'u':
@@ -124,7 +124,7 @@ int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_
 
 void ed_cmdline_help(char const *program_name) {
   fprintf(stderr,
-	  "usage: %s [-hd] [-o output logfile] [-P pid file] [-u user]" CRLF
+	  "usage: %s [-hd] [-L log file] [-P pid file] [-u user]" CRLF
 	  "             [-l interface] [-p port] [-b backlog]" CRLF CRLF,
 	  program_name);
   fprintf(stderr,
@@ -133,8 +133,8 @@ void ed_cmdline_help(char const *program_name) {
           "  -V, --version           show version and exit" CRLF
           "  -d, --daemonize         run as a daemon" CRLF
           "  -c, --config=S          set configuration file" CRLF
-          "  -o, --output-file=S     set the debug logging file (default: %s)" CRLF
-          "  -P, --pid-file=S        store pid in a file (default: not stored)" CRLF
+          "  -L, --logfile=S         set the debug logging file (default: %s)" CRLF
+          "  -P, --pidfile=S         store pid in a file (default: not stored)" CRLF
           "  -u, --user=S            user identity to run as" CRLF
           "  -l, --interface=S       interface to listen on (default: %s)" CRLF
           "  -p, --port=N            set the tcp port to listen on (default: %d)" CRLF
