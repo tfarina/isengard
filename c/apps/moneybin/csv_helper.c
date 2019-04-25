@@ -6,7 +6,6 @@
 #include <string.h>
 
 #include "third_party/libcsv/csv.h"
-#include "stock.h"
 
 typedef enum {
   CSV_COLUMN_DATE,
@@ -55,97 +54,6 @@ static double parse_price(char const *field, size_t length, return_code_t *rc) {
 
 void csv_count_cb(int c, void *data) {
   num_rows++;
-}
-
-void csv_column_cb(void *field,
-		   size_t field_length,
-		   void *data)
-{
-  stock_info_t *stock;
-  stock_tick_t *cur_tick;
-  char *buffer;
-  return_code_t rc;
-
-  stock = (stock_info_t *)data;
-  if (stock->error) {
-    return;
-  }
-
-  cur_tick = stock->ticks + stock->ticks_length;
-
-  /* Skip the first (header) line? */
-  if (strcmp((char*)field, "Date") == 0 ||
-      strcmp((char*)field, "Open") == 0 ||
-      strcmp((char*)field, "High") == 0 ||
-      strcmp((char*)field, "Low") == 0 ||
-      strcmp((char*)field, "Close") == 0 ||
-      strcmp((char*)field, "Adj Close") == 0 ||
-      strcmp((char*)field, "Volume") == 0) {
-    return;
-  }
-
-  buffer = (char *)malloc((field_length + 1) * sizeof(char));
-  strncpy(buffer, field, field_length);
-  buffer[field_length] = '\0';  /* NULL terminate the string. */
-
-  switch (colnum) {
-  case CSV_COLUMN_DATE:
-    /* Start of a new record; check if we need to reallocate. */
-    /* If the number of entries in the vector has reached the capacity, resize. */
-    if (stock->ticks_length == stock->ticks_capacity) {
-      stock->ticks_capacity *= 2;
-      stock->ticks = realloc(stock->ticks,
-                             stock->ticks_capacity * sizeof(stock_tick_t));
-      if (stock->ticks == NULL) {
-        fprintf(stderr,
-                "failed to reallocate %zu bytes for stock data: ",
-		sizeof(stock_tick_t) * stock->ticks_capacity);
-        perror(NULL);
-        stock->error = 1;
-	return;
-      }
-      cur_tick = stock->ticks + stock->ticks_length;
-    }
- 
-    cur_tick->date = parse_str(buffer, field_length, &rc);
-    break;
- 
-  case CSV_COLUMN_OPEN:
-    cur_tick->open = parse_price(buffer, field_length, &rc);
-    break;
-
-  case CSV_COLUMN_HIGH:
-    cur_tick->high = parse_price(buffer, field_length, &rc);
-    break;
-
-  case CSV_COLUMN_LOW:
-    cur_tick->low = parse_price(buffer, field_length, &rc);
-    break;
-
-  case CSV_COLUMN_CLOSE:
-    cur_tick->close = parse_price(buffer, field_length, &rc);
-    break;
-
-  case CSV_COLUMN_ADJ_CLOSE:
-    cur_tick->adj_close = parse_price(buffer, field_length, &rc);
-    break;
-
-  case CSV_COLUMN_VOLUME:
-    cur_tick->volume = atoi(buffer);
-    break;
-
-  default:
-    rc = RC_ERROR;
-    break;
-  }
-
-  free(buffer);
- 
-  if (colnum == CSV_COLUMN_VOLUME) {
-    stock->ticks_length++;
-  }
-
-  colnum = (colnum + 1) % 7;
 }
  
 void csv_row_cb(int delim UNUSED, void *data) {

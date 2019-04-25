@@ -6,7 +6,6 @@
 #include "macros.h"
 
 void csv_count_cb(int c, void *data);
-void csv_column_cb(void *field, size_t field_len UNUSED, void *ctx);
 void csv_row_cb(int delim UNUSED, void *ctx);
 int csv_num_rows(void);
 void csv_column_cb1(void *field, size_t field_len UNUSED, void *ctx);
