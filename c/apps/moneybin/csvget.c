@@ -48,6 +48,10 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   result = curl_global_init(CURL_GLOBAL_DEFAULT);
 
   curl = curl_easy_init();
+  if (curl == NULL) {
+    fprintf(stderr, "curl_easy_init() failed.\n");
+    return -1;
+  }
 
   curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
   curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
