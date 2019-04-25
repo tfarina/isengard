@@ -5,44 +5,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "macros.h"
-
-static void NORETURN fatal(const char *msg, ...)
-{
-        va_list args;
-
-        va_start(args, msg);
-
-        fprintf(stderr, "fatal: ");
-        vfprintf(stderr, msg, args);
-        fprintf(stderr, "\n");
-
-        va_end(args);
-
-        exit(EXIT_FAILURE);
-}
-
-static void *xrealloc(void *oldptr, size_t newsize)
-{
-        void *newptr;
-
-        if ((newptr = realloc(oldptr, newsize)) == NULL) {
-                fatal("xrealloc failed");
-	}
-
-	return newptr;
-}
-
 /*
  * _buffer_realloc ensures that the buffer has at least |length| more bytes between its
  * length and capacity.
  */
-static void _buffer_realloc(buffer_t *b, size_t length)
+static void _buffer_realloc(buffer_t *b, size_t capacity)
 {
-        b->capacity = length;
-        if (b->capacity < 64)
-	        b->capacity = 64;
-        b->data = xrealloc(b->data, b->capacity);
+        void *temp;
+
+        temp = realloc(b->data, capacity);
+        if (temp == NULL) {
+	        return;
+	}
+
+        b->data = temp;
+        b->capacity = capacity;
 }
 
 buffer_t *buffer_alloc(size_t capacity)
