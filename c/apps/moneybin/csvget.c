@@ -46,10 +46,14 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   char downloadurl[256];
 
   result = curl_global_init(CURL_GLOBAL_DEFAULT);
+  if (result != CURLE_OK) {
+    fprintf(stderr, "curl_global_init() failed\n");
+    return -1;
+  }
 
   curl = curl_easy_init();
   if (curl == NULL) {
-    fprintf(stderr, "curl_easy_init() failed.\n");
+    fprintf(stderr, "curl_easy_init() failed\n");
     return -1;
   }
 
