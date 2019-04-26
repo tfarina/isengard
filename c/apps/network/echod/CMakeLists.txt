@@ -39,6 +39,7 @@ set(ECHOD_SRCS
 )
 
 add_executable(echod ${ECHOD_SRCS})
+set_target_properties(echod PROPERTIES LINKER_LANGUAGE C)
 
 set(INSTALL_SBIN_DIR "${CMAKE_INSTALL_PREFIX}/sbin" CACHE PATH "Installation directory for system admin executables")
 set(INSTALL_MAN_DIR "${CMAKE_INSTALL_PREFIX}/share/man" CACHE PATH "Installation directory for manual pages")
