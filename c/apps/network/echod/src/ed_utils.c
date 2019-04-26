@@ -5,8 +5,8 @@
 
 #define ED_DIR_SEP '/'
 
-char *ed_get_progname(char *argv0) {
-  char *name;
+char const *ed_get_progname(char const *argv0) {
+  char const *name;
 
   name = strrchr(argv0, ED_DIR_SEP);
   if (name == NULL) {
