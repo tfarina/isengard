@@ -12,7 +12,7 @@
 int show_help = 0;
 int show_version = 0;
 
-static char short_options[] =
+static char const short_options[] =
     "h"  /* help */
     "V"  /* version */
     "d"  /* daemon mode */
@@ -25,7 +25,7 @@ static char short_options[] =
     "b:" /* tcp backlog queue limit */
     ;
 
-static struct option long_options[] = {
+static struct option const long_options[] = {
     { "help",        no_argument,       NULL, 'h' }, /* help */
     { "version",     no_argument,       NULL, 'V' }, /* version */
     { "daemonize",   no_argument,       NULL, 'd' }, /* daemon mode */
