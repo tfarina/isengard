@@ -168,8 +168,10 @@ typedef struct {
 /**
  * Looks up the given id in the lookup table.
  *
- * @param table Lookup table.
- * @param id ID to look up.
+ * @param[in]   table   Lookup table.
+ * @param[in]   id      ID to look up.
+ *
+ * @returns
  */
 static const lookup_entry_t *lookup_by_id(const lookup_entry_t *table, int id) {
   while (table->name != NULL) {
