@@ -25,26 +25,10 @@ configure_file(
 
 add_definitions(-D_GNU_SOURCE)
 
-set(ECHOD_SRCS
-  src/ed_cmdline.c
-  src/ed_config.c
-  src/ed_daemon.c
-  src/ed_instance.c
-  src/ed_log.c
-  src/ed_main.c
-  src/ed_net.c
-  src/ed_pid.c
-  src/ed_printf.c
-  src/ed_utils.c
-)
+add_subdirectory(src)
 
-add_executable(echod ${ECHOD_SRCS})
-set_target_properties(echod PROPERTIES LINKER_LANGUAGE C)
-
-set(INSTALL_SBIN_DIR "${CMAKE_INSTALL_PREFIX}/sbin" CACHE PATH "Installation directory for system admin executables")
 set(INSTALL_MAN_DIR "${CMAKE_INSTALL_PREFIX}/share/man" CACHE PATH "Installation directory for manual pages")
 
-install(TARGETS echod RUNTIME DESTINATION "${INSTALL_SBIN_DIR}")
 install(FILES man/echod.8 DESTINATION "${INSTALL_MAN_DIR}/man8")
 
 message(STATUS "")
