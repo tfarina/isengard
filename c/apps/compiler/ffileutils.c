@@ -4,6 +4,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
+
+int file_size(char const *path)
+{
+  struct stat sb;
+  int rc;
+
+  rc = stat(path, &sb);
+  if (rc > 0) {
+    return -1;
+  }
+
+  return sb.st_size;
+}
 
 char *read_file(const char *filename, size_t *rlen)
 {
