@@ -23,7 +23,7 @@ int main(void)
   userconffile = f_build_filename(homedir, USERCONFFILE);
 
   config_init(&config);
-  config_load(&config, userconffile);
+  config_load_r(&config, userconffile);
 
   rc = dba_init(&handle, config.database);
   if (rc < 0) {
