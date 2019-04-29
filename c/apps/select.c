@@ -23,20 +23,21 @@ static int poll_timeout(double timeout) {
 
   /* Don't care about writefds and exceptfds. */
   rv = select(fd + 1, &readfds, NULL, NULL, &tv);
-  if (rv == 0) {
-    printf("Timed out.\n");
-    return -1;
-  } else if (rv == -1) {
+  if (rv == -1) {
     /* TODO: Check errno for EAGAIN. */
     if (errno == EINTR) { /* ^C was pressed. */
       return -1;
     }
+  } else if (rv == 0) {
+    printf("Timed out.\n");
+    return -1;
   }
 
-  if (FD_ISSET(fd, &readfds))
+  if (FD_ISSET(fd, &readfds)) {
     printf("A key was pressed.\n");
-  else
+  } else {
     printf("Timed out.\n");
+  }
 
   return 0;
 }
