@@ -103,7 +103,7 @@ static void sigchld_handler(int sig) {
   pid_t pid;
   int status;
 
-  while (1) {
+  for (;;) {
     pid = waitpid(-1, &status, WNOHANG);
     if (pid <= 0) {
       break;
