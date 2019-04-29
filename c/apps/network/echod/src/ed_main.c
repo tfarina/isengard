@@ -49,7 +49,7 @@
 static const char *progname;
 
 static sig_atomic_t volatile quit;
-static unsigned int connected_clients = 0; /* Number of child processes. */
+static int unsigned connected_clients = 0; /* Number of child processes. */
 
 static void ed_version(void) {
   printf("%s version %s\n", progname, ED_VERSION_STR);
