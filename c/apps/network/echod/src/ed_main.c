@@ -109,8 +109,8 @@ static void sigchld_handler(int sig) {
       break;
     }
 
+    ed_log_info("subprocess %lu finished with status %d", (unsigned long)pid, status);
     --connected_clients;
-    ed_log_info("pid %lu with status %d", (unsigned long)pid, status);
     print_stats();
   }
 
