@@ -251,7 +251,10 @@ int main(int argc, char **argv) {
     return rc;
   }
 
+  ed_log_set_flag(ED_LOG_PRINT_LEVEL);
+
   if (config.daemonize) {
+    ed_log_set_flag(ED_LOG_PRINT_TIME | ED_LOG_PRINT_SRC);
     rc = ed_daemon_detach(ED_MAXIMIZE_COREFILE);
     if (rc != ED_OK) {
       fprintf(stderr, "%s: unable to daemonize\n", progname);

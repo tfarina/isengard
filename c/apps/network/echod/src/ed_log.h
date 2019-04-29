@@ -47,8 +47,16 @@ typedef enum ed_log_level_e {
   ED_LOG_LEVEL_MAX
 } ed_log_level_t;
 
+typedef enum {
+  ED_LOG_PRINT_TIME  = 1 << 0,  /* date/time */
+  ED_LOG_PRINT_LEVEL = 1 << 1,  /* log level prefix */
+  ED_LOG_PRINT_SRC   = 1 << 2,  /* source location (file, line, function) */
+} ed_log_flag_t;
+
 int ed_log_init(char const *filename);
 void ed_log_deinit(void);
+
+void ed_log_set_flag(ed_log_flag_t flag);
 
 void ed_log_write(ed_log_level_t level,
 	          char const *file,

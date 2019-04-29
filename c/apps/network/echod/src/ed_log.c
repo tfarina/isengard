@@ -46,6 +46,7 @@
 #define LOG_MAX_LEN 256
 
 static int log_fd = -1;
+static ed_log_flag_t log_flags;
 
 static char const * const level_names[] = {
   "ERROR",
@@ -78,6 +79,10 @@ void ed_log_deinit(void) {
   log_fd = -1;
 }
 
+void ed_log_set_flag(ed_log_flag_t flag) {
+  log_flags |= flag;
+}
+
 void ed_log_write(ed_log_level_t level, char const *file, int line, char const *func, char const *fmt, ...) {
   time_t t;
   struct tm *localtm;
@@ -89,12 +94,22 @@ void ed_log_write(ed_log_level_t level, char const *file, int line, char const *
   len = 0;
   maxlen = LOG_MAX_LEN;
 
-  t = time(NULL);
-  localtm = localtime(&t);
+  if (log_flags & ED_LOG_PRINT_TIME) {
+    t = time(NULL);
+    localtm = localtime(&t);
 
-  strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S", localtm);
+    strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S", localtm);
 
-  len += ed_scnprintf(buf + len, maxlen - len, "%.*s [%s] %s:%d %s() ", strlen(timestr), timestr, level_names[level], file, line, func);
+    len += ed_scnprintf(buf + len, maxlen - len, "%.*s ", strlen(timestr), timestr);
+  }
+
+  if (log_flags & ED_LOG_PRINT_LEVEL) {
+    len += ed_scnprintf(buf + len, maxlen - len, "[%s] ", level_names[level]);
+  }
+
+  if (log_flags & ED_LOG_PRINT_SRC) {
+    len += ed_scnprintf(buf + len, maxlen - len, "%s:%d %s() ", file, line, func);
+  }
 
   va_start(args, fmt);
   len += vsnprintf(buf + len, maxlen - len, fmt, args);
