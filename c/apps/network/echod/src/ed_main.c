@@ -46,8 +46,6 @@
 
 #define BUFSIZE 8129
 
-#define CRLF "\x0d\x0a"
-
 static const char *progname;
 
 static sig_atomic_t volatile quit;
