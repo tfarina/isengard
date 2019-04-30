@@ -117,23 +117,25 @@ static void sigchld_handler(int sig) {
   signal(SIGCHLD, sigchld_handler);
 }
 
-static void ed_signal_handler(int sig) {
-  char *signame;
-
+/**
+ * Returns the name of an UNIX signal. Similar to Solaris sig2str().
+ */
+static char const *ed_sig2str(int sig) {
   switch (sig) {
   case SIGINT:
-    signame = "SIGINT";
-    break;
+    return "SIGINT";
   case SIGTERM:
-    signame = "SIGTERM";
-    break;
+    return "SIGTERM";
   }
+  return NULL;
+}
 
+static void ed_signal_handler(int sig) {
   if (sig == SIGTERM || sig == SIGINT) {
     quit = 1;
   }
 
-  ed_log_info("signal %d (%s) received, shutting down...", sig, signame);
+  ed_log_info("signal %d (%s) received, shutting down...", sig, ed_sig2str(sig));
 }
 
 /**
