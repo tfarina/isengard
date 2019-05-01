@@ -4,6 +4,25 @@
 #include "third_party/iniparser/iniparser.h"
 #include "third_party/libconfigini/configini.h"
 
+int config_alloc(config_t **config) {
+  config_t *cfg;
+
+  cfg = calloc(1, sizeof(*cfg));
+  if (cfg == NULL) {
+    return -1 /*ENOMEM*/;
+  }
+
+  if (config) {
+    *config = cfg;
+  }
+
+  return 0;
+}
+
+void config_free(config_t *config) {
+  free(config);
+}
+
 int config_init(config_t *config) {
   config->database = NULL;
   config->host = NULL;
