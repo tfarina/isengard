@@ -3,6 +3,7 @@
 #include "fstrutils.h"
 #include "third_party/iniparser/iniparser.h"
 #include "third_party/libconfigini/configini.h"
+#include "third_party/ini/ini.h"
 
 int config_alloc(config_t **config) {
   config_t *cfg;
@@ -90,6 +91,27 @@ int config_load_r(config_t *config, char const *cfgfile) {
   ConfigReadUnsignedInt(cfg, "sql", "port", &config->port, 3306);
 
   ConfigFree(cfg);
+
+  return 0;
+}
+
+int config_load_r2(config_t *config, char const *cfgfile) {
+  ini_t *handle;
+
+  handle = ini_load(cfgfile);
+  if (handle == NULL) {
+    fprintf(stderr, "Cannot read configuration file '%s'\n", cfgfile);
+    return -1;
+  }
+
+  ini_read_str(handle, "sql", "database", &config->database, "mysql");
+  ini_read_str(handle, "sql", "host", &config->host, "");
+  ini_read_str(handle, "sql", "user", &config->user, "");
+  ini_read_str(handle, "sql", "password", &config->password, "");
+  ini_read_str(handle, "sql", "dbname", &config->dbname, "");
+  ini_read_unsigned(handle, "sql", "port", &config->port, 3306);
+
+  ini_free(handle);
 
   return 0;
 }

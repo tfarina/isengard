@@ -20,6 +20,7 @@ add_definitions(-D_GNU_SOURCE)
 
 add_subdirectory(third_party/iniparser)
 add_subdirectory(third_party/libconfigini)
+add_subdirectory(third_party/ini)
 add_subdirectory(third_party/libcsv)
 add_subdirectory(third_party/sqlite)
 
@@ -43,7 +44,7 @@ set(SRCS
 )
 
 add_library(moneybin ${SRCS})
-target_link_libraries(moneybin iniparser libconfigini libcsv ${MYSQL_LIBRARIES})
+target_link_libraries(moneybin iniparser libconfigini ini libcsv ${MYSQL_LIBRARIES})
 
 add_executable(csvcat csvcat.c)
 target_link_libraries(csvcat libcsv moneybin ${MYSQL_LIBRARIES})
