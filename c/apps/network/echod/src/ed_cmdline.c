@@ -127,6 +127,9 @@ void ed_cmdline_help(char const *program_name) {
 	  "usage: %s [-hd] [-L log file] [-P pid file] [-u user]" CRLF
 	  "             [-l interface] [-p port] [-b backlog]" CRLF CRLF,
 	  program_name);
+
+  fprintf(stderr, "Mandatory arguments to long options are mandatory for short options too." CRLF CRLF);
+
   fprintf(stderr,
 	  "options:" CRLF
           "  -h, --help              display this help and exit" CRLF
