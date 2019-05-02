@@ -129,8 +129,8 @@ void ed_cmdline_help(char const *program_name) {
 	  program_name);
   fprintf(stderr,
 	  "options:" CRLF
-          "  -h, --help              show usage, options and exit" CRLF
-          "  -V, --version           show version and exit" CRLF
+          "  -h, --help              display this help and exit" CRLF
+          "  -V, --version           output version information and exit" CRLF
           "  -d, --daemonize         run as a daemon" CRLF
           "  -c, --config=S          set configuration file" CRLF
           "  -L, --logfile=S         set the debug logging file (default: %s)" CRLF
