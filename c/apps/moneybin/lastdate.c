@@ -152,6 +152,15 @@ int main(void)
 
   printf("%s\n", lastdate);
 
+  int unsigned u1, u2, u3;
+  if (sscanf(lastdate, "%4u-%2u-%2u", &u1, &u2, &u3) != 3) {
+    /*RETURN_FUNC( TA_BAD_QUERY );*/  /* other error code? */
+  }
+
+  printf("%u\n", u1);
+  printf("%u\n", u2);
+  printf("%u\n", u3);
+
   time_t ld;
   struct tm *tim;
   char last_date_str[12];
