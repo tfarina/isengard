@@ -38,6 +38,7 @@ set(INSTALL_MAN_DIR "${CMAKE_INSTALL_PREFIX}/share/man" CACHE PATH "Installation
 
 install(FILES man/echod.8 DESTINATION "${INSTALL_MAN_DIR}/man8")
 
+message(STATUS "Running cmake version ${CMAKE_VERSION}")
 message(STATUS "")
 message(STATUS "CMAKE_BUILD_TYPE:      ${CMAKE_BUILD_TYPE}")
 message(STATUS "")
