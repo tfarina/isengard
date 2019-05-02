@@ -124,14 +124,12 @@ int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_
 
 void ed_cmdline_help(char const *program_name) {
   fprintf(stderr,
-	  "usage: %s [-hd] [-L log file] [-P pid file] [-u user]" CRLF
-	  "             [-l interface] [-p port] [-b backlog]" CRLF CRLF,
-	  program_name);
+	  "Usage: %s [OPTION]..." CRLF CRLF, program_name);
 
   fprintf(stderr, "Mandatory arguments to long options are mandatory for short options too." CRLF CRLF);
 
   fprintf(stderr,
-	  "options:" CRLF
+	  "Options:" CRLF
           "  -h, --help              display this help and exit" CRLF
           "  -V, --version           output version information and exit" CRLF
           "  -d, --daemonize         run as a daemon" CRLF
