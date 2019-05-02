@@ -66,3 +66,5 @@ target_link_libraries(csvimport iniparser libcsv moneybin ${MYSQL_LIBRARIES})
 
 add_executable(lastdate lastdate.c)
 target_link_libraries(lastdate iniparser moneybin ${MYSQL_LIBRARIES})
+
+add_executable(enddate enddate.c)
