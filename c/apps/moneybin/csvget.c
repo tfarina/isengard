@@ -131,10 +131,10 @@ int main(int argc, char *argv[])
   one_year_ago = mktime(now_tm);
 
   /* TODO: Write this into a log file instead. So it can be inspected after the program ends. */
-  printf("Downloading file...\n\n");
   printf("Start Date: %s\n", start_date_str);
   printf("End Date: %s\n", end_date_str);
-  printf("Frequency: Daily\n");
+  printf("Period: Daily\n\n");
+  printf("Downloading file...\n\n");
 
   download_quotes_from_yahoo(symbol, one_year_ago, now, &buf);
 
