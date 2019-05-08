@@ -36,7 +36,8 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   hints.ai_protocol = IPPROTO_TCP;
   hints.ai_flags = AI_PASSIVE;
 
-  if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
+  rv = getaddrinfo(host, portstr, &hints, &addrlist);
+  if (rv != 0) {
     ed_log_error("getaddrinfo failed: %s", gai_strerror(rv));
     return ED_NET_ERR;
   }
