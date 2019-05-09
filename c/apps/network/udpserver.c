@@ -48,7 +48,7 @@ static int fnet_udp_socket_listen(char *host, int port) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
-  int sockfd = 0;
+  int sd = 0;
 
   snprintf(portstr, sizeof(portstr), "%d", port);
 
@@ -66,22 +66,22 @@ static int fnet_udp_socket_listen(char *host, int port) {
 
   /* Loop through all the results and bind to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    sockfd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
-    if (sockfd < 0) {
+    sd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
+    if (sd < 0) {
       error("cannot create socket: %s", strerror(errno));
       continue;
     }
 
-    rv = fnet_set_reuseaddr(sockfd, NULL);
+    rv = fnet_set_reuseaddr(sd, NULL);
     if (rv != FNET_OK) {
-      close(sockfd);
+      close(sd);
       continue;
     }
 
-    rv = bind(sockfd, cur->ai_addr, cur->ai_addrlen);
+    rv = bind(sd, cur->ai_addr, cur->ai_addrlen);
     if (rv < 0) {
       error("bind to port %s failed: %.200s", portstr, strerror(errno));
-      close(sockfd);
+      close(sd);
       continue;
     }
 
@@ -94,7 +94,7 @@ static int fnet_udp_socket_listen(char *host, int port) {
     return FNET_ERR;
   }
 
-  return sockfd;
+  return sd;
 }
 
 static void send_udp_message(int sockfd) {
