@@ -91,8 +91,7 @@ static int fnet_udp_socket_listen(char *host, int port) {
   freeaddrinfo(addrlist);
 
   if (cur == NULL) {
-    error("failed to bind");
-    return -1;
+    return FNET_ERR;
   }
 
   return sockfd;
