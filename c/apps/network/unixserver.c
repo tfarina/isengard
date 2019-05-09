@@ -78,7 +78,8 @@ static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen
   int fd;
 
   for (;;) {
-    if ((fd = accept(sockfd, sa, salen)) == -1) {
+    fd = accept(sockfd, sa, salen);
+    if (fd == -1) {
       if (errno == EINTR) {
 	continue;
       } else {
