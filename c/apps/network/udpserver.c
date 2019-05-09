@@ -58,9 +58,10 @@ static int fnet_udp_socket_listen(char *host, int port) {
   hints.ai_protocol = IPPROTO_UDP;
   hints.ai_flags = AI_PASSIVE;
 
-  if ((rv = getaddrinfo(host, portstr, &hints, &addrlist)) != 0) {
+  rv = getaddrinfo(host, portstr, &hints, &addrlist);
+  if (rv != 0) {
     error("getaddrinfo failed: %s", gai_strerror(rv));
-    return -1;
+    return FNET_ERR;
   }
 
   /* Loop through all the results and bind to the first we can. */
