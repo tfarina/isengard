@@ -78,8 +78,9 @@ static int fnet_udp_socket_listen(char *host, int port) {
       continue;
     }
 
-    if (bind(sockfd, cur->ai_addr, cur->ai_addrlen) == -1) {
-      error("bind on %d failed: %s", sockfd, strerror(errno));
+    rv = bind(sockfd, cur->ai_addr, cur->ai_addrlen);
+    if (rv < 0) {
+      error("bind to port %s failed: %.200s", portstr, strerror(errno));
       close(sockfd);
       continue;
     }
