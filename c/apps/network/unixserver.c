@@ -84,7 +84,7 @@ static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen
 	continue;
       } else {
         fprintf(stderr, "accept() failed: %s\n", strerror(errno));
-        return -1;
+        return FNET_ERR;
       }
     }
     break;
