@@ -23,7 +23,7 @@ static int fnet_create_socket(int domain)
         return sockfd;
 }
 
-static int fnet_unix_server(const char *path)
+static int fnet_unix_server(const char *path, int backlog)
 {
         int sockfd;
         struct sockaddr_un sa;
@@ -44,7 +44,7 @@ static int fnet_unix_server(const char *path)
                 return FNET_ERR;
         }
 
-        if (listen(sockfd, SOMAXCONN) == -1) {
+        if (listen(sockfd, backlog) == -1) {
                 fprintf(stderr, "listen() failed: %s\n", strerror(errno));
                 close(sockfd);
                 return FNET_ERR;
@@ -117,7 +117,7 @@ int main(void) {
 
         unlink(path);
 
-	sockfd = fnet_unix_server(path);
+	sockfd = fnet_unix_server(path, SOMAXCONN);
 	if (sockfd == FNET_ERR) {
 	        return EXIT_FAILURE;
 	}
