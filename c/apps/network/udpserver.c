@@ -44,7 +44,7 @@ static int fnet_set_reuseaddr(int fd, char *err) {
   return FNET_OK;
 }
 
-static int udp_socket_listen(char *host, int port) {
+static int fnet_udp_socket_listen(char *host, int port) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
   int sockfd = 0;
   fd_set rfds_out;
 
-  sockfd = udp_socket_listen(ADDRESS, PORT);
+  sockfd = fnet_udp_socket_listen(ADDRESS, PORT);
 
   printf("Server listening on port %d\n", PORT);
 
