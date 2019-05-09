@@ -72,7 +72,8 @@ static int fnet_udp_socket_listen(char *host, int port) {
       continue;
     }
 
-    if (fnet_set_reuseaddr(sockfd, NULL) == FNET_ERR) {
+    rv = fnet_set_reuseaddr(sockfd, NULL);
+    if (rv != FNET_OK) {
       close(sockfd);
       continue;
     }
