@@ -13,14 +13,14 @@
 
 static int fnet_create_socket(int domain)
 {
-        int sockfd;
+  int sockfd;
 
-        if ((sockfd = socket(domain, SOCK_STREAM, 0)) == -1) {
-                fprintf(stderr, "failed to create socket\n");
-                return FNET_ERR;
-        }
+  if ((sockfd = socket(domain, SOCK_STREAM, 0)) == -1) {
+    fprintf(stderr, "failed to create socket\n");
+    return FNET_ERR;
+  }
 
-        return sockfd;
+  return sockfd;
 }
 
 static int fnet_unix_server(const char *path, int backlog)
