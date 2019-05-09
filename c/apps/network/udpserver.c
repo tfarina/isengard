@@ -66,8 +66,8 @@ static int fnet_udp_socket_listen(char *host, int port) {
 
   /* Loop through all the results and bind to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    if ((sockfd = socket(cur->ai_family, cur->ai_socktype,
-                         cur->ai_protocol)) == -1) {
+    sockfd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
+    if (sockfd < 0) {
       error("cannot create socket: %s", strerror(errno));
       continue;
     }
