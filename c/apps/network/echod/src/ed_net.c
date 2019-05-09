@@ -87,11 +87,12 @@ static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *sal
   int fd;
 
   for (;;) {
-    if ((fd = accept(sockfd, sa, salen)) == -1) {
+    fd = accept(sockfd, sa, salen);
+    if (fd == -1) {
       if (errno == EINTR) {
         continue;
       } else {
-        ed_log_error("accept failed: %s", strerror(errno));
+        ed_log_error("accept() failed: %s", strerror(errno));
         return ED_NET_ERR;
       }
     }
