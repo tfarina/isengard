@@ -30,6 +30,8 @@ include(FindMySQL)
 find_package(MySQL REQUIRED)
 
 set(SRCS
+  sfldate.c
+  timestamp.c
   backend_mysql.c
   buffer.c
   csv_helper.c
@@ -66,5 +68,8 @@ target_link_libraries(csvimport iniparser libcsv moneybin ${MYSQL_LIBRARIES})
 
 add_executable(lastdate lastdate.c)
 target_link_libraries(lastdate iniparser moneybin ${MYSQL_LIBRARIES})
+
+add_executable(startdate startdate.c)
+target_link_libraries(startdate iniparser moneybin ${MYSQL_LIBRARIES})
 
 add_executable(enddate enddate.c)
