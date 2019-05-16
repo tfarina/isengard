@@ -804,14 +804,28 @@ insert into symbol_code (symbol, code) values ('AZEV', 'AZEV3');
 insert into symbol_code (symbol, code) values ('AZEV', 'AZEV4');
 
 CREATE TABLE `tickers` (
-  `cvm` int NOT NULL,
-  `ticker` varchar(12) DEFAULT NULL,
+  `cvm` INT NOT NULL,
+  `ticker` VARCHAR(12) DEFAULT NULL,
   `class` INT NOT NULL,
   PRIMARY KEY (cvm, class)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 insert into tickers values(20257, "TAEE3", 3);
 insert into tickers values(20257, "TAEE4", 4);
+
+CREATE TABLE `companies` (
+  `cvm` INT NOT NULL,
+  `name` VARCHAR(100) DEFAULT NULL,
+  `sector` VARCHAR(100) DEFAULT NULL,
+  `cnpj` CHAR(14) DEFAULT NULL,
+  `segment`  CHAR(2) DEFAULT NULL,
+  `situation` VARCHAR(30) DEFAULT NULL,
+  `email` VARCHAR(30) DEFAULT NULL,
+  `address_city` VARCHAR(30) DEFAULT NULL,
+  `address_state` CHAR (2) DEFAULT NULL,
+  `address_country` VARCHAR(30) DEFAULT NULL,
+  PRIMARY KEY (cvm)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `exchange` (
   `id` int NOT NULL AUTO_INCREMENT,
