@@ -19,4 +19,6 @@ int fnet_unix_socket_accept(int sockfd);
 
 int fnet_unix_client(char *err, const char *path);
 
+int fnet_udp_socket_listen(char *host, int port);
+
 #endif  /* FNET_H_ */

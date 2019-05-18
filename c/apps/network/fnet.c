@@ -1,11 +1,14 @@
 #include "fnet.h"
 
 #include <errno.h>
+#include <netdb.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/un.h>
 #include <unistd.h>
+
+#include "log.h"
 
 static void fnet_set_error(char *err, const char *fmt, ...)
 {
@@ -140,4 +143,58 @@ int fnet_unix_client(char *err, const char *path)
         }
 
 	return sockfd;
+}
+
+int fnet_udp_socket_listen(char *host, int port)
+{
+  char portstr[6];  /* strlen("65535") + 1; */
+  struct addrinfo hints, *addrlist, *cur;
+  int rv;
+  int sd = 0;
+
+  snprintf(portstr, sizeof(portstr), "%d", port);
+
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_DGRAM;
+  hints.ai_protocol = IPPROTO_UDP;
+  hints.ai_flags = AI_PASSIVE;
+
+  rv = getaddrinfo(host, portstr, &hints, &addrlist);
+  if (rv != 0) {
+    error("getaddrinfo failed: %s", gai_strerror(rv));
+    return FNET_ERR;
+  }
+
+  /* Loop through all the results and bind to the first we can. */
+  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
+    sd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
+    if (sd < 0) {
+      error("cannot create socket: %s", strerror(errno));
+      continue;
+    }
+
+    rv = fnet_set_reuseaddr(sd, NULL);
+    if (rv != FNET_OK) {
+      close(sd);
+      continue;
+    }
+
+    rv = bind(sd, cur->ai_addr, cur->ai_addrlen);
+    if (rv < 0) {
+      error("bind to port %s failed: %.200s", portstr, strerror(errno));
+      close(sd);
+      continue;
+    }
+
+    break;
+  }
+
+  freeaddrinfo(addrlist);
+
+  if (cur == NULL) {
+    return FNET_ERR;
+  }
+
+  return sd;
 }
