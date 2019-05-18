@@ -7,6 +7,19 @@
 #include <sys/un.h>
 #include <unistd.h>
 
+static void fnet_set_error(char *err, const char *fmt, ...)
+{
+       va_list ap;
+
+       if (!err) {
+               return;
+       }
+
+       va_start(ap, fmt);
+       vsnprintf(err, FNET_ERR_LEN, fmt, ap);
+       va_end(ap);
+}
+
 int fnet_create_socket(int domain)
 {
   int sockfd;
@@ -17,6 +30,18 @@ int fnet_create_socket(int domain)
   }
 
   return sockfd;
+}
+
+static int fnet_create_socket_r(char *err, int domain)
+{
+        int sockfd;
+
+        if ((sockfd = socket(domain, SOCK_STREAM, 0)) == -1) {
+                fnet_set_error(err, "error creating socket: %s", strerror(errno));
+                return FNET_ERR;
+        }
+
+        return sockfd;
 }
 
 int fnet_unix_server(const char *path, int backlog)
@@ -80,4 +105,27 @@ int fnet_unix_socket_accept(int sockfd)
   }
 
   return fd;
+}
+
+int fnet_unix_client(char *err, const char *path)
+{
+        int sockfd;
+        struct sockaddr_un sa;
+
+        if ((sockfd = fnet_create_socket_r(err, AF_UNIX)) == FNET_ERR) {
+                fprintf(stderr, "%s\n", err);
+                return FNET_ERR;
+        }
+
+        memset(&sa, 0, sizeof(sa));
+        sa.sun_family = AF_UNIX;
+        strncpy(sa.sun_path, path, sizeof(sa.sun_path));
+
+        if (connect(sockfd, (struct sockaddr *)&sa, sizeof(sa)) == -1) {
+                fprintf(stderr, "connect failed: %s\n", strerror(errno));
+                close(sockfd);
+                return FNET_ERR;
+        }
+
+	return sockfd;
 }
