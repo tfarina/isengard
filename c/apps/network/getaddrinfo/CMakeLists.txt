@@ -5,7 +5,7 @@ set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-std=c99 -pedantic -Wall")
 
 add_definitions(-D_GNU_SOURCE)
 
-set(SRCS getaddrinfo.c)
+set(SRCS fnet.c getaddrinfo.c)
 
 add_executable(getaddrinfo ${SRCS})
 
