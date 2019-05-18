@@ -12,7 +12,7 @@ int fnet_tcp_socket_connect(const char *host, int port)
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
-  int sockfd;
+  int sd;
 
   snprintf(portstr, sizeof(portstr), "%d", port);
 
@@ -38,27 +38,27 @@ int fnet_tcp_socket_connect(const char *host, int port)
     }
     printf("Connecting to %.200s:%d...", addr, port);
 
-    if ((sockfd = socket(cur->ai_family, cur->ai_socktype,
+    if ((sd = socket(cur->ai_family, cur->ai_socktype,
                          cur->ai_protocol)) == -1) {
       break;
     }
 
-    if (connect(sockfd, cur->ai_addr, cur->ai_addrlen) == 0) {
+    if (connect(sd, cur->ai_addr, cur->ai_addrlen) == 0) {
       printf("connected.\n");
       break;
     }
 
-    close(sockfd);
-    sockfd = -1;
+    close(sd);
+    sd = -1;
   }
 
   freeaddrinfo(addrlist);
 
-  if (sockfd == -1) {
+  if (sd == -1) {
     fprintf(stderr, "Failed to connect to %s\n", host);
     return -1;
   }
 
-  return sockfd;
+  return sd;
 }
 
