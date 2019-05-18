@@ -16,8 +16,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "fnet.h"
 #include "log.h"
-#include "net.h"
 
 #define SERVER_PORT 8081
 #define BACKLOG 1024
@@ -32,7 +32,7 @@ static void handle_client(int fd) {
   read(fd, str, MAXLINE);
 
   sprintf(buffer,
-          "HTTP/1.1 200 OK\nContent-Length: %ld\nContent-Type: text/html\n\n%s",
+          "HTTP/1.1 200 OK\nContent-Length: %u\nContent-Type: text/html\n\n%s",
           strlen(hello_page), hello_page);
   write(fd, buffer, strlen(buffer));
 
