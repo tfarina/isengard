@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <time.h>
 
+#include "fnet.h"
 #include "log.h"
 
 #define DEFAULT_PORT 13
@@ -32,17 +33,6 @@ static unsigned int forked = 0;
 
 static void logstatus(void) {
   printf(PROGNAME ": status: %d\n", forked);
-}
-
-static int fnet_set_reuseaddr(int fd) {
-  int reuse = 1;
-
-  if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
-    error("setsockopt SO_REUSEADDR: %s", strerror(errno));
-    return -1;
-  }
-
-  return 0;
 }
 
 /* Echo the current day time to the connected client. */

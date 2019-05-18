@@ -5,7 +5,7 @@ set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-std=c99 -pedantic -Wall")
 
 add_definitions(-D_GNU_SOURCE)
 
-set(DAYTIMED_SRCS log.c daytimed.c)
+set(DAYTIMED_SRCS fnet.c log.c daytimed.c)
 
 add_executable(daytimed ${DAYTIMED_SRCS})
 
