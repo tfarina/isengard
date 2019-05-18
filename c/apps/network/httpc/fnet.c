@@ -19,6 +19,7 @@ int fnet_tcp_socket_connect(const char *host, int port)
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
+  hints.ai_protocol = IPPROTO_TCP;
 
   printf("Resolving %s...\n", host);
 
