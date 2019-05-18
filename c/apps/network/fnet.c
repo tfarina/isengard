@@ -20,6 +20,18 @@ static void fnet_set_error(char *err, const char *fmt, ...)
        va_end(ap);
 }
 
+int fnet_set_reuseaddr(int fd, char *err)
+{
+  int reuse = 1;
+
+  if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
+    fnet_set_error(err, "setsockopt SO_REUSEADDR: %s", strerror(errno));
+    return FNET_ERR;
+  }
+
+  return FNET_OK;
+}
+
 int fnet_create_socket(int domain)
 {
   int sockfd;

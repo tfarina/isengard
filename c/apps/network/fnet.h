@@ -3,8 +3,11 @@
 
 #include <sys/socket.h>
 
+#define FNET_OK 0
 #define FNET_ERR -1
 #define FNET_ERR_LEN 256
+
+int fnet_set_reuseaddr(int fd, char *err);
 
 int fnet_create_socket(int domain);
 
