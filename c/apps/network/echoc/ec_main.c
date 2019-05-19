@@ -8,8 +8,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "ec_net.h"
 #include "ec_utils.h"
+#include "fnet.h"
 
 #define BUFSIZE 4096
 
@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  err = ec_net_tcp_socket_connect(server, port, &sd);
+  err = fnet_tcp_socket_connect(server, port, &sd);
   if (err < 0) {
     return -1;
   }
