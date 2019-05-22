@@ -11,6 +11,7 @@
 #include <string.h>
 
 int main(int argc, char **argv) {
+  char *hostname;
   struct addrinfo hints, *addrlist, *cur;
   int ret;
   char ipstr[INET6_ADDRSTRLEN];
@@ -20,16 +21,18 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
+  hostname = strdup(argv[1]);
+
+  printf("IP addresses for %s:\n\n", hostname);
+
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC; /* AF_INET or AF_INET6 */
   hints.ai_socktype = SOCK_STREAM;
 
-  if ((ret = getaddrinfo(argv[1], NULL, &hints, &addrlist)) != 0) {
+  if ((ret = getaddrinfo(hostname, NULL, &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(ret));
     exit(EXIT_FAILURE);
   }
-
-  printf("IP addresses for %s:\n\n", argv[1]);
 
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
     void *addr;
