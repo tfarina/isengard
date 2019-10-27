@@ -1,15 +1,6 @@
 #include <stdio.h>
-#include <unistd.h>
 
-static int cpu_get_count(void)
-{
-  int cpus = (int)sysconf(_SC_NPROCESSORS_ONLN);
-  if (cpus < 0) {
-    return 0;
-  }
-
-  return cpus;
-}
+#include "cpuinfo.h"
 
 int main(int argc, char **argv)
 {
