@@ -35,7 +35,7 @@ static int cpu_has_sse2(void)
         return (info[3] & (1 << 26)) != 0;
 }
 
-int main(int argc, char **argv)
+int main(void)
 {
         if (cpu_has_sse2()) {
                 printf("CPU has SSE2 support.\n");
