@@ -6,7 +6,7 @@
 
 static void __cpuid(int dst[4], int ax)
 {
-#ifdef __i386__
+#if defined(__i386__)
         __asm__ volatile("mov %%ebx, %%edi\n\t"
                          "cpuid\n\t"
                          "xchgl %%ebx, %%edi"
