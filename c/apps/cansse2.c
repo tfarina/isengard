@@ -27,6 +27,9 @@ static void __cpuid(int dst[4], int ax)
 #endif
 }
 
+/**
+ * Returns true if the CPU has SSE2 features.
+ */
 static int cpu_has_sse2(void)
 {
         int info[4];
