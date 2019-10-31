@@ -6,4 +6,9 @@
  */
 int cpu_get_count(void);
 
+/**
+ * Returns true if the CPU has SSE2 features.
+ */
+int cpu_has_sse2(void);
+
 #endif  /* CPUINFO_H_ */
