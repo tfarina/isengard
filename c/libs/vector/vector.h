@@ -3,6 +3,10 @@
 
 #include <stddef.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * A vector_t is a variable length array.
  */
@@ -65,5 +69,9 @@ size_t vector_capacity(vector_t const * const self);
  * @param self The vector instance to be deleted.
  */
 void vector_free(vector_t *self);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  /* VECTOR_H_ */
