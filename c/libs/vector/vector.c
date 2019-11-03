@@ -14,7 +14,8 @@ static int _vector_insert(vector_t *self, int index, void *element)
 	}
 
         if (self->size + 1 > self->capacity) {
-                size_t const new_capacity = (self->size + 1) * 2;
+                /* Triple the capacity, then divide by half and finally increase by one unit. */
+                size_t const new_capacity = self->capacity * 3 / 2 + 1;
                 temp = realloc(self->elements, new_capacity * sizeof(void *));
                 if (temp == NULL) {
                         return -1;
