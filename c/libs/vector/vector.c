@@ -1,16 +1,23 @@
 #include "vector.h"
 
+#include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ *
+ * @return 0       If no error.
+ * @return -EINVAL If invalid argument.
+ * @return -ENOMEM If out of memory.
+ */
 static int _vector_insert(vector_t *self, int index, void *element)
 {
         void **temp;
 
         if (index < 0 || !self || index > self->size) {
-	        return -1;
+	        return -EINVAL;
 	}
 
         if (self->size + 1 > self->capacity) {
@@ -18,7 +25,7 @@ static int _vector_insert(vector_t *self, int index, void *element)
                 size_t const new_capacity = self->capacity * 3 / 2 + 1;
                 temp = realloc(self->elements, new_capacity * sizeof(void *));
                 if (temp == NULL) {
-                        return -1;
+                        return -ENOMEM;
                 }
 
                 self->elements = temp;
