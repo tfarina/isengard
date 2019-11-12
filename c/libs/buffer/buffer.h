@@ -43,7 +43,7 @@ void buffer_reset(buffer_t *b);
 /**
  * buffer_write writes |data| to the buffer.
  */
-void buffer_write(buffer_t *b, const void *data, size_t length);
+void buffer_write(buffer_t *b, void const *data, size_t length);
 
 #ifdef __cplusplus
 }

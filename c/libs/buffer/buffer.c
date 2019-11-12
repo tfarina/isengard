@@ -56,7 +56,7 @@ void buffer_reset(buffer_t *b)
 	*b->data = 0;
 }
 
-void buffer_write(buffer_t *b, const void *data, size_t length)
+void buffer_write(buffer_t *b, void const *data, size_t length)
 {
         if (b->capacity < b->length + length) {
           _buffer_realloc(b, b->length * 2 + length);
