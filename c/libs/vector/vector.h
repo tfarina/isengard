@@ -47,7 +47,7 @@ void vector_push_back(vector_t *self, void *element);
 void *vector_get(vector_t const * const self, int unsigned const index);
 
 /**
- * Returns the current number of elements store in the array.
+ * Returns the current number of elements stored in the array.
  *
  * @param[in,out] self The vector instance (must not be NULL).
  *
