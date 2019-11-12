@@ -10,7 +10,8 @@ extern "C" {
 /**
  * A vector_t is a variable length array.
  */
-typedef struct {
+typedef struct vector_s
+{
         /* This is a pointer to an array of elements of any type. */
         void **elements; /* void *elements[] */
 
