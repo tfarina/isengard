@@ -44,12 +44,6 @@ buffer_t *buffer_alloc(size_t capacity)
         return b;
 }
 
-void buffer_free(buffer_t *b)
-{
-        free(b->data);
-        free(b);
-}
-
 void buffer_reset(buffer_t *b)
 {
 	b->length = 0;
@@ -64,4 +58,10 @@ void buffer_write(buffer_t *b, void const *data, size_t length)
 	memcpy(b->data + b->length, data, length);
         b->length += length;
         b->data[b->length] = '\0'; /* always 0 terminate data. */
+}
+
+void buffer_free(buffer_t *b)
+{
+        free(b->data);
+        free(b);
 }
