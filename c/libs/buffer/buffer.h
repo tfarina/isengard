@@ -33,17 +33,17 @@ buffer_t *buffer_alloc(size_t capacity);
 /**
  * buffer_reset sets the length and its first byte to zero.
  */
-void buffer_reset(buffer_t *b);
+void buffer_reset(buffer_t *self);
 
 /**
  * buffer_write writes |data| to the buffer.
  */
-void buffer_write(buffer_t *b, void const *data, size_t length);
+void buffer_write(buffer_t *self, void const *data, size_t length);
 
 /**
  * buffer_free frees the buffer and all its contents.
  */
-void buffer_free(buffer_t *b);
+void buffer_free(buffer_t *self);
 
 #ifdef __cplusplus
 }

@@ -9,17 +9,17 @@
  * _buffer_realloc ensures that the buffer has at least |length| more bytes between its
  * length and capacity.
  */
-static void _buffer_realloc(buffer_t *b, size_t capacity)
+static void _buffer_realloc(buffer_t *self, size_t capacity)
 {
         void *temp;
 
-        temp = realloc(b->data, capacity);
+        temp = realloc(self->data, capacity);
         if (temp == NULL) {
 	        return;
 	}
 
-        b->data = temp;
-        b->capacity = capacity;
+        self->data = temp;
+        self->capacity = capacity;
 }
 
 buffer_t *buffer_alloc(size_t capacity)
@@ -44,24 +44,24 @@ buffer_t *buffer_alloc(size_t capacity)
         return b;
 }
 
-void buffer_reset(buffer_t *b)
+void buffer_reset(buffer_t *self)
 {
-	b->length = 0;
-	*b->data = 0;
+	self->length = 0;
+	*self->data = 0;
 }
 
-void buffer_write(buffer_t *b, void const *data, size_t length)
+void buffer_write(buffer_t *self, void const *data, size_t length)
 {
-        if (b->capacity < b->length + length) {
-          _buffer_realloc(b, b->length * 2 + length);
+        if (self->capacity < self->length + length) {
+          _buffer_realloc(self, self->length * 2 + length);
 	}
-	memcpy(b->data + b->length, data, length);
-        b->length += length;
-        b->data[b->length] = '\0'; /* always 0 terminate data. */
+	memcpy(self->data + self->length, data, length);
+        self->length += length;
+        self->data[self->length] = '\0'; /* always 0 terminate data. */
 }
 
-void buffer_free(buffer_t *b)
+void buffer_free(buffer_t *self)
 {
-        free(b->data);
-        free(b);
+        free(self->data);
+        free(self);
 }
