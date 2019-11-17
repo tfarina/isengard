@@ -326,6 +326,8 @@ int main(int argc, char** argv)
   GtkWidget *menubar;
   GtkWidget *file_menu;
   GtkWidget *file_item;
+  GtkWidget *edit_menu;
+  GtkWidget *edit_item;
   GtkWidget *quit_item;
   GtkWidget *handlebox;
   GtkWidget *toolbar;
@@ -366,6 +368,12 @@ int main(int argc, char** argv)
   g_signal_connect(G_OBJECT(quit_item), "activate",
 		   G_CALLBACK(app_quit_cb), NULL);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), quit_item);
+
+  edit_menu = gtk_menu_new();
+  edit_item = gtk_menu_item_new_with_mnemonic("_Edit");
+
+  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), edit_item);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(edit_item), edit_menu);
 
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
 
