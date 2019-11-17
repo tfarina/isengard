@@ -329,6 +329,7 @@ int main(int argc, char** argv)
   GtkWidget *edit_menu;
   GtkWidget *edit_item;
   GtkWidget *quit_item;
+  GtkWidget *new_item;
   GtkWidget *handlebox;
   GtkWidget *toolbar;
   GtkToolItem *new_toolbar_button;
@@ -374,6 +375,11 @@ int main(int argc, char** argv)
 
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), edit_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(edit_item), edit_menu);
+
+  new_item = gtk_menu_item_new_with_label("New Contact");
+  g_signal_connect(G_OBJECT(new_item), "activate",
+		   G_CALLBACK(sab_main_window_new_button_cb), main_window);
+  gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), new_item);
 
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
 
