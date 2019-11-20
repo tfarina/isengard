@@ -36,7 +36,7 @@ add_subdirectory(src)
 
 set(INSTALL_MAN_DIR "${CMAKE_INSTALL_PREFIX}/share/man" CACHE PATH "Installation directory for manual pages")
 
-install(FILES man/echod.8 DESTINATION "${INSTALL_MAN_DIR}/man8")
+install(FILES man/echod.8 DESTINATION "${INSTALL_MAN_DIR}/man8" COMPONENT doc)
 
 message(STATUS "Running cmake version ${CMAKE_VERSION}")
 message(STATUS "")
