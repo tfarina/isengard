@@ -1,6 +1,8 @@
 /*https://stackoverflow.com/questions/45389291/how-to-display-data-from-a-sqlite-database-into-a-gtk-treeview*/
 
 #include <gtk/gtk.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 
 #include "ab.h"
 
@@ -377,9 +379,11 @@ int main(int argc, char** argv)
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), edit_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(edit_item), edit_menu);
 
-  new_item = gtk_menu_item_new_with_label("New Contact");
+  new_item = gtk_menu_item_new_with_mnemonic("_New Contact");
   g_signal_connect(G_OBJECT(new_item), "activate",
 		   G_CALLBACK(sab_main_window_new_button_cb), main_window);
+  gtk_widget_add_accelerator(new_item, "activate", accel_group, GDK_KEY_n,
+			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), new_item);
 
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
