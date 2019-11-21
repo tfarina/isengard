@@ -369,9 +369,11 @@ int main(int argc, char** argv)
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), file_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_item), file_menu);
 
-  quit_item = gtk_menu_item_new_with_label("Quit");
+  quit_item = gtk_menu_item_new_with_mnemonic("_Quit");
   g_signal_connect(G_OBJECT(quit_item), "activate",
 		   G_CALLBACK(app_quit_cb), NULL);
+  gtk_widget_add_accelerator(quit_item, "activate", accel_group, GDK_KEY_q,
+			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), quit_item);
 
   edit_menu = gtk_menu_new();
