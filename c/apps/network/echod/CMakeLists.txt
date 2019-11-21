@@ -30,7 +30,9 @@ configure_file(
   "${PROJECT_SOURCE_DIR}/src/ed_version.h"
 )
 
-add_definitions(-D_GNU_SOURCE)
+if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
+  add_definitions(-D_GNU_SOURCE)
+endif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 
 add_subdirectory(src)
 
