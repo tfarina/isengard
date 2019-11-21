@@ -330,6 +330,7 @@ int main(int argc, char** argv)
   GtkWidget *edit_item;
   GtkWidget *quit_item;
   GtkWidget *new_item;
+  GtkAccelGroup *accel_group;
   GtkWidget *handlebox;
   GtkWidget *toolbar;
   GtkToolItem *new_toolbar_button;
@@ -358,10 +359,11 @@ int main(int argc, char** argv)
   gtk_container_add(GTK_CONTAINER(main_window), vbox);
 
   menubar = gtk_menu_bar_new();
+  accel_group = gtk_accel_group_new();
+  gtk_window_add_accel_group(GTK_WINDOW(main_window), accel_group);
 
   file_menu = gtk_menu_new();
   file_item = gtk_menu_item_new_with_mnemonic("_File");
-
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), file_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_item), file_menu);
 
@@ -372,7 +374,6 @@ int main(int argc, char** argv)
 
   edit_menu = gtk_menu_new();
   edit_item = gtk_menu_item_new_with_mnemonic("_Edit");
-
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), edit_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(edit_item), edit_menu);
 
