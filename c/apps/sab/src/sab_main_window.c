@@ -332,6 +332,8 @@ int main(int argc, char** argv)
   GtkWidget *edit_item;
   GtkWidget *quit_item;
   GtkWidget *new_item;
+  GtkWidget *about_menu;
+  GtkWidget *about_item;
   GtkAccelGroup *accel_group;
   GtkWidget *handlebox;
   GtkWidget *toolbar;
@@ -387,6 +389,11 @@ int main(int argc, char** argv)
   gtk_widget_add_accelerator(new_item, "activate", accel_group, GDK_KEY_n,
 			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), new_item);
+
+  about_menu = gtk_menu_new();
+  about_item = gtk_menu_item_new_with_mnemonic("_About");
+  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), about_item);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(about_item), about_menu);
 
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
 
