@@ -319,6 +319,48 @@ static void app_destroy_cb(GtkWidget *widget, gpointer data)
   gtk_main_quit();
 }
 
+#define SAB_ABBR "SAB"
+#define SAB_NAME "Simple Address Book"
+#define SAB_COPYRIGHT "Copyright © 2019"
+#define SAB_LICENSE \
+    "SAB is free software: you can redistribute it and/or modify it "   \
+        "under the terms of the GNU General Public License as published by " \
+        "the Free Software Foundation; either version 3 of the License, or " \
+        "(at your option) any later version."                                \
+        "\n\n"                                                               \
+        "SAB is distributed in the hope that it will be useful, "           \
+        "but WITHOUT ANY WARRANTY; without even the implied warranty of "    \
+        "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "     \
+        "GNU General Public License for more details."                       \
+        "\n\n"                                                               \
+        "You should have received a copy of the GNU General Public License " \
+    "along with SAB. If not, see: https://www.gnu.org/licenses/"
+
+
+static void sab_main_window_about_cb(GtkWidget *widget, gpointer data)
+{
+  GtkWindow *dialog;
+
+  dialog = g_object_new(GTK_TYPE_ABOUT_DIALOG,
+                        /* Hold the application while the window is shown */
+                        "role", "sab-about",
+			"window-position", GTK_WIN_POS_CENTER,
+			"title", "About SAB",
+			"program-name", SAB_ABBR,
+			"copyright", SAB_COPYRIGHT,
+			"comments", SAB_NAME,
+			"version", "0.0.1",
+			"license", SAB_LICENSE,
+			"wrap-license", TRUE,
+			"website", "https://sab.com",
+			"translator-credits", "CREDITS",
+			NULL);
+
+  g_signal_connect(dialog, "response",
+                   G_CALLBACK (gtk_widget_destroy), NULL);
+  gtk_window_present(dialog);
+}
+
 #define WINDOW_WIDTH 700
 #define WINDOW_HEIGHT 700
 
@@ -397,6 +439,8 @@ int main(int argc, char** argv)
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(help_item), help_menu);
 
   about_item = gtk_menu_item_new_with_mnemonic("_About");
+  g_signal_connect(G_OBJECT(about_item), "activate",
+		   G_CALLBACK(sab_main_window_about_cb), main_window);
   gtk_menu_shell_append(GTK_MENU_SHELL(help_menu), about_item);
 
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
