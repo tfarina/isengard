@@ -25,6 +25,8 @@ typedef struct vector_s
 /**
  * Creates a new instance of vector_t with at least the specified capacity.
  *
+ * @param[in] capacity  The max number of elements.
+ *
  * @return A new instance of vector_t or NULL.
  */
 vector_t *vector_alloc(int capacity);
