@@ -34,7 +34,7 @@ int main(void) {
         printf("%d\n", vp_len);
 
         for (i = 0; i < vp_len; i++) {
-                point_t *point = vector_get(vp, i);
+                point_t *point = vector_at(vp, i);
 
                 printf("x: %d, y: %d\n", point->x, point->y);
         }

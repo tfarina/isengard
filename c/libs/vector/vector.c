@@ -71,7 +71,7 @@ void vector_push_back(vector_t *self, void *element)
         _vector_insert(self, self->size, element);
 }
 
-void *vector_get(vector_t const * const self, int unsigned const index)
+void *vector_at(vector_t const * const self, int unsigned const index)
 {
         if (self == NULL) {
                 return NULL;

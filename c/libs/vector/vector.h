@@ -47,7 +47,7 @@ void vector_push_back(vector_t *self, void *element);
  *
  * @return The element at specified index.
  */
-void *vector_get(vector_t const * const self, int unsigned const index);
+void *vector_at(vector_t const * const self, int unsigned const index);
 
 /**
  * Returns the current number of elements stored in the array.
