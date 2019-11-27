@@ -1,6 +1,22 @@
 cmake_minimum_required(VERSION 3.5)
 project(mxml C)
 
+include(CheckTypeSize)
+include(CheckFunctionExists)
+include(CheckIncludeFiles)
+
+set(MXML_VERSION "Mini-XML v3.0")
+
+check_type_size("long long int" HAVE_LONG_LONG)
+
+check_function_exists(snprintf HAVE_SNPRINTF)
+check_function_exists(vsnprintf HAVE_VSNPRINTF)
+check_function_exists(strdup HAVE_STRDUP)
+
+if (NOT WIN32)
+  check_include_files(pthread.h HAVE_PTHREAD_H)
+endif()
+
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 
 set(SRCS
