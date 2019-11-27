@@ -1,4 +1,3 @@
-/* config.h.  Generated from config.h.in by configure.  */
 /*
  * Configuration file for Mini-XML, a small XML file parsing library.
  *
@@ -25,7 +24,7 @@
  * Version number...
  */
 
-#define MXML_VERSION "Mini-XML v3.0"
+#cmakedefine MXML_VERSION	"@MXML_VERSION@"
 
 
 /*
@@ -39,32 +38,32 @@
  * Long long support...
  */
 
-#define HAVE_LONG_LONG 1
+#cmakedefine HAVE_LONG_LONG
 
 
 /*
  * Do we have the *printf() functions?
  */
 
-#define HAVE_SNPRINTF 1
-#define HAVE_VASPRINTF 1
-#define HAVE_VSNPRINTF 1
+#cmakedefine HAVE_SNPRINTF
+#cmakedefine HAVE_VASPRINTF
+#cmakedefine HAVE_VSNPRINTF
 
 
 /*
  * Do we have the strXXX() functions?
  */
 
-#define HAVE_STRDUP 1
-/* #undef HAVE_STRLCAT */
-/* #undef HAVE_STRLCPY */
+#cmakedefine HAVE_STRDUP
+#cmakedefine HAVE_STRLCAT
+#cmakedefine HAVE_STRLCPY
 
 
 /*
  * Do we have threading support?
  */
 
-#define HAVE_PTHREAD_H 1
+#cmakedefine HAVE_PTHREAD_H
 
 
 /*
