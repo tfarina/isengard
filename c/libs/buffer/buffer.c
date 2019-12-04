@@ -63,5 +63,7 @@ void buffer_write(buffer_t *self, void const *data, size_t length)
 void buffer_free(buffer_t *self)
 {
         free(self->data);
+        self->data = NULL;
+        self->length = 0;
         free(self);
 }
