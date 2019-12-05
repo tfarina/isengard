@@ -53,13 +53,13 @@ int main(int argc, char **argv) {
 
         if (argc < 2) {
                 usage();
-		return EXIT_SUCCESS;
+		return EXIT_FAILURE;
 	}
 
         cmd = get_builtin(argv[1]);
         if (!cmd) {
                 usage();
-		return EXIT_SUCCESS;
+		return EXIT_FAILURE;
 	}
 
         rc = cmd->exec(argc - 1, argv + 1);
