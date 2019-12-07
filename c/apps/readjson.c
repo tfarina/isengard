@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "cJSON.h"
+#include "third_party/cJSON/cJSON.h"
 
 int main(int argc, char **argv) {
   FILE *f;
