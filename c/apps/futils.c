@@ -9,7 +9,21 @@
  */
 const char *f_get_home_dir(void)
 {
-  return getenv("HOME");
+  char const *home;
+  struct passwd *pw;
+
+  home = getenv("HOME");
+
+  if ((home == NULL) || (*home == '\0')) {
+    pw = getpwuid(getuid());
+    if (pw != NULL && pw->pw_dir != NULL && *pw->pw_dir != '\0') {
+      home = pw->pw_dir;
+    } else {
+      home = "/";
+    }
+  }
+
+  return home;
 }
 
 /**
