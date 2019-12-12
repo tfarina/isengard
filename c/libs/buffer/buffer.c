@@ -65,5 +65,6 @@ void buffer_free(buffer_t *self)
         free(self->data);
         self->data = NULL;
         self->length = 0;
+        self->capacity = 0;
         free(self);
 }
