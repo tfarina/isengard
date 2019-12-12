@@ -1,6 +1,8 @@
 #ifndef ED_CONFIG_H_
 #define ED_CONFIG_H_
 
+#include <unistd.h>
+
 #define ED_USER "_echod"
 #define ED_MAXIMIZE_COREFILE 0
 #define ED_DEFAULT_LISTEN_ADDR "0.0.0.0"
@@ -8,6 +10,7 @@
 #define ED_DEFAULT_LISTEN_BACKLOG 1024
 
 typedef struct ed_config_s {
+  pid_t pid;           /* process: server id */
   int  daemonize;      /* process: daemon mode */
   char *conffile;      /* process: configuration filename */
   char *logfile;       /* debug:   log filename */

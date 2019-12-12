@@ -36,7 +36,6 @@
 #include "ed_cmdline.h"
 #include "ed_config.h"
 #include "ed_daemon.h"
-#include "ed_instance.h"
 #include "ed_log.h"
 #include "ed_net.h"
 #include "ed_pid.h"
@@ -220,14 +219,12 @@ static int ed_main_loop(int tcpfd) {
 }
 
 int main(int argc, char **argv) {
-  ed_instance_t instance;
   ed_config_t config;
   int rc;
   int tcpfd;
 
   progname = ed_get_progname(argv[0]);
 
-  ed_instance_init(&instance);
   ed_config_init(&config);
 
   rc = ed_cmdline_parse(argc, argv, progname, &config);
@@ -271,10 +268,10 @@ int main(int argc, char **argv) {
     }
   }
 
-  instance.pid = getpid();
+  config.pid = getpid();
 
   if (config.pidfile != NULL) {
-    rc = ed_pid_file_write(config.pidfile, instance.pid);
+    rc = ed_pid_file_write(config.pidfile, config.pid);
     if (rc != ED_OK) {
       return rc;
     }
@@ -294,7 +291,7 @@ int main(int argc, char **argv) {
 
   ed_log_info("%s started on %d, port %d",
               progname,
-              instance.pid,
+              config.pid,
               config.port);
 
   ed_main_loop(tcpfd);
