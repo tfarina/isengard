@@ -65,7 +65,7 @@ int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_
       break;
 
     case 'c':
-      config->conf_filename = optarg;
+      config->conffile = optarg;
       break;
 
     case 'L':

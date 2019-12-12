@@ -4,7 +4,7 @@
 
 void ed_config_init(ed_config_t *config) {
   config->daemonize = 0;
-  config->conf_filename = NULL;
+  config->conffile = NULL;
   config->logfile = NULL;
   config->pidfile = NULL;
   config->username = ED_USER;
