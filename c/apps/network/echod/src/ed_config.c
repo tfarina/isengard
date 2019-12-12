@@ -7,7 +7,7 @@ void ed_config_init(ed_config_t *config) {
   config->daemonize = 0;
   config->conffile = NULL;
   config->logfile = NULL;
-  config->pidfile = NULL;
+  config->pidfile = ED_DEFAULT_PIDFILE;
   config->username = ED_USER;
   config->interface = ED_DEFAULT_LISTEN_ADDR;
   config->port = ED_DEFAULT_LISTEN_PORT;
