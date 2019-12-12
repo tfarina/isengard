@@ -1,11 +1,13 @@
-.TH ECHOD 8 "August 1, 2016"
-.SH NAME
+.TH echod "8" "Echo Daemon" "August 1, 2016" "Echo Daemon"
+
+.SH "NAME"
 echod \- Echo daemon
-.SH SYNOPSIS
-.B echod
-.RI [ options ]
-.SH DESCRIPTION
-\fBechod\fP is an Echo Protocol daemon.
+
+.SH "SYNOPSIS"
+\fBechod\fR [\fOPTIONS\fR...]
+
+.SH "DESCRIPTION"
+\fBechod\fR is an Echo Protocol daemon.
 .SH OPTIONS
 .TP
 .BR \-h ", " \-\-help
@@ -16,5 +18,6 @@ Run as a daemon.
 .TP
 .BR \-p ", " \-\-port=\fIport\fP
 Set the tcp \fIport\fP to listen on. (default: 7)
-.SH SEE ALSO
-.BR echo (1)
+
+.SH "SEE ALSO"
+\fBecho\fR(1), \fBechod.conf\fR(5)
