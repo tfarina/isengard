@@ -34,7 +34,7 @@ static struct option long_options[] = {
 
 static void ec_show_usage(char const *program_name) {
   fprintf(stderr,
-	  "usage: %s [-h] [-a server address] [-p port]" CRLF CRLF,
+	  "usage: %s [OPTION]..." CRLF CRLF,
 	  program_name);
   fprintf(stderr,
 	  "options:" CRLF
