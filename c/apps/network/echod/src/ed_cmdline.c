@@ -133,7 +133,7 @@ void ed_cmdline_help(char const *program_name) {
           "  -d, --daemonize         run as a daemon" CRLF
           "  -c, --config=S          read configuration from the specified file" CRLF
           "  -L, --logfile=S         write log messages to the specified file (default: %s)" CRLF
-          "  -P, --pidfile=S         store pid in a file (default: not stored)" CRLF
+          "  -P, --pidfile=S         write process id to the specified file (default: not stored)" CRLF
           "  -u, --user=S            user identity to run as" CRLF
           "  -l, --interface=S       interface to listen on (default: %s)" CRLF
           "  -p, --port=N            set the tcp port to listen on (default: %d)" CRLF
