@@ -130,8 +130,6 @@ void ed_cmdline_help(char const *program_name) {
 
   fprintf(stderr,
 	  "Options:" CRLF
-          "  -h, --help              display this help and exit" CRLF
-          "  -V, --version           output version information and exit" CRLF
           "  -d, --daemonize         run as a daemon" CRLF
           "  -c, --config=S          read configuration from the specified file" CRLF
           "  -L, --logfile=S         write log messages to the specified file (default: %s)" CRLF
@@ -141,6 +139,8 @@ void ed_cmdline_help(char const *program_name) {
           "  -p, --port=N            set the tcp port to listen on (default: %d)" CRLF
           "  -b, --backlog=N         the backlog argument of listen() applied to the" CRLF
           "                          listening socket (default: %d)" CRLF
+          "  -h, --help              display this help and exit" CRLF
+          "  -V, --version           output version information and exit" CRLF
 	  "",
           "stderr",
           ED_DEFAULT_LISTEN_ADDR,
