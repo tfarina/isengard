@@ -133,8 +133,8 @@ void ed_cmdline_help(char const *program_name) {
           "  -h, --help              display this help and exit" CRLF
           "  -V, --version           output version information and exit" CRLF
           "  -d, --daemonize         run as a daemon" CRLF
-          "  -c, --config=S          set configuration file" CRLF
-          "  -L, --logfile=S         set the debug logging file (default: %s)" CRLF
+          "  -c, --config=S          read configuration from the specified file" CRLF
+          "  -L, --logfile=S         write log messages to the specified file (default: %s)" CRLF
           "  -P, --pidfile=S         store pid in a file (default: not stored)" CRLF
           "  -u, --user=S            user identity to run as" CRLF
           "  -l, --interface=S       interface to listen on (default: %s)" CRLF
