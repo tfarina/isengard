@@ -31,9 +31,9 @@ typedef struct buffer_s
 buffer_t *buffer_alloc(size_t capacity);
 
 /**
- * buffer_reset sets the length and its first byte to zero.
+ * buffer_clear sets the length and its first byte to zero.
  */
-void buffer_reset(buffer_t *self);
+void buffer_clear(buffer_t *self);
 
 /**
  * buffer_write writes |data| to the buffer.

@@ -44,7 +44,7 @@ buffer_t *buffer_alloc(size_t capacity)
         return b;
 }
 
-void buffer_reset(buffer_t *self)
+void buffer_clear(buffer_t *self)
 {
 	self->length = 0;
 	*self->data = 0;
