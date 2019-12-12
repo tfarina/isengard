@@ -4,15 +4,11 @@
 echod \- Echo daemon
 
 .SH "SYNOPSIS"
-\fBechod\fR [\fOPTIONS\fR...]
+\fBechod\fR [\fIOPTIONS\fR...]
 
 .SH "DESCRIPTION"
 \fBechod\fR is an Echo Protocol daemon.
 .SH OPTIONS
-.TP
-\fB\-h\fR, \fB\-\-help\fR
-Show usage information and exit.
-
 .TP
 \fB\-d\fR, \fB\-\-daemonize\fR
 Run as a daemon.
@@ -20,6 +16,14 @@ Run as a daemon.
 .TP
 \fB\-p\fR, \fB\-\-port=\fIport\fP
 Set the tcp \fIport\fP to listen on. (default: 7)
+
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show usage information and exit.
+
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Output version information and exit.
 
 .SH "SEE ALSO"
 \fBecho\fR(1), \fBechod.conf\fR(5)
