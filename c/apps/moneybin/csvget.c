@@ -72,6 +72,7 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   result = curl_easy_perform(curl);
   if (result != CURLE_OK) {
     fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
+    curl_easy_cleanup(curl);
     return -1;
   }
 
@@ -95,6 +96,7 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   result = curl_easy_perform(curl);
   if (result != CURLE_OK) {
     fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
+    curl_easy_cleanup(curl);
     return -1;
   }
 
