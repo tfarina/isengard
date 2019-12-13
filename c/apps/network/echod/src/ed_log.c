@@ -49,19 +49,15 @@
 static int log_fd = -1;
 static ed_log_flag_t log_flags;
 
-static char const * const level_names[] = {
-  "error",
-  "info",
-  "debug",
-};
-
 void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   time_t t;
   struct tm *localtm;
   char timestr[32];
+  char *prefix;
   int len, maxlen;
   char buf[LOG_MAX_LEN];
 
+  prefix = NULL;
   len = 0;
   maxlen = LOG_MAX_LEN;
 
@@ -75,7 +71,25 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   }
 
   if (log_flags & ED_LOG_PRINT_LEVEL) {
-    len += ed_scnprintf(buf + len, maxlen - len, "%s: ", level_names[level]);
+    switch (level) {
+    case ED_LOG_LEVEL_ERROR:
+      prefix = "error: ";
+      break;
+
+    case ED_LOG_LEVEL_INFO:
+      prefix = "";
+      break;
+
+    case ED_LOG_LEVEL_DEBUG:
+      prefix = "debug: ";
+      break;
+
+    default:
+      prefix = "internal error: ";
+      break;
+    }
+
+    len += ed_scnprintf(buf + len, maxlen - len, "%s", prefix);
   }
 
   len += vsnprintf(buf + len, maxlen - len, format, args);
