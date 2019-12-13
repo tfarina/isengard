@@ -253,6 +253,7 @@ int main(int argc, char **argv) {
     return rc;
   }
 
+  ed_log_set_flag(ED_LOG_PRINT_TIME);
   ed_log_set_flag(ED_LOG_PRINT_LEVEL);
 
   ed_log_info("backlog = %d", config.backlog);
