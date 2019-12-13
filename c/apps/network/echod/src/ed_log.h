@@ -36,8 +36,6 @@
 #ifndef ED_LOG_H_
 #define ED_LOG_H_
 
-#include <stdarg.h>
-
 typedef enum ed_log_level_e {
   ED_LOG_LEVEL_ERROR  = 0,  /* error conditions */
   ED_LOG_LEVEL_WARN   = 1,  /* warning conditions */
@@ -58,21 +56,10 @@ void ed_log_deinit(void);
 
 void ed_log_set_flag(ed_log_flag_t flag);
 
-void ed_log_write(ed_log_level_t level,
-	          char const *file,
-		  int line,
-		  char const *func,
-		  char const *format, ...);
-
-#ifdef NDEBUG
-#define ed_log_debug(...) do { } while (0)
-#else
-#define ed_log_debug(...) ed_log_write(ED_LOG_LEVEL_DEBUG, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#endif
-
-#define ed_log_notice(...) ed_log_write(ED_LOG_LEVEL_NOTICE, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define ed_log_info(...)   ed_log_write(ED_LOG_LEVEL_INFO, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define ed_log_warn(...)   ed_log_write(ED_LOG_LEVEL_WARN, __FILE__, __LINE__, __func__, __VA_ARGS__)
-#define ed_log_error(...)  ed_log_write(ED_LOG_LEVEL_ERROR, __FILE__, __LINE__, __func__, __VA_ARGS__)
+void ed_log_debug(char const *format, ...);
+void ed_log_notice(char const *format, ...);
+void ed_log_info(char const *format, ...);
+void ed_log_warn(char const *format, ...);
+void ed_log_error(char const *format, ...);
 
 #endif  /* ED_LOG_H_ */

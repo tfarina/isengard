@@ -37,6 +37,7 @@
 
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -55,6 +56,37 @@ static char const * const level_names[] = {
   "INFO",
   "DEBUG",
 };
+
+void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
+  time_t t;
+  struct tm *localtm;
+  char timestr[32];
+  int len, maxlen;
+  char buf[LOG_MAX_LEN];
+
+  len = 0;
+  maxlen = LOG_MAX_LEN;
+
+  if (log_flags & ED_LOG_PRINT_TIME) {
+    t = time(NULL);
+    localtm = localtime(&t);
+
+    strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S", localtm);
+
+    len += ed_scnprintf(buf + len, maxlen - len, "%.*s ", strlen(timestr), timestr);
+  }
+
+  if (log_flags & ED_LOG_PRINT_LEVEL) {
+    len += ed_scnprintf(buf + len, maxlen - len, "[%s] ", level_names[level]);
+  }
+
+  len += vsnprintf(buf + len, maxlen - len, format, args);
+  va_end(args);
+
+  buf[len++] = '\n';
+
+  write(log_fd, buf, len);
+}
 
 int ed_log_init(char const *filename) {
   if (filename == NULL || !strlen(filename)) {
@@ -83,39 +115,42 @@ void ed_log_set_flag(ed_log_flag_t flag) {
   log_flags |= flag;
 }
 
-void ed_log_write(ed_log_level_t level, char const *file, int line, char const *func, char const *fmt, ...) {
-  time_t t;
-  struct tm *localtm;
-  char timestr[32];
-  int len, maxlen;
+void ed_log_debug(char const *format, ...) {
   va_list args;
-  char buf[LOG_MAX_LEN];
 
-  len = 0;
-  maxlen = LOG_MAX_LEN;
-
-  if (log_flags & ED_LOG_PRINT_TIME) {
-    t = time(NULL);
-    localtm = localtime(&t);
-
-    strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S", localtm);
-
-    len += ed_scnprintf(buf + len, maxlen - len, "%.*s ", strlen(timestr), timestr);
-  }
-
-  if (log_flags & ED_LOG_PRINT_LEVEL) {
-    len += ed_scnprintf(buf + len, maxlen - len, "[%s] ", level_names[level]);
-  }
-
-  if (log_flags & ED_LOG_PRINT_SRC) {
-    len += ed_scnprintf(buf + len, maxlen - len, "%s:%d %s() ", file, line, func);
-  }
-
-  va_start(args, fmt);
-  len += vsnprintf(buf + len, maxlen - len, fmt, args);
+  va_start(args, format);
+  _ed_log_msg(ED_LOG_LEVEL_DEBUG, format, args);
   va_end(args);
+}
 
-  buf[len++] = '\n';
+void ed_log_notice(char const *format, ...) {
+  va_list args;
 
-  write(log_fd, buf, len);
+  va_start(args, format);
+  _ed_log_msg(ED_LOG_LEVEL_NOTICE, format, args);
+  va_end(args);
+}
+
+void ed_log_info(char const *format, ...) {
+  va_list args;
+
+  va_start(args, format);
+  _ed_log_msg(ED_LOG_LEVEL_INFO, format, args);
+  va_end(args);
+}
+
+void ed_log_warn(char const *format, ...) {
+  va_list args;
+
+  va_start(args, format);
+  _ed_log_msg(ED_LOG_LEVEL_WARN, format, args);
+  va_end(args);
+}
+
+void ed_log_error(char const *format, ...) {
+  va_list args;
+
+  va_start(args, format);
+  _ed_log_msg(ED_LOG_LEVEL_ERROR, format, args);
+  va_end(args);
 }
