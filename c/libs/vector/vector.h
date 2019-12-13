@@ -69,8 +69,9 @@ size_t vector_size(vector_t const * const self);
 size_t vector_capacity(vector_t const * const self);
 
 /**
- * Frees this instance of vector_t.
- * If 'self' is NULL no action will be performed.
+ * Destroys 'self', freeing all memory that was allocated internally.
+ *
+ * If 'self' is NULL, no action will be performed.
  *
  * @param[in,out] self The vector instance to be deleted.
  */
