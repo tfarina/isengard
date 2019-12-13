@@ -52,7 +52,7 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
 
     rv = ed_net_set_reuseaddr(sd);
     if (rv != ED_NET_OK) {
-      ed_log_warn("set reuse addr on sd %d failed: %s", sd, strerror(errno));
+      ed_log_error("set reuse addr on sd %d failed: %s", sd, strerror(errno));
       close(sd);
       continue;
     }

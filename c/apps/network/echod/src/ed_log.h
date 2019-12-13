@@ -38,10 +38,8 @@
 
 typedef enum ed_log_level_e {
   ED_LOG_LEVEL_ERROR  = 0,  /* error conditions */
-  ED_LOG_LEVEL_WARN   = 1,  /* warning conditions */
-  ED_LOG_LEVEL_NOTICE = 2,  /* normal but significant messages */
-  ED_LOG_LEVEL_INFO   = 3,  /* informational messages */
-  ED_LOG_LEVEL_DEBUG  = 4,  /* debug messages */
+  ED_LOG_LEVEL_INFO   = 1,  /* informational messages */
+  ED_LOG_LEVEL_DEBUG  = 2,  /* debug messages */
   ED_LOG_LEVEL_MAX
 } ed_log_level_t;
 
@@ -56,10 +54,8 @@ void ed_log_deinit(void);
 
 void ed_log_set_flag(ed_log_flag_t flag);
 
-void ed_log_debug(char const *format, ...);
-void ed_log_notice(char const *format, ...);
-void ed_log_info(char const *format, ...);
-void ed_log_warn(char const *format, ...);
 void ed_log_error(char const *format, ...);
+void ed_log_info(char const *format, ...);
+void ed_log_debug(char const *format, ...);
 
 #endif  /* ED_LOG_H_ */

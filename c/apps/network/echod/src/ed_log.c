@@ -51,8 +51,6 @@ static ed_log_flag_t log_flags;
 
 static char const * const level_names[] = {
   "error",
-  "warn",
-  "notice",
   "info",
   "debug",
 };
@@ -115,19 +113,11 @@ void ed_log_set_flag(ed_log_flag_t flag) {
   log_flags |= flag;
 }
 
-void ed_log_debug(char const *format, ...) {
+void ed_log_error(char const *format, ...) {
   va_list args;
 
   va_start(args, format);
-  _ed_log_msg(ED_LOG_LEVEL_DEBUG, format, args);
-  va_end(args);
-}
-
-void ed_log_notice(char const *format, ...) {
-  va_list args;
-
-  va_start(args, format);
-  _ed_log_msg(ED_LOG_LEVEL_NOTICE, format, args);
+  _ed_log_msg(ED_LOG_LEVEL_ERROR, format, args);
   va_end(args);
 }
 
@@ -139,18 +129,10 @@ void ed_log_info(char const *format, ...) {
   va_end(args);
 }
 
-void ed_log_warn(char const *format, ...) {
+void ed_log_debug(char const *format, ...) {
   va_list args;
 
   va_start(args, format);
-  _ed_log_msg(ED_LOG_LEVEL_WARN, format, args);
-  va_end(args);
-}
-
-void ed_log_error(char const *format, ...) {
-  va_list args;
-
-  va_start(args, format);
-  _ed_log_msg(ED_LOG_LEVEL_ERROR, format, args);
+  _ed_log_msg(ED_LOG_LEVEL_DEBUG, format, args);
   va_end(args);
 }
