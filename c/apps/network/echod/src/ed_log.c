@@ -71,13 +71,13 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
     t = time(NULL);
     localtm = localtime(&t);
 
-    strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S", localtm);
+    strftime(timestr, sizeof(timestr), "[%Y-%m-%d %H:%M:%S]", localtm);
 
     len += ed_scnprintf(buf + len, maxlen - len, "%.*s ", strlen(timestr), timestr);
   }
 
   if (log_flags & ED_LOG_PRINT_LEVEL) {
-    len += ed_scnprintf(buf + len, maxlen - len, "[%s] ", level_names[level]);
+    len += ed_scnprintf(buf + len, maxlen - len, "%s: ", level_names[level]);
   }
 
   len += vsnprintf(buf + len, maxlen - len, format, args);
