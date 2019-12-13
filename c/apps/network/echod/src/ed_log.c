@@ -92,7 +92,7 @@ int ed_log_init(char const *filename) {
   if (filename == NULL || !strlen(filename)) {
     log_fd = STDERR_FILENO;
   } else {
-    log_fd = open(filename, O_RDWR | O_CREAT | O_APPEND, 0644);
+    log_fd = open(filename, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, 0644);
     if (log_fd < 0) {
       return -1;
     }
