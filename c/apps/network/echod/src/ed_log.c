@@ -50,11 +50,11 @@ static int log_fd = -1;
 static ed_log_flag_t log_flags;
 
 static char const * const level_names[] = {
-  "ERROR",
-  "WARN",
-  "NOTICE",
-  "INFO",
-  "DEBUG",
+  "error",
+  "warn",
+  "notice",
+  "info",
+  "debug",
 };
 
 void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
