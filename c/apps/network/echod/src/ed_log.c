@@ -99,7 +99,7 @@ int ed_log_init(char const *filename) {
   return 0;
 }
 
-void ed_log_deinit(void) {
+void ed_log_fini(void) {
   if (log_fd < 0 || log_fd == STDERR_FILENO) {
     return;
   }

@@ -50,7 +50,7 @@ typedef enum {
 } ed_log_flag_t;
 
 int ed_log_init(char const *filename);
-void ed_log_deinit(void);
+void ed_log_fini(void);
 
 void ed_log_set_flag(ed_log_flag_t flag);
 

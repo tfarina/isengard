@@ -298,7 +298,7 @@ int main(int argc, char **argv) {
   ed_main_loop(tcpfd);
 
   ed_log_info("Shutdown completed");
-  ed_log_deinit();
+  ed_log_fini();
 
   return EXIT_SUCCESS;
 }
