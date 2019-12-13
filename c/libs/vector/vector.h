@@ -27,12 +27,12 @@ typedef struct vector_s
  *
  * @param[in] capacity  The max number of elements.
  *
- * @return A new instance of vector_t or NULL.
+ * @return A new instance of vector_t or `NULL` on error.
  */
 vector_t *vector_alloc(int capacity);
 
 /**
- * Inserts the specified element to the back of the array.
+ * Inserts the specified element at the end of the array.
  *
  * @param[in,out] self    The vector instance (must not be NULL).
  * @param[in]     element The element to be inserted.
@@ -45,7 +45,7 @@ void vector_push_back(vector_t *self, void *element);
  * @param[in,out] self  The vector instance (must not be NULL).
  * @param[in]     index The index of the element.
  *
- * @return The element at specified index.
+ * @return The element at specified index or `NULL` on error.
  */
 void *vector_at(vector_t const * const self, int unsigned const index);
 
