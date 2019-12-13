@@ -71,7 +71,7 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
     t = time(NULL);
     localtm = localtime(&t);
 
-    strftime(timestr, sizeof(timestr), "[%Y-%m-%d %H:%M:%S]", localtm);
+    strftime(timestr, sizeof(timestr), "[%Y-%m-%dT%T]", localtm);
 
     len += ed_scnprintf(buf + len, maxlen - len, "%.*s ", strlen(timestr), timestr);
   }
