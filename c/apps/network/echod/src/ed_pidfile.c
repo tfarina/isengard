@@ -45,7 +45,7 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   ssize_t bytes_written;
   int rc;
 
-  fd = open(pidfile_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+  fd = open(pidfile_path, O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC, 0644);
   if (fd < 0) {
     ed_log_error("opening pid file '%s' failed: %s", pidfile_path,
                  strerror(errno));
