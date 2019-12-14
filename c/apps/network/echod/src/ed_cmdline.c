@@ -132,19 +132,15 @@ void ed_cmdline_help(char const *program_name) {
 	  "Options:" CRLF
           "  -d, --daemonize         run Echod as daemon (background mode)" CRLF
           "  -c, --conffile=S        read configuration from the specified file" CRLF
-          "  -L, --logfile=S         write log messages to the specified file (default: %s)" CRLF
-          "  -P, --pidfile=S         write process id to the specified file (default: not stored)" CRLF
+          "  -L, --logfile=S         write log messages to the specified file" CRLF
+          "  -P, --pidfile=S         write process id to the specified file" CRLF
           "  -u, --user=S            user identity to run as" CRLF
-          "  -l, --interface=S       interface to listen on (default: %s)" CRLF
-          "  -p, --port=N            set the tcp port to listen on (default: %d)" CRLF
+          "  -l, --interface=S       interface to listen on" CRLF
+          "  -p, --port=N            set the tcp port to listen on" CRLF
           "  -b, --backlog=N         the backlog argument of listen() applied to the" CRLF
-          "                          listening socket (default: %d)" CRLF
+          "                          listening socket" CRLF
           "  -h, --help              display this help and exit" CRLF
           "  -V, --version           output version information and exit" CRLF
-	  "",
-          "stderr",
-          ED_DEFAULT_LISTEN_ADDR,
-          ED_DEFAULT_LISTEN_PORT,
-          ED_DEFAULT_LISTEN_BACKLOG
+	  ""
 	  );
 }
