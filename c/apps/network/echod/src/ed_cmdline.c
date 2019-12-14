@@ -40,18 +40,18 @@ static struct option const long_options[] = {
 };
 
 int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_t *config) {
-  int c, value;
+  int opt_char, value;
 
   opterr = 0;
 
   for (;;) {
-    c = getopt_long(argc, argv, short_options, long_options, NULL);
-    if (c == -1) {
+    opt_char = getopt_long(argc, argv, short_options, long_options, NULL);
+    if (opt_char == -1) {
       /* no more options */
       break;
     }
 
-    switch (c) {
+    switch (opt_char) {
     case 'h':
       show_help = 1;
       break;
