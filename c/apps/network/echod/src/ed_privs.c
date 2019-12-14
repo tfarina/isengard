@@ -24,7 +24,7 @@ int ed_change_user(char const *username) {
   gid = pw->pw_gid;
   uid = pw->pw_uid;
 
-  rc = setgroups(1, &gid);
+  rc = setgroups(0, NULL);
   if (rc < 0) {
     ed_log_error("setgroups failed");
     return ED_ERROR;
