@@ -2,6 +2,8 @@
 
 #include <stdlib.h>
 
+#include "ed_default_paths.h"
+
 void ed_config_init(ed_config_t *config) {
   config->pid = (pid_t) -1;
   config->daemonize = 0;
