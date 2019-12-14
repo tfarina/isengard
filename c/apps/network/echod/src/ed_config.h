@@ -11,7 +11,7 @@
 
 typedef struct ed_config_s {
   pid_t pid;           /* process: server id */
-  int  daemonize;      /* process: daemon mode */
+  int  daemonize:1;    /* process: daemon mode */
   char *conffile;      /* process: configuration filename */
   char *logfile;       /* debug:   log filename */
   char *pidfile;       /* process: pid file */
