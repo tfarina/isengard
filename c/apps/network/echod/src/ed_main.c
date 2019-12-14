@@ -18,6 +18,7 @@
 
 #include <arpa/inet.h>
 #include <errno.h>
+#include <grp.h>
 #include <getopt.h>
 #include <netdb.h>
 #include <pwd.h>
@@ -195,7 +196,14 @@ int main(int argc, char **argv) {
   if (geteuid() != 0) {
     fprintf(stderr, "%s: need root privileges\n", progname);
     return EXIT_FAILURE;
+  } else {
+    rc = setgroups(0, NULL);
+    if (rc < 0) {
+      ed_log_error("Failed to drop supplementary groups, %s", strerror(errno));
+      return EXIT_FAILURE;
+    }
   }
+
 
   rc = ed_log_init(config.logfile);
   if (rc != ED_OK) {
