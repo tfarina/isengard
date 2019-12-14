@@ -13,6 +13,7 @@ int ed_change_user(char const *username) {
   struct passwd *pw;
   gid_t gid;
   uid_t uid;
+  int rc;
 
   pw = getpwnam(username);
   if (pw == NULL) {
@@ -23,18 +24,21 @@ int ed_change_user(char const *username) {
   gid = pw->pw_gid;
   uid = pw->pw_uid;
 
-  if (setgroups(1, &gid) != 0) {
+  rc = setgroups(1, &gid);
+  if (rc < 0) {
     ed_log_error("setgroups failed");
     return ED_ERROR;
   }
 
-  if (setresgid(gid, gid, gid) != 0) {
+  rc = setresgid(gid, gid, gid);
+  if (rc < 0) {
     ed_log_error("setting group id to user '%s' failed: %s\n",
                  username, strerror(errno));
     return ED_ERROR;
   }
 
-  if (setresuid(uid, uid, uid) != 0) {
+  rc = setresuid(uid, uid, uid);
+  if (rc < 0) {
     ed_log_error("setting user id to user '%s' failed: %s\n",
                  username, strerror(errno));
     return ED_ERROR;
