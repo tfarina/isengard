@@ -244,9 +244,10 @@ int main(int argc, char **argv) {
   ed_log_set_flag(ED_LOG_PRINT_TIME);
   ed_log_set_flag(ED_LOG_PRINT_LEVEL);
 
-  ed_log_info("backlog = %d", config.backlog);
-  ed_log_info("logfile = '%s'", config.logfile);
-  ed_log_info("username = '%s'", config.username);
+  ed_log_info("username = %s", config.username);
+  ed_log_info("logfile  = %s", config.logfile);
+  ed_log_info("port     = %d", config.port);
+  ed_log_info("backlog  = %d", config.backlog);
 
   if (config.daemonize) {
     rc = ed_daemon_detach(ED_MAXIMIZE_COREFILE);
@@ -277,10 +278,7 @@ int main(int argc, char **argv) {
     return rc;
   }
 
-  ed_log_info("%s started on %d, port %d",
-              progname,
-              config.pid,
-              config.port);
+  ed_log_info("%s started on %d", progname, config.pid);
 
   ed_main_loop(tcpfd);
 
