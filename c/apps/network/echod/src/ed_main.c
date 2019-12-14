@@ -52,7 +52,7 @@ static sig_atomic_t volatile quit;
 static int unsigned connected_clients = 0; /* Number of child processes. */
 
 static void ed_version(void) {
-  printf("%s version %s\n", progname, ED_VERSION_STR);
+  printf("Echod version %s\n", ED_VERSION_STR);
   fflush(stdout);
 }
 
