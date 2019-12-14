@@ -19,7 +19,6 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <getopt.h>
-#include <grp.h>
 #include <netdb.h>
 #include <pwd.h>
 #include <stdarg.h>
@@ -39,6 +38,7 @@
 #include "ed_log.h"
 #include "ed_net.h"
 #include "ed_pidfile.h"
+#include "ed_privs.h"
 #include "ed_rcode.h"
 #include "ed_signals.h"
 #include "ed_utils.h"
@@ -54,45 +54,6 @@ static int unsigned connected_clients = 0; /* Number of child processes. */
 static void ed_version(void) {
   printf("%s version %s\n", progname, ED_VERSION_STR);
   fflush(stdout);
-}
-
-/**
- * This functions changes from the superuser (root) to the user
- * specified in 'username'. Effectively dropping the priviledges
- * that this application have.
- */
-static int ed_change_user(char const *username) {
-  struct passwd *pw;
-  gid_t gid;
-  uid_t uid;
-
-  pw = getpwnam(username);
-  if (pw == NULL) {
-    ed_log_error("cannot find user '%s' to switch to", username);
-    return ED_ERROR;
-  }
-
-  gid = pw->pw_gid;
-  uid = pw->pw_uid;
-
-  if (setgroups(1, &gid) != 0) {
-    ed_log_error("setgroups failed");
-    return ED_ERROR;
-  }
-
-  if (setresgid(gid, gid, gid) != 0) {
-    ed_log_error("setting group id to user '%s' failed: %s\n",
-                 username, strerror(errno));
-    return ED_ERROR;
-  }
-
-  if (setresuid(uid, uid, uid) != 0) {
-    ed_log_error("%s: setting user id to user '%s' failed: %s\n",
-                 username, strerror(errno));
-    return ED_ERROR;
-  }
-
-  return ED_OK;
 }
 
 static void print_stats(void) {
