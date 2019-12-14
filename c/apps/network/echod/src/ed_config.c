@@ -7,7 +7,7 @@
 void ed_config_init(ed_config_t *config) {
   config->pid = (pid_t) -1;
   config->daemonize = 0;
-  config->conffile = NULL;
+  config->conffile = ED_CONFIG_FILE_PATH;
   config->logfile = NULL;
   config->pidfile = ED_PID_FILE_PATH;
   config->username = ED_USER;
