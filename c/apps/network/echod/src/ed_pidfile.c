@@ -72,7 +72,7 @@ int ed_pidfile_write(char const *filename, pid_t pid) {
   return ED_OK;
 }
 
-int ed_pidfile_unlink(char const *filename) {
+int ed_pidfile_remove(char const *filename) {
   int rc;
 
   if (filename == NULL) {

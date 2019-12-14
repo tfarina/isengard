@@ -4,6 +4,6 @@
 #include <sys/types.h>
 
 int ed_pidfile_write(char const *filename, pid_t pid);
-int ed_pidfile_unlink(char const *filename);
+int ed_pidfile_remove(char const *filename);
 
 #endif  /* ED_PIDFILE_H_ */
