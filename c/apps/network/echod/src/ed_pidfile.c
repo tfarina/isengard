@@ -38,16 +38,16 @@
 #include "ed_log.h"
 #include "ed_rcode.h"
 
-int ed_pidfile_write(char const *filename, pid_t pid) {
+int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   int fd;
   char pidstr[32];
   int pidstr_len;
   ssize_t bytes_written;
   int rc;
 
-  fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+  fd = open(pidfile_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
   if (fd < 0) {
-    ed_log_error("opening pid file '%s' failed: %s", filename,
+    ed_log_error("opening pid file '%s' failed: %s", pidfile_path,
                  strerror(errno));
     return ED_ERROR;
   }
@@ -56,7 +56,7 @@ int ed_pidfile_write(char const *filename, pid_t pid) {
 
   bytes_written = write(fd, pidstr, pidstr_len);
   if (bytes_written < 0) {
-    ed_log_error("write to pid file '%s' failed: %s", filename,
+    ed_log_error("write to pid file '%s' failed: %s", pidfile_path,
                  strerror(errno));
     close(fd);
     return ED_ERROR;
@@ -64,7 +64,7 @@ int ed_pidfile_write(char const *filename, pid_t pid) {
 
   rc = close(fd);
   if (rc < 0) {
-    ed_log_error("close pid file '%s' failed: %s", filename,
+    ed_log_error("close pid file '%s' failed: %s", pidfile_path,
                  strerror(errno));
     return ED_ERROR;
   }
@@ -72,16 +72,16 @@ int ed_pidfile_write(char const *filename, pid_t pid) {
   return ED_OK;
 }
 
-int ed_pidfile_remove(char const *filename) {
+int ed_pidfile_remove(char const *pidfile_path) {
   int rc;
 
-  if (filename == NULL) {
+  if (pidfile_path == NULL) {
     return ED_ERROR;
   }
 
-  rc = unlink(filename);
+  rc = unlink(pidfile_path);
   if (rc < 0) {
-    ed_log_error("unlink of pid file '%s' failed, ignored: %s", filename,
+    ed_log_error("unlink of pid file '%s' failed, ignored: %s", pidfile_path,
                  strerror(errno));
     return ED_ERROR;
   }
