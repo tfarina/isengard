@@ -38,7 +38,7 @@
 #include "ed_daemon.h"
 #include "ed_log.h"
 #include "ed_net.h"
-#include "ed_pid.h"
+#include "ed_pidfile.h"
 #include "ed_rcode.h"
 #include "ed_utils.h"
 #include "ed_version.h"
@@ -271,7 +271,7 @@ int main(int argc, char **argv) {
   config.pid = getpid();
 
   if (config.pidfile != NULL) {
-    rc = ed_pid_file_write(config.pidfile, config.pid);
+    rc = ed_pidfile_write(config.pidfile, config.pid);
     if (rc != ED_OK) {
       return rc;
     }

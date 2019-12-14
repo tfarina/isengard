@@ -27,7 +27,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "ed_pid.h"
+#include "ed_pidfile.h"
 
 #include <errno.h>
 #include <fcntl.h>
@@ -38,7 +38,7 @@
 #include "ed_log.h"
 #include "ed_rcode.h"
 
-int ed_pid_file_write(char const *filename, pid_t pid) {
+int ed_pidfile_write(char const *filename, pid_t pid) {
   int fd;
   char pidstr[32];
   int pidstr_len;
@@ -72,7 +72,7 @@ int ed_pid_file_write(char const *filename, pid_t pid) {
   return ED_OK;
 }
 
-int ed_pid_file_unlink(char const *filename) {
+int ed_pidfile_unlink(char const *filename) {
   int rc;
 
   if (filename == NULL) {
