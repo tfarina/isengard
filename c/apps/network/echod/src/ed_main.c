@@ -40,6 +40,7 @@
 #include "ed_net.h"
 #include "ed_pidfile.h"
 #include "ed_rcode.h"
+#include "ed_signals.h"
 #include "ed_utils.h"
 #include "ed_version.h"
 
@@ -114,19 +115,6 @@ static void sigchld_handler(int sig) {
   }
 
   signal(SIGCHLD, sigchld_handler);
-}
-
-/**
- * Returns the name of an UNIX signal. Similar to Solaris sig2str().
- */
-static char const *ed_sig2str(int sig) {
-  switch (sig) {
-  case SIGINT:
-    return "SIGINT";
-  case SIGTERM:
-    return "SIGTERM";
-  }
-  return NULL;
 }
 
 static void ed_signal_handler(int sig) {

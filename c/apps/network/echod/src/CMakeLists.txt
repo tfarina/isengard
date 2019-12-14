@@ -7,6 +7,7 @@ set(ECHOD_SRCS
   ed_net.c
   ed_pidfile.c
   ed_printf.c
+  ed_signals.c
   ed_utils.c
 )
 
