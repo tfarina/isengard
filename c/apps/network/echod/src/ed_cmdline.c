@@ -130,7 +130,7 @@ void ed_cmdline_help(char const *program_name) {
 
   fprintf(stderr,
 	  "Options:" CRLF
-          "  -d, --daemonize         run as a daemon" CRLF
+          "  -d, --daemonize         run Echod as daemon (background mode)" CRLF
           "  -c, --conffile=S        read configuration from the specified file" CRLF
           "  -L, --logfile=S         write log messages to the specified file (default: %s)" CRLF
           "  -P, --pidfile=S         write process id to the specified file (default: not stored)" CRLF
