@@ -68,7 +68,7 @@ static int ed_change_user(char const *username) {
 
   pw = getpwnam(username);
   if (pw == NULL) {
-    ed_log_error("cannot find user '%s' to switch to", progname, username);
+    ed_log_error("cannot find user '%s' to switch to", username);
     return ED_ERROR;
   }
 
@@ -81,14 +81,14 @@ static int ed_change_user(char const *username) {
   }
 
   if (setresgid(gid, gid, gid) != 0) {
-    ed_log_error("%s: setting group id to user '%s' failed: %s\n",
-                 progname, username, strerror(errno));
+    ed_log_error("setting group id to user '%s' failed: %s\n",
+                 username, strerror(errno));
     return ED_ERROR;
   }
 
   if (setresuid(uid, uid, uid) != 0) {
     ed_log_error("%s: setting user id to user '%s' failed: %s\n",
-                 progname, username, strerror(errno));
+                 username, strerror(errno));
     return ED_ERROR;
   }
 
