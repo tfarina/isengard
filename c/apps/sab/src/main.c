@@ -9,12 +9,12 @@
 
 static const char *progname;
 
-struct builtin_cmd {
+typedef struct command_s {
         const char *name;
         int (*exec)(int argc, char **argv);
-};
+} command_t;
 
-static struct builtin_cmd cmds[] = {
+static command_t cmds[] = {
         { "add", cmd_add },
         { "change", cmd_change },
         { "delete", cmd_delete },
@@ -33,20 +33,22 @@ static void usage(void) {
         fprintf(stderr, usage_msg, progname);
 }
 
-static struct builtin_cmd *get_builtin(const char *name) {
+static command_t *get_builtin(const char *name) {
         size_t i;
+
         for (i = 0; i < ARRAY_SIZE(cmds); i++) {
-                struct builtin_cmd *cmd = &cmds[i];
+                command_t *cmd = &cmds[i];
                 if (!strcmp(name, cmd->name)) {
                         printf("Command name: %s\n", cmds[i].name);
                         return cmd;
                 }
         }
+
         return NULL;
 }
 
 int main(int argc, char **argv) {
-        struct builtin_cmd *cmd;
+        command_t *cmd;
         int rc;
 
         progname = basename(argv[0]);
