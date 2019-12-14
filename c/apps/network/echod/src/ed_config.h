@@ -8,7 +8,7 @@
 #define ED_DEFAULT_LISTEN_ADDR "0.0.0.0"
 #define ED_DEFAULT_LISTEN_PORT 7
 #define ED_DEFAULT_LISTEN_BACKLOG 1024
-#define ED_DEFAULT_PIDFILE "/var/run/echod.pid"
+#define ED_PID_FILE_PATH "/var/run/echod.pid"
 
 typedef struct ed_config_s {
   pid_t pid;           /* process: server id */
