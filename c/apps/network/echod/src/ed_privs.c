@@ -35,7 +35,7 @@ int ed_change_user(char const *username) {
   }
 
   if (setresuid(uid, uid, uid) != 0) {
-    ed_log_error("%s: setting user id to user '%s' failed: %s\n",
+    ed_log_error("setting user id to user '%s' failed: %s\n",
                  username, strerror(errno));
     return ED_ERROR;
   }
