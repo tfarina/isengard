@@ -16,7 +16,11 @@ static int _vector_insert(vector_t *self, int index, void *element)
 {
         void **temp;
 
-        if (index < 0 || !self || index > self->size) {
+        if (self == NULL) {
+	        return -EINVAL;
+	}
+
+        if (index < 0 || index > self->size) {
 	        return -EINVAL;
 	}
 
