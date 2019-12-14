@@ -52,7 +52,7 @@ int ed_pid_file_write(char const *filename, pid_t pid) {
     return ED_ERROR;
   }
 
-  pidstr_len = snprintf(pidstr, sizeof(pidstr), "%d\n", pid);
+  pidstr_len = snprintf(pidstr, sizeof(pidstr), "%lu\n", (unsigned long) pid);
 
   bytes_written = write(fd, pidstr, pidstr_len);
   if (bytes_written < 0) {
