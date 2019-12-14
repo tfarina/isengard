@@ -100,11 +100,11 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   write(log_fd, buf, len);
 }
 
-int ed_log_init(char const *filename) {
-  if (filename == NULL || !strlen(filename)) {
+int ed_log_init(char const *logfile_path) {
+  if (logfile_path == NULL || !strlen(logfile_path)) {
     log_fd = STDERR_FILENO;
   } else {
-    log_fd = open(filename, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, 0600);
+    log_fd = open(logfile_path, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, 0600);
     if (log_fd < 0) {
       return -1;
     }
