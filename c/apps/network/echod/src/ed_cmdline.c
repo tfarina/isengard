@@ -12,7 +12,10 @@
 int show_help = 0;
 int show_version = 0;
 
-static char const short_options[] =
+int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_t *config) {
+  int opt_char, value;
+
+  static char const short_options[] =
     "h"  /* help */
     "V"  /* version */
     "d"  /* daemon mode */
@@ -25,7 +28,7 @@ static char const short_options[] =
     "b:" /* tcp backlog queue limit */
     ;
 
-static struct option const long_options[] = {
+  static struct option const long_options[] = {
     { "help",        no_argument,       NULL, 'h' }, /* help */
     { "version",     no_argument,       NULL, 'V' }, /* version */
     { "daemonize",   no_argument,       NULL, 'd' }, /* daemon mode */
@@ -37,10 +40,7 @@ static struct option const long_options[] = {
     { "port",        required_argument, NULL, 'p' }, /* tcp port number to listen on */
     { "backlog",     required_argument, NULL, 'b' }, /* tcp backlog queue limit */
     { NULL,          0,                 NULL,  0  }
-};
-
-int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_t *config) {
-  int opt_char, value;
+  };
 
   opterr = 0;
 
