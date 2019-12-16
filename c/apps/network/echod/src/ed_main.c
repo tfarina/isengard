@@ -173,7 +173,7 @@ int main(int argc, char **argv) {
   int rc;
   int tcpfd;
 
-  progname = ed_get_progname(argv[0]);
+  progname = ed_basename(argv[0]);
 
   ed_config_init(&config);
 

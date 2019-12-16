@@ -5,12 +5,12 @@
 
 #define ED_DIR_SEP '/'
 
-char const *ed_get_progname(char const *argv0) {
+char const *ed_basename(char const *path) {
   char const *name;
 
-  name = strrchr(argv0, ED_DIR_SEP);
+  name = strrchr(path, ED_DIR_SEP);
   if (name == NULL) {
-    name = argv0;
+    name = path;
   } else {
     name++;
   }
