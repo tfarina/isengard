@@ -33,7 +33,7 @@ static void usage(void) {
         fprintf(stderr, usage_msg, progname);
 }
 
-static command_t *get_builtin(const char *name) {
+static command_t *_find_cmd(const char *name) {
         size_t i;
 
         for (i = 0; i < ARRAY_SIZE(cmds); i++) {
@@ -58,8 +58,8 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 
-        cmd = get_builtin(argv[1]);
-        if (!cmd) {
+        cmd = _find_cmd(argv[1]);
+        if (cmd == NULL) {
                 usage();
 		return EXIT_FAILURE;
 	}
