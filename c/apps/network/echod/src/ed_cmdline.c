@@ -130,17 +130,17 @@ void ed_cmdline_help(char const *program_name) {
 
   fprintf(stderr,
 	  "Options:" CRLF
-          "  -d, --daemonize         run Echod as daemon (background mode)" CRLF
-          "  -c, --conffile=S        read configuration from the specified file" CRLF
-          "  -L, --logfile=S         write log messages to the specified file" CRLF
-          "  -P, --pidfile=S         write process id to the specified file" CRLF
-          "  -u, --user=S            user identity to run as" CRLF
-          "  -l, --interface=S       interface to listen on" CRLF
-          "  -p, --port=N            set the tcp port to listen on" CRLF
-          "  -b, --backlog=N         the backlog argument of listen() applied to the" CRLF
-          "                          listening socket" CRLF
-          "  -h, --help              display this help and exit" CRLF
-          "  -V, --version           output version information and exit" CRLF
+          "  -d, --daemonize            run Echod as daemon (background mode)" CRLF
+          "  -c, --conffile=FILE        read configuration from the specified file" CRLF
+          "  -L, --logfile=FILE         write log messages to the specified file" CRLF
+          "  -P, --pidfile=FILE         write process id to the specified file" CRLF
+          "  -u, --user=NAME            user identity to run as" CRLF
+          "  -l, --interface=S          interface to listen on" CRLF
+          "  -p, --port=VALUE           set the tcp port to listen on" CRLF
+          "  -b, --backlog=VALUE        the backlog argument of listen() applied to the" CRLF
+          "                             listening socket" CRLF
+          "  -h, --help                 display this help and exit" CRLF
+          "  -V, --version              output version information and exit" CRLF
 	  ""
 	  );
 }
