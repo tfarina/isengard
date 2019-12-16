@@ -48,7 +48,7 @@ typedef enum {
   ED_LOG_PRINT_LEVEL = 1 << 1,  /* log level prefix */
 } ed_log_flag_t;
 
-int ed_log_init(char const *logfile_path);
+int ed_log_init(char const *ident, char const *logfile_path);
 void ed_log_fini(void);
 
 /**

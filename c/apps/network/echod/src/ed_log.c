@@ -100,7 +100,7 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   write(log_fd, buf, len);
 }
 
-int ed_log_init(char const *logfile_path) {
+int ed_log_init(char const *ident, char const *logfile_path) {
   if (logfile_path == NULL || !strlen(logfile_path)) {
     log_fd = STDERR_FILENO;
   } else {

@@ -204,7 +204,7 @@ int main(int argc, char **argv) {
 
   ed_config_load(&config);
 
-  rc = ed_log_init(config.logfile);
+  rc = ed_log_init(progname, config.logfile);
   if (rc != ED_OK) {
     return rc;
   }
