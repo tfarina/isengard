@@ -15,3 +15,7 @@ void ed_config_init(ed_config_t *config) {
   config->port = ED_DEFAULT_LISTEN_PORT;
   config->backlog = ED_DEFAULT_LISTEN_BACKLOG;
 }
+
+void ed_config_load(ed_config_t *config) {
+
+}
