@@ -223,7 +223,7 @@ int main(int argc, char **argv) {
   if (config.daemonize) {
     rc = ed_daemon_detach(ED_MAXIMIZE_COREFILE);
     if (rc != ED_OK) {
-      fprintf(stderr, "%s: unable to daemonize\n", progname);
+      ed_log_error("Couldn't daemonize %s: %s\n", progname, strerror(errno));
       return rc;
     }
   }
