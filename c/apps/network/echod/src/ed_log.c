@@ -46,6 +46,7 @@
 
 #define LOG_MAX_LEN 256
 
+static char const *log_ident = NULL;
 static int log_fd = -1;
 static ed_log_flag_t log_flags;
 
@@ -101,6 +102,8 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
 }
 
 int ed_log_init(char const *ident, char const *logfile_path) {
+  log_ident = ident;
+
   if (logfile_path == NULL || !strlen(logfile_path)) {
     log_fd = STDERR_FILENO;
   } else {
