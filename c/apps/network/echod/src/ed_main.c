@@ -219,7 +219,7 @@ int main(int argc, char **argv) {
   ed_log_info("backlog  = %d", config.backlog);
 
   if (config.daemonize) {
-    rc = ed_daemon_detach(ED_MAXIMIZE_COREFILE);
+    rc = ed_daemon_detach();
     if (rc != ED_OK) {
       ed_log_error("Couldn't daemonize %s: %s\n", progname, strerror(errno));
       return rc;

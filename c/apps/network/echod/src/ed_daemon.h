@@ -11,10 +11,8 @@ https://github.com/Netflix/dynomite/blob/032a6f3dc4523e55beebbfff04d993ad60a43de
 /**
  * Daemonize and redirect stdin, stdout and stderr to /dev/null.
  *
- * @param[in] dump_core If set to 0 then dynomite tries to chdir to /.
- *
  * @return 0 on success or -1 on error.
  */
-int ed_daemon_detach(int dump_core);
+int ed_daemon_detach(void);
 
 #endif  /* ED_DAEMON_H_ */

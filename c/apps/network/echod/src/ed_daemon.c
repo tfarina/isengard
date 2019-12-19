@@ -40,7 +40,7 @@
 #include "ed_log.h"
 #include "ed_rcode.h"
 
-int ed_daemon_detach(int dump_core)
+int ed_daemon_detach(void)
 {
     int rc;
     pid_t pid, sid;
@@ -88,12 +88,10 @@ int ed_daemon_detach(int dump_core)
     }
 
     /* change working directory */
-    if (dump_core == 0) {
-        rc = chdir("/");
-        if (rc < 0) {
-	    ed_log_error("chdir(\"/\") failed: %s", strerror(errno));
-            return ED_ERROR;
-        }
+    rc = chdir("/");
+    if (rc < 0) {
+      ed_log_error("chdir(\"/\") failed: %s", strerror(errno));
+      return ED_ERROR;
     }
 
     /* clear file mode creation mask */
