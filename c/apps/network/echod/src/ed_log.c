@@ -51,7 +51,7 @@ static int log_fd = -1;
 static ed_log_flag_t log_flags;
 
 void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
-  time_t t;
+  time_t now;
   struct tm *localtm;
   char timestr[32];
   char *prefix;
@@ -63,8 +63,8 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   maxlen = LOG_MAX_LEN;
 
   if (log_flags & ED_LOG_PRINT_TIME) {
-    t = time(NULL);
-    localtm = localtime(&t);
+    now = time(NULL);
+    localtm = localtime(&now);
 
     strftime(timestr, sizeof(timestr), "[%Y-%m-%dT%T]", localtm);
 
