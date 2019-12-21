@@ -39,7 +39,7 @@ static void ec_show_usage(char const *program_name) {
   fprintf(stderr,
 	  "options:" CRLF
           "  -h, --help              show usage, options and exit" CRLF
-          "  -s, --server=           server address" CRLF
+          "  -s, --server=           specify the IP address for the echo server" CRLF
           "  -p, --port=N            set the tcp port of the server (default: %d)" CRLF
 	  "",
           EC_TCP_PORT);
