@@ -111,6 +111,8 @@ int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_
 
     case '?':
       fprintf(stderr, "%s: invalid option -- '%c'\n", program_name, optopt);
+      fprintf(stderr, "Try '%s --help' for more information.\n", program_name);
+      exit(EXIT_FAILURE);
       return ED_ERROR;
 
     default:
