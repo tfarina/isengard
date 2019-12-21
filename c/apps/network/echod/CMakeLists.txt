@@ -21,8 +21,8 @@ endif()
 
 # Echod Version
 set(ED_VERSION_MAJOR  0)
-set(ED_VERSION_MINOR  0)
-set(ED_VERSION_PATCH  1)
+set(ED_VERSION_MINOR  1)
+set(ED_VERSION_PATCH  0)
 set(ED_VERSION_STR "${ED_VERSION_MAJOR}.${ED_VERSION_MINOR}.${ED_VERSION_PATCH}")
 
 configure_file(
