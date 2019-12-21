@@ -145,7 +145,7 @@ void ed_cmdline_help(char const *program_name) {
   fprintf(stderr, "  -V, --version              output version information and exit" CRLF);
 }
 
-void ed_cmdline_display_version(void) {
-  printf("Echod version %s\n", ED_VERSION_STR);
+void ed_cmdline_display_version(char const *program_name) {
+  printf("%s version %s\n", program_name, ED_VERSION_STR);
   fflush(stdout);
 }

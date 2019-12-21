@@ -181,7 +181,7 @@ int main(int argc, char **argv) {
   }
 
   if (show_version) {
-    ed_cmdline_display_version();
+    ed_cmdline_display_version(progname);
     return EXIT_SUCCESS;
   }
 
