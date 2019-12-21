@@ -42,6 +42,7 @@
 #include "ed_signals.h"
 #include "ed_utils.h"
 
+#define ED_ROOT_UID 0
 #define BUFSIZE 8129
 
 static const char *progname;
@@ -185,7 +186,7 @@ int main(int argc, char **argv) {
     return EXIT_SUCCESS;
   }
 
-  if (geteuid() != 0) {
+  if (geteuid() != ED_ROOT_UID) {
     fprintf(stderr, "%s: need root privileges\n", progname);
     return EXIT_FAILURE;
   } else {
