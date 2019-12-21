@@ -41,7 +41,6 @@
 #include "ed_rcode.h"
 #include "ed_signals.h"
 #include "ed_utils.h"
-#include "ed_version.h"
 
 #define BUFSIZE 8129
 
@@ -49,11 +48,6 @@ static const char *progname;
 
 static sig_atomic_t volatile quit;
 static int unsigned connected_clients = 0; /* Number of child processes. */
-
-static void ed_version(void) {
-  printf("Echod version %s\n", ED_VERSION_STR);
-  fflush(stdout);
-}
 
 static void print_stats(void) {
   ed_log_info("connected_clients=%d", connected_clients);
@@ -187,7 +181,7 @@ int main(int argc, char **argv) {
   }
 
   if (show_version) {
-    ed_version();
+    ed_cmdline_display_version();
     return EXIT_SUCCESS;
   }
 
