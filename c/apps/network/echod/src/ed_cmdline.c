@@ -126,23 +126,22 @@ int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_
 }
 
 void ed_cmdline_help(char const *program_name) {
-  fprintf(stderr,
-	  "Usage: %s [OPTION]..." CRLF CRLF, program_name);
+  printf("Usage: %s [OPTION]..." CRLF CRLF, program_name);
 
-  fprintf(stderr, "Mandatory arguments to long options are mandatory for short options too." CRLF CRLF);
+  fputs("Mandatory arguments to long options are mandatory for short options too." CRLF CRLF, stdout);
 
-  fprintf(stderr, "Options:" CRLF);
-  fprintf(stderr, "  -d, --daemonize            run Echod as daemon (background mode)" CRLF);
-  fprintf(stderr, "  -c, --conffile=FILE        read configuration from the specified file" CRLF);
-  fprintf(stderr, "  -L, --logfile=FILE         write log messages to the specified file" CRLF);
-  fprintf(stderr, "  -P, --pidfile=FILE         write process id to the specified file" CRLF);
-  fprintf(stderr, "  -u, --user=NAME            user identity to run as" CRLF);
-  fprintf(stderr, "  -l, --interface=S          interface to listen on" CRLF);
-  fprintf(stderr, "  -p, --port=VALUE           set the tcp port to listen on" CRLF);
-  fprintf(stderr, "  -b, --backlog=VALUE        the backlog argument of listen() applied to the" CRLF);
-  fprintf(stderr, "                             listening socket" CRLF);
-  fprintf(stderr, "  -h, --help                 display this help and exit" CRLF);
-  fprintf(stderr, "  -V, --version              output version information and exit" CRLF);
+  fputs("Options:" CRLF, stdout);
+  fputs("  -d, --daemonize            run Echod as daemon (background mode)" CRLF, stdout);
+  fputs("  -c, --conffile=FILE        read configuration from the specified file" CRLF, stdout);
+  fputs("  -L, --logfile=FILE         write log messages to the specified file" CRLF, stdout);
+  fputs("  -P, --pidfile=FILE         write process id to the specified file" CRLF, stdout);
+  fputs("  -u, --user=NAME            user identity to run as" CRLF, stdout);
+  fputs("  -l, --interface=S          interface to listen on" CRLF, stdout);
+  fputs("  -p, --port=VALUE           set the tcp port to listen on" CRLF, stdout);
+  fputs("  -b, --backlog=VALUE        the backlog argument of listen() applied to the" CRLF, stdout);
+  fputs("                             listening socket" CRLF, stdout);
+  fputs("  -h, --help                 display this help and exit" CRLF, stdout);
+  fputs("  -V, --version              output version information and exit" CRLF, stdout);
 }
 
 void ed_cmdline_display_version(char const *program_name) {
