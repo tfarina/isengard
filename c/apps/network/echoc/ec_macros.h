@@ -10,7 +10,7 @@
 #endif
 
 #ifndef EC_FORMAT_PRINTF
-#define EC_FORMAT_PRINTF(m, n) __attribute__ ((__format__ (__printf__, m, n)))
+#define EC_FORMAT_PRINTF(string_index, first_to_check) __attribute__ ((__format__ (__printf__, string_index, first_to_check)))
 #endif
 
 #endif  /* EC_MACROS_H_ */
