@@ -7,8 +7,9 @@
  * \note Don't use this macro on pointers.
  *
  * \param[in] arr A C array.
+ *
  * \return The number of elements in the array.
  */
-#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(*arr))
 
 #endif /* ARRAYSIZE_H_ */
