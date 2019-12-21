@@ -45,7 +45,7 @@ typedef enum ed_log_level_e {
 
 typedef enum {
   ED_LOG_PRINT_TIME  = 1 << 0,  /* date/time */
-  ED_LOG_PRINT_LEVEL = 1 << 1,  /* log level prefix */
+  ED_LOG_PRINT_LEVEL = 1 << 1   /* log level prefix */
 } ed_log_flag_t;
 
 int ed_log_init(char const *ident, char const *logfile_path);
