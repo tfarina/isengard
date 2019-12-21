@@ -212,6 +212,13 @@ int main(int argc, char **argv) {
   ed_log_info("port     = %d", config.port);
   ed_log_info("backlog  = %d", config.backlog);
 
+  /* change working directory */
+  rc = chdir("/");
+  if (rc < 0) {
+    ed_log_error("Unable to chdir to '/': %s", strerror(errno));
+    return ED_ERROR;
+  }
+
   if (config.daemonize) {
     rc = ed_daemon_detach();
     if (rc != ED_OK) {

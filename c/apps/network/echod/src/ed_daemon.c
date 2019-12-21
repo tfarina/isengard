@@ -87,13 +87,6 @@ int ed_daemon_detach(void)
         _exit(0);
     }
 
-    /* change working directory */
-    rc = chdir("/");
-    if (rc < 0) {
-      ed_log_error("chdir(\"/\") failed: %s", strerror(errno));
-      return ED_ERROR;
-    }
-
     /* clear file mode creation mask */
     umask(0);
 
