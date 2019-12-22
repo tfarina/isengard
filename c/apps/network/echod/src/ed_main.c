@@ -34,6 +34,7 @@
 #include "ed_cmdline.h"
 #include "ed_config.h"
 #include "ed_daemon.h"
+#include "ed_file.h"
 #include "ed_log.h"
 #include "ed_net.h"
 #include "ed_pidfile.h"
