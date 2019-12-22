@@ -173,12 +173,12 @@ int main(int argc, char **argv) {
 
   rc = ed_cmdline_parse(argc, argv, progname, &config);
   if (rc != ED_OK) {
-    ed_cmdline_help(progname);
+    ed_cmdline_display_help(progname);
     return EXIT_FAILURE;
   }
 
   if (show_help) {
-    ed_cmdline_help(progname);
+    ed_cmdline_display_help(progname);
     return EXIT_SUCCESS;
   }
 
