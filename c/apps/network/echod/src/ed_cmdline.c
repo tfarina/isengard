@@ -8,8 +8,6 @@
 #include "ed_utils.h"
 #include "ed_version.h"
 
-#define CRLF "\x0d\x0a"
-
 int show_help = 0;
 int show_version = 0;
 
@@ -126,22 +124,22 @@ int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_
 }
 
 void ed_cmdline_help(char const *program_name) {
-  printf("Usage: %s [OPTION]..." CRLF CRLF, program_name);
+  printf("Usage: %s [OPTION]...\n\n", program_name);
 
-  fputs("Mandatory arguments to long options are mandatory for short options too." CRLF CRLF, stdout);
+  fputs("Mandatory arguments to long options are mandatory for short options too.\n\n", stdout);
 
-  fputs("Options:" CRLF, stdout);
-  fputs("  -d, --daemonize            run Echod as daemon (background mode)" CRLF, stdout);
-  fputs("  -c, --conffile=FILE        read configuration from the specified file" CRLF, stdout);
-  fputs("  -L, --logfile=FILE         write log messages to the specified file" CRLF, stdout);
-  fputs("  -P, --pidfile=FILE         write process id to the specified file" CRLF, stdout);
-  fputs("  -u, --user=NAME            user identity to run as" CRLF, stdout);
-  fputs("  -l, --interface=S          interface to listen on" CRLF, stdout);
-  fputs("  -p, --port=VALUE           set the tcp port to listen on" CRLF, stdout);
-  fputs("  -b, --backlog=VALUE        the backlog argument of listen() applied to the" CRLF, stdout);
-  fputs("                             listening socket" CRLF, stdout);
-  fputs("  -h, --help                 display this help and exit" CRLF, stdout);
-  fputs("  -V, --version              output version information and exit" CRLF, stdout);
+  fputs("Options:\n", stdout);
+  fputs("  -d, --daemonize            run Echod as daemon (background mode)\n", stdout);
+  fputs("  -c, --conffile=FILE        read configuration from the specified file\n", stdout);
+  fputs("  -L, --logfile=FILE         write log messages to the specified file\n", stdout);
+  fputs("  -P, --pidfile=FILE         write process id to the specified file\n", stdout);
+  fputs("  -u, --user=NAME            user identity to run as\n", stdout);
+  fputs("  -l, --interface=S          interface to listen on\n", stdout);
+  fputs("  -p, --port=VALUE           set the tcp port to listen on\n", stdout);
+  fputs("  -b, --backlog=VALUE        the backlog argument of listen() applied to the\n", stdout);
+  fputs("                             listening socket\n", stdout);
+  fputs("  -h, --help                 display this help and exit\n", stdout);
+  fputs("  -V, --version              output version information and exit\n", stdout);
 }
 
 void ed_cmdline_display_version(char const *program_name) {
