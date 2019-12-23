@@ -2,10 +2,10 @@ set(ECHOD_SRCS
   ed_cmdline.c
   ed_config.c
   ed_daemon.c
-  ed_file.c
   ed_log.c
   ed_main.c
   ed_net.c
+  ed_path.c
   ed_pidfile.c
   ed_printf.c
   ed_privs.c

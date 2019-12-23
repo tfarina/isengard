@@ -34,9 +34,9 @@
 #include "ed_cmdline.h"
 #include "ed_config.h"
 #include "ed_daemon.h"
-#include "ed_file.h"
 #include "ed_log.h"
 #include "ed_net.h"
+#include "ed_path.h"
 #include "ed_pidfile.h"
 #include "ed_privs.h"
 #include "ed_rcode.h"
@@ -167,7 +167,7 @@ int main(int argc, char **argv) {
   int rc;
   int tcpfd;
 
-  progname = ed_basename(argv[0]);
+  progname = ed_path_basename(argv[0]);
 
   ed_config_init(&config);
 
