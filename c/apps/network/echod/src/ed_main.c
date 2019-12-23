@@ -214,7 +214,7 @@ int main(int argc, char **argv) {
   ed_log_info("port     = %d", config.port);
   ed_log_info("backlog  = %d", config.backlog);
 
-  /* change working directory */
+  /* Change the current working directory. */
   rc = chdir("/");
   if (rc < 0) {
     ed_log_error("Unable to chdir to '/': %s", strerror(errno));

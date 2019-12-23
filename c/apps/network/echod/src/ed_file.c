@@ -11,7 +11,7 @@ char const *ed_basename(char const *path) {
   if (name == NULL) {
     name = path;
   } else {
-    name++;
+    name++; /* move pointer to char after '/' */
   }
 
   return name;
