@@ -100,7 +100,6 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   }
 
   len += vsnprintf(buf + len, maxlen - len, format, args);
-  va_end(args);
 
   buf[len++] = '\n';
 
