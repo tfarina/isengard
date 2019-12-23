@@ -131,6 +131,10 @@ void ed_log_fini(void) {
   log_fd = -1;
 }
 
+void ed_log_set_level(ed_log_level_t level) {
+  log_level = level;
+}
+
 void ed_log_set_flag(ed_log_flag_t flag) {
   log_flags |= flag;
 }

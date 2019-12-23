@@ -51,6 +51,8 @@ typedef enum {
 int ed_log_init(char const *ident, char const *logfile_path);
 void ed_log_fini(void);
 
+void ed_log_set_level(ed_log_level_t level);
+
 /**
  * Sets logging options. It's a logical-OR'd of `ed_log_flag_t`.
  */
