@@ -36,6 +36,11 @@
 #ifndef ED_LOG_H_
 #define ED_LOG_H_
 
+typedef enum ed_log_dst_e {
+  ED_LOG_DST_STDERR = 1 << 0,
+  ED_LOG_DST_FILE   = 1 << 1
+} ed_log_dst_t;
+
 typedef enum ed_log_level_e {
   ED_LOG_LEVEL_ERROR  = 0,  /* error conditions */
   ED_LOG_LEVEL_INFO   = 1,  /* informational messages */
