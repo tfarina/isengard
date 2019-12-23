@@ -46,6 +46,7 @@
 
 #define LOG_MAX_LEN 256
 
+static ed_log_level_t log_level = ED_LOG_LEVEL_INFO;
 static char const *log_ident = NULL;
 static int log_fd = -1;
 static ed_log_flag_t log_flags;
@@ -61,6 +62,10 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   prefix = NULL;
   len = 0;
   maxlen = LOG_MAX_LEN;
+
+  if (level > log_level) {
+    return;
+  }
 
   if (log_flags & ED_LOG_PRINT_TIME) {
     now = time(NULL);
