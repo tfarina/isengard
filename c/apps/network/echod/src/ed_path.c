@@ -9,10 +9,8 @@ char const *ed_path_basename(char const *path) {
 
   name = strrchr(path, ED_DIR_SEP);
   if (name == NULL) {
-    name = path;
-  } else {
-    name++; /* move pointer to char after '/' */
+    return path;
   }
 
-  return name;
+  return name + 1; /* move pointer to char after '/' */
 }
