@@ -48,7 +48,7 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   fd = open(pidfile_path, O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC,
             S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
   if (fd < 0) {
-    ed_log_error("opening pid file '%s' failed: %s", pidfile_path,
+    ed_log_error("unable to open pidfile '%s': %s", pidfile_path,
                  strerror(errno));
     return ED_ERROR;
   }
@@ -57,7 +57,7 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
 
   bytes_written = write(fd, pidstr, pidstr_len);
   if (bytes_written < 0) {
-    ed_log_error("write to pid file '%s' failed: %s", pidfile_path,
+    ed_log_error("unable to write to pidfile '%s': %s", pidfile_path,
                  strerror(errno));
     close(fd);
     return ED_ERROR;
@@ -65,7 +65,7 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
 
   rc = close(fd);
   if (rc < 0) {
-    ed_log_error("close pid file '%s' failed: %s", pidfile_path,
+    ed_log_error("unable to close pidfile '%s': %s", pidfile_path,
                  strerror(errno));
     return ED_ERROR;
   }
