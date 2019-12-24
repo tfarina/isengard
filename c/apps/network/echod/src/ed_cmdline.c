@@ -144,5 +144,4 @@ void ed_cmdline_display_help(char const *program_name) {
 
 void ed_cmdline_display_version(char const *program_name) {
   printf("%s version %s\n", program_name, ED_VERSION_STR);
-  fflush(stdout);
 }
