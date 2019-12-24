@@ -25,13 +25,13 @@ int ed_change_user(char const *username) {
 
   rc = setresgid(gid, gid, gid);
   if (rc < 0) {
-    ed_log_error("unable to setresgid: %s", strerror(errno));
+    ed_log_error("unable to set group id of %s: %s", username, strerror(errno));
     return ED_ERROR;
   }
 
   rc = setresuid(uid, uid, uid);
   if (rc < 0) {
-    ed_log_error("unable to setresuid: %s", strerror(errno));
+    ed_log_error("unable to set user id of %s: %s", username, strerror(errno));
     return ED_ERROR;
   }
 
