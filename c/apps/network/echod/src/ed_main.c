@@ -169,6 +169,7 @@ int main(int argc, char **argv) {
 
   progname = ed_path_basename(argv[0]);
 
+  ed_log_init(progname);
   ed_config_init(&config);
 
   rc = ed_cmdline_parse(argc, argv, progname, &config);
@@ -200,7 +201,7 @@ int main(int argc, char **argv) {
 
   ed_config_load(&config);
 
-  rc = ed_log_init(progname, config.logfile);
+  rc = ed_log_open_file(config.logfile);
   if (rc != ED_OK) {
     return rc;
   }

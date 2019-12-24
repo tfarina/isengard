@@ -106,17 +106,22 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   write(log_fd, buf, len);
 }
 
-int ed_log_init(char const *ident, char const *logfile_path) {
+int ed_log_init(char const *ident) {
   log_dst = ED_LOG_DST_STDERR;
   log_ident = ident;
+  log_fd = STDERR_FILENO;
 
+  return 0;
+}
+
+int ed_log_open_file(char const *logfile_path) {
   if (logfile_path == NULL || !strlen(logfile_path)) {
-    log_fd = STDERR_FILENO;
-  } else {
-    log_fd = open(logfile_path, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
-    if (log_fd < 0) {
-      return -1;
-    }
+    return 0;
+  }
+
+  log_fd = open(logfile_path, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
+  if (log_fd < 0) {
+    return -1;
   }
 
   return 0;
