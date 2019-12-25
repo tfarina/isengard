@@ -54,6 +54,11 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   }
 
   pidstr_len = snprintf(pidstr, sizeof(pidstr), "%lu\n", (unsigned long) pid);
+  if (pidstr_len < 0 || pidstr_len >= (int)sizeof(pidstr)) {
+    ed_log_error("unable to convert process ID: %s", strerror(errno));
+    close(fd);
+    return ED_ERROR;
+  }
 
   bytes_written = write(fd, pidstr, pidstr_len);
   if (bytes_written < 0) {
