@@ -79,7 +79,7 @@ int ed_daemon_detach(void)
         ed_log_error("fork() failed: %s", strerror(errno));
         return ED_ERROR;
 
-    case 0:
+    case 0: /* child */
         break;
 
     default:
