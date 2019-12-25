@@ -87,8 +87,7 @@ int ed_pidfile_remove(char const *pidfile_path) {
 
   rc = unlink(pidfile_path);
   if (rc < 0) {
-    ed_log_error("unlink of pid file '%s' failed, ignored: %s", pidfile_path,
-                 strerror(errno));
+    ed_log_error("unable to remove pidfile '%s': %s", pidfile_path, strerror(errno));
     return ED_ERROR;
   }
 
