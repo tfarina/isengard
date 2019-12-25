@@ -48,10 +48,10 @@ typedef enum ed_log_level_e {
   ED_LOG_LEVEL_MAX
 } ed_log_level_t;
 
-typedef enum {
-  ED_LOG_PRINT_TIME  = 1 << 0,  /* date/time */
-  ED_LOG_PRINT_LEVEL = 1 << 1   /* log level prefix */
-} ed_log_flag_t;
+typedef enum ed_log_opt_e {
+  ED_LOG_OPT_PRINT_TIME  = 1 << 0,  /* date/time */
+  ED_LOG_OPT_PRINT_LEVEL = 1 << 1   /* log level prefix */
+} ed_log_opt_t;
 
 int ed_log_init(char const *ident);
 int ed_log_open_file(char const *logfile_path);
@@ -60,9 +60,9 @@ void ed_log_fini(void);
 void ed_log_set_level(ed_log_level_t level);
 
 /**
- * Sets logging options. It's a logical-OR'd of `ed_log_flag_t`.
+ * Sets logging options. It's a logical-OR'd of `ed_log_opt_t`.
  */
-void ed_log_set_flag(ed_log_flag_t flag);
+void ed_log_set_options(ed_log_opt_t opts);
 
 void ed_log_error(char const *format, ...);
 void ed_log_info(char const *format, ...);

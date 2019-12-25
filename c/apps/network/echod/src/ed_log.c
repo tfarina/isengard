@@ -50,7 +50,7 @@ static ed_log_dst_t log_dst = ED_LOG_DST_STDERR;
 static ed_log_level_t log_level = ED_LOG_LEVEL_INFO;
 static char const *log_ident = NULL;
 static int log_fd = -1;
-static ed_log_flag_t log_flags;
+static ed_log_opt_t log_opts;
 
 void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   time_t now;
@@ -68,7 +68,7 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
     return;
   }
 
-  if (log_flags & ED_LOG_PRINT_TIME) {
+  if (log_opts & ED_LOG_OPT_PRINT_TIME) {
     now = time(NULL);
     localtm = localtime(&now);
 
@@ -77,7 +77,7 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
     len += ed_scnprintf(buf + len, maxlen - len, "%.*s ", strlen(timestr), timestr);
   }
 
-  if (log_flags & ED_LOG_PRINT_LEVEL) {
+  if (log_opts & ED_LOG_OPT_PRINT_LEVEL) {
     switch (level) {
     case ED_LOG_LEVEL_ERROR:
       prefix = "error: ";
@@ -141,8 +141,8 @@ void ed_log_set_level(ed_log_level_t level) {
   log_level = level;
 }
 
-void ed_log_set_flag(ed_log_flag_t flag) {
-  log_flags |= flag;
+void ed_log_set_options(ed_log_opt_t opts) {
+  log_opts |= opts;
 }
 
 void ed_log_error(char const *format, ...) {
