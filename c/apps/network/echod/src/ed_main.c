@@ -215,8 +215,9 @@ int main(int argc, char **argv) {
   ed_log_set_options(ED_LOG_OPT_PRINT_LEVEL);
 
   ed_log_info("username = %s", config.username);
-  ed_log_info("logfile  = %s", config.logfile);
+  ed_log_info("conffile  = %s", config.conffile);
   ed_log_info("pidfile  = %s", config.pidfile);
+  ed_log_info("logfile  = %s", config.logfile);
   ed_log_info("port     = %d", config.port);
   ed_log_info("backlog  = %d", config.backlog);
 
