@@ -255,9 +255,9 @@ int main(int argc, char **argv) {
 
   ed_main_loop(tcpfd);
 
+  ed_pidfile_remove(config.pidfile);
   ed_log_info("Shutdown completed");
   ed_log_fini();
-  ed_pidfile_remove(config.pidfile);
 
   return EXIT_SUCCESS;
 }
