@@ -94,7 +94,7 @@ int ed_daemon_detach(void)
 
     fd = open("/dev/null", O_RDWR);
     if (fd < 0) {
-        ed_log_error("open(\"/dev/null\") failed: %s", strerror(errno));
+        ed_log_error("unable to open /dev/null: %s", strerror(errno));
         return ED_ERROR;
     }
 
@@ -122,7 +122,7 @@ int ed_daemon_detach(void)
     if (fd > STDERR_FILENO) {
         rc = close(fd);
         if (rc < 0) {
-	    ed_log_error("close(%d) failed: %s", fd, strerror(errno));
+	    ed_log_error("unable to close /dev/null: %s", fd, strerror(errno));
             return ED_ERROR;
         }
     }
