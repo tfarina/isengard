@@ -61,7 +61,7 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   }
 
   bytes_written = write(fd, pidstr, (size_t)pidstr_len);
-  if (bytes_written < 0) {
+  if (bytes_written < 0 || bytes_written != (ssize_t)pidstr_len) {
     ed_log_error("unable to write to pidfile '%s': %s", pidfile_path,
                  strerror(errno));
     close(fd);
