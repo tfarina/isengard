@@ -15,7 +15,7 @@ typedef struct ed_config_s {
   char *logfile;       /* debug:   log filename */
   char *pidfile;       /* process: pid file */
   char *username;      /* process: run as another user */
-  char *interface;     /* network: listening interface */
+  char *address;       /* network: local address to bind */
   int  port;           /* network: tcp listening port */
   int  backlog;        /* network: tcp backlog */
 } ed_config_t;

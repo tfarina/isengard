@@ -22,7 +22,7 @@ int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_
     "L:" /* log file */
     "P:" /* pid file */
     "u:" /* user identity to run as */
-    "l:" /* interface to listen on */
+    "a:" /* local address to bind */
     "p:" /* tcp port number to listen on */
     "b:" /* tcp backlog queue limit */
     ;
@@ -35,7 +35,7 @@ int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_
     { "logfile",     required_argument, NULL, 'L' }, /* log file */
     { "pidfile",     required_argument, NULL, 'P' }, /* pid file */
     { "user",        required_argument, NULL, 'u' }, /* user identity to run as */
-    { "interface",   required_argument, NULL, 'l' }, /* interface to listen on */
+    { "address",     required_argument, NULL, 'a' }, /* local address to bind */
     { "port",        required_argument, NULL, 'p' }, /* tcp port number to listen on */
     { "backlog",     required_argument, NULL, 'b' }, /* tcp backlog queue limit */
     { NULL,          0,                 NULL,  0  }
@@ -79,8 +79,8 @@ int ed_cmdline_parse(int argc, char **argv, char const *program_name, ed_config_
       config->username = optarg;
       break;
 
-    case 'l':
-      config->interface = optarg;
+    case 'a':
+      config->address = optarg;
       break;
 
     case 'p':
@@ -134,7 +134,7 @@ void ed_cmdline_display_help(char const *program_name) {
   fputs("  -L, --logfile=FILE         write log messages to the specified file\n", stdout);
   fputs("  -P, --pidfile=FILE         write process id to the specified file\n", stdout);
   fputs("  -u, --user=NAME            user identity to run as\n", stdout);
-  fputs("  -l, --interface=S          interface to listen on\n", stdout);
+  fputs("  -a, --address=ADDRESS      bind to the specified address\n", stdout);
   fputs("  -p, --port=VALUE           set the tcp port to listen on\n", stdout);
   fputs("  -b, --backlog=VALUE        the backlog argument of listen() applied to the\n", stdout);
   fputs("                             listening socket\n", stdout);

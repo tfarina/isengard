@@ -241,7 +241,7 @@ int main(int argc, char **argv) {
 
   ed_signal_init();
 
-  tcpfd = ed_net_tcp_socket_listen(config.interface, config.port, config.backlog);
+  tcpfd = ed_net_tcp_socket_listen(config.address, config.port, config.backlog);
   if (tcpfd == ED_NET_ERR) {
     return EXIT_FAILURE;
   }
