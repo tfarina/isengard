@@ -1,12 +1,45 @@
 #include "ed_privs.h"
 
 #include <errno.h>
+#include <grp.h>
 #include <pwd.h>
 #include <string.h>
 #include <unistd.h>
 
 #include "ed_log.h"
 #include "ed_rcode.h"
+
+uid_t ed_privs_get_uid(char const *username) {
+  struct passwd *pw;
+
+  if (username == NULL) {
+    return 0;
+  }
+
+  pw = getpwnam(username);
+  if (pw == NULL) {
+    ed_log_error("user '%s' does not exist", username);
+    return -1;
+  }
+
+  return pw->pw_uid;
+}
+
+gid_t ed_privs_get_gid(char const *username) {
+  struct group *gr;
+
+  if (username == NULL) {
+    return 0;
+  }
+
+  gr = getgrnam(username);
+  if (gr == NULL) {
+    ed_log_error("user '%s' does not exist", username);
+    return -1;
+  }
+
+  return gr->gr_gid;
+}
 
 int ed_change_user(char const *username) {
   struct passwd *pw;

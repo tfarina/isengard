@@ -20,6 +20,7 @@
 #include <errno.h>
 #include <grp.h>
 #include <netdb.h>
+#include <pwd.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -166,6 +167,10 @@ int main(int argc, char **argv) {
   ed_config_t config;
   int rc;
   int tcpfd;
+  uid_t ed_uid;
+  gid_t ed_gid;
+  struct passwd *pw;
+  struct group *gr;
 
   progname = ed_path_basename(argv[0]);
 
@@ -230,6 +235,9 @@ int main(int argc, char **argv) {
     }
   }
 
+  ed_uid = ed_privs_get_uid(config.username);
+  ed_gid = ed_privs_get_gid(config.username);
+
   config.pid = getpid();
 
   if (config.pidfile != NULL) {
@@ -237,7 +245,22 @@ int main(int argc, char **argv) {
     if (rc != ED_OK) {
       return rc;
     }
+    /*if (chown(config.pidfile, ed_uid, ed_gid) == -1) {
+      ed_log_error("unable to chown %u.%u %s: %s",
+	           (unsigned)ed_uid, (unsigned)ed_gid,
+                   config.pidfile, strerror(errno));
+		   }*/
   }
+
+  ed_uid = getuid();
+  ed_gid = getgid();
+
+  pw = getpwuid(ed_uid);
+  gr = getgrgid(ed_gid);
+
+  ed_log_info("Running as user %s(%ld), group %s(%ld)",
+      pw ? pw->pw_name : "unknown", (long)ed_uid,
+      gr ? gr->gr_name : "unknown", (long)ed_gid);
 
   ed_signal_init();
 
@@ -254,6 +277,17 @@ int main(int argc, char **argv) {
   ed_log_info("%s started on %d", progname, config.pid);
 
   ed_main_loop(tcpfd);
+
+  ed_uid = getuid();
+  ed_gid = getgid();
+
+  pw = getpwuid(ed_uid);
+  gr = getgrgid(ed_gid);
+
+  ed_log_info("Running as user %s(%ld), group %s(%ld)",
+      pw ? pw->pw_name : "unknown", (long)ed_uid,
+      gr ? gr->gr_name : "unknown", (long)ed_gid);
+
 
   ed_pidfile_remove(config.pidfile);
   ed_log_info("Shutdown completed");

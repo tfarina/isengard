@@ -75,6 +75,27 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
     return ED_ERROR;
   }
 
+  /*nsd
+   if (chown(nsd->pidfile, nsd->uid, nsd->gid) == -1) {
+    log_msg(LOG_ERR, "cannot chown %u.%u %s: %s",
+	    (unsigned) nsd->uid, (unsigned) nsd->gid,
+	    nsd->pidfile, strerror(errno));
+    return -1;
+    }*/
+
+  /*slurmd
+    if (uid && (fchown(fd, uid, -1) < 0))
+      error ("Unable to reset owner of pidfile: %m");
+  */
+
+  /*unbound: called after and outside pidfile write
+    if(chown(daemon->pidfile, cfg_uid, cfg_gid) == -1) {
+      verbose(VERB_QUERY, "cannot chown %u.%u %s: %s",
+             (unsigned)cfg_uid, (unsigned)cfg_gid,
+      daemon->pidfile, strerror(errno));
+    }
+  */
+
   return ED_OK;
 }
 
