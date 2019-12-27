@@ -202,7 +202,7 @@ int main(int argc, char **argv) {
   }
 
   /* load the configuration from the file */
-  ed_config_load(&config);
+  ed_config_load_file(&config);
 
   rc = ed_log_open_file(config.logfile);
   if (rc != ED_OK) {

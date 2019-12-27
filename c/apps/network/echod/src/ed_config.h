@@ -21,6 +21,6 @@ typedef struct ed_config_s {
 } ed_config_t;
 
 void ed_config_init(ed_config_t *config);
-void ed_config_load(ed_config_t *config);
+int ed_config_load_file(ed_config_t *config);
 
 #endif  /* ED_CONFIG_H_ */
