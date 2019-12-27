@@ -194,7 +194,7 @@ int main(int argc, char **argv) {
   }
 
   if (geteuid() != ED_ROOT_UID) {
-    fprintf(stderr, "%s: need root privileges\n", progname);
+    fprintf(stderr, "You must be root (uid = 0) to run %s\n", progname);
     return EXIT_FAILURE;
   } else {
     rc = setgroups(0, NULL);
