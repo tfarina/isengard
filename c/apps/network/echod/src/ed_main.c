@@ -199,12 +199,6 @@ int main(int argc, char **argv) {
   if (geteuid() != ED_ROOT_UID) {
     fprintf(stderr, "You must be root (uid = 0) to run %s\n", progname);
     return EXIT_FAILURE;
-  } else {
-    rc = setgroups(0, NULL);
-    if (rc < 0) {
-      ed_log_error("Failed to drop supplementary groups, %s", strerror(errno));
-      return EXIT_FAILURE;
-    }
   }
 
   /* load the configuration from the file */
@@ -224,6 +218,12 @@ int main(int argc, char **argv) {
   ed_log_info("logfile  = %s", config.logfile);
   ed_log_info("port     = %d", config.port);
   ed_log_info("backlog  = %d", config.backlog);
+
+  rc = setgroups(0, NULL);
+  if (rc < 0) {
+    ed_log_error("Failed to drop supplementary groups, %s", strerror(errno));
+    return EXIT_FAILURE;
+  }
 
   /* Change the current working directory. */
   rc = chdir("/");
