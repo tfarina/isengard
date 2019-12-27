@@ -18,7 +18,7 @@ uid_t ed_privs_get_uid(char const *username) {
 
   pw = getpwnam(username);
   if (pw == NULL) {
-    ed_log_error("user '%s' does not exist", username);
+    ed_log_error("user '%s' not found", username);
     return -1;
   }
 
@@ -34,7 +34,7 @@ gid_t ed_privs_get_gid(char const *username) {
 
   gr = getgrnam(username);
   if (gr == NULL) {
-    ed_log_error("user '%s' does not exist", username);
+    ed_log_error("group '%s' not found", username);
     return -1;
   }
 
@@ -49,7 +49,7 @@ int ed_change_user(char const *username) {
 
   pw = getpwnam(username);
   if (pw == NULL) {
-    ed_log_error("cannot find user '%s' to switch to", username);
+    ed_log_error("user '%s' not found", username);
     return ED_ERROR;
   }
 
