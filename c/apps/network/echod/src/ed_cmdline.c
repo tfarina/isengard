@@ -129,7 +129,7 @@ void ed_cmdline_display_help(char const *program_name) {
   fputs("Mandatory arguments to long options are mandatory for short options too.\n\n", stdout);
 
   fputs("Options:\n", stdout);
-  fputs("  -d, --daemonize            run Echod as daemon (background mode)\n", stdout);
+  fputs("  -d, --daemonize            fork and detach from controlling terminal (background mode)\n", stdout);
   fputs("  -c, --conffile=FILE        read configuration from the specified file\n", stdout);
   fputs("  -L, --logfile=FILE         write log messages to the specified file\n", stdout);
   fputs("  -P, --pidfile=FILE         write process id to the specified file\n", stdout);
