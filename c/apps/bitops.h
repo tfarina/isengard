@@ -14,17 +14,17 @@
  *
  * 1- To set bit 2:
  *
- *    BIT_SET(a, 0x04) 
+ *    BIT_SET(flags, 0x04)
  */
-#define BIT_SET(a, mask)   ((a) |= (mask))
-#define BIT_CLR(a, mask)   ((a) &= ~(mask))
+#define BIT_SET(flags, mask)   ((flags) |= (mask))
+#define BIT_CLR(flags, mask)   ((flags) &= ~(mask))
 
 /**
  * Returns true if any of bits specified in 'mask' is set.
  */
-#define BIT_ISSET(a, mask) ((a) & (mask))
+#define BIT_ISSET(flags, mask) ((flags) & (mask))
 
-#define BIT_TOGGLE(a, mask) ((a) ^= (mask))
+#define BIT_TOGGLE(flags, mask) ((flags) ^= (mask))
 
 /* https://www.pixelbeat.org/libs/bitops.h */
 /* https://github.com/irrdnet/irrd/blob/03de032c2d1769a6ffb72513a03cec77d9759fc2/src/include/defs.h#L27 */
