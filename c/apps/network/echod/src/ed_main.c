@@ -175,6 +175,8 @@ int main(int argc, char **argv) {
   progname = ed_path_basename(argv[0]);
 
   ed_log_init(progname);
+
+  /* set default configuration values */
   ed_config_init(&config);
 
   rc = ed_cmdline_parse(argc, argv, progname, &config);
@@ -193,6 +195,7 @@ int main(int argc, char **argv) {
     return EXIT_SUCCESS;
   }
 
+  /* check root privileges */
   if (geteuid() != ED_ROOT_UID) {
     fprintf(stderr, "You must be root (uid = 0) to run %s\n", progname);
     return EXIT_FAILURE;
@@ -204,6 +207,7 @@ int main(int argc, char **argv) {
     }
   }
 
+  /* load the configuration from the file */
   ed_config_load(&config);
 
   rc = ed_log_open_file(config.logfile);
