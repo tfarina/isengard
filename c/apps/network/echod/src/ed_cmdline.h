@@ -6,6 +6,9 @@
 extern int show_help;
 extern int show_version;
 
+/**
+ * Parse command line options into |config|.
+ */
 int ed_cmdline_parse(int argc, char **argv, char const *program_name,
                      ed_config_t *config);
 
