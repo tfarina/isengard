@@ -64,6 +64,7 @@ int ed_daemon_detach(void)
     /* 1st child continues and becomes the session and process group leader */
     sid = setsid();
     if (sid < 0) {
+        ed_log_error("setsid() failed: %s", strerror(errno));
         return ED_ERROR;
     }
 
