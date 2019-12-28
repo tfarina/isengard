@@ -130,8 +130,8 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   write(log_fd, buf, len);
 }
 
-int ed_log_init(char const *progname) {
-  log_dst = ED_LOG_DST_STDERR;
+int ed_log_init(ed_log_dst_t destinations, char const *progname) {
+  log_dst = destinations;
   log_progname = progname;
   log_fd = STDERR_FILENO;
 

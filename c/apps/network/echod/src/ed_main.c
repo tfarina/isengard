@@ -174,7 +174,7 @@ int main(int argc, char **argv) {
 
   progname = ed_path_basename(argv[0]);
 
-  ed_log_init(progname);
+  ed_log_init(ED_LOG_DST_STDERR, progname);
 
   /* set default configuration values */
   ed_config_init(&config);

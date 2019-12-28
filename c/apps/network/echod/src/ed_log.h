@@ -53,7 +53,7 @@ typedef enum ed_log_opt_e {
   ED_LOG_OPT_PRINT_LEVEL = 1 << 1   /* log level prefix */
 } ed_log_opt_t;
 
-int ed_log_init(char const *progname);
+int ed_log_init(ed_log_dst_t destinations, char const *progname);
 int ed_log_open_file(char const *logfile_path);
 void ed_log_fini(void);
 
