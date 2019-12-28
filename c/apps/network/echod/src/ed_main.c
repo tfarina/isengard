@@ -219,19 +219,6 @@ int main(int argc, char **argv) {
   ed_log_info("port     = %d", config.port);
   ed_log_info("backlog  = %d", config.backlog);
 
-  rc = setgroups(0, NULL);
-  if (rc < 0) {
-    ed_log_error("Failed to drop supplementary groups, %s", strerror(errno));
-    return EXIT_FAILURE;
-  }
-
-  /* Change the current working directory. */
-  rc = chdir("/");
-  if (rc < 0) {
-    ed_log_error("Unable to chdir to '/': %s", strerror(errno));
-    return ED_ERROR;
-  }
-
   if (config.daemonize) {
     rc = ed_daemon_detach();
     if (rc != ED_OK) {
