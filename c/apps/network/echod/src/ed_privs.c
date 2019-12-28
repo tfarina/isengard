@@ -74,5 +74,7 @@ int ed_change_user(char const *username) {
     return ED_ERROR;
   }
 
+  ed_log_info("successfully dropped root privileges");
+
   return ED_OK;
 }
