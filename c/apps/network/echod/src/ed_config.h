@@ -3,7 +3,7 @@
 
 #include <unistd.h>
 
-#define ED_USER "_echod"
+#define ED_USER "_echod" /* User for running the Echo daemon. */
 #define ED_DEFAULT_LISTEN_ADDR "0.0.0.0"
 #define ED_DEFAULT_LISTEN_PORT 7
 #define ED_DEFAULT_LISTEN_BACKLOG 1024
