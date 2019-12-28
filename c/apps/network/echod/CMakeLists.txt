@@ -34,11 +34,26 @@ if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
   add_definitions(-D_GNU_SOURCE)
 endif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 
-set(ED_SYSCONFDIR ${CMAKE_INSTALL_PREFIX}/etc)
-set(ED_LOCALSTATEDIR ${CMAKE_INSTALL_PREFIX}/var)
+if (DEFINED CMAKE_INSTALL_PREFIX)
+  set(SYSCONFDIR ${CMAKE_INSTALL_PREFIX}/etc CACHE PATH "configuration directory")
+  set(LOCALSTATEDIR ${CMAKE_INSTALL_PREFIX}/var CACHE PATH "var directory")
+endif()
 
-add_definitions("-DED_SYSCONFDIR=\"${ED_SYSCONFDIR}\"")
-add_definitions("-DED_LOCALSTATEDIR=\"${ED_LOCALSTATEDIR}\"")
+if (DEFINED SYSCONFDIR)
+  set(SYSCONFDIR ${SYSCONFDIR} CACHE PATH "configuration directory")
+else()
+  set(SYSCONFDIR ${CMAKE_INSTALL_PREFIX}/etc CACHE PATH "configuration directory")
+endif()
+
+if (DEFINED LOCALSTATEDIR)
+  set(LOCALSTATEDIR ${LOCALSTATEDIR} CACHE PATH "var directory")
+else()
+  set(LOCALSTATEDIR ${CMAKE_INSTALL_PREFIX}/var CACHE PATH "var directory")
+endif()
+
+
+add_definitions("-DED_SYSCONFDIR=\"${SYSCONFDIR}\"")
+add_definitions("-DED_LOCALSTATEDIR=\"${LOCALSTATEDIR}\"")
 
 add_subdirectory(src)
 
