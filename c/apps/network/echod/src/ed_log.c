@@ -68,6 +68,30 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
     return;
   }
 
+  if (log_dst & ED_LOG_DST_STDERR) {
+    switch (level) {
+    case ED_LOG_LEVEL_ERROR:
+      prefix = "error: ";
+      break;
+
+    case ED_LOG_LEVEL_INFO:
+      prefix = "";
+      break;
+
+    case ED_LOG_LEVEL_DEBUG:
+      prefix = "debug: ";
+      break;
+
+    default:
+      prefix = "internal error: ";
+      break;
+    }
+    vsnprintf(buf, maxlen, format, args);
+    buf[maxlen-1] = '\0'; /* Ensure string is null terminated. */
+    fprintf(stderr, "%s: %s%s\n", log_ident, prefix, buf);
+    return;
+  }
+
   if (log_opts & ED_LOG_OPT_PRINT_TIME) {
     now = time(NULL);
     localtm = localtime(&now);
