@@ -43,8 +43,8 @@ gid_t ed_privs_get_gid(char const *username) {
 
 int ed_change_user(char const *username) {
   struct passwd *pw;
-  gid_t gid;
-  uid_t uid;
+  gid_t runas_gid;
+  uid_t runas_uid;
   int rc;
 
   pw = getpwnam(username);
@@ -53,18 +53,18 @@ int ed_change_user(char const *username) {
     return ED_ERROR;
   }
 
-  gid = pw->pw_gid;
-  uid = pw->pw_uid;
+  runas_gid = pw->pw_gid;
+  runas_uid = pw->pw_uid;
 
-  rc = setresgid(gid, gid, gid);
+  rc = setresgid(runas_gid, runas_gid, runas_gid);
   if (rc < 0) {
-    ed_log_error("unable to set group id to %d: %s", gid, strerror(errno));
+    ed_log_error("unable to set group id to %d: %s", runas_gid, strerror(errno));
     return ED_ERROR;
   }
 
-  rc = setresuid(uid, uid, uid);
+  rc = setresuid(runas_uid, runas_uid, runas_uid);
   if (rc < 0) {
-    ed_log_error("unable to set user id to %d: %s", uid, strerror(errno));
+    ed_log_error("unable to set user id to %d: %s", runas_uid, strerror(errno));
     return ED_ERROR;
   }
 
