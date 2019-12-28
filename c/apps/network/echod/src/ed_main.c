@@ -261,7 +261,8 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  rc = ed_change_user(config.username);
+  /* Drop root privileges */
+  rc = ed_drop_privileges(config.username);
   if (rc != ED_OK) {
     return rc;
   }

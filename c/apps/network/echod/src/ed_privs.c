@@ -41,7 +41,7 @@ gid_t ed_privs_get_gid(char const *username) {
   return gr->gr_gid;
 }
 
-int ed_change_user(char const *username) {
+int ed_drop_privileges(char const *username) {
   struct passwd *pw;
   gid_t runas_gid;
   uid_t runas_uid;

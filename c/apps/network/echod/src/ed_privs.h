@@ -11,6 +11,6 @@ gid_t ed_privs_get_gid(char const *username);
  * specified in 'username'. Effectively dropping the priviledges
  * that this application have.
  */
-int ed_change_user(char const *username);
+int ed_drop_privileges(char const *username);
 
 #endif  /* ED_PRIVS_H_ */
