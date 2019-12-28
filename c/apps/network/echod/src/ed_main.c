@@ -174,8 +174,6 @@ int main(int argc, char **argv) {
 
   progname = ed_path_basename(argv[0]);
 
-  ed_log_init(ED_LOG_DST_STDERR, progname);
-
   /* set default configuration values */
   ed_config_init(&config);
 
@@ -200,6 +198,9 @@ int main(int argc, char **argv) {
     fprintf(stderr, "You must be root (uid = 0) to run %s\n", progname);
     return EXIT_FAILURE;
   }
+
+  /* Initialize logging system after parsing the command line. */
+  ed_log_init(ED_LOG_DST_STDERR, progname);
 
   /* load the configuration from the file */
   ed_config_load_file(&config);
