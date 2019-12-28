@@ -34,6 +34,12 @@ if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
   add_definitions(-D_GNU_SOURCE)
 endif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 
+set(ED_SYSCONFDIR ${CMAKE_INSTALL_PREFIX}/etc)
+set(ED_LOCALSTATEDIR ${CMAKE_INSTALL_PREFIX}/var)
+
+add_definitions("-DED_SYSCONFDIR=\"${ED_SYSCONFDIR}\"")
+add_definitions("-DED_LOCALSTATEDIR=\"${ED_LOCALSTATEDIR}\"")
+
 add_subdirectory(src)
 
 set(INSTALL_MAN_DIR "${CMAKE_INSTALL_PREFIX}/share/man" CACHE PATH "Installation directory for manual pages")
