@@ -56,15 +56,15 @@ int ed_change_user(char const *username) {
   runas_gid = pw->pw_gid;
   runas_uid = pw->pw_uid;
 
-  rc = setresgid(runas_gid, runas_gid, runas_gid);
+  rc = setgid(runas_gid);
   if (rc < 0) {
-    ed_log_error("unable to set group id to %d: %s", runas_gid, strerror(errno));
+    ed_log_error("unable to set gid to %d: %s", runas_gid, strerror(errno));
     return ED_ERROR;
   }
 
-  rc = setresuid(runas_uid, runas_uid, runas_uid);
+  rc = setuid(runas_uid);
   if (rc < 0) {
-    ed_log_error("unable to set user id to %d: %s", runas_uid, strerror(errno));
+    ed_log_error("unable to set uid to %d: %s", runas_uid, strerror(errno));
     return ED_ERROR;
   }
 
