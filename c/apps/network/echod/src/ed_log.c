@@ -48,7 +48,7 @@
 
 static ed_log_dst_t log_dst = ED_LOG_DST_STDERR;
 static ed_log_level_t log_level = ED_LOG_LEVEL_INFO;
-static char const *log_ident = NULL;
+static char const *log_progname = NULL;
 static int log_fd = -1;
 static ed_log_opt_t log_opts;
 
@@ -88,7 +88,7 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
     }
     vsnprintf(buf, maxlen, format, args);
     buf[maxlen-1] = '\0'; /* Ensure string is null terminated. */
-    fprintf(stderr, "%s: %s%s\n", log_ident, prefix, buf);
+    fprintf(stderr, "%s: %s%s\n", log_progname, prefix, buf);
     return;
   }
 
@@ -130,9 +130,9 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   write(log_fd, buf, len);
 }
 
-int ed_log_init(char const *ident) {
+int ed_log_init(char const *progname) {
   log_dst = ED_LOG_DST_STDERR;
-  log_ident = ident;
+  log_progname = progname;
   log_fd = STDERR_FILENO;
 
   return 0;
