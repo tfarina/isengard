@@ -204,13 +204,15 @@ int main(int argc, char **argv) {
   /* load the configuration from the file */
   ed_config_load_file(&config);
 
-  rc = ed_log_open_file(config.logfile);
-  if (rc != ED_OK) {
-    return rc;
-  }
-
   ed_log_set_options(ED_LOG_OPT_PRINT_TIME);
   ed_log_set_options(ED_LOG_OPT_PRINT_LEVEL);
+
+  if (config.logfile != NULL) {
+    rc = ed_log_open_file(config.logfile);
+    if (rc != ED_OK) {
+      return rc;
+    }
+  }
 
   ed_log_info("username = %s", config.username);
   ed_log_info("conffile  = %s", config.conffile);

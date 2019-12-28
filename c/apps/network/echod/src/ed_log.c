@@ -140,7 +140,7 @@ int ed_log_init(ed_log_dst_t destinations, char const *progname) {
 
 int ed_log_open_file(char const *logfile_path) {
   if (logfile_path == NULL || !strlen(logfile_path)) {
-    return 0;
+    return -1;
   }
 
   log_fd = open(logfile_path, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
