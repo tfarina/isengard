@@ -53,29 +53,21 @@ static int log_fd = -1;
 static ed_log_opt_t log_opts;
 
 static char *_ed_log_level_to_str(ed_log_level_t level) {
-  char *prefix;
-
-  prefix = NULL;
-
   switch (level) {
   case ED_LOG_LEVEL_ERROR:
-    prefix = "error: ";
-    break;
+    return "error: ";
 
   case ED_LOG_LEVEL_INFO:
-    prefix = "";
-    break;
+    return "";
 
   case ED_LOG_LEVEL_DEBUG:
-    prefix = "debug: ";
-    break;
+    return "debug: ";
 
   default:
-    prefix = "internal error: ";
-    break;
+    return "internal error: ";
   }
 
-  return prefix;
+  return "unknown: ";
 }
 
 static void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
