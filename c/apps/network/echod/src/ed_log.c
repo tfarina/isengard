@@ -52,7 +52,7 @@ static char const *log_progname = NULL;
 static int log_fd = -1;
 static ed_log_opt_t log_opts;
 
-char *_ed_log_level_to_str(ed_log_level_t level) {
+static char *_ed_log_level_to_str(ed_log_level_t level) {
   char *prefix;
 
   prefix = NULL;
@@ -78,7 +78,7 @@ char *_ed_log_level_to_str(ed_log_level_t level) {
   return prefix;
 }
 
-void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
+static void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   time_t now;
   struct tm *localtm;
   char timestr[32];
