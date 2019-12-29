@@ -92,6 +92,10 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
     return;
   }
 
+  now = time(NULL);
+  localtm = localtime(&now);
+  strftime(timestr, sizeof(timestr), "[%Y-%m-%dT%T]", localtm);
+
   if (log_dst & ED_LOG_DST_STDERR) {
     vsnprintf(buf, maxlen, format, args);
     buf[maxlen-1] = '\0'; /* Ensure string is null terminated. */
@@ -100,11 +104,6 @@ void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
   }
 
   if (log_opts & ED_LOG_OPT_PRINT_TIME) {
-    now = time(NULL);
-    localtm = localtime(&now);
-
-    strftime(timestr, sizeof(timestr), "[%Y-%m-%dT%T]", localtm);
-
     len += ed_scnprintf(buf + len, maxlen - len, "%.*s ", strlen(timestr), timestr);
   }
 
