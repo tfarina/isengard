@@ -88,37 +88,31 @@ static void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) 
   localtm = localtime(&now);
   strftime(timestr, sizeof(timestr), "[%Y-%m-%dT%T]", localtm);
 
+  vsnprintf(buf, maxlen, format, args);
+  buf[maxlen-1] = '\0'; /* Ensure string is null terminated. */
+
   if (log_dst & ED_LOG_DST_STDERR) {
-    vsnprintf(buf, maxlen, format, args);
-    buf[maxlen-1] = '\0'; /* Ensure string is null terminated. */
     fprintf(stderr, "%s: %s%s\n", log_progname, _ed_log_level_to_str(level), buf);
-    return;
+    fflush(stderr);
   }
 
-  if (log_opts & ED_LOG_OPT_PRINT_TIME) {
+  if (log_dst & ED_LOG_DST_FILE && log_fd > 0) {
     len += ed_scnprintf(buf + len, maxlen - len, "%.*s ", strlen(timestr), timestr);
-  }
-
-  if (log_opts & ED_LOG_OPT_PRINT_LEVEL) {
     len += ed_scnprintf(buf + len, maxlen - len, "%s", _ed_log_level_to_str(level));
+    len += vsnprintf(buf + len, maxlen - len, format, args);
+    buf[len++] = '\n';
+    write(log_fd, buf, len);
   }
-
-  len += vsnprintf(buf + len, maxlen - len, format, args);
-
-  buf[len++] = '\n';
-
-  write(log_fd, buf, len);
 }
 
 int ed_log_init(ed_log_dst_t destinations, char const *progname) {
   log_dst = destinations;
   log_progname = progname;
-  log_fd = STDERR_FILENO;
 
   return 0;
 }
 
-int ed_log_open_file(char const *logfile_path) {
+int ed_log_file_open(char const *logfile_path) {
   if (logfile_path == NULL || !strlen(logfile_path)) {
     return -1;
   }
@@ -131,8 +125,8 @@ int ed_log_open_file(char const *logfile_path) {
   return 0;
 }
 
-void ed_log_fini(void) {
-  if (log_fd < 0 || log_fd == STDERR_FILENO) {
+void ed_log_file_close(void) {
+  if (log_fd < 0) {
     return;
   }
 

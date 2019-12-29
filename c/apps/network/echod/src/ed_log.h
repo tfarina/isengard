@@ -54,8 +54,8 @@ typedef enum ed_log_opt_e {
 } ed_log_opt_t;
 
 int ed_log_init(ed_log_dst_t destinations, char const *progname);
-int ed_log_open_file(char const *logfile_path);
-void ed_log_fini(void);
+int ed_log_file_open(char const *logfile_path);
+void ed_log_file_close(void);
 
 void ed_log_set_level(ed_log_level_t level);
 

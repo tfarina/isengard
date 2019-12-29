@@ -200,16 +200,13 @@ int main(int argc, char **argv) {
   }
 
   /* Initialize logging system after parsing the command line. */
-  ed_log_init(ED_LOG_DST_STDERR, progname);
+  ed_log_init(ED_LOG_DST_STDERR | ED_LOG_DST_FILE, progname);
 
   /* load the configuration from the file */
   ed_config_load_file(&config);
 
-  ed_log_set_options(ED_LOG_OPT_PRINT_TIME);
-  ed_log_set_options(ED_LOG_OPT_PRINT_LEVEL);
-
   if (config.logfile != NULL) {
-    rc = ed_log_open_file(config.logfile);
+    rc = ed_log_file_open(config.logfile);
     if (rc != ED_OK) {
       return rc;
     }
@@ -287,7 +284,9 @@ int main(int argc, char **argv) {
 
   ed_pidfile_remove(config.pidfile);
   ed_log_info("Shutdown completed");
-  ed_log_fini();
+  if (config.logfile != NULL) {
+    ed_log_file_close();
+  }
 
   return EXIT_SUCCESS;
 }
