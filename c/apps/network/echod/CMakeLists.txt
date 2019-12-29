@@ -25,11 +25,6 @@ set(ED_VERSION_MINOR  1)
 set(ED_VERSION_PATCH  0)
 set(ED_VERSION_STR "${ED_VERSION_MAJOR}.${ED_VERSION_MINOR}.${ED_VERSION_PATCH}")
 
-configure_file(
-  "${PROJECT_SOURCE_DIR}/src/ed_version.h.in"
-  "${PROJECT_SOURCE_DIR}/src/ed_version.h"
-)
-
 if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
   add_definitions(-D_GNU_SOURCE)
 endif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
