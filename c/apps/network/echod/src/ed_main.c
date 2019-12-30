@@ -250,7 +250,7 @@ int main(int argc, char **argv) {
   pw = getpwuid(ed_uid);
   gr = getgrgid(ed_gid);
 
-  ed_log_info("Running as user %s(%ld), group %s(%ld)",
+  ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
       pw ? pw->pw_name : "unknown", (long)ed_uid,
       gr ? gr->gr_name : "unknown", (long)ed_gid);
 
@@ -277,7 +277,7 @@ int main(int argc, char **argv) {
   pw = getpwuid(ed_uid);
   gr = getgrgid(ed_gid);
 
-  ed_log_info("Running as user %s(%ld), group %s(%ld)",
+  ed_log_info("running as user %s (%ld) and  group %s (%ld)",
       pw ? pw->pw_name : "unknown", (long)ed_uid,
       gr ? gr->gr_name : "unknown", (long)ed_gid);
 
