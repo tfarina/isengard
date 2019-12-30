@@ -5,7 +5,7 @@
  * Helper macros for bit manipulation.
  */
 
-#define BIT_MASK(bit) (1 << (bit))
+#define BIT_MASK(bit) (1U << (bit))
 
 /**
  * These macros work on positions defined by constants.
