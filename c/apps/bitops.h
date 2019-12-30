@@ -2,7 +2,7 @@
 #define BITOPS_H_
 
 /**
- * Macro functions for bit manipulation.
+ * Helper macros for bit manipulation.
  */
 
 #define BIT_MASK(bit) (1 << (bit))
