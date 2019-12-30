@@ -171,6 +171,7 @@ int main(int argc, char **argv) {
   gid_t ed_gid;
   struct passwd *pw;
   struct group *gr;
+  int show_config = 1;
 
   progname = ed_path_basename(argv[0]);
 
@@ -212,12 +213,14 @@ int main(int argc, char **argv) {
     }
   }
 
-  ed_log_info("username = %s", config.username);
-  ed_log_info("conffile  = %s", config.conffile);
-  ed_log_info("pidfile  = %s", config.pidfile);
-  ed_log_info("logfile  = %s", config.logfile);
-  ed_log_info("port     = %d", config.port);
-  ed_log_info("backlog  = %d", config.backlog);
+  if (show_config) {
+    fprintf(stdout, "username  = %s\n", config.username);
+    fprintf(stdout, "conffile  = %s\n", config.conffile);
+    fprintf(stdout, "pidfile   = %s\n", config.pidfile);
+    fprintf(stdout, "logfile   = %s\n", config.logfile);
+    fprintf(stdout, "port      = %d\n", config.port);
+    fprintf(stdout, "backlog   = %d\n", config.backlog);
+  }
 
   if (config.daemonize) {
     rc = ed_daemon_detach();
