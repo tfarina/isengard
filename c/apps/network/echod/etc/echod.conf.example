@@ -4,6 +4,8 @@
 
 ### See echod.conf man page for more information.
 
+[server]
+
 ###
 ### SERVICE
 ###
@@ -13,7 +15,7 @@
 #
 # By default Echod does not run as a daemon. Set to 'yes' to enable.
 #
-daemonize no
+daemonize=no
 
 #
 # Pid file.
@@ -21,7 +23,7 @@ daemonize no
 # If pidfile is specified, Echod will write its process id to
 # the specified file at startup.
 #
-# pidfile "/var/run/echod.pid"
+# pidfile=/var/run/echod.pid
 #
 
 ###
@@ -34,5 +36,5 @@ daemonize no
 # If logfile is specified, Echod will additionally use it to write
 # log events.
 #
-# logfile "/var/log/echod.log"
+# logfile=/var/log/echod.log
 #
