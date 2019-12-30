@@ -56,7 +56,7 @@ static void print_stats(void) {
   ed_log_info("connected_clients=%d", connected_clients);
 }
 
-static void sigchld_handler(int sig) {
+static void sig_chld_handler(int sig) {
   pid_t pid;
   int status;
 
@@ -71,10 +71,10 @@ static void sigchld_handler(int sig) {
     print_stats();
   }
 
-  signal(SIGCHLD, sigchld_handler);
+  signal(SIGCHLD, sig_chld_handler);
 }
 
-static void ed_signal_handler(int sig) {
+static void sig_shutdown_handler(int sig) {
   if (sig == SIGTERM || sig == SIGINT) {
     quit = 1;
   }
@@ -86,9 +86,9 @@ static void ed_signal_handler(int sig) {
  * Setup signals.
  */
 static void ed_signal_init(void) {
-  signal(SIGCHLD, sigchld_handler);
-  signal(SIGINT, ed_signal_handler);
-  signal(SIGTERM, ed_signal_handler);
+  signal(SIGCHLD, sig_chld_handler);
+  signal(SIGINT, sig_shutdown_handler);
+  signal(SIGTERM, sig_shutdown_handler);
 }
 
 static void echo_stream(int fd) {
