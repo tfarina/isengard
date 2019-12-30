@@ -9,8 +9,7 @@ extern int show_version;
 /**
  * Parse command line options into |config|.
  */
-int ed_cmdline_parse(int argc, char **argv, char const *program_name,
-                     ed_config_t *config);
+int ed_cmdline_parse(int argc, char **argv, ed_config_t *config);
 
 void ed_cmdline_display_help(char const *program_name);
 

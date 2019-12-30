@@ -37,7 +37,6 @@
 #include "ed_daemon.h"
 #include "ed_log.h"
 #include "ed_net.h"
-#include "ed_path.h"
 #include "ed_pidfile.h"
 #include "ed_privs.h"
 #include "ed_rcode.h"
@@ -46,8 +45,6 @@
 
 #define ED_ROOT_UID 0
 #define BUFSIZE 8129
-
-static const char *progname;
 
 static sig_atomic_t volatile quit;
 static int unsigned connected_clients = 0; /* Number of child processes. */
@@ -173,35 +170,33 @@ int main(int argc, char **argv) {
   struct group *gr;
   int show_config = 1;
 
-  progname = ed_path_basename(*argv);
-
   /* set default configuration values */
   ed_config_init(&config);
 
-  rc = ed_cmdline_parse(argc, argv, progname, &config);
+  rc = ed_cmdline_parse(argc, argv, &config);
   if (rc != ED_OK) {
-    ed_cmdline_display_help(progname);
+    ed_cmdline_display_help(config.progname);
     return EXIT_FAILURE;
   }
 
   if (show_help) {
-    ed_cmdline_display_help(progname);
+    ed_cmdline_display_help(config.progname);
     return EXIT_SUCCESS;
   }
 
   if (show_version) {
-    ed_cmdline_display_version(progname);
+    ed_cmdline_display_version(config.progname);
     return EXIT_SUCCESS;
   }
 
   /* check root privileges */
   if (geteuid() != ED_ROOT_UID) {
-    fprintf(stderr, "You must be root (uid = 0) to run %s\n", progname);
+    fprintf(stderr, "You must be root (uid = 0) to run %s\n", config.progname);
     return EXIT_FAILURE;
   }
 
   /* Initialize logging system after parsing the command line. */
-  ed_log_init(ED_LOG_DST_STDERR | ED_LOG_DST_FILE, progname);
+  ed_log_init(ED_LOG_DST_STDERR | ED_LOG_DST_FILE, config.progname);
 
   /* load the configuration from the file */
   ed_config_load_file(&config);
@@ -225,7 +220,7 @@ int main(int argc, char **argv) {
   if (config.daemonize) {
     rc = ed_daemon_detach();
     if (rc != ED_OK) {
-      ed_log_error("Couldn't daemonize %s: %s\n", progname, strerror(errno));
+      ed_log_error("Couldn't daemonize %s: %s\n", config.progname, strerror(errno));
       return rc;
     }
   }
@@ -270,7 +265,7 @@ int main(int argc, char **argv) {
     return rc;
   }
 
-  ed_log_info("%s started on %d", progname, config.pid);
+  ed_log_info("%s started on %d", config.progname, config.pid);
 
   ed_main_loop(tcpfd);
 
