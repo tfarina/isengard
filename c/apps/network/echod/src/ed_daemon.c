@@ -101,21 +101,21 @@ int ed_daemon_detach(void)
 
     rc = dup2(fd, STDIN_FILENO);
     if (rc < 0) {
-        ed_log_error("dup2(%d, STDIN) failed: %s", fd, strerror(errno));
+        ed_log_error("unable to dup /dev/null onto stdin: %s", strerror(errno));
         close(fd);
         return ED_ERROR;
     }
 
     rc = dup2(fd, STDOUT_FILENO);
     if (rc < 0) {
-        ed_log_error("dup2(%d, STDOUT) failed: %s", fd, strerror(errno));
+        ed_log_error("unable to dup /dev/null onto stdout: %s", strerror(errno));
         close(fd);
         return ED_ERROR;
     }
 
     rc = dup2(fd, STDERR_FILENO);
     if (rc < 0) {
-        ed_log_error("dup2(%d, STDERR) failed: %s", fd, strerror(errno));
+        ed_log_error("unable to dup /dev/null onto stderr: %s", strerror(errno));
         close(fd);
         return ED_ERROR;
     }
@@ -123,7 +123,7 @@ int ed_daemon_detach(void)
     if (fd > STDERR_FILENO) {
         rc = close(fd);
         if (rc < 0) {
-	    ed_log_error("unable to close /dev/null: %s", fd, strerror(errno));
+	    ed_log_error("unable to close /dev/null: %s", strerror(errno));
             return ED_ERROR;
         }
     }
