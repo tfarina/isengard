@@ -173,7 +173,7 @@ int main(int argc, char **argv) {
   struct group *gr;
   int show_config = 1;
 
-  progname = ed_path_basename(argv[0]);
+  progname = ed_path_basename(*argv);
 
   /* set default configuration values */
   ed_config_init(&config);
