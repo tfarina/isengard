@@ -16,11 +16,27 @@
  *
  *    BIT_SET(flags, 0x04)
  */
+
+/**
+ * Set bits
+ *
+ * @param flags the value where bits should be set
+ */
 #define BIT_SET(flags, mask)   ((flags) |= (mask))
+
+/**
+ * Clear bits
+ *
+ * @param flags the value where bits should be clear.
+ */
 #define BIT_CLR(flags, mask)   ((flags) &= ~(mask))
 
 /**
- * Returns true if any of bits specified in 'mask' is set.
+ * Check if bits are set
+ *
+ * @param flags the value where bits should be checked
+ *
+ * @return Returns true if any of bits specified in 'mask' is set.
  */
 #define BIT_ISSET(flags, mask) ((flags) & (mask))
 
@@ -33,5 +49,6 @@
 /* https://people.cs.umu.se/isak/snippets/bitops.c */
 /* https://github.com/royratcliffe/ta-lib/blob/272b60afa70625b84ab647fd1e0a13909735280b/branches/ta-lib/ta-lib/c/src/ta_common/imatix/sfl/prelude.h#L429 */
 /* https://github.com/signalwire/libks/blob/master/src/include/libks/ks.h#L42 */
+/* https://github.com/ventanium/ventanium/blob/master/src/vtm/core/flag.h */
 
 #endif  /* BITOPS_H_ */
