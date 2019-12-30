@@ -78,6 +78,7 @@ add_executable(stats_test stats_test.c stats.c)
 target_link_libraries(stats_test -lm)
 add_executable(mysql_version mysql_version.c)
 target_link_libraries(mysql_version ${MYSQL_LIBRARY})
+add_executable(ansi_colors_test ansi_colors_test.c)
 
 set(LIBCSV_PARSER_SRCS
   csv_parser.c
