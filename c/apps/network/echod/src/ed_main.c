@@ -63,7 +63,7 @@ static void sig_chld_handler(int sig) {
       break;
     }
 
-    ed_log_info("subprocess %lu finished with status %d", (unsigned long)pid, status);
+    ed_log_info("pid %lu died with status %d", (unsigned long)pid, WEXITSTATUS(status));
     --connected_clients;
     print_stats();
   }
