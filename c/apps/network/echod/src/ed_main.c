@@ -196,7 +196,7 @@ int main(int argc, char **argv) {
   }
 
   /* Initialize logging system after parsing the command line. */
-  ed_log_init(ED_LOG_DST_STDERR | ED_LOG_DST_FILE, config.progname);
+  ed_log_set_ident(config.progname);
 
   /* load the configuration from the file */
   ed_config_load_file(&config);

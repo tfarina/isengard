@@ -105,17 +105,16 @@ static void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) 
   }
 }
 
-int ed_log_init(ed_log_dst_t destinations, char const *progname) {
-  log_dst = destinations;
+void ed_log_set_ident(char const *progname) {
   log_progname = progname;
-
-  return 0;
 }
 
 int ed_log_file_open(char const *logfile_path) {
   if (logfile_path == NULL || !strlen(logfile_path)) {
     return -1;
   }
+
+  log_dst |= ED_LOG_DST_FILE;
 
   log_fd = open(logfile_path, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
   if (log_fd < 0) {
