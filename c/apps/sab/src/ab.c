@@ -68,9 +68,9 @@ static int _create_tables(void) {
 }
 
 ab_contact_t *ab_contact_alloc(void) {
-  ab_contact_t *contact = NULL;
+  ab_contact_t *contact;
 
-  contact = malloc(sizeof(ab_contact_t));
+  contact = (ab_contact_t *) malloc(sizeof(*contact));
   if (contact == NULL) {
     return NULL;
   }
