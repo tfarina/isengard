@@ -188,7 +188,7 @@ int main(int argc, char **argv) {
     return EXIT_SUCCESS;
   }
 
-  /* check root privileges */
+  /* Check if it was run by the superuser. */
   if (geteuid() != ED_ROOT_UID) {
     fprintf(stderr, "You must be root (uid = 0) to run %s\n", config.progname);
     return EXIT_FAILURE;
