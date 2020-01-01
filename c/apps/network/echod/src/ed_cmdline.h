@@ -5,6 +5,7 @@
 
 extern int show_help;
 extern int show_version;
+extern int show_config;
 
 /**
  * Parse command line options into |config|.

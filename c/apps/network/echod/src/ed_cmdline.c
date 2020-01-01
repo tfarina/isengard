@@ -11,6 +11,7 @@
 
 int show_help = 0;
 int show_version = 0;
+int show_config = 0;
 
 int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
   int opt_char, value;
@@ -26,6 +27,7 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     "a:" /* local address to bind */
     "p:" /* tcp port number to listen on */
     "b:" /* tcp backlog queue limit */
+    "S"  /* show configuration */
     ;
 
   static struct option const long_options[] = {
@@ -39,6 +41,7 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     { "address",     required_argument, NULL, 'a' }, /* local address to bind */
     { "port",        required_argument, NULL, 'p' }, /* tcp port number to listen on */
     { "backlog",     required_argument, NULL, 'b' }, /* tcp backlog queue limit */
+    { "show-config", no_argument,       NULL, 'S' }, /* show configuration */
     { NULL,          0,                 NULL,  0  }
   };
 
@@ -108,6 +111,10 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       }
 
       config->backlog = value;
+      break;
+
+    case 'S':
+      show_config = 1;
       break;
 
     case '?':

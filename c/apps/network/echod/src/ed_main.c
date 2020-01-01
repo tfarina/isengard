@@ -168,7 +168,6 @@ int main(int argc, char **argv) {
   gid_t ed_gid;
   struct passwd *pw;
   struct group *gr;
-  int show_config = 1;
 
   /* set default configuration values */
   ed_config_init(&config);
