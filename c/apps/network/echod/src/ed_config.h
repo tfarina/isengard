@@ -1,8 +1,6 @@
 #ifndef ED_CONFIG_H_
 #define ED_CONFIG_H_
 
-#include <unistd.h>
-
  /* Group for running the Echo daemon. */
 #define ED_GROUP "_echod"
 
@@ -15,7 +13,7 @@
 
 typedef struct ed_config_s {
   char const *progname; /* program basename from *argv */
-  pid_t pid;           /* process: server id */
+  int pid;              /* process: server id */
   int  daemonize:1;    /* process: daemon mode */
   char *conffile;      /* process: configuration filename */
   char *logfile;       /* debug:   log filename */
