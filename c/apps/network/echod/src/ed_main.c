@@ -232,10 +232,10 @@ int main(int argc, char **argv) {
   ed_uid = ed_privs_get_uid(config.username);
   ed_gid = ed_privs_get_gid(config.username);
 
-  config.pid = getpid();
+  ed_g_pid = getpid();
 
   if (config.pidfile != NULL) {
-    rc = ed_pidfile_write(config.pidfile, config.pid);
+    rc = ed_pidfile_write(config.pidfile, ed_g_pid);
     if (rc != ED_OK) {
       return rc;
     }
@@ -269,7 +269,7 @@ int main(int argc, char **argv) {
     return rc;
   }
 
-  ed_log_info("%s started on %d", ed_g_progname, config.pid);
+  ed_log_info("%s started on %d", ed_g_progname, ed_g_pid);
 
   ed_event_loop(tcpfd);
 

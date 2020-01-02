@@ -5,7 +5,6 @@
 #include "ed_default_paths.h"
 
 void ed_config_init(ed_config_t *config) {
-  config->pid = -1;
   config->daemonize = 0;
   config->conffile = ED_CONFIG_FILE_PATH;
   config->logfile = NULL;
