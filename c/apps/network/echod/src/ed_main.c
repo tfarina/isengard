@@ -84,7 +84,7 @@ static void sig_shutdown_handler(int sig) {
 /**
  * Set up signal handlers.
  */
-static void ed_signal_init(void) {
+static void ed_sig_setup(void) {
   signal(SIGCHLD, sig_chld_handler);
   signal(SIGINT, sig_shutdown_handler);
   signal(SIGTERM, sig_shutdown_handler);
@@ -256,7 +256,7 @@ int main(int argc, char **argv) {
       pw ? pw->pw_name : "unknown", (long)ed_uid,
       gr ? gr->gr_name : "unknown", (long)ed_gid);
 
-  ed_signal_init();
+  ed_sig_setup();
 
   tcpfd = ed_net_tcp_socket_listen(config.address, config.port, config.backlog);
   if (tcpfd == ED_NET_ERR) {
