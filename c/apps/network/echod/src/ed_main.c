@@ -102,7 +102,7 @@ static void echo_stream(int fd) {
   exit(EXIT_SUCCESS);
 }
 
-static int ed_main_loop(int tcpfd) {
+static int ed_event_loop(int tcpfd) {
   fd_set rfds_in;
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
    * after select(). */
@@ -271,7 +271,7 @@ int main(int argc, char **argv) {
 
   ed_log_info("%s started on %d", ed_g_progname, config.pid);
 
-  ed_main_loop(tcpfd);
+  ed_event_loop(tcpfd);
 
   ed_uid = getuid();
   ed_gid = getgid();
