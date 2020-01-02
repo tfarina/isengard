@@ -9,6 +9,7 @@ set(ECHOD_SRCS
   ed_cmdline.c
   ed_config.c
   ed_daemon.c
+  ed_globals.c
   ed_log.c
   ed_main.c
   ed_net.c

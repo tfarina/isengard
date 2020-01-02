@@ -12,8 +12,7 @@
 #define ED_DEFAULT_LISTEN_BACKLOG 1024
 
 typedef struct ed_config_s {
-  char const *progname; /* program basename from *argv */
-  int pid;              /* process: server id */
+  int pid;             /* process: server id */
   int  daemonize:1;    /* process: daemon mode */
   char *conffile;      /* process: configuration filename */
   char *logfile;       /* debug:   log filename */

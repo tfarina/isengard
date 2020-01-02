@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "ed_path.h"
+#include "ed_globals.h"
 #include "ed_rcode.h"
 #include "ed_utils.h"
 #include "ed_version.h"
@@ -44,8 +44,6 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     { "show-config", no_argument,       NULL, 'S' }, /* show configuration */
     { NULL,          0,                 NULL,  0  }
   };
-
-  config->progname = ed_path_basename(*argv);
 
   opterr = 0;
 
@@ -92,11 +90,11 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     case 'p':
       value = atoi(optarg);
       if (value <= 0) {
-	fprintf(stderr, "%s: option -p requires a non zero number\n", config->progname);
+	fprintf(stderr, "%s: option -p requires a non zero number\n", ed_g_progname);
 	return ED_ERROR;
       }
       if (!ed_valid_port(value)) {
-	fprintf(stderr, "%s: option -s value %d is not a valid port\n", config->progname, value);
+	fprintf(stderr, "%s: option -s value %d is not a valid port\n", ed_g_progname, value);
 	return ED_ERROR;
       }
 
@@ -106,7 +104,7 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     case 'b':
       value = atoi(optarg);
       if (value <= 0) {
-	fprintf(stderr, "%s: option -b requires a non zero number\n", config->progname);
+	fprintf(stderr, "%s: option -b requires a non zero number\n", ed_g_progname);
 	return ED_ERROR;
       }
 
@@ -118,13 +116,13 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       break;
 
     case '?':
-      fprintf(stderr, "%s: invalid option -- '%c'\n", config->progname, optopt);
-      fprintf(stderr, "Try '%s --help' for more information.\n", config->progname);
+      fprintf(stderr, "%s: invalid option -- '%c'\n", ed_g_progname, optopt);
+      fprintf(stderr, "Try '%s --help' for more information.\n", ed_g_progname);
       exit(EXIT_FAILURE);
       return ED_ERROR;
 
     default:
-      fprintf(stderr, "%s: invalid option -- '%c'\n", config->progname, optopt);
+      fprintf(stderr, "%s: invalid option -- '%c'\n", ed_g_progname, optopt);
       return ED_ERROR;
       /* NOTREACHED */
     }

@@ -35,8 +35,10 @@
 #include "ed_cmdline.h"
 #include "ed_config.h"
 #include "ed_daemon.h"
+#include "ed_globals.h"
 #include "ed_log.h"
 #include "ed_net.h"
+#include "ed_path.h"
 #include "ed_pidfile.h"
 #include "ed_privs.h"
 #include "ed_rcode.h"
@@ -169,33 +171,35 @@ int main(int argc, char **argv) {
   struct passwd *pw;
   struct group *gr;
 
+  ed_g_progname = ed_path_basename(*argv);
+
   /* set default configuration values */
   ed_config_init(&config);
 
   rc = ed_cmdline_parse(argc, argv, &config);
   if (rc != ED_OK) {
-    ed_cmdline_display_help(config.progname);
+    ed_cmdline_display_help(ed_g_progname);
     return EXIT_FAILURE;
   }
 
   if (show_help) {
-    ed_cmdline_display_help(config.progname);
+    ed_cmdline_display_help(ed_g_progname);
     return EXIT_SUCCESS;
   }
 
   if (show_version) {
-    ed_cmdline_display_version(config.progname);
+    ed_cmdline_display_version(ed_g_progname);
     return EXIT_SUCCESS;
   }
 
   /* Check if it was run by the superuser. */
   if (geteuid() != ED_ROOT_UID) {
-    fprintf(stderr, "You must be root (uid = 0) to run %s\n", config.progname);
+    fprintf(stderr, "You must be root (uid = 0) to run %s\n", ed_g_progname);
     return EXIT_FAILURE;
   }
 
   /* Initialize logging system after parsing the command line. */
-  ed_log_set_ident(config.progname);
+  ed_log_set_ident(ed_g_progname);
 
   /* load the configuration from the file */
   ed_config_load_file(&config);
@@ -208,7 +212,7 @@ int main(int argc, char **argv) {
   }
 
   if (show_config) {
-    fprintf(stdout, " *** %s configuration ***\n", config.progname);
+    fprintf(stdout, " *** %s configuration ***\n", ed_g_progname);
     fprintf(stdout, "username  = %s\n", config.username);
     fprintf(stdout, "conffile  = %s\n", config.conffile);
     fprintf(stdout, "pidfile   = %s\n", config.pidfile);
@@ -220,7 +224,7 @@ int main(int argc, char **argv) {
   if (config.daemonize) {
     rc = ed_daemon_detach();
     if (rc != ED_OK) {
-      ed_log_error("Couldn't daemonize %s: %s\n", config.progname, strerror(errno));
+      ed_log_error("Couldn't daemonize %s: %s\n", ed_g_progname, strerror(errno));
       return rc;
     }
   }
@@ -265,7 +269,7 @@ int main(int argc, char **argv) {
     return rc;
   }
 
-  ed_log_info("%s started on %d", config.progname, config.pid);
+  ed_log_info("%s started on %d", ed_g_progname, config.pid);
 
   ed_main_loop(tcpfd);
 
