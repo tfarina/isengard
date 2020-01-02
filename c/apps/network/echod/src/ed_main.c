@@ -173,7 +173,9 @@ int main(int argc, char **argv) {
 
   ed_g_progname = ed_path_basename(*argv);
 
-  /* set default configuration values */
+  ed_log_set_ident(ed_g_progname);
+
+  /* Set default configuration values. */
   ed_config_init(&config);
 
   rc = ed_cmdline_parse(argc, argv, &config);
@@ -198,10 +200,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  /* Initialize logging system after parsing the command line. */
-  ed_log_set_ident(ed_g_progname);
-
-  /* load the configuration from the file */
+  /* Load the configuration from the file. */
   ed_config_load_file(&config);
 
   if (config.logfile != NULL) {
@@ -263,7 +262,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  /* Drop root privileges */
+  /* Drop root privileges. */
   rc = ed_drop_privileges(config.username);
   if (rc != ED_OK) {
     return rc;
@@ -282,7 +281,6 @@ int main(int argc, char **argv) {
   ed_log_info("running as user %s (%ld) and  group %s (%ld)",
       pw ? pw->pw_name : "unknown", (long)ed_uid,
       gr ? gr->gr_name : "unknown", (long)ed_gid);
-
 
   ed_pidfile_remove(config.pidfile);
   ed_log_info("Shutdown completed");
