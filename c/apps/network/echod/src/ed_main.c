@@ -82,7 +82,7 @@ static void sig_shutdown_handler(int sig) {
 }
 
 /**
- * Setup signals.
+ * Set up signal handlers.
  */
 static void ed_signal_init(void) {
   signal(SIGCHLD, sig_chld_handler);
