@@ -8,7 +8,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "ec_log.h"
+#include "msg.h"
 
 int fnet_tcp_socket_connect(char const *host, int port, int *out_sd) {
   char portstr[6];  /* strlen("65535") + 1; */

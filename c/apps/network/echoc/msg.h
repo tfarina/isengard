@@ -1,5 +1,5 @@
-#ifndef LOG_H_
-#define LOG_H_
+#ifndef MSG_H_
+#define MSG_H_
 
 #include "ec_macros.h"
 
@@ -8,4 +8,4 @@ void error(const char *fmt, ...) EC_FORMAT_PRINTF(1, 2);
 void warn(const char *fmt, ...) EC_FORMAT_PRINTF(1, 2);
 void info(const char *fmt, ...) EC_FORMAT_PRINTF(1, 2);
 
-#endif  /* LOG_H_ */
+#endif  /* MSG_H_ */

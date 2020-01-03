@@ -15,10 +15,10 @@ endif()
 add_definitions(-D_GNU_SOURCE)
 
 set(ECHOC_SRCS
-  ec_log.c
   ec_main.c
   ec_utils.c
   fnet.c
+  msg.c
 )
 
 add_executable(echoc ${ECHOC_SRCS})
