@@ -18,7 +18,7 @@ void fatal(const char *fmt, ...) {
     vprintf_msg("fatal: ", fmt, args);
     va_end(args);
 
-    exit(EXIT_FAILURE);
+    exit(1);
 }
 
 void error(const char *fmt, ...) {
