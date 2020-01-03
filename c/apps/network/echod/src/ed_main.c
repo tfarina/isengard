@@ -85,9 +85,25 @@ static void sig_shutdown_handler(int sig) {
  * Set up signal handlers.
  */
 static void ed_sig_setup(void) {
-  signal(SIGCHLD, sig_chld_handler);
-  signal(SIGINT, sig_shutdown_handler);
-  signal(SIGTERM, sig_shutdown_handler);
+  struct sigaction action;
+
+  sigemptyset(&action.sa_mask);
+  action.sa_flags = 0;
+
+  action.sa_handler = sig_shutdown_handler;
+
+  if (sigaction(SIGINT, &action, (struct sigaction *) 0) < 0) {
+    ed_log_error("unable to set SIGINT: %s", strerror(errno));
+  }
+  if (sigaction(SIGTERM, &action, (struct sigaction *) 0) < 0) {
+    ed_log_error("unable to set SIGTERM: %s", strerror(errno));
+  }
+
+  action.sa_flags |= SA_NOCLDSTOP;
+  action.sa_handler = sig_chld_handler;
+  if (sigaction(SIGCHLD, &action, (struct sigaction *) 0) < 0) {
+    ed_log_error("unable to set SIGCHLD: %s", strerror(errno));
+  }
 }
 
 static void echo_stream(int fd) {
