@@ -192,14 +192,26 @@ static char const *get_username(void) {
   return pw->pw_name;
 }
 
+static char const *get_groupname(void) {
+  gid_t gid;
+  struct group *gr;
+
+  gid = getgid();
+
+  gr = getgrgid(gid);
+  if (gr == 0) {
+    return "unknown";
+  }
+
+  return gr->gr_name;
+}
+
 int main(int argc, char **argv) {
   ed_config_t config;
   int rc;
   int tcpfd;
   uid_t ed_uid;
   gid_t ed_gid;
-  struct passwd *pw;
-  struct group *gr;
 
   ed_g_progname = ed_path_basename(*argv);
 
@@ -278,12 +290,9 @@ int main(int argc, char **argv) {
   ed_uid = getuid();
   ed_gid = getgid();
 
-  pw = getpwuid(ed_uid);
-  gr = getgrgid(ed_gid);
-
   ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
 	      get_username(), (long)ed_uid,
-              gr ? gr->gr_name : "unknown", (long)ed_gid);
+              get_groupname(), (long)ed_gid);
 
   ed_sig_setup();
 
@@ -305,12 +314,9 @@ int main(int argc, char **argv) {
   ed_uid = getuid();
   ed_gid = getgid();
 
-  pw = getpwuid(ed_uid);
-  gr = getgrgid(ed_gid);
-
   ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
 	      get_username(), (long)ed_uid,
-              gr ? gr->gr_name : "unknown", (long)ed_gid);
+              get_groupname(), (long)ed_gid);
 
   ed_pidfile_remove(config.pidfile);
   ed_log_info("Shutdown completed");
