@@ -4,43 +4,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void vprintf_msg(const char *prefix, const char *fmt, va_list args) {
+static void vprintf_msg(const char *prefix, const char *fmt, va_list ap) {
     fflush(stderr);
     fputs(prefix, stderr);
-    vfprintf(stderr, fmt, args);
+    vfprintf(stderr, fmt, ap);
     fputc('\n', stderr);
 }
 
 void fatal(const char *fmt, ...) {
-    va_list args;
+    va_list ap;
 
-    va_start(args, fmt);
-    vprintf_msg("fatal: ", fmt, args);
-    va_end(args);
+    va_start(ap, fmt);
+    vprintf_msg("fatal: ", fmt, ap);
+    va_end(ap);
 
     exit(1);
 }
 
 void error(const char *fmt, ...) {
-    va_list args;
+    va_list ap;
 
-    va_start(args, fmt);
-    vprintf_msg("error: ", fmt, args);
-    va_end(args);
+    va_start(ap, fmt);
+    vprintf_msg("error: ", fmt, ap);
+    va_end(ap);
 }
 
 void warn(const char *fmt, ...) {
-    va_list args;
+    va_list ap;
 
-    va_start(args, fmt);
-    vprintf_msg("warning: ", fmt, args);
-    va_end(args);
+    va_start(ap, fmt);
+    vprintf_msg("warning: ", fmt, ap);
+    va_end(ap);
 }
 
 void info(const char *fmt, ...) {
-    va_list args;
+    va_list ap;
 
-    va_start(args, fmt);
-    vprintf_msg("", fmt, args);
-    va_end(args);
+    va_start(ap, fmt);
+    vprintf_msg("", fmt, ap);
+    va_end(ap);
 }
