@@ -12,8 +12,8 @@
  * @param src (nullable): the string to duplicate
  */
 char *f_strdup(char const *src) {
-  char *dst;
   size_t len;
+  char *dst;
 
   if (src == 0) {
     return (char *) 0;
@@ -22,7 +22,5 @@ char *f_strdup(char const *src) {
   len = strlen(src) + 1;
   dst = malloc(len);
 
-  memcpy(dst, src, len);
-
-  return dst;
+  return strcpy(dst, src);
 }
