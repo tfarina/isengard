@@ -238,7 +238,7 @@ int main(int argc, char **argv) {
 
   /* Check if it was run by the superuser. */
   if (geteuid() != ED_ROOT_UID) {
-    fprintf(stderr, "You must be root (uid = 0) to run %s\n", ed_g_progname);
+    ed_log_error("You must be root (uid = 0) to run %s", ed_g_progname);
     return EXIT_FAILURE;
   }
 
