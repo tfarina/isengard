@@ -11,7 +11,7 @@ static void vprintf_msg(const char *prefix, const char *fmt, va_list ap) {
     fputc('\n', stderr);
 }
 
-void fatal(const char *fmt, ...) {
+void EC_NORETURN fatal(const char *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
