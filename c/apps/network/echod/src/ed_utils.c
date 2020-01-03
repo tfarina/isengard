@@ -1,9 +1,7 @@
 #include "ed_utils.h"
 
-#include <stdint.h>
-
 int ed_valid_port(int port) {
-  if (port < 1 || port > UINT16_MAX) {
+  if (port < 0 || port > 65535) {
     return 0;
   }
 
