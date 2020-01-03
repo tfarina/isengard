@@ -162,6 +162,20 @@ static int ed_event_loop(int tcpfd) {
   return 0;
 }
 
+static char const *get_username(void) {
+  uid_t uid;
+  struct passwd *pw;
+
+  uid = getuid();
+
+  pw = getpwuid(uid);
+  if (pw == 0) {
+    return "unknown";
+  }
+
+  return pw->pw_name;
+}
+
 int main(int argc, char **argv) {
   ed_config_t config;
   int rc;
@@ -252,8 +266,8 @@ int main(int argc, char **argv) {
   gr = getgrgid(ed_gid);
 
   ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
-      pw ? pw->pw_name : "unknown", (long)ed_uid,
-      gr ? gr->gr_name : "unknown", (long)ed_gid);
+	      get_username(), (long)ed_uid,
+              gr ? gr->gr_name : "unknown", (long)ed_gid);
 
   ed_sig_setup();
 
@@ -278,9 +292,9 @@ int main(int argc, char **argv) {
   pw = getpwuid(ed_uid);
   gr = getgrgid(ed_gid);
 
-  ed_log_info("running as user %s (%ld) and  group %s (%ld)",
-      pw ? pw->pw_name : "unknown", (long)ed_uid,
-      gr ? gr->gr_name : "unknown", (long)ed_gid);
+  ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
+	      get_username(), (long)ed_uid,
+              gr ? gr->gr_name : "unknown", (long)ed_gid);
 
   ed_pidfile_remove(config.pidfile);
   ed_log_info("Shutdown completed");
