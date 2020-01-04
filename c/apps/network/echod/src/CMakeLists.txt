@@ -18,7 +18,7 @@ set(ECHOD_SRCS
   ed_printf.c
   ed_privs.c
   ed_signals.c
-  ed_utils.c
+  ed_validate.c
 )
 
 add_executable(echod ${ECHOD_SRCS})

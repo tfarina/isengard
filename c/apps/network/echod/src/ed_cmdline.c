@@ -6,7 +6,7 @@
 
 #include "ed_globals.h"
 #include "ed_rcode.h"
-#include "ed_utils.h"
+#include "ed_validate.h"
 #include "ed_version.h"
 
 int show_help = 0;

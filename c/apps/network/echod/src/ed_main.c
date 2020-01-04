@@ -43,7 +43,7 @@
 #include "ed_privs.h"
 #include "ed_rcode.h"
 #include "ed_signals.h"
-#include "ed_utils.h"
+#include "ed_validate.h"
 
 #define ED_ROOT_UID 0
 #define BUFSIZE 8129
