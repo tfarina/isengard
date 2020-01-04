@@ -104,11 +104,10 @@ static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *sal
 
 int ed_net_tcp_socket_accept(int sd, char *ipbuf, size_t ipbuf_len, int *port) {
   struct sockaddr_storage ss;
-  struct sockaddr *sa = (struct sockaddr *)&ss;
   socklen_t sslen = sizeof(ss);
   int fd;
 
-  if ((fd = ed_net_generic_accept(sd, sa, &sslen)) == ED_NET_ERR) {
+  if ((fd = ed_net_generic_accept(sd, (struct sockaddr *) &ss, &sslen)) == ED_NET_ERR) {
     return ED_NET_ERR;
   }
 
