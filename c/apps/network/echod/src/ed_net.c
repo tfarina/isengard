@@ -31,7 +31,7 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   snprintf(portstr, sizeof(portstr), "%d", port);
 
   memset(&hints, 0, sizeof(hints));
-  hints.ai_family = AF_UNSPEC;
+  hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_protocol = IPPROTO_TCP;
   hints.ai_flags = AI_PASSIVE;
