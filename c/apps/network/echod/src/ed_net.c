@@ -15,7 +15,7 @@ int ed_net_set_reuseaddr(int sd) {
 
   reuse = 1;
 
-  if (setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) == -1) {
+  if (setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) < 0) {
     return ED_NET_ERR;
   }
 
