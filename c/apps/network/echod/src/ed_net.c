@@ -34,7 +34,7 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_protocol = IPPROTO_TCP;
-  hints.ai_flags = AI_PASSIVE;
+  hints.ai_flags = AI_NUMERICHOST;
 
   rv = getaddrinfo(host, portstr, &hints, &addrlist);
   if (rv != 0) {
