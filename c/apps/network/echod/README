@@ -20,6 +20,8 @@ running the following command on Linux:
 
 $ sudo useradd -u 1001 -U -c "Echo Daemon" -d /var/empty -s /sbin/nologin _echod
 
+$ sudo useradd --user-group --no-create-home --system --shell /usr/sbin/nologin echod
+
 If you are on OpenBSD, then you can run:
 
 # useradd -u 1001 -g =uid -c "Echo Daemon" -d /var/empty -s /sbin/nologin _echod
