@@ -222,6 +222,9 @@ int main(int argc, char **argv) {
    */
   ed_config_init(&config);
 
+  /*
+   * Process command-line.
+   */
   rc = ed_cmdline_parse(argc, argv, &config);
   if (rc != ED_OK) {
     ed_cmdline_display_help(ed_g_progname);
