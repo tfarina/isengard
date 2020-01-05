@@ -217,7 +217,9 @@ int main(int argc, char **argv) {
 
   ed_log_set_ident(ed_g_progname);
 
-  /* Set default configuration values. */
+  /*
+   * Set default configuration values.
+   */
   ed_config_init(&config);
 
   rc = ed_cmdline_parse(argc, argv, &config);
@@ -236,13 +238,17 @@ int main(int argc, char **argv) {
     return EXIT_SUCCESS;
   }
 
-  /* Check if it was run by the superuser. */
+  /*
+   * Check if it was run by the superuser.
+   */
   if (geteuid() != ED_ROOT_UID) {
     ed_log_error("You must be root (uid = 0) to run %s", ed_g_progname);
     return EXIT_FAILURE;
   }
 
-  /* Load the configuration from the file. */
+  /*
+   * Load the configuration from the file.
+   */
   ed_config_load_file(&config);
 
   if (config.logfile != NULL) {
@@ -301,7 +307,9 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  /* Drop root privileges. */
+  /*
+   * Drop root privileges.
+   */
   rc = ed_drop_privileges(config.username);
   if (rc != ED_OK) {
     return rc;
