@@ -10,23 +10,12 @@
 
 #include "ed_log.h"
 
-int ed_net_set_reuseaddr(int sd) {
-  int reuse;
-
-  reuse = 1;
-
-  if (setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) < 0) {
-    return ED_NET_ERR;
-  }
-
-  return ED_NET_OK;
-}
-
 int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
   int sd;
+  int reuse = 1;
 
   snprintf(portstr, sizeof(portstr), "%d", port);
 
@@ -50,7 +39,10 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
       continue;
     }
 
-    rv = ed_net_set_reuseaddr(sd);
+    if (setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) < 0) {
+      return ED_NET_ERR;
+    }
+
     if (rv != ED_NET_OK) {
       ed_log_error("set reuse addr on sd %d failed: %s", sd, strerror(errno));
       close(sd);
