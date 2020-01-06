@@ -224,7 +224,7 @@ int main(int argc, char **argv) {
   ed_log_set_ident(ed_g_progname);
 
   /*
-   * Set default configuration values.
+   * Initialize built-in parameters to their default values.
    */
   ed_config_init(&config);
 
