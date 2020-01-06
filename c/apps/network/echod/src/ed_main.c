@@ -229,6 +229,14 @@ int main(int argc, char **argv) {
   ed_config_init(&config);
 
   /*
+   * Check if it was run by the superuser.
+   */
+  if (geteuid() != ED_ROOT_UID) {
+    ed_log_error("You must be root (uid = 0) to run %s", ed_g_progname);
+    return EXIT_FAILURE;
+  }
+
+  /*
    * Process command-line.
    */
   rc = ed_cmdline_parse(argc, argv, &config);
@@ -245,14 +253,6 @@ int main(int argc, char **argv) {
   if (show_version) {
     ed_cmdline_display_version(ed_g_progname);
     return EXIT_SUCCESS;
-  }
-
-  /*
-   * Check if it was run by the superuser.
-   */
-  if (geteuid() != ED_ROOT_UID) {
-    ed_log_error("You must be root (uid = 0) to run %s", ed_g_progname);
-    return EXIT_FAILURE;
   }
 
   /*
