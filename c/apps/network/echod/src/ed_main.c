@@ -155,20 +155,26 @@ static int ed_event_loop(int tcpfd) {
 
         pid = fork();
         switch (pid) {
+        /* Error */
         case -1:
           close(clientfd);
           --connected_clients;
           print_stats();
           break;
 
+        /* Child process. */
         case 0:
           ed_log_info("child process forked");
           close(tcpfd);
           echo_stream(clientfd);
           break;
 
+        /* Parent process. */
         default:
-          close(clientfd); /* we are the parent so look for another connection. */
+          /*
+           * We are the parent so look for another connection.
+           */
+          close(clientfd);
           ed_log_info("pid: %d", pid);
         }
       }
