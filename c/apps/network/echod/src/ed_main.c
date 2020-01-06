@@ -162,7 +162,7 @@ static int ed_event_loop(int tcpfd) {
           break;
 
         case 0:
-          ed_log_info("Child process forked with pid %d.", pid);
+          ed_log_info("child process forked");
           close(tcpfd);
           echo_stream(clientfd);
           break;
