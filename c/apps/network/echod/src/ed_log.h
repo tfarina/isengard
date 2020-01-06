@@ -42,9 +42,9 @@ typedef enum ed_log_dst_e {
 } ed_log_dst_t;
 
 typedef enum ed_log_level_e {
-  ED_LOG_LEVEL_ERROR  = 0,  /* error conditions */
-  ED_LOG_LEVEL_INFO   = 1,  /* informational messages */
-  ED_LOG_LEVEL_DEBUG  = 2,  /* debug messages */
+  ED_LOG_LEVEL_ERROR  = 0,  /* recoverable error */
+  ED_LOG_LEVEL_INFO   = 1,  /* informative message */
+  ED_LOG_LEVEL_DEBUG  = 2,  /* debug message */
   ED_LOG_LEVEL_MAX
 } ed_log_level_t;
 
