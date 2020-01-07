@@ -39,12 +39,9 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
       continue;
     }
 
-    if (setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) < 0) {
-      return ED_NET_ERR;
-    }
-
-    if (rv != ED_NET_OK) {
-      ed_log_error("set reuse addr on sd %d failed: %s", sd, strerror(errno));
+    rv = setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+    if (rv < 0) {
+      ed_log_error("setsockopt SO_REUSEADDR failed: %s", strerror(errno));
       close(sd);
       continue;
     }
