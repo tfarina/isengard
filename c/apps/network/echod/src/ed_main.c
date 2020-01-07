@@ -240,17 +240,17 @@ int main(int argc, char **argv) {
    */
   rc = ed_cmdline_parse(argc, argv, &config);
   if (rc != ED_OK) {
-    ed_cmdline_display_help(ed_g_progname);
+    ed_cmdline_display_help();
     return EXIT_FAILURE;
   }
 
   if (show_help) {
-    ed_cmdline_display_help(ed_g_progname);
+    ed_cmdline_display_help();
     return EXIT_SUCCESS;
   }
 
   if (show_version) {
-    ed_cmdline_display_version(ed_g_progname);
+    ed_cmdline_display_version();
     return EXIT_SUCCESS;
   }
 

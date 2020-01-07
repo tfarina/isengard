@@ -131,8 +131,8 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
   return ED_OK;
 }
 
-void ed_cmdline_display_help(char const *program_name) {
-  printf("Usage: %s [OPTION]...\n\n", program_name);
+void ed_cmdline_display_help(void) {
+  printf("Usage: %s [OPTION]...\n\n", ed_g_progname);
 
   fputs("Mandatory arguments to long options are mandatory for short options too.\n\n", stdout);
 
@@ -150,6 +150,6 @@ void ed_cmdline_display_help(char const *program_name) {
   fputs("  -V, --version              output version information and exit\n", stdout);
 }
 
-void ed_cmdline_display_version(char const *program_name) {
-  printf("%s %s\n", program_name, ED_VERSION_STR);
+void ed_cmdline_display_version(void) {
+  printf("%s %s\n", ed_g_progname, ED_VERSION_STR);
 }
