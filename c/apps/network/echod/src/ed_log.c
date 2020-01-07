@@ -54,6 +54,9 @@ static ed_log_opt_t log_opts;
 
 static char *_ed_log_level_to_str(ed_log_level_t level) {
   switch (level) {
+  case ED_LOG_LEVEL_FATAL:
+    return "fatal: ";
+
   case ED_LOG_LEVEL_ERROR:
     return "error: ";
 
@@ -140,6 +143,17 @@ void ed_log_set_level(ed_log_level_t level) {
 
 void ed_log_set_options(ed_log_opt_t opts) {
   log_opts |= opts;
+}
+
+void ed_log_fatal(char const *format, ...) {
+  va_list args;
+
+  va_start(args, format);
+  _ed_log_msg(ED_LOG_LEVEL_FATAL, format, args);
+  va_end(args);
+
+  sleep(1);
+  _exit(1);
 }
 
 void ed_log_error(char const *format, ...) {
