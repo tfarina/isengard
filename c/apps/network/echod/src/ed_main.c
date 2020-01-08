@@ -327,7 +327,7 @@ int main(int argc, char **argv) {
     return rc;
   }
 
-  ed_log_info("%s started on %d", ed_g_progname, ed_g_pid);
+  ed_log_info("daemon started -- pid %d", ed_g_pid);
 
   ed_event_loop(tcpfd);
 
