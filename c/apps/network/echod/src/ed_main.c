@@ -294,6 +294,10 @@ int main(int argc, char **argv) {
 
   ed_privs_check_owner(config.username);
 
+  ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
+	      get_username(), (long)getuid(),
+              get_groupname(), (long)getgid());
+
   ed_g_pid = getpid();
 
   if (config.pidfile != NULL) {
@@ -307,10 +311,6 @@ int main(int argc, char **argv) {
                    config.pidfile, strerror(errno));
 		   }*/
   }
-
-  ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
-	      get_username(), (long)getuid(),
-              get_groupname(), (long)getgid());
 
   ed_sig_setup();
 
@@ -327,13 +327,13 @@ int main(int argc, char **argv) {
     return rc;
   }
 
-  ed_log_info("daemon started -- pid %d", ed_g_pid);
-
-  ed_event_loop(tcpfd);
-
   ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
 	      get_username(), (long)getuid(),
               get_groupname(), (long)getgid());
+
+  ed_log_info("daemon started -- pid %d", ed_g_pid);
+
+  ed_event_loop(tcpfd);
 
   ed_pidfile_remove(config.pidfile);
   ed_log_info("Shutdown completed");
