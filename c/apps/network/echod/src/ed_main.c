@@ -49,6 +49,7 @@
 #define BUFSIZE 8129
 
 static sig_atomic_t volatile quit;
+static sig_atomic_t volatile got_sigchld;
 static int unsigned connected_clients = 0; /* Number of child processes. */
 
 static void print_stats(void) {
@@ -56,6 +57,10 @@ static void print_stats(void) {
 }
 
 static void sig_chld_handler(int sig) {
+  got_sigchld = 1;
+}
+
+static void sig_chld_reaper(void) {
   pid_t pid;
   int status;
 
@@ -178,6 +183,11 @@ static int ed_event_loop(int tcpfd) {
           ed_log_info("pid: %d", pid);
         }
       }
+    }
+
+    if (got_sigchld) {
+      got_sigchld = 0;
+      sig_chld_reaper();
     }
   }
 
