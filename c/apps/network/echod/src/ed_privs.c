@@ -6,39 +6,20 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "ed_globals.h"
 #include "ed_log.h"
 #include "ed_rcode.h"
 
-uid_t ed_privs_get_uid(char const *username) {
+void ed_privs_check_owner(char const *username) {
   struct passwd *pw;
 
-  if (username == NULL) {
-    return 0;
-  }
-
   pw = getpwnam(username);
-  if (pw == NULL) {
-    ed_log_error("user '%s' not found", username);
-    return -1;
+  if (pw == 0) {
+    ed_log_fatal("user '%s' not found", username);
   }
 
-  return pw->pw_uid;
-}
-
-gid_t ed_privs_get_gid(char const *username) {
-  struct group *gr;
-
-  if (username == NULL) {
-    return 0;
-  }
-
-  gr = getgrnam(username);
-  if (gr == NULL) {
-    ed_log_error("group '%s' not found", username);
-    return -1;
-  }
-
-  return gr->gr_gid;
+  ed_g_owner_uid = pw->pw_uid;
+  ed_g_owner_gid = pw->pw_gid;
 }
 
 int ed_drop_privileges(char const *username) {

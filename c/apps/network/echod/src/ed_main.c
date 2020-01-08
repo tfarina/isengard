@@ -226,8 +226,6 @@ int main(int argc, char **argv) {
   ed_config_t config;
   int rc;
   int tcpfd;
-  uid_t ed_uid;
-  gid_t ed_gid;
 
   ed_g_progname = ed_path_basename(*argv);
 
@@ -294,8 +292,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  ed_uid = ed_privs_get_uid(config.username);
-  ed_gid = ed_privs_get_gid(config.username);
+  ed_privs_check_owner(config.username);
 
   ed_g_pid = getpid();
 
@@ -311,12 +308,9 @@ int main(int argc, char **argv) {
 		   }*/
   }
 
-  ed_uid = getuid();
-  ed_gid = getgid();
-
   ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
-	      get_username(), (long)ed_uid,
-              get_groupname(), (long)ed_gid);
+	      get_username(), (long)getuid(),
+              get_groupname(), (long)getgid());
 
   ed_sig_setup();
 
@@ -337,12 +331,9 @@ int main(int argc, char **argv) {
 
   ed_event_loop(tcpfd);
 
-  ed_uid = getuid();
-  ed_gid = getgid();
-
   ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
-	      get_username(), (long)ed_uid,
-              get_groupname(), (long)ed_gid);
+	      get_username(), (long)getuid(),
+              get_groupname(), (long)getgid());
 
   ed_pidfile_remove(config.pidfile);
   ed_log_info("Shutdown completed");
