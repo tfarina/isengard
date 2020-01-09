@@ -96,7 +96,8 @@ int ed_net_tcp_socket_accept(int sd, char *ipbuf, size_t ipbuf_len, int *port) {
   socklen_t sslen = sizeof(ss);
   int fd;
 
-  if ((fd = ed_net_generic_accept(sd, (struct sockaddr *) &ss, &sslen)) == ED_NET_ERR) {
+  fd = ed_net_generic_accept(sd, (struct sockaddr *) &ss, &sslen);
+  if (fd == ED_NET_ERR) {
     return ED_NET_ERR;
   }
 
