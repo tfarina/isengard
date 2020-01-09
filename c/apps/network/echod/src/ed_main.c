@@ -262,11 +262,6 @@ int main(int argc, char **argv) {
     return EXIT_SUCCESS;
   }
 
-  /*
-   * Load the configuration from the file.
-   */
-  ed_config_load_file(&config);
-
   if (config.logfile != NULL) {
     rc = ed_log_file_open(config.logfile);
     if (rc != ED_OK) {

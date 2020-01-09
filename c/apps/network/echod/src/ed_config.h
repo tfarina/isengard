@@ -27,9 +27,4 @@ typedef struct ed_config_s {
  */
 void ed_config_init(ed_config_t *config);
 
-/**
- * Read configuration data from config->conffile into |config|.
- */
-int ed_config_load_file(ed_config_t *config);
-
 #endif  /* ED_CONFIG_H_ */
