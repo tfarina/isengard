@@ -312,8 +312,6 @@ int main(int argc, char **argv) {
 		   }*/
   }
 
-  ed_sig_setup();
-
   tcpfd = ed_net_tcp_socket_listen(config.address, config.port, config.backlog);
   if (tcpfd == ED_NET_ERR) {
     return EXIT_FAILURE;
@@ -326,6 +324,8 @@ int main(int argc, char **argv) {
   if (rc != ED_OK) {
     return rc;
   }
+
+  ed_sig_setup();
 
   ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
 	      get_username(), (long)getuid(),
