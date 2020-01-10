@@ -227,6 +227,14 @@ int main(int argc, char **argv) {
   int rc;
   int tcpfd;
 
+  {
+    struct sigaction act;
+    act.sa_handler = SIG_IGN;
+    sigemptyset (&act.sa_mask);
+    act.sa_flags = 0;
+    sigaction (SIGPIPE, &act, NULL);
+  }
+
   ed_g_progname = ed_path_basename(*argv);
 
   ed_log_set_ident(ed_g_progname);
