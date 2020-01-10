@@ -48,7 +48,7 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
 
     rv = bind(sd, cur->ai_addr, cur->ai_addrlen);
     if (rv < 0) {
-      ed_log_error("bind to port %s failed: %.200s", portstr, strerror(errno));
+      ed_log_error("bind to %s:%s failed: %.200s", host, portstr, strerror(errno));
       close(sd);
       continue;
     }
