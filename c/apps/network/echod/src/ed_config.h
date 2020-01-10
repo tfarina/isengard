@@ -7,9 +7,9 @@
  /* User for running the Echo daemon. */
 #define ED_USER "_echod"
 
-#define ED_DEFAULT_LISTEN_ADDR "0.0.0.0"
-#define ED_DEFAULT_LISTEN_PORT 7
-#define ED_DEFAULT_LISTEN_BACKLOG 1024
+#define ED_DEFAULT_BIND_ADDR "0.0.0.0"
+#define ED_DEFAULT_ECHO_PORT 7
+#define ED_DEFAULT_BACKLOG 1024
 
 typedef struct ed_config_s {
   int  daemonize:1;    /* process: daemon mode */
