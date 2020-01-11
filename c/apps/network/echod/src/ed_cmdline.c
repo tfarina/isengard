@@ -11,6 +11,10 @@
 
 int show_config = 0;
 
+static void print_version(void) {
+  printf("%s %s\n", ed_g_progname, ED_VERSION_STR);
+}
+
 int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
   int opt_char, value;
 
@@ -109,7 +113,7 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       break;
 
     case 'V':
-      ed_cmdline_display_version();
+      print_version();
       exit(0);
       break;
 
@@ -142,6 +146,3 @@ void ed_cmdline_display_help(void) {
   fputs("  -V, --version              output version information and exit\n", stdout);
 }
 
-void ed_cmdline_display_version(void) {
-  printf("%s %s\n", ed_g_progname, ED_VERSION_STR);
-}
