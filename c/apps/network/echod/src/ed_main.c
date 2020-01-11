@@ -180,7 +180,7 @@ static int ed_event_loop(int tcpfd) {
            * We are the parent so look for another connection.
            */
           close(clientfd);
-          ed_log_info("pid: %d", pid);
+          ed_log_info("new child created -- pid %d", pid);
         }
       }
     }
