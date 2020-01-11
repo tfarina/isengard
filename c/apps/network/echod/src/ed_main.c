@@ -256,7 +256,7 @@ int main(int argc, char **argv) {
    */
   rc = ed_cmdline_parse(argc, argv, &config);
   if (rc != ED_OK) {
-    ed_cmdline_display_help();
+    ed_cmdline_display_help(0);
     return EXIT_FAILURE;
   }
 

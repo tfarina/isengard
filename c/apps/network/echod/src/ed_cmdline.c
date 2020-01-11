@@ -108,8 +108,7 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       break;
 
     case 'h':
-      ed_cmdline_display_help();
-      exit(0);
+      ed_cmdline_display_help(0);
       break;
 
     case 'V':
@@ -118,8 +117,7 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       break;
 
     default:
-      ed_cmdline_display_help();
-      exit(1);
+      ed_cmdline_display_help(1);
       return ED_ERROR;
     }
   }
@@ -127,7 +125,7 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
   return ED_OK;
 }
 
-void ed_cmdline_display_help(void) {
+void ed_cmdline_display_help(int status) {
   printf("Usage: %s [OPTION]...\n\n", ed_g_progname);
 
   fputs("Mandatory arguments to long options are mandatory for short options too.\n\n", stdout);
@@ -144,5 +142,7 @@ void ed_cmdline_display_help(void) {
   fputs("                             listening socket\n", stdout);
   fputs("  -h, --help                 display this help and exit\n", stdout);
   fputs("  -V, --version              output version information and exit\n", stdout);
+
+  exit(status);
 }
 
