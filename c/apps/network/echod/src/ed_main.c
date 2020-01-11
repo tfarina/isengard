@@ -153,7 +153,7 @@ static int ed_event_loop(int tcpfd) {
 	  return -1;
 	}
 
-	ed_log_info("Accepted connection from %s:%d", clientip, clientport);
+	ed_log_info("connection from %s:%d", clientip, clientport);
 
         ++connected_clients;
         print_stats();
