@@ -94,7 +94,7 @@ static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *sal
   return fd;
 }
 
-int ed_net_tcp_socket_accept(int sd, char *ipbuf, size_t ipbuf_len, int *port) {
+int ed_net_tcp_socket_accept(int sd, char *ipbuf, size_t ipbuf_len, short unsigned *port) {
   struct sockaddr_storage ss;
   socklen_t sslen = sizeof(ss);
   int fd;

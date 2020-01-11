@@ -130,7 +130,7 @@ static int ed_event_loop(int tcpfd) {
   fd_set rfds_out;
   int rc;
   char clientip[46];
-  int clientport;
+  short unsigned clientport;
   int clientfd;
   pid_t pid;
 
