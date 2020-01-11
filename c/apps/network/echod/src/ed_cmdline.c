@@ -122,9 +122,9 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       return ED_ERROR;
 
     default:
-      fprintf(stderr, "%s: invalid option -- '%c'\n", ed_g_progname, optopt);
+      ed_cmdline_display_help();
+      exit(1);
       return ED_ERROR;
-      /* NOTREACHED */
     }
   }
 
