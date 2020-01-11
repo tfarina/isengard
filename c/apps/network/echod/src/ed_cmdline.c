@@ -43,8 +43,6 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     { NULL,          0,                 NULL,  0  }
   };
 
-  opterr = 0;
-
   for (;;) {
     opt_char = getopt_long(argc, argv, short_options, long_options, NULL);
     if (opt_char == -1) {
@@ -114,12 +112,6 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       ed_cmdline_display_version();
       exit(0);
       break;
-
-    case '?':
-      fprintf(stderr, "%s: invalid option -- '%c'\n", ed_g_progname, optopt);
-      fprintf(stderr, "Try '%s --help' for more information.\n", ed_g_progname);
-      exit(EXIT_FAILURE);
-      return ED_ERROR;
 
     default:
       ed_cmdline_display_help();
