@@ -3,8 +3,6 @@
 
 #include "ed_config.h"
 
-extern int show_help;
-extern int show_version;
 extern int show_config;
 
 /**

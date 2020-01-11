@@ -9,8 +9,6 @@
 #include "ed_validate.h"
 #include "ed_version.h"
 
-int show_help = 0;
-int show_version = 0;
 int show_config = 0;
 
 int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
@@ -55,14 +53,6 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     }
 
     switch (opt_char) {
-    case 'h':
-      show_help = 1;
-      break;
-
-    case 'V':
-      show_version = 1;
-      break;
-
     case 'd':
       config->daemonize = 1;
       break;
@@ -113,6 +103,16 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
 
     case 'S':
       show_config = 1;
+      break;
+
+    case 'h':
+      ed_cmdline_display_help();
+      exit(0);
+      break;
+
+    case 'V':
+      ed_cmdline_display_version();
+      exit(0);
       break;
 
     case '?':

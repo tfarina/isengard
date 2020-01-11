@@ -260,16 +260,6 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  if (show_help) {
-    ed_cmdline_display_help();
-    return EXIT_SUCCESS;
-  }
-
-  if (show_version) {
-    ed_cmdline_display_version();
-    return EXIT_SUCCESS;
-  }
-
   if (config.logfile != NULL) {
     rc = ed_log_file_open(config.logfile);
     if (rc != ED_OK) {
