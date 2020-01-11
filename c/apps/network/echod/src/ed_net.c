@@ -17,7 +17,10 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   int sd;
   int reuse = 1;
 
-  snprintf(portstr, sizeof(portstr), "%d", port);
+  rv = snprintf(portstr, sizeof(portstr), "%d", port);
+  if (rv < 0 || (size_t) rv > sizeof(portstr)) {
+    return ED_NET_ERR;
+  }
 
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_INET;
