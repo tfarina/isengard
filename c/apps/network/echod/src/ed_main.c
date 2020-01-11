@@ -254,11 +254,7 @@ int main(int argc, char **argv) {
   /*
    * Process command-line.
    */
-  rc = ed_cmdline_parse(argc, argv, &config);
-  if (rc != ED_OK) {
-    ed_cmdline_display_help(0);
-    return EXIT_FAILURE;
-  }
+  ed_cmdline_parse(argc, argv, &config);
 
   if (config.logfile != NULL) {
     rc = ed_log_file_open(config.logfile);

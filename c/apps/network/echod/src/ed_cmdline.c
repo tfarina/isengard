@@ -15,7 +15,7 @@ static void print_version(void) {
   printf("%s %s\n", ed_g_progname, ED_VERSION_STR);
 }
 
-int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
+void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
   int opt_char, value;
 
   static char const short_options[] =
@@ -83,11 +83,11 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       value = atoi(optarg);
       if (value <= 0) {
 	fprintf(stderr, "%s: option -p requires a non zero number\n", ed_g_progname);
-	return ED_ERROR;
+	exit(1);
       }
       if (!ed_valid_port(value)) {
 	fprintf(stderr, "%s: option -s value %d is not a valid port\n", ed_g_progname, value);
-	return ED_ERROR;
+        exit(1);
       }
 
       config->port = value;
@@ -97,7 +97,7 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       value = atoi(optarg);
       if (value <= 0) {
 	fprintf(stderr, "%s: option -b requires a non zero number\n", ed_g_progname);
-	return ED_ERROR;
+	exit(1);
       }
 
       config->backlog = value;
@@ -118,11 +118,8 @@ int ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
 
     default:
       ed_cmdline_display_help(1);
-      return ED_ERROR;
     }
   }
-
-  return ED_OK;
 }
 
 void ed_cmdline_display_help(int status) {
