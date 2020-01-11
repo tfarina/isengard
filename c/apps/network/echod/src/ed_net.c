@@ -80,7 +80,7 @@ static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *sal
 
   for (;;) {
     fd = accept(sockfd, sa, salen);
-    if (fd == -1) {
+    if (fd < 0) {
       if (errno == EINTR) {
         continue;
       } else {
