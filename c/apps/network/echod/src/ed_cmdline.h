@@ -10,6 +10,4 @@ extern int show_config;
  */
 void ed_cmdline_parse(int argc, char **argv, ed_config_t *config);
 
-void ed_cmdline_display_help(int status);
-
 #endif  /* ED_CMDLINE_H_ */

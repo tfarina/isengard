@@ -11,6 +11,8 @@
 
 int show_config = 0;
 
+static void print_help(int status);
+
 static void print_version(void) {
   printf("%s %s\n", ed_g_progname, ED_VERSION_STR);
 }
@@ -108,7 +110,7 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       break;
 
     case 'h':
-      ed_cmdline_display_help(0);
+      print_help(0);
       break;
 
     case 'V':
@@ -117,12 +119,12 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       break;
 
     default:
-      ed_cmdline_display_help(1);
+      print_help(1);
     }
   }
 }
 
-void ed_cmdline_display_help(int status) {
+static void print_help(int status) {
   if (status) {
     fprintf(stderr, "Try '%s --help' for more information.\n", ed_g_progname);
   } else {
