@@ -263,16 +263,6 @@ int main(int argc, char **argv) {
     }
   }
 
-  if (show_config) {
-    fprintf(stdout, " *** %s configuration ***\n", ed_g_progname);
-    fprintf(stdout, "username  = %s\n", config.username);
-    fprintf(stdout, "conffile  = %s\n", config.conffile);
-    fprintf(stdout, "pidfile   = %s\n", config.pidfile);
-    fprintf(stdout, "logfile   = %s\n", config.logfile);
-    fprintf(stdout, "port      = %d\n", config.port);
-    fprintf(stdout, "backlog   = %d\n", config.backlog);
-  }
-
   if (config.daemonize) {
     rc = ed_daemon_detach();
     if (rc != ED_OK) {

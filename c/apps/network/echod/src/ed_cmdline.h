@@ -3,8 +3,6 @@
 
 #include "ed_config.h"
 
-extern int show_config;
-
 /**
  * Parse command line options into |config|.
  */

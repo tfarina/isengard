@@ -9,8 +9,6 @@
 #include "ed_validate.h"
 #include "ed_version.h"
 
-int show_config = 0;
-
 static void print_help(int status);
 
 static void print_version(void) {
@@ -48,6 +46,8 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     { "show-config", no_argument,       NULL, 'S' }, /* show configuration */
     { NULL,          0,                 NULL,  0  }
   };
+
+  int show_config = 0;
 
   for (;;) {
     opt_char = getopt_long(argc, argv, short_options, long_options, NULL);
@@ -121,6 +121,16 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     default:
       print_help(1);
     }
+  }
+
+  if (show_config) {
+    fprintf(stdout, " *** %s configuration ***\n", ed_g_progname);
+    fprintf(stdout, "username  = %s\n", config->username);
+    fprintf(stdout, "conffile  = %s\n", config->conffile);
+    fprintf(stdout, "pidfile   = %s\n", config->pidfile);
+    fprintf(stdout, "logfile   = %s\n", config->logfile);
+    fprintf(stdout, "port      = %d\n", config->port);
+    fprintf(stdout, "backlog   = %d\n", config->backlog);
   }
 }
 
