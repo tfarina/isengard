@@ -50,7 +50,7 @@ int ed_daemon_detach(void)
     pid = fork();
     switch (pid) {
     case -1:
-        ed_log_error("fork() failed: %s", strerror(errno));
+        ed_log_error("unable to fork: %s", strerror(errno));
         return ED_ERROR;
 
     case 0: /* child */
@@ -77,7 +77,7 @@ int ed_daemon_detach(void)
     pid = fork();
     switch (pid) {
     case -1:
-        ed_log_error("fork() failed: %s", strerror(errno));
+        ed_log_error("unable to fork: %s", strerror(errno));
         return ED_ERROR;
 
     case 0: /* child */
