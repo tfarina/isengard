@@ -47,8 +47,8 @@ else()
 endif()
 
 
-add_definitions("-DED_SYSCONFDIR=\"${SYSCONFDIR}\"")
-add_definitions("-DED_LOCALSTATEDIR=\"${LOCALSTATEDIR}\"")
+add_definitions("-DSYSCONFDIR=\"${SYSCONFDIR}\"")
+add_definitions("-DLOCALSTATEDIR=\"${LOCALSTATEDIR}\"")
 
 add_subdirectory(src)
 
