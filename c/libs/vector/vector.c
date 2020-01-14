@@ -46,15 +46,15 @@ static int _vector_insert(vector_t *self, int index, void *element)
 
 vector_t *vector_alloc(int capacity)
 {
-        vector_t *self = NULL;
+        vector_t *self;
         void **temp;
 
-        self = calloc(1, sizeof(vector_t));
+        self = (vector_t *) calloc(1, sizeof(*self));
         if (self == NULL) {
 	        return NULL;
 	}
 
-        temp = malloc(capacity * sizeof(void *));
+        temp = (void **) malloc(capacity * sizeof(void *));
         if (temp == NULL) {
 	        free(self);
 	        return NULL;
