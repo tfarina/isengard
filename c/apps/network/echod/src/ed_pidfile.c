@@ -38,9 +38,11 @@
 #include "ed_log.h"
 #include "ed_rcode.h"
 
+#define PIDSTRLEN 32
+
 int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   int fd;
-  char pidstr[32];
+  char pidstr[PIDSTRLEN];
   int pidstr_len;
   ssize_t bytes_written;
   int rc;
