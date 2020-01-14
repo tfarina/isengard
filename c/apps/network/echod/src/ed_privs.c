@@ -22,7 +22,7 @@ void ed_privs_check_owner(char const *username) {
   ed_g_owner_gid = pw->pw_gid;
 }
 
-int ed_drop_privileges(char const *username) {
+int ed_privs_drop(char const *username) {
   struct passwd *pw;
   gid_t runas_gid;
   uid_t runas_uid;

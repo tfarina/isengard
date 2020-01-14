@@ -8,6 +8,6 @@ void ed_privs_check_owner(char const *username);
  * specified in 'username'. Effectively dropping the priviledges
  * that this application have.
  */
-int ed_drop_privileges(char const *username);
+int ed_privs_drop(char const *username);
 
 #endif  /* ED_PRIVS_H_ */

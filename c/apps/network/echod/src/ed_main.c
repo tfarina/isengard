@@ -299,7 +299,7 @@ int main(int argc, char **argv) {
   /*
    * Drop root privileges.
    */
-  rc = ed_drop_privileges(config.username);
+  rc = ed_privs_drop(config.username);
   if (rc != ED_OK) {
     return rc;
   }
