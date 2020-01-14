@@ -58,7 +58,9 @@ install(FILES doc/man/man8/echod.8 DESTINATION "${INSTALL_MAN_DIR}/man8" COMPONE
 
 message(STATUS "Running cmake version ${CMAKE_VERSION}")
 message(STATUS "")
-message(STATUS "Platform: ${CMAKE_SYSTEM}")
+message(STATUS "Host Processor: ${CMAKE_HOST_SYSTEM_PROCESSOR}")
+message(STATUS "Host OS: ${CMAKE_HOST_SYSTEM_NAME}")
+message(STATUS "")
 message(STATUS "Compiler: ${CMAKE_C_COMPILER}")
 message(STATUS "")
 message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
