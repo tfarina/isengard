@@ -36,7 +36,8 @@ static int _vector_insert(vector_t *self, int index, void *element)
                 self->capacity = new_capacity;
 	}
 
-        memmove(&self->elements[index + 1], &self->elements[index], (self->size - index) * sizeof(void *));
+        memmove(self->elements + index + 1, self->elements + index,
+                (self->size - index) * sizeof(void *));
 
         self->elements[index] = element;
         self->size++;
