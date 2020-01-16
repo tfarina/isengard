@@ -279,6 +279,9 @@ int main(int argc, char **argv) {
 
   ed_g_pid = getpid();
 
+  /*
+   * Write PID file after daemonizing.
+   */
   if (config.pidfile != NULL) {
     rc = ed_pidfile_write(config.pidfile, ed_g_pid);
     if (rc != ED_OK) {
