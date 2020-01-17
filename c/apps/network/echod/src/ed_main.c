@@ -317,8 +317,8 @@ int main(int argc, char **argv) {
 
   ed_event_loop(tcpfd);
 
+  ed_log_info("stopping daemon");
   ed_pidfile_remove(config.pidfile);
-  ed_log_info("Shutdown completed");
   if (config.logfile != NULL) {
     ed_log_file_close();
   }
