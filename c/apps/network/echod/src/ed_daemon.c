@@ -73,7 +73,9 @@ int ed_daemon_detach(void)
         return ED_ERROR;
     }
 
-    /* 2nd fork turns child into a non-session leader: cannot acquire terminal */
+    /* 2nd fork turns child into a non-session leader: to ensure that daemon
+     * never reacquires a control terminal.
+     */
     pid = fork();
     switch (pid) {
     case -1:
