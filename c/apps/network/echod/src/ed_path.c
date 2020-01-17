@@ -5,12 +5,12 @@
 #define ED_DIR_SEP '/'
 
 char const *ed_path_basename(char const *path) {
-  char const *name;
+  char const *slash;
 
-  name = strrchr(path, ED_DIR_SEP);
-  if (name == NULL) {
+  slash = strrchr(path, ED_DIR_SEP);
+  if (slash == NULL) {
     return path;
   }
 
-  return name + 1; /* move pointer to char after '/' */
+  return slash + 1; /* move pointer to char after '/' */
 }
