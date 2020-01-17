@@ -37,16 +37,16 @@ int ed_privs_drop(char const *username) {
   runas_gid = pw->pw_gid;
   runas_uid = pw->pw_uid;
 
-  rc = initgroups(username, runas_gid);
-  if (rc < 0) {
-     ed_log_error("unable to set initgroups() with gid %d", runas_gid);
-     return ED_ERROR;
-  }
-
   rc = setgid(runas_gid);
   if (rc < 0) {
     ed_log_error("unable to set gid to %d: %s", runas_gid, strerror(errno));
     return ED_ERROR;
+  }
+
+  rc = initgroups(username, runas_gid);
+  if (rc < 0) {
+     ed_log_error("unable to set initgroups() with gid %d", runas_gid);
+     return ED_ERROR;
   }
 
   rc = setuid(runas_uid);
