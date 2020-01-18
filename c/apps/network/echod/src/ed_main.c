@@ -78,6 +78,9 @@ static void sig_chld_reaper(void) {
   signal(SIGCHLD, sig_chld_handler);
 }
 
+/**
+ * Catch SIGTERM signal and SIGINT signal (del/^C).
+ */
 static void sig_term_handler(int sig) {
   if (sig == SIGTERM || sig == SIGINT) {
     quit = 1;
