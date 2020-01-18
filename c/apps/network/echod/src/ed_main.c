@@ -238,8 +238,15 @@ int main(int argc, char **argv) {
     sigaction(SIGPIPE, &act, NULL);
   }
 
+  /*
+   * Save our name for later usage.
+   */
   ed_g_progname = ed_path_basename(*argv);
 
+
+  /*
+   * Initialize logging.
+   */
   ed_log_set_ident(ed_g_progname);
 
   /*
