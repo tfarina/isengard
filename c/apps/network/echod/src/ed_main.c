@@ -78,12 +78,12 @@ static void sig_chld_reaper(void) {
   signal(SIGCHLD, sig_chld_handler);
 }
 
-static void sig_shutdown_handler(int sig) {
+static void sig_term_handler(int sig) {
   if (sig == SIGTERM || sig == SIGINT) {
     quit = 1;
   }
 
-  ed_log_info("signal %d (%s) received, shutting down...", sig, ed_sig2str(sig));
+  ed_log_info("signal %d (%s) received, terminating...", sig, ed_sig2str(sig));
 }
 
 /**
@@ -95,7 +95,7 @@ static void ed_sig_setup(void) {
   sigemptyset(&action.sa_mask);
   action.sa_flags = 0;
 
-  action.sa_handler = sig_shutdown_handler;
+  action.sa_handler = sig_term_handler;
 
   if (sigaction(SIGINT, &action, (struct sigaction *) 0) < 0) {
     ed_log_error("unable to set SIGINT: %s", strerror(errno));
