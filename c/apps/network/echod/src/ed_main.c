@@ -56,6 +56,9 @@ static void print_stats(void) {
   ed_log_info("connected_clients=%d", connected_clients);
 }
 
+/**
+ * Catch SIGCHLD signal.
+ */
 static void sig_chld_handler(int sig) {
   got_sigchld = 1;
 }
