@@ -11,6 +11,9 @@ static void vprintf_msg(const char *prefix, const char *fmt, va_list ap) {
     fputc('\n', stderr);
 }
 
+/**
+ * Report an error message and terminate.
+ */
 void EC_NORETURN fatal(const char *fmt, ...) {
     va_list ap;
 
@@ -21,6 +24,9 @@ void EC_NORETURN fatal(const char *fmt, ...) {
     exit(1);
 }
 
+/**
+ * Report an error message.
+ */
 void error(const char *fmt, ...) {
     va_list ap;
 
@@ -29,6 +35,9 @@ void error(const char *fmt, ...) {
     va_end(ap);
 }
 
+/**
+ * Report an warning message.
+ */
 void warn(const char *fmt, ...) {
     va_list ap;
 
@@ -37,6 +46,9 @@ void warn(const char *fmt, ...) {
     va_end(ap);
 }
 
+/**
+ * Report an informative message.
+ */
 void info(const char *fmt, ...) {
     va_list ap;
 
