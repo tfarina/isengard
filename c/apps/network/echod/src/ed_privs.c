@@ -31,9 +31,9 @@ int ed_privs_drop(char const *username, uid_t uid, gid_t gid) {
     return ED_ERROR;
   }
 
-  rc = initgroups(username, gid);
+  rc = setgroups(1, &gid);
   if (rc < 0) {
-     ed_log_error("unable to set initgroups() with gid %d", gid);
+     ed_log_error("unable to set setgroups() with gid %d", gid);
      return ED_ERROR;
   }
 
