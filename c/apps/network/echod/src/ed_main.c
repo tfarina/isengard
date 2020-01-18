@@ -238,7 +238,7 @@ int main(int argc, char **argv) {
     sigemptyset(&act.sa_mask);
     act.sa_flags = 0;
     act.sa_handler = SIG_IGN;
-    sigaction(SIGPIPE, &act, NULL);
+    sigaction(SIGPIPE, &act, (struct sigaction *) 0);
   }
 
   /*
