@@ -284,7 +284,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  ed_privs_check_owner(config.user);
+  ed_privs_check_daemon_user(config.user);
 
   ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
 	      get_username(), (long)getuid(),
@@ -315,7 +315,7 @@ int main(int argc, char **argv) {
   /*
    * Drop root privileges.
    */
-  rc = ed_privs_drop(ed_g_owner_uid, ed_g_owner_gid);
+  rc = ed_privs_drop(ed_g_daemon_uid, ed_g_daemon_gid);
   if (rc != ED_OK) {
     return rc;
   }
