@@ -87,7 +87,7 @@ static void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) 
     return;
   }
 
-  now = time(NULL);
+  time(&now);
   localtm = localtime(&now);
   strftime(timestr, sizeof(timestr), "[%Y-%m-%dT%T]", localtm);
 
