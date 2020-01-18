@@ -22,7 +22,7 @@ void ed_privs_check_owner(char const *username) {
   ed_g_owner_gid = pw->pw_gid;
 }
 
-int ed_privs_drop(char const *username, uid_t uid, gid_t gid) {
+int ed_privs_drop(uid_t uid, gid_t gid) {
   int rc;
 
   rc = setgid(gid);

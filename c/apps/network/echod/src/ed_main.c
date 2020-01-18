@@ -315,7 +315,7 @@ int main(int argc, char **argv) {
   /*
    * Drop root privileges.
    */
-  rc = ed_privs_drop(config.username, ed_g_owner_uid, ed_g_owner_gid);
+  rc = ed_privs_drop(ed_g_owner_uid, ed_g_owner_gid);
   if (rc != ED_OK) {
     return rc;
   }
