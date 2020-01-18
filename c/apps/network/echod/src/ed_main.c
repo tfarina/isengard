@@ -60,7 +60,7 @@ static void sig_chld_handler(int sig) {
   got_sigchld = 1;
 }
 
-static void sig_chld_reaper(void) {
+static void reap_kids(void) {
   pid_t pid;
   int status;
 
@@ -190,7 +190,7 @@ static int ed_event_loop(int tcpfd) {
 
     if (got_sigchld) {
       got_sigchld = 0;
-      sig_chld_reaper();
+      reap_kids();
     }
   }
 
