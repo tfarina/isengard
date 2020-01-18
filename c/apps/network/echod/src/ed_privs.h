@@ -3,7 +3,7 @@
 
 #include <pwd.h>
 
-void ed_privs_check_owner(char const *username);
+void ed_privs_check_owner(char const *user);
 
 /**
  * Drop root privileges.

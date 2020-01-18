@@ -10,12 +10,12 @@
 #include "ed_log.h"
 #include "ed_rcode.h"
 
-void ed_privs_check_owner(char const *username) {
+void ed_privs_check_owner(char const *user) {
   struct passwd *pw;
 
-  pw = getpwnam(username);
+  pw = getpwnam(user);
   if (pw == 0) {
-    ed_log_fatal("user '%s' not found", username);
+    ed_log_fatal("user '%s' not found", user);
   }
 
   ed_g_owner_uid = pw->pw_uid;

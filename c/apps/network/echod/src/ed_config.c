@@ -9,7 +9,7 @@ void ed_config_init(ed_config_t *config) {
   config->conffile = ED_CONFIG_FILE_PATH;
   config->logfile = NULL;
   config->pidfile = ED_PID_FILE_PATH;
-  config->username = ED_USER;
+  config->user = ED_USER;
   config->address = ED_DEFAULT_BIND_ADDR;
   config->port = ED_DEFAULT_ECHO_PORT;
   config->backlog = ED_DEFAULT_BACKLOG;

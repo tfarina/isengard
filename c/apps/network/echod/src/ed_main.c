@@ -284,7 +284,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  ed_privs_check_owner(config.username);
+  ed_privs_check_owner(config.user);
 
   ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
 	      get_username(), (long)getuid(),

@@ -74,7 +74,7 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       break;
 
     case 'u':
-      config->username = optarg;
+      config->user = optarg;
       break;
 
     case 'a':
@@ -125,7 +125,7 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
 
   if (show_config) {
     fprintf(stdout, " *** %s configuration ***\n", ed_g_progname);
-    fprintf(stdout, "username  = %s\n", config->username);
+    fprintf(stdout, "user      = %s\n", config->user);
     fprintf(stdout, "conffile  = %s\n", config->conffile);
     fprintf(stdout, "pidfile   = %s\n", config->pidfile);
     fprintf(stdout, "logfile   = %s\n", config->logfile);
