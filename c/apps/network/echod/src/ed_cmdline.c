@@ -6,7 +6,6 @@
 
 #include "ed_default_paths.h"
 #include "ed_globals.h"
-#include "ed_rcode.h"
 #include "ed_validate.h"
 #include "ed_version.h"
 
