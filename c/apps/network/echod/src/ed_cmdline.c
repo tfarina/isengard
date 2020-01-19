@@ -146,7 +146,7 @@ static void print_help(int status) {
     fputs("  -d, --daemonize            fork and detach from controlling terminal (background mode)\n\n", stdout);
     fputs("  -C, --config=FILE          read configuration from the specified file\n", stdout);
     fputs("  -P, --pidfile=FILE         write process id to the specified file\n\n", stdout);
-    fputs("  -u, --user=NAME            user identity to run as\n\n", stdout);
+    fputs("  -u, --user=NAME            run the daemon as user\n\n", stdout);
     fputs("  -a, --address=ADDRESS      bind to the specified address\n", stdout);
     fputs("  -p, --port=VALUE           set the tcp port to listen on\n", stdout);
     fputs("  -b, --backlog=VALUE        the backlog argument of listen() applied to the\n", stdout);
