@@ -2,12 +2,12 @@
 
 #include <string.h>
 
-#define ED_DIR_SEP '/'
+#define DIR_SEP '/'
 
 char const *ed_path_basename(char const *path) {
   char const *slash;
 
-  slash = strrchr(path, ED_DIR_SEP);
+  slash = strrchr(path, DIR_SEP);
   if (slash == NULL) {
     return path;
   }
