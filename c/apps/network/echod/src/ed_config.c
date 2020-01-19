@@ -2,6 +2,10 @@
 
 #include "ed_default_paths.h"
 
+#define ED_DEFAULT_BIND_ADDR "0.0.0.0"
+#define ED_DEFAULT_ECHO_PORT 7
+#define ED_DEFAULT_BACKLOG 1024
+
 void ed_config_init(ed_config_t *config) {
   config->detach = 1;
   config->conffile = DEF_CONFIG_FILE_PATH;
