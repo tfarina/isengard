@@ -22,7 +22,7 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     "h"  /* help */
     "V"  /* version */
     "d"  /* daemon mode */
-    "c:" /* configuration file */
+    "C:" /* configuration file */
     "L:" /* log file */
     "P:" /* pid file */
     "u:" /* user identity to run as */
@@ -36,7 +36,7 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     { "help",        no_argument,       NULL, 'h' }, /* help */
     { "version",     no_argument,       NULL, 'V' }, /* version */
     { "daemonize",   no_argument,       NULL, 'd' }, /* daemon mode */
-    { "conffile",    required_argument, NULL, 'c' }, /* configuration file */
+    { "config",      required_argument, NULL, 'C' }, /* configuration file */
     { "logfile",     required_argument, NULL, 'L' }, /* log file */
     { "pidfile",     required_argument, NULL, 'P' }, /* pid file */
     { "user",        required_argument, NULL, 'u' }, /* user identity to run as */
@@ -61,7 +61,7 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
       config->daemonize = 1;
       break;
 
-    case 'c':
+    case 'C':
       config->conffile = optarg;
       break;
 
@@ -126,7 +126,7 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
   if (show_config) {
     fprintf(stdout, " *** %s configuration ***\n", ed_g_progname);
     fprintf(stdout, "user      = %s\n", config->user);
-    fprintf(stdout, "conffile  = %s\n", config->conffile);
+    fprintf(stdout, "config    = %s\n", config->conffile);
     fprintf(stdout, "pidfile   = %s\n", config->pidfile);
     fprintf(stdout, "logfile   = %s\n", config->logfile);
     fprintf(stdout, "port      = %d\n", config->port);
@@ -144,7 +144,7 @@ static void print_help(int status) {
 
     fputs("Options:\n", stdout);
     fputs("  -d, --daemonize            fork and detach from controlling terminal (background mode)\n", stdout);
-    fputs("  -c, --conffile=FILE        read configuration from the specified file\n", stdout);
+    fputs("  -C, --config=FILE          read configuration from the specified file\n", stdout);
     fputs("  -L, --logfile=FILE         write log messages to the specified file\n", stdout);
     fputs("  -P, --pidfile=FILE         write process id to the specified file\n", stdout);
     fputs("  -u, --user=NAME            user identity to run as\n", stdout);
