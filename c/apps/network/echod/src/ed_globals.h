@@ -3,7 +3,8 @@
 
 #include <pwd.h>
 
-extern char const *ed_g_progname; /* program basename from *argv */
+/* The name the daemon were invoked with. */
+extern char const *ed_g_progname;
 
 extern int ed_g_pid; /* process: server id */
 
