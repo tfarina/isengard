@@ -45,7 +45,6 @@
 #include "ed_signals.h"
 #include "ed_validate.h"
 
-#define ED_ROOT_UID 0
 #define BUFSIZE 8129
 
 static sig_atomic_t volatile quit;
@@ -255,7 +254,7 @@ int main(int argc, char **argv) {
   /*
    * Check if it was run by the superuser.
    */
-  if (getuid() != ED_ROOT_UID) {
+  if (getuid() != DEF_ROOT_UID) {
     ed_log_fatal("You must be root (uid = 0) to run %s", ed_g_progname);
   }
 
