@@ -1,9 +1,6 @@
 #ifndef ED_CONFIG_H_
 #define ED_CONFIG_H_
 
-/* User for running the Echo daemon. */
-#define ED_USER "_echod"
-
 typedef struct ed_config_s {
   int  detach:1;       /* process: foreground mode */
   char *conffile;      /* process: configuration filename */
