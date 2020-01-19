@@ -34,24 +34,24 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     ;
 
   static struct option const long_options[] = {
-    { "help",        no_argument,       NULL, 'h' }, /* help */
-    { "version",     no_argument,       NULL, 'V' }, /* version */
-    { "foreground",  no_argument,       NULL, 'f' }, /* foreground mode */
-    { "config",      required_argument, NULL, 'C' }, /* configuration file */
-    { "logfile",     required_argument, NULL, 'L' }, /* log file */
-    { "pidfile",     required_argument, NULL, 'P' }, /* pid file */
-    { "user",        required_argument, NULL, 'u' }, /* user identity to run as */
-    { "address",     required_argument, NULL, 'a' }, /* local address to bind */
-    { "port",        required_argument, NULL, 'p' }, /* tcp port number to listen on */
-    { "backlog",     required_argument, NULL, 'b' }, /* tcp backlog queue limit */
-    { "show-config", no_argument,       NULL, 'S' }, /* show configuration */
-    { NULL,          0,                 NULL,  0  }
+    { "help",        no_argument,       0, 'h' }, /* help */
+    { "version",     no_argument,       0, 'V' }, /* version */
+    { "foreground",  no_argument,       0, 'f' }, /* foreground mode */
+    { "config",      required_argument, 0, 'C' }, /* configuration file */
+    { "logfile",     required_argument, 0, 'L' }, /* log file */
+    { "pidfile",     required_argument, 0, 'P' }, /* pid file */
+    { "user",        required_argument, 0, 'u' }, /* user identity to run as */
+    { "address",     required_argument, 0, 'a' }, /* local address to bind */
+    { "port",        required_argument, 0, 'p' }, /* tcp port number to listen on */
+    { "backlog",     required_argument, 0, 'b' }, /* tcp backlog queue limit */
+    { "show-config", no_argument,       0, 'S' }, /* show configuration */
+    { 0,             0,                 0,  0  }
   };
 
   int show_config = 0;
 
   for (;;) {
-    opt_char = getopt_long(argc, argv, short_options, long_options, NULL);
+    opt_char = getopt_long(argc, argv, short_options, long_options, (int *) 0);
     if (opt_char == -1) {
       /* no more options */
       break;
