@@ -285,10 +285,6 @@ int main(int argc, char **argv) {
 
   ed_privs_check_daemon_user(config.user);
 
-  ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
-	      get_username(), (long)getuid(),
-              get_groupname(), (long)getgid());
-
   ed_g_pid = getpid();
 
   /*
