@@ -1,10 +1,7 @@
 #ifndef ED_CONFIG_H_
 #define ED_CONFIG_H_
 
- /* Group for running the Echo daemon. */
-#define ED_GROUP "_echod"
-
- /* User for running the Echo daemon. */
+/* User for running the Echo daemon. */
 #define ED_USER "_echod"
 
 typedef struct ed_config_s {
