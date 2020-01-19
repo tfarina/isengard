@@ -90,9 +90,6 @@ int ed_daemon_detach(void)
         _exit(0);
     }
 
-    /* clear file mode creation mask */
-    umask(0);
-
     /* redirect stdin, stdout and stderr to "/dev/null" */
 
     fd = open("/dev/null", O_RDWR);

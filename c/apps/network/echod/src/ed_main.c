@@ -27,6 +27,7 @@
 #include <string.h>
 #include <strings.h>
 #include <sys/socket.h>
+#include <sys/stat.h>
 #include <sys/syslog.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -231,6 +232,12 @@ int main(int argc, char **argv) {
   ed_config_t config;
   int rc;
   int tcpfd;
+
+  /*
+   * Set the umask to octal 022 to prevent clients from accidentally
+   * creating group or world writable files.
+   */
+  umask(S_IWGRP | S_IWOTH);
 
   {
     struct sigaction act;
