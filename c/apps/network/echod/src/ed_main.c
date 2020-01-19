@@ -318,7 +318,7 @@ int main(int argc, char **argv) {
    * Drop root privileges.
    */
   rc = ed_privs_drop(ed_g_daemon_uid, ed_g_daemon_gid);
-  if (rc != ED_OK) {
+  if (rc < 0) {
     return rc;
   }
 
