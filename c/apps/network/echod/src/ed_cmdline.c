@@ -58,7 +58,7 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
 
     switch (opt_char) {
     case 'f':
-      config->foreground = 1;
+      config->detach = 0;
       break;
 
     case 'C':

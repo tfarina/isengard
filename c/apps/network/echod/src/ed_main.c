@@ -275,7 +275,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  if (!config.foreground) {
+  if (config.detach) {
     rc = ed_daemon_detach();
     if (rc != ED_OK) {
       ed_log_error("Couldn't daemonize %s: %s\n", ed_g_progname, strerror(errno));

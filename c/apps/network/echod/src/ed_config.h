@@ -12,7 +12,7 @@
 #define ED_DEFAULT_BACKLOG 1024
 
 typedef struct ed_config_s {
-  int  foreground:1;   /* process: foreground mode */
+  int  detach:1;       /* process: foreground mode */
   char *conffile;      /* process: configuration filename */
   char *logfile;       /* debug:   log filename */
   char *pidfile;       /* process: pid file */

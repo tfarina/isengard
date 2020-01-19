@@ -5,7 +5,7 @@
 #include "ed_default_paths.h"
 
 void ed_config_init(ed_config_t *config) {
-  config->foreground = 0;
+  config->detach = 1;
   config->conffile = DEF_CONFIG_FILE_PATH;
   config->pidfile = DEF_PID_FILE_PATH;
   config->user = ED_USER;
