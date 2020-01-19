@@ -21,7 +21,7 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
   static char const short_options[] =
     "h"  /* help */
     "V"  /* version */
-    "d"  /* daemon mode */
+    "f"  /* foreground mode */
     "C:" /* configuration file */
     "L:" /* log file */
     "P:" /* pid file */
@@ -35,7 +35,7 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
   static struct option const long_options[] = {
     { "help",        no_argument,       NULL, 'h' }, /* help */
     { "version",     no_argument,       NULL, 'V' }, /* version */
-    { "daemonize",   no_argument,       NULL, 'd' }, /* daemon mode */
+    { "foreground",  no_argument,       NULL, 'f' }, /* foreground mode */
     { "config",      required_argument, NULL, 'C' }, /* configuration file */
     { "logfile",     required_argument, NULL, 'L' }, /* log file */
     { "pidfile",     required_argument, NULL, 'P' }, /* pid file */
@@ -57,8 +57,8 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
     }
 
     switch (opt_char) {
-    case 'd':
-      config->daemonize = 1;
+    case 'f':
+      config->foreground = 1;
       break;
 
     case 'C':
@@ -143,7 +143,6 @@ static void print_help(int status) {
     fputs("Mandatory arguments to long options are mandatory for short options too.\n\n", stdout);
 
     fputs("Options:\n", stdout);
-    fputs("  -d, --daemonize            fork and detach from controlling terminal (background mode)\n\n", stdout);
     fputs("  -C, --config=FILE          read configuration from the specified file\n", stdout);
     fputs("  -P, --pidfile=FILE         write process id to the specified file\n\n", stdout);
     fputs("  -u, --user=NAME            run the daemon as user\n\n", stdout);
@@ -151,6 +150,7 @@ static void print_help(int status) {
     fputs("  -p, --port=VALUE           set the tcp port to listen on\n", stdout);
     fputs("  -b, --backlog=VALUE        the backlog argument of listen() applied to the\n", stdout);
     fputs("                             listening socket\n\n", stdout);
+    fputs("  -f, --foreground           run the daemon in the foreground\n\n", stdout);
     fputs("  -L, --logfile=FILE         write log messages to the specified file\n\n", stdout);
     fputs("  -h, --help                 display this help and exit\n", stdout);
     fputs("  -V, --version              output version information and exit\n", stdout);
