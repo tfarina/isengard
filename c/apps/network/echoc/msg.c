@@ -8,7 +8,7 @@ static void vprintf_msg(const char *prefix, const char *fmt, va_list ap) {
     fflush(stderr);
     fputs(prefix, stderr);
     vfprintf(stderr, fmt, ap);
-    fputc('\n', stderr);
+    putc('\n', stderr);
 }
 
 /**
