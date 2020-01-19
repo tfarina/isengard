@@ -142,20 +142,32 @@ static void print_help(int status) {
   if (status) {
     fprintf(stderr, "Try '%s --help' for more information.\n", ed_g_progname);
   } else {
-    printf("Usage: %s [OPTION]...\n\n", ed_g_progname);
+    printf("Usage: %s [OPTION]...\n", ed_g_progname);
+    putc('\n', stdout);
 
-    fputs("Mandatory arguments to long options are mandatory for short options too.\n\n", stdout);
+    fputs("Mandatory arguments to long options are mandatory for short options too.\n", stdout);
+    putc('\n', stdout);
 
     fputs("Options:\n", stdout);
     fputs("  -C, --config=FILE          read configuration from the specified file\n", stdout);
-    fputs("  -P, --pidfile=FILE         write process id to the specified file\n\n", stdout);
-    fputs("  -u, --user=NAME            run the daemon as user\n\n", stdout);
+    fputs("  -P, --pidfile=FILE         write process id to the specified file\n", stdout);
+    putc('\n', stdout);
+
+    fputs("  -u, --user=NAME            run the daemon as user\n", stdout);
+    putc('\n', stdout);
+
     fputs("  -a, --address=ADDRESS      bind to the specified address\n", stdout);
     fputs("  -p, --port=VALUE           set the tcp port to listen on\n", stdout);
     fputs("  -b, --backlog=VALUE        the backlog argument of listen() applied to the\n", stdout);
-    fputs("                             listening socket\n\n", stdout);
-    fputs("  -f, --foreground           run the daemon in the foreground\n\n", stdout);
-    fputs("  -L, --logfile=FILE         write log messages to the specified file\n\n", stdout);
+    fputs("                             listening socket\n", stdout);
+    putc('\n', stdout);
+
+    fputs("  -f, --foreground           run the daemon in the foreground\n", stdout);
+    putc('\n', stdout);
+
+    fputs("  -L, --logfile=FILE         write log messages to the specified file\n", stdout);
+    putc('\n', stdout);
+
     fputs("  -h, --help                 display this help and exit\n", stdout);
     fputs("  -V, --version              output version information and exit\n", stdout);
   }
