@@ -143,15 +143,15 @@ static void print_help(int status) {
     fputs("Mandatory arguments to long options are mandatory for short options too.\n\n", stdout);
 
     fputs("Options:\n", stdout);
-    fputs("  -d, --daemonize            fork and detach from controlling terminal (background mode)\n", stdout);
+    fputs("  -d, --daemonize            fork and detach from controlling terminal (background mode)\n\n", stdout);
     fputs("  -C, --config=FILE          read configuration from the specified file\n", stdout);
-    fputs("  -L, --logfile=FILE         write log messages to the specified file\n", stdout);
-    fputs("  -P, --pidfile=FILE         write process id to the specified file\n", stdout);
-    fputs("  -u, --user=NAME            user identity to run as\n", stdout);
+    fputs("  -P, --pidfile=FILE         write process id to the specified file\n\n", stdout);
+    fputs("  -u, --user=NAME            user identity to run as\n\n", stdout);
     fputs("  -a, --address=ADDRESS      bind to the specified address\n", stdout);
     fputs("  -p, --port=VALUE           set the tcp port to listen on\n", stdout);
     fputs("  -b, --backlog=VALUE        the backlog argument of listen() applied to the\n", stdout);
-    fputs("                             listening socket\n", stdout);
+    fputs("                             listening socket\n\n", stdout);
+    fputs("  -L, --logfile=FILE         write log messages to the specified file\n\n", stdout);
     fputs("  -h, --help                 display this help and exit\n", stdout);
     fputs("  -V, --version              output version information and exit\n", stdout);
   }
