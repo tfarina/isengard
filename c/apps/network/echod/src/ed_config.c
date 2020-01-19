@@ -1,7 +1,5 @@
 #include "ed_config.h"
 
-#include <stdlib.h>
-
 #include "ed_default_paths.h"
 
 void ed_config_init(ed_config_t *config) {
@@ -12,5 +10,5 @@ void ed_config_init(ed_config_t *config) {
   config->address = ED_DEFAULT_BIND_ADDR;
   config->port = ED_DEFAULT_ECHO_PORT;
   config->backlog = ED_DEFAULT_BACKLOG;
-  config->logfile = NULL;
+  config->logfile = (char *) 0;
 }
