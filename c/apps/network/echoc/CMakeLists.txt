@@ -15,9 +15,9 @@ endif()
 add_definitions(-D_GNU_SOURCE)
 
 set(ECHOC_SRCS
-  ec_main.c
   ec_utils.c
   fnet.c
+  main.c
   msg.c
 )
 
