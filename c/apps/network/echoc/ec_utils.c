@@ -2,12 +2,12 @@
 
 #include <string.h>
 
-#define EC_DIR_SEP '/'
+#define DIR_SEP '/'
 
 char *ec_get_progname(char *argv0) {
   char *name;
 
-  name = strrchr(argv0, EC_DIR_SEP);
+  name = strrchr(argv0, DIR_SEP);
   if (name == NULL) {
     name = argv0;
   } else {
