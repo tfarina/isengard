@@ -10,6 +10,7 @@
 
 #include "ec_utils.h"
 #include "fnet.h"
+#include "validate.h"
 
 #define BUFSIZE 4096
 
@@ -80,7 +81,7 @@ int main(int argc, char **argv) {
 	fprintf(stderr, "%s: option -p requires a non zero number\n", progname);
 	return EXIT_FAILURE;
       }
-      if (!ec_valid_port(value)) {
+      if (!valid_port(value)) {
 	fprintf(stderr, "%s: option -s value %d is not a valid port\n", progname, value);
 	return EXIT_FAILURE;
       }

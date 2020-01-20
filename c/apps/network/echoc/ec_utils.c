@@ -1,6 +1,5 @@
 #include "ec_utils.h"
 
-#include <stdint.h>
 #include <string.h>
 
 #define EC_DIR_SEP '/'
@@ -18,10 +17,3 @@ char *ec_get_progname(char *argv0) {
   return name;
 }
 
-int ec_valid_port(int port) {
-  if (port < 1 || port > UINT16_MAX) {
-    return 0;
-  }
-
-  return 1;
-}

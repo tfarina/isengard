@@ -19,6 +19,7 @@ set(ECHOC_SRCS
   fnet.c
   main.c
   msg.c
+  validate.c
 )
 
 add_executable(echoc ${ECHOC_SRCS})
