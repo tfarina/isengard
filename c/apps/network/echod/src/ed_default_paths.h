@@ -2,7 +2,7 @@
 #define ED_DEFAULT_PATHS_H_
 
 /**
- * The default file location containing echod configuration.
+ * The default location containing echod configuration file.
  */
 #define DEF_CONFIG_FILE_PATH SYSCONFDIR"/echod.conf"
 
