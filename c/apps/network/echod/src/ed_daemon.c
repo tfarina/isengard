@@ -38,7 +38,6 @@
 #include <unistd.h>
 
 #include "ed_log.h"
-#include "ed_rcode.h"
 
 int ed_daemon_detach(void)
 {
@@ -51,7 +50,7 @@ int ed_daemon_detach(void)
     switch (pid) {
     case -1:
         ed_log_error("unable to fork: %s", strerror(errno));
-        return ED_ERROR;
+        return -1;
 
     case 0: /* child */
         break;
@@ -65,12 +64,12 @@ int ed_daemon_detach(void)
     sid = setsid();
     if (sid < 0) {
         ed_log_error("unable to set SID: %s", strerror(errno));
-        return ED_ERROR;
+        return -1;
     }
 
     if (signal(SIGHUP, SIG_IGN) == SIG_ERR) {
         ed_log_error("signal(SIGHUP, SIG_IGN) failed: %s", strerror(errno));
-        return ED_ERROR;
+        return -1;
     }
 
     /* 2nd fork turns child into a non-session leader: to ensure that daemon
@@ -80,7 +79,7 @@ int ed_daemon_detach(void)
     switch (pid) {
     case -1:
         ed_log_error("unable to fork: %s", strerror(errno));
-        return ED_ERROR;
+        return -1;
 
     case 0: /* child */
         break;
@@ -95,37 +94,37 @@ int ed_daemon_detach(void)
     fd = open("/dev/null", O_RDWR);
     if (fd < 0) {
         ed_log_error("unable to open /dev/null: %s", strerror(errno));
-        return ED_ERROR;
+        return -1;
     }
 
     rc = dup2(fd, STDIN_FILENO);
     if (rc < 0) {
         ed_log_error("unable to dup /dev/null onto stdin: %s", strerror(errno));
         close(fd);
-        return ED_ERROR;
+        return -1;
     }
 
     rc = dup2(fd, STDOUT_FILENO);
     if (rc < 0) {
         ed_log_error("unable to dup /dev/null onto stdout: %s", strerror(errno));
         close(fd);
-        return ED_ERROR;
+        return -1;
     }
 
     rc = dup2(fd, STDERR_FILENO);
     if (rc < 0) {
         ed_log_error("unable to dup /dev/null onto stderr: %s", strerror(errno));
         close(fd);
-        return ED_ERROR;
+        return -1;
     }
 
     if (fd > STDERR_FILENO) {
         rc = close(fd);
         if (rc < 0) {
 	    ed_log_error("unable to close /dev/null: %s", strerror(errno));
-            return ED_ERROR;
+            return -1;
         }
     }
 
-    return ED_OK;
+    return 0;
 }
