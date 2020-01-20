@@ -11,8 +11,8 @@
 
 void ed_config_init(ed_config_t *config) {
   config->detach = 1;
-  config->conffile = DEF_CONFIG_FILE_PATH;
-  config->pidfile = DEF_PID_FILE_PATH;
+  config->conffile = DEF_PATH_ECHODCONF;
+  config->pidfile = DEF_PATH_ECHODPID;
   config->user = ED_USER;
   config->address = ED_DEFAULT_BIND_ADDR;
   config->port = ED_DEFAULT_ECHO_PORT;

@@ -125,8 +125,8 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
 
   if (show_config) {
     fputs("Default paths:\n", stdout);
-    fprintf(stdout, "  Config file: %s\n", DEF_CONFIG_FILE_PATH);
-    fprintf(stdout, "  PID file:    %s\n", DEF_PID_FILE_PATH);
+    fprintf(stdout, "  Config file: %s\n", DEF_PATH_ECHODCONF);
+    fprintf(stdout, "  PID file:    %s\n", DEF_PATH_ECHODPID);
     fprintf(stdout, "\n *** %s configuration ***\n", ed_g_progname);
     fprintf(stdout, "config    = %s\n", config->conffile);
     fprintf(stdout, "pidfile   = %s\n", config->pidfile);
