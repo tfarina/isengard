@@ -33,7 +33,7 @@ static struct option long_options[] = {
     { NULL,          0,                 NULL,  0  }
 };
 
-static void ec_show_usage(char const *program_name) {
+static void usage(char const *program_name) {
   fprintf(stderr,
 	  "usage: %s [OPTION]..." CRLF CRLF,
 	  program_name);
@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
 
     switch (c) {
     case 'h':
-      ec_show_usage(progname);
+      usage(progname);
       return EXIT_SUCCESS;
 
     case 's':
@@ -90,7 +90,7 @@ int main(int argc, char **argv) {
       break;
 
     case '?':
-      ec_show_usage(progname);
+      usage(progname);
       return EXIT_SUCCESS;
 
     default:
