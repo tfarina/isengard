@@ -66,9 +66,9 @@ void ed_log_set_level(ed_log_level_t level);
  */
 void ed_log_set_options(ed_log_opt_t opts);
 
-void ed_log_fatal(char const *format, ...);
-void ed_log_error(char const *format, ...);
-void ed_log_warn(char const *format, ...);
-void ed_log_info(char const *format, ...);
+void ed_log_fatal(char const *fmt, ...);
+void ed_log_error(char const *fmt, ...);
+void ed_log_warn(char const *fmt, ...);
+void ed_log_info(char const *fmt, ...);
 
 #endif  /* ED_LOG_H_ */

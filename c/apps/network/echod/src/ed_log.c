@@ -145,37 +145,37 @@ void ed_log_set_options(ed_log_opt_t opts) {
   log_opts |= opts;
 }
 
-void ed_log_fatal(char const *format, ...) {
-  va_list args;
+void ed_log_fatal(char const *fmt, ...) {
+  va_list ap;
 
-  va_start(args, format);
-  _ed_log_msg(ED_LOG_LEVEL_FATAL, format, args);
-  va_end(args);
+  va_start(ap, fmt);
+  _ed_log_msg(ED_LOG_LEVEL_FATAL, fmt, ap);
+  va_end(ap);
 
   sleep(1);
   _exit(1);
 }
 
-void ed_log_error(char const *format, ...) {
-  va_list args;
+void ed_log_error(char const *fmt, ...) {
+  va_list ap;
 
-  va_start(args, format);
-  _ed_log_msg(ED_LOG_LEVEL_ERROR, format, args);
-  va_end(args);
+  va_start(ap, fmt);
+  _ed_log_msg(ED_LOG_LEVEL_ERROR, fmt, ap);
+  va_end(ap);
 }
 
-void ed_log_warn(char const *format, ...) {
-  va_list args;
+void ed_log_warn(char const *fmt, ...) {
+  va_list ap;
 
-  va_start(args, format);
-  _ed_log_msg(ED_LOG_LEVEL_WARN, format, args);
-  va_end(args);
+  va_start(ap, fmt);
+  _ed_log_msg(ED_LOG_LEVEL_WARN, fmt, ap);
+  va_end(ap);
 }
 
-void ed_log_info(char const *format, ...) {
-  va_list args;
+void ed_log_info(char const *fmt, ...) {
+  va_list ap;
 
-  va_start(args, format);
-  _ed_log_msg(ED_LOG_LEVEL_INFO, format, args);
-  va_end(args);
+  va_start(ap, fmt);
+  _ed_log_msg(ED_LOG_LEVEL_INFO, fmt, ap);
+  va_end(ap);
 }
