@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void vmsg(const char *prefix, const char *fmt, va_list ap) {
+static void vmsg(char const *prefix, char const *fmt, va_list ap) {
     fflush(stderr);
     fputs(prefix, stderr);
     vfprintf(stderr, fmt, ap);
@@ -14,7 +14,7 @@ static void vmsg(const char *prefix, const char *fmt, va_list ap) {
 /**
  * Report an error message and terminate.
  */
-void ATTR_NORETURN fatal(const char *fmt, ...) {
+void ATTR_NORETURN fatal(char const *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
@@ -27,7 +27,7 @@ void ATTR_NORETURN fatal(const char *fmt, ...) {
 /**
  * Report an error message.
  */
-void error(const char *fmt, ...) {
+void error(char const *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
@@ -38,7 +38,7 @@ void error(const char *fmt, ...) {
 /**
  * Report an warning message.
  */
-void warn(const char *fmt, ...) {
+void warn(char const *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
@@ -49,7 +49,7 @@ void warn(const char *fmt, ...) {
 /**
  * Report an informative message.
  */
-void info(const char *fmt, ...) {
+void info(char const *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
