@@ -277,7 +277,7 @@ int main(int argc, char **argv) {
 
   if (config.logfile != NULL) {
     rc = ed_log_file_open(config.logfile);
-    if (rc != ED_OK) {
+    if (rc < 0) {
       return rc;
     }
   }
