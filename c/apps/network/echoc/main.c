@@ -39,9 +39,9 @@ static void usage(char const *program_name) {
 	  program_name);
   fprintf(stderr,
 	  "options:" CRLF
-          "  -h, --help              show usage, options and exit" CRLF
           "  -s, --server=           specify the IP address for the echo server" CRLF
           "  -p, --port=N            set the tcp port of the server (default: %d)" CRLF
+          "  -h, --help              display this help and exit" CRLF
 	  "",
           DEF_ECHO_PORT);
 }
