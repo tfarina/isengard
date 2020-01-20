@@ -16,7 +16,7 @@
 
 #define CRLF "\x0d\x0a"
 
-#define EC_TCP_PORT 7
+#define DEF_ECHO_PORT 7
 
 static char const *progname;
 
@@ -43,7 +43,7 @@ static void ec_show_usage(char const *program_name) {
           "  -s, --server=           specify the IP address for the echo server" CRLF
           "  -p, --port=N            set the tcp port of the server (default: %d)" CRLF
 	  "",
-          EC_TCP_PORT);
+          DEF_ECHO_PORT);
 }
 
 int main(int argc, char **argv) {
@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
 
   progname = ec_get_progname(argv[0]);
 
-  port = EC_TCP_PORT;
+  port = DEF_ECHO_PORT;
 
   for (;;) {
     c = getopt_long(argc, argv, short_options, long_options, NULL);
