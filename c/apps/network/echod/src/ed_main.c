@@ -42,7 +42,6 @@
 #include "ed_path.h"
 #include "ed_pidfile.h"
 #include "ed_privs.h"
-#include "ed_rcode.h"
 #include "ed_signals.h"
 #include "ed_validate.h"
 
@@ -299,7 +298,7 @@ int main(int argc, char **argv) {
    */
   if (config.pidfile != NULL) {
     rc = ed_pidfile_write(config.pidfile, ed_g_pid);
-    if (rc != ED_OK) {
+    if (rc < 0) {
       return rc;
     }
     /*if (chown(config.pidfile, ed_uid, ed_gid) == -1) {

@@ -36,7 +36,6 @@
 #include <unistd.h>
 
 #include "ed_log.h"
-#include "ed_rcode.h"
 
 #define PIDSTRLEN 32
 
@@ -52,14 +51,14 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   if (fd < 0) {
     ed_log_error("unable to open pidfile '%s': %s", pidfile_path,
                  strerror(errno));
-    return ED_ERROR;
+    return -1;
   }
 
   pidstr_len = snprintf(pidstr, sizeof(pidstr), "%lu\n", (unsigned long) pid);
   if (pidstr_len < 0 || pidstr_len >= (int)sizeof(pidstr)) {
     ed_log_error("unable to convert process ID: %s", strerror(errno));
     close(fd);
-    return ED_ERROR;
+    return -1;
   }
 
   bytes_written = write(fd, pidstr, (size_t)pidstr_len);
@@ -67,14 +66,14 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
     ed_log_error("unable to write to pidfile '%s': %s", pidfile_path,
                  strerror(errno));
     close(fd);
-    return ED_ERROR;
+    return -1;
   }
 
   rc = close(fd);
   if (rc < 0) {
     ed_log_error("unable to close pidfile '%s': %s", pidfile_path,
                  strerror(errno));
-    return ED_ERROR;
+    return -1;
   }
 
   /*nsd
@@ -98,22 +97,22 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
     }
   */
 
-  return ED_OK;
+  return 0;
 }
 
 int ed_pidfile_remove(char const *pidfile_path) {
   int rc;
 
   if (pidfile_path == NULL) {
-    return ED_ERROR;
+    return -1;
   }
 
   rc = unlink(pidfile_path);
   if (rc < 0) {
     ed_log_error("unable to remove pidfile '%s': %s", pidfile_path, strerror(errno));
-    return ED_ERROR;
+    return -1;
   }
 
-  return ED_OK;
+  return 0;
 }
 
