@@ -14,7 +14,7 @@ static void vprintf_msg(const char *prefix, const char *fmt, va_list ap) {
 /**
  * Report an error message and terminate.
  */
-void EC_NORETURN fatal(const char *fmt, ...) {
+void ATTR_NORETURN fatal(const char *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
