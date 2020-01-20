@@ -60,11 +60,11 @@ static char *_ed_log_level_to_str(ed_log_level_t level) {
   case ED_LOG_LEVEL_ERROR:
     return "error: ";
 
+  case ED_LOG_LEVEL_WARN:
+    return "warn: ";
+
   case ED_LOG_LEVEL_INFO:
     return "";
-
-  case ED_LOG_LEVEL_DEBUG:
-    return "debug: ";
 
   default:
     return "internal error: ";
@@ -164,18 +164,18 @@ void ed_log_error(char const *format, ...) {
   va_end(args);
 }
 
+void ed_log_warn(char const *format, ...) {
+  va_list args;
+
+  va_start(args, format);
+  _ed_log_msg(ED_LOG_LEVEL_WARN, format, args);
+  va_end(args);
+}
+
 void ed_log_info(char const *format, ...) {
   va_list args;
 
   va_start(args, format);
   _ed_log_msg(ED_LOG_LEVEL_INFO, format, args);
-  va_end(args);
-}
-
-void ed_log_debug(char const *format, ...) {
-  va_list args;
-
-  va_start(args, format);
-  _ed_log_msg(ED_LOG_LEVEL_DEBUG, format, args);
   va_end(args);
 }
