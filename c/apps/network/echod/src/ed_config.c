@@ -3,7 +3,7 @@
 #include "ed_default_paths.h"
 
 /* User for running the Echo daemon. */
-#define ED_USER "_echod"
+#define DEF_DAEMON_USER "_echod"
 
 #define ED_DEFAULT_BIND_ADDR "0.0.0.0"
 #define ED_DEFAULT_ECHO_PORT 7
@@ -13,7 +13,7 @@ void ed_config_init(ed_config_t *config) {
   config->detach = 1;
   config->conffile = DEF_PATH_ECHODCONF;
   config->pidfile = DEF_PATH_ECHODPID;
-  config->user = ED_USER;
+  config->user = DEF_DAEMON_USER;
   config->address = ED_DEFAULT_BIND_ADDR;
   config->port = ED_DEFAULT_ECHO_PORT;
   config->backlog = ED_DEFAULT_BACKLOG;
