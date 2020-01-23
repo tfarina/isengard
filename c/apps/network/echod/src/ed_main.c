@@ -39,11 +39,11 @@
 #include "ed_globals.h"
 #include "ed_log.h"
 #include "ed_net.h"
-#include "ed_path.h"
 #include "ed_pidfile.h"
 #include "ed_privs.h"
 #include "ed_signals.h"
 #include "ed_validate.h"
+#include "os_path.h"
 
 #define BUFSIZE 8129
 
@@ -249,7 +249,7 @@ int main(int argc, char **argv) {
   /*
    * Save our name for later usage.
    */
-  ed_g_progname = ed_path_basename(*argv);
+  ed_g_progname = os_path_basename(*argv);
 
 
   /*

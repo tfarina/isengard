@@ -15,12 +15,13 @@ set(SRCS
   ed_log.c
   ed_main.c
   ed_net.c
-  ed_path.c
   ed_pidfile.c
   ed_printf.c
   ed_privs.c
   ed_signals.c
   ed_validate.c
+  os_path.c
+  os_path.h
 )
 
 add_executable(${PROGRAM} ${SRCS})

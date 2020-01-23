@@ -1,10 +1,10 @@
-#include "ed_path.h"
+#include "os_path.h"
 
 #include <string.h>
 
 #define DIR_SEP '/'
 
-char const *ed_path_basename(char const *path) {
+char const *os_path_basename(char const *path) {
   char const *slash;
 
   slash = strrchr(path, DIR_SEP);
