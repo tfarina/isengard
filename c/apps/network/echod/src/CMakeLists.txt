@@ -5,7 +5,9 @@ configure_file(
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 
-set(ECHOD_SRCS
+set(PROGRAM "echod")
+
+set(SRCS
   ed_cmdline.c
   ed_config.c
   ed_daemon.c
@@ -21,9 +23,9 @@ set(ECHOD_SRCS
   ed_validate.c
 )
 
-add_executable(echod ${ECHOD_SRCS})
-set_target_properties(echod PROPERTIES LINKER_LANGUAGE C)
+add_executable(${PROGRAM} ${SRCS})
+set_target_properties(${PROGRAM} PROPERTIES LINKER_LANGUAGE C)
 
 set(INSTALL_SBIN_DIR "${CMAKE_INSTALL_PREFIX}/sbin" CACHE PATH "Installation directory for system admin executables")
 
-install(TARGETS echod RUNTIME DESTINATION "${INSTALL_SBIN_DIR}")
+install(TARGETS ${PROGRAM} RUNTIME DESTINATION "${INSTALL_SBIN_DIR}")
