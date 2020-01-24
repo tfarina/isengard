@@ -41,9 +41,9 @@
 #include "ed_net.h"
 #include "ed_pidfile.h"
 #include "ed_privs.h"
-#include "ed_signals.h"
 #include "ed_validate.h"
 #include "os_path.h"
+#include "sig2str.h"
 
 #define BUFSIZE 8129
 
@@ -84,11 +84,15 @@ static void reap_kids(void) {
  * Catch SIGTERM signal and SIGINT signal (del/^C).
  */
 static void sig_term_handler(int sig) {
+  char sigstr[SIG2STR_MAX];
+
   if (sig == SIGTERM || sig == SIGINT) {
     quit = 1;
   }
 
-  ed_log_info("signal %d (%s) received, terminating...", sig, ed_sig2str(sig));
+  sig2str(sig, sigstr);
+
+  ed_log_info("signal %d (%s) received, terminating...", sig, sigstr);
 }
 
 /**
