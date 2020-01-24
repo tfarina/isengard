@@ -18,10 +18,12 @@ set(SRCS
   ed_pidfile.c
   ed_printf.c
   ed_privs.c
-  ed_validate.c
   os_path.c
   os_path.h
   sig2str.c
+  sig2str.h
+  valid.c
+  valid.h
 )
 
 add_executable(${PROGRAM} ${SRCS})

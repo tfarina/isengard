@@ -41,7 +41,6 @@
 #include "ed_net.h"
 #include "ed_pidfile.h"
 #include "ed_privs.h"
-#include "ed_validate.h"
 #include "os_path.h"
 #include "sig2str.h"
 

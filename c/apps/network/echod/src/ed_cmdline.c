@@ -6,8 +6,8 @@
 
 #include "ed_default_paths.h"
 #include "ed_globals.h"
-#include "ed_validate.h"
 #include "ed_version.h"
+#include "valid.h"
 
 static void print_help(int status);
 
@@ -87,7 +87,7 @@ void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
 	fprintf(stderr, "%s: option -p requires a non zero number\n", ed_g_progname);
 	exit(1);
       }
-      if (!ed_valid_port(value)) {
+      if (!valid_port(value)) {
 	fprintf(stderr, "%s: option -s value %d is not a valid port\n", ed_g_progname, value);
         exit(1);
       }
