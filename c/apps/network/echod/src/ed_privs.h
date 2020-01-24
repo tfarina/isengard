@@ -3,7 +3,7 @@
 
 #include <pwd.h>
 
-#define DEF_ROOT_UID 0
+#define ROOT_UID 0
 
 void ed_privs_check_daemon_user(char const *user);
 

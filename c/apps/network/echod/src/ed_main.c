@@ -260,7 +260,7 @@ int main(int argc, char **argv) {
   /*
    * Check if it was run by the superuser.
    */
-  if (getuid() != DEF_ROOT_UID) {
+  if (getuid() != ROOT_UID) {
     ed_log_fatal("You must be root (uid = 0) to run %s", ed_g_progname);
   }
 
