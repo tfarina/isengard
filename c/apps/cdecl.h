@@ -3,14 +3,14 @@
 
 #ifdef __cplusplus
 /** If using C++ this macro enables C mode, otherwise does nothing. */
-#define C_DECL_BEGIN extern "C" {
+#define BEGIN_C_DECLS extern "C" {
 /** If using C++ this macro switches back to C++ mode, otherwise does nothing. */
-#define C_DECL_END }
+#define END_C_DECLS }
 
 #else
 
-#define C_DECL_BEGIN
-#define C_DECL_END
+#define BEGIN_C_DECLS
+#define END_C_DECLS
 
 #endif 
 
