@@ -87,10 +87,6 @@ static void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) 
     return;
   }
 
-  time(&now);
-  localtm = localtime(&now);
-  strftime(timestr, sizeof(timestr), "[%Y-%m-%dT%T]", localtm);
-
   vsnprintf(buf, maxlen, format, args);
   buf[maxlen-1] = '\0'; /* Ensure string is null terminated. */
 
@@ -100,7 +96,11 @@ static void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) 
   }
 
   if (log_dst & ED_LOG_DST_FILE && log_fd > 0) {
-    len += ed_scnprintf(buf + len, maxlen - len, "%.*s ", strlen(timestr), timestr);
+    time(&now);
+    localtm = localtime(&now);
+    strftime(timestr, sizeof(timestr), "%Y-%m-%dT%T", localtm);
+
+    len += ed_scnprintf(buf + len, maxlen - len, "[%.*s] ", strlen(timestr), timestr);
     len += ed_scnprintf(buf + len, maxlen - len, "%s", level_to_str(level));
     len += vsnprintf(buf + len, maxlen - len, format, args);
     buf[len++] = '\n';
@@ -128,13 +128,14 @@ int ed_log_file_open(char const *logfile_path) {
 }
 
 void ed_log_file_close(void) {
-  if (log_fd < 0) {
-    return;
+  if (log_dst & ED_LOG_DST_FILE) {
+    if (log_fd < 0) {
+      return;
+    }
+
+    close(log_fd);
+    log_fd = -1;
   }
-
-  close(log_fd);
-
-  log_fd = -1;
 }
 
 void ed_log_set_level(ed_log_level_t level) {
