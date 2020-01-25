@@ -10,6 +10,6 @@
  *
  * \return The number of elements in the array.
  */
-#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(*arr))
+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(*(arr)))
 
 #endif /* ARRAYSIZE_H_ */
