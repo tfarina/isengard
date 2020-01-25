@@ -52,7 +52,7 @@ static char const *log_progname = NULL;
 static int log_fd = -1;
 static ed_log_opt_t log_opts;
 
-static char *_ed_log_level_to_str(ed_log_level_t level) {
+static char *level_to_str(ed_log_level_t level) {
   switch (level) {
   case ED_LOG_LEVEL_FATAL:
     return "fatal: ";
@@ -95,13 +95,13 @@ static void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) 
   buf[maxlen-1] = '\0'; /* Ensure string is null terminated. */
 
   if (log_dst & ED_LOG_DST_STDERR) {
-    fprintf(stderr, "%s: %s%s\n", log_progname, _ed_log_level_to_str(level), buf);
+    fprintf(stderr, "%s: %s%s\n", log_progname, level_to_str(level), buf);
     fflush(stderr);
   }
 
   if (log_dst & ED_LOG_DST_FILE && log_fd > 0) {
     len += ed_scnprintf(buf + len, maxlen - len, "%.*s ", strlen(timestr), timestr);
-    len += ed_scnprintf(buf + len, maxlen - len, "%s", _ed_log_level_to_str(level));
+    len += ed_scnprintf(buf + len, maxlen - len, "%s", level_to_str(level));
     len += vsnprintf(buf + len, maxlen - len, format, args);
     buf[len++] = '\n';
     write(log_fd, buf, len);
