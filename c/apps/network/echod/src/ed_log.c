@@ -50,7 +50,6 @@ static ed_log_dst_t log_dst = ED_LOG_DST_STDERR;
 static ed_log_level_t log_level = ED_LOG_LEVEL_INFO;
 static char const *log_progname = NULL;
 static int log_fd = -1;
-static ed_log_opt_t log_opts;
 
 static char *level_to_str(ed_log_level_t level) {
   switch (level) {
@@ -140,10 +139,6 @@ void ed_log_file_close(void) {
 
 void ed_log_set_level(ed_log_level_t level) {
   log_level = level;
-}
-
-void ed_log_set_options(ed_log_opt_t opts) {
-  log_opts |= opts;
 }
 
 void ed_log_fatal(char const *fmt, ...) {
