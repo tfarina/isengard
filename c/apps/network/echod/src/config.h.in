@@ -1,0 +1,7 @@
+/* config.h. Generated from config.h.in by cmake. */
+#ifndef _CONFIG_H_INCLUDED_
+#define _CONFIG_H_INCLUDED_
+
+#cmakedefine HAVE_GETOPT_H 1
+
+#endif  /* !defined(_CONFIG_H_INCLUDED_) */
