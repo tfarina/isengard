@@ -40,7 +40,14 @@
  */
 #define BIT_ISSET(flags, mask) ((flags) & (mask))
 
-#define BIT_TOGGLE(flags, mask) ((flags) ^= (mask))
+/**
+ * Flip bits
+ *
+ * Go from '0' to '1' and vice-versa.
+ *
+ * @param flags the value where bits should flipped.
+ */
+#define BIT_FLIP(flags, mask) ((flags) ^= (mask))
 
 /* https://www.pixelbeat.org/libs/bitops.h */
 /* https://github.com/irrdnet/irrd/blob/03de032c2d1769a6ffb72513a03cec77d9759fc2/src/include/defs.h#L27 */
@@ -50,5 +57,6 @@
 /* https://github.com/royratcliffe/ta-lib/blob/272b60afa70625b84ab647fd1e0a13909735280b/branches/ta-lib/ta-lib/c/src/ta_common/imatix/sfl/prelude.h#L429 */
 /* https://github.com/signalwire/libks/blob/master/src/include/libks/ks.h#L42 */
 /* https://github.com/ventanium/ventanium/blob/master/src/vtm/core/flag.h */
+/* https://www.coranac.com/documents/working-with-bits-and-bitfields/*/
 
 #endif  /* BITOPS_H_ */
