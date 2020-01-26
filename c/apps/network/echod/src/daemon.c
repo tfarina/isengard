@@ -41,9 +41,7 @@
 
 int daemonize(void)
 {
-    int rc;
-    pid_t sid;
-    int fd;
+    int fd, rc;
 
     /* 1st fork detaches child from terminal */
     switch (fork()) {
@@ -60,8 +58,7 @@ int daemonize(void)
     }
 
     /* 1st child continues and becomes the session and process group leader */
-    sid = setsid();
-    if (sid < 0) {
+    if (setsid() < 0) {
         ed_log_error("unable to set process group ID: %s", strerror(errno));
         return -1;
     }
