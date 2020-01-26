@@ -62,7 +62,7 @@ int daemonize(void)
     /* 1st child continues and becomes the session and process group leader */
     sid = setsid();
     if (sid < 0) {
-        ed_log_error("unable to set SID: %s", strerror(errno));
+        ed_log_error("unable to set process group ID: %s", strerror(errno));
         return -1;
     }
 
