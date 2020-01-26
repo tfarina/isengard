@@ -1,17 +1,15 @@
-#ifndef CDECL_H_
-#define CDECL_H_
+#ifndef _CDECL_H_INCLUDED_
+#define _CDECL_H_INCLUDED_ 1
 
+/**
+ * This informs C++ that the types and declarations are C, not C++.
+ */
 #ifdef __cplusplus
-/** If using C++ this macro enables C mode, otherwise does nothing. */
-#define BEGIN_C_DECLS extern "C" {
-/** If using C++ this macro switches back to C++ mode, otherwise does nothing. */
-#define END_C_DECLS }
-
+# define BEGIN_C_DECLS extern "C" {
+# define END_C_DECLS }
 #else
+# define BEGIN_C_DECLS
+# define END_C_DECLS
+#endif
 
-#define BEGIN_C_DECLS
-#define END_C_DECLS
-
-#endif 
-
-#endif  /* CDECL_H_ */
+#endif  /* !defined(_CDECL_H_INCLUDED_) */
