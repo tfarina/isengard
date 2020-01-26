@@ -72,7 +72,7 @@ static char *level_to_str(ed_log_level_t level) {
   return "unknown: ";
 }
 
-static void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) {
+static void __vlogmsg(ed_log_level_t level, char const *format, va_list args) {
   time_t now;
   struct tm *localtm;
   char timestr[32];
@@ -145,7 +145,7 @@ void ed_log_fatal(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  _ed_log_msg(ED_LOG_LEVEL_FATAL, fmt, ap);
+  __vlogmsg(ED_LOG_LEVEL_FATAL, fmt, ap);
   va_end(ap);
 
   sleep(1);
@@ -156,7 +156,7 @@ void ed_log_error(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  _ed_log_msg(ED_LOG_LEVEL_ERROR, fmt, ap);
+  __vlogmsg(ED_LOG_LEVEL_ERROR, fmt, ap);
   va_end(ap);
 }
 
@@ -164,7 +164,7 @@ void ed_log_warn(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  _ed_log_msg(ED_LOG_LEVEL_WARN, fmt, ap);
+  __vlogmsg(ED_LOG_LEVEL_WARN, fmt, ap);
   va_end(ap);
 }
 
@@ -172,6 +172,6 @@ void ed_log_info(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  _ed_log_msg(ED_LOG_LEVEL_INFO, fmt, ap);
+  __vlogmsg(ED_LOG_LEVEL_INFO, fmt, ap);
   va_end(ap);
 }
