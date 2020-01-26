@@ -48,7 +48,7 @@
 
 static ed_log_dst_t log_dst = ED_LOG_DST_STDERR;
 static ed_log_level_t log_level = ED_LOG_LEVEL_INFO;
-static char const *log_progname = NULL;
+static char const *log_ident;
 static int log_fd = -1;
 
 static char *level_to_str(ed_log_level_t level) {
@@ -90,7 +90,7 @@ static void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) 
   buf[maxlen-1] = '\0'; /* Ensure string is null terminated. */
 
   if (log_dst & ED_LOG_DST_STDERR) {
-    fprintf(stderr, "%s: %s%s\n", log_progname, level_to_str(level), buf);
+    fprintf(stderr, "%s: %s%s\n", log_ident, level_to_str(level), buf);
     fflush(stderr);
   }
 
@@ -107,8 +107,8 @@ static void _ed_log_msg(ed_log_level_t level, char const *format, va_list args) 
   }
 }
 
-void ed_log_set_ident(char const *progname) {
-  log_progname = progname;
+void ed_log_set_ident(char const *ident) {
+  log_ident = ident;
 }
 
 int ed_log_file_open(char const *logfile_path) {
