@@ -42,12 +42,11 @@
 int ed_daemon_detach(void)
 {
     int rc;
-    pid_t pid, sid;
+    pid_t sid;
     int fd;
 
     /* 1st fork detaches child from terminal */
-    pid = fork();
-    switch (pid) {
+    switch (fork()) {
     case -1:
         ed_log_error("unable to fork: %s", strerror(errno));
         return -1;
@@ -70,8 +69,7 @@ int ed_daemon_detach(void)
     /* 2nd fork turns child into a non-session leader: to ensure that daemon
      * never reacquires a control terminal.
      */
-    pid = fork();
-    switch (pid) {
+    switch (fork()) {
     case -1:
         ed_log_error("unable to fork: %s", strerror(errno));
         return -1;
