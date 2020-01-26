@@ -67,11 +67,6 @@ int ed_daemon_detach(void)
         return -1;
     }
 
-    if (signal(SIGHUP, SIG_IGN) == SIG_ERR) {
-        ed_log_error("signal(SIGHUP, SIG_IGN) failed: %s", strerror(errno));
-        return -1;
-    }
-
     /* 2nd fork turns child into a non-session leader: to ensure that daemon
      * never reacquires a control terminal.
      */
