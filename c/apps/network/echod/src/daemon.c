@@ -27,7 +27,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "ed_daemon.h"
+#include "daemon.h"
 
 #include <errno.h>
 #include <fcntl.h>
@@ -39,7 +39,7 @@
 
 #include "ed_log.h"
 
-int ed_daemon_detach(void)
+int daemonize(void)
 {
     int rc;
     pid_t sid;

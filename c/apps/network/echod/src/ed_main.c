@@ -33,9 +33,9 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "daemon.h"
 #include "ed_cmdline.h"
 #include "ed_config.h"
-#include "ed_daemon.h"
 #include "ed_globals.h"
 #include "ed_log.h"
 #include "ed_net.h"
@@ -285,7 +285,7 @@ int main(int argc, char **argv) {
   }
 
   if (config.detach) {
-    rc = ed_daemon_detach();
+    rc = daemonize();
     if (rc < 0) {
       ed_log_error("Couldn't daemonize %s: %s\n", ed_g_progname, strerror(errno));
       return rc;

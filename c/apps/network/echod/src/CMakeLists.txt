@@ -13,9 +13,10 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 set(PROGRAM "echod")
 
 set(SRCS
+  daemon.c
+  daemon.h
   ed_cmdline.c
   ed_config.c
-  ed_daemon.c
   ed_globals.c
   ed_log.c
   ed_main.c

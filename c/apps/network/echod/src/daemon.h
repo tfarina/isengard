@@ -1,5 +1,5 @@
-#ifndef ED_DAEMON_H_
-#define ED_DAEMON_H_
+#ifndef _DAEMON_H_INCLUDED_
+#define _DAEMON_H_INCLUDED_ 1
 
 /*
 http://man7.org/linux/man-pages/man3/daemon.3.html
@@ -13,6 +13,6 @@ https://github.com/Netflix/dynomite/blob/032a6f3dc4523e55beebbfff04d993ad60a43de
  *
  * @return 0 on success or -1 on error.
  */
-int ed_daemon_detach(void);
+int daemonize(void);
 
-#endif  /* ED_DAEMON_H_ */
+#endif  /* !defined(_DAEMON_H_INCLUDED_) */
