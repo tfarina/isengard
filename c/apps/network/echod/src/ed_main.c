@@ -258,7 +258,7 @@ int main(int argc, char **argv) {
   /*
    * Initialize logging.
    */
-  ed_log_set_ident(ed_g_progname);
+  ed_log_open(ed_g_progname);
 
   /*
    * Check if it was run by the superuser.

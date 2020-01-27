@@ -101,7 +101,7 @@ static void __vlogmsg(ed_log_level_t level, char const *format, va_list args) {
   }
 }
 
-void ed_log_set_ident(char const *ident) {
+void ed_log_open(char const *ident) {
   if (ident) {
     log_ident = ident;
   }
