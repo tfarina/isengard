@@ -74,18 +74,15 @@ static void __vlogmsg(ed_log_level_t level, char const *format, va_list args) {
   time_t now;
   struct tm *localtm;
   char timestr[32];
-  int len, maxlen;
+  int len;
   char buf[LOG_MAX_LEN];
-
-  len = 0;
-  maxlen = LOG_MAX_LEN;
 
   if (level > log_level) {
     return;
   }
 
-  vsnprintf(buf, maxlen, format, args);
-  buf[maxlen-1] = '\0'; /* Ensure string is null terminated. */
+  vsnprintf(buf, sizeof(buf), format, args);
+  buf[sizeof(buf) - 1] = '\0'; /* Ensure string is null terminated. */
 
   if (log_dst & ED_LOG_DST_STDERR) {
     fprintf(stderr, "%s: %s%s\n", log_ident, level_to_str(level), buf);
