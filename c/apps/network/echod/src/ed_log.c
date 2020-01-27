@@ -42,7 +42,7 @@
 #include <string.h>
 #include <time.h>
 
-#define LOG_MAX_LINE_LEN 1024
+#define MAXLINELEN 1024
 
 static ed_log_dst_t log_dst = ED_LOG_DST_STDERR;
 static ed_log_level_t log_level = ED_LOG_LEVEL_INFO;
@@ -75,7 +75,7 @@ static void __vlogmsg(ed_log_level_t level, char const *format, va_list args) {
   struct tm *localtm;
   char timestr[32];
   int len;
-  char buf[LOG_MAX_LINE_LEN];
+  char buf[MAXLINELEN];
 
   if (level > log_level) {
     return;
