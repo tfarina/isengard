@@ -2,7 +2,7 @@
 #define ED_CONFIG_H_
 
 typedef struct ed_config_s {
-  int  detach:1;       /* process: foreground mode */
+  int unsigned detach:1;       /* process: foreground mode */
   char *conffile;      /* process: configuration filename */
   char *logfile;       /* debug:   log filename */
   char *pidfile;       /* process: pid file */
