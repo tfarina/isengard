@@ -331,9 +331,7 @@ int main(int argc, char **argv) {
 
   ed_log_info("stopping daemon");
   ed_pidfile_remove(config.pidfile);
-  if (config.logfile != NULL) {
-    ed_log_file_close();
-  }
+  ed_log_close();
 
   return EXIT_SUCCESS;
 }

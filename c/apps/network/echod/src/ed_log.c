@@ -120,7 +120,7 @@ int ed_log_file_open(char const *logfile_path) {
   return 0;
 }
 
-void ed_log_file_close(void) {
+void ed_log_close(void) {
   if (log_dst & ED_LOG_DST_FILE) {
     if (log_fd < 0) {
       return;

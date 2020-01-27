@@ -52,7 +52,8 @@ typedef enum ed_log_level_e {
 void ed_log_set_ident(char const *);
 
 int ed_log_file_open(char const *);
-void ed_log_file_close(void);
+
+void ed_log_close(void);
 
 void ed_log_set_level(ed_log_level_t);
 
