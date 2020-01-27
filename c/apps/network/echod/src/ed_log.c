@@ -43,6 +43,7 @@
 #include <time.h>
 
 #define MAXLINELEN 1024
+#define RFC5424_TIMESTAMP "%Y-%m-%dT%H:%M:%S"
 
 static ed_log_dst_t log_dst = ED_LOG_DST_STDERR;
 static ed_log_level_t log_level = ED_LOG_LEVEL_INFO;
@@ -92,7 +93,7 @@ static void __vlogmsg(ed_log_level_t level, char const *format, va_list args) {
   if (log_dst & ED_LOG_DST_FILE && log_fd > 0) {
     time(&now);
     localtm = localtime(&now);
-    strftime(timestr, sizeof(timestr), "%Y-%m-%dT%H:%M:%S", localtm);
+    strftime(timestr, sizeof(timestr), RFC5424_TIMESTAMP, localtm);
 
     len = snprintf(buf, sizeof(buf), "[%.*s] %s", strlen(timestr), timestr, level_to_str(level));
     len += vsnprintf(buf + len, sizeof(buf) - len, format, args);
