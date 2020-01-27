@@ -153,7 +153,7 @@ static int ed_event_loop(int tcpfd) {
 
     memcpy(&rfds_out, &rfds_in, sizeof(fd_set));
 
-    rc = select(tcpfd + 1, &rfds_out, NULL, NULL, NULL);
+    rc = select(tcpfd + 1, &rfds_out, (fd_set *) 0, (fd_set *) 0, (struct timeval *) 0);
     if (rc > 0) {
       if (FD_ISSET(tcpfd, &rfds_out)) {
         clientfd = ed_net_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
