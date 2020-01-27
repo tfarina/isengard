@@ -156,40 +156,40 @@ static int ed_event_loop(int tcpfd) {
     rc = select(tcpfd + 1, &rfds_out, (fd_set *) 0, (fd_set *) 0, (struct timeval *) 0);
     if (rc > 0) {
       if (FD_ISSET(tcpfd, &rfds_out)) {
-        clientfd = ed_net_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
+	clientfd = ed_net_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
 	if (clientfd == ED_NET_ERR) {
 	  return -1;
 	}
 
 	ed_log_info("connection from %s:%d", clientip, clientport);
 
-        ++connected_clients;
-        print_stats();
+	++connected_clients;
+	print_stats();
 
-        pid = fork();
-        switch (pid) {
-        /* Error */
-        case -1:
-          close(clientfd);
-          --connected_clients;
-          print_stats();
-          break;
+	pid = fork();
+	switch (pid) {
+	/* Error */
+	case -1:
+	  close(clientfd);
+	  --connected_clients;
+	  print_stats();
+	  break;
 
-        /* Child process. */
-        case 0:
-          ed_log_info("child process forked");
-          close(tcpfd);
-          echo_stream(clientfd);
-          break;
+	/* Child process. */
+	case 0:
+	  ed_log_info("child process forked");
+	  close(tcpfd);
+	  echo_stream(clientfd);
+	  break;
 
-        /* Parent process. */
-        default:
-          /*
-           * We are the parent so look for another connection.
-           */
-          close(clientfd);
-          ed_log_info("new child created -- pid %d", pid);
-        }
+	/* Parent process. */
+	default:
+	  /*
+	   * We are the parent so look for another connection.
+	   */
+	  close(clientfd);
+	  ed_log_info("new child created -- pid %d", pid);
+	}
       }
     }
 
@@ -327,7 +327,7 @@ int main(int argc, char **argv) {
   ed_sig_setup();
 
   ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
-	      get_username(), (long)getuid(),
+              get_username(), (long)getuid(),
               get_groupname(), (long)getgid());
 
   ed_log_info("daemon started -- pid %d", ed_g_pid);
