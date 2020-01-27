@@ -4,6 +4,6 @@ MarkupSafe==0.18
 Werkzeug==0.9.3
 itsdangerous==0.23
 pymongo==2.5.2
-requests==0.13.2
+requests==2.20.0
 stripe==1.9.2
 wsgiref==0.1.2
