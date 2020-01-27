@@ -304,11 +304,6 @@ int main(int argc, char **argv) {
     if (rc < 0) {
       return rc;
     }
-    /*if (chown(config.pidfile, ed_uid, ed_gid) == -1) {
-      ed_log_error("unable to chown %u.%u %s: %s",
-	           (unsigned)ed_uid, (unsigned)ed_gid,
-                   config.pidfile, strerror(errno));
-		   }*/
   }
 
   tcpfd = ed_net_tcp_socket_listen(config.address, config.port, config.backlog);
