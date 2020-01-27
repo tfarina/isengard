@@ -131,6 +131,7 @@ void ed_log_close(void) {
     close(log_fd);
     log_fd = -1;
   }
+  log_ident = (char const *) 0;
 }
 
 void ed_log_set_level(ed_log_level_t level) {
