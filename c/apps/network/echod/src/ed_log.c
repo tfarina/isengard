@@ -42,8 +42,6 @@
 #include <string.h>
 #include <time.h>
 
-#include "ed_printf.h"
-
 #define LOG_MAX_LEN 256
 
 static ed_log_dst_t log_dst = ED_LOG_DST_STDERR;
@@ -99,9 +97,8 @@ static void __vlogmsg(ed_log_level_t level, char const *format, va_list args) {
     localtm = localtime(&now);
     strftime(timestr, sizeof(timestr), "%Y-%m-%dT%T", localtm);
 
-    len += ed_scnprintf(buf + len, maxlen - len, "[%.*s] ", strlen(timestr), timestr);
-    len += ed_scnprintf(buf + len, maxlen - len, "%s", level_to_str(level));
-    len += vsnprintf(buf + len, maxlen - len, format, args);
+    len = snprintf(buf, sizeof(buf), "[%.*s] %s", strlen(timestr), timestr, level_to_str(level));
+    len += vsnprintf(buf + len, sizeof(buf) - len, format, args);
     buf[len++] = '\n';
     write(log_fd, buf, len);
   }

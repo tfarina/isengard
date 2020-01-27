@@ -22,7 +22,6 @@ set(SRCS
   ed_main.c
   ed_net.c
   ed_pidfile.c
-  ed_printf.c
   ed_privs.c
   os_path.c
   os_path.h
