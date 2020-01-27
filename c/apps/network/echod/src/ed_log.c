@@ -95,7 +95,7 @@ static void __vlogmsg(ed_log_level_t level, char const *format, va_list args) {
   if (log_dst & ED_LOG_DST_FILE && log_fd > 0) {
     time(&now);
     localtm = localtime(&now);
-    strftime(timestr, sizeof(timestr), "%Y-%m-%dT%T", localtm);
+    strftime(timestr, sizeof(timestr), "%Y-%m-%dT%H:%M:%S", localtm);
 
     len = snprintf(buf, sizeof(buf), "[%.*s] %s", strlen(timestr), timestr, level_to_str(level));
     len += vsnprintf(buf + len, sizeof(buf) - len, format, args);
