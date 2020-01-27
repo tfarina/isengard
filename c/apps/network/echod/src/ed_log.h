@@ -49,16 +49,16 @@ typedef enum ed_log_level_e {
   ED_LOG_LEVEL_MAX
 } ed_log_level_t;
 
-void ed_log_set_ident(char const *progname);
+void ed_log_set_ident(char const *);
 
-int ed_log_file_open(char const *logfile_path);
+int ed_log_file_open(char const *);
 void ed_log_file_close(void);
 
-void ed_log_set_level(ed_log_level_t level);
+void ed_log_set_level(ed_log_level_t);
 
-void ed_log_fatal(char const *fmt, ...);
-void ed_log_error(char const *fmt, ...);
-void ed_log_warn(char const *fmt, ...);
-void ed_log_info(char const *fmt, ...);
+void ed_log_fatal(char const *, ...);
+void ed_log_error(char const *, ...);
+void ed_log_warn(char const *, ...);
+void ed_log_info(char const *, ...);
 
 #endif  /* ED_LOG_H_ */
