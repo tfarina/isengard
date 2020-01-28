@@ -37,8 +37,8 @@
 #define _ULOG_H_INCLUDED_ 1
 
 typedef enum ulog_dst_e {
-  ULOG_DST_STDERR = 1 << 0,
-  ULOG_DST_FILE   = 1 << 1
+  ULOG_DST_CONSOLE = 1 << 0,
+  ULOG_DST_FILE    = 1 << 1
 } ulog_dst_t;
 
 typedef enum ulog_level_e {

@@ -45,9 +45,9 @@
 #define MAXLINELEN 1024
 #define RFC5424_TIMESTAMP "%Y-%m-%dT%H:%M:%S"
 
-static ulog_dst_t log_dst = ULOG_DST_STDERR;
-static ulog_level_t log_level = ULOG_LEVEL_INFO;
 static char const *log_ident;
+static ulog_level_t log_level = ULOG_LEVEL_INFO;
+static ulog_dst_t log_dst = ULOG_DST_CONSOLE;
 static int log_fd = -1;
 
 static char *level_to_str(ulog_level_t level) {
@@ -86,7 +86,7 @@ static void __vlogmsg(ulog_level_t level, char const *format, va_list args) {
   vsnprintf(buf, sizeof(buf), format, args);
   buf[sizeof(buf) - 1] = '\0'; /* Ensure the buffer is NUL-terminated. */
 
-  if (log_dst & ULOG_DST_STDERR) {
+  if (log_dst & ULOG_DST_CONSOLE) {
     if (level == ULOG_LEVEL_INFO) {
       term_file = stdout;
     } else {
