@@ -32,7 +32,7 @@ int ed_privs_drop(uid_t uid, gid_t gid) {
 
   rc = setgroups(1, &gid);
   if (rc < 0) {
-    ulog_error("unable to set setgroups() with gid %ld: %s", (long) gid, strerror(errno));
+    ulog_error("setgroups(1, %ld) failed: %s", (long) gid, strerror(errno));
     return -1;
   }
 
