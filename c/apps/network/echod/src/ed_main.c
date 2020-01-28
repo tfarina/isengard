@@ -28,7 +28,6 @@
 #include <strings.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
-#include <sys/syslog.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -37,13 +36,13 @@
 #include "ed_cmdline.h"
 #include "ed_config.h"
 #include "ed_globals.h"
-#include "ed_log.h"
 #include "ed_net.h"
 #include "ed_pidfile.h"
 #include "ed_privs.h"
 #include "ed_version.h"
 #include "os_path.h"
 #include "sig2str.h"
+#include "ulog.h"
 
 #define BUFSIZE 8129
 
@@ -52,7 +51,7 @@ static sig_atomic_t volatile got_sigchld;
 static int unsigned connected_clients = 0; /* Number of child processes. */
 
 static void print_stats(void) {
-  ed_log_info("connected_clients=%d", connected_clients);
+  ulog_info("connected_clients=%d", connected_clients);
 }
 
 /**
@@ -73,13 +72,13 @@ static void reap_kids(void) {
     }
 
     if (WIFEXITED(status)) {
-      ed_log_info("pid %lu exited with status %d", (unsigned long) pid, WEXITSTATUS(status));
+      ulog_info("pid %lu exited with status %d", (unsigned long) pid, WEXITSTATUS(status));
     } else if (WIFSIGNALED(status)) {
-      ed_log_info("pid %lu killed with signal %d", (unsigned long) pid, WTERMSIG(status));
+      ulog_info("pid %lu killed with signal %d", (unsigned long) pid, WTERMSIG(status));
     } else if (WIFSTOPPED(status)) {
-      ed_log_info("pid %lu stopped with signal %d", (unsigned long) pid, WSTOPSIG(status));
+      ulog_info("pid %lu stopped with signal %d", (unsigned long) pid, WSTOPSIG(status));
     } else {
-      ed_log_info("pid %lu died for unknown reason", (unsigned long) pid);
+      ulog_info("pid %lu died for unknown reason", (unsigned long) pid);
     }
 
     --connected_clients;
@@ -101,7 +100,7 @@ static void sig_term_handler(int sig) {
 
   sig2str(sig, sigstr);
 
-  ed_log_info("signal %d (%s) received, terminating...", sig, sigstr);
+  ulog_info("signal %d (%s) received, terminating...", sig, sigstr);
 }
 
 /**
@@ -116,16 +115,16 @@ static void ed_sig_setup(void) {
   action.sa_handler = sig_term_handler;
 
   if (sigaction(SIGINT, &action, (struct sigaction *) 0) < 0) {
-    ed_log_error("unable to set SIGINT: %s", strerror(errno));
+    ulog_error("unable to set SIGINT: %s", strerror(errno));
   }
   if (sigaction(SIGTERM, &action, (struct sigaction *) 0) < 0) {
-    ed_log_error("unable to set SIGTERM: %s", strerror(errno));
+    ulog_error("unable to set SIGTERM: %s", strerror(errno));
   }
 
   action.sa_flags |= SA_NOCLDSTOP;
   action.sa_handler = sig_chld_handler;
   if (sigaction(SIGCHLD, &action, (struct sigaction *) 0) < 0) {
-    ed_log_error("unable to set SIGCHLD: %s", strerror(errno));
+    ulog_error("unable to set SIGCHLD: %s", strerror(errno));
   }
 }
 
@@ -171,7 +170,7 @@ static int ed_event_loop(int tcpfd) {
 	  return -1;
 	}
 
-	ed_log_info("connection from %s:%d", clientip, clientport);
+	ulog_info("connection from %s:%d", clientip, clientport);
 
 	++connected_clients;
 	print_stats();
@@ -187,7 +186,7 @@ static int ed_event_loop(int tcpfd) {
 
 	/* Child process. */
 	case 0:
-	  ed_log_info("child process forked");
+	  ulog_info("child process forked");
 	  close(tcpfd);
 	  echo_stream(clientfd);
 	  break;
@@ -198,7 +197,7 @@ static int ed_event_loop(int tcpfd) {
 	   * We are the parent so look for another connection.
 	   */
 	  close(clientfd);
-	  ed_log_info("new child created -- pid %d", pid);
+	  ulog_info("new child created -- pid %d", pid);
 	}
       }
     }
@@ -268,13 +267,13 @@ int main(int argc, char **argv) {
   /*
    * Initialize logging.
    */
-  ed_log_open(ed_g_progname, (char const *) 0);
+  ulog_open(ed_g_progname, (char const *) 0);
 
   /*
    * Check if it was run by the superuser.
    */
   if (getuid() != ROOT_UID) {
-    ed_log_fatal("You must be root (uid = 0) to run %s", ed_g_progname);
+    ulog_fatal("You must be root (uid = 0) to run %s", ed_g_progname);
   }
 
   /*
@@ -287,12 +286,12 @@ int main(int argc, char **argv) {
    */
   ed_cmdline_parse(argc, argv, &config);
 
-  ed_log_open(ed_g_progname, config.logfile);
+  ulog_open(ed_g_progname, config.logfile);
 
   if (config.detach) {
     rc = daemonize();
     if (rc < 0) {
-      ed_log_error("Couldn't daemonize %s: %s\n", ed_g_progname, strerror(errno));
+      ulog_error("Couldn't daemonize %s: %s\n", ed_g_progname, strerror(errno));
       return rc;
     }
   }
@@ -326,17 +325,17 @@ int main(int argc, char **argv) {
 
   ed_sig_setup();
 
-  ed_log_info("running as user '%s' (%ld) and group '%s' (%ld)",
-              get_username(), (long)getuid(),
-              get_groupname(), (long)getgid());
+  ulog_info("running as user '%s' (%ld) and group '%s' (%ld)",
+            get_username(), (long)getuid(),
+            get_groupname(), (long)getgid());
 
-  ed_log_info("starting daemon pid=%d version=%s", ed_g_pid, ED_VERSION_STR);
+  ulog_info("starting daemon pid=%d version=%s", ed_g_pid, ED_VERSION_STR);
 
   ed_event_loop(tcpfd);
 
-  ed_log_info("stopping daemon");
+  ulog_info("stopping daemon");
   ed_pidfile_remove(config.pidfile);
-  ed_log_close();
+  ulog_close();
 
   return EXIT_SUCCESS;
 }

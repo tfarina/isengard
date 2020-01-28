@@ -36,7 +36,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "ed_log.h"
+#include "ulog.h"
 
 int daemonize(void)
 {
@@ -45,7 +45,7 @@ int daemonize(void)
     /* 1st fork detaches child from terminal */
     switch (fork()) {
     case -1:
-        ed_log_error("unable to fork: %s", strerror(errno));
+        ulog_error("unable to fork: %s", strerror(errno));
         return -1;
 
     case 0: /* child */
@@ -58,7 +58,7 @@ int daemonize(void)
 
     /* 1st child continues and becomes the session and process group leader */
     if (setsid() < 0) {
-        ed_log_error("unable to set process group ID: %s", strerror(errno));
+        ulog_error("unable to set process group ID: %s", strerror(errno));
         return -1;
     }
 
@@ -67,7 +67,7 @@ int daemonize(void)
      */
     switch (fork()) {
     case -1:
-        ed_log_error("unable to fork: %s", strerror(errno));
+        ulog_error("unable to fork: %s", strerror(errno));
         return -1;
 
     case 0: /* child */
@@ -82,27 +82,27 @@ int daemonize(void)
 
     fd = open("/dev/null", O_RDWR);
     if (fd < 0) {
-        ed_log_error("unable to open /dev/null: %s", strerror(errno));
+        ulog_error("unable to open /dev/null: %s", strerror(errno));
         return -1;
     }
 
     rc = dup2(fd, STDIN_FILENO);
     if (rc < 0) {
-        ed_log_error("unable to dup /dev/null onto stdin: %s", strerror(errno));
+        ulog_error("unable to dup /dev/null onto stdin: %s", strerror(errno));
         close(fd);
         return -1;
     }
 
     rc = dup2(fd, STDOUT_FILENO);
     if (rc < 0) {
-        ed_log_error("unable to dup /dev/null onto stdout: %s", strerror(errno));
+        ulog_error("unable to dup /dev/null onto stdout: %s", strerror(errno));
         close(fd);
         return -1;
     }
 
     rc = dup2(fd, STDERR_FILENO);
     if (rc < 0) {
-        ed_log_error("unable to dup /dev/null onto stderr: %s", strerror(errno));
+        ulog_error("unable to dup /dev/null onto stderr: %s", strerror(errno));
         close(fd);
         return -1;
     }
@@ -110,7 +110,7 @@ int daemonize(void)
     if (fd > STDERR_FILENO) {
         rc = close(fd);
         if (rc < 0) {
-	    ed_log_error("unable to close /dev/null: %s", strerror(errno));
+	    ulog_error("unable to close /dev/null: %s", strerror(errno));
             return -1;
         }
     }

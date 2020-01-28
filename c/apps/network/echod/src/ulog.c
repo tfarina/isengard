@@ -33,7 +33,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "ed_log.h"
+#include "ulog.h"
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -45,23 +45,23 @@
 #define MAXLINELEN 1024
 #define RFC5424_TIMESTAMP "%Y-%m-%dT%H:%M:%S"
 
-static ed_log_dst_t log_dst = ED_LOG_DST_STDERR;
-static ed_log_level_t log_level = ED_LOG_LEVEL_INFO;
+static ulog_dst_t log_dst = ULOG_DST_STDERR;
+static ulog_level_t log_level = ULOG_LEVEL_INFO;
 static char const *log_ident;
 static int log_fd = -1;
 
-static char *level_to_str(ed_log_level_t level) {
+static char *level_to_str(ulog_level_t level) {
   switch (level) {
-  case ED_LOG_LEVEL_FATAL:
+  case ULOG_LEVEL_FATAL:
     return "fatal: ";
 
-  case ED_LOG_LEVEL_ERROR:
+  case ULOG_LEVEL_ERROR:
     return "error: ";
 
-  case ED_LOG_LEVEL_WARN:
+  case ULOG_LEVEL_WARN:
     return "warn: ";
 
-  case ED_LOG_LEVEL_INFO:
+  case ULOG_LEVEL_INFO:
     return "";
 
   default:
@@ -71,7 +71,7 @@ static char *level_to_str(ed_log_level_t level) {
   return "unknown: ";
 }
 
-static void __vlogmsg(ed_log_level_t level, char const *format, va_list args) {
+static void __vlogmsg(ulog_level_t level, char const *format, va_list args) {
   time_t now;
   struct tm *localtm;
   char timestr[32];
@@ -85,12 +85,12 @@ static void __vlogmsg(ed_log_level_t level, char const *format, va_list args) {
   vsnprintf(buf, sizeof(buf), format, args);
   buf[sizeof(buf) - 1] = '\0'; /* Ensure string is null terminated. */
 
-  if (log_dst & ED_LOG_DST_STDERR) {
+  if (log_dst & ULOG_DST_STDERR) {
     fprintf(stderr, "%s: %s%s\n", log_ident, level_to_str(level), buf);
     fflush(stderr);
   }
 
-  if (log_dst & ED_LOG_DST_FILE && log_fd > 0) {
+  if (log_dst & ULOG_DST_FILE && log_fd > 0) {
     time(&now);
     localtm = localtime(&now);
     strftime(timestr, sizeof(timestr), RFC5424_TIMESTAMP, localtm);
@@ -102,7 +102,7 @@ static void __vlogmsg(ed_log_level_t level, char const *format, va_list args) {
   }
 }
 
-void ed_log_open(char const *ident, char const *logfile_path) {
+void ulog_open(char const *ident, char const *logfile_path) {
   if (ident) {
     log_ident = ident;
   }
@@ -111,13 +111,13 @@ void ed_log_open(char const *ident, char const *logfile_path) {
     return;
   }
 
-  log_dst |= ED_LOG_DST_FILE;
+  log_dst |= ULOG_DST_FILE;
 
   log_fd = open(logfile_path, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
 }
 
-void ed_log_close(void) {
-  if (log_dst & ED_LOG_DST_FILE) {
+void ulog_close(void) {
+  if (log_dst & ULOG_DST_FILE) {
     if (log_fd < 0) {
       return;
     }
@@ -128,37 +128,37 @@ void ed_log_close(void) {
   log_ident = (char const *) 0;
 }
 
-void ed_log_fatal(char const *fmt, ...) {
+void ulog_fatal(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ED_LOG_LEVEL_FATAL, fmt, ap);
+  __vlogmsg(ULOG_LEVEL_FATAL, fmt, ap);
   va_end(ap);
 
   sleep(1);
   _exit(1);
 }
 
-void ed_log_error(char const *fmt, ...) {
+void ulog_error(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ED_LOG_LEVEL_ERROR, fmt, ap);
+  __vlogmsg(ULOG_LEVEL_ERROR, fmt, ap);
   va_end(ap);
 }
 
-void ed_log_warn(char const *fmt, ...) {
+void ulog_warn(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ED_LOG_LEVEL_WARN, fmt, ap);
+  __vlogmsg(ULOG_LEVEL_WARN, fmt, ap);
   va_end(ap);
 }
 
-void ed_log_info(char const *fmt, ...) {
+void ulog_info(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ED_LOG_LEVEL_INFO, fmt, ap);
+  __vlogmsg(ULOG_LEVEL_INFO, fmt, ap);
   va_end(ap);
 }

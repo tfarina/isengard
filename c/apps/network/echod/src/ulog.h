@@ -33,29 +33,29 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef ED_LOG_H_
-#define ED_LOG_H_
+#ifndef _ULOG_H_INCLUDED_
+#define _ULOG_H_INCLUDED_ 1
 
-typedef enum ed_log_dst_e {
-  ED_LOG_DST_STDERR = 1 << 0,
-  ED_LOG_DST_FILE   = 1 << 1
-} ed_log_dst_t;
+typedef enum ulog_dst_e {
+  ULOG_DST_STDERR = 1 << 0,
+  ULOG_DST_FILE   = 1 << 1
+} ulog_dst_t;
 
-typedef enum ed_log_level_e {
-  ED_LOG_LEVEL_FATAL  = 0,  /* software error (unrecoverable) */
-  ED_LOG_LEVEL_ERROR  = 1,  /* recoverable error */
-  ED_LOG_LEVEL_WARN   = 2,  /* warning message */
-  ED_LOG_LEVEL_INFO   = 3,  /* informative message */
-  ED_LOG_LEVEL_MAX
-} ed_log_level_t;
+typedef enum ulog_level_e {
+  ULOG_LEVEL_FATAL  = 0,  /* software error (unrecoverable) */
+  ULOG_LEVEL_ERROR  = 1,  /* recoverable error */
+  ULOG_LEVEL_WARN   = 2,  /* warning message */
+  ULOG_LEVEL_INFO   = 3,  /* informative message */
+  ULOG_LEVEL_MAX
+} ulog_level_t;
 
-void ed_log_open(char const *, char const *);
+void ulog_open(char const *, char const *);
 
-void ed_log_close(void);
+void ulog_close(void);
 
-void ed_log_fatal(char const *, ...);
-void ed_log_error(char const *, ...);
-void ed_log_warn(char const *, ...);
-void ed_log_info(char const *, ...);
+void ulog_fatal(char const *, ...);
+void ulog_error(char const *, ...);
+void ulog_warn(char const *, ...);
+void ulog_info(char const *, ...);
 
-#endif  /* ED_LOG_H_ */
+#endif  /* !defined(_ULOG_H_INCLUDED_) */

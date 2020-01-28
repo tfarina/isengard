@@ -18,7 +18,6 @@ set(SRCS
   ed_cmdline.c
   ed_config.c
   ed_globals.c
-  ed_log.c
   ed_main.c
   ed_net.c
   ed_pidfile.c
@@ -27,6 +26,8 @@ set(SRCS
   os_path.h
   sig2str.c
   sig2str.h
+  ulog.c
+  ulog.h
   valid.c
   valid.h
 )

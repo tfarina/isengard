@@ -8,7 +8,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "ed_log.h"
+#include "ulog.h"
 
 int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   char portstr[6];  /* strlen("65535") + 1; */
@@ -30,7 +30,7 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
 
   rv = getaddrinfo(host, portstr, &hints, &addrlist);
   if (rv != 0) {
-    ed_log_error("getaddrinfo failed: %s", gai_strerror(rv));
+    ulog_error("getaddrinfo failed: %s", gai_strerror(rv));
     return ED_NET_ERR;
   }
 
@@ -38,27 +38,27 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
     sd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
     if (sd < 0) {
-      ed_log_error("socket failed: %s", strerror(errno));
+      ulog_error("socket failed: %s", strerror(errno));
       continue;
     }
 
     rv = setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
     if (rv < 0) {
-      ed_log_error("setsockopt SO_REUSEADDR failed: %s", strerror(errno));
+      ulog_error("setsockopt SO_REUSEADDR failed: %s", strerror(errno));
       close(sd);
       continue;
     }
 
     rv = bind(sd, cur->ai_addr, cur->ai_addrlen);
     if (rv < 0) {
-      ed_log_error("bind to %s:%s failed: %.200s", host, portstr, strerror(errno));
+      ulog_error("bind to %s:%s failed: %.200s", host, portstr, strerror(errno));
       close(sd);
       continue;
     }
 
     rv = listen(sd, backlog);
     if (rv < 0) {
-      ed_log_error("cannot listen on %s port %d: %s", host, port, strerror(errno));
+      ulog_error("cannot listen on %s port %d: %s", host, port, strerror(errno));
       close(sd);
       continue;
     }
@@ -84,7 +84,7 @@ static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *sal
       if (errno == EINTR) {
         continue;
       } else {
-        ed_log_error("accept() failed: %s", strerror(errno));
+        ulog_error("accept() failed: %s", strerror(errno));
         return ED_NET_ERR;
       }
     }
