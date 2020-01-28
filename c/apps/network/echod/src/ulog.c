@@ -74,7 +74,7 @@ static char *level_to_str(ulog_level_t level) {
 static void __vlogmsg(ulog_level_t level, char const *format, va_list args) {
   time_t now;
   struct tm *localtm;
-  char timestr[32];
+  char timebuf[32];
   int len;
   char buf[MAXLINELEN];
   FILE *term_file;
@@ -99,9 +99,9 @@ static void __vlogmsg(ulog_level_t level, char const *format, va_list args) {
   if (log_dst & ULOG_DST_FILE && log_fd > 0) {
     time(&now);
     localtm = localtime(&now);
-    strftime(timestr, sizeof(timestr), RFC5424_TIMESTAMP, localtm);
+    strftime(timebuf, sizeof(timebuf), RFC5424_TIMESTAMP, localtm);
 
-    len = snprintf(buf, sizeof(buf), "[%.*s] %s", strlen(timestr), timestr, level_to_str(level));
+    len = snprintf(buf, sizeof(buf), "[%.*s] %s", strlen(timebuf), timebuf, level_to_str(level));
     len += vsnprintf(buf + len, sizeof(buf) - len, format, args);
     buf[len++] = '\n';
     write(log_fd, buf, len);
