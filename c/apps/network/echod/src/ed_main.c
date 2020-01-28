@@ -41,6 +41,7 @@
 #include "ed_net.h"
 #include "ed_pidfile.h"
 #include "ed_privs.h"
+#include "ed_version.h"
 #include "os_path.h"
 #include "sig2str.h"
 
@@ -325,7 +326,7 @@ int main(int argc, char **argv) {
               get_username(), (long)getuid(),
               get_groupname(), (long)getgid());
 
-  ed_log_info("daemon started -- pid %d", ed_g_pid);
+  ed_log_info("starting daemon pid=%d version=%s", ed_g_pid, ED_VERSION_STR);
 
   ed_event_loop(tcpfd);
 
