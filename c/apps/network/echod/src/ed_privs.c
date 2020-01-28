@@ -26,7 +26,7 @@ int ed_privs_drop(uid_t uid, gid_t gid) {
 
   rc = setgid(gid);
   if (rc < 0) {
-    ulog_error("unable to set gid to %ld: %s", (long) gid, strerror(errno));
+    ulog_error("unable to setgid() to %ld: %s", (long) gid, strerror(errno));
     return -1;
   }
 
@@ -38,7 +38,7 @@ int ed_privs_drop(uid_t uid, gid_t gid) {
 
   rc = setuid(uid);
   if (rc < 0) {
-    ulog_error("unable to set uid to %ld: %s", (long) uid, strerror(errno));
+    ulog_error("unable to setuid() to %ld: %s", (long) uid, strerror(errno));
     return -1;
   }
 
