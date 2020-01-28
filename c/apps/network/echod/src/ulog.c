@@ -84,7 +84,7 @@ static void __vlogmsg(ulog_level_t level, char const *format, va_list args) {
   }
 
   vsnprintf(buf, sizeof(buf), format, args);
-  buf[sizeof(buf) - 1] = '\0'; /* Ensure string is null terminated. */
+  buf[sizeof(buf) - 1] = '\0'; /* Ensure the buffer is NUL-terminated. */
 
   if (log_dst & ULOG_DST_STDERR) {
     if (level == ULOG_LEVEL_INFO) {
