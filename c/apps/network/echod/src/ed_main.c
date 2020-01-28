@@ -72,7 +72,16 @@ static void reap_kids(void) {
       break;
     }
 
-    ed_log_info("pid %lu died with exit status %d", (unsigned long)pid, WEXITSTATUS(status));
+    if (WIFEXITED(status)) {
+      ed_log_info("pid %lu exited with status %d", (unsigned long) pid, WEXITSTATUS(status));
+    } else if (WIFSIGNALED(status)) {
+      ed_log_info("pid %lu killed with signal %d", (unsigned long) pid, WTERMSIG(status));
+    } else if (WIFSTOPPED(status)) {
+      ed_log_info("pid %lu stopped with signal %d", (unsigned long) pid, WSTOPSIG(status));
+    } else {
+      ed_log_info("pid %lu died for unknown reason", (unsigned long) pid);
+    }
+
     --connected_clients;
     print_stats();
   }
