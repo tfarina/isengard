@@ -77,6 +77,7 @@ static void __vlogmsg(ulog_level_t level, char const *format, va_list args) {
   char timestr[32];
   int len;
   char buf[MAXLINELEN];
+  FILE *term_file;
 
   if (level > log_level) {
     return;
@@ -86,8 +87,13 @@ static void __vlogmsg(ulog_level_t level, char const *format, va_list args) {
   buf[sizeof(buf) - 1] = '\0'; /* Ensure string is null terminated. */
 
   if (log_dst & ULOG_DST_STDERR) {
-    fprintf(stderr, "%s: %s%s\n", log_ident, level_to_str(level), buf);
-    fflush(stderr);
+    if (level == ULOG_LEVEL_INFO) {
+      term_file = stdout;
+    } else {
+      term_file = stderr;
+    }
+    fprintf(term_file, "%s: %s%s\n", log_ident, level_to_str(level), buf);
+    fflush(term_file);
   }
 
   if (log_dst & ULOG_DST_FILE && log_fd > 0) {
