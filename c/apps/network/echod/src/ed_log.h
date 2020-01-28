@@ -53,8 +53,6 @@ void ed_log_open(char const *, char const *);
 
 void ed_log_close(void);
 
-void ed_log_set_level(ed_log_level_t);
-
 void ed_log_fatal(char const *, ...);
 void ed_log_error(char const *, ...);
 void ed_log_warn(char const *, ...);

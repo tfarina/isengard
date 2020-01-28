@@ -128,10 +128,6 @@ void ed_log_close(void) {
   log_ident = (char const *) 0;
 }
 
-void ed_log_set_level(ed_log_level_t level) {
-  log_level = level;
-}
-
 void ed_log_fatal(char const *fmt, ...) {
   va_list ap;
 
