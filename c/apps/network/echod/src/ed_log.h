@@ -49,9 +49,7 @@ typedef enum ed_log_level_e {
   ED_LOG_LEVEL_MAX
 } ed_log_level_t;
 
-void ed_log_open(char const *);
-
-int ed_log_file_open(char const *);
+void ed_log_open(char const *, char const *);
 
 void ed_log_close(void);
 

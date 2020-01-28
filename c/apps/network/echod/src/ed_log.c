@@ -102,25 +102,18 @@ static void __vlogmsg(ed_log_level_t level, char const *format, va_list args) {
   }
 }
 
-void ed_log_open(char const *ident) {
+void ed_log_open(char const *ident, char const *logfile_path) {
   if (ident) {
     log_ident = ident;
   }
-}
 
-int ed_log_file_open(char const *logfile_path) {
   if (logfile_path == NULL || !strlen(logfile_path)) {
-    return -1;
+    return;
   }
 
   log_dst |= ED_LOG_DST_FILE;
 
   log_fd = open(logfile_path, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
-  if (log_fd < 0) {
-    return -1;
-  }
-
-  return 0;
 }
 
 void ed_log_close(void) {

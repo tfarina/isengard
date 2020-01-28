@@ -259,7 +259,7 @@ int main(int argc, char **argv) {
   /*
    * Initialize logging.
    */
-  ed_log_open(ed_g_progname);
+  ed_log_open(ed_g_progname, (char const *) 0);
 
   /*
    * Check if it was run by the superuser.
@@ -278,12 +278,7 @@ int main(int argc, char **argv) {
    */
   ed_cmdline_parse(argc, argv, &config);
 
-  if (config.logfile != NULL) {
-    rc = ed_log_file_open(config.logfile);
-    if (rc < 0) {
-      return rc;
-    }
-  }
+  ed_log_open(ed_g_progname, config.logfile);
 
   if (config.detach) {
     rc = daemonize();
