@@ -47,7 +47,7 @@
 int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   int fd;
   char pidstr[PIDSTRLEN];
-  int pidstr_len;
+  int len;
   ssize_t bytes_written;
   int rc;
 
@@ -58,15 +58,15 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
     return -1;
   }
 
-  pidstr_len = snprintf(pidstr, sizeof(pidstr), "%lu\n", (unsigned long) pid);
-  if (pidstr_len < 0 || pidstr_len >= (int)sizeof(pidstr)) {
+  len = snprintf(pidstr, sizeof(pidstr), "%lu\n", (unsigned long) pid);
+  if (len < 0 || len >= (int)sizeof(pidstr)) {
     ulog_error("unable to convert process ID: %s", strerror(errno));
     close(fd);
     return -1;
   }
 
-  bytes_written = write(fd, pidstr, (size_t)pidstr_len);
-  if (bytes_written < 0 || bytes_written != (ssize_t)pidstr_len) {
+  bytes_written = write(fd, pidstr, (size_t)len);
+  if (bytes_written < 0 || bytes_written != (ssize_t)len) {
     ulog_error("unable to write to pidfile '%s': %s", pidfile_path,
                strerror(errno));
     close(fd);
