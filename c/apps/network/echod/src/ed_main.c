@@ -284,7 +284,7 @@ int main(int argc, char **argv) {
   /*
    * Process command-line.
    */
-  ed_cmdline_parse(argc, argv, &config);
+  parse_args(argc, argv, &config);
 
   ulog_open(ed_g_progname, config.logfile);
 

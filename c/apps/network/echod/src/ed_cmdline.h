@@ -4,8 +4,8 @@
 #include "ed_config.h"
 
 /**
- * Parse command-line options into |config|.
+ * Parse command-line options from arguments given into |config|.
  */
-void ed_cmdline_parse(int argc, char **argv, ed_config_t *config);
+void parse_args(int argc, char **argv, ed_config_t *config);
 
 #endif  /* ED_CMDLINE_H_ */

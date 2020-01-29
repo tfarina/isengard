@@ -15,7 +15,7 @@ static void print_version(void) {
   printf("%s %s\n", ed_g_progname, ED_VERSION_STR);
 }
 
-void ed_cmdline_parse(int argc, char **argv, ed_config_t *config) {
+void parse_args(int argc, char **argv, ed_config_t *config) {
   int opt_char, value;
 
   static char const short_options[] =
