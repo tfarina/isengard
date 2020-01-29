@@ -331,7 +331,6 @@ int main(int argc, char **argv) {
 
   ed_event_loop(tcpfd);
 
-  ulog_info("stopping daemon");
   ed_pidfile_remove(config.pidfile);
   ulog_close();
 
