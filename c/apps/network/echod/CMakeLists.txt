@@ -5,7 +5,7 @@ include(CheckIncludeFiles)
 
 check_include_files(getopt.h HAVE_GETOPT_H)
 
-set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-std=c89 -pedantic -Wall -Wextra -Werror -Wstrict-prototypes -Wno-unused-parameter")
+set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-ansi -std=c89 -pedantic -Wall -Wextra -Werror -Wstrict-prototypes -Wno-unused-parameter")
 
 #
 # Output directories for a build tree
