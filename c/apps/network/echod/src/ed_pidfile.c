@@ -39,6 +39,11 @@
 
 #define PIDSTRLEN 32
 
+/*
+ * File permissions for PID file, rw-r--r--, 0644.
+ */
+#define FILE_PERM (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+
 int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   int fd;
   char pidstr[PIDSTRLEN];
@@ -46,8 +51,7 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   ssize_t bytes_written;
   int rc;
 
-  fd = open(pidfile_path, O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC,
-            S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+  fd = open(pidfile_path, O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC, FILE_PERM);
   if (fd < 0) {
     ulog_error("unable to open pidfile '%s': %s", pidfile_path,
                strerror(errno));
