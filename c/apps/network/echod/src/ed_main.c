@@ -94,9 +94,7 @@ static void reap_kids(void) {
 static void sigterm_handler(int sig) {
   char sigstr[SIG2STR_MAX];
 
-  if (sig == SIGTERM || sig == SIGINT) {
-    quit = 1;
-  }
+  quit = 1;
 
   sig2str(sig, sigstr);
 
