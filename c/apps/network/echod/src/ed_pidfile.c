@@ -37,7 +37,7 @@
 
 #include "ulog.h"
 
-#define PIDSTRLEN 32
+#define PIDSTRLEN 12
 
 /*
  * File permissions for PID file, rw-r--r--, 0644.
@@ -46,7 +46,7 @@
 
 int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   int fd;
-  char pidstr[PIDSTRLEN];
+  char pidstr[PIDSTRLEN + 1]; /* +1 to include the terminating null byte ('\0'). */
   int len;
   ssize_t bytes_written;
   int rc;
@@ -58,15 +58,28 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
     return -1;
   }
 
-  len = snprintf(pidstr, sizeof(pidstr), "%lu\n", (unsigned long) pid);
+  /*
+   * The |pidstr| array goes from 0 to 12.
+   *
+   * PIDSTRLEN - 1 = 11 characters or bytes.
+   *
+   * That means:
+   * pidstr[11] = '\n'
+   * pidstr[12] = '0'
+   */
+  len = snprintf(pidstr, sizeof(pidstr), "%*ld\n", PIDSTRLEN - 1, (unsigned long) pid);
   if (len < 0) {
     ulog_error("unable to convert PID to string: %s", strerror(errno));
     close(fd);
     return -1;
   }
 
-  bytes_written = write(fd, pidstr, (size_t)len);
-  if (bytes_written < 0 || bytes_written != (ssize_t)len) {
+  /*
+   * Asking write(3) to write 12 bytes, upto '\n', and thus
+   * excluding the terminating null byte ('\0').
+   */
+  bytes_written = write(fd, pidstr, PIDSTRLEN);
+  if (bytes_written < 0 || bytes_written != PIDSTRLEN) {
     ulog_error("unable to write to pidfile '%s': %s", pidfile_path,
                strerror(errno));
     close(fd);
