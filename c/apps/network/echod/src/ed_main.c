@@ -98,7 +98,7 @@ static void sigterm_handler(int sig) {
 
   sig2str(sig, sigstr);
 
-  ulog_info("signal %d (%s) received, terminating...", sig, sigstr);
+  ulog_info("terminating on signal %d (%s)", sig, sigstr);
 }
 
 /**
