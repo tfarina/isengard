@@ -59,8 +59,8 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   }
 
   len = snprintf(pidstr, sizeof(pidstr), "%lu\n", (unsigned long) pid);
-  if (len < 0 || len >= (int)sizeof(pidstr)) {
-    ulog_error("unable to convert process ID: %s", strerror(errno));
+  if (len < 0) {
+    ulog_error("unable to convert PID to string: %s", strerror(errno));
     close(fd);
     return -1;
   }
