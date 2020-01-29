@@ -19,10 +19,10 @@ set(SRCS
   ed_cmdline.c
   ed_config.c
   ed_globals.c
-  ed_main.c
   ed_net.c
   ed_pidfile.c
   ed_privs.c
+  main.c
   os_path.c
   os_path.h
   sig2str.c
