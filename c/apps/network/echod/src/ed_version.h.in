@@ -8,8 +8,16 @@
 #define ED_VERSION_PATCH   @ED_VERSION_PATCH@
 #define ED_VERSION_STR     "@ED_VERSION_MAJOR@.@ED_VERSION_MINOR@.@ED_VERSION_PATCH@"
 
-#define ED_VERSION         (ED_VERSION_MAJOR * 10000 \
-                            ED_VERSION_MINOR * 100   \
-			    ED_VERSION_PATCH)
+
+/**
+ * Available as a macro to provide checks at compile time.
+ *
+ * * Bits 16-23 contain the major version.
+ * * Bits 8-15 contain the minor version.
+ * * Bits 0-7 contain the patch version.
+ *
+ * In hexadecimal format, the number 0x010203 represents version 1.2.3.
+ */
+#define ED_VERSION ED_VERSION_MAJOR << 16 | ED_VERSION_MINOR << 8 | ED_VERSION_PATCH
 
 #endif  /* ED_VERSION_H_ */
