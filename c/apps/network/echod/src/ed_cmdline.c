@@ -57,31 +57,31 @@ void parse_args(int argc, char **argv, ed_config_t *config) {
     }
 
     switch (opt_char) {
-    case 'f':
+    case 'f':  /* --foreground */
       config->detach = 0;
       break;
 
-    case 'C':
+    case 'C':  /* --config */
       config->conffile = optarg;
       break;
 
-    case 'L':
+    case 'L':  /* --logfile */
       config->logfile = optarg;
       break;
 
-    case 'P':
+    case 'P':  /* --pidfile */
       config->pidfile = optarg;
       break;
 
-    case 'u':
+    case 'u':  /* --user */
       config->user = optarg;
       break;
 
-    case 'a':
+    case 'a':  /* --address */
       config->address = optarg;
       break;
 
-    case 'p':
+    case 'p':  /* --port */
       value = atoi(optarg);
       if (value <= 0) {
 	fprintf(stderr, "%s: option -p requires a non zero number\n", ed_g_progname);
@@ -95,7 +95,7 @@ void parse_args(int argc, char **argv, ed_config_t *config) {
       config->port = value;
       break;
 
-    case 'b':
+    case 'b':  /* --backlog */
       value = atoi(optarg);
       if (value <= 0) {
 	fprintf(stderr, "%s: option -b requires a non zero number\n", ed_g_progname);
@@ -105,15 +105,15 @@ void parse_args(int argc, char **argv, ed_config_t *config) {
       config->backlog = value;
       break;
 
-    case 'S':
+    case 'S':  /* --show-config */
       show_config = 1;
       break;
 
-    case 'h':
+    case 'h':  /* --help */
       print_help(0);
       break;
 
-    case 'V':
+    case 'V':  /* --version */
       print_version();
       exit(0);
       break;
