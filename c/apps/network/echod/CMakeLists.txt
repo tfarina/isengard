@@ -2,8 +2,8 @@ if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR "Do not build in-source.\nPlease remove CMakeCache.txt and the CMakeFiles/ directory.\nThen: mkdir build ; cd build ; then call cmake from there.")
 endif()
 
-cmake_minimum_required(VERSION 2.6)
-project(echod C)
+cmake_minimum_required(VERSION 3.0)
+project(echod LANGUAGES C VERSION 0.1.0)
 
 include(CheckIncludeFiles)
 
@@ -26,11 +26,6 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
 elseif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0")
 endif()
-
-# Echod Version
-set(ED_VERSION_MAJOR  0)
-set(ED_VERSION_MINOR  1)
-set(ED_VERSION_PATCH  0)
 
 if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
   add_definitions(-D_GNU_SOURCE)

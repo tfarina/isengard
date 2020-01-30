@@ -2,13 +2,6 @@
 #ifndef ED_VERSION_H_
 #define ED_VERSION_H_
 
-/* Echod Version */
-#define ED_VERSION_MAJOR   @ED_VERSION_MAJOR@
-#define ED_VERSION_MINOR   @ED_VERSION_MINOR@
-#define ED_VERSION_PATCH   @ED_VERSION_PATCH@
-#define ED_VERSION_STR     "@ED_VERSION_MAJOR@.@ED_VERSION_MINOR@.@ED_VERSION_PATCH@"
-
-
 /**
  * Available as a macro to provide checks at compile time.
  *
@@ -18,6 +11,8 @@
  *
  * In hexadecimal format, the number 0x010203 represents version 1.2.3.
  */
-#define ED_VERSION ED_VERSION_MAJOR << 16 | ED_VERSION_MINOR << 8 | ED_VERSION_PATCH
+#define ED_VERSION ((@PROJECT_VERSION_MAJOR@ << 16) | (@PROJECT_VERSION_MINOR@ << 8) | @PROJECT_VERSION_PATCH@)
+
+#define ED_VERSION_STR "@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@"
 
 #endif  /* ED_VERSION_H_ */
