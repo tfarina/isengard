@@ -1,3 +1,7 @@
+if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+  message(FATAL_ERROR "Do not build in-source.\nPlease remove CMakeCache.txt and the CMakeFiles/ directory.\nThen: mkdir build ; cd build ; then call cmake from there.")
+endif()
+
 cmake_minimum_required(VERSION 2.6)
 project(echod C)
 
