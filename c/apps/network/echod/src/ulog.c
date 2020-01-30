@@ -74,19 +74,19 @@ static char *level_to_str(ulog_level_t level) {
   return "unknown: ";
 }
 
-static void __vlogmsg(ulog_level_t level, char const *format, va_list args) {
+static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   time_t now;
   struct tm *localtm;
   char timebuf[32];
-  int len;
   char buf[MAXLINELEN];
+  int len;
   FILE *term_file;
 
   if (level > log_level) {
     return;
   }
 
-  vsnprintf(buf, sizeof(buf), format, args);
+  vsnprintf(buf, sizeof(buf), fmt, ap);
   buf[sizeof(buf) - 1] = '\0'; /* Ensure the buffer is NUL-terminated. */
 
   if (log_dst & ULOG_DST_CONSOLE) {
@@ -105,7 +105,7 @@ static void __vlogmsg(ulog_level_t level, char const *format, va_list args) {
     strftime(timebuf, sizeof(timebuf), RFC5424_TIMESTAMP, localtm);
 
     len = snprintf(buf, sizeof(buf), "[%.*s] %s", strlen(timebuf), timebuf, level_to_str(level));
-    len += vsnprintf(buf + len, sizeof(buf) - len, format, args);
+    len += vsnprintf(buf + len, sizeof(buf) - len, fmt, ap);
     buf[len++] = '\n';
     write(log_fd, buf, len);
   }
