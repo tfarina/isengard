@@ -45,9 +45,12 @@
 #define MAXLINELEN 1024
 #define RFC5424_TIMESTAMP "%Y-%m-%dT%H:%M:%S"
 
+#define ULOG_DST_CONSOLE (1 << 0)
+#define ULOG_DST_FILE    (1 << 1)
+
 static char const *log_ident;
 static ulog_level_t log_level = ULOG_LEVEL_INFO;
-static ulog_dst_t log_dst = ULOG_DST_CONSOLE;
+static int log_dst = ULOG_DST_CONSOLE;
 static int log_fd = -1;
 
 static char *level_to_str(ulog_level_t level) {
