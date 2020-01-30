@@ -6,9 +6,10 @@
 #define ED_VERSION_MAJOR   @ED_VERSION_MAJOR@
 #define ED_VERSION_MINOR   @ED_VERSION_MINOR@
 #define ED_VERSION_PATCH   @ED_VERSION_PATCH@
+#define ED_VERSION_STR     "@ED_VERSION_STR@"
+
 #define ED_VERSION         (ED_VERSION_MAJOR * 10000 \
                             ED_VERSION_MINOR * 100   \
 			    ED_VERSION_PATCH)
-#define ED_VERSION_STR "@ED_VERSION_STR@"
 
 #endif  /* ED_VERSION_H_ */
