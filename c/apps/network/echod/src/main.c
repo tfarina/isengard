@@ -303,7 +303,7 @@ int main(int argc, char **argv) {
   /*
    * Write PID file after daemonizing.
    */
-  if (config.pidfile != NULL) {
+  if (config.pidfile) {
     rc = ed_pidfile_write(config.pidfile, ed_g_pid);
     if (rc < 0) {
       return rc;
