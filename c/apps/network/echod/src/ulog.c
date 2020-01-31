@@ -62,7 +62,7 @@ static char *level_to_str(ulog_level_t level) {
     return "error: ";
 
   case ULOG_LEVEL_WARN:
-    return "warn: ";
+    return "warning: ";
 
   case ULOG_LEVEL_INFO:
     return "";
