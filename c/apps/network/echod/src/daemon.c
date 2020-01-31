@@ -105,11 +105,7 @@ int daemonize(void)
     }
 
     if (fd > STDERR_FILENO) {
-        rc = close(fd);
-        if (rc < 0) {
-	    ulog_error("unable to close /dev/null: %s", strerror(errno));
-            return -1;
-        }
+        (void) close(fd);
     }
 
     if (failed) {
