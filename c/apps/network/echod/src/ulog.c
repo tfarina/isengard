@@ -95,7 +95,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
     } else {
       term_file = stderr;
     }
-    fprintf(term_file, "%s: %s%s\n", log_ident, level_to_str(level), buf);
+    fprintf(term_file, "\r%s: %s%s\n", log_ident, level_to_str(level), buf);
     fflush(term_file);
   }
 
