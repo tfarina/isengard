@@ -40,7 +40,7 @@
 
 int daemonize(void)
 {
-    int fd, rc;
+    int fd, rc, failed = 0;
 
     /* 1st fork detaches child from terminal */
     switch (fork()) {
@@ -89,22 +89,19 @@ int daemonize(void)
     rc = dup2(fd, STDIN_FILENO);
     if (rc < 0) {
         ulog_error("unable to dup /dev/null onto stdin: %s", strerror(errno));
-        close(fd);
-        return -1;
+        failed++;
     }
 
     rc = dup2(fd, STDOUT_FILENO);
     if (rc < 0) {
         ulog_error("unable to dup /dev/null onto stdout: %s", strerror(errno));
-        close(fd);
-        return -1;
+        failed++;
     }
 
     rc = dup2(fd, STDERR_FILENO);
     if (rc < 0) {
         ulog_error("unable to dup /dev/null onto stderr: %s", strerror(errno));
-        close(fd);
-        return -1;
+        failed++;
     }
 
     if (fd > STDERR_FILENO) {
@@ -113,6 +110,10 @@ int daemonize(void)
 	    ulog_error("unable to close /dev/null: %s", strerror(errno));
             return -1;
         }
+    }
+
+    if (failed) {
+        return -1;
     }
 
     return 0;
