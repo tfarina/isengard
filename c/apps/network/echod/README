@@ -4,16 +4,16 @@ an daemon implementation of the Echo Protocol.
 
 echod is a very useful debugging and measurement tool.
 
-It simply sends back to the originating source any data
-it receives.
+It simply sends back to the originating source any data it receives.
 
 Installation
 ------------
-    $ mkdir build
-    $ cd build
-    $ cmake -GNinja ..
-    $ ninja
-    # ninja install
+
+    mkdir build
+    cd build
+    cmake -GNinja ..
+    ninja
+    sudo ninja install
 
 You then need to add an `_echod` user to your system. You can do this by
 running the following command on Linux:
@@ -35,8 +35,8 @@ Assuming echod is listening on localhost, this examples connects via TCP:
 
 $ telnet localhost 7
 
-Terminate process
------------------
+Terminating the process
+-----------------------
 
 $ sudo kill -SIGTERM <pid>
 
