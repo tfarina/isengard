@@ -106,7 +106,7 @@ static void sigterm_handler(int sig) {
 /**
  * Set up signal handlers.
  */
-static void ed_sig_setup(void) {
+static void init_signals(void) {
   struct sigaction action;
 
   sigemptyset(&action.sa_mask);
@@ -323,7 +323,7 @@ int main(int argc, char **argv) {
     return rc;
   }
 
-  ed_sig_setup();
+  init_signals();
 
   ulog_info("running as user '%s' (%ld) and group '%s' (%ld)",
             get_username(), (long)getuid(),
