@@ -36,12 +36,12 @@
 
 #include "daemon.h"
 #include "ed_cmdline.h"
-#include "ed_config.h"
 #include "ed_globals.h"
 #include "ed_net.h"
 #include "ed_pidfile.h"
 #include "ed_privs.h"
 #include "ed_version.h"
+#include "option.h"
 #include "os_path.h"
 #include "sig2str.h"
 #include "ulog.h"
@@ -240,7 +240,7 @@ static char const *get_groupname(void) {
 }
 
 int main(int argc, char **argv) {
-  ed_config_t config;
+  option_t opt;
   int rc;
   int tcpfd;
 
@@ -278,16 +278,16 @@ int main(int argc, char **argv) {
   /*
    * Initialize built-in parameters to their default values.
    */
-  ed_config_init(&config);
+  option_init(&opt);
 
   /*
    * Process command-line.
    */
-  parse_args(argc, argv, &config);
+  parse_args(argc, argv, &opt);
 
-  ulog_open(ed_g_progname, config.logfile);
+  ulog_open(ed_g_progname, opt.logfile);
 
-  if (config.detach) {
+  if (opt.detach) {
     rc = daemonize();
     if (rc < 0) {
       ulog_error("Couldn't daemonize %s: %s\n", ed_g_progname, strerror(errno));
@@ -295,21 +295,21 @@ int main(int argc, char **argv) {
     }
   }
 
-  ed_privs_check_daemon_user(config.user);
+  ed_privs_check_daemon_user(opt.user);
 
   ed_g_pid = getpid();
 
   /*
    * Write PID file after daemonizing.
    */
-  if (config.pidfile) {
-    rc = ed_pidfile_write(config.pidfile, ed_g_pid);
+  if (opt.pidfile) {
+    rc = ed_pidfile_write(opt.pidfile, ed_g_pid);
     if (rc < 0) {
       return rc;
     }
   }
 
-  tcpfd = ed_net_tcp_socket_listen(config.address, config.port, config.backlog);
+  tcpfd = ed_net_tcp_socket_listen(opt.address, opt.port, opt.backlog);
   if (tcpfd == ED_NET_ERR) {
     return EXIT_FAILURE;
   }
@@ -332,7 +332,7 @@ int main(int argc, char **argv) {
 
   ed_event_loop(tcpfd);
 
-  ed_pidfile_remove(config.pidfile);
+  ed_pidfile_remove(opt.pidfile);
   ulog_close();
 
   return EXIT_SUCCESS;

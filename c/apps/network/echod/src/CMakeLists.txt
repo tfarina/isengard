@@ -17,12 +17,13 @@ set(SRCS
   daemon.h
   debug.h
   ed_cmdline.c
-  ed_config.c
   ed_globals.c
   ed_net.c
   ed_pidfile.c
   ed_privs.c
   main.c
+  option.c
+  option.h
   os_path.c
   os_path.h
   sig2str.c

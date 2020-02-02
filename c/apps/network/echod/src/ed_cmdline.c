@@ -15,7 +15,7 @@ static void print_version(void) {
   printf("%s %s\n", ed_g_progname, ED_VERSION_STR);
 }
 
-void parse_args(int argc, char **argv, ed_config_t *config) {
+void parse_args(int argc, char **argv, option_t *opt) {
   int opt_char, value;
 
   static char const short_options[] =
@@ -58,27 +58,27 @@ void parse_args(int argc, char **argv, ed_config_t *config) {
 
     switch (opt_char) {
     case 'f':  /* --foreground */
-      config->detach = 0;
+      opt->detach = 0;
       break;
 
     case 'C':  /* --config */
-      config->conffile = optarg;
+      opt->conffile = optarg;
       break;
 
     case 'L':  /* --logfile */
-      config->logfile = optarg;
+      opt->logfile = optarg;
       break;
 
     case 'P':  /* --pidfile */
-      config->pidfile = optarg;
+      opt->pidfile = optarg;
       break;
 
     case 'u':  /* --user */
-      config->user = optarg;
+      opt->user = optarg;
       break;
 
     case 'a':  /* --address */
-      config->address = optarg;
+      opt->address = optarg;
       break;
 
     case 'p':  /* --port */
@@ -92,7 +92,7 @@ void parse_args(int argc, char **argv, ed_config_t *config) {
         exit(1);
       }
 
-      config->port = value;
+      opt->port = value;
       break;
 
     case 'b':  /* --backlog */
@@ -102,7 +102,7 @@ void parse_args(int argc, char **argv, ed_config_t *config) {
 	exit(1);
       }
 
-      config->backlog = value;
+      opt->backlog = value;
       break;
 
     case 'S':  /* --show-config */
@@ -128,12 +128,12 @@ void parse_args(int argc, char **argv, ed_config_t *config) {
     fprintf(stdout, "  Config file: %s\n", DEF_PATH_ECHODCONF);
     fprintf(stdout, "  PID file:    %s\n", DEF_PATH_ECHODPID);
     fprintf(stdout, "\n *** %s configuration ***\n", ed_g_progname);
-    fprintf(stdout, "config    = %s\n", config->conffile);
-    fprintf(stdout, "pidfile   = %s\n", config->pidfile);
-    fprintf(stdout, "user      = %s\n", config->user);
-    fprintf(stdout, "port      = %d\n", config->port);
-    fprintf(stdout, "backlog   = %d\n", config->backlog);
-    fprintf(stdout, "logfile   = %s\n", config->logfile);
+    fprintf(stdout, "config    = %s\n", opt->conffile);
+    fprintf(stdout, "pidfile   = %s\n", opt->pidfile);
+    fprintf(stdout, "user      = %s\n", opt->user);
+    fprintf(stdout, "port      = %d\n", opt->port);
+    fprintf(stdout, "backlog   = %d\n", opt->backlog);
+    fprintf(stdout, "logfile   = %s\n", opt->logfile);
   }
 }
 

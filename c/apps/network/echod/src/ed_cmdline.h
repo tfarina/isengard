@@ -1,11 +1,11 @@
 #ifndef ED_CMDLINE_H_
 #define ED_CMDLINE_H_
 
-#include "ed_config.h"
+#include "option.h"
 
 /**
- * Parse command-line options from arguments given into |config|.
+ * Parse command-line options from arguments given into |opt|.
  */
-void parse_args(int argc, char **argv, ed_config_t *config);
+void parse_args(int argc, char **argv, option_t *opt);
 
 #endif  /* ED_CMDLINE_H_ */

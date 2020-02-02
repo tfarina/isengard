@@ -1,7 +1,7 @@
-#ifndef ED_CONFIG_H_
-#define ED_CONFIG_H_
+#ifndef _OPTION_H_INCLUDED_
+#define _OPTION_H_INCLUDED_ 1
 
-typedef struct ed_config_s {
+typedef struct option_s {
   int unsigned detach:1;       /* process: foreground mode */
   char *conffile;      /* process: configuration filename */
   char *logfile;       /* debug:   log filename */
@@ -10,11 +10,11 @@ typedef struct ed_config_s {
   char *address;       /* network: local address to bind */
   int  port;           /* network: tcp listening port */
   int  backlog;        /* network: tcp backlog */
-} ed_config_t;
+} option_t;
 
 /**
- * Initialize |config| to default values.
+ * Initialize |opt| to default values.
  */
-void ed_config_init(ed_config_t *config);
+void option_init(option_t *opt);
 
-#endif  /* ED_CONFIG_H_ */
+#endif  /* !defined(_OPTION_H_INCLUDED_) */
