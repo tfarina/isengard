@@ -8,13 +8,13 @@
 .set EXIT_SYSCALL, 1
 .set STDOUT_FD, 1
 
-    .data
+.section .data
 
 hello_str:
     .asciz "Hello, world!\n" # the string to print
     len = . - hello_str      # length of the string
 
-    .text
+.section .text
     .global main
 
 main:
