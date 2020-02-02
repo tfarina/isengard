@@ -9,9 +9,10 @@
  */
 
 /**
- * Daemonize and redirect stdin, stdout and stderr to /dev/null.
+ * Put the program in the background and redirect stdin, stdout and stderr
+ * to /dev/null.
  *
- * @return 0 on success or -1 on error.
+ * @return 0 on success. -1 if an error occurs.
  */
 int daemonize(void);
 
