@@ -29,6 +29,11 @@ hello_str:
 .section .text
     .global main
 
+exit:
+    movl $EXIT_SYSCALL,      %eax  # system call number (sys_exit).
+    movl $0,                 %ebx  # first argument: exit code.
+    int $0x80                      # call linux kernel.
+
 main:
     # write(1, hello_str, 14)
     movl $WRITE_SYSCALL,     %eax  # system call number (sys_write).
@@ -37,8 +42,4 @@ main:
     movl $len,               %edx  # third argument: message length.
     int $0x80                      # call linux kernel.
 
-    # and exit.
-
-    movl $EXIT_SYSCALL,      %eax  # system call number (sys_exit).
-    movl $0,                 %ebx  # first argument: exit code.
-    int $0x80                      # call linux kernel.
+    call exit
