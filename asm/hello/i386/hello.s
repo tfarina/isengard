@@ -6,7 +6,7 @@
 
 .set WRITE_SYSCALL, 4
 .set EXIT_SYSCALL, 1
-.set STDOUT_FD, 1
+.set STDOUT_FILENO, 1
 
 .section .data
 
@@ -20,7 +20,7 @@ hello_str:
 main:
     # write(1, hello_str, 14)
     movl $WRITE_SYSCALL,     %eax  # system call number (sys_write).
-    movl $STDOUT_FD,         %ebx  # first argument: file handle (stdout).
+    movl $STDOUT_FILENO,     %ebx  # first argument: file handle (stdout).
     movl $hello_str,         %ecx  # second argument: pointer to message to write.
     movl $len,               %edx  # third argument: message length.
     int $0x80                      # call linux kernel.
