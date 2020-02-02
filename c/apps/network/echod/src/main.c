@@ -263,7 +263,6 @@ int main(int argc, char **argv) {
    */
   ed_g_progname = os_path_basename(*argv);
 
-
   /*
    * Initialize logging.
    */
@@ -273,7 +272,7 @@ int main(int argc, char **argv) {
    * Check if it was run by the superuser.
    */
   if (getuid() != ROOT_UID) {
-    ulog_fatal("You must be root (uid = 0) to run %s", ed_g_progname);
+    ulog_fatal("must be run as root user");
   }
 
   /*
