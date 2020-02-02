@@ -4,8 +4,20 @@
 # This program is written with AT&T syntax.
 #
 
-.set WRITE_SYSCALL, 4
+#
+# SEE: http://www.linfo.org/system_call_number.html
+#
+# A system call number is a unique integer (i.e., whole number), from one to
+# around 256, that is assigned to each system call in a Unix-like operating
+# system.
+#
+# The system call numbers are listed in the file /usr/include/asm/unistd.h,
+# and they can be viewed as:
+#
+#  cat /usr/include/i386-linux-gnu/asm/unistd_32.h | less
+#
 .set EXIT_SYSCALL, 1
+.set WRITE_SYSCALL, 4
 .set STDOUT_FILENO, 1
 
 .section .data
