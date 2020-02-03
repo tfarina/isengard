@@ -82,6 +82,9 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   int len;
   FILE *term_file;
 
+  /*
+   * Check if user is interested in this log message.
+   */
   if (level > log_level) {
     return;
   }
