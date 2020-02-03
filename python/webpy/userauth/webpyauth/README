@@ -1,6 +1,0 @@
-$ ./setup.sh
-$ wget --no-check-certificate https://raw.githubusercontent.com/2Checkout/2checkout-python-tutorial/master/schema.sql
-$ mysql -u root -p
-mysql> use webpyauth;
-mysql> source schema.sql;
-mysql> quit
