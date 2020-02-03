@@ -10,16 +10,16 @@
 #endif
 
 static char *get_hostname(void) {
-  static char hostname[MAXHOSTNAMELEN + 1];
+  static char buf[MAXHOSTNAMELEN + 1];
 
-  if (gethostname(hostname, sizeof(hostname)) < 0) {
+  if (gethostname(buf, sizeof(buf)) < 0) {
     fprintf(stderr, "gethostname() failed: %s\n", strerror(errno));
     return (char *) 0;
   }
 
-  hostname[MAXHOSTNAMELEN] = '\0'; /* Null terminate, just to be safe. */
+  buf[MAXHOSTNAMELEN] = '\0'; /* Null terminate, just to be safe. */
 
-  return hostname;
+  return buf;
 }
 
 int main(void) {
