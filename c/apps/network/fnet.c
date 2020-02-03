@@ -69,7 +69,7 @@ int fnet_unix_server(const char *path, int backlog)
     return FNET_ERR;
   }
 
-  memset(&sa, 0, sizeof(sa));
+  memset((void *) &sa, 0, sizeof(sa));
   sa.sun_family = AF_UNIX;
   strncpy(sa.sun_path, path, sizeof(sa.sun_path));
   salen = strlen(path) + 1 + offsetof(struct sockaddr_un, sun_path);
@@ -132,7 +132,7 @@ int fnet_unix_client(char *err, const char *path)
                 return FNET_ERR;
         }
 
-        memset(&sa, 0, sizeof(sa));
+        memset((void *) &sa, 0, sizeof(sa));
         sa.sun_family = AF_UNIX;
         strncpy(sa.sun_path, path, sizeof(sa.sun_path));
 
@@ -154,7 +154,7 @@ int fnet_udp_socket_listen(char *host, int port)
 
   snprintf(portstr, sizeof(portstr), "%d", port);
 
-  memset(&hints, 0, sizeof(hints));
+  memset((void *) &hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_DGRAM;
   hints.ai_protocol = IPPROTO_UDP;
