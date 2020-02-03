@@ -40,6 +40,10 @@ Terminating the process
 
 $ sudo kill -SIGTERM <pid>
 
+NOTE: You can read the manual page running this command:
+
+$ nroff -man ./doc/man/man8/echod.8 | less
+
 License
 -------
 echod is licensed under the GNU GPL license. See LICENSE for details.
