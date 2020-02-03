@@ -59,7 +59,7 @@ static void print_stats(void) {
 /**
  * Catch SIGCHLD signal.
  */
-static void sigchld_handler(int sig) {
+static void sigchld(int sig) {
   got_sigchld = 1;
 }
 
@@ -87,13 +87,13 @@ static void reap_kids(void) {
     print_stats();
   }
 
-  signal(SIGCHLD, sigchld_handler);
+  signal(SIGCHLD, sigchld);
 }
 
 /**
  * Catch SIGTERM signal and SIGINT signal (del/^C).
  */
-static void sigterm_handler(int sig) {
+static void sigterm(int sig) {
   char sigstr[SIG2STR_MAX];
 
   quit = 1;
@@ -112,7 +112,7 @@ static void init_signals(void) {
   sigemptyset(&action.sa_mask);
   action.sa_flags = 0;
 
-  action.sa_handler = sigterm_handler;
+  action.sa_handler = sigterm;
 
   if (sigaction(SIGINT, &action, (struct sigaction *) 0) < 0) {
     ulog_error("unable to set SIGINT: %s", strerror(errno));
@@ -122,7 +122,7 @@ static void init_signals(void) {
   }
 
   action.sa_flags |= SA_NOCLDSTOP;
-  action.sa_handler = sigchld_handler;
+  action.sa_handler = sigchld;
   if (sigaction(SIGCHLD, &action, (struct sigaction *) 0) < 0) {
     ulog_error("unable to set SIGCHLD: %s", strerror(errno));
   }
