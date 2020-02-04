@@ -45,6 +45,7 @@
 #include "os_path.h"
 #include "sig2str.h"
 #include "ulog.h"
+#include "username.h"
 
 #define BUFSIZE 8129
 
@@ -209,34 +210,6 @@ static int ed_event_loop(int tcpfd) {
   }
 
   return 0;
-}
-
-static char const *get_username(void) {
-  uid_t uid;
-  struct passwd *pw;
-
-  uid = getuid();
-
-  pw = getpwuid(uid);
-  if (pw == 0) {
-    return "unknown";
-  }
-
-  return pw->pw_name;
-}
-
-static char const *get_groupname(void) {
-  gid_t gid;
-  struct group *gr;
-
-  gid = getgid();
-
-  gr = getgrgid(gid);
-  if (gr == 0) {
-    return "unknown";
-  }
-
-  return gr->gr_name;
 }
 
 int main(int argc, char **argv) {

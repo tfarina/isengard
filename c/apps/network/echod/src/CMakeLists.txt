@@ -30,6 +30,8 @@ set(SRCS
   sig2str.h
   ulog.c
   ulog.h
+  username.c
+  username.h
   valid.c
   valid.h
 )
