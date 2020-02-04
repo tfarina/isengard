@@ -1,6 +1,9 @@
 #ifndef HINTS_H_
 #define HINTS_H_
 
+#if defined(ATTR_NORETURN)
+#undef ATTR_NORETURN
+#endif
 #if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ > 4)
 #define ATTR_NORETURN __attribute__((__noreturn__))
 #elif defined(_MSC_VER)
