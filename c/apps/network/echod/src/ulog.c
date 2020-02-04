@@ -89,15 +89,14 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
     return;
   }
 
-  vsnprintf(buf, sizeof(buf), fmt, ap);
-  buf[sizeof(buf) - 1] = '\0'; /* Ensure the buffer is NUL-terminated. */
-
   if (log_dst & ULOG_DST_CONSOLE) {
     if (level == ULOG_LEVEL_INFO) {
       term_file = stdout;
     } else {
       term_file = stderr;
     }
+    vsnprintf(buf, sizeof(buf), fmt, ap);
+    buf[sizeof(buf) - 1] = '\0'; /* Ensure the buffer is NUL-terminated. */
     fprintf(term_file, "\r%s: %s%s\n", log_ident, level_to_str(level), buf);
     fflush(term_file);
   }
@@ -110,6 +109,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
     len = snprintf(buf, sizeof(buf), "[%.*s] %s", strlen(timebuf), timebuf, level_to_str(level));
     len += vsnprintf(buf + len, sizeof(buf) - len, fmt, ap);
     buf[len++] = '\n';
+    buf[sizeof(buf) - 1] = '\0'; /* Ensure the buffer is NUL-terminated. */
     write(log_fd, buf, len);
   }
 }
