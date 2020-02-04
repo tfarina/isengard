@@ -9,9 +9,9 @@
 #include "ed_version.h"
 #include "valid.h"
 
-static void print_help(int status);
+static void usage(int status);
 
-static void print_version(void) {
+static void version(void) {
   printf("%s %s\n", ed_g_progname, ED_VERSION_STR);
 }
 
@@ -110,16 +110,16 @@ void parse_args(int argc, char **argv, option_t *opt) {
       break;
 
     case 'h':  /* --help */
-      print_help(0);
+      usage(0);
       break;
 
     case 'V':  /* --version */
-      print_version();
+      version();
       exit(0);
       break;
 
     default:
-      print_help(1);
+      usage(1);
     }
   }
 
@@ -137,7 +137,7 @@ void parse_args(int argc, char **argv, option_t *opt) {
   }
 }
 
-static void print_help(int status) {
+static void usage(int status) {
   if (status) {
     fprintf(stderr, "Try '%s --help' for more information.\n", ed_g_progname);
   } else {
