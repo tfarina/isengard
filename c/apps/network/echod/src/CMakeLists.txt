@@ -16,6 +16,7 @@ set(PROGRAM "echod")
 set(SRCS
   daemon.c
   daemon.h
+  debug.c
   debug.h
   ed_cmdline.c
   ed_globals.c
