@@ -9,8 +9,13 @@
 #define ATTR_NORETURN
 #endif
 
-#ifndef ATTR_FORMAT_PRINTF
+#if defined(ATTR_FORMAT_PRINTF)
+#undef ATTR_FORMAT_PRINTF
+#endif
+#if defined(__GNUC__)
 #define ATTR_FORMAT_PRINTF(string_index, first_to_check) __attribute__ ((__format__ (__printf__, string_index, first_to_check)))
+#else
+#define ATTR_FORMAT_PRINTF(string_index, first_to_check)
 #endif
 
 #endif  /* HINTS_H_ */
