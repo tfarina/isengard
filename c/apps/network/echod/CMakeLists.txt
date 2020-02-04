@@ -5,6 +5,10 @@ endif()
 cmake_minimum_required(VERSION 3.0)
 project(echod LANGUAGES C VERSION 0.1.0)
 
+###############################################################################
+# Provides install directory variables as defined by the GNU Coding Standards.
+include(GNUInstallDirs)
+
 include(CheckIncludeFiles)
 
 check_include_files(getopt.h HAVE_GETOPT_H)
