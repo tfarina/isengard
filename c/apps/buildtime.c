@@ -1,9 +1,12 @@
 #include <stdio.h>
 
-static char const BUILT_STR[] = __DATE__ " " __TIME__;
+#define BUILD_DATE __DATE__ " " __TIME__
 
-int main(void) {
-  printf("Built on: %s\n", BUILT_STR);
+static char const timestamp[] = BUILD_DATE;
+
+int main(void)
+{
+  printf("Build date: %s\n", timestamp);
 
   return 0;
 }
