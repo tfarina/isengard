@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #ifndef NDEBUG
-void __assert_fail( char const *assertion, char const *file, int unsigned line) {
+void __assertion_failed( char const *assertion, char const *file, int unsigned line) {
   printf("assertion failed: at \"%s\":%u\n  assertion: \"%s\"\n",
          file, line, assertion);
   abort();
