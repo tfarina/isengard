@@ -22,9 +22,9 @@
 #endif
 
 #ifndef NDEBUG
-void __assertion_failed( char const *assertion, char const *file, int unsigned line);
+void __assertion_failed(char const *assertion, char const *file, int unsigned line);
 
-# define M_ASSERT(expr) ((expr) ? (void) 0 : __assertion_failed(#expr,__FILE__,__LINE__))
+# define M_ASSERT(expr) ((expr) ? (void) 0 : __assertion_failed(#expr, __FILE__, __LINE__))
 #else
 # defined M_ASSERT(expr) ((void) 0)
 #endif
