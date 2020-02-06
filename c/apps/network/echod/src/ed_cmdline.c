@@ -12,7 +12,7 @@
 static void usage(int status);
 
 static void version(void) {
-  printf("%s %s\n", ed_g_progname, ED_VERSION_STR);
+  printf("%s %s\n", progname_g, ED_VERSION_STR);
 }
 
 void parse_args(int argc, char **argv, option_t *opt) {
@@ -84,11 +84,11 @@ void parse_args(int argc, char **argv, option_t *opt) {
     case 'p':  /* --port */
       value = atoi(optarg);
       if (value <= 0) {
-	fprintf(stderr, "%s: option -p requires a non zero number\n", ed_g_progname);
+	fprintf(stderr, "%s: option -p requires a non zero number\n", progname_g);
 	exit(1);
       }
       if (!valid_port(value)) {
-	fprintf(stderr, "%s: option -s value %d is not a valid port\n", ed_g_progname, value);
+	fprintf(stderr, "%s: option -s value %d is not a valid port\n", progname_g, value);
         exit(1);
       }
 
@@ -98,7 +98,7 @@ void parse_args(int argc, char **argv, option_t *opt) {
     case 'b':  /* --backlog */
       value = atoi(optarg);
       if (value <= 0) {
-	fprintf(stderr, "%s: option -b requires a non zero number\n", ed_g_progname);
+	fprintf(stderr, "%s: option -b requires a non zero number\n", progname_g);
 	exit(1);
       }
 
@@ -127,7 +127,7 @@ void parse_args(int argc, char **argv, option_t *opt) {
     fputs("Default paths:\n", stdout);
     fprintf(stdout, "  Config file: %s\n", DEF_PATH_ECHODCONF);
     fprintf(stdout, "  PID file:    %s\n", DEF_PATH_ECHODPID);
-    fprintf(stdout, "\n *** %s configuration ***\n", ed_g_progname);
+    fprintf(stdout, "\n *** %s configuration ***\n", progname_g);
     fprintf(stdout, "config    = %s\n", opt->conffile);
     fprintf(stdout, "pidfile   = %s\n", opt->pidfile);
     fprintf(stdout, "user      = %s\n", opt->user);
@@ -139,9 +139,9 @@ void parse_args(int argc, char **argv, option_t *opt) {
 
 static void usage(int status) {
   if (status) {
-    fprintf(stderr, "Try '%s --help' for more information.\n", ed_g_progname);
+    fprintf(stderr, "Try '%s --help' for more information.\n", progname_g);
   } else {
-    printf("Usage: %s [OPTION]...\n", ed_g_progname);
+    printf("Usage: %s [OPTION]...\n", progname_g);
     putc('\n', stdout);
 
     fputs("Mandatory arguments to long options are mandatory for short options too.\n", stdout);

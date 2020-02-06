@@ -234,12 +234,12 @@ int main(int argc, char **argv) {
   /*
    * Save our name for later usage.
    */
-  ed_g_progname = os_path_basename(*argv);
+  progname_g = os_path_basename(*argv);
 
   /*
    * Initialize logging.
    */
-  ulog_open(ed_g_progname, (char const *) 0);
+  ulog_open(progname_g, (char const *) 0);
 
   /*
    * Check if it was run by the superuser.
@@ -258,12 +258,12 @@ int main(int argc, char **argv) {
    */
   parse_args(argc, argv, &opt);
 
-  ulog_open(ed_g_progname, opt.logfile);
+  ulog_open(progname_g, opt.logfile);
 
   if (opt.detach) {
     rc = daemonize();
     if (rc < 0) {
-      ulog_error("Couldn't daemonize %s: %s\n", ed_g_progname, strerror(errno));
+      ulog_error("Couldn't daemonize %s: %s\n", progname_g, strerror(errno));
       return rc;
     }
   }
