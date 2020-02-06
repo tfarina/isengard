@@ -6,8 +6,7 @@
 #ifndef NDEBUG
 
 void __assertion_failed(char const *assertion, char const *file, int unsigned line) {
-  printf("%s:%u: Assertion failed: %s\n", file, line, assertion);
-
+  fprintf(stderr, "%s:%u: Assertion failed: %s\n", file, line, assertion);
   abort();
 }
 
