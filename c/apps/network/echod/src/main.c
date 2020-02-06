@@ -45,6 +45,7 @@
 #include "os_path.h"
 #include "sig2str.h"
 #include "ulog.h"
+#include "unused-parameter.h"
 #include "username.h"
 
 #define BUFSIZE 8129
@@ -61,7 +62,7 @@ static void print_stats(void) {
 /**
  * Catch SIGCHLD signal.
  */
-static void sigchld(int sig) {
+static void sigchld(int sig _GL_UNUSED_PARAMETER) {
   got_sigchld = 1;
 }
 
