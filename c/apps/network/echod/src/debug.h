@@ -24,7 +24,7 @@
 #ifdef NDEBUG
 # defined M_ASSERT(cond) ((void) 0)
 #else
-void __assertion_failed(char const *assertion, char const *file, int unsigned line);
+void __assertion_failed(char const *, char const *, int unsigned);
 
 # define M_ASSERT(cond) \
   ((void) ((cond) || (__assertion_failed(#cond, __FILE__, __LINE__), 0)))
