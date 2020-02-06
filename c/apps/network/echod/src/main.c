@@ -49,6 +49,7 @@
 
 #define BUFSIZE 8129
 
+static int volatile signo = 0;
 static sig_atomic_t volatile quit;
 static sig_atomic_t volatile got_sigchld;
 static int unsigned connected_clients = 0; /* Number of child processes. */
@@ -95,13 +96,8 @@ static void reap_kids(void) {
  * Catch SIGTERM signal and SIGINT signal (del/^C).
  */
 static void sigterm(int sig) {
-  char sigstr[SIG2STR_MAX];
-
   quit = 1;
-
-  sig2str(sig, sigstr);
-
-  ulog_info("terminating on signal %d (%s)", sig, sigstr);
+  signo = sig;
 }
 
 /**
@@ -142,6 +138,7 @@ static void echo_stream(int fd) {
 }
 
 static int ed_event_loop(int tcpfd) {
+  char sigstr[SIG2STR_MAX];
   fd_set rfds_in;
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
    * after select(). */
@@ -158,6 +155,9 @@ static int ed_event_loop(int tcpfd) {
 
   for (;;) {
     if (quit == 1) {
+      sig2str(signo, sigstr);
+      ulog_info("terminating on signal %d (%s)", signo, sigstr);
+
       break;
     }
 
