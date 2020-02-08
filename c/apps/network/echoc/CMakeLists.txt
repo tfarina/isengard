@@ -15,10 +15,10 @@ endif()
 add_definitions(-D_GNU_SOURCE)
 
 set(ECHOC_SRCS
-  ec_utils.c
   fnet.c
   main.c
   msg.c
+  os_path.c
   validate.c
 )
 

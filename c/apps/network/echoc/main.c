@@ -8,8 +8,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "ec_utils.h"
 #include "fnet.h"
+#include "os_path.h"
 #include "validate.h"
 
 #define BUFSIZE 4096
@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
   char *server;
   int port;
 
-  progname = ec_get_progname(argv[0]);
+  progname = os_path_basename(*(argv + 0));
 
   port = DEF_ECHO_PORT;
 
