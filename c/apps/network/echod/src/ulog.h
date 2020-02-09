@@ -37,10 +37,10 @@
 #define _ULOG_H_INCLUDED_ 1
 
 typedef enum ulog_level_e {
-  ULOG_LEVEL_FATAL  = 0,  /* software error (unrecoverable) */
-  ULOG_LEVEL_ERROR  = 1,  /* recoverable error */
-  ULOG_LEVEL_WARN   = 2,  /* warning message */
-  ULOG_LEVEL_INFO   = 3,  /* informative message */
+  ULOG_LEVEL_FATAL       = 0,  /* software error (unrecoverable) */
+  ULOG_LEVEL_ERROR       = 1,  /* recoverable conditions */
+  ULOG_LEVEL_WARN        = 2,  /* warning messages */
+  ULOG_LEVEL_INFO        = 3,  /* informative messages */
   ULOG_LEVEL_MAX
 } ulog_level_t;
 
