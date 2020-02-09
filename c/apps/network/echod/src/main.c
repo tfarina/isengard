@@ -254,8 +254,20 @@ int main(int argc, char **argv) {
    */
   option_init(&opt);
 
+  preparse_args(argc, argv, &opt);
+
+  /*
+   * Load configuration file.
+   *
+   * Configuration file settings override builtin defaults.
+   *
+   * If the user did not specify a config, read the system echod.conf.
+   */
+
   /*
    * Process command-line.
+   *
+   * Command-line arguments override configuration file settings.
    */
   parse_args(argc, argv, &opt);
 

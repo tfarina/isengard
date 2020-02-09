@@ -9,45 +9,71 @@
 #include "ed_version.h"
 #include "valid.h"
 
+static char const short_options[] =
+  "h"  /* help */
+  "V"  /* version */
+  "f"  /* foreground mode */
+  "C:" /* configuration file */
+  "L:" /* log file */
+  "P:" /* pid file */
+  "u:" /* user identity to run as */
+  "a:" /* local address to bind */
+  "p:" /* tcp port number to listen on */
+  "b:" /* tcp backlog queue limit */
+  "S"  /* show configuration */
+  ;
+
+static struct option const long_options[] = {
+  { "help",        no_argument,       0, 'h' }, /* help */
+  { "version",     no_argument,       0, 'V' }, /* version */
+  { "foreground",  no_argument,       0, 'f' }, /* foreground mode */
+  { "config",      required_argument, 0, 'C' }, /* configuration file */
+  { "logfile",     required_argument, 0, 'L' }, /* log file */
+  { "pidfile",     required_argument, 0, 'P' }, /* pid file */
+  { "user",        required_argument, 0, 'u' }, /* user identity to run as */
+  { "address",     required_argument, 0, 'a' }, /* local address to bind */
+  { "port",        required_argument, 0, 'p' }, /* tcp port number to listen on */
+  { "backlog",     required_argument, 0, 'b' }, /* tcp backlog queue limit */
+  { "show-config", no_argument,       0, 'S' }, /* show configuration */
+  { 0,             0,                 0,  0  }
+};
+
 static void usage(int status);
 
 static void version(void) {
   printf("%s %s\n", progname_g, ED_VERSION_STR);
 }
 
+void preparse_args(int argc, char **argv, option_t *opt) {
+  int opt_char;
+
+  /*
+   * This separate getopt_long is needed to find the user config file
+   * option ("--config") and parse it before the other user options.
+   */
+  for (;;) {
+    opt_char = getopt_long(argc, argv, short_options, long_options, (int *) 0);
+    if (opt_char == -1) {
+      /* no more options */
+      break;
+    }
+
+    switch (opt_char) {
+    case 'C': /* --config */
+      opt->conffile = optarg;
+      break;
+
+    default:
+      break;
+    }
+  }
+}
+
 void parse_args(int argc, char **argv, option_t *opt) {
   int opt_char, value;
-
-  static char const short_options[] =
-    "h"  /* help */
-    "V"  /* version */
-    "f"  /* foreground mode */
-    "C:" /* configuration file */
-    "L:" /* log file */
-    "P:" /* pid file */
-    "u:" /* user identity to run as */
-    "a:" /* local address to bind */
-    "p:" /* tcp port number to listen on */
-    "b:" /* tcp backlog queue limit */
-    "S"  /* show configuration */
-    ;
-
-  static struct option const long_options[] = {
-    { "help",        no_argument,       0, 'h' }, /* help */
-    { "version",     no_argument,       0, 'V' }, /* version */
-    { "foreground",  no_argument,       0, 'f' }, /* foreground mode */
-    { "config",      required_argument, 0, 'C' }, /* configuration file */
-    { "logfile",     required_argument, 0, 'L' }, /* log file */
-    { "pidfile",     required_argument, 0, 'P' }, /* pid file */
-    { "user",        required_argument, 0, 'u' }, /* user identity to run as */
-    { "address",     required_argument, 0, 'a' }, /* local address to bind */
-    { "port",        required_argument, 0, 'p' }, /* tcp port number to listen on */
-    { "backlog",     required_argument, 0, 'b' }, /* tcp backlog queue limit */
-    { "show-config", no_argument,       0, 'S' }, /* show configuration */
-    { 0,             0,                 0,  0  }
-  };
-
   int show_config = 0;
+
+  optind = 0;
 
   for (;;) {
     opt_char = getopt_long(argc, argv, short_options, long_options, (int *) 0);
@@ -62,7 +88,7 @@ void parse_args(int argc, char **argv, option_t *opt) {
       break;
 
     case 'C':  /* --config */
-      opt->conffile = optarg;
+      /* This option is already parsed in preparse_args(). */
       break;
 
     case 'L':  /* --logfile */

@@ -3,6 +3,8 @@
 
 #include "option.h"
 
+void preparse_args(int argc, char **argv, option_t *opt);
+
 /**
  * Parse command-line options from arguments given into |opt|.
  */
