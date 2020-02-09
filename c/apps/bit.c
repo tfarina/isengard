@@ -13,7 +13,7 @@ int main(void) {
 
   const uint8_t some_bits = 0b10110010;
   const uint8_t more_bits = 0b01011110;
-  const uint8_t combined_bits = some_bits | more_bits; /* equals to 0b11111110 */ 
+  const uint8_t combined_bits = some_bits | more_bits; /* equals to 0b11111110 */
 
   /*
    * Bits | 7th | 6th | 5th | 4th | 3rd | 2nd | 1st | 0th
@@ -47,14 +47,19 @@ int main(void) {
    * to the left by n positions. Since it starts with 0000 0001, it creates the power of 2
    * effect.
    */
-  printf("%d\n", BITMASK(0)); /* 0000 0001 */
-  printf("%d\n", BITMASK(1)); /* 0000 0010 */
-  printf("%d\n", BITMASK(2)); /* 0000 0100 */
-  printf("%d\n", BITMASK(3)); /* 0000 1000 */
-  printf("%d\n", BITMASK(4)); /* 0001 0000 */
-  printf("%d\n", BITMASK(5)); /* 0010 0000 */
-  printf("%d\n", BITMASK(6)); /* 0100 0000 */
-  printf("%d\n", BITMASK(7)); /* 1000 0000 */
+  printf("%d\n", BITMASK(0)); /* 0000 0001 | 1   */
+  printf("%d\n", BITMASK(1)); /* 0000 0010 | 2   */
+  printf("%d\n", BITMASK(2)); /* 0000 0100 | 4   */
+  printf("%d\n", BITMASK(3)); /* 0000 1000 | 8   */
+  printf("%d\n", BITMASK(4)); /* 0001 0000 | 16  */
+  printf("%d\n", BITMASK(5)); /* 0010 0000 | 32  */
+  printf("%d\n", BITMASK(6)); /* 0100 0000 | 64  */
+  printf("%d\n", BITMASK(7)); /* 1000 0000 | 128 */
+
+  /*
+   * In other words, left shifting (<<) an integer "x" with an integer "y"
+   * (x << y) is equivalent to multiplying x by 2^y (2 raise to power y).
+   */
 
   return 0;
 }
