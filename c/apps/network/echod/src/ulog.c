@@ -74,6 +74,10 @@ static char *level_to_str(ulog_level_t level) {
   return "unknown: ";
 }
 
+/**
+ * Generates a log message using 'fmt' string, followed by the variable
+ * arguments in 'ap'.
+ */
 static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   time_t now;
   struct tm *localtm;
