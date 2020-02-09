@@ -80,6 +80,7 @@ add_executable(mysql_version mysql_version.c)
 target_link_libraries(mysql_version ${MYSQL_LIBRARY})
 add_executable(ansi_colors_test ansi_colors_test.c)
 add_executable(pidfile pidfile.c)
+add_executable(buildpath buildpath.c)
 
 set(LIBCSV_PARSER_SRCS
   csv_parser.c
