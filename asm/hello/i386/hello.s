@@ -16,8 +16,8 @@
 #
 #  cat /usr/include/i386-linux-gnu/asm/unistd_32.h | less
 #
-.set EXIT_SYSCALL, 1
-.set WRITE_SYSCALL, 4
+.set SYSCALL_EXIT, 1
+.set SYSCALL_WRITE, 4
 .set STDOUT_FILENO, 1
 
 .section .data
@@ -30,13 +30,13 @@ hello_str:
     .global _start
 
 exit:
-    movl $EXIT_SYSCALL,      %eax  # system call number (sys_exit).
+    movl $SYSCALL_EXIT,      %eax  # system call number (sys_exit).
     movl $0,                 %ebx  # first argument: exit code.
     int $0x80                      # call linux kernel.
 
 _start:
     # write(1, hello_str, 14)
-    movl $WRITE_SYSCALL,     %eax  # system call number (sys_write).
+    movl $SYSCALL_WRITE,     %eax  # system call number (sys_write).
     movl $STDOUT_FILENO,     %ebx  # first argument: file handle (stdout).
     movl $hello_str,         %ecx  # second argument: pointer to message to write.
     movl $len,               %edx  # third argument: message length.
