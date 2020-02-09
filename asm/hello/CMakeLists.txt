@@ -19,13 +19,13 @@ else()
 endif()
 
 set(SRCS
-  i386/hello.s
+  hello_x86.s
 )
 
 add_executable(hello ${SRCS})
 
 set(SRCS_x64
-  x86_64/hello.s
+  hello_x64.s
 )
 
 add_executable(hello_x64 ${SRCS_x64})
