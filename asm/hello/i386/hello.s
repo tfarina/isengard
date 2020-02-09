@@ -27,14 +27,14 @@ hello_str:
     len = . - hello_str      # length of the string
 
 .section .text
-    .global main
+    .global _start
 
 exit:
     movl $EXIT_SYSCALL,      %eax  # system call number (sys_exit).
     movl $0,                 %ebx  # first argument: exit code.
     int $0x80                      # call linux kernel.
 
-main:
+_start:
     # write(1, hello_str, 14)
     movl $WRITE_SYSCALL,     %eax  # system call number (sys_write).
     movl $STDOUT_FILENO,     %ebx  # first argument: file handle (stdout).
