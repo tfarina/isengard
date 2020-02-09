@@ -47,14 +47,14 @@ int main(void) {
    * to the left by n positions. Since it starts with 0000 0001, it creates the power of 2
    * effect.
    */
-  printf("%d\n", BITMASK(0)); /* 0000 0001 | 1   */
-  printf("%d\n", BITMASK(1)); /* 0000 0010 | 2   */
-  printf("%d\n", BITMASK(2)); /* 0000 0100 | 4   */
-  printf("%d\n", BITMASK(3)); /* 0000 1000 | 8   */
-  printf("%d\n", BITMASK(4)); /* 0001 0000 | 16  */
-  printf("%d\n", BITMASK(5)); /* 0010 0000 | 32  */
-  printf("%d\n", BITMASK(6)); /* 0100 0000 | 64  */
-  printf("%d\n", BITMASK(7)); /* 1000 0000 | 128 */
+  printf("%d\n", BITMASK(0)); /* 0000 0001 | 0x01 | 1   */
+  printf("%d\n", BITMASK(1)); /* 0000 0010 | 0x02 | 2   */
+  printf("%d\n", BITMASK(2)); /* 0000 0100 | 0x04 | 4   */
+  printf("%d\n", BITMASK(3)); /* 0000 1000 | 0x08 | 8   */
+  printf("%d\n", BITMASK(4)); /* 0001 0000 | 0x10 | 16  */
+  printf("%d\n", BITMASK(5)); /* 0010 0000 | 0x20 | 32  */
+  printf("%d\n", BITMASK(6)); /* 0100 0000 | 0x40 | 64  */
+  printf("%d\n", BITMASK(7)); /* 1000 0000 | 0x80 | 128 */
 
   /*
    * In other words, left shifting (<<) an integer "x" with an integer "y"
