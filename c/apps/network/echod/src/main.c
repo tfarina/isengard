@@ -144,7 +144,7 @@ static int ed_event_loop(int tcpfd) {
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
    * after select(). */
   fd_set rfds_out;
-  int rc;
+  int retval;
   char clientip[46];
   short unsigned clientport;
   int clientfd;
@@ -164,8 +164,9 @@ static int ed_event_loop(int tcpfd) {
 
     memcpy(&rfds_out, &rfds_in, sizeof(fd_set));
 
-    rc = select(tcpfd + 1, &rfds_out, (fd_set *) 0, (fd_set *) 0, (struct timeval *) 0);
-    if (rc > 0) {
+    retval = select(tcpfd + 1, &rfds_out, (fd_set *) 0, (fd_set *) 0, (struct timeval *) 0);
+
+    if (retval > 0) {
       if (FD_ISSET(tcpfd, &rfds_out)) {
 	clientfd = ed_net_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
 	if (clientfd == ED_NET_ERR) {
