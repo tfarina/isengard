@@ -14,7 +14,7 @@ static void vmsg(char const *prefix, char const *fmt, va_list ap) {
 /**
  * Report an error message and terminate.
  */
-void ATTR_NORETURN fatal(char const *fmt, ...) {
+void MK_NORETURN fatal(char const *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
