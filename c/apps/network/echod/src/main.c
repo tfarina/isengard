@@ -138,12 +138,13 @@ static void echo_stream(int fd) {
   exit(EXIT_SUCCESS);
 }
 
-static int ed_event_loop(int tcpfd) {
+static int ed_event_loop(int fd) {
   char sigstr[SIG2STR_MAX];
   fd_set rfds_in;
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
    * after select(). */
   fd_set rfds_out;
+  int maxfd = -1;
   int retval;
   char clientip[46];
   short unsigned clientport;
@@ -152,7 +153,11 @@ static int ed_event_loop(int tcpfd) {
 
   FD_ZERO(&rfds_in);
 
-  FD_SET(tcpfd, &rfds_in);
+  FD_SET(fd, &rfds_in);
+
+  if (maxfd < fd) {
+    maxfd = fd;
+  }
 
   for (;;) {
     if (quit == 1) {
@@ -164,11 +169,11 @@ static int ed_event_loop(int tcpfd) {
 
     memcpy(&rfds_out, &rfds_in, sizeof(fd_set));
 
-    retval = select(tcpfd + 1, &rfds_out, (fd_set *) 0, (fd_set *) 0, (struct timeval *) 0);
+    retval = select(maxfd + 1, &rfds_out, (fd_set *) 0, (fd_set *) 0, (struct timeval *) 0);
 
     if (retval > 0) {
-      if (FD_ISSET(tcpfd, &rfds_out)) {
-	clientfd = ed_net_tcp_socket_accept(tcpfd, clientip, sizeof(clientip), &clientport);
+      if (FD_ISSET(fd, &rfds_out)) {
+	clientfd = ed_net_tcp_socket_accept(fd, clientip, sizeof(clientip), &clientport);
 	if (clientfd == ED_NET_ERR) {
 	  return -1;
 	}
@@ -190,7 +195,7 @@ static int ed_event_loop(int tcpfd) {
 	/* Child process. */
 	case 0:
 	  ulog_info("child process forked");
-	  close(tcpfd);
+	  close(fd);
 	  echo_stream(clientfd);
 	  break;
 
