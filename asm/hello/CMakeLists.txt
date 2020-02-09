@@ -23,3 +23,9 @@ set(SRCS
 )
 
 add_executable(hello ${SRCS})
+
+set(SRCS_x64
+  x86_64/hello.s
+)
+
+add_executable(hello_x64 ${SRCS_x64})
