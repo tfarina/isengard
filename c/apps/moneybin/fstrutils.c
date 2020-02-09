@@ -9,7 +9,8 @@
  *
  * The returned string should be freed when no longer needed.
  *
- * @param src (nullable): the string to duplicate
+ * @param[in] src (nullable): the string to duplicate
+ * @return    allocated memory
  */
 char *f_strdup(char const *src) {
   size_t len;
