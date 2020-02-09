@@ -57,6 +57,7 @@
 /* https://github.com/royratcliffe/ta-lib/blob/272b60afa70625b84ab647fd1e0a13909735280b/branches/ta-lib/ta-lib/c/src/ta_common/imatix/sfl/prelude.h#L429 */
 /* https://github.com/signalwire/libks/blob/master/src/include/libks/ks.h#L42 */
 /* https://github.com/ventanium/ventanium/blob/master/src/vtm/core/flag.h */
-/* https://www.coranac.com/documents/working-with-bits-and-bitfields/*/
+/* https://www.coranac.com/documents/working-with-bits-and-bitfields/ */
+/* http://git.savannah.gnu.org/cgit/m4.git/tree/m4/m4private.h#n42 */
 
 #endif  /* BITOPS_H_ */
