@@ -2,14 +2,14 @@
 #define ARRAYSIZE_H_
 
 /**
- * Helper macro for counting the number of elements in the array.
+ * \brief Computes the number of elements in a statically-allocated array.
  *
  * \note Don't use this macro on pointers.
  *
- * \param[in] arr A C array.
+ * \param[in] array The name of an array.
  *
- * \return The number of elements in the array.
+ * \return The number of elements in the array, expressed as a size_t.
  */
-#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(*(arr)))
+#define ARRAY_SIZE(array) (sizeof(array) / sizeof(*(array)))
 
 #endif /* ARRAYSIZE_H_ */
