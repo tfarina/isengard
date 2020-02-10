@@ -21,13 +21,17 @@
 # define M_LIKELY(exp)   (exp)
 #endif
 
-#ifdef NDEBUG
-# define M_ASSERT(cond) ((void) 0)
+#ifdef  NDEBUG
+
+#define M_ASSERT(cond) ((void) 0)
+
 #else
+
 void __assertion_failed(char const *, char const *, int);
 
-# define M_ASSERT(cond) \
+#define M_ASSERT(cond) \
   ((void) ((cond) || (__assertion_failed(#cond, __FILE__, __LINE__), 0)))
-#endif
+
+#endif  /* NDEBUG */
 
 #endif  /* !defined(_DEBUG_H_INCLUDED_) */
