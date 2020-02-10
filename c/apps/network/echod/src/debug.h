@@ -22,7 +22,7 @@
 #endif
 
 #ifdef NDEBUG
-# defined M_ASSERT(cond) ((void) 0)
+# define M_ASSERT(cond) ((void) 0)
 #else
 void __assertion_failed(char const *, char const *, int);
 
