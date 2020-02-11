@@ -21,6 +21,9 @@
 # define M_LIKELY(exp)   (exp)
 #endif
 
+#define M_STRINGIFY_(x) #x
+#define M_STRINGIFY(x)  M_STRINGIFY_(x)
+
 #ifdef  NDEBUG
 
 #define M_ASSERT(cond) ((void) 0)
