@@ -32,11 +32,11 @@ get_log_severity_name(int severity)
 }
 
 static lookup_entry_t log_priority_table[] = {
-        { LOG_INFO, "info" },
+        { LOG_INFO,    "info"    },
         { LOG_WARNING, "warning" },
-        { LOG_ERROR, "error" },
-        { LOG_FATAL, "fatal" },
-        { 0, NULL }
+        { LOG_ERROR,   "error"   },
+        { LOG_FATAL,   "fatal"   },
+        { -1,          NULL      }
 };
 
 int
