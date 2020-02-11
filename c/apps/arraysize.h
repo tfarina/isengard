@@ -4,7 +4,11 @@
 /**
  * \brief Computes the number of elements in a statically-allocated array.
  *
- * \note Don't use this macro on pointers.
+ * \note Ensure that 'array' is actually an array, not a pointer. Otherwise,
+ *       ARRAY_SIZE will produce erroneous results if 'array' is a pointer.
+ *       Pay attention to the fact that an array passed as a parameter to a
+ *       function decays to a pointer, which means that within the function
+ *       you can't use ARRAY_SIZE.
  *
  * \param[in] array The name of an array.
  *
