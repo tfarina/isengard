@@ -27,7 +27,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "ed_pidfile.h"
+#include "pidfile.h"
 
 #include <errno.h>
 #include <fcntl.h>
@@ -44,7 +44,7 @@
  */
 #define FILE_PERM (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 
-int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
+int pidfile_write(char const *pidfile_path, pid_t pid) {
   int fd;
   char pidstr[PIDSTRLEN + 1]; /* +1 to include the terminating null byte ('\0'). */
   int len;
@@ -96,7 +96,7 @@ int ed_pidfile_write(char const *pidfile_path, pid_t pid) {
   return 0;
 }
 
-int ed_pidfile_remove(char const *pidfile_path) {
+int pidfile_remove(char const *pidfile_path) {
   int rc;
 
   if (pidfile_path == NULL) {
@@ -111,4 +111,3 @@ int ed_pidfile_remove(char const *pidfile_path) {
 
   return 0;
 }
-

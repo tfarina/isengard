@@ -38,11 +38,11 @@
 #include "ed_cmdline.h"
 #include "ed_globals.h"
 #include "ed_net.h"
-#include "ed_pidfile.h"
 #include "ed_privs.h"
 #include "ed_version.h"
 #include "option.h"
 #include "os_path.h"
+#include "pidfile.h"
 #include "sig2str.h"
 #include "ulog.h"
 #include "unused-parameter.h"
@@ -295,7 +295,7 @@ int main(int argc, char **argv) {
    * Write PID file after daemonizing.
    */
   if (opt.pidfile) {
-    rc = ed_pidfile_write(opt.pidfile, ed_g_pid);
+    rc = pidfile_write(opt.pidfile, ed_g_pid);
     if (rc < 0) {
       return rc;
     }
@@ -324,7 +324,7 @@ int main(int argc, char **argv) {
 
   ed_event_loop(tcpfd);
 
-  ed_pidfile_remove(opt.pidfile);
+  pidfile_remove(opt.pidfile);
   ulog_close();
 
   return EXIT_SUCCESS;
