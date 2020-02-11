@@ -94,11 +94,8 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   }
 
   if (log_dst & ULOG_DST_CONSOLE) {
-    if (level == ULOG_INFO) {
-      term_file = stdout;
-    } else {
-      term_file = stderr;
-    }
+    term_file = (level == ULOG_INFO) ? stdout : stderr;
+
     len = snprintf(buf, sizeof(buf), "\r%s: %s", log_ident, level_to_str(level));
     len += vsnprintf(buf + len, sizeof(buf) - len, fmt, ap);
     buf[len++] = '\n';
