@@ -49,22 +49,22 @@
 #define ULOG_DST_FILE    (1 << 1)
 
 static char const *log_ident;
-static ulog_level_t log_level = ULOG_LEVEL_INFO;
+static ulog_level_t log_level = ULOG_INFO;
 static int log_dst = ULOG_DST_CONSOLE;
 static int log_fd = -1;
 
 static char *level_to_str(ulog_level_t level) {
   switch (level) {
-  case ULOG_LEVEL_FATAL:
+  case ULOG_FATAL:
     return "fatal: ";
 
-  case ULOG_LEVEL_ERROR:
+  case ULOG_ERROR:
     return "error: ";
 
-  case ULOG_LEVEL_WARN:
+  case ULOG_WARN:
     return "warning: ";
 
-  case ULOG_LEVEL_INFO:
+  case ULOG_INFO:
     return "";
 
   default:
@@ -94,7 +94,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   }
 
   if (log_dst & ULOG_DST_CONSOLE) {
-    if (level == ULOG_LEVEL_INFO) {
+    if (level == ULOG_INFO) {
       term_file = stdout;
     } else {
       term_file = stderr;
@@ -149,7 +149,7 @@ void ulog_fatal(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ULOG_LEVEL_FATAL, fmt, ap);
+  __vlogmsg(ULOG_FATAL, fmt, ap);
   va_end(ap);
 
   sleep(1);
@@ -160,7 +160,7 @@ void ulog_error(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ULOG_LEVEL_ERROR, fmt, ap);
+  __vlogmsg(ULOG_ERROR, fmt, ap);
   va_end(ap);
 }
 
@@ -168,7 +168,7 @@ void ulog_warn(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ULOG_LEVEL_WARN, fmt, ap);
+  __vlogmsg(ULOG_WARN, fmt, ap);
   va_end(ap);
 }
 
@@ -176,6 +176,6 @@ void ulog_info(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ULOG_LEVEL_INFO, fmt, ap);
+  __vlogmsg(ULOG_INFO, fmt, ap);
   va_end(ap);
 }
