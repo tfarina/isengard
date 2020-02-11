@@ -24,6 +24,8 @@
 #define M_STRINGIFY_(x) #x
 #define M_STRINGIFY(x)  M_STRINGIFY_(x)
 
+#undef M_ASSERT
+
 #ifdef  NDEBUG
 
 #define M_ASSERT(cond) ((void) 0)
