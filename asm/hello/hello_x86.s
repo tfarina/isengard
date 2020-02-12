@@ -31,12 +31,8 @@ hello_str:
 
 #---------------------------- MAIN CODE -----------------------------------#
 .section .text
-    .global _start
 
-exit:
-    movl $0,                 %ebx  # first argument: exit code.
-    movl $SYSCALL_EXIT,      %eax  # system call number (sys_exit).
-    int $0x80                      # call linux kernel.
+.global _start
 
 _start:
     # write(1, hello_str, 14)
@@ -47,3 +43,8 @@ _start:
     int $0x80                      # call linux kernel.
 
     call exit
+
+exit:
+    movl $0,                 %ebx  # first argument: exit code.
+    movl $SYSCALL_EXIT,      %eax  # system call number (sys_exit).
+    int $0x80                      # call linux kernel.
