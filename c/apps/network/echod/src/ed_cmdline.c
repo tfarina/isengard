@@ -182,7 +182,7 @@ static void usage(int status) {
     putc('\n', stdout);
 
     fputs("  -a, --address=ADDRESS      bind to the specified address\n", stdout);
-    fputs("  -p, --port=VALUE           set the tcp port to listen on\n", stdout);
+    fputs("  -p, --port=VALUE           TCP port to listen on\n", stdout);
     fputs("  -b, --backlog=VALUE        the backlog argument of listen() applied to the\n", stdout);
     fputs("                             listening socket\n", stdout);
     putc('\n', stdout);
