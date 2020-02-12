@@ -2,8 +2,10 @@
 # https://efxa.org/2011/03/02/assembly-gnulinux/
 #
 # This program is written with AT&T syntax.
-#
+#--------------------------------------------------------------------------#
 
+
+#---------------------------- CONSTANTS -----------------------------------#
 #
 # SEE: http://www.linfo.org/system_call_number.html
 #
@@ -20,12 +22,14 @@
 .set SYSCALL_WRITE, 4
 .set STDOUT_FILENO, 1
 
+#------------------------------ DATA --------------------------------------#
 .section .data
 
 hello_str:
     .asciz "Hello, world!\n" # the string to print
     len = . - hello_str      # length of the string
 
+#---------------------------- MAIN CODE -----------------------------------#
 .section .text
     .global _start
 
