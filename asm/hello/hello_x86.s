@@ -18,8 +18,8 @@
 #
 #  cat /usr/include/i386-linux-gnu/asm/unistd_32.h | less
 #
-.set SYSCALL_EXIT, 1
-.set SYSCALL_WRITE, 4
+.set SYSCALL_EXIT, 1  # int status
+.set SYSCALL_WRITE, 4 # int fd, const void *buf, size_t count
 .set STDOUT_FILENO, 1
 
 #------------------------------ DATA --------------------------------------#
