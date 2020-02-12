@@ -183,8 +183,7 @@ static void usage(int status) {
 
     fputs("  -a, --address=ADDRESS      bind to the specified address\n", stdout);
     fputs("  -p, --port=VALUE           TCP port to listen on\n", stdout);
-    fputs("  -b, --backlog=VALUE        the backlog argument of listen() applied to the\n", stdout);
-    fputs("                             listening socket\n", stdout);
+    fputs("  -b, --backlog=VALUE        set the backlog queue limit\n", stdout);
     putc('\n', stdout);
 
     fputs("  -f, --foreground           run the daemon in the foreground\n", stdout);
