@@ -34,16 +34,16 @@ hello_str:
     .global _start
 
 exit:
-    movl $SYSCALL_EXIT,      %eax  # system call number (sys_exit).
     movl $0,                 %ebx  # first argument: exit code.
+    movl $SYSCALL_EXIT,      %eax  # system call number (sys_exit).
     int $0x80                      # call linux kernel.
 
 _start:
     # write(1, hello_str, 14)
-    movl $SYSCALL_WRITE,     %eax  # system call number (sys_write).
-    movl $STDOUT_FILENO,     %ebx  # first argument: file handle (stdout).
-    movl $hello_str,         %ecx  # second argument: pointer to message to write.
     movl $len,               %edx  # third argument: message length.
+    movl $hello_str,         %ecx  # second argument: pointer to message to write.
+    movl $STDOUT_FILENO,     %ebx  # first argument: file handle (stdout).
+    movl $SYSCALL_WRITE,     %eax  # system call number (sys_write).
     int $0x80                      # call linux kernel.
 
     call exit
