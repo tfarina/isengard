@@ -34,6 +34,7 @@ hello_str:
 
 .global _start
 
+.type _start, @function
 _start:
     # write(1, hello_str, 14)
     movl $len,               %edx  # third argument: message length.
