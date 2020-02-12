@@ -18,14 +18,15 @@ else()
   endif()
 endif()
 
-set(SRCS
-  hello_x86.s
-)
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
+  add_definitions(-DARCH_x64)
+  set(SRCS
+    hello_x64.s
+  )
+else()
+  set(SRCS
+    hello_x86.s
+  )
+endif()
 
 add_executable(hello ${SRCS})
-
-set(SRCS_x64
-  hello_x64.s
-)
-
-add_executable(hello_x64 ${SRCS_x64})
