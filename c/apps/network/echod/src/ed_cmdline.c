@@ -174,22 +174,22 @@ static void usage(int status) {
     putc('\n', stdout);
 
     fputs("Options:\n", stdout);
-    fputs("  -C, --config=FILE          read configuration from the specified file\n", stdout);
-    fputs("  -P, --pidfile=FILE         write process id to the specified file\n", stdout);
+    fputs("  -C, --config=[file]        read configuration from the specified file\n", stdout);
+    fputs("  -P, --pidfile=[file]       write process id to the specified file\n", stdout);
     putc('\n', stdout);
 
-    fputs("  -u, --user=NAME            run the daemon as user\n", stdout);
+    fputs("  -u, --user=[username]      run the daemon as user\n", stdout);
     putc('\n', stdout);
 
-    fputs("  -a, --address=ADDRESS      bind to the specified address\n", stdout);
-    fputs("  -p, --port=VALUE           TCP port to listen on\n", stdout);
-    fputs("  -b, --backlog=VALUE        set the backlog queue limit\n", stdout);
+    fputs("  -a, --address=[ip/domain]  bind to the specified address\n", stdout);
+    fputs("  -p, --port=[number]        TCP port to listen on\n", stdout);
+    fputs("  -b, --backlog=[number]     set the backlog queue limit\n", stdout);
     putc('\n', stdout);
 
     fputs("  -f, --foreground           run the daemon in the foreground\n", stdout);
     putc('\n', stdout);
 
-    fputs("  -L, --logfile=FILE         write log messages to the specified file\n", stdout);
+    fputs("  -L, --logfile=[file]       write log messages to the specified file\n", stdout);
     putc('\n', stdout);
 
     fputs("  -h, --help                 display this help and exit\n", stdout);
