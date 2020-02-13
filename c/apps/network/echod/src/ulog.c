@@ -53,7 +53,7 @@ static ulog_level_t log_level = ULOG_INFO;
 static int log_dst = ULOG_DST_CONSOLE;
 static int log_fd = -1;
 
-static char *level_to_str(ulog_level_t level) {
+static char const *level_to_str(ulog_level_t level) {
   switch (level) {
   case ULOG_FATAL:
     return "fatal: ";
