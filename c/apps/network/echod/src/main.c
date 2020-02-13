@@ -40,7 +40,7 @@
 #include "ed_net.h"
 #include "ed_privs.h"
 #include "ed_version.h"
-#include "option.h"
+#include "options.h"
 #include "os_path.h"
 #include "pidfile.h"
 #include "sig2str.h"
@@ -220,7 +220,7 @@ static int ed_event_loop(int fd) {
 }
 
 int main(int argc, char **argv) {
-  option_t opt;
+  options_t opt;
   int rc;
   int tcpfd;
 
@@ -258,7 +258,7 @@ int main(int argc, char **argv) {
   /*
    * Initialize built-in parameters to their default values.
    */
-  option_init(&opt);
+  init_options(&opt);
 
   preparse_args(argc, argv, &opt);
 

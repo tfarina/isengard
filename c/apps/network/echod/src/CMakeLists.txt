@@ -23,8 +23,8 @@ set(SRCS
   ed_net.c
   ed_privs.c
   main.c
-  option.c
-  option.h
+  options.c
+  options.h
   os_path.c
   os_path.h
   pidfile.c

@@ -44,7 +44,7 @@ static void version(void) {
   printf("%s %s\n", progname_g, ED_VERSION_STR);
 }
 
-void preparse_args(int argc, char **argv, option_t *opt) {
+void preparse_args(int argc, char **argv, options_t *opt) {
   int opt_char;
 
   /*
@@ -69,7 +69,7 @@ void preparse_args(int argc, char **argv, option_t *opt) {
   }
 }
 
-void parse_args(int argc, char **argv, option_t *opt) {
+void parse_args(int argc, char **argv, options_t *opt) {
   int opt_char, value;
   int show_config = 0;
 
