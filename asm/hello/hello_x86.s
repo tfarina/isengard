@@ -43,9 +43,9 @@ _start:
     movl $SYSCALL_WRITE,     %eax  # system call number (sys_write).
     int $0x80                      # call linux kernel.
 
-    call exit
+    call L_exit
 
-exit:
+L_exit:
     movl $0,                 %ebx  # first argument: exit code.
     movl $SYSCALL_EXIT,      %eax  # system call number (sys_exit).
     int $0x80                      # call linux kernel.
