@@ -70,8 +70,6 @@ static char *level_to_str(ulog_level_t level) {
   default:
     return "internal error: ";
   }
-
-  return "unknown: ";
 }
 
 /**
