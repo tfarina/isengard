@@ -7,7 +7,7 @@
 
 int main(int argc, char **argv) {
   if (daemon(0, 0) == -1) {
-    fprintf(stderr, "%s: unable to daemonize: %s\n", argv[0], strerror(errno)); 
+    fprintf(stderr, "%s: unable to daemonize: %s\n", argv[0], strerror(errno));
     exit(EXIT_FAILURE);
   }
 

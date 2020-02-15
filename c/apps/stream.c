@@ -4,7 +4,7 @@
 int stream_read_line(FILE* file, char *data, size_t size, size_t *outlen)
 {
   char c;
-  size_t i;  
+  size_t i;
 
   i = 0;
   while (i + 1 < size) {

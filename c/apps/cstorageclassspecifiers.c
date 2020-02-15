@@ -6,6 +6,6 @@ int main(void)
   printf("extern\n");
   printf("register\n");
   printf("static\n");
-  
+
   return 0;
 }

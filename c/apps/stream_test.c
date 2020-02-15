@@ -23,7 +23,7 @@ int main(void)
     if (buflen == 0) {
       break;
     }
-  
+
     printf("%s", buffer);
   }
 

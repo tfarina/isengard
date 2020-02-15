@@ -2,7 +2,7 @@
 
 /* This works for characters from 0-127, because they go
  * from 00000000 to 01111111.
- * 
+ *
  * Since 0x80 is 128 in decimal and 10000000 in binary,
  * if the character 'c' is in the range 00000000-01111111,
  * the result of the operation (c & 10000000) has to be

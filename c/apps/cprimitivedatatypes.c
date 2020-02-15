@@ -6,6 +6,6 @@ int main(void)
   printf("int\n");
   printf("float\n");
   printf("double\n");
-  
+
   return 0;
 }
