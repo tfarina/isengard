@@ -174,7 +174,7 @@ static void usage(int status) {
     putc('\n', stdout);
 
     fputs("Options:\n", stdout);
-    fputs("  -C, --config=[file]        read configuration from the specified file\n", stdout);
+    fputs("  -C, --config=[file]        specify an alternative configuration file\n", stdout);
     fputs("  -P, --pidfile=[file]       write process id to the specified file\n", stdout);
     putc('\n', stdout);
 
