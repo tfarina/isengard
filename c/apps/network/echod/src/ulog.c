@@ -53,6 +53,19 @@ static ulog_level_t log_level = ULOG_INFO;
 static int log_dst = ULOG_DST_CONSOLE;
 static int log_fd = -1;
 
+typedef struct {
+  int value;
+  char const *name;
+} ulog_code_t;
+
+static ulog_code_t const levelnames[] = {
+  { ULOG_FATAL, "fatal"   },
+  { ULOG_ERROR, "error"   },
+  { ULOG_WARN,  "warning" },
+  { ULOG_INFO,  ""        },
+  { -1,         0         }
+};
+
 static char const *level_to_str(ulog_level_t level) {
   switch (level) {
   case ULOG_FATAL: return "fatal: ";
