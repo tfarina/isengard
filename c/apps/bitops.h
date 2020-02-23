@@ -60,4 +60,22 @@
 /* https://www.coranac.com/documents/working-with-bits-and-bitfields/ */
 /* http://git.savannah.gnu.org/cgit/m4.git/tree/m4/m4private.h#n42 */
 
+int flags = 0;
+
+void set_flag(int flag) {
+  flags |= flag;
+}
+
+void clear_flag(int flag) {
+  flags &= ~flag;
+}
+
+int is_flag_set(int flag) {
+  return (flags & flag);
+}
+
+int is_flag_clear(int flag) {
+  return (~flags & flag);
+}
+
 #endif  /* BITOPS_H_ */
