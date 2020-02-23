@@ -9,7 +9,7 @@
 #define DEF_ECHO_PORT 7
 #define DEF_BACKLOG   1024
 
-void init_options(options_t *opt) {
+void set_default_options(options_t *opt) {
   opt->detach = 1;
   opt->conffile = DEF_PATH_ECHODCONF;
   opt->pidfile = DEF_PATH_ECHODPID;

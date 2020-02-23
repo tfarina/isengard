@@ -258,7 +258,7 @@ int main(int argc, char **argv) {
   /*
    * Initialize built-in parameters to their default values.
    */
-  init_options(&opt);
+  set_default_options(&opt);
 
   preparse_args(argc, argv, &opt);
 

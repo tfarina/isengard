@@ -15,6 +15,6 @@ typedef struct options_s {
 /**
  * Initialize |opt| to default values.
  */
-void init_options(options_t *opt);
+void set_default_options(options_t *opt);
 
 #endif  /* !defined(_OPTIONS_H_INCLUDED_) */
