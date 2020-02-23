@@ -315,11 +315,11 @@ int main(int argc, char **argv) {
 
   init_signals();
 
+  ulog_info("started daemon -- pid=%d version=%s", ed_g_pid, ED_VERSION_STR);
+
   ulog_info("running as user '%s' (%ld) and group '%s' (%ld)",
             get_username(), (long)getuid(),
             get_groupname(), (long)getgid());
-
-  ulog_info("starting daemon pid=%d version=%s", ed_g_pid, ED_VERSION_STR);
 
   ed_event_loop(tcpfd);
 
