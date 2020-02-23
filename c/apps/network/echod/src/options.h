@@ -12,6 +12,8 @@ typedef struct options_s {
   int  backlog;        /* network: tcp backlog */
 } options_t;
 
+extern options_t opt;
+
 /**
  * Initialize |opt| to default values.
  */

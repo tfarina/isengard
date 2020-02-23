@@ -220,7 +220,6 @@ static int ed_event_loop(int fd) {
 }
 
 int main(int argc, char **argv) {
-  options_t opt;
   int rc;
   int tcpfd;
 

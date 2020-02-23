@@ -2,6 +2,8 @@
 
 #include "ed_default_paths.h"
 
+options_t opt;
+
 /* User for running the Echo daemon. */
 #define DEF_DAEMON_USER "_echod"
 
