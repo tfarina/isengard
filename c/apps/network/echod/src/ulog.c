@@ -55,20 +55,11 @@ static int log_fd = -1;
 
 static char const *level_to_str(ulog_level_t level) {
   switch (level) {
-  case ULOG_FATAL:
-    return "fatal: ";
-
-  case ULOG_ERROR:
-    return "error: ";
-
-  case ULOG_WARN:
-    return "warning: ";
-
-  case ULOG_INFO:
-    return "";
-
-  default:
-    return "internal error: ";
+  case ULOG_FATAL: return "fatal: ";
+  case ULOG_ERROR: return "error: ";
+  case ULOG_WARN:  return "warning: ";
+  case ULOG_INFO:  return "";
+  default:         return "internal error: ";
   }
 }
 
