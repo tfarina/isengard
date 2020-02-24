@@ -132,6 +132,9 @@ void ulog_open(char const *ident, char const *logfile_path) {
   log_fd = open(logfile_path, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
 }
 
+/**
+ * Closes the file descriptor being used to write to the file.
+ */
 void ulog_close(void) {
   if (log_dst & ULOG_DST_FILE) {
     if (log_fd < 0) {
