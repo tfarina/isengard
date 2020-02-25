@@ -23,7 +23,7 @@
 #if defined(MK_NORETURN)
 #undef MK_NORETURN
 #endif
-#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ > 4)
+#if __GNUC_PREREQ__(2,8)
 #define MK_NORETURN __attribute__((__noreturn__))
 #elif defined(_MSC_VER)
 #define MK_NORETURN __declspec(noreturn)
