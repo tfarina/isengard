@@ -3,11 +3,6 @@
 
 #include <pwd.h>
 
-/*
- * The name the program were called with.
- */
-extern char const *progname_g;
-
 extern int ed_g_pid;
 
 extern uid_t ed_g_daemon_uid;

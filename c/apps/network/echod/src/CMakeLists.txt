@@ -18,6 +18,7 @@ set(SRCS
   daemon.h
   debug.c
   debug.h
+  echod.h
   ed_cmdline.c
   ed_globals.c
   ed_net.c

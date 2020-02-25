@@ -35,6 +35,7 @@
 #include <unistd.h>
 
 #include "daemon.h"
+#include "echod.h"
 #include "ed_cmdline.h"
 #include "ed_globals.h"
 #include "ed_net.h"
@@ -49,6 +50,8 @@
 #include "username.h"
 
 #define BUFSIZE 8129
+
+char const *progname_g;
 
 static int volatile signo = 0;
 static sig_atomic_t volatile quit;

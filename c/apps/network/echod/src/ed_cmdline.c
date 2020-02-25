@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "echod.h"
 #include "ed_default_paths.h"
-#include "ed_globals.h"
 #include "ed_version.h"
 #include "valid.h"
 
