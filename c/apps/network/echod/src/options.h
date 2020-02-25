@@ -2,14 +2,14 @@
 #define _OPTIONS_H_INCLUDED_ 1
 
 typedef struct options_s {
-  int unsigned detach:1;       /* process: foreground mode */
-  char *conffile;      /* process: configuration filename */
-  char *logfile;       /* debug:   log filename */
-  char *pidfile;       /* process: pid file */
-  char *user;          /* process: run as another user */
-  char *address;       /* network: local address to bind */
-  int  port;           /* network: tcp listening port */
-  int  backlog;        /* network: tcp backlog */
+  int unsigned detach:1; /* foreground mode */
+  char *conffile;        /* configuration filename */
+  char *logfile;         /* log filename */
+  char *pidfile;         /* pid filename */
+  char *user;            /* user to switch to */
+  char *address;         /* local address to bind */
+  int   port;            /* tcp listening port */
+  int   backlog;         /* tcp backlog */
 } options_t;
 
 extern options_t opt;
