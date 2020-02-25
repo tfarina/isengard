@@ -24,17 +24,17 @@ static char const short_options[] =
   ;
 
 static struct option const long_options[] = {
-  { "help",        no_argument,       (int *) 0, 'h' }, /* help */
-  { "version",     no_argument,       (int *) 0, 'V' }, /* version */
-  { "foreground",  no_argument,       (int *) 0, 'f' }, /* foreground mode */
-  { "config",      required_argument, (int *) 0, 'C' }, /* configuration file */
-  { "logfile",     required_argument, (int *) 0, 'L' }, /* log file */
-  { "pidfile",     required_argument, (int *) 0, 'P' }, /* pid file */
-  { "user",        required_argument, (int *) 0, 'u' }, /* user identity to run as */
-  { "address",     required_argument, (int *) 0, 'a' }, /* local address to bind */
-  { "port",        required_argument, (int *) 0, 'p' }, /* tcp port number to listen on */
-  { "backlog",     required_argument, (int *) 0, 'b' }, /* tcp backlog queue limit */
-  { "show-config", no_argument,       (int *) 0, 'S' }, /* show configuration */
+  { "help",        no_argument,       (int *) 0, 'h' },
+  { "version",     no_argument,       (int *) 0, 'V' },
+  { "foreground",  no_argument,       (int *) 0, 'f' },
+  { "config",      required_argument, (int *) 0, 'C' },
+  { "logfile",     required_argument, (int *) 0, 'L' },
+  { "pidfile",     required_argument, (int *) 0, 'P' },
+  { "user",        required_argument, (int *) 0, 'u' },
+  { "address",     required_argument, (int *) 0, 'a' },
+  { "port",        required_argument, (int *) 0, 'p' },
+  { "backlog",     required_argument, (int *) 0, 'b' },
+  { "show-config", no_argument,       (int *) 0, 'S' },
   { (char *) 0,    no_argument,       (int *) 0,  0  }
 };
 
