@@ -131,6 +131,7 @@ void parse_args(int argc, char **argv, options_t *opt) {
       opt->backlog = value;
       break;
 
+    /* undocumented -- dump CLI options for testing */
     case 'S':  /* --show-config */
       show_config = 1;
       break;
