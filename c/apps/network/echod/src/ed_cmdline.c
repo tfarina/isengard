@@ -10,17 +10,17 @@
 #include "valid.h"
 
 static char const short_options[] =
-  "h"  /* help */
-  "V"  /* version */
-  "f"  /* foreground mode */
   "C:" /* configuration file */
   "L:" /* log file */
   "P:" /* pid file */
-  "u:" /* user identity to run as */
-  "a:" /* local address to bind */
-  "p:" /* tcp port number to listen on */
-  "b:" /* tcp backlog queue limit */
   "S"  /* show configuration */
+  "V"  /* version */
+  "a:" /* local address to bind */
+  "b:" /* tcp backlog queue limit */
+  "f"  /* foreground mode */
+  "h"  /* help */
+  "p:" /* tcp port number to listen on */
+  "u:" /* user identity to run as */
   ;
 
 static struct option const long_options[] = {
