@@ -24,17 +24,17 @@ static char const short_options[] =
   ;
 
 static struct option const long_options[] = {
-  { "help",        no_argument,       (int *) 0, 'h' },
-  { "version",     no_argument,       (int *) 0, 'V' },
-  { "foreground",  no_argument,       (int *) 0, 'f' },
   { "config",      required_argument, (int *) 0, 'C' },
   { "logfile",     required_argument, (int *) 0, 'L' },
   { "pidfile",     required_argument, (int *) 0, 'P' },
-  { "user",        required_argument, (int *) 0, 'u' },
-  { "address",     required_argument, (int *) 0, 'a' },
-  { "port",        required_argument, (int *) 0, 'p' },
-  { "backlog",     required_argument, (int *) 0, 'b' },
   { "show-config", no_argument,       (int *) 0, 'S' },
+  { "version",     no_argument,       (int *) 0, 'V' },
+  { "address",     required_argument, (int *) 0, 'a' },
+  { "backlog",     required_argument, (int *) 0, 'b' },
+  { "foreground",  no_argument,       (int *) 0, 'f' },
+  { "help",        no_argument,       (int *) 0, 'h' },
+  { "port",        required_argument, (int *) 0, 'p' },
+  { "user",        required_argument, (int *) 0, 'u' },
   { (char *) 0,    no_argument,       (int *) 0,  0  }
 };
 
