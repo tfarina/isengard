@@ -168,7 +168,7 @@ static void usage(int status) {
   if (status) {
     fprintf(stderr, "Try '%s --help' for more information.\n", progname_g);
   } else {
-    printf("Usage: %s [OPTION]...\n", progname_g);
+    printf("Usage: %s [OPTIONS]...\n", progname_g);
     putc('\n', stdout);
 
     fputs("Mandatory arguments to long options are mandatory for short options too.\n", stdout);
