@@ -36,11 +36,11 @@
 #include "ulog.h"
 
 #include <fcntl.h>
-#include <unistd.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 
 #define MAXLINELEN 1024
 #define RFC5424_TIMESTAMP "%Y-%m-%dT%H:%M:%S"
@@ -86,7 +86,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   char timebuf[32];
   char buf[MAXLINELEN];
   int len;
-  FILE *term_file;
+  int fd;
 
   /*
    * Check if user is interested in this log message.
@@ -96,13 +96,13 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   }
 
   if (log_dst & ULOG_DST_CONSOLE) {
-    term_file = (level == ULOG_INFO) ? stdout : stderr;
+    fd = (level == ULOG_INFO) ? STDOUT_FILENO : STDERR_FILENO;
 
     len = snprintf(buf, sizeof(buf), "\r%s: %s", log_ident, level_to_str(level));
     len += vsnprintf(buf + len, sizeof(buf) - len, fmt, ap);
     buf[len++] = '\n';
     buf[sizeof(buf) - 1] = '\0'; /* Ensure the buffer is NUL-terminated. */
-    write(fileno(term_file), buf, len);
+    write(fd, buf, len);
   }
 
   if (log_dst & ULOG_DST_FILE && log_fd > 0) {
