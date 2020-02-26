@@ -51,7 +51,7 @@
 
 #define BUFSIZE 8129
 
-char const *progname_g;
+char const *progname;
 
 static int volatile signo = 0;
 static sig_atomic_t volatile quit;
@@ -243,12 +243,12 @@ int main(int argc, char **argv) {
   /*
    * Save our name for later usage.
    */
-  progname_g = os_path_basename(*argv);
+  progname = os_path_basename(*argv);
 
   /*
    * Initialize logging.
    */
-  ulog_open(progname_g, (char const *) 0);
+  ulog_open(progname, (char const *) 0);
 
   /*
    * Check if it was run by the superuser.
@@ -279,12 +279,12 @@ int main(int argc, char **argv) {
    */
   parse_args(argc, argv, &opt);
 
-  ulog_open(progname_g, opt.logfile);
+  ulog_open(progname, opt.logfile);
 
   if (opt.detach) {
     rc = daemonize();
     if (rc < 0) {
-      ulog_error("Couldn't daemonize %s: %s\n", progname_g, strerror(errno));
+      ulog_error("Couldn't daemonize %s: %s\n", progname, strerror(errno));
       return rc;
     }
   }
