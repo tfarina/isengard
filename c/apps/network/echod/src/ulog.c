@@ -48,7 +48,7 @@
 #define ULOG_DST_CONSOLE (1 << 0)
 #define ULOG_DST_FILE    (1 << 1)
 
-static char const *log_ident;
+static char log_ident[32];
 static ulog_level_t log_level = ULOG_INFO;
 static int log_dst = ULOG_DST_CONSOLE;
 static int log_fd = -1;
@@ -120,7 +120,10 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
 
 void ulog_open(char const *ident, char const *logfile_path) {
   if (ident) {
-    log_ident = ident;
+    strncpy(log_ident, ident, sizeof(log_ident));
+    log_ident[sizeof(log_ident) - 1] = 0;
+  } else {
+    *log_ident = 0;
   }
 
   if (logfile_path == NULL || !strlen(logfile_path)) {
@@ -144,7 +147,6 @@ void ulog_close(void) {
     close(log_fd);
     log_fd = -1;
   }
-  log_ident = (char const *) 0;
 }
 
 void ulog_fatal(char const *fmt, ...) {
