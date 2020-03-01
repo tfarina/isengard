@@ -24,19 +24,4 @@
 #define M_STRINGIFY_(x) #x
 #define M_STRINGIFY(x)  M_STRINGIFY_(x)
 
-#undef M_ASSERT
-
-#ifdef  NDEBUG
-
-#define M_ASSERT(cond) ((void) 0)
-
-#else
-
-void __assertion_failed(char const *, char const *, int);
-
-#define M_ASSERT(cond) \
-  ((void) ((cond) || (__assertion_failed(#cond, __FILE__, __LINE__), 0)))
-
-#endif  /* NDEBUG */
-
 #endif  /* !defined(_DEBUG_H_INCLUDED_) */

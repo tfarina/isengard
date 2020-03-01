@@ -16,7 +16,6 @@ set(PROGRAM "echod")
 set(SRCS
   daemon.c
   daemon.h
-  debug.c
   debug.h
   echod.h
   ed_cmdline.c
@@ -24,6 +23,8 @@ set(SRCS
   ed_net.c
   ed_privs.c
   main.c
+  massert.c
+  massert.h
   options.c
   options.h
   os_path.c
