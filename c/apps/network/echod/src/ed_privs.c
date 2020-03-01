@@ -6,8 +6,10 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "ed_globals.h"
 #include "ulog.h"
+
+uid_t ed_g_daemon_uid;
+gid_t ed_g_daemon_gid;
 
 void ed_privs_check_daemon_user(char const *user) {
   struct passwd *pw;

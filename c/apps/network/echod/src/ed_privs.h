@@ -5,6 +5,9 @@
 
 #define ROOT_UID 0
 
+extern uid_t ed_g_daemon_uid;
+extern gid_t ed_g_daemon_gid;
+
 void ed_privs_check_daemon_user(char const *user);
 
 /**
