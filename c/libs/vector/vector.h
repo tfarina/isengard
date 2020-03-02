@@ -69,6 +69,14 @@ size_t vector_size(vector_t const * const self);
 size_t vector_capacity(vector_t const * const self);
 
 /**
+ * Tests whether vector is empty.
+ *
+ * @param[in,out] self The vector instance.
+ * @return non-zero if the vector size is 0, zero otherwise.
+ */
+int vector_empty(vector_t const * const self);
+
+/**
  * Destroys 'self', freeing all memory that was allocated internally.
  *
  * If 'self' is NULL, no action will be performed.
