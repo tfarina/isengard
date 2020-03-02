@@ -13,7 +13,7 @@ include(CheckIncludeFiles)
 
 check_include_files(getopt.h HAVE_GETOPT_H)
 
-set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-ansi -std=c89 -pedantic -Wall -Wextra -Werror -Wstrict-prototypes -Wmissing-prototypes -Wdeclaration-after-statement")
+set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-ansi -std=c89 -pedantic -Wall -Wextra -Werror -Wmissing-declarations -Wstrict-prototypes -Wmissing-prototypes -Wdeclaration-after-statement")
 
 #
 # Output directories for a build tree
