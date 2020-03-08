@@ -42,7 +42,7 @@ static GtkToolItem *delete_toolbar_button;
 static GtkWidget *list_view;
 
 /* Editor dialog variables/widgets */
-static GtkWidget *editor_window;
+static GtkWidget *contact_window;
 static GtkWidget *fname_entry;
 static GtkWidget *lname_entry;
 static GtkWidget *email_entry;
@@ -51,7 +51,7 @@ static ab_contact_t *current_contact;
 typedef void (*editor_post_cb_t)(ab_contact_t *contact);
 static editor_post_cb_t add_edit_post_cb = NULL;
 
-static void sab_contact_edit_dialog_ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
+static void sab_contact_window_ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
 {
   char const *name;
 
@@ -59,7 +59,7 @@ static void sab_contact_edit_dialog_ok_btn_cb(GtkWidget *widget, gboolean *cance
     current_contact = ab_contact_alloc();
   }
 
-  name = g_strdup(gtk_entry_get_text(GTK_ENTRY(fname_entry))); 
+  name = g_strdup(gtk_entry_get_text(GTK_ENTRY(fname_entry)));
   ab_contact_set_first_name(current_contact, name);
 
   name = g_strdup(gtk_entry_get_text(GTK_ENTRY(lname_entry)));
@@ -74,19 +74,19 @@ static void sab_contact_edit_dialog_ok_btn_cb(GtkWidget *widget, gboolean *cance
     ab_change_contact(current_contact);
   }
 
-  gtk_widget_destroy(editor_window);
+  gtk_widget_destroy(contact_window);
 
   if (add_edit_post_cb) {
     add_edit_post_cb(current_contact);
   }
 }
 
-static void sab_contact_edit_dialog_cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
+static void sab_contact_window_cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
 {
-  gtk_widget_destroy(editor_window);
+  gtk_widget_destroy(contact_window);
 }
 
-static void sab_contact_edit_dialog(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, void (*post_cb)(ab_contact_t *contact))
+static void sab_contact_window(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, void (*post_cb)(ab_contact_t *contact))
 {
   GtkWidget *vbox;
   GtkWidget *table;
@@ -107,15 +107,15 @@ static void sab_contact_edit_dialog(GtkWindow *parent, action_code_t ac, ab_cont
     title = "Create New Person";
   }
 
-  editor_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(editor_window), title);
-  gtk_window_set_transient_for(GTK_WINDOW(editor_window), parent);
-  gtk_window_set_position(GTK_WINDOW(editor_window), GTK_WIN_POS_CENTER_ON_PARENT);
-  gtk_window_set_modal(GTK_WINDOW(editor_window), TRUE);
-  gtk_container_set_border_width(GTK_CONTAINER(editor_window), 6);
+  contact_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(contact_window), title);
+  gtk_window_set_transient_for(GTK_WINDOW(contact_window), parent);
+  gtk_window_set_position(GTK_WINDOW(contact_window), GTK_WIN_POS_CENTER_ON_PARENT);
+  gtk_window_set_modal(GTK_WINDOW(contact_window), TRUE);
+  gtk_container_set_border_width(GTK_CONTAINER(contact_window), 6);
 
   vbox = gtk_vbox_new(FALSE, 6);
-  gtk_container_add(GTK_CONTAINER(editor_window), vbox);
+  gtk_container_add(GTK_CONTAINER(contact_window), vbox);
 
   table = gtk_table_new(3, 2, FALSE);
   gtk_container_set_border_width(GTK_CONTAINER(table), 4);
@@ -168,10 +168,10 @@ static void sab_contact_edit_dialog(GtkWindow *parent, action_code_t ac, ab_cont
   gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
 
   g_signal_connect(G_OBJECT(ok_btn), "clicked",
-                   G_CALLBACK(sab_contact_edit_dialog_ok_btn_cb), NULL);
+                   G_CALLBACK(sab_contact_window_ok_btn_cb), NULL);
 
   g_signal_connect_swapped(cancel_btn, "clicked",
-			   G_CALLBACK(sab_contact_edit_dialog_cancel_btn_cb), NULL);
+			   G_CALLBACK(sab_contact_window_cancel_btn_cb), NULL);
 
   if (current_contact) {
     gtk_entry_set_text(GTK_ENTRY(fname_entry), ab_contact_get_first_name(current_contact));
@@ -180,7 +180,7 @@ static void sab_contact_edit_dialog(GtkWindow *parent, action_code_t ac, ab_cont
   }
 
   gtk_widget_grab_focus(fname_entry);
-  gtk_widget_show_all(editor_window);
+  gtk_widget_show_all(contact_window);
 }
 
 static void sab_new_contact_post_cb(ab_contact_t *contact)
@@ -209,7 +209,7 @@ static void sab_edit_contact_post_cb(ab_contact_t *contact)
 
 static void sab_main_window_new_button_cb(GtkWidget *widget, gpointer data)
 {
-  sab_contact_edit_dialog(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
+  sab_contact_window(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
 }
 
 static void sab_main_window_edit_button_cb(GtkWidget *widget, gpointer data)
@@ -227,7 +227,7 @@ static void sab_main_window_edit_button_cb(GtkWidget *widget, gpointer data)
 
   gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
 
-  sab_contact_edit_dialog(GTK_WINDOW(data), AC_EDIT, contact, sab_edit_contact_post_cb);
+  sab_contact_window(GTK_WINDOW(data), AC_EDIT, contact, sab_edit_contact_post_cb);
 }
 
 static void sab_main_window_delete_button_cb(GtkWidget *widget, gpointer data)
@@ -531,4 +531,3 @@ int main(int argc, char** argv)
 
   return 0;
 }
-
