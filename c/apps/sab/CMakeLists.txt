@@ -69,6 +69,6 @@ if (GTK2_FOUND)
   add_executable(graph src/graph.c)
   target_link_libraries(graph -lm ${GTK2_LIBRARIES} ${EXTRA_TARGET_LINK_LIBRARIES})
 
-  add_executable(sab_gui src/sab_main_window.c)
+  add_executable(sab_gui src/about_dialog.c src/sab_main_window.c)
   target_link_libraries(sab_gui ab sqlite3 ${GTK2_LIBRARIES} ${EXTRA_TARGET_LINK_LIBRARIES})
 endif()
