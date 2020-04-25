@@ -42,6 +42,8 @@ static GtkToolItem *edit_toolbar_button;
 static GtkToolItem *delete_toolbar_button;
 static GtkWidget *list_view;
 static GtkTreeSelection *list_select;
+static GtkCellRenderer *renderer;
+static GtkTreeViewColumn *column;
 
 /* Editor dialog variables/widgets */
 static GtkWidget *contact_window;
@@ -349,9 +351,6 @@ int main(int argc, char** argv)
   GtkWidget *scrolledwin;
 
   GtkListStore *list_store; /* Data model */
-  GtkCellRenderer *renderer;
-  GtkTreeViewColumn *column;
-
   alpm_list_t *list, *i;
 
   gtk_init(&argc, &argv);
