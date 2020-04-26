@@ -12,6 +12,16 @@ typedef enum return_code_e {
   RC_ERROR,
 } return_code_t;
 
+typedef struct quotes_s {
+  int unsigned count;
+  char *timestamp;
+  double *open;
+  double *high;
+  double *low;
+  double *close;
+  double *volume;
+} quotes_t;
+
 typedef struct quote_s {
   char *date;
   double open;
@@ -246,6 +256,6 @@ int main(int argc, char **argv) {
 
   vector_free(quotes);
   free(filename);
- 
+
   return 0;
 }
