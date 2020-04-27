@@ -347,6 +347,7 @@ int main(int argc, char** argv)
   GtkAccelGroup *accel_group;
   GtkWidget *handlebox;
   GtkWidget *toolbar;
+  GtkWidget* icon;
   GtkToolItem *new_toolbar_button;
   GtkWidget *scrolledwin;
 
@@ -413,15 +414,23 @@ int main(int argc, char** argv)
   gtk_box_pack_start(GTK_BOX(vbox), handlebox, FALSE, FALSE, 0);
 
   toolbar = gtk_toolbar_new();
-  new_toolbar_button = gtk_tool_button_new_from_stock(GTK_STOCK_NEW);
+  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH);
+
+  icon = gtk_image_new_from_icon_name(GTK_STOCK_NEW,
+                                      GTK_ICON_SIZE_LARGE_TOOLBAR);
+  new_toolbar_button = gtk_tool_button_new(icon, "New");
   gtk_widget_set_tooltip_text(GTK_WIDGET(new_toolbar_button), "New contact");
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), new_toolbar_button, -1);
 
-  edit_toolbar_button = gtk_tool_button_new_from_stock(GTK_STOCK_EDIT);
+  icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT,
+                                      GTK_ICON_SIZE_LARGE_TOOLBAR);
+  edit_toolbar_button = gtk_tool_button_new(icon, "Edit");
   gtk_widget_set_tooltip_text(GTK_WIDGET(edit_toolbar_button), "Edit contact");
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), edit_toolbar_button, -1);
 
-  delete_toolbar_button = gtk_tool_button_new_from_stock(GTK_STOCK_DELETE);
+  icon = gtk_image_new_from_icon_name(GTK_STOCK_DELETE,
+                                      GTK_ICON_SIZE_LARGE_TOOLBAR);
+  delete_toolbar_button = gtk_tool_button_new(icon, "Delete");
   gtk_widget_set_tooltip_text(GTK_WIDGET(delete_toolbar_button), "Delete contact");
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), delete_toolbar_button, -1);
 
