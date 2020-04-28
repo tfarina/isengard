@@ -38,6 +38,7 @@ static void sab_main_window_insert_item(GtkWidget *list_view, ab_contact_t *cont
 
 /* Main Window variables/widgets */
 static GtkWidget *main_window;
+static GtkWidget *toolbar;
 static GtkToolItem *edit_toolbar_button;
 static GtkToolItem *delete_toolbar_button;
 static GtkWidget *list_view;
@@ -291,6 +292,15 @@ static void sab_main_window_list_selection_changed_cb(GtkTreeSelection *selectio
   }
 }
 
+static void toggle_toolbar_cb(GtkWidget *widget, gpointer data)
+{
+  if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
+    gtk_widget_show(toolbar);
+  } else {
+    gtk_widget_hide(toolbar);
+  }
+}
+
 static void app_quit_cb(GtkAction *action, gpointer data)
 {
   (void)action;
@@ -341,12 +351,14 @@ int main(int argc, char** argv)
   GtkWidget *edit_item;
   GtkWidget *quit_item;
   GtkWidget *new_item;
+  GtkWidget *view_menu;
+  GtkWidget *view_item;
+  GtkWidget *view_tol_item;
   GtkWidget *help_menu;
   GtkWidget *help_item;
   GtkWidget *about_item;
   GtkAccelGroup *accel_group;
   GtkWidget *handlebox;
-  GtkWidget *toolbar;
   GtkWidget* icon;
   GtkToolItem *new_toolbar_button;
   GtkWidget *scrolledwin;
@@ -398,6 +410,15 @@ int main(int argc, char** argv)
 			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), new_item);
 
+  view_menu = gtk_menu_new();
+  view_item = gtk_menu_item_new_with_mnemonic("_View");
+  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), view_item);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(view_item), view_menu);
+
+  view_tol_item = gtk_check_menu_item_new_with_mnemonic("Toolbar");
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(view_tol_item), TRUE);
+  gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), view_tol_item);
+
   help_menu = gtk_menu_new();
   help_item = gtk_menu_item_new_with_mnemonic("_Help");
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), help_item);
@@ -445,6 +466,9 @@ int main(int argc, char** argv)
 
   g_signal_connect(G_OBJECT(delete_toolbar_button), "clicked",
 		   G_CALLBACK(sab_main_window_delete_button_cb), NULL);
+
+  g_signal_connect(G_OBJECT(view_tol_item), "activate",
+		   G_CALLBACK(toggle_toolbar_cb), toolbar);
 
   scrolledwin = gtk_scrolled_window_new(NULL, NULL);
   gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
