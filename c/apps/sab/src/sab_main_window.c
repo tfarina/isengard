@@ -20,15 +20,12 @@ typedef enum action_code_e {
   AC_EDIT,
 } action_code_t;
 
-static void sab_main_window_insert_item(GtkWidget *list_view, ab_contact_t *contact)
+static void sab_main_window_insert_item(GtkListStore *list_store, ab_contact_t *contact)
 {
-  GtkTreeModel *model = NULL;
   GtkTreeIter iter;
 
-  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
-
-  gtk_list_store_append(GTK_LIST_STORE(model), &iter);
-  gtk_list_store_set(GTK_LIST_STORE(model), &iter,
+  gtk_list_store_append(list_store, &iter);
+  gtk_list_store_set(list_store, &iter,
                      LIST_COL_FIRST_NAME, ab_contact_get_first_name(contact),
                      LIST_COL_LAST_NAME, ab_contact_get_last_name(contact),
                      LIST_COL_EMAIL, ab_contact_get_email(contact),
@@ -190,7 +187,11 @@ static void sab_contact_window(GtkWindow *parent, action_code_t ac, ab_contact_t
 
 static void sab_new_contact_post_cb(ab_contact_t *contact)
 {
-  sab_main_window_insert_item(list_view, contact);
+  GtkListStore *store;
+
+  store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list_view)));
+
+  sab_main_window_insert_item(store, contact);
 }
 
 static void sab_edit_contact_post_cb(ab_contact_t *contact)
@@ -516,7 +517,7 @@ int main(int argc, char** argv)
   list = ab_get_contact_list();
 
   for (i = list; i; i = alpm_list_next(i)) {
-    sab_main_window_insert_item(list_view, (ab_contact_t *)i->data);
+    sab_main_window_insert_item(list_store, (ab_contact_t *)i->data);
   }
 
   gtk_main();
