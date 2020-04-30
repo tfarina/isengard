@@ -11,6 +11,7 @@ add_subdirectory(third_party/sqlite)
 
 set(LIB_SRCS
     src/ab.c
+    src/abook_contact.c
     src/alpm_list.c
     src/fort.c
     src/strutils.c
