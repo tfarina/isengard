@@ -11,7 +11,7 @@ static const char dbname[] = "abdb.sqlite3";
 static sqlite3 *conn = NULL;
 
 static sqlite3_stmt *insert_stmt;
-static const char insert_sql[] = 
+static const char insert_sql[] =
   "INSERT INTO contacts (fname, lname, email) VALUES (?1, ?2, ?3);";
 
 static sqlite3_stmt *update_stmt;

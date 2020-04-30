@@ -365,7 +365,7 @@ int main(int argc, char** argv)
   GtkWidget *scrolledwin;
 
   GtkListStore *list_store; /* Data model */
-  alpm_list_t *list, *i;
+  alpm_list_t *list, *cur;
 
   gtk_init(&argc, &argv);
 
@@ -516,8 +516,8 @@ int main(int argc, char** argv)
 
   list = ab_get_contact_list();
 
-  for (i = list; i; i = alpm_list_next(i)) {
-    sab_main_window_insert_item(list_store, (ab_contact_t *)i->data);
+  for (cur = list; cur; cur = alpm_list_next(cur)) {
+    sab_main_window_insert_item(list_store, (ab_contact_t *)cur->data);
   }
 
   gtk_main();
