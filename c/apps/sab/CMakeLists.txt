@@ -13,7 +13,6 @@ set(LIB_SRCS
     src/ab.c
     src/abook_contact.c
     src/alpm_list.c
-    src/fort.c
     src/strutils.c
    )
 add_library(ab ${LIB_SRCS})
@@ -34,7 +33,7 @@ set(DELETE_SRCS src/delete.c)
 add_executable(delete ${DELETE_SRCS})
 target_link_libraries(delete ab)
 
-set(SHOWREC_SRCS src/showrec.c)
+set(SHOWREC_SRCS src/fort.c src/common.c src/showrec.c)
 
 add_executable(showrec ${SHOWREC_SRCS})
 target_link_libraries(showrec ab)
@@ -53,6 +52,8 @@ set(SRCS
     src/cmd_delete.c
     src/cmd_list.c
     src/commands.h
+    src/common.c
+    src/fort.c
     src/main.c
     )
 add_executable(sab ${SRCS})

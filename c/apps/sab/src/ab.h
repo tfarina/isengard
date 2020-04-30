@@ -17,9 +17,4 @@ alpm_list_t *ab_get_contact_list(void);
 
 ab_contact_t *ab_get_contact_by_id(int id);
 
-/**
- * Prints to standard output all the records found in the table.
- */
-int ab_print_contact_records(void);
-
 #endif  /* AB_H_ */
