@@ -20,7 +20,7 @@ typedef enum action_code_e {
   AC_EDIT,
 } action_code_t;
 
-static void sab_main_window_insert_item(GtkListStore *list_store, ab_contact_t *contact)
+static void sab_window_insert_item(GtkListStore *list_store, ab_contact_t *contact)
 {
   GtkTreeIter iter;
 
@@ -191,7 +191,7 @@ static void sab_new_contact_post_cb(ab_contact_t *contact)
 
   store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list_view)));
 
-  sab_main_window_insert_item(store, contact);
+  sab_window_insert_item(store, contact);
 }
 
 static void sab_edit_contact_post_cb(ab_contact_t *contact)
@@ -213,12 +213,12 @@ static void sab_edit_contact_post_cb(ab_contact_t *contact)
                      -1);
 }
 
-static void sab_main_window_new_button_cb(GtkWidget *widget, gpointer data)
+static void sab_window_new_button_cb(GtkWidget *widget, gpointer data)
 {
   sab_contact_window(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
 }
 
-static void sab_main_window_edit_button_cb(GtkWidget *widget, gpointer data)
+static void sab_window_edit_button_cb(GtkWidget *widget, gpointer data)
 {
   GtkTreeModel *model;
   GtkTreeSelection *selection;
@@ -236,7 +236,7 @@ static void sab_main_window_edit_button_cb(GtkWidget *widget, gpointer data)
   sab_contact_window(GTK_WINDOW(data), AC_EDIT, contact, sab_edit_contact_post_cb);
 }
 
-static void sab_main_window_delete_button_cb(GtkWidget *widget, gpointer data)
+static void sab_window_delete_button_cb(GtkWidget *widget, gpointer data)
 {
   GtkTreeModel *model;
   GtkTreeSelection *selection;
@@ -274,7 +274,7 @@ static void sab_main_window_delete_button_cb(GtkWidget *widget, gpointer data)
   }
 }
 
-static void sab_main_window_list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
+static void sab_window_list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 {
   gint num_selected;
 
@@ -334,7 +334,7 @@ static void app_destroy_cb(GtkWidget *widget, gpointer data)
   gtk_main_quit();
 }
 
-static void sab_main_window_about_cb(GtkWidget *widget, gpointer data)
+static void sab_window_about_cb(GtkWidget *widget, gpointer data)
 {
   sab_show_about_dialog();
 }
@@ -406,7 +406,7 @@ int main(int argc, char** argv)
 
   new_item = gtk_menu_item_new_with_mnemonic("_New Contact");
   g_signal_connect(G_OBJECT(new_item), "activate",
-		   G_CALLBACK(sab_main_window_new_button_cb), main_window);
+		   G_CALLBACK(sab_window_new_button_cb), main_window);
   gtk_widget_add_accelerator(new_item, "activate", accel_group, GDK_KEY_n,
 			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), new_item);
@@ -427,7 +427,7 @@ int main(int argc, char** argv)
 
   about_item = gtk_menu_item_new_with_mnemonic("_About");
   g_signal_connect(G_OBJECT(about_item), "activate",
-		   G_CALLBACK(sab_main_window_about_cb), main_window);
+		   G_CALLBACK(sab_window_about_cb), main_window);
   gtk_menu_shell_append(GTK_MENU_SHELL(help_menu), about_item);
 
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
@@ -460,13 +460,13 @@ int main(int argc, char** argv)
   gtk_container_set_border_width(GTK_CONTAINER(handlebox), 0);
 
   g_signal_connect(G_OBJECT(new_toolbar_button), "clicked",
-		   G_CALLBACK(sab_main_window_new_button_cb), main_window);
+		   G_CALLBACK(sab_window_new_button_cb), main_window);
 
   g_signal_connect(G_OBJECT(edit_toolbar_button), "clicked",
-		   G_CALLBACK(sab_main_window_edit_button_cb), main_window);
+		   G_CALLBACK(sab_window_edit_button_cb), main_window);
 
   g_signal_connect(G_OBJECT(delete_toolbar_button), "clicked",
-		   G_CALLBACK(sab_main_window_delete_button_cb), NULL);
+		   G_CALLBACK(sab_window_delete_button_cb), NULL);
 
   g_signal_connect(G_OBJECT(view_tol_item), "activate",
 		   G_CALLBACK(toggle_toolbar_cb), toolbar);
@@ -490,7 +490,7 @@ int main(int argc, char** argv)
 
   list_select = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
   g_signal_connect(list_select, "changed",
-		   G_CALLBACK(sab_main_window_list_selection_changed_cb), NULL);
+		   G_CALLBACK(sab_window_list_selection_changed_cb), NULL);
 
   /* Create the columns. */
   renderer = gtk_cell_renderer_text_new();
@@ -517,7 +517,7 @@ int main(int argc, char** argv)
   list = ab_get_contact_list();
 
   for (cur = list; cur; cur = alpm_list_next(cur)) {
-    sab_main_window_insert_item(list_store, (ab_contact_t *)cur->data);
+    sab_window_insert_item(list_store, (ab_contact_t *)cur->data);
   }
 
   gtk_main();
