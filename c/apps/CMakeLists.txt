@@ -89,3 +89,12 @@ set(LIBCSV_PARSER_SRCS
 add_library(libcsv_parser ${LIBCSV_PARSER_SRCS})
 add_executable(csvimport csvimport.c)
 target_link_libraries(csvimport libcsv_parser)
+
+find_package(GTK2 2.6 REQUIRED gtk)
+
+if (GTK2_FOUND)
+  include_directories(${GTK2_INCLUDE_DIRS})
+
+  add_executable(graph graph.c)
+  target_link_libraries(graph -lm ${GTK2_LIBRARIES})
+endif()
