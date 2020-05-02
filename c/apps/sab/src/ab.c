@@ -4,7 +4,6 @@
 
 #include "third_party/sqlite/amalgamation/sqlite3.h"
 
-#include "fort.h"
 #include "strutils.h"
 
 static const char dbname[] = "abdb.sqlite3";

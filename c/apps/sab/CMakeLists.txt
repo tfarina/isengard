@@ -25,7 +25,7 @@ set(DELETE_SRCS src/cli/delete.c)
 add_executable(delete ${DELETE_SRCS})
 target_link_libraries(delete ab)
 
-set(SHOWREC_SRCS src/fort.c src/common.c src/cli/showrec.c)
+set(SHOWREC_SRCS src/cli/fort.c src/cli/common.c src/cli/showrec.c)
 
 add_executable(showrec ${SHOWREC_SRCS})
 target_link_libraries(showrec ab)
@@ -44,9 +44,9 @@ set(SRCS
     src/cli/cmd_delete.c
     src/cli/cmd_list.c
     src/cli/commands.h
+    src/cli/common.c
+    src/cli/fort.c
     src/cli/main.c
-    src/common.c
-    src/fort.c
     )
 add_executable(sab ${SRCS})
 target_link_libraries(sab ab)
