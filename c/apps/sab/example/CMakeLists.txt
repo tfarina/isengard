@@ -17,6 +17,7 @@ add_dependencies(ui
 )
 
 target_include_directories(ui PUBLIC
+  ${CMAKE_SOURCE_DIR}
   ${GTK2_INCLUDE_DIRS}
 )
 

@@ -5,8 +5,6 @@ add_compile_options(-std=c99)
 add_compile_options(-pedantic)
 add_compile_options(-pthread)
 
-include_directories(${CMAKE_SOURCE_DIR}/src)
-
 add_subdirectory(third_party/sqlite)
 add_subdirectory(src)
 
@@ -36,20 +34,6 @@ add_compile_options(-Wextra)
 add_compile_options(-Werror)
 add_compile_options(-Wno-unused-parameter)
 
-include_directories(${CMAKE_SOURCE_DIR})
-
-set(SRCS
-    src/cli/cmd_add.c
-    src/cli/cmd_change.c
-    src/cli/cmd_delete.c
-    src/cli/cmd_list.c
-    src/cli/commands.h
-    src/cli/common.c
-    src/cli/fort.c
-    src/cli/main.c
-    )
-add_executable(sab ${SRCS})
-target_link_libraries(sab ab)
-
+add_subdirectory(src/cli)
 add_subdirectory(src/gui)
 add_subdirectory(example)
