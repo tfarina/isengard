@@ -19,7 +19,7 @@
         "You should have received a copy of the GNU General Public License " \
     "along with SAB. If not, see: https://www.gnu.org/licenses/"
 
-void sab_about_dialog_show(void) {
+void sab_show_about_dialog(void) {
   GtkWindow *dialog;
 
   dialog = g_object_new(GTK_TYPE_ABOUT_DIALOG,

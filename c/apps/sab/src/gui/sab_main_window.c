@@ -336,7 +336,7 @@ static void app_destroy_cb(GtkWidget *widget, gpointer data)
 
 static void sab_main_window_about_cb(GtkWidget *widget, gpointer data)
 {
-  sab_about_dialog_show();
+  sab_show_about_dialog();
 }
 
 #define WINDOW_WIDTH 700
