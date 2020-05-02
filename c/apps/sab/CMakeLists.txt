@@ -59,13 +59,12 @@ set(SRCS
 add_executable(sab ${SRCS})
 target_link_libraries(sab ab)
 
+add_subdirectory(example)
+
 find_package(GTK2 2.6 REQUIRED gtk)
 
 if (GTK2_FOUND)
   include_directories(${GTK2_INCLUDE_DIRS})
-
-  add_executable(ui example/ui.c)
-  target_link_libraries(ui sqlite3 ${GTK2_LIBRARIES})
 
   add_executable(sab_gui src/gui/about_dialog.c src/gui/sab_window.c)
   target_link_libraries(sab_gui ab sqlite3 ${GTK2_LIBRARIES})
