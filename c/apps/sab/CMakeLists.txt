@@ -18,22 +18,22 @@ set(LIB_SRCS
 add_library(ab ${LIB_SRCS})
 target_link_libraries(ab sqlite3)
 
-set(ADD_SRCS src/add.c)
+set(ADD_SRCS src/cli/add.c)
 
 add_executable(add ${ADD_SRCS})
 target_link_libraries(add ab)
 
-set(CHANGE_SRCS src/change.c)
+set(CHANGE_SRCS src/cli/change.c)
 
 add_executable(change ${CHANGE_SRCS})
 target_link_libraries(change ab)
 
-set(DELETE_SRCS src/delete.c)
+set(DELETE_SRCS src/cli/delete.c)
 
 add_executable(delete ${DELETE_SRCS})
 target_link_libraries(delete ab)
 
-set(SHOWREC_SRCS src/fort.c src/common.c src/showrec.c)
+set(SHOWREC_SRCS src/fort.c src/common.c src/cli/showrec.c)
 
 add_executable(showrec ${SHOWREC_SRCS})
 target_link_libraries(showrec ab)
@@ -47,14 +47,14 @@ add_compile_options(-Wno-unused-parameter)
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(SRCS
-    src/cmd_add.c
-    src/cmd_change.c
-    src/cmd_delete.c
-    src/cmd_list.c
-    src/commands.h
+    src/cli/cmd_add.c
+    src/cli/cmd_change.c
+    src/cli/cmd_delete.c
+    src/cli/cmd_list.c
+    src/cli/commands.h
+    src/cli/main.c
     src/common.c
     src/fort.c
-    src/main.c
     )
 add_executable(sab ${SRCS})
 target_link_libraries(sab ab)
