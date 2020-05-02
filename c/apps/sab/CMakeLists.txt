@@ -5,7 +5,7 @@ add_compile_options(-std=c99)
 add_compile_options(-pedantic)
 add_compile_options(-pthread)
 
-include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/src)
 
 add_subdirectory(third_party/sqlite)
 
@@ -70,6 +70,6 @@ if (GTK2_FOUND)
   add_executable(graph src/graph.c)
   target_link_libraries(graph -lm ${GTK2_LIBRARIES})
 
-  add_executable(sab_gui src/about_dialog.c src/sab_main_window.c)
+  add_executable(sab_gui src/gui/about_dialog.c src/gui/sab_main_window.c)
   target_link_libraries(sab_gui ab sqlite3 ${GTK2_LIBRARIES})
 endif()
