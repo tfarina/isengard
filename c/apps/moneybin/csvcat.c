@@ -38,7 +38,7 @@ typedef struct csv_state_s {
   int field;
 
   /**
-   * Determines wheter there has been any error during parsing.
+   * Determines if there was any error during parsing.
    */
   int any_error;
 
