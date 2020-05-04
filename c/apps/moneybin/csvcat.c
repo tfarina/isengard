@@ -97,7 +97,7 @@ static double parse_price(char const *field, size_t length, return_code_t *rc) {
  * It is responsible for determining which field is being parsed, and
  * updating the cur_quote object.
  */
-static void csv_new_field_cb(void *field, size_t field_length, void *data) {
+static void csv_read_field_cb(void *field, size_t field_length, void *data) {
   csv_state_t *state = (csv_state_t *)data;
   char *buffer;
   return_code_t rc;
@@ -154,7 +154,7 @@ static void csv_new_field_cb(void *field, size_t field_length, void *data) {
 /**
  * This functions is called each time a new row has been found.
  */
-static void csv_new_row_cb(int c, void *data) {
+static void csv_read_row_cb(int c, void *data) {
   csv_state_t *state = (csv_state_t *)data;
 
   if (ignore_first_line) {
@@ -206,7 +206,7 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
   }
 
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
-    if (csv_parse(&parser, buf, bytes_read, csv_new_field_cb, csv_new_row_cb, &state) != bytes_read) {
+    if (csv_parse(&parser, buf, bytes_read, csv_read_field_cb, csv_read_row_cb, &state) != bytes_read) {
       fprintf(stderr, "Error while parsing %s: %s\n", filename, csv_strerror(csv_error(&parser)));
       csv_free(&parser);
       fclose(fp);
@@ -214,7 +214,7 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
     }
   }
 
-  csv_fini(&parser, csv_new_field_cb, csv_new_row_cb, &state);
+  csv_fini(&parser, csv_read_field_cb, csv_read_row_cb, &state);
   csv_free(&parser);
 
   if (ferror(fp)) {
