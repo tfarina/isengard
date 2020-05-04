@@ -33,6 +33,9 @@ typedef struct quote_s {
 } quote_t;
 
 typedef struct csv_state_s {
+  long unsigned fields;
+  long unsigned rows;
+
   int ignore_first_line;
 
   /**
@@ -92,6 +95,16 @@ static double parse_price(char const *field, size_t length, return_code_t *rc) {
 
   *rc = RC_ERROR;
   return -1.0f;
+}
+
+static void csv_field_count_cb(void *field, size_t field_length, void *data) {
+  csv_state_t *state = (csv_state_t *)data;
+  state->fields++;
+}
+
+static void csv_row_count_cb(int c, void *data) {
+  csv_state_t *state = (csv_state_t *)data;
+  state->rows++;
 }
 
 /**
@@ -206,6 +219,21 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
   if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
     fprintf(stderr, "Failed to initialize csv parser\n");
     return;
+  }
+
+  /* First pass to count the total number of rows and fields. */
+  while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
+    if (csv_parse(&parser, buf, bytes_read, csv_field_count_cb, csv_row_count_cb, &state) != bytes_read) {
+      fprintf(stderr, "Error while parsing %s: %s\n", filename, csv_strerror(csv_error(&parser)));
+      csv_free(&parser);
+      fclose(fp);
+      return;
+    }
+  }
+  csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, &state);
+
+  if (fp) {
+    fseek(fp, 0, SEEK_SET);
   }
 
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
