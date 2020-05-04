@@ -99,11 +99,17 @@ static double parse_price(char const *field, size_t length, return_code_t *rc) {
 
 static void csv_field_count_cb(void *field, size_t field_length, void *data) {
   csv_state_t *state = (csv_state_t *)data;
+
+  if (state->ignore_first_line && state->rows == 0) {
+    return;
+  }
+
   state->fields++;
 }
 
 static void csv_row_count_cb(int c, void *data) {
   csv_state_t *state = (csv_state_t *)data;
+
   state->rows++;
 }
 
