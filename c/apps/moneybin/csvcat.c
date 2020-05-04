@@ -33,6 +33,8 @@ typedef struct quote_s {
 } quote_t;
 
 typedef struct csv_state_s {
+  int ignore_first_line;
+
   /**
    * The next field (column number) to parse. */
   int field;
@@ -63,7 +65,7 @@ typedef enum csv_column_e {
   CSV_COLUMN_VOLUME
 } csv_column_t;
 
-static int ignore_first_line = 1;
+
 
 static char *parse_str(char const *field, size_t length, return_code_t *rc) {
   if (length > 0) {
@@ -106,7 +108,7 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
     return;
   }
 
-  if (ignore_first_line) {
+  if (state->ignore_first_line) {
     return;
   }
 
@@ -157,8 +159,8 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
 static void csv_read_row_cb(int c, void *data) {
   csv_state_t *state = (csv_state_t *)data;
 
-  if (ignore_first_line) {
-    ignore_first_line = 0;
+  if (state->ignore_first_line) {
+    state->ignore_first_line = 0;
     return;
   }
 
@@ -198,6 +200,7 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
   }
 
   memset(&state, 0, sizeof(csv_state_t));
+  state.ignore_first_line = 1;
   state.quotes = quotes;
 
   if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
