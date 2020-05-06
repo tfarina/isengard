@@ -47,6 +47,11 @@ typedef struct csv_state_s {
   int column;
 
   /**
+   * Which line (row) we are in the parsing process.
+   */
+  int row;
+
+  /**
    * Determines if there was any error during parsing.
    */
   int any_error;
@@ -71,8 +76,6 @@ typedef enum csv_column_e {
   CSV_COLUMN_ADJ_CLOSE,
   CSV_COLUMN_VOLUME
 } csv_column_t;
-
-
 
 static char *parse_str(char const *field, size_t length, return_code_t *rc) {
   if (length > 0) {
@@ -206,6 +209,7 @@ static void csv_read_row_cb(int c, void *data) {
     vector_push_back(state->quotes, copy);
   }
 
+  state->row++;
   state->column = 0;
 }
 
@@ -226,6 +230,8 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
 
   memset(&state, 0, sizeof(csv_state_t));
   state.ignore_first_line = 1;
+  state.row = 0;
+  state.column = 0;
   state.quotes = quotes;
 
   if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
