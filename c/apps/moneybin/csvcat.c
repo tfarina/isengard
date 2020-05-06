@@ -42,8 +42,9 @@ typedef struct csv_state_s {
   double **data;
 
   /**
-   * The next field (column number) to parse. */
-  int field;
+   * The next field (column number) to parse.
+   */
+  int column;
 
   /**
    * Determines if there was any error during parsing.
@@ -126,7 +127,7 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
   char *buffer;
   return_code_t rc;
 
-  if (state->field == -1) {
+  if (state->column == -1) {
     return;
   }
 
@@ -138,7 +139,7 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
   strncpy(buffer, field, field_length);
   buffer[field_length] = '\0';
 
-  switch (state->field) {
+  switch (state->column) {
   case CSV_COLUMN_DATE:
     state->cur_quote.date = parse_str(buffer, field_length, &rc);
     break;
@@ -168,10 +169,10 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
   free(buffer);
 
   if (rc == RC_OK) {
-    state->field++;
+    state->column++;
   } else {
     state->any_error = 1;
-    state->field = -1;
+    state->column = -1;
   }
 }
 
@@ -186,7 +187,7 @@ static void csv_read_row_cb(int c, void *data) {
     return;
   }
 
-  if (state->field != -1) {
+  if (state->column != -1) {
     /**
      * This makes a copy of cur_quote, and smells like a hack. But that
      * is because 'vector_push_back' does not make a copy and the lifetime
@@ -205,7 +206,7 @@ static void csv_read_row_cb(int c, void *data) {
     vector_push_back(state->quotes, copy);
   }
 
-  state->field = 0;
+  state->column = 0;
 }
 
 static void csv_read_quotes(char const *filename, vector_t *quotes) {
