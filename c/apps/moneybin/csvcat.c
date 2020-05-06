@@ -35,6 +35,7 @@ typedef struct quote_s {
 typedef struct csv_state_s {
   long unsigned fields;
   long unsigned rows;
+  long unsigned columns;
 
   int ignore_first_line;
 
@@ -211,6 +212,7 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
   char buf[1024];
   size_t bytes_read;
   csv_state_t state;
+  long unsigned numrows;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
@@ -237,6 +239,9 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
     }
   }
   csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, &state);
+
+  numrows = state.rows - (state.ignore_first_line ? 1 : 0);
+  state.columns = state.fields / numrows;
 
   if (fp) {
     fseek(fp, 0, SEEK_SET);
