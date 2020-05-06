@@ -215,6 +215,7 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
   size_t bytes_read;
   csv_state_t state;
   long unsigned numrows;
+  int i;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
@@ -246,6 +247,9 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
   state.columns = state.fields / numrows;
 
   state.data = malloc(sizeof(double *) * numrows);
+  for (i = 0; i < numrows; ++i) {
+    *(state.data + i) = malloc(sizeof(double) * state.columns);
+  }
 
   if (fp) {
     fseek(fp, 0, SEEK_SET);
