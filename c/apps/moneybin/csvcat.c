@@ -39,6 +39,8 @@ typedef struct csv_state_s {
 
   int ignore_first_line;
 
+  double **data;
+
   /**
    * The next field (column number) to parse. */
   int field;
@@ -242,6 +244,8 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
 
   numrows = state.rows - (state.ignore_first_line ? 1 : 0);
   state.columns = state.fields / numrows;
+
+  state.data = malloc(sizeof(double *) * numrows);
 
   if (fp) {
     fseek(fp, 0, SEEK_SET);
