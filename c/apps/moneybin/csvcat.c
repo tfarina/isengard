@@ -40,6 +40,7 @@ typedef struct csv_state_s {
   int ignore_first_line;
 
   double **data;
+  int *volume;
 
   /**
    * The next field (column number) to parse.
@@ -85,6 +86,10 @@ static void print_matrix(csv_state_t *m) {
       printf("%f ", m->data[i][j]);
     }
     putc('\n', stdout);
+  }
+
+  for (i = 0; i < m->rows - 1; i++) {
+    printf("%d\n", m->volume[i]);
   }
 }
 
@@ -174,6 +179,7 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
     state->cur_quote.adj_close = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_VOLUME:
+    state->volume[state->row] = atoi(buffer);
     state->cur_quote.volume = atoi(buffer);
     break;
   default:
@@ -266,6 +272,7 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
   state.columns = state.fields / numrows;
 
   state.data = malloc(sizeof(double *) * numrows);
+  state.volume = malloc(sizeof(int) * numrows);
   for (i = 0; i < numrows; ++i) {
     *(state.data + i) = malloc(sizeof(double) * state.columns);
   }
