@@ -85,11 +85,8 @@ static void print_matrix(csv_state_t *m) {
     for (j = 0; j < m->columns; j++) {
       printf("%f ", m->data[i][j]);
     }
+    printf("%d ", m->volume[i]);
     putc('\n', stdout);
-  }
-
-  for (i = 0; i < m->rows - 1; i++) {
-    printf("%d\n", m->volume[i]);
   }
 }
 
