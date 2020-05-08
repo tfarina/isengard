@@ -80,11 +80,11 @@ typedef enum csv_column_e {
 static void print_matrix(csv_state_t *m) {
   int i, j;
 
-  for (i = 0; i < m->row; i++) {
-    for (j = 0; j < m->column; j++) {
-      printf("%lf ", m->data[i][j]);
+  for (i = 0; i < m->rows - 1; i++) {
+    for (j = 0; j < m->columns; j++) {
+      printf("%f ", m->data[i][j]);
     }
-    putchar('\n');
+    putc('\n', stdout);
   }
 }
 
@@ -158,6 +158,7 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
     state->cur_quote.date = parse_str(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_OPEN:
+    state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
     state->cur_quote.open = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_HIGH:
