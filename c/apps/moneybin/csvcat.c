@@ -77,6 +77,17 @@ typedef enum csv_column_e {
   CSV_COLUMN_VOLUME
 } csv_column_t;
 
+static void print_matrix(csv_state_t *m) {
+  int i, j;
+
+  for (i = 0; i < m->row; i++) {
+    for (j = 0; j < m->column; j++) {
+      printf("%lf ", m->data[i][j]);
+    }
+    putchar('\n');
+  }
+}
+
 static char *parse_str(char const *field, size_t length, return_code_t *rc) {
   if (length > 0) {
     char *str = (char *)malloc((length + 1) * sizeof(char));
@@ -279,6 +290,8 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
     fclose(fp);
     return;
   }
+
+  print_matrix(&state);
 
   fclose(fp);
 }
