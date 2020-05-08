@@ -167,15 +167,19 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
     state->cur_quote.open = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_HIGH:
+    state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
     state->cur_quote.high = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_LOW:
+    state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
     state->cur_quote.low = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_CLOSE:
+    state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
     state->cur_quote.close = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_ADJ_CLOSE:
+    state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
     state->cur_quote.adj_close = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_VOLUME:
