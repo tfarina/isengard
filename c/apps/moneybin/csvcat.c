@@ -166,29 +166,30 @@ static void csv_read_row_cb(int c, void *data) {
   state->column = 0;
 }
 
-static csv_state_t *csv2matrix(char const *filename) {
+static int csv2matrix(char const *filename, csv_state_t *state) {
   FILE* fp;
   struct csv_parser parser;
   char buf[1024];
   size_t bytes_read;
-  csv_state_t *state;
   long unsigned numrows;
   int i;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
     fprintf(stderr, "Failed to open file %s: %s\n", filename, strerror(errno));
-    return NULL;
+    return -1;
   }
 
-  state = malloc(sizeof(*state));
+  state->fields = 0;
+  state->rows = 0;
+  state->columns = 0;
   state->ignore_first_line = 1;
   state->row = 0;
   state->column = 0;
 
   if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
     fprintf(stderr, "Failed to initialize csv parser\n");
-    return NULL;
+    return -1;
   }
 
   /* First pass to count the total number of rows and fields. */
@@ -197,7 +198,7 @@ static csv_state_t *csv2matrix(char const *filename) {
       fprintf(stderr, "Error while parsing %s: %s\n", filename, csv_strerror(csv_error(&parser)));
       csv_free(&parser);
       fclose(fp);
-      return NULL;
+      return -1;
     }
   }
   csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, state);
@@ -221,7 +222,7 @@ static csv_state_t *csv2matrix(char const *filename) {
       fprintf(stderr, "Error while parsing %s: %s\n", filename, csv_strerror(csv_error(&parser)));
       csv_free(&parser);
       fclose(fp);
-      return NULL;
+      return -1;
     }
   }
 
@@ -231,17 +232,18 @@ static csv_state_t *csv2matrix(char const *filename) {
   if (ferror(fp)) {
     fprintf(stderr, "error reading file %s\n", filename);
     fclose(fp);
-    return NULL;
+    return -1;
   }
 
   fclose(fp);
 
-  return state;
+  return 0;
 }
 
 int main(int argc, char **argv) {
+  int err;
   char *filename;
-  csv_state_t *m;
+  csv_state_t m;
 
   if (argc != 2) {
     fputs("usage: csvcat filename.csv\n", stderr);
@@ -250,9 +252,12 @@ int main(int argc, char **argv) {
 
   filename = f_strdup(argv[1]);
 
-  m = csv2matrix(filename);
+  err = csv2matrix(filename, &m);
+  if (err < 0) {
+    return err;
+  }
 
-  print_matrix(m);
+  print_matrix(&m);
 
   free(filename);
 
