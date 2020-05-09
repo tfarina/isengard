@@ -53,11 +53,6 @@ typedef struct csv_state_s {
   int row;
 
   /**
-   * Determines if there was any error during parsing.
-   */
-  int any_error;
-
-  /**
    * Data of the quote that we are currently parsing.
    */
   quote_t cur_quote;
@@ -193,7 +188,6 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
   if (rc == RC_OK) {
     state->column++;
   } else {
-    state->any_error = 1;
     state->column = -1;
   }
 }
