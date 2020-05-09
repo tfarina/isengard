@@ -12,26 +12,6 @@ typedef enum return_code_e {
   RC_ERROR,
 } return_code_t;
 
-typedef struct quotes_s {
-  int unsigned count;
-  char *timestamp;
-  double *open;
-  double *high;
-  double *low;
-  double *close;
-  double *volume;
-} quotes_t;
-
-typedef struct quote_s {
-  char *date;
-  double open;
-  double high;
-  double low;
-  double close;
-  double adj_close;
-  int volume;
-} quote_t;
-
 typedef struct csv_state_s {
   long unsigned fields;
   long unsigned rows;
@@ -51,16 +31,6 @@ typedef struct csv_state_s {
    * Which line (row) we are in the parsing process.
    */
   int row;
-
-  /**
-   * Data of the quote that we are currently parsing.
-   */
-  quote_t cur_quote;
-
-  /**
-   * List of quotes parsed so far.
-   */
-  vector_t *quotes;
 } csv_state_t;
 
 typedef enum csv_column_e {
@@ -129,18 +99,12 @@ static void csv_row_count_cb(int c, void *data) {
 }
 
 /**
- * This functions is called each time a new csv field has been found.
- * It is responsible for determining which field is being parsed, and
- * updating the cur_quote object.
+ * This functions is called each time a new field has been found.
  */
 static void csv_read_field_cb(void *field, size_t field_length, void *data) {
   csv_state_t *state = (csv_state_t *)data;
   char *buffer;
   return_code_t rc;
-
-  if (state->column == -1) {
-    return;
-  }
 
   if (state->ignore_first_line) {
     return;
@@ -152,31 +116,24 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
 
   switch (state->column) {
   case CSV_COLUMN_DATE:
-    state->cur_quote.date = parse_str(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_OPEN:
     state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
-    state->cur_quote.open = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_HIGH:
     state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
-    state->cur_quote.high = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_LOW:
     state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
-    state->cur_quote.low = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_CLOSE:
     state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
-    state->cur_quote.close = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_ADJ_CLOSE:
     state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
-    state->cur_quote.adj_close = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_VOLUME:
     state->volume[state->row] = atoi(buffer);
-    state->cur_quote.volume = atoi(buffer);
     break;
   default:
     rc = RC_ERROR;
@@ -185,11 +142,7 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
 
   free(buffer);
 
-  if (rc == RC_OK) {
-    state->column++;
-  } else {
-    state->column = -1;
-  }
+  state->column++;
 }
 
 /**
@@ -203,30 +156,11 @@ static void csv_read_row_cb(int c, void *data) {
     return;
   }
 
-  if (state->column != -1) {
-    /**
-     * This makes a copy of cur_quote, and smells like a hack. But that
-     * is because 'vector_push_back' does not make a copy and the lifetime
-     * of cur_quote is short, so it does not outlive the call to
-     * csv_read_quotes and without a copy we end up with pointers pointing
-     * to garbage qutotes.
-     */
-    quote_t *copy = malloc(sizeof(quote_t));
-    copy->date = state->cur_quote.date;
-    copy->open = state->cur_quote.open;
-    copy->high = state->cur_quote.high;
-    copy->low = state->cur_quote.low;
-    copy->close = state->cur_quote.close;
-    copy->adj_close = state->cur_quote.adj_close;
-    copy->volume = state->cur_quote.volume;
-    vector_push_back(state->quotes, copy);
-  }
-
   state->row++;
   state->column = 0;
 }
 
-static void csv_read_quotes(char const *filename, vector_t *quotes) {
+static void csv_read_quotes(char const *filename) {
   FILE* fp;
   struct csv_parser parser;
   char buf[1024];
@@ -245,7 +179,6 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
   state.ignore_first_line = 1;
   state.row = 0;
   state.column = 0;
-  state.quotes = quotes;
 
   if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
     fprintf(stderr, "Failed to initialize csv parser\n");
@@ -301,7 +234,6 @@ static void csv_read_quotes(char const *filename, vector_t *quotes) {
 
 int main(int argc, char **argv) {
   char *filename;
-  vector_t *quotes;
   size_t i;
 
   if (argc != 2) {
@@ -311,23 +243,8 @@ int main(int argc, char **argv) {
 
   filename = f_strdup(argv[1]);
 
-  quotes = vector_alloc(256);
+  csv_read_quotes(filename);
 
-  csv_read_quotes(filename, quotes);
-
-  for (i = 0; i < vector_size(quotes); i++) {
-    quote_t *quote = vector_get(quotes, i);
-
-    printf("%s,", quote->date);
-    printf("%8.2f,", quote->open);
-    printf("%8.2f,", quote->high);
-    printf("%8.2f,", quote->low);
-    printf("%8.2f,", quote->close);
-    printf("%8.2f, ", quote->adj_close);
-    printf("%d\n", quote->volume);
-  }
-
-  vector_free(quotes);
   free(filename);
 
   return 0;
