@@ -92,10 +92,10 @@ static char *parse_str(char const *field, size_t length, return_code_t *rc) {
 
     *rc = RC_OK;
     return str;
-  } else {
-    *rc = RC_ERROR;
-    return NULL;
   }
+
+  *rc = RC_ERROR;
+  return NULL;
 }
 
 static double parse_price(char const *field, size_t length, return_code_t *rc) {
