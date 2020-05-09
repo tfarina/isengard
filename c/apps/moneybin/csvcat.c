@@ -325,11 +325,11 @@ int main(int argc, char **argv) {
     quote_t *quote = vector_get(quotes, i);
 
     printf("%s,", quote->date);
-    printf("%.4lf,", quote->open);
-    printf("%.4lf,", quote->high);
-    printf("%.4lf,", quote->low);
-    printf("%.4lf,", quote->close);
-    printf("%.4lf,", quote->adj_close);
+    printf("%8.2f,", quote->open);
+    printf("%8.2f,", quote->high);
+    printf("%8.2f,", quote->low);
+    printf("%8.2f,", quote->close);
+    printf("%8.2f, ", quote->adj_close);
     printf("%d\n", quote->volume);
   }
 
