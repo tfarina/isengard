@@ -19,7 +19,11 @@ typedef struct csv_state_s {
 
   int ignore_first_line;
 
-  double **data;
+  double *open;
+  double *high;
+  double *low;
+  double *close;
+  double *adjclose;
   int *volume;
 
   /**
@@ -44,12 +48,14 @@ typedef enum csv_column_e {
 } csv_column_t;
 
 static void print_matrix(csv_state_t *m) {
-  int i, j;
+  int i;
 
   for (i = 0; i < m->rows - 1; i++) {
-    for (j = 0; j < m->columns; j++) {
-      printf("%f ", m->data[i][j]);
-    }
+    printf("%f ", m->open[i]);
+    printf("%f ", m->high[i]);
+    printf("%f ", m->low[i]);
+    printf("%f ", m->close[i]);
+    printf("%f ", m->adjclose[i]);
     printf("%d ", m->volume[i]);
     putc('\n', stdout);
   }
@@ -118,19 +124,19 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
   case CSV_COLUMN_DATE:
     break;
   case CSV_COLUMN_OPEN:
-    state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
+    state->open[state->row] = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_HIGH:
-    state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
+    state->high[state->row] = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_LOW:
-    state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
+    state->low[state->row] = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_CLOSE:
-    state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
+    state->close[state->row] = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_ADJ_CLOSE:
-    state->data[state->row][state->column] = parse_price(buffer, field_length, &rc);
+    state->adjclose[state->row] = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_VOLUME:
     state->volume[state->row] = atoi(buffer);
@@ -199,11 +205,12 @@ static void csv_read_quotes(char const *filename) {
   numrows = state.rows - (state.ignore_first_line ? 1 : 0);
   state.columns = state.fields / numrows;
 
-  state.data = malloc(sizeof(double *) * numrows);
+  state.open = malloc(sizeof(double) * numrows);
+  state.high = malloc(sizeof(double) * numrows);
+  state.low = malloc(sizeof(double) * numrows);
+  state.close = malloc(sizeof(double) * numrows);
+  state.adjclose = malloc(sizeof(double) * numrows);
   state.volume = malloc(sizeof(int) * numrows);
-  for (i = 0; i < numrows; ++i) {
-    *(state.data + i) = malloc(sizeof(double) * state.columns);
-  }
 
   if (fp) {
     fseek(fp, 0, SEEK_SET);
