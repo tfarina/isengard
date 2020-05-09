@@ -19,22 +19,22 @@ typedef struct csv_state_s {
 
   int ignore_first_line;
 
-  double *open;
-  double *high;
-  double *low;
-  double *close;
-  double *adjclose;
-  int *volume;
+  /**
+   * Which line (row) we are in the parsing process.
+   */
+  int row;
 
   /**
    * The next field (column number) to parse.
    */
   int column;
 
-  /**
-   * Which line (row) we are in the parsing process.
-   */
-  int row;
+  double *open;
+  double *high;
+  double *low;
+  double *close;
+  double *adjclose;
+  int *volume;
 } csv_state_t;
 
 typedef enum csv_column_e {
