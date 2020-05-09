@@ -166,82 +166,82 @@ static void csv_read_row_cb(int c, void *data) {
   state->column = 0;
 }
 
-static void csv_read_quotes(char const *filename) {
+static csv_state_t *csv2matrix(char const *filename) {
   FILE* fp;
   struct csv_parser parser;
   char buf[1024];
   size_t bytes_read;
-  csv_state_t state;
+  csv_state_t *state;
   long unsigned numrows;
   int i;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
     fprintf(stderr, "Failed to open file %s: %s\n", filename, strerror(errno));
-    return;
+    return NULL;
   }
 
-  memset(&state, 0, sizeof(csv_state_t));
-  state.ignore_first_line = 1;
-  state.row = 0;
-  state.column = 0;
+  state = malloc(sizeof(*state));
+  state->ignore_first_line = 1;
+  state->row = 0;
+  state->column = 0;
 
   if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
     fprintf(stderr, "Failed to initialize csv parser\n");
-    return;
+    return NULL;
   }
 
   /* First pass to count the total number of rows and fields. */
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
-    if (csv_parse(&parser, buf, bytes_read, csv_field_count_cb, csv_row_count_cb, &state) != bytes_read) {
+    if (csv_parse(&parser, buf, bytes_read, csv_field_count_cb, csv_row_count_cb, state) != bytes_read) {
       fprintf(stderr, "Error while parsing %s: %s\n", filename, csv_strerror(csv_error(&parser)));
       csv_free(&parser);
       fclose(fp);
-      return;
+      return NULL;
     }
   }
-  csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, &state);
+  csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, state);
 
-  numrows = state.rows - (state.ignore_first_line ? 1 : 0);
-  state.columns = state.fields / numrows;
+  numrows = state->rows - (state->ignore_first_line ? 1 : 0);
+  state->columns = state->fields / numrows;
 
-  state.open = malloc(sizeof(double) * numrows);
-  state.high = malloc(sizeof(double) * numrows);
-  state.low = malloc(sizeof(double) * numrows);
-  state.close = malloc(sizeof(double) * numrows);
-  state.adjclose = malloc(sizeof(double) * numrows);
-  state.volume = malloc(sizeof(int) * numrows);
+  state->open = malloc(sizeof(double) * numrows);
+  state->high = malloc(sizeof(double) * numrows);
+  state->low = malloc(sizeof(double) * numrows);
+  state->close = malloc(sizeof(double) * numrows);
+  state->adjclose = malloc(sizeof(double) * numrows);
+  state->volume = malloc(sizeof(int) * numrows);
 
   if (fp) {
     fseek(fp, 0, SEEK_SET);
   }
 
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
-    if (csv_parse(&parser, buf, bytes_read, csv_read_field_cb, csv_read_row_cb, &state) != bytes_read) {
+    if (csv_parse(&parser, buf, bytes_read, csv_read_field_cb, csv_read_row_cb, state) != bytes_read) {
       fprintf(stderr, "Error while parsing %s: %s\n", filename, csv_strerror(csv_error(&parser)));
       csv_free(&parser);
       fclose(fp);
-      return;
+      return NULL;
     }
   }
 
-  csv_fini(&parser, csv_read_field_cb, csv_read_row_cb, &state);
+  csv_fini(&parser, csv_read_field_cb, csv_read_row_cb, state);
   csv_free(&parser);
 
   if (ferror(fp)) {
     fprintf(stderr, "error reading file %s\n", filename);
     fclose(fp);
-    return;
+    return NULL;
   }
 
-  print_matrix(&state);
-
   fclose(fp);
+
+  return state;
 }
 
 int main(int argc, char **argv) {
   char *filename;
-  size_t i;
+  csv_state_t *m;
 
   if (argc != 2) {
     fputs("usage: csvcat filename.csv\n", stderr);
@@ -250,7 +250,9 @@ int main(int argc, char **argv) {
 
   filename = f_strdup(argv[1]);
 
-  csv_read_quotes(filename);
+  m = csv2matrix(filename);
+
+  print_matrix(m);
 
   free(filename);
 
