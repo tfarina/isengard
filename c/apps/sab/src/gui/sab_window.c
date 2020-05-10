@@ -392,6 +392,13 @@ int main(int argc, char** argv)
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), file_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_item), file_menu);
 
+  new_item = gtk_menu_item_new_with_mnemonic("_New Contact");
+  g_signal_connect(G_OBJECT(new_item), "activate",
+		   G_CALLBACK(sab_window_new_button_cb), main_window);
+  gtk_widget_add_accelerator(new_item, "activate", accel_group, GDK_KEY_n,
+			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), new_item);
+
   quit_item = gtk_menu_item_new_with_mnemonic("_Quit");
   g_signal_connect(G_OBJECT(quit_item), "activate",
 		   G_CALLBACK(app_quit_cb), NULL);
@@ -403,13 +410,6 @@ int main(int argc, char** argv)
   edit_item = gtk_menu_item_new_with_mnemonic("_Edit");
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), edit_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(edit_item), edit_menu);
-
-  new_item = gtk_menu_item_new_with_mnemonic("_New Contact");
-  g_signal_connect(G_OBJECT(new_item), "activate",
-		   G_CALLBACK(sab_window_new_button_cb), main_window);
-  gtk_widget_add_accelerator(new_item, "activate", accel_group, GDK_KEY_n,
-			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), new_item);
 
   view_menu = gtk_menu_new();
   view_item = gtk_menu_item_new_with_mnemonic("_View");
