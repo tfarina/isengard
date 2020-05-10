@@ -339,8 +339,8 @@ static void sab_window_about_cb(GtkWidget *widget, gpointer data)
   sab_show_about_dialog();
 }
 
-#define WINDOW_WIDTH 700
-#define WINDOW_HEIGHT 700
+#define WINDOW_WIDTH 610
+#define WINDOW_HEIGHT 377
 
 int main(int argc, char** argv)
 {
