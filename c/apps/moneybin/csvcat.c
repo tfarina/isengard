@@ -8,7 +8,7 @@
 #include "third_party/libcsv/csv.h"
 
 typedef enum return_code_e {
-  RC_OK,
+  RC_SUCCESS,    /* No error */
   RC_ERROR,
 } return_code_t;
 
@@ -66,7 +66,7 @@ static char *parse_str(char const *field, size_t length, return_code_t *rc) {
     char *str = (char *)malloc((length + 1) * sizeof(char));
     strncpy(str, field, length + 1);
 
-    *rc = RC_OK;
+    *rc = RC_SUCCESS;
     return str;
   }
 
@@ -80,7 +80,7 @@ static double parse_price(char const *field, size_t length, return_code_t *rc) {
 
   price = (double)strtod(field, &endptr);
   if (length > 0 && (endptr == NULL || *endptr == '\0')) {
-    *rc = RC_OK;
+    *rc = RC_SUCCESS;
     return price;
   }
 
