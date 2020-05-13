@@ -28,6 +28,7 @@ typedef struct csv_state_s {
    */
   int column;
 
+  long unsigned numrows;
   double *open;
   double *high;
   double *low;
@@ -166,7 +167,6 @@ static int csv2matrix(char const *filename, csv_state_t *state) {
   struct csv_parser parser;
   char buf[1024];
   size_t bytes_read;
-  long unsigned numrows;
   int i;
 
   fp = fopen(filename, "r");
@@ -180,6 +180,7 @@ static int csv2matrix(char const *filename, csv_state_t *state) {
   state->ignore_first_line = 1;
   state->row = 0;
   state->column = 0;
+  state->numrows = 0;
 
   if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
     fprintf(stderr, "Failed to initialize csv parser\n");
@@ -200,14 +201,14 @@ static int csv2matrix(char const *filename, csv_state_t *state) {
 
   printf("%s: %lu fields, %lu rows\n", filename, state->fields, state->rows);
 
-  numrows = state->rows - (state->ignore_first_line ? 1 : 0);
+  state->numrows = state->rows - (state->ignore_first_line ? 1 : 0);
 
-  state->open = malloc(sizeof(double) * numrows);
-  state->high = malloc(sizeof(double) * numrows);
-  state->low = malloc(sizeof(double) * numrows);
-  state->close = malloc(sizeof(double) * numrows);
-  state->adjclose = malloc(sizeof(double) * numrows);
-  state->volume = malloc(sizeof(int) * numrows);
+  state->open = malloc(sizeof(double) * state->numrows);
+  state->high = malloc(sizeof(double) * state->numrows);
+  state->low = malloc(sizeof(double) * state->numrows);
+  state->close = malloc(sizeof(double) * state->numrows);
+  state->adjclose = malloc(sizeof(double) * state->numrows);
+  state->volume = malloc(sizeof(int) * state->numrows);
 
   if (fp) {
     fseek(fp, 0, SEEK_SET);
