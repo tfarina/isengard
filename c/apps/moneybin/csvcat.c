@@ -91,10 +91,6 @@ static double parse_price(char const *field, size_t length, return_code_t *rc) {
 static void csv_field_count_cb(void *field, size_t field_length, void *data) {
   csv_state_t *state = (csv_state_t *)data;
 
-  if (state->ignore_first_line && state->rows == 0) {
-    return;
-  }
-
   state->fields++;
 }
 
@@ -203,6 +199,7 @@ static int csv2matrix(char const *filename, csv_state_t *state) {
   }
   csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, state);
 
+  state->fields = state->fields - (state->ignore_first_line ? 7 : 0);
   numrows = state->rows - (state->ignore_first_line ? 1 : 0);
   state->columns = state->fields / numrows;
 
