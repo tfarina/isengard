@@ -15,7 +15,6 @@ typedef enum return_code_e {
 typedef struct csv_state_s {
   long unsigned fields;
   long unsigned rows;
-  long unsigned columns;
 
   int ignore_first_line;
 
@@ -178,7 +177,6 @@ static int csv2matrix(char const *filename, csv_state_t *state) {
 
   state->fields = 0;
   state->rows = 0;
-  state->columns = 0;
   state->ignore_first_line = 1;
   state->row = 0;
   state->column = 0;
@@ -204,7 +202,6 @@ static int csv2matrix(char const *filename, csv_state_t *state) {
 
   state->fields = state->fields - (state->ignore_first_line ? 7 : 0);
   numrows = state->rows - (state->ignore_first_line ? 1 : 0);
-  state->columns = state->fields / numrows;
 
   state->open = malloc(sizeof(double) * numrows);
   state->high = malloc(sizeof(double) * numrows);
