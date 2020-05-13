@@ -50,7 +50,7 @@ typedef enum csv_column_e {
 static void print_matrix(csv_state_t *m) {
   int i;
 
-  for (i = 0; i < m->rows - 1; i++) {
+  for (i = 0; i < m->numrows; i++) {
     printf("%f ", m->open[i]);
     printf("%f ", m->high[i]);
     printf("%f ", m->low[i]);
