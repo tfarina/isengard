@@ -197,7 +197,10 @@ static int csv2matrix(char const *filename, csv_state_t *state) {
       return -1;
     }
   }
+
   csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, state);
+
+  printf("%s: %lu fields, %lu rows\n", filename, state->fields, state->rows);
 
   state->fields = state->fields - (state->ignore_first_line ? 7 : 0);
   numrows = state->rows - (state->ignore_first_line ? 1 : 0);
