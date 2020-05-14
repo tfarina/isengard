@@ -11,4 +11,6 @@ typedef struct ta_bars_s {
   int *volume;
 } ta_bars_t;
 
+int read_csv(char const *filename, ta_bars_t **outbars);
+
 #endif  /* TA_H_ */

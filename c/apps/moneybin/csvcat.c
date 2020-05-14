@@ -159,7 +159,7 @@ static void csv_read_row_cb(int c, void *data) {
   state->column = 0;
 }
 
-static int read_csv(char const *filename, ta_bars_t **outbars) {
+int read_csv(char const *filename, ta_bars_t **outbars) {
   FILE* fp;
   struct csv_parser parser;
   char buf[1024];
