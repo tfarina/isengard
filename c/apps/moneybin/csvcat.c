@@ -12,6 +12,16 @@ typedef enum return_code_e {
   RC_ERROR,
 } return_code_t;
 
+typedef struct ta_bars_s {
+  long unsigned numrows;
+  double *open;
+  double *high;
+  double *low;
+  double *close;
+  double *adjclose;
+  int *volume;
+} ta_bars_t;
+
 typedef struct csv_counts_s {
   long unsigned fields;
   long unsigned rows;
@@ -30,13 +40,7 @@ typedef struct csv_state_s {
    */
   int column;
 
-  long unsigned numrows;
-  double *open;
-  double *high;
-  double *low;
-  double *close;
-  double *adjclose;
-  int *volume;
+  ta_bars_t *bars;
 } csv_state_t;
 
 typedef enum csv_column_e {
@@ -49,16 +53,16 @@ typedef enum csv_column_e {
   CSV_COLUMN_VOLUME
 } csv_column_t;
 
-static void print_matrix(csv_state_t *m) {
+static void print_matrix(ta_bars_t *b) {
   int i;
 
-  for (i = 0; i < m->numrows; i++) {
-    printf("%9.3f ", m->open[i]);
-    printf("%9.3f ", m->high[i]);
-    printf("%9.3f ", m->low[i]);
-    printf("%9.3f ", m->close[i]);
-    printf("%9.3f ", m->adjclose[i]);
-    printf("%d ", m->volume[i]);
+  for (i = 0; i < b->numrows; i++) {
+    printf("%9.3f ", b->open[i]);
+    printf("%9.3f ", b->high[i]);
+    printf("%9.3f ", b->low[i]);
+    printf("%9.3f ", b->close[i]);
+    printf("%9.3f ", b->adjclose[i]);
+    printf("%d ", b->volume[i]);
     putc('\n', stdout);
   }
 }
@@ -122,22 +126,22 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
   case CSV_COLUMN_DATE:
     break;
   case CSV_COLUMN_OPEN:
-    state->open[state->row] = parse_price(buffer, field_length, &rc);
+    state->bars->open[state->row] = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_HIGH:
-    state->high[state->row] = parse_price(buffer, field_length, &rc);
+    state->bars->high[state->row] = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_LOW:
-    state->low[state->row] = parse_price(buffer, field_length, &rc);
+    state->bars->low[state->row] = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_CLOSE:
-    state->close[state->row] = parse_price(buffer, field_length, &rc);
+    state->bars->close[state->row] = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_ADJ_CLOSE:
-    state->adjclose[state->row] = parse_price(buffer, field_length, &rc);
+    state->bars->adjclose[state->row] = parse_price(buffer, field_length, &rc);
     break;
   case CSV_COLUMN_VOLUME:
-    state->volume[state->row] = atoi(buffer);
+    state->bars->volume[state->row] = atoi(buffer);
     break;
   default:
     rc = RC_ERROR;
@@ -164,12 +168,14 @@ static void csv_read_row_cb(int c, void *data) {
   state->column = 0;
 }
 
-static int read_csv(char const *filename, csv_state_t *state) {
+static int read_csv(char const *filename, ta_bars_t **outbars) {
   FILE* fp;
   struct csv_parser parser;
   char buf[1024];
   size_t bytes_read;
   csv_counts_t c;
+  csv_state_t *state;
+  ta_bars_t *bars;
   int i;
 
   c.fields = 0;
@@ -200,19 +206,23 @@ static int read_csv(char const *filename, csv_state_t *state) {
 
   printf("%s: %lu fields, %lu rows\n", filename, c.fields, c.rows);
 
+  state = malloc(sizeof(*state));
   state->ignore_first_line = 1;
   state->row = 0;
   state->column = 0;
-  state->numrows = 0;
 
-  state->numrows = c.rows - (state->ignore_first_line ? 1 : 0);
+  bars = malloc(sizeof(*bars));
 
-  state->open = malloc(sizeof(double) * state->numrows);
-  state->high = malloc(sizeof(double) * state->numrows);
-  state->low = malloc(sizeof(double) * state->numrows);
-  state->close = malloc(sizeof(double) * state->numrows);
-  state->adjclose = malloc(sizeof(double) * state->numrows);
-  state->volume = malloc(sizeof(int) * state->numrows);
+  bars->numrows = c.rows - (state->ignore_first_line ? 1 : 0);
+
+  bars->open = malloc(sizeof(double) * bars->numrows);
+  bars->high = malloc(sizeof(double) * bars->numrows);
+  bars->low = malloc(sizeof(double) * bars->numrows);
+  bars->close = malloc(sizeof(double) * bars->numrows);
+  bars->adjclose = malloc(sizeof(double) * bars->numrows);
+  bars->volume = malloc(sizeof(int) * bars->numrows);
+
+  state->bars = bars;
 
   if (fp) {
     fseek(fp, 0, SEEK_SET);
@@ -238,13 +248,15 @@ static int read_csv(char const *filename, csv_state_t *state) {
 
   fclose(fp);
 
+  *outbars = state->bars;
+
   return 0;
 }
 
 int main(int argc, char **argv) {
   int err;
   char *filename;
-  csv_state_t m;
+  ta_bars_t *bars;
 
   if (argc != 2) {
     fputs("usage: csvcat filename.csv\n", stderr);
@@ -253,12 +265,12 @@ int main(int argc, char **argv) {
 
   filename = f_strdup(argv[1]);
 
-  err = read_csv(filename, &m);
+  err = read_csv(filename, &bars);
   if (err < 0) {
     return err;
   }
 
-  print_matrix(&m);
+  print_matrix(bars);
 
   free(filename);
 
