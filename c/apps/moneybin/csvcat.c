@@ -53,11 +53,11 @@ static void print_matrix(csv_state_t *m) {
   int i;
 
   for (i = 0; i < m->numrows; i++) {
-    printf("%f ", m->open[i]);
-    printf("%f ", m->high[i]);
-    printf("%f ", m->low[i]);
-    printf("%f ", m->close[i]);
-    printf("%f ", m->adjclose[i]);
+    printf("%9.3f ", m->open[i]);
+    printf("%9.3f ", m->high[i]);
+    printf("%9.3f ", m->low[i]);
+    printf("%9.3f ", m->close[i]);
+    printf("%9.3f ", m->adjclose[i]);
     printf("%d ", m->volume[i]);
     putc('\n', stdout);
   }
