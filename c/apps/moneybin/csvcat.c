@@ -12,10 +12,12 @@ typedef enum return_code_e {
   RC_ERROR,
 } return_code_t;
 
-typedef struct csv_state_s {
+typedef struct csv_counts_s {
   long unsigned fields;
   long unsigned rows;
+} csv_counts_t;
 
+typedef struct csv_state_s {
   int ignore_first_line;
 
   /**
@@ -89,15 +91,15 @@ static double parse_price(char const *field, size_t length, return_code_t *rc) {
 }
 
 static void csv_field_count_cb(void *field, size_t field_length, void *data) {
-  csv_state_t *state = (csv_state_t *)data;
+  csv_counts_t *cnt = (csv_counts_t *)data;
 
-  state->fields++;
+  cnt->fields++;
 }
 
 static void csv_row_count_cb(int c, void *data) {
-  csv_state_t *state = (csv_state_t *)data;
+  csv_counts_t *cnt = (csv_counts_t *)data;
 
-  state->rows++;
+  cnt->rows++;
 }
 
 /**
@@ -167,7 +169,11 @@ static int csv2matrix(char const *filename, csv_state_t *state) {
   struct csv_parser parser;
   char buf[1024];
   size_t bytes_read;
+  csv_counts_t c;
   int i;
+
+  c.fields = 0;
+  c.rows = 0;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
@@ -175,21 +181,14 @@ static int csv2matrix(char const *filename, csv_state_t *state) {
     return -1;
   }
 
-  state->fields = 0;
-  state->rows = 0;
-  state->ignore_first_line = 1;
-  state->row = 0;
-  state->column = 0;
-  state->numrows = 0;
-
-  if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
+ if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
     fprintf(stderr, "Failed to initialize csv parser\n");
     return -1;
   }
 
   /* First pass to count the total number of rows and fields. */
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
-    if (csv_parse(&parser, buf, bytes_read, csv_field_count_cb, csv_row_count_cb, state) != bytes_read) {
+    if (csv_parse(&parser, buf, bytes_read, csv_field_count_cb, csv_row_count_cb, &c) != bytes_read) {
       fprintf(stderr, "Error while parsing %s: %s\n", filename, csv_strerror(csv_error(&parser)));
       csv_free(&parser);
       fclose(fp);
@@ -197,11 +196,16 @@ static int csv2matrix(char const *filename, csv_state_t *state) {
     }
   }
 
-  csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, state);
+  csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, &c);
 
-  printf("%s: %lu fields, %lu rows\n", filename, state->fields, state->rows);
+  printf("%s: %lu fields, %lu rows\n", filename, c.fields, c.rows);
 
-  state->numrows = state->rows - (state->ignore_first_line ? 1 : 0);
+  state->ignore_first_line = 1;
+  state->row = 0;
+  state->column = 0;
+  state->numrows = 0;
+
+   state->numrows = c.rows - (state->ignore_first_line ? 1 : 0);
 
   state->open = malloc(sizeof(double) * state->numrows);
   state->high = malloc(sizeof(double) * state->numrows);
