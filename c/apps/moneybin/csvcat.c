@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "fstrutils.h"
+#include "ta.h"
 #include "vector.h"
 #include "third_party/libcsv/csv.h"
 
@@ -11,16 +12,6 @@ typedef enum return_code_e {
   RC_SUCCESS,    /* No error */
   RC_ERROR,
 } return_code_t;
-
-typedef struct ta_bars_s {
-  long unsigned numrows;
-  double *open;
-  double *high;
-  double *low;
-  double *close;
-  double *adjclose;
-  int *volume;
-} ta_bars_t;
 
 typedef struct csv_counts_s {
   long unsigned fields;
