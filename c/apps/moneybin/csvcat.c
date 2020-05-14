@@ -164,7 +164,7 @@ static void csv_read_row_cb(int c, void *data) {
   state->column = 0;
 }
 
-static int csv2matrix(char const *filename, csv_state_t *state) {
+static int read_csv(char const *filename, csv_state_t *state) {
   FILE* fp;
   struct csv_parser parser;
   char buf[1024];
@@ -205,7 +205,7 @@ static int csv2matrix(char const *filename, csv_state_t *state) {
   state->column = 0;
   state->numrows = 0;
 
-   state->numrows = c.rows - (state->ignore_first_line ? 1 : 0);
+  state->numrows = c.rows - (state->ignore_first_line ? 1 : 0);
 
   state->open = malloc(sizeof(double) * state->numrows);
   state->high = malloc(sizeof(double) * state->numrows);
@@ -253,7 +253,7 @@ int main(int argc, char **argv) {
 
   filename = f_strdup(argv[1]);
 
-  err = csv2matrix(filename, &m);
+  err = read_csv(filename, &m);
   if (err < 0) {
     return err;
   }
