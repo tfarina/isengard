@@ -1,32 +1,36 @@
 #include <stdio.h>
 
-#include "csv_helper.h"
+#include "fstrutils.h"
 #include "stats.h"
+#include "ta.h"
 
 int main(int argc, char **argv) {
-  double *close;
-  int num_rows;
+  int err;
+  char *filename;
+  ta_bars_t *bars;
   double min;
   double max;
   double avg;
 
   if (argc != 2) {
-    fputs("usage: csvstats filename.csv\n", stderr);
+    fputs("usage: csvcat filename.csv\n", stderr);
     return 1;
   }
 
-  load_close_prices(argv[1]);
+  filename = f_strdup(argv[1]);
 
-  close = csv_close_prices();
-  num_rows = csv_num_rows();
+  err = read_csv(filename, &bars);
+  if (err < 0) {
+    return err;
+  }
 
-  stats_min(close, num_rows, &min);
-  stats_max(close, num_rows, &max);
-  stats_average(close, num_rows, &avg);
+  stats_min(bars->close, bars->numrows, &min);
+  stats_max(bars->close, bars->numrows, &max);
+  stats_average(bars->close, bars->numrows, &avg);
 
-  printf("Min: %f\n", min);
-  printf("Max: %f\n", max);
-  printf("Avg: %f\n", avg);
+  printf("Min: %9.3f\n", min);
+  printf("Max: %9.3f\n", max);
+  printf("Avg: %9.3f\n", avg);
 
   return 0;
 }
