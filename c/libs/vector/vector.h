@@ -15,10 +15,10 @@ typedef struct vector_s
         /* This is a pointer to an array of elements of any type. */
         void **elements; /* void *elements[] */
 
-        /* The max number of allocated elements. */
+        /* The maximum number of pointers (allocated elements). */
 	size_t capacity;
 
-        /* The current number of elements in the array. */
+        /* The current number of pointers (elements) in the array. */
 	size_t size;
 } vector_t;
 
