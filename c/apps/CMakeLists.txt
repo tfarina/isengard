@@ -7,8 +7,6 @@ add_definitions(-D_GNU_SOURCE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
-find_package(MySQL)
-
 add_subdirectory(third_party/iniparser)
 add_subdirectory(third_party/libcsv)
 add_subdirectory(third_party/cJSON)
@@ -76,8 +74,6 @@ add_executable(cstorageclassspecifiers cstorageclassspecifiers.c)
 add_executable(ckeywords ckeywords.c)
 add_executable(stats_test stats_test.c stats.c)
 target_link_libraries(stats_test -lm)
-add_executable(mysql_version mysql_version.c)
-target_link_libraries(mysql_version ${MYSQL_LIBRARY})
 add_executable(ansi_colors_test ansi_colors_test.c)
 add_executable(pidfile pidfile.c)
 add_executable(buildpath buildpath.c)
@@ -97,4 +93,15 @@ if (GTK2_FOUND)
 
   add_executable(graph graph.c)
   target_link_libraries(graph -lm ${GTK2_LIBRARIES})
+endif()
+
+# These options are settable from the CMake command line. For example, to disable
+# SQL, put -D WITH_SQL=OFF on the command line.
+
+option(WITH_SQL "Build this project with SQL (mysql) support" OFF)
+
+if (WITH_SQL)
+  find_package(MySQL)
+  add_executable(mysql_version mysql_version.c)
+  target_link_libraries(mysql_version ${MYSQL_LIBRARY})
 endif()
