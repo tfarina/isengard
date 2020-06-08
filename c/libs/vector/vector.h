@@ -69,6 +69,14 @@ size_t vector_size(vector_t const * const self);
 size_t vector_capacity(vector_t const * const self);
 
 /**
+ * Returns a pointer to the elements of `self`.
+ *
+ * @param[in] self pointer to `vector_t`
+ * @return pointer to elements, `NULL` if empty.
+ */
+void *vector_data(vector_t const * const self);
+
+/**
  * Tests whether vector is empty.
  *
  * @param[in,out] self The vector instance.
