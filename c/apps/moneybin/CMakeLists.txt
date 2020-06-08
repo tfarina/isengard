@@ -54,7 +54,7 @@ target_link_libraries(csvcat libcsv)
 add_executable(csvstats fstrutils.c stats.c tacsv.c csvstats.c)
 target_link_libraries(csvstats libcsv -lm)
 
-add_executable(sma sma.c)
+add_executable(sma_test sma.c sma_test.c)
 
 find_package(CURL REQUIRED)
 
