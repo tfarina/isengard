@@ -55,6 +55,7 @@ add_executable(csvstats fstrutils.c stats.c tacsv.c csvstats.c)
 target_link_libraries(csvstats libcsv -lm)
 
 add_executable(sma_test sma.c sma_test.c)
+add_executable(trade crossover.c trade.c)
 
 find_package(CURL REQUIRED)
 
