@@ -59,12 +59,10 @@ add_executable(trade crossover.c trade.c)
 
 find_package(CURL REQUIRED)
 
-if (CURL_FOUND)
-  include_directories(${CURL_INCLUDE_DIRS})
+include_directories(${CURL_INCLUDE_DIRS})
 
-  add_executable(csvget csvget.c)
-  target_link_libraries(csvget moneybin ${CURL_LIBRARIES} ${MYSQL_LIBRARIES})
-endif()
+add_executable(csvget csvget.c)
+target_link_libraries(csvget moneybin ${CURL_LIBRARIES})
 
 add_executable(csvimport csvimport.c)
 target_link_libraries(csvimport iniparser libcsv moneybin ${MYSQL_LIBRARIES})
