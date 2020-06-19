@@ -9,3 +9,6 @@ add_library(vector ${SRCS})
 
 add_executable(vector_test vector_test.c)
 target_link_libraries(vector_test vector)
+
+add_executable(unittests greatest.h unittests.c)
+target_link_libraries(unittests vector)
