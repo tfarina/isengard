@@ -11,5 +11,7 @@ int main(void) {
 
   printf("%s\n", path);
 
+  free(path);
+
   return 0;
 }
