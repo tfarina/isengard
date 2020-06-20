@@ -12,7 +12,7 @@ int f_file_size(char const *path)
   int rc;
 
   rc = stat(path, &sb);
-  if (rc > 0) {
+  if (rc < 0) {
     return -1;
   }
 
