@@ -76,7 +76,7 @@ add_executable(stats_test stats_test.c stats.c)
 target_link_libraries(stats_test -lm)
 add_executable(ansi_colors_test ansi_colors_test.c)
 add_executable(pidfile pidfile.c)
-add_executable(buildpath buildpath.c)
+add_executable(buildpath ffileutils.c buildpath.c)
 
 set(LIBCSV_PARSER_SRCS
   csv_parser.c

@@ -7,6 +7,20 @@
 #include <string.h>
 #include <unistd.h>
 
+char *build_filename(char *dirname, char *filename)
+{
+  char *path;
+  size_t len;
+
+  len = strlen(dirname) + /* '/' */ 1 + strlen(filename) + /* '\0' */ 1;
+
+  path = (char *) malloc(len);
+
+  sprintf(path, "%s/%s", dirname, filename);
+
+  return path;
+}
+
 /**
  * Reads the contents of |filename| and returns it. |rlen| holds its
  * length.
