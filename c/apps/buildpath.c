@@ -18,7 +18,7 @@ static char *build_filename(char *dirname, char *filename) {
 int main(void) {
   char *path;
 
-  path = build_filename("/home/tfarina", ".config");
+  path = build_filename("/etc", "resolv.conf");
 
   printf("%s\n", path);
 
