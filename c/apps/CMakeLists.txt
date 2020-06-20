@@ -89,9 +89,10 @@ target_link_libraries(csvimport libcsv_parser)
 find_package(GTK2 2.6)
 
 if (GTK2_FOUND)
-  include_directories(${GTK2_INCLUDE_DIRS})
-
   add_executable(graph graph.c)
+
+  target_include_directories(graph ${GTK2_INCLUDE_DIRS})
+
   target_link_libraries(graph -lm ${GTK2_LIBRARIES})
 endif()
 
