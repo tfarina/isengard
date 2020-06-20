@@ -6,6 +6,9 @@
 #include <string.h>
 #include <sys/stat.h>
 
+/**
+ * Returne the size, in bytes, of path.
+ */
 int f_file_size(char const *path)
 {
   struct stat sb;
