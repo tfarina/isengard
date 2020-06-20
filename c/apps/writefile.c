@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "fileutils.h"
+#include "ffileutils.h"
 
 int main(int argc, char **argv) {
   char buf[] = "hello, world\n";
@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  write_file(argv[1], buf, sizeof(buf));
+  f_write_file(argv[1], buf, sizeof(buf));
 
   return 0;
 }

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "fileutils.h"
+#include "ffileutils.h"
 
 int main(int argc, char **argv) {
   size_t len;
@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  buf = read_file(argv[1], &len);
+  buf = f_read_file(argv[1], &len);
   if (!buf) {
     free(buf);
     return -1;

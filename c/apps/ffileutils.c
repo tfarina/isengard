@@ -1,4 +1,4 @@
-#include "fileutils.h"
+#include "ffileutils.h"
 
 #include <errno.h>
 #include <fcntl.h>
@@ -13,7 +13,7 @@
  *
  * Returns NULL on failure.
  */
-char *read_file(const char *filename, size_t *rlen)
+char *f_read_file(const char *filename, size_t *rlen)
 {
   FILE *fp;
   long len;
@@ -63,7 +63,7 @@ char *read_file(const char *filename, size_t *rlen)
   return buf;
 }
 
-int write_file(const char *filename, const char *data, size_t size)
+int f_write_file(const char *filename, const char *data, size_t size)
 {
   int fd = creat(filename, 0666);
   if (fd < 0) {
