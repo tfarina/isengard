@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
   int *p = myarray;
   int out = 0;
 
-  while (out = *p++) {
+  while ((out = *p++) != 0) {
     printf("%d ", out);
   }
 
