@@ -32,27 +32,28 @@ int f_read_file(const char *filename, char **contents_out, size_t *len)
   char *contents;
   size_t bytes_read;
 
+  /* Open file for reading. */
   fp = fopen(filename, "r");
   if (fp == NULL) {
     perror("fopen()");
     return -1;
   }
 
-  /* Go to the end of the file. */
+  /* Go to the end on the input */
   rc = fseek(fp, 0, SEEK_END);
   if (rc < 0) {
     perror("fseek(END)");
     return -1;
   }
 
-  /* To get the size of the file. */
+  /* to get the file size. */
   bufsize = ftell(fp);
   if (bufsize < 0) {
     perror("ftell()");
     return -1;
   }
 
-  /* Go back to the start of the file. */
+  /* Return file pointer to the beginning. */
   rc = fseek(fp, 0, SEEK_SET);
   if (rc < 0) {
     perror("fseek(SET)");
