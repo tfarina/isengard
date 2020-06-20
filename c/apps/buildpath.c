@@ -7,7 +7,7 @@
 int main(void) {
   char *path;
 
-  path = build_filename("/etc", "resolv.conf");
+  path = f_build_filename("/etc", "resolv.conf");
 
   printf("%s\n", path);
 

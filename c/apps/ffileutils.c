@@ -7,7 +7,7 @@
 #include <string.h>
 #include <unistd.h>
 
-char *build_filename(char *dirname, char *filename)
+char *f_build_filename(char *dirname, char *filename)
 {
   char *path;
   size_t len;
