@@ -7,16 +7,16 @@
 #include <string.h>
 #include <unistd.h>
 
-char *f_build_filename(char *dirname, char *filename)
+char *f_build_filename(char *dir, char *file)
 {
   char *path;
   size_t len;
 
-  len = strlen(dirname) + /* '/' */ 1 + strlen(filename) + /* '\0' */ 1;
+  len = strlen(dir) + /* '/' */ 1 + strlen(file) + /* '\0' */ 1;
 
   path = (char *) malloc(len);
 
-  sprintf(path, "%s/%s", dirname, filename);
+  sprintf(path, "%s/%s", dir, file);
 
   return path;
 }

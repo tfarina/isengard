@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 
-char *f_build_filename(char *dirname, char *filename);
+char *f_build_filename(char *dir, char *file);
 
 char *f_read_file(const char *filename, size_t *rlen);
 
