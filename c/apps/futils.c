@@ -33,7 +33,7 @@ char *f_get_user_name(void)
 {
   struct passwd *pw;
 
-  pw = getpwuid(geteuid());
+  pw = getpwuid(getuid());
 
   if (pw == 0) {
     return 0;
