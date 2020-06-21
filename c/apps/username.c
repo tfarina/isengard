@@ -3,7 +3,7 @@
 #include "futils.h"
 
 int main(int argc, char **argv) {
-  const char *username;
+  char *username;
 
   username = f_get_user_name();
 
