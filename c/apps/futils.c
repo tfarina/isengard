@@ -35,5 +35,9 @@ char *f_get_user_name(void)
 
   pw = getpwuid(geteuid());
 
+  if (pw == 0) {
+    return 0;
+  }
+
   return pw->pw_name;
 }
