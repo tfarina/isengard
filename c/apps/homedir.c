@@ -4,7 +4,7 @@
 #include "futils.h"
 
 int main(int argc, char **argv) {
-  const char *homedir;
+  char *homedir;
 
   homedir = f_get_home_dir();
 

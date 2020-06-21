@@ -7,9 +7,9 @@
 /**
  * Gets the current user's home directory.
  */
-const char *f_get_home_dir(void)
+char *f_get_home_dir(void)
 {
-  char const *home;
+  char *home;
   struct passwd *pw;
 
   home = getenv("HOME");
