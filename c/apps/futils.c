@@ -31,10 +31,11 @@ char *f_get_home_dir(void)
  */
 char *f_get_user_name(void)
 {
+  uid_t uid;
   struct passwd *pw;
 
-  pw = getpwuid(getuid());
-
+  uid = getuid();
+  pw = getpwuid(uid);
   if (pw == 0) {
     return 0;
   }
