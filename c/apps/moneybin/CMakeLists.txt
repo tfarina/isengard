@@ -3,7 +3,7 @@ project(moneybin C)
 
 set(CMAKE_MODULE_PATH
   ${CMAKE_MODULE_PATH}
-  ${PROJECT_SOURCE_DIR}/cmake)
+  ${PROJECT_SOURCE_DIR}/cmake/modules)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -std=c99 -pedantic")
 
