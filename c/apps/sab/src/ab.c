@@ -71,6 +71,10 @@ static int _create_tables(void) {
 static void load_contacts(void) {
   while (sqlite3_step(select_stmt) == SQLITE_ROW) {
     ab_contact_t *contact = ab_contact_alloc();
+    if (contact == NULL) {
+      continue;
+    }
+
     contact->id = sqlite3_column_int(select_stmt, 0);
     contact->fname = f_strdup((const char *)sqlite3_column_text(select_stmt, 1));
     contact->lname = f_strdup((const char *)sqlite3_column_text(select_stmt, 2));
