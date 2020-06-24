@@ -40,7 +40,7 @@ static void _ab_sqlite_disconnect(sqlite3 *db) {
 static int _create_tables(void) {
   int rc;
   sqlite3_stmt *stmt;
-  const char sql[] =
+  static const char sql[] =
     "CREATE TABLE IF NOT EXISTS contacts ("
     "  id INTEGER PRIMARY KEY,"     /* id */
     "  fname TEXT,"                 /* first name */
