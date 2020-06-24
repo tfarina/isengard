@@ -30,7 +30,7 @@ char *f_build_filename(char *dir, char *file)
 char *f_read_file(const char *filename, size_t *rlen)
 {
   FILE *fp;
-  long len;
+  long fsize;
   char *buf;
   size_t bytes_read;
 
@@ -45,7 +45,7 @@ char *f_read_file(const char *filename, size_t *rlen)
     return NULL;
   }
 
-  if ((len = ftell(fp)) == -1) {
+  if ((fsize = ftell(fp)) == -1) {
     fprintf(stderr, "unable to ftell file %s\n", filename);
     fclose(fp);
     return NULL;
@@ -57,14 +57,14 @@ char *f_read_file(const char *filename, size_t *rlen)
     return NULL;
   }
 
-  if ((buf = malloc(len)) == NULL) {
+  if ((buf = malloc(sizeof(char) * fsize)) == NULL) {
     fprintf(stderr, "malloc failed (file too large?): %s\n", strerror(errno));
     fclose(fp);
     return NULL;
   }
 
-  bytes_read = fread(buf, 1, len, fp);
-  if (ferror(fp) != 0 || bytes_read != (size_t)len) {
+  bytes_read = fread(buf, 1, fsize, fp);
+  if (ferror(fp) != 0 || bytes_read != (size_t)fsize) {
     fprintf(stderr, "fread failed\n");
     free(buf);
     fclose(fp);
@@ -73,7 +73,7 @@ char *f_read_file(const char *filename, size_t *rlen)
 
   fclose(fp);
 
-  *rlen = len;
+  *rlen = fsize;
   return buf;
 }
 
