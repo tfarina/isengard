@@ -150,9 +150,12 @@ void ab_load_contacts(void) {
 int ab_add_contact(ab_contact_t *contact) {
   contact_list = alpm_list_add(contact_list, contact);
 
-  sqlite3_bind_text(insert_stmt, 1, contact->fname, -1, SQLITE_STATIC);
-  sqlite3_bind_text(insert_stmt, 2, contact->lname, -1, SQLITE_STATIC);
-  sqlite3_bind_text(insert_stmt, 3, contact->email, -1, SQLITE_STATIC);
+  if (sqlite3_bind_text(insert_stmt, 1, contact->fname, -1, SQLITE_STATIC) != SQLITE_OK ||
+      sqlite3_bind_text(insert_stmt, 2, contact->lname, -1, SQLITE_STATIC) != SQLITE_OK ||
+      sqlite3_bind_text(insert_stmt, 3, contact->email, -1, SQLITE_STATIC) != SQLITE_OK) {
+    fprintf(stderr, "error binding arguments");
+    return -1;
+  }
 
   if (sqlite3_step(insert_stmt) != SQLITE_DONE) {
     fprintf(stderr, "error inserting into contacts table: %s\n",
@@ -166,10 +169,13 @@ int ab_add_contact(ab_contact_t *contact) {
 }
 
 int ab_change_contact(ab_contact_t *contact) {
-  sqlite3_bind_int(update_stmt, 1, contact->id);
-  sqlite3_bind_text(update_stmt, 2, contact->fname, -1, SQLITE_STATIC);
-  sqlite3_bind_text(update_stmt, 3, contact->lname, -1, SQLITE_STATIC);
-  sqlite3_bind_text(update_stmt, 4, contact->email, -1, SQLITE_STATIC);
+  if (sqlite3_bind_int(update_stmt, 1, contact->id) != SQLITE_OK ||
+      sqlite3_bind_text(update_stmt, 2, contact->fname, -1, SQLITE_STATIC) != SQLITE_OK ||
+      sqlite3_bind_text(update_stmt, 3, contact->lname, -1, SQLITE_STATIC) != SQLITE_OK ||
+      sqlite3_bind_text(update_stmt, 4, contact->email, -1, SQLITE_STATIC) != SQLITE_OK) {
+    fprintf(stderr, "error binding arguments");
+    return -1;
+  }
 
   if (sqlite3_step(update_stmt) != SQLITE_DONE) {
     fprintf(stderr, "error updating contacts table: %s\n", sqlite3_errmsg(conn));
@@ -192,7 +198,10 @@ int ab_delete_contact(ab_contact_t *contact) {
 
   contact_list = alpm_list_remove(contact_list, contact, _ab_contact_cmp, &vc);
 
-  sqlite3_bind_int(delete_stmt, 1, contact->id);
+  if (sqlite3_bind_int(delete_stmt, 1, contact->id) != SQLITE_OK) {
+    fprintf(stderr, "error binding arguments");
+    return -1;
+  }
 
   if (sqlite3_step(delete_stmt) != SQLITE_DONE) {
     fprintf(stderr, "error deleting contacts from table: %s\n",
