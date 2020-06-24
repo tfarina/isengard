@@ -17,6 +17,18 @@ ab_contact_t *ab_contact_alloc(void) {
   return contact;
 }
 
+void ab_contact_free(ab_contact_t *contact) {
+  if (contact == NULL) {
+    return;
+  }
+
+  contact->fname = NULL;
+  contact->lname = NULL;
+  contact->email = NULL;
+
+  free(contact);
+}
+
 void ab_contact_set_first_name(ab_contact_t *contact, char const *fname) {
   contact->fname = fname;
 }
