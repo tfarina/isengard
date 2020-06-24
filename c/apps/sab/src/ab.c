@@ -68,21 +68,6 @@ static int _create_tables(void) {
   return 0;
 }
 
-static void load_contacts(void) {
-  while (sqlite3_step(select_stmt) == SQLITE_ROW) {
-    ab_contact_t *contact = ab_contact_alloc();
-    if (contact == NULL) {
-      continue;
-    }
-
-    contact->id = sqlite3_column_int(select_stmt, 0);
-    contact->fname = f_strdup((const char *)sqlite3_column_text(select_stmt, 1));
-    contact->lname = f_strdup((const char *)sqlite3_column_text(select_stmt, 2));
-    contact->email = f_strdup((const char *)sqlite3_column_text(select_stmt, 3));
-    contact_list = alpm_list_add(contact_list, contact);
-  }
-}
-
 int ab_init(void) {
   /* Do nothing if the database handle has been set. */
   if (conn) {
@@ -125,8 +110,6 @@ int ab_init(void) {
     return -1;
   }
 
-  load_contacts();
-
   return 0;
 }
 
@@ -147,6 +130,21 @@ int ab_close(void) {
   conn = NULL;
 
   return 0;
+}
+
+void ab_load_contacts(void) {
+  while (sqlite3_step(select_stmt) == SQLITE_ROW) {
+    ab_contact_t *contact = ab_contact_alloc();
+    if (contact == NULL) {
+      continue;
+    }
+
+    contact->id = sqlite3_column_int(select_stmt, 0);
+    contact->fname = f_strdup((const char *)sqlite3_column_text(select_stmt, 1));
+    contact->lname = f_strdup((const char *)sqlite3_column_text(select_stmt, 2));
+    contact->email = f_strdup((const char *)sqlite3_column_text(select_stmt, 3));
+    contact_list = alpm_list_add(contact_list, contact);
+  }
 }
 
 int ab_add_contact(ab_contact_t *contact) {

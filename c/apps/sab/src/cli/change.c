@@ -26,6 +26,8 @@ int main(int argc, char **argv) {
 
   ab_init();
 
+  ab_load_contacts();
+
   id = atoi(argv[1]);
 
   contact = ab_get_contact_by_id(id);

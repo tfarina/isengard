@@ -7,6 +7,8 @@ int main(int argc, char **argv) {
 
   ab_init();
 
+  ab_load_contacts();
+
   rc = print_contact_list(ab_get_contact_list());
 
   ab_close();

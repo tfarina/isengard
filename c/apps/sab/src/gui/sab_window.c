@@ -514,6 +514,8 @@ int main(int argc, char** argv)
 
   ab_init();
 
+  ab_load_contacts();
+
   list = ab_get_contact_list();
 
   for (cur = list; cur; cur = alpm_list_next(cur)) {

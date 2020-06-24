@@ -7,6 +7,8 @@
 int ab_init(void);
 int ab_close(void);
 
+void ab_load_contacts(void);
+
 int ab_add_contact(ab_contact_t *contact);
 
 int ab_change_contact(ab_contact_t *contact);
