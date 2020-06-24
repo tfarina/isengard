@@ -48,7 +48,7 @@ static int _create_tables(void) {
     "  email TEXT"                  /* email */
     ");";
 
-  rc = sqlite3_prepare(conn, create_sql, -1, &create_stmt, NULL);
+  rc = sqlite3_prepare_v2(conn, create_sql, -1, &create_stmt, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errmsg(conn));
     _ab_sqlite_disconnect(conn);
@@ -86,26 +86,26 @@ int ab_init(void) {
     return -1;
   }
 
-  if (sqlite3_prepare(conn, insert_sql, -1, &insert_stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare_v2(conn, insert_sql, -1, &insert_stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing insert statement: %s\n",
             sqlite3_errmsg(conn));
     _ab_sqlite_disconnect(conn);
     return -1;
   }
 
-  if (sqlite3_prepare(conn, update_sql, -1, &update_stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare_v2(conn, update_sql, -1, &update_stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing update statement: %s\n",
             sqlite3_errmsg(conn));
     return -1;
   }
 
-  if (sqlite3_prepare(conn, delete_sql, -1, &delete_stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare_v2(conn, delete_sql, -1, &delete_stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing delete statement: %s\n",
             sqlite3_errmsg(conn));
     return -1;
   }
 
-  if (sqlite3_prepare(conn, select_sql, -1, &select_stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare_v2(conn, select_sql, -1, &select_stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing select statement: %s\n",
             sqlite3_errmsg(conn));
     return -1;
