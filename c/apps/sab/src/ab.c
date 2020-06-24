@@ -48,7 +48,8 @@ static int _create_tables(void) {
     "  email TEXT"                  /* email */
     ");";
 
-  if (sqlite3_prepare(conn, create_sql, -1, &create_stmt, NULL) != SQLITE_OK) {
+  rc = sqlite3_prepare(conn, create_sql, -1, &create_stmt, NULL);
+  if (rc != SQLITE_OK) {
     fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errmsg(conn));
     _ab_sqlite_disconnect(conn);
     return -1;
