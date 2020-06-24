@@ -39,8 +39,8 @@ static void _ab_sqlite_disconnect(sqlite3 *db) {
  */
 static int _create_tables(void) {
   int rc;
-  sqlite3_stmt *stmt;
-  static const char sql[] =
+  sqlite3_stmt *create_stmt;
+  static const char create_sql[] =
     "CREATE TABLE IF NOT EXISTS contacts ("
     "  id INTEGER PRIMARY KEY,"     /* id */
     "  fname TEXT,"                 /* first name */
@@ -48,16 +48,16 @@ static int _create_tables(void) {
     "  email TEXT"                  /* email */
     ");";
 
-  if (sqlite3_prepare(conn, sql, -1, &stmt, NULL) != SQLITE_OK) {
+  if (sqlite3_prepare(conn, create_sql, -1, &create_stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errmsg(conn));
     _ab_sqlite_disconnect(conn);
     return -1;
   }
 
-  rc = sqlite3_step(stmt);
+  rc = sqlite3_step(create_stmt);
 
-  sqlite3_finalize(stmt);
-  stmt = NULL;
+  sqlite3_finalize(create_stmt);
+  create_stmt = NULL;
 
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "error creating contacts table: %s\n", sqlite3_errmsg(conn));
