@@ -13,7 +13,7 @@ extern "C" {
 typedef struct vector_s
 {
         /* This is a pointer to an array of elements of any type. */
-        void **elements; /* void *elements[] */
+        void **data; /* void *data[] */
 
         /* The maximum number of pointers (allocated elements). */
 	size_t capacity;

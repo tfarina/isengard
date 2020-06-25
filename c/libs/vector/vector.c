@@ -27,19 +27,19 @@ static int _vector_insert(vector_t *self, int index, void *element)
         if (self->size + 1 > self->capacity) {
                 /* Triple the capacity, then divide by half and finally increase by one unit. */
                 size_t const new_capacity = self->capacity * 3 / 2 + 1;
-                temp = realloc(self->elements, new_capacity * sizeof(void *));
+                temp = realloc(self->data, new_capacity * sizeof(void *));
                 if (temp == NULL) {
                         return -ENOMEM;
                 }
 
-                self->elements = temp;
+                self->data = temp;
                 self->capacity = new_capacity;
 	}
 
-        memmove(self->elements + index + 1, self->elements + index,
+        memmove(self->data + index + 1, self->data + index,
                 (self->size - index) * sizeof(void *));
 
-        self->elements[index] = element;
+        self->data[index] = element;
         self->size++;
 
         return 0;
@@ -61,7 +61,7 @@ vector_t *vector_alloc(int capacity)
 	        return NULL;
 	}
 
-        self->elements = temp;
+        self->data = temp;
         self->capacity = capacity;
 
         return self;
@@ -86,7 +86,7 @@ void *vector_at(vector_t const * const self, int unsigned const index)
                 return NULL;
         }
 
-        return self->elements[index];
+        return self->data[index];
 }
 
 size_t vector_size(vector_t const * const self)
@@ -113,7 +113,7 @@ void *vector_data(vector_t const * const self)
                 return NULL;
         }
 
-        return *self->elements;
+        return *self->data;
 }
 
 int vector_empty(vector_t const * const self)
@@ -131,8 +131,8 @@ void vector_free(vector_t *self)
                 return;
         }
 
-        free(self->elements);
-        self->elements = NULL;
+        free(self->data);
+        self->data = NULL;
         self->capacity = 0;
         self->size = 0;
         free(self);
