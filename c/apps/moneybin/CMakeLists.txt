@@ -28,8 +28,10 @@ add_subdirectory(third_party/sqlite)
 
 option(WITH_MYSQL "Use MySQL library" ON)
 
-include(FindMySQL)
-find_package(MySQL REQUIRED)
+if (WITH_MYSQL)
+  include(FindMySQL)
+  find_package(MySQL REQUIRED)
+endif()
 
 set(SRCS
   sfldate.c
