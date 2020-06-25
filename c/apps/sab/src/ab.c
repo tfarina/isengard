@@ -114,7 +114,7 @@ int ab_init(void) {
   return 0;
 }
 
-int ab_close(void) {
+int ab_fini(void) {
   sqlite3_finalize(insert_stmt);
   insert_stmt = NULL;
 

@@ -30,7 +30,7 @@ int cmd_delete(int argc, char **argv) {
     return -1;
   }
 
-  ab_close();
+  ab_fini();
 
   return 0;
 }

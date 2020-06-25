@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
 
   rc = print_contact_list(ab_get_contact_list());
 
-  ab_close();
+  ab_fini();
 
   return rc;
 }

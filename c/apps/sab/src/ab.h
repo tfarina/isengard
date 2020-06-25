@@ -5,7 +5,7 @@
 #include "alpm_list.h"
 
 int ab_init(void);
-int ab_close(void);
+int ab_fini(void);
 
 void ab_load_contacts(void);
 
