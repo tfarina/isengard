@@ -1,5 +1,6 @@
 #include <stdlib.h>
 
+#ifdef HAVE_MYSQL
 #include <mysql/mysql.h>
 
 #include "dba.h"
@@ -232,3 +233,5 @@ dba_ops_t mysql_dba_ops = {
   mysql_dba_result_fetch_row,
   mysql_dba_result_get_field_value
 };
+
+#endif

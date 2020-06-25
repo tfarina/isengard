@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef HAVE_MYSQL
 extern dba_ops_t mysql_dba_ops;
+#endif
 
 typedef struct dba_backend_s {
   char const *backend;
@@ -11,7 +13,9 @@ typedef struct dba_backend_s {
 } dba_backend_t;
 
 static dba_backend_t dba_backend_table[] = {
+#ifdef HAVE_MYSQL
   { "mysql", &mysql_dba_ops },
+#endif
   { NULL, NULL }
 };
 
