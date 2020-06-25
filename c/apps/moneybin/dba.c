@@ -8,7 +8,7 @@ extern dba_ops_t mysql_dba_ops;
 #endif
 
 typedef struct dba_backend_s {
-  char const *backend;
+  char const *name;
   dba_ops_t *ops;
 } dba_backend_t;
 
@@ -20,13 +20,13 @@ static dba_backend_t dba_backend_table[] = {
 };
 
 static int
-dba_backend_lookup(char const *backend, dba_backend_t **out_dbe)
+dba_backend_lookup(char const *name, dba_backend_t **out_dbe)
 {
-  dba_backend_t *current;
+  dba_backend_t *curbe;
 
-  for (current = dba_backend_table; current != NULL; current++) {
-    if (strcmp(current->backend, backend) == 0) {
-      *out_dbe = current;
+  for (curbe = dba_backend_table; curbe != NULL; curbe++) {
+    if (strcmp(curbe->name, name) == 0) {
+      *out_dbe = curbe;
       return DBA_SUCCESS;
     }
   }
