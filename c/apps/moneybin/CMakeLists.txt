@@ -31,6 +31,10 @@ option(WITH_MYSQL "Use MySQL library" ON)
 if (WITH_MYSQL)
   include(FindMySQL)
   find_package(MySQL REQUIRED)
+  if (MYSQL_FOUND)
+  else ()
+    message("MySQL not found")
+  endif()
 endif()
 
 set(SRCS
