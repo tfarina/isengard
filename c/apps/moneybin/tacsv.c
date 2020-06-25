@@ -6,11 +6,6 @@
 #include "ta.h"
 #include "third_party/libcsv/csv.h"
 
-typedef enum return_code_e {
-  RC_SUCCESS,    /* No error */
-  RC_ERROR,
-} return_code_t;
-
 typedef struct csv_counts_s {
   long unsigned fields;
   long unsigned rows;
@@ -42,30 +37,30 @@ typedef enum csv_column_e {
   CSV_COLUMN_VOLUME
 } csv_column_t;
 
-static char *parse_str(char const *field, size_t length, return_code_t *rc) {
+static char *parse_str(char const *field, size_t length, int *rc) {
   if (length > 0) {
     char *str = (char *)malloc((length + 1) * sizeof(char));
     strncpy(str, field, length + 1);
 
-    *rc = RC_SUCCESS;
+    *rc = TA_SUCCESS;
     return str;
   }
 
-  *rc = RC_ERROR;
+  *rc = TA_FAILURE;
   return NULL;
 }
 
-static double parse_price(char const *field, size_t length, return_code_t *rc) {
+static double parse_price(char const *field, size_t length, int *rc) {
   char *endptr;
   double price;
 
   price = (double)strtod(field, &endptr);
   if (length > 0 && (endptr == NULL || *endptr == '\0')) {
-    *rc = RC_SUCCESS;
+    *rc = TA_SUCCESS;
     return price;
   }
 
-  *rc = RC_ERROR;
+  *rc = TA_FAILURE;
   return -1.0f;
 }
 
@@ -87,7 +82,7 @@ static void csv_row_count_cb(int c, void *data) {
 static void csv_read_field_cb(void *field, size_t field_length, void *data) {
   csv_state_t *state = (csv_state_t *)data;
   char *buffer;
-  return_code_t rc;
+  int rc;
 
   if (state->ignore_first_line) {
     return;
@@ -119,7 +114,7 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
     state->bars->volume[state->row] = atoi(buffer);
     break;
   default:
-    rc = RC_ERROR;
+    rc = TA_FAILURE;
     break;
   }
 
