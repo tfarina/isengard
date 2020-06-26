@@ -74,10 +74,9 @@ target_link_libraries(trade libcsv)
 
 find_package(CURL REQUIRED)
 
-include_directories(${CURL_INCLUDE_DIRS})
-
 add_executable(csvget csvget.c)
 target_link_libraries(csvget moneybin ${CURL_LIBRARIES})
+target_include_directories(csvget PUBLIC ${CURL_INCLUDE_DIRS})
 
 add_executable(csvimport csvimport.c)
 target_link_libraries(csvimport iniparser libcsv moneybin ${MYSQL_LIBRARIES})
