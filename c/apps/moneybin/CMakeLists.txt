@@ -24,7 +24,6 @@ add_subdirectory(third_party/iniparser)
 add_subdirectory(third_party/libconfigini)
 add_subdirectory(third_party/ini)
 add_subdirectory(third_party/libcsv)
-add_subdirectory(third_party/sqlite)
 
 option(WITH_MYSQL "Use MySQL library" ON)
 
@@ -35,6 +34,12 @@ if (WITH_MYSQL)
   else ()
     message("MySQL not found")
   endif()
+endif()
+
+option(WITH_SQLITE "Use SQLite3 library" ON)
+
+if (WITH_SQLITE)
+  add_subdirectory(third_party/sqlite)
 endif()
 
 set(SRCS
