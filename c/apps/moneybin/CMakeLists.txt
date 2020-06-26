@@ -40,7 +40,7 @@ endif()
 set(SRCS
   sfldate.c
   timestamp.c
-  backend_mysql.c
+  backends/mysql.c
   buffer.c
   csv_helper.c
   curl_write_callbacks.c
