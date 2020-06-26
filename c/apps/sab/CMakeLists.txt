@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 project(sab C)
 
-add_compile_options(-std=c99)
-add_compile_options(-pedantic)
-add_compile_options(-pthread)
-
 add_subdirectory(third_party/sqlite)
 add_subdirectory(src)
 
