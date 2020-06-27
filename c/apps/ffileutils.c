@@ -16,7 +16,11 @@ char *f_build_filename(char *dir, char *file)
 
   path = (char *) malloc(len);
 
-  sprintf(path, "%s/%s", dir, file);
+  strcpy(path, dir);
+
+  strcat(path, "/");
+
+  strcat(path, file);
 
   return path;
 }
