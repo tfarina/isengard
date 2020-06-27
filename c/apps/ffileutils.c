@@ -34,7 +34,8 @@ char *f_read_file(const char *filename, size_t *rlen)
   char *buf;
   size_t bytes_read;
 
-  if ((fp = fopen(filename, "rb")) == NULL) {
+  fp = fopen(filename, "rb");
+  if (fp == NULL) {
     fprintf(stderr, "error opening %s file\n", filename);
     return NULL;
   }
@@ -45,7 +46,8 @@ char *f_read_file(const char *filename, size_t *rlen)
     return NULL;
   }
 
-  if ((fsize = ftell(fp)) == -1) {
+  fsize = ftell(fp);
+  if (fsize == -1) {
     fprintf(stderr, "unable to ftell file %s\n", filename);
     fclose(fp);
     return NULL;
@@ -57,7 +59,8 @@ char *f_read_file(const char *filename, size_t *rlen)
     return NULL;
   }
 
-  if ((buf = malloc(sizeof(char) * fsize)) == NULL) {
+  buf = malloc(sizeof(char) * fsize);
+  if (buf == NULL) {
     fprintf(stderr, "malloc failed (file too large?): %s\n", strerror(errno));
     fclose(fp);
     return NULL;
