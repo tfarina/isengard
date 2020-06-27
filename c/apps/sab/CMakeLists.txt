@@ -12,4 +12,4 @@ add_compile_options(-Wno-unused-parameter)
 
 add_subdirectory(src/cli)
 add_subdirectory(src/gui)
-add_subdirectory(example)
+add_subdirectory(src/examples)
