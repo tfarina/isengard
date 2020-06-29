@@ -10,8 +10,11 @@ project(echod LANGUAGES C VERSION 0.1.0)
 include(GNUInstallDirs)
 
 include(CheckIncludeFiles)
+include(CheckFunctionExists)
 
 check_include_files(getopt.h HAVE_GETOPT_H)
+
+check_function_exists(getopt HAVE_GETOPT)
 
 set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-ansi -std=c89 -pedantic -Wall -Wextra -Werror -Wmissing-declarations -Wstrict-prototypes -Wmissing-prototypes -Wdeclaration-after-statement")
 
