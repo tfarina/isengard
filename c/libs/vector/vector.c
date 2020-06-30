@@ -124,11 +124,11 @@ void *vector_data(vector_t const * const self)
 
 int vector_empty(vector_t const * const self)
 {
-  if (self == NULL) {
-    return 1;
-  }
+        if (self == NULL) {
+                return 1;
+        }
 
-  return self->size == 0;
+        return self->size == 0;
 }
 
 void vector_free(vector_t *self)
