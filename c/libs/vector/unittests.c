@@ -7,6 +7,8 @@ TEST alloc(void) {
 
   vp = vector_alloc(2);
 
+  ASSERT_EQ(0, vector_size(vp));
+
   PASS();
 }
 
