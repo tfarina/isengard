@@ -2,7 +2,7 @@
 
 #include "vector.h"
 
-TEST alloc(void) {
+TEST vector_test_alloc(void) {
   vector_t *vp;
 
   vp = vector_alloc(2);
@@ -13,7 +13,7 @@ TEST alloc(void) {
 }
 
 SUITE(unittests) {
-  RUN_TEST(alloc);
+  RUN_TEST(vector_test_alloc);
 }
 
 GREATEST_MAIN_DEFS();
