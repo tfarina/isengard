@@ -54,7 +54,7 @@ vector_t *vector_alloc(int capacity)
         size_t element_size;
         void **temp;
 
-        self = (vector_t *) calloc(1, sizeof(*self));
+        self = (vector_t *) malloc(sizeof(*self));
         if (self == NULL) {
 	        return NULL;
 	}
@@ -69,6 +69,7 @@ vector_t *vector_alloc(int capacity)
 
         self->data = temp;
         self->capacity = capacity;
+        self->size = 0;
 
         return self;
 }
