@@ -14,6 +14,7 @@
  */
 static int _vector_insert(vector_t *self, int index, void *element)
 {
+        size_t element_size;
         void **temp;
 
         if (self == NULL) {
@@ -24,10 +25,12 @@ static int _vector_insert(vector_t *self, int index, void *element)
 	        return -EINVAL;
 	}
 
+        element_size = sizeof(void *);
+
         if (self->size + 1 > self->capacity) {
                 /* Triple the capacity, then divide by half and finally increase by one unit. */
                 size_t const new_capacity = self->capacity * 3 / 2 + 1;
-                temp = realloc(self->data, new_capacity * sizeof(void *));
+                temp = realloc(self->data, new_capacity * element_size);
                 if (temp == NULL) {
                         return -ENOMEM;
                 }
@@ -37,7 +40,7 @@ static int _vector_insert(vector_t *self, int index, void *element)
 	}
 
         memmove(self->data + index + 1, self->data + index,
-                (self->size - index) * sizeof(void *));
+                (self->size - index) * element_size);
 
         self->data[index] = element;
         self->size++;
@@ -48,6 +51,7 @@ static int _vector_insert(vector_t *self, int index, void *element)
 vector_t *vector_alloc(int capacity)
 {
         vector_t *self;
+        size_t element_size;
         void **temp;
 
         self = (vector_t *) calloc(1, sizeof(*self));
@@ -55,7 +59,9 @@ vector_t *vector_alloc(int capacity)
 	        return NULL;
 	}
 
-        temp = (void **) malloc(capacity * sizeof(void *));
+	element_size = sizeof(void *);
+
+        temp = (void **) malloc(capacity * element_size);
         if (temp == NULL) {
 	        free(self);
 	        return NULL;
