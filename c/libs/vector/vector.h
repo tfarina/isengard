@@ -29,7 +29,7 @@ typedef struct vector_s
  *
  * @return A new instance of vector_t or `NULL` on error.
  */
-vector_t *vector_alloc(int capacity);
+vector_t *vector_alloc(size_t capacity);
 
 /**
  * Inserts the specified element at the end of the array.
