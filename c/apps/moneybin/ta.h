@@ -1,9 +1,12 @@
 #ifndef TA_H_
 #define TA_H_
 
+/**
+ * Error codes.
+ */
 enum {
   TA_SUCCESS = 0,    /* No error */
-  TA_FAILURE = -1
+  TA_FAILURE = -1    /* Generic error */
 };
 
 typedef struct ta_bars_s {
