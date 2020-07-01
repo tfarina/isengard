@@ -7,6 +7,11 @@
 #include <string.h>
 
 /**
+ * Inserts the specified element at the given position at #self.
+ *
+ * @param self The container instance.
+ * @param index The position where the element has to be inserted.
+ * @param element The element to be inserted.
  *
  * @return 0       If no error.
  * @return -EINVAL If invalid argument.
