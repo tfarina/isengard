@@ -13,9 +13,7 @@
  * @param index The position where the element has to be inserted.
  * @param element The element to be inserted.
  *
- * @return 0       If no error.
- * @return -EINVAL If invalid argument.
- * @return -ENOMEM If out of memory.
+ * @return zero on success, error code on error.
  */
 static int _vector_insert(vector_t *self, int index, void *element)
 {
