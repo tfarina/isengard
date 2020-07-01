@@ -141,9 +141,13 @@ void vector_free(vector_t *self)
                 return;
         }
 
-        free(self->data);
-        self->data = NULL;
+	if (self->data != NULL) {
+                free(self->data);
+                self->data = NULL;
+	}
+
         self->capacity = 0;
         self->size = 0;
+
         free(self);
 }
