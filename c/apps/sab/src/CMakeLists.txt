@@ -9,6 +9,14 @@ set(SOURCES
   strutils.c
 )
 
+set(HEADERS
+  ab.h
+  abook_contact.h
+  alpm_list.h
+  arraysize.h
+  strutils.h
+)
+
 add_library(ab
   ${SOURCES}
 )
