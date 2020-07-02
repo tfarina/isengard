@@ -24,6 +24,10 @@ set(SRCS
   vector.c
 )
 
+set(HDRS
+  vector.h
+)
+
 add_library(vector ${SRCS})
 
 add_executable(vector_example examples/vector_example.c)
