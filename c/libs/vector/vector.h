@@ -15,6 +15,9 @@ typedef struct vector_s
         /* This is a pointer to an array of elements of any type. */
         void **data; /* void *data[] */
 
+        /* The size of each element (in bytes). */
+        size_t datasize;
+
         /* The maximum number of pointers (allocated elements). */
 	size_t capacity;
 
@@ -25,11 +28,12 @@ typedef struct vector_s
 /**
  * Creates a new instance of vector_t with at least the specified capacity.
  *
+ * @param[in] datasize  The size of each element (in bytes).
  * @param[in] capacity  The max number of elements.
  *
  * @return A new instance of vector_t or `NULL` on error.
  */
-vector_t *vector_alloc(size_t capacity);
+vector_t *vector_alloc(size_t datasize, size_t capacity);
 
 /**
  * Inserts the specified element at the end of the array.

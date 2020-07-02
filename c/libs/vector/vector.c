@@ -17,7 +17,6 @@
  */
 static int _vector_insert(vector_t *self, int index, void *element)
 {
-        size_t element_size;
         void **temp;
 
         if (self == NULL) {
@@ -28,12 +27,10 @@ static int _vector_insert(vector_t *self, int index, void *element)
 	        return -1;
 	}
 
-        element_size = sizeof(void *);
-
         if (self->size + 1 > self->capacity) {
                 /* Increase the capacity by one to make room for the new element, then double it. */
 	        size_t const new_capacity = (self->capacity + 1) * 2;
-                temp = realloc(self->data, new_capacity * element_size);
+                temp = realloc(self->data, self->datasize * new_capacity);
                 if (temp == NULL) {
                         return -1;
                 }
@@ -43,7 +40,7 @@ static int _vector_insert(vector_t *self, int index, void *element)
 	}
 
         memmove(self->data + index + 1, self->data + index,
-                (self->size - index) * element_size);
+                (self->size - index) * self->datasize);
 
         self->data[index] = element;
         self->size++;
@@ -51,24 +48,22 @@ static int _vector_insert(vector_t *self, int index, void *element)
         return 0;
 }
 
-vector_t *vector_alloc(size_t capacity)
+vector_t *vector_alloc(size_t datasize, size_t capacity)
 {
         vector_t *self;
-        size_t element_size;
 
         self = (vector_t *) malloc(sizeof(*self));
         if (self == NULL) {
 	        return NULL;
 	}
 
-	element_size = sizeof(void *);
-
-        self->data = (void **) malloc(capacity * element_size);
+        self->data = (void **) malloc(datasize * capacity);
         if (self->data == NULL) {
 	        free(self);
 	        return NULL;
 	}
 
+	self->datasize = datasize;
         self->capacity = capacity;
         self->size = 0;
 
