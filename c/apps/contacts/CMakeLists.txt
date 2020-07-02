@@ -3,7 +3,9 @@ project(mysql C)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")    
+# Add local cmake modules
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+
 find_package(MySQL)
 
 add_subdirectory(third_party/iniparser)
