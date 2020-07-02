@@ -13,7 +13,7 @@
  * @param index The position where the element has to be inserted.
  * @param element The element to be inserted.
  *
- * @return zero on success, error code on error.
+ * @return On success, zero is returned. On error, -1 is returned.
  */
 static int _vector_insert(vector_t *self, int index, void *element)
 {
@@ -21,11 +21,11 @@ static int _vector_insert(vector_t *self, int index, void *element)
         void **temp;
 
         if (self == NULL) {
-	        return -EINVAL;
+	        return -1;
 	}
 
         if (index < 0 || index > self->size) {
-	        return -EINVAL;
+	        return -1;
 	}
 
         element_size = sizeof(void *);
@@ -35,7 +35,7 @@ static int _vector_insert(vector_t *self, int index, void *element)
                 size_t const new_capacity = self->capacity * 3 / 2 + 1;
                 temp = realloc(self->data, new_capacity * element_size);
                 if (temp == NULL) {
-                        return -ENOMEM;
+                        return -1;
                 }
 
                 self->data = temp;
