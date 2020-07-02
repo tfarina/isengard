@@ -21,6 +21,12 @@
 # define M_LIKELY(exp)   (exp)
 #endif
 
+/**
+ * M_STRINGIFY:
+ * @x: macro.
+ *
+ * Turns the macro @x into a string.
+ **/
 #define M_STRINGIFY_(x) #x
 #define M_STRINGIFY(x)  M_STRINGIFY_(x)
 
