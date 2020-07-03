@@ -1,8 +1,9 @@
 
-
 # Disallow in-source builds to prevent source tree corruption.
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
-  message(FATAL_ERROR "Do not build in-source.\nPlease remove CMakeCache.txt and the CMakeFiles/ directory.\nThen: mkdir build ; cd build ; then call cmake from there.")
+  message(FATAL_ERROR
+    "In-source builds are not allowed! Make a separate folder for"
+    " building.")
 endif()
 
 cmake_minimum_required(VERSION 3.0)
