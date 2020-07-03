@@ -12,14 +12,19 @@ TEST vector_test_alloc(void) {
   PASS();
 }
 
-SUITE(unittests) {
+SUITE(vector_suite) {
   RUN_TEST(vector_test_alloc);
 }
 
 GREATEST_MAIN_DEFS();
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   GREATEST_MAIN_BEGIN();      /* init & parse command-line args */
-  RUN_SUITE(unittests);
+
+  RUN_SUITE(vector_suite);
+
   GREATEST_MAIN_END();        /* display results */
+
+  return 0;
 }
