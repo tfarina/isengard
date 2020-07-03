@@ -40,6 +40,6 @@ target_link_libraries(vector_example vector)
 option(BUILD_TESTS "Build the unit tests" ON)
 
 if (BUILD_TESTS)
-  add_executable(unittests greatest.h unittests.c)
+  add_executable(unittests greatest.h vector_test.c unittests.c)
   target_link_libraries(unittests vector)
 endif()
