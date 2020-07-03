@@ -44,12 +44,12 @@ vector_t *vector_alloc(size_t datasize, size_t capacity);
 void vector_push_back(vector_t *self, void *element);
 
 /**
- * Returns the element at the specified index in the array.
+ * Returns the pointer to the element at specified location index.
  *
  * @param[in,out] self  The vector instance (must not be NULL).
  * @param[in]     index The index of the element.
  *
- * @return The element at specified index or `NULL` on error.
+ * @return Pointer to the element at specified index or `NULL` if it doesn't exists.
  */
 void *vector_at(vector_t const * const self, int unsigned const index);
 
