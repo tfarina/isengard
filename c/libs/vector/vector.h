@@ -12,8 +12,8 @@ extern "C" {
  */
 typedef struct vector_s
 {
-        /* This is a pointer to an array of elements of any type. */
-        void **data; /* void *data[] */
+        /* The pointer to the underlying array data. */
+        void *data;
 
         /* The size of each element (in bytes). */
         size_t datasize;

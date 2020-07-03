@@ -36,10 +36,7 @@ static int _vector_insert(vector_t *self, int index, void *element)
                 self->capacity = new_capacity;
 	}
 
-        memmove(self->data + index + 1, self->data + index,
-                (self->size - index) * self->datasize);
-
-        *(self->data + index) = element;
+        memcpy((char *)self->data + (index * self->datasize), element, self->datasize);
         self->size++;
 
         return 0;
@@ -54,7 +51,7 @@ vector_t *vector_alloc(size_t datasize, size_t capacity)
 	        return NULL;
 	}
 
-        self->data = (void **) malloc(datasize * capacity);
+        self->data = malloc(datasize * capacity);
         if (self->data == NULL) {
 	        free(self);
 	        return NULL;
@@ -86,7 +83,10 @@ void *vector_at(vector_t const * const self, int unsigned const index)
                 return NULL;
         }
 
-        return self->data[index];
+        /**
+         * A cast to char* is necessary as void* cannot deal with pointer arithmetic.
+         */
+        return (void *) ((char *)self->data + (index * self->datasize));
 }
 
 size_t vector_size(vector_t const * const self)
@@ -113,7 +113,7 @@ void *vector_data(vector_t const * const self)
                 return NULL;
         }
 
-        return *self->data;
+        return self->data;
 }
 
 int vector_empty(vector_t const * const self)
