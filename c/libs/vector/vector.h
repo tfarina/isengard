@@ -8,7 +8,7 @@ extern "C" {
 #endif
 
 /**
- * A vector_t is a variable length array.
+ * vector_t is a container that encapsulates a dynamic size array.
  */
 typedef struct vector_s
 {
