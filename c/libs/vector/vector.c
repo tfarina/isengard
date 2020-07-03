@@ -17,8 +17,6 @@
  */
 static int _vector_insert(vector_t *self, int index, void *element)
 {
-        void **temp;
-
         if (self == NULL) {
 	        return -1;
 	}
@@ -30,12 +28,11 @@ static int _vector_insert(vector_t *self, int index, void *element)
         if (self->size + 1 > self->capacity) {
                 /* Increase the capacity by one to make room for the new element, then double it. */
 	        size_t const new_capacity = (self->capacity + 1) * 2;
-                temp = realloc(self->data, self->datasize * new_capacity);
-                if (temp == NULL) {
+                self->data = realloc(self->data, self->datasize * new_capacity);
+                if (self->data == NULL) {
                         return -1;
                 }
 
-                self->data = temp;
                 self->capacity = new_capacity;
 	}
 
