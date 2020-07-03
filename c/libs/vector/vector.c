@@ -39,7 +39,7 @@ static int _vector_insert(vector_t *self, int index, void *element)
         memmove(self->data + index + 1, self->data + index,
                 (self->size - index) * self->datasize);
 
-        self->data[index] = element;
+        *(self->data + index) = element;
         self->size++;
 
         return 0;
