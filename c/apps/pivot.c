@@ -1,14 +1,23 @@
-#include "pivot.h"
-
 /**
+ * The pivot point is calculated from the high (H), low (L) and close (C)
+ * of the previous day.
+ *
  * Pivot point = P = (H + L + C) / 3
+ *
+ * Resistance:
+ *
  * First area of resistance = R1 = 2P - L
  * Second area of resistance = R2 = P + (R1 - S1)
  * Third area of resistance = R3 = H + 2 * (P - L)
+ *
+ * Support:
+ *
  * First area of support = S1 = 2P - H
  * Second area of support = S2 = P - (R1 - S1)
  * Third area of support = S3 = L - 2 * (H - P)
  */
+
+#include "pivot.h"
 
 float pivot_point(float high, float low, float close)
 {
