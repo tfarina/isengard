@@ -1,14 +1,20 @@
 cmake_minimum_required(VERSION 2.6)
 project(cJSON C)
 
-set(SRCS
-    cJSON.c)
+#cJSON
+set(CJSON_LIB cjson)
 
-add_library(cJSON ${SRCS})
+file(GLOB HEADERS cJSON.h)
+set(SOURCES cJSON.c)
+
+add_library("${CJSON_LIB}" "${CJSON_LIBRARY_TYPE}" "${HEADERS}" "${SOURCES}")
+if (NOT WIN32)
+  target_link_libraries("${CJSON_LIB}" m)
+endif()
 
 option(ENABLE_CJSON_TEST "Enable building cJSON test" ON)
 if (ENABLE_CJSON_TEST)
   set(TEST_CJSON cJSON_test)
-  add_executable(cJSON_test cJSONTest.c)
-  target_link_libraries(cJSON_test cJSON -lm)
+  add_executable("${TEST_CJSON}" cJSONTest.c)
+  target_link_libraries("${TEST_CJSON}" "${CJSON_LIB}")
 endif()
