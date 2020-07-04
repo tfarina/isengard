@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
 
   if (argc != 2) {
     fprintf(stderr, "usage: readfile <filename>\n");
-    exit(EXIT_FAILURE);
+    return -1;
   }
 
   buf = f_read_file(argv[1], &len);
