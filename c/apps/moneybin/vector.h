@@ -18,10 +18,10 @@ typedef struct vector_s
         /* The size of each element (in bytes). */
         size_t datasize;
 
-        /* The maximum number of pointers (allocated elements). */
+        /* The current number of elements the array can hold. */
 	size_t capacity;
 
-        /* The current number of pointers (elements) in the array. */
+        /* The current number of elements stored in the array. */
 	size_t size;
 } vector_t;
 
