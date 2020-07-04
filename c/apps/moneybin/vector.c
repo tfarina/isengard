@@ -1,123 +1,140 @@
 #include "vector.h"
 
-#include <stdarg.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "macros.h"
-
-static void NORETURN fatal(const char *msg, ...)
-{
-        va_list args;
-
-        va_start(args, msg);
-
-        fprintf(stderr, "fatal: ");
-        vfprintf(stderr, msg, args);
-        fprintf(stderr, "\n");
-
-        va_end(args);
-
-        exit(EXIT_FAILURE);
-}
-
-static void *xmalloc(size_t size)
-{
-        void *ptr;
-
-        if (size == 0) {
-          fatal("zero size");
-	}
-
-        if ((ptr = malloc(size)) == NULL) {
-	  fatal("Out of memory, malloc failed, tried to allocate %lu bytes", (unsigned long)size);
-        }
-
-        return ptr;
-}
-
-static void *xcalloc(size_t nmemb, size_t size)
-{
-        void *ptr;
-
-        if ((ptr = calloc(nmemb, size)) == NULL) {
-	        fatal("xcalloc failed");
-	}
-
-        return ptr;
-}
-
-static void *xrealloc(void *oldptr, size_t newsize)
-{
-        void *newptr;
-
-	newptr = realloc(oldptr, newsize);
-        if (newptr == NULL) {
-                fatal("out of memory: %lu", newsize);
-	}
-
-	return newptr;
-}
-
+/**
+ * Inserts the specified element at the given position at #self.
+ *
+ * @param self The container instance.
+ * @param index The position where the element has to be inserted.
+ * @param element The element to be inserted.
+ *
+ * @return On success, zero is returned. On error, -1 is returned.
+ */
 static int _vector_insert(vector_t *self, int index, void *element)
 {
-        if (index < 0 || !self || index > self->size) {
+        if (self == NULL) {
+	        return -1;
+	}
+
+        if (index < 0 || index > self->size) {
 	        return -1;
 	}
 
         if (self->size + 1 > self->capacity) {
-                size_t const new_capacity = (self->size + 1) * 2;
-                self->elements = xrealloc(self->elements, new_capacity * sizeof(void *));
+                /* Increase the capacity by one to make room for the new element, then double it. */
+	        size_t const new_capacity = (self->capacity + 1) * 2;
+                self->data = realloc(self->data, self->datasize * new_capacity);
+                if (self->data == NULL) {
+                        return -1;
+                }
+
                 self->capacity = new_capacity;
 	}
 
-        memmove(&self->elements[index + 1], &self->elements[index], (self->size - index) * sizeof(void *));
-
-        self->elements[index] = element;
+        memcpy((char *)self->data + (index * self->datasize), element, self->datasize);
         self->size++;
 
         return 0;
 }
 
-vector_t *vector_alloc(int capacity)
+vector_t *vector_alloc(size_t datasize, size_t capacity)
 {
-        vector_t *self = NULL;
+        vector_t *self;
 
-        self = xcalloc(1, sizeof(vector_t));
+        self = (vector_t *) malloc(sizeof(*self));
+        if (self == NULL) {
+	        return NULL;
+	}
 
-        self->elements = xmalloc(capacity * sizeof(void *));
+        self->data = malloc(datasize * capacity);
+        if (self->data == NULL) {
+	        free(self);
+	        return NULL;
+	}
+
+	self->datasize = datasize;
         self->capacity = capacity;
+        self->size = 0;
 
         return self;
 }
 
-int vector_push_back(vector_t *self, void *element)
+void vector_push_back(vector_t *self, void *element)
 {
-        return self ? _vector_insert(self, self->size, element) : -1;
+        if (self == NULL) {
+                return;
+        }
+
+        _vector_insert(self, self->size, element);
 }
 
-void *vector_get(vector_t const * const self, int const index)
+void *vector_at(vector_t const * const self, int unsigned const index)
 {
-        if (index < 0 || !self || index >= self->size) {
+        if (self == NULL) {
                 return NULL;
         }
 
-        return self->elements[index];
+        if (index >= self->size) {
+                return NULL;
+        }
+
+        /**
+         * A cast to char* is necessary as void* cannot deal with pointer arithmetic.
+         */
+        return (void *) ((char *)self->data + (index * self->datasize));
 }
 
 size_t vector_size(vector_t const * const self)
 {
-        return self ? self->size : 0;
+        if (self == NULL) {
+	        return 0;
+	}
+
+        return self->size;
+}
+
+size_t vector_capacity(vector_t const * const self)
+{
+        if (self == NULL) {
+	        return 0;
+	}
+
+        return self->capacity;
+}
+
+void *vector_data(vector_t const * const self)
+{
+        if (self == NULL) {
+                return NULL;
+        }
+
+        return self->data;
+}
+
+int vector_empty(vector_t const * const self)
+{
+        if (self == NULL) {
+                return 1;
+        }
+
+        return self->size == 0;
 }
 
 void vector_free(vector_t *self)
 {
-        if (self) {
-                free(self->elements);
-                self->elements = NULL;
-                self->capacity = 0;
-                self->size = 0;
-                free(self);
+        if (self == NULL) {
+                return;
         }
+
+	if (self->data != NULL) {
+                free(self->data);
+                self->data = NULL;
+	}
+
+        self->capacity = 0;
+        self->size = 0;
+
+        free(self);
 }

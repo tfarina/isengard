@@ -337,7 +337,7 @@ int main(int argc, char **argv) {
   filename = f_strdup(argv[1]);
   symbol = f_strdup(argv[2]);
 
-  quotes = vector_alloc(256);
+  quotes = vector_alloc(sizeof(quote_t), 256);
 
   csv_read_quotes(filename, quotes);
 
@@ -365,7 +365,7 @@ int main(int argc, char **argv) {
   int id;
 
   for (i = 0; i < vector_size(quotes); i++) {
-    quote_t *quote = vector_get(quotes, i);
+    quote_t *quote = vector_at(quotes, i);
 
     id = quote_id(handle, symbol, quote);
     if (id == -1) {
