@@ -1,9 +1,11 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "third_party/cJSON/cJSON.h"
 
 int main(int argc, char **argv) {
+  char filename[] = "./menu.json";
   FILE *f;
   long length;
   void *data;
@@ -12,7 +14,7 @@ int main(int argc, char **argv) {
   cJSON *j_menu, *j_obj;
   char *filestr;
 
-  f = fopen("./menu.json", "rb");
+  f = fopen(filename, "rb");
   if (f == NULL || fseek(f, 0, SEEK_END) != 0) {
     goto out;
   }
