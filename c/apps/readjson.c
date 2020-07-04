@@ -2,14 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "ffileutils.h"
+
 #include "third_party/cJSON/cJSON.h"
 
 int main(int argc, char **argv) {
   char *filename = NULL;
-  FILE *f;
-  long length;
-  void *data;
-  size_t bytes_read;
+  size_t fsize;
+  char *file;
   cJSON *json;
   char *out;
 
@@ -20,28 +20,9 @@ int main(int argc, char **argv) {
 
   filename = argv[1];
 
-  f = fopen(filename, "rb");
-  if (f == NULL || fseek(f, 0, SEEK_END) != 0) {
-    goto out;
-  }
+  file = f_read_file(filename, &fsize);
 
-  length = ftell(f);
-  if (length < 0) {
-    goto out;
-  }
-
-  data = malloc(length);
-  if (data == NULL) {
-    goto out;
-  }
-  rewind(f);
-
-  bytes_read = fread(data, 1, length, f);
-  if (ferror(f) != 0 || bytes_read != (size_t)length) {
-    goto out;
-  }
-
-  json = cJSON_Parse((char*)data);
+  json = cJSON_Parse(file);
   if (!json) {
     fprintf(stderr, "cJSON_Parse() failed: %s\n", cJSON_GetErrorPtr());
     exit(EXIT_FAILURE);
@@ -51,12 +32,6 @@ int main(int argc, char **argv) {
   cJSON_Delete(json);
   printf("%s\n", out);
   free(out);
-
-out:
-  if (f != NULL) {
-    fclose(f);
-  }
-  free(data);
 
   return 0;
 }
