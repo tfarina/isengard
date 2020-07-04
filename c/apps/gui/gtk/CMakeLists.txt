@@ -24,4 +24,10 @@ if (GTK2_FOUND)
 
   add_executable(listview listview.c)
   target_link_libraries(listview ${GTK2_LIBRARIES})
+
+  add_subdirectory(third_party/sqlite)
+  add_executable(ui ui.c)
+  add_dependencies(ui sqlite3)
+  target_include_directories(ui PUBLIC ${GTK2_INCLUDE_DIRS})
+  target_link_libraries(ui sqlite3 ${GTK2_LIBRARIES})
 endif()
