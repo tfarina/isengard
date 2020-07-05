@@ -11,6 +11,8 @@
 #include "ffileutils.h"
 #include "fstrutils.h"
 
+#define MAXURLLEN 256
+
 static char *crumb;
 
 /*https://github.com/jerryvig/cython-project1/blob/351aece6a910ecff8867708fa16155a6bc444217/compute_statistics.c#L53*/
@@ -42,8 +44,8 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   CURL *curl;
   CURLcode result;
   buffer_t html;
-  char histurl[128];
-  char downloadurl[256];
+  char histurl[MAXURLLEN];
+  char downloadurl[MAXURLLEN];
 
   result = curl_global_init(CURL_GLOBAL_DEFAULT);
   if (result != CURLE_OK) {
@@ -65,7 +67,7 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   buffer_init(&html);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&html);
 
-  memset(histurl, 0, 128);
+  memset(histurl, 0, MAXURLLEN);
   sprintf(histurl, "https://finance.yahoo.com/quote/%s/history", symbol);
   curl_easy_setopt(curl, CURLOPT_URL, histurl);
 
@@ -76,8 +78,8 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
     return -1;
   }
 
-  crumb = (char*)malloc(128 * sizeof(char));
-  memset(crumb, 0, 128);
+  crumb = (char*)malloc(MAXURLLEN * sizeof(char));
+  memset(crumb, 0, MAXURLLEN);
   int crumb_failure = get_crumb(html.data, crumb);
   if (crumb_failure) {
     return -1;
@@ -86,7 +88,7 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   buffer_init(out_csv);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)out_csv);
 
-  memset(downloadurl, 0, 256);
+  memset(downloadurl, 0, MAXURLLEN);
   sprintf(downloadurl,
          "https://query1.finance.yahoo.com/v7/finance/download/%s?period1=%ld&period2=%ld&interval=1d&events=history&crumb=%s",
 	  symbol, start_date, end_date, crumb);
