@@ -5,6 +5,7 @@
 
 #include "ta.h"
 #include "third_party/libcsv/csv.h"
+#include "timestamp.h"
 
 typedef struct csv_counts_s {
   long unsigned fields;
@@ -50,6 +51,16 @@ static char *parse_str(char const *field, size_t length, int *rc) {
   return NULL;
 }
 
+static void parse_iso8601_date(char const *field, timestamp_t *timestamp) {
+  int year, month, day;
+
+  year  = atoi(field);
+  month = atoi(field + 5);
+  day   = atoi(field + 8);
+
+  set_date(year, month, day, timestamp);
+}
+
 static double parse_price(char const *field, size_t length, int *rc) {
   char *endptr;
   double price;
@@ -62,6 +73,16 @@ static double parse_price(char const *field, size_t length, int *rc) {
 
   *rc = TA_FAILURE;
   return -1.0f;
+}
+
+static timestamp_t *new_timestamp_from_string(char const *date_string) {
+  timestamp_t *timestamp;
+
+  timestamp = malloc(sizeof(*timestamp));
+
+  parse_iso8601_date(date_string, timestamp);
+
+  return timestamp;
 }
 
 static void csv_field_count_cb(void *field, size_t field_length, void *data) {
@@ -83,6 +104,7 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
   csv_state_t *state = (csv_state_t *)data;
   char *buffer;
   int rc;
+  timestamp_t *timestamp;
 
   if (state->ignore_first_line) {
     return;
@@ -94,6 +116,8 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
 
   switch (state->column) {
   case CSV_COLUMN_DATE:
+    timestamp = new_timestamp_from_string(buffer);
+    memcpy(state->bars->timestamp + state->row, timestamp, sizeof(timestamp_t));
     break;
   case CSV_COLUMN_OPEN:
     state->bars->open[state->row] = parse_price(buffer, field_length, &rc);
@@ -185,6 +209,7 @@ int read_csv(char const *filename, ta_bars_t **outbars) {
 
   bars->numrows = c.rows - (state->ignore_first_line ? 1 : 0);
 
+  bars->timestamp = malloc(sizeof(timestamp_t) * bars->numrows);
   bars->open = malloc(sizeof(double) * bars->numrows);
   bars->high = malloc(sizeof(double) * bars->numrows);
   bars->low = malloc(sizeof(double) * bars->numrows);

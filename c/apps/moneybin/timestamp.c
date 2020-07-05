@@ -69,3 +69,16 @@ int unsigned get_day(timestamp_t const *timestamp) {
 
   return GET_DAY(timestamp->date);
 }
+
+void ta_getdate(timestamp_t const *timestamp,
+		int unsigned *year,
+		int unsigned *month,
+		int unsigned *day) {
+  if (timestamp == NULL) {
+    return;
+  }
+
+  *year = get_year(timestamp);
+  *month = get_month(timestamp);
+  *day = get_day(timestamp);
+}

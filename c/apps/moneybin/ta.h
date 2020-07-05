@@ -1,6 +1,8 @@
 #ifndef TA_H_
 #define TA_H_
 
+#include "timestamp.h"
+
 /**
  * Error codes.
  */
@@ -11,6 +13,8 @@ enum {
 
 typedef struct ta_bars_s {
   long unsigned numrows;
+
+  timestamp_t *timestamp;
   double *open;
   double *high;
   double *low;

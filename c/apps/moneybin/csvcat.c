@@ -7,8 +7,15 @@
 
 static void print_matrix(ta_bars_t *b) {
   int i;
+  int year, month, day;
+  timestamp_t *timestamp;
 
   for (i = 0; i < b->numrows; i++) {
+    timestamp = &b->timestamp[i];
+
+    ta_getdate(timestamp, &year, &month, &day);
+
+    printf("%04d-%02d-%02d ", year, month, day);
     printf("%9.3f ", b->open[i]);
     printf("%9.3f ", b->high[i]);
     printf("%9.3f ", b->low[i]);

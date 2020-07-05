@@ -63,14 +63,14 @@ set(SRCS
 add_library(moneybin ${SRCS})
 target_link_libraries(moneybin iniparser libconfigini ini libcsv ${MYSQL_LIBRARIES})
 
-add_executable(csvcat fstrutils.c tacsv.c csvcat.c)
+add_executable(csvcat sfldate.c timestamp.c tacsv.c fstrutils.c csvcat.c)
 target_link_libraries(csvcat libcsv)
 
-add_executable(csvstats fstrutils.c stats.c tacsv.c csvstats.c)
+add_executable(csvstats sfldate.c timestamp.c fstrutils.c stats.c tacsv.c csvstats.c)
 target_link_libraries(csvstats libcsv -lm)
 
 add_executable(sma_test sma.c sma_test.c)
-add_executable(trade vector.c crossover.c tacsv.c trade.c)
+add_executable(trade sfldate.c timestamp.c vector.c crossover.c tacsv.c trade.c)
 target_link_libraries(trade libcsv)
 
 find_package(CURL REQUIRED)

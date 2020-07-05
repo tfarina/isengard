@@ -18,4 +18,9 @@ int unsigned get_year(timestamp_t const *timestamp);
 int unsigned get_month(timestamp_t const *timestamp);
 int unsigned get_day(timestamp_t const *timestamp);
 
+void ta_getdate(timestamp_t const *timestamp,
+		int unsigned *year,
+		int unsigned *month,
+		int unsigned *day);
+
 #endif  /* TIMESTAMP_H_ */
