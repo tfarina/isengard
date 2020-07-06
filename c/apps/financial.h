@@ -11,27 +11,27 @@ double percentage_change(double old_value, double new_value);
 /**
  * Computes the future value.
  *
- * @param pv   a present value
- * @param rate an interest 'rate' compounded once per period
+ * @param pv   the present value
+ * @param i    the interest rate compounded once per period
  * @param n    the number of periods (e.g., 10 years)
  *
  * @return the value at the end of 'n' periods
  */
-double future_value(double pv, double rate, double n);
+double future_value(double pv, double i, double n);
 
 /**
  * Computes the present value.
  *
- * @param fv   a future value
- * @param rate an interest 'rate' compounded once per period
+ * @param fv   the future value
+ * @param i    the interest rate compounded once per period
  * @param n    the number of periods (e.g., 10 years).
  */
-double present_value(double fv, double rate, double n);
+double present_value(double fv, double i, double n);
 
 /**
  * Compounding Annual Growth Rate (or CAGR).
  *
- * @param n Represents the number of periods (i.e., 10 years).
+ * @param n the number of periods (e.g., 10 years).
  */
 double growth_rate(double future_value, double present_value, double n);
 

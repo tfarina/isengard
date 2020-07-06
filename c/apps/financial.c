@@ -16,20 +16,20 @@ double percentage_change(double old_value, double new_value)
   return change(old_value, new_value) * 100;
 }
 
-double future_value(double pv, double rate, double n)
+double future_value(double pv, double i, double n)
 {
-  return pv * pow(1 + rate, n);
+  return pv * pow(1 + i, n);
 }
 
-double present_value(double fv, double rate, double n)
+double present_value(double fv, double i, double n)
 {
-  return fv / pow(1 + rate, n);
+  return fv / pow(1 + i, n);
 }
 
 /**
  * Compounding Annual Growth Rate (or CAGR).
  *
- * @param n Represents the number of periods (i.e., 10 years).
+ * @param n the number of periods (e.g., 10 years).
  */
 double growth_rate(double future_value, double present_value, double n)
 {
