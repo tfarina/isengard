@@ -26,13 +26,7 @@ double present_value(double fv, double i, double n)
   return fv / pow(1 + i, n);
 }
 
-/**
- * Compounding Annual Growth Rate (or CAGR).
- *
- * @param n the number of periods (e.g., 10 years).
- */
 double growth_rate(double future_value, double present_value, double n)
 {
   return (pow(future_value / present_value, 1/n) - 1);
 }
-
