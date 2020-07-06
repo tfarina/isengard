@@ -3,7 +3,7 @@
 #include "arraysize.h"
 #include "stats.h"
 
-static void print_array(double *arr, size_t size)
+static void print_array(double const *arr, size_t const size)
 {
   size_t i;
 
