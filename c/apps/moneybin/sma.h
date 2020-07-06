@@ -1,7 +1,8 @@
 #ifndef SMA_H_
 #define SMA_H_
 
-int ta_sma(int size, double const *const *inputs,
-           const int period, double *const *outputs);
+#include <stddef.h>
+
+void smovavg(double const *arr, size_t size, int window, double *outarr);
 
 #endif /* SMA_H_ */

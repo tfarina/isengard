@@ -1,28 +1,38 @@
 #include "sma.h"
 
-int ta_sma(int size, double const *const *inputs,
-           const int period, double *const *outputs) {
-    const double *input = inputs[0];
-    double *output = outputs[0];
-    const double scale = 1.0 / period;
+/**
+ * Calculates a simple moving average.
+ *
+ * Example:
+ *
+ * arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+ * outarr = [ '2.50', '3.50', '4.50', '5.50', '6.50', '7.50' ]
+ *     //=>   │       │       │       │       │       └─(6+7+8+9)/4
+ *     //=>   │       │       │       │       └─(5+6+7+8)/4
+ *     //=>   │       │       │       └─(4+5+6+7)/4
+ *     //=>   │       │       └─(3+4+5+6)/4
+ *     //=>   │       └─(2+3+4+5)/4
+ *     //=>   └─(1+2+3+4)/4
+ */
+void smovavg(double const *arr, size_t size, int window, double *outarr)
+{
+  int i;
+  double sum = 0;
 
-    if (period < 1) return -1;
-    if (size <= period - 1) return 0;
+  /* Calculate the average for each of the first elements. */
+  for (i = 0; i < window; i++) {
+    sum += *(arr + i);
 
-    double sum = 0;
+    *(outarr + i) = sum / (i + 1);
+  }
 
-    int i;
-    for (i = 0; i < period; ++i) {
-        sum += input[i];
-    }
+  for (i = window; i < size; i++) {
+    sum -= *(arr + i - window);  /* Remove the old elements from the sum */
 
-    *output++ = sum * scale;
+    sum += *(arr + i);  /* Add the new (or most recent) elements to the sum */
 
-    for (i = period; i < size; ++i) {
-        sum += input[i];
-        sum -= input[i-period];
-        *output++ = sum * scale;
-    }
 
-    return 0;
+    /* Calculate the average */
+    *(outarr + i) = sum / window;
+  }
 }
