@@ -3,7 +3,7 @@
 #include "arraysize.h"
 #include "stats.h"
 
-static void print_array(double a[], size_t size)
+static void print_array(double *arr, size_t size)
 {
   size_t i;
 
@@ -11,7 +11,7 @@ static void print_array(double a[], size_t size)
     if (i) {
       printf(", ");
     }
-    printf("%.1f", a[i]);
+    printf("%.1f", *(arr + i));
   }
 
   printf("\n\n");
@@ -27,7 +27,7 @@ int main(void)
   double min = 0.0;
   double max = 0.0;
 
-  printf("Array:\n");
+  printf("Array: ");
   print_array(a, ARRAY_SIZE(a));
 
   stats_sum(a, ARRAY_SIZE(a), &sum);
