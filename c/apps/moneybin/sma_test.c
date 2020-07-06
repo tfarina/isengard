@@ -18,29 +18,61 @@ static void print_array(double const *arr, size_t const size)
   printf("\n\n");
 }
 
-int main(void) {
-  double indicator_data[] = { 0.61, 0.60, 0.63, 0.65, 0.69, 0.67, 0.70, 0.68, 0.62, 0.63, 0.61 };
-  int period = 3;
-  int start = 2;
-  const int output_length = ARRAY_SIZE(indicator_data) - start;
-  double *indicator_result;
-  int err;
+/**
+ * Calculates a simple moving average.
+ *
+ * Example:
+ *
+ * arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+ * outarr = [ '2.50', '3.50', '4.50', '5.50', '6.50', '7.50' ]
+ *     //=>   │       │       │       │       │       └─(6+7+8+9)/4
+ *     //=>   │       │       │       │       └─(5+6+7+8)/4
+ *     //=>   │       │       │       └─(4+5+6+7)/4
+ *     //=>   │       │       └─(3+4+5+6)/4
+ *     //=>   │       └─(2+3+4+5)/4
+ *     //=>   └─(1+2+3+4)/4
+ */
+static void smovavg(double const *arr, size_t size, int window, double *outarr)
+{
+  int i;
+  double sum = 0;
 
-  print_array(indicator_data, ARRAY_SIZE(indicator_data));
+  /* Calculate the average for each of the first elements. */
+  for (i = 0; i < window; i++) {
+    sum += *(arr + i);
 
-  printf("The start amount is: %d\n", start);
+    *(outarr + i) = sum / (i + 1);
+  }
 
-  indicator_result = malloc((unsigned int)output_length * sizeof(double));
+  for (i = window; i < size; i++) {
+    sum -= *(arr + i - window);  /* Remove the old elements from the sum */
 
-  printf("The output length is: %d\n", output_length);
+    sum += *(arr + i);  /* Add the new (or most recent) elements to the sum */
 
-  const double *all_inputs[] = {indicator_data};
-  double *all_outputs[] = {indicator_result};
 
-  err = ta_sma(ARRAY_SIZE(indicator_data), all_inputs, period, all_outputs);
+    /* Calculate the average */
+    *(outarr + i) = sum / window;
+  }
+}
 
-  printf("The output data is: ");
-  print_array(indicator_result, output_length);
+int main(void)
+{
+  double arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+  size_t size = ARRAY_SIZE(arr);
+  int window = 4;
+  double *res;
+
+  res = malloc(sizeof(double) * size);
+  if (res == NULL) {
+    return -1;
+  }
+
+  smovavg(arr, size, window, res);
+
+  print_array(arr, size);
+  print_array(res, size);
+
+  free(res);
 
   return 0;
 }
