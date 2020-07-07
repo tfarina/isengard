@@ -19,6 +19,31 @@ static void print_array(double const *arr, size_t const size)
   printf("\n\n");
 }
 
+static void print_movavg(ta_bars_t *b, double *ma1, double *ma2) {
+  int i;
+  int year, month, day;
+  timestamp_t *timestamp;
+
+  printf("# date\t open\t high\t low\t close\t adjClose\t volume\t 5-day moving average close\t 20-day moving average close\n");
+
+  for (i = 0; i < b->numrows; i++) {
+    timestamp = &b->timestamp[i];
+
+    ta_getdate(timestamp, &year, &month, &day);
+
+    printf("%04d-%02d-%02d ", year, month, day);
+    printf("%9.3f ", b->open[i]);
+    printf("%9.3f ", b->high[i]);
+    printf("%9.3f ", b->low[i]);
+    printf("%9.3f ", b->close[i]);
+    printf("%9.3f ", b->adjclose[i]);
+    printf("%d ", b->volume[i]);
+    printf("%9.3f ", *(ma1 + i));
+    printf("%9.3f ", *(ma2 + i));
+    putc('\n', stdout);
+  }
+}
+
 int main(void)
 {
   int err;
@@ -52,6 +77,8 @@ int main(void)
   print_array(bars->close, bars->numrows);
   print_array(ma1, bars->numrows);
   print_array(ma2, bars->numrows);
+
+  print_movavg(bars, ma1, ma2);
 
   return 0;
 }
