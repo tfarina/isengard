@@ -39,6 +39,7 @@ char *f_build_filename(char *dir, char *file)
 char *f_read_file(const char *filename, size_t *rlen)
 {
   FILE *fp;
+  int rv;
   long fsize;
   char *buf;
   size_t bytes_read;
@@ -49,20 +50,22 @@ char *f_read_file(const char *filename, size_t *rlen)
     return NULL;
   }
 
-  if (fseek(fp, 0, SEEK_END) == -1) {
+  rv = fseek(fp, 0, SEEK_END);
+  if (rv < 0) {
     fprintf(stderr, "unable to fseek file %s\n", filename);
     fclose(fp);
     return NULL;
   }
 
   fsize = ftell(fp);
-  if (fsize == -1) {
+  if (fsize < 0) {
     fprintf(stderr, "unable to ftell file %s\n", filename);
     fclose(fp);
     return NULL;
   }
 
-  if (fseek(fp, 0, SEEK_SET) == -1) {
+  rv = fseek(fp, 0, SEEK_SET);
+  if (rv < 0) {
     fprintf(stderr, "unable to fseek file %s\n", filename);
     fclose(fp);
     return NULL;
