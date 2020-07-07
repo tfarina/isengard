@@ -15,11 +15,11 @@ endif()
 add_definitions(-D_GNU_SOURCE)
 
 set(ECHOC_SRCS
-  fnet.c
-  main.c
-  msg.c
-  os_path.c
-  validate.c
+  src/fnet.c
+  src/main.c
+  src/msg.c
+  src/os_path.c
+  src/validate.c
 )
 
 add_executable(echoc ${ECHOC_SRCS})
