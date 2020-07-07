@@ -1,5 +1,5 @@
 reset
-set terminal pngcairo
+set terminal pngcairo size 800,600
 set output 'petr4_movavgs.png'
 set title "PETR4 Stock Chart"
 set grid
