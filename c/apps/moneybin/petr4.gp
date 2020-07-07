@@ -10,6 +10,6 @@ set xdata time # tells gnuplot the x axis is time data
 set timefmt "%Y-%m-%d" # specify our time string format
 set format x "%b %y"
 set xtics rotate # rotate labels on the x axis
-plot 'petr4.dat' using 1:5 notitle with lines lc rgbcolor "green", \
-     'petr4.dat' using 1:8 notitle with lines lc rgbcolor "blue", \
+plot 'petr4.dat' using 1:5 notitle with lines lc rgbcolor "black", \
+     'petr4.dat' using 1:8 notitle with lines lc rgbcolor "green", \
      'petr4.dat' using 1:9 notitle with lines lc rgbcolor "red"
