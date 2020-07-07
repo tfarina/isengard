@@ -39,7 +39,7 @@ static void usage(char const *program_name) {
 	  program_name);
   fprintf(stderr,
 	  "options:" CRLF
-          "  -s, --server=           specify the IP address for the echo server" CRLF
+          "  -s, --server=           specify the server IP address" CRLF
           "  -p, --port=N            set the tcp port of the server (default: %d)" CRLF
           "  -h, --help              display this help and exit" CRLF
 	  "",
