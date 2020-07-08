@@ -1,3 +1,6 @@
+/*
+ * debug.h - Debugging macros for echod.
+ */
 #ifndef _DEBUG_H_INCLUDED_
 #define _DEBUG_H_INCLUDED_ 1
 
