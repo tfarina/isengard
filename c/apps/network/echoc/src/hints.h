@@ -22,7 +22,7 @@
 /**
  * MK_NORETURN:
  *
- * Indicates to the compiler that a function will never return a value.
+ * Indicates to the compiler that a given function never returns.
  */
 
 #if defined(MK_NORETURN)
