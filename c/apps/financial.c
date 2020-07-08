@@ -18,12 +18,16 @@ double percentage_change(double old_value, double new_value)
 
 double future_value(double pv, double i, double n)
 {
-  return pv * pow(1 + i, n);
+  double cf = pow(1 + i, n);
+
+  return pv * cf;
 }
 
 double present_value(double fv, double i, double n)
 {
-  return fv / pow(1 + i, n);
+  double df = pow(i + 1, n);
+
+  return fv / df;
 }
 
 double growth_rate(double future_value, double present_value, double n)
