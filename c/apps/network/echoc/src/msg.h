@@ -1,7 +1,7 @@
 #ifndef MSG_H_
 #define MSG_H_
 
-#include "hints.h"
+#include "attributes.h"
 
 void fatal(char const *, ...) MK_PRINTF(1, 2) MK_NORETURN;
 void error(char const *, ...) MK_PRINTF(1, 2);
