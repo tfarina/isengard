@@ -37,7 +37,6 @@
 #include "daemon.h"
 #include "echod.h"
 #include "ed_cmdline.h"
-#include "ed_globals.h"
 #include "ed_net.h"
 #include "ed_privs.h"
 #include "ed_version.h"
@@ -224,6 +223,7 @@ static int ed_event_loop(int fd) {
 
 int main(int argc, char **argv) {
   int rc;
+  int pid;
   int tcpfd;
 
   /*
@@ -291,13 +291,13 @@ int main(int argc, char **argv) {
 
   ed_privs_check_daemon_user(opt.user);
 
-  ed_g_pid = getpid();
+  pid = getpid();
 
   /*
    * Write PID file after daemonizing.
    */
   if (opt.pidfile) {
-    rc = pidfile_write(opt.pidfile, ed_g_pid);
+    rc = pidfile_write(opt.pidfile, pid);
     if (rc < 0) {
       return rc;
     }
@@ -318,7 +318,7 @@ int main(int argc, char **argv) {
 
   init_signals();
 
-  ulog_info("started daemon -- pid=%d version=%s", ed_g_pid, ED_VERSION_STR);
+  ulog_info("started daemon -- pid=%d version=%s", pid, ED_VERSION_STR);
 
   ulog_info("running as user '%s' (%ld) and group '%s' (%ld)",
             get_username(), (long)getuid(),

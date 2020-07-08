@@ -20,7 +20,6 @@ set(SRCS
   debug.h
   echod.h
   ed_cmdline.c
-  ed_globals.c
   ed_net.c
   ed_privs.c
   main.c
