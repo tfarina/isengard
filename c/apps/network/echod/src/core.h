@@ -2,14 +2,14 @@
 #define _CORE_H_INCLUDED_ 1
 
 /**
- * M_STRINGIFY:
+ * M_STRINGIZE:
  *
  * Turns the macro @x into a string.
  *
  * @x: macro.
  */
-#define M_STRINGIFY_(x) #x
-#define M_STRINGIFY(x)  M_STRINGIFY_(x)
+#define M_STRINGIZE_(x) #x
+#define M_STRINGIZE(x)  M_STRINGIZE_(x)
 
 #if defined(M_HAS_BUILTIN)
 #undef M_HAS_BUILTIN
