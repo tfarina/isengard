@@ -37,6 +37,7 @@ set(SRCS
   pidfile.h
   sig2str.c
   sig2str.h
+  stringize.h
   ulog.c
   ulog.h
   username.c
