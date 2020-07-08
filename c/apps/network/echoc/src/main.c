@@ -21,15 +21,15 @@
 static char const *progname;
 
 static char short_options[] =
-    "h"  /* help */
+    "h"   /* help */
+    "p:"  /* tcp port number of the server */
     "s:"  /* server address */
-    "p:" /* tcp port number of the server */
     ;
 
 static struct option long_options[] = {
     { "help",        no_argument,       NULL, 'h' }, /* help */
-    { "server",      required_argument, NULL, 's' }, /* server address */
     { "port",        required_argument, NULL, 'p' }, /* tcp port number of the server */
+    { "server",      required_argument, NULL, 's' }, /* server address */
     { NULL,          0,                 NULL,  0  }
 };
 
