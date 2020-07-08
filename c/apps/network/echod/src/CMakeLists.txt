@@ -22,6 +22,9 @@ set(SRCS
   ed_cmdline.c
   ed_net.c
   ed_privs.c
+  getopt.c
+  getopt.h
+  getopt1.c
   main.c
   massert.c
   massert.h
