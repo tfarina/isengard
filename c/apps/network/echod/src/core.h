@@ -3,10 +3,11 @@
 
 /**
  * M_STRINGIFY:
- * @x: macro.
  *
  * Turns the macro @x into a string.
- **/
+ *
+ * @x: macro.
+ */
 #define M_STRINGIFY_(x) #x
 #define M_STRINGIFY(x)  M_STRINGIFY_(x)
 
@@ -18,6 +19,22 @@
 #else
 #define M_HAS_BUILTIN(builtin) (0)
 #endif
+
+/**
+ * M_LIKELY:
+ *
+ * Indicates to the compiler that the expression @exp is likely to be true.
+ *
+ * @exp: C expression.
+ */
+
+/**
+ * M_UNLIKELY:
+ *
+ * Indicates to the compiler that the expression @exp is likely to be false.
+ *
+ * @exp: C expression.
+ */
 
 /*
  * Branch prediction hints.
