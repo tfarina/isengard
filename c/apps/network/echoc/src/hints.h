@@ -36,6 +36,13 @@
 #define MK_NORETURN
 #endif
 
+/**
+ * MK_PRINTF:
+ *
+ * Tells the compiler to perform `printf` format string checking if the
+ * compiler supports it.
+ */
+
 #if defined(MK_PRINTF)
 #undef MK_PRINTF
 #endif
