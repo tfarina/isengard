@@ -28,6 +28,7 @@ set(SRCS
   main.c
   massert.c
   massert.h
+  optimization.h
   options.c
   options.h
   os_path.c
