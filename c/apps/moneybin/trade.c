@@ -50,6 +50,11 @@ int main(void)
   char filename[13] = "PETR4.SA.csv";
   ta_bars_t *bars;
   double *ma1, *ma2;
+  int window1 = 5 /* fast period */, window2 = 20 /* slow period */;
+  int year, month, day;
+  timestamp_t *timestamp;
+  size_t pos;
+  int crossover;
 
   /* Read bar data from CSV file. */
   err = read_csv(filename, &bars);
@@ -70,8 +75,8 @@ int main(void)
   }
 
   /* Calculate the moving averages. */
-  smovavg(bars->close, bars->numrows, 5, ma1);
-  smovavg(bars->close, bars->numrows, 20, ma2);
+  smovavg(bars->close, bars->numrows, window1, ma1);
+  smovavg(bars->close, bars->numrows, window2, ma2);
 
 
   print_array(bars->close, bars->numrows);
@@ -79,6 +84,25 @@ int main(void)
   print_array(ma2, bars->numrows);
 
   print_movavg(bars, ma1, ma2);
+
+  for (pos = 0; pos < bars->numrows; pos++) {
+    if (pos < window2) {
+      continue;
+    }
+
+    crossover = ta_crossover(ma1, ma2, pos);
+
+    timestamp = &bars->timestamp[pos];
+    ta_getdate(timestamp, &year, &month, &day);
+
+    if (crossover == TA_UP) {
+      printf("%04d-%02d-%02d ", year, month, day);
+      printf("BUY - ENTER LONG\n");
+    } else if (crossover == TA_DOWN) {
+      printf("%04d-%02d-%02d ", year, month, day);
+      printf("SELL - ENTER SHORT\n");
+    }
+  }
 
   return 0;
 }
