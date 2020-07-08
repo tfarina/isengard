@@ -19,6 +19,11 @@
 #define __GNUC_PREREQ__(major, minor) 0
 #endif
 
+/**
+ * MK_NORETURN:
+ *
+ * Indicates to the compiler that a function will never return a value.
+ */
 
 #if defined(MK_NORETURN)
 #undef MK_NORETURN
