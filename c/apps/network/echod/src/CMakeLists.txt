@@ -44,6 +44,6 @@ set(SRCS
 add_executable(${PROGRAM} ${SRCS})
 set_target_properties(${PROGRAM} PROPERTIES LINKER_LANGUAGE C)
 
-set(INSTALL_SBIN_DIR "${CMAKE_INSTALL_PREFIX}/sbin" CACHE PATH "Installation directory for system admin executables")
-
-install(TARGETS ${PROGRAM} RUNTIME DESTINATION "${INSTALL_SBIN_DIR}")
+install(TARGETS ${PROGRAM}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_SBINDIR}
+)
