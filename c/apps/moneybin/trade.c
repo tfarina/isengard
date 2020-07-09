@@ -96,11 +96,15 @@ int main(void)
     ta_getdate(timestamp, &year, &month, &day);
 
     if (crossover == TA_UP) {
-      printf("%04d-%02d-%02d ", year, month, day);
       printf("BUY - ENTER LONG\n");
+      printf("Date: %04d-%02d-%02d\n", year, month, day);
+      printf("Price: %9.2f\n", *(bars->close + pos));
+      printf("MA1: %9.2f\n", *(ma1 + pos));
     } else if (crossover == TA_DOWN) {
-      printf("%04d-%02d-%02d ", year, month, day);
       printf("SELL - ENTER SHORT\n");
+      printf("Date: %04d-%02d-%02d\n", year, month, day);
+      printf("Price: %9.2f\n", *(bars->close + pos));
+      printf("MA1: %9.2f\n", *(ma1 + pos));
     }
   }
 
