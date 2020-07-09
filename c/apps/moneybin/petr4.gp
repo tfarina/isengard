@@ -14,7 +14,7 @@ set format x "%b %y"
 
 set xtics rotate # rotate labels on the x axis
 
-set terminal pngcairo size 800,600
+set terminal png enhanced
 set output 'petr4_movavgs.png'
 
 plot 'petr4.dat' using 1:5 notitle with lines lc rgbcolor "black", \
