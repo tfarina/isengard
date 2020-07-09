@@ -17,7 +17,7 @@ set format x "%b %y"
 set xtics rotate # rotate labels on the x axis
 
 set terminal png enhanced
-set output 'img/petr4_movavgs.png'
+set output 'img/petr4.png'
 
 plot 'data/petr4.dat' using 1:5 notitle with lines lc rgbcolor "black", \
      'data/petr4.dat' using 1:8 title '5-day Moving Average' with lines lc rgbcolor "green", \
