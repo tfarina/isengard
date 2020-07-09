@@ -20,7 +20,6 @@ set(SRCS
   daemon.h
   debug.h
   echod.h
-  ed_cmdline.c
   ed_net.c
   ed_privs.c
   getopt.c

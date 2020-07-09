@@ -19,4 +19,11 @@ extern options_t opt;
  */
 void set_default_options(options_t *opt);
 
+void preparse_args(int argc, char **argv, options_t *opt);
+
+/**
+ * Parse command-line options from arguments given into |opt|.
+ */
+void parse_args(int argc, char **argv, options_t *opt);
+
 #endif  /* !defined(_OPTIONS_H_INCLUDED_) */

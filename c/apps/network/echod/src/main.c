@@ -36,7 +36,6 @@
 
 #include "daemon.h"
 #include "echod.h"
-#include "ed_cmdline.h"
 #include "ed_net.h"
 #include "ed_privs.h"
 #include "ed_version.h"
