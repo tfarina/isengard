@@ -1,5 +1,5 @@
-#ifndef _MASSERT_H_INCLUDED_
-#define _MASSERT_H_INCLUDED_ 1
+#ifndef _ASSERTION_H_INCLUDED_
+#define _ASSERTION_H_INCLUDED_ 1
 
 #undef  M_ASSERT
 
@@ -16,4 +16,4 @@ void __assertion_failed(char const *, char const *, int);
 
 #endif  /* NDEBUG */
 
-#endif  /* !defined(_MASSERT_H_INCLUDED_) */
+#endif  /* !defined(_ASSERTION_H_INCLUDED_) */

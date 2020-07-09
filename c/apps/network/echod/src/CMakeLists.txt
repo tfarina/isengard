@@ -14,6 +14,8 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 set(PROGRAM "echod")
 
 set(SRCS
+  assertion.c
+  assertion.h
   daemon.c
   daemon.h
   debug.h
@@ -25,8 +27,6 @@ set(SRCS
   getopt.h
   getopt1.c
   main.c
-  massert.c
-  massert.h
   optimization.h
   options.c
   options.h
