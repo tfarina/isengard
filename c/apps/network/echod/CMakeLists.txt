@@ -47,18 +47,21 @@ if (DEFINED CMAKE_INSTALL_PREFIX)
   set(LOCALSTATEDIR ${CMAKE_INSTALL_PREFIX}/var CACHE PATH "var directory")
 endif()
 
+# If a sysconfdir is specified, use it instead of the default configuration directory.
+# e.g., cmake -DSYSCONFDIR=/etc
 if (DEFINED SYSCONFDIR)
   set(SYSCONFDIR ${SYSCONFDIR} CACHE PATH "configuration directory")
 else()
   set(SYSCONFDIR ${CMAKE_INSTALL_PREFIX}/etc CACHE PATH "configuration directory")
 endif()
 
+# If a localstatedir is specified, use it instead of the default var directory.
+# e.g., cmake -DLOCALSTATEDIR=/var
 if (DEFINED LOCALSTATEDIR)
   set(LOCALSTATEDIR ${LOCALSTATEDIR} CACHE PATH "var directory")
 else()
   set(LOCALSTATEDIR ${CMAKE_INSTALL_PREFIX}/var CACHE PATH "var directory")
 endif()
-
 
 add_definitions("-DSYSCONFDIR=\"${SYSCONFDIR}\"")
 add_definitions("-DLOCALSTATEDIR=\"${LOCALSTATEDIR}\"")
