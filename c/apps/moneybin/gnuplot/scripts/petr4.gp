@@ -2,6 +2,8 @@ reset
 
 set title "PETR4 Stock Chart"
 
+set key top
+
 set grid
 
 set yrange [5:40]
@@ -18,5 +20,5 @@ set terminal png enhanced
 set output 'img/petr4_movavgs.png'
 
 plot 'data/petr4.dat' using 1:5 notitle with lines lc rgbcolor "black", \
-     'data/petr4.dat' using 1:8 notitle with lines lc rgbcolor "green", \
-     'data/petr4.dat' using 1:9 notitle with lines lc rgbcolor "red"
+     'data/petr4.dat' using 1:8 title '5-day Moving Average' with lines lc rgbcolor "green", \
+     'data/petr4.dat' using 1:9 title '20-day Moving Average' with lines lc rgbcolor "red"
