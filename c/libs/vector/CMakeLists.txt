@@ -35,11 +35,7 @@ set(HDRS
 add_library(vector ${SRCS})
 
 if (BUILD_EXAMPLES)
-  add_executable(vector_example examples/vector_example.c)
-  target_include_directories(vector_example PUBLIC
-    ${CMAKE_SOURCE_DIR}
-  )
-  target_link_libraries(vector_example vector)
+  add_subdirectory(examples)
 endif()
 
 if (BUILD_TESTS)
