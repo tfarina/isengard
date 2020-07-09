@@ -20,6 +20,10 @@
 cmake_minimum_required(VERSION 2.8)
 project(vector C)
 
+# Provide an option so the user can disable building tests.
+option(BUILD_TESTS "Build the unit tests" ON)
+option(BUILD_EXAMPLES "Build the example programs" ON)
+
 set(SRCS
   vector.c
 )
@@ -30,14 +34,13 @@ set(HDRS
 
 add_library(vector ${SRCS})
 
-add_executable(vector_example examples/vector_example.c)
-target_include_directories(vector_example PUBLIC
-  ${CMAKE_SOURCE_DIR}
-)
-target_link_libraries(vector_example vector)
-
-# Provide an option so the user can disable building tests.
-option(BUILD_TESTS "Build the unit tests" ON)
+if (BUILD_EXAMPLES)
+  add_executable(vector_example examples/vector_example.c)
+  target_include_directories(vector_example PUBLIC
+    ${CMAKE_SOURCE_DIR}
+  )
+  target_link_libraries(vector_example vector)
+endif()
 
 if (BUILD_TESTS)
   add_executable(unittests greatest.h vector_test.c unittests.c)
