@@ -9,6 +9,12 @@ endif()
 cmake_minimum_required(VERSION 3.0)
 project(echod LANGUAGES C VERSION 0.1.0)
 
+# Add local cmake modules
+list(APPEND CMAKE_MODULE_PATH
+  ${PROJECT_SOURCE_DIR}/cmake/modules)
+
+include(UninstallTarget)
+
 ###############################################################################
 # Provides install directory variables as defined by the GNU Coding Standards.
 include(GNUInstallDirs)
