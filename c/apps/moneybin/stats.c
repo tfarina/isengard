@@ -64,7 +64,7 @@ int stats_sum(double const *a, int size, double *res)
   return 0;
 }
 
-int stats_average(double const *a, int size, double *res)
+int stats_avg(double const *a, int size, double *res)
 {
   double sum = 0.0;
 
@@ -81,7 +81,7 @@ int stats_var_sam(double const *a, int size, double *res)
   double sum = 0.0;
   int i;
 
-  stats_average(a, size, &avg);
+  stats_avg(a, size, &avg);
 
   for (i = 0; i < size; i++) {
     sum += (a[i] - avg) * (a[i] - avg);
