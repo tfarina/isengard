@@ -8,22 +8,38 @@ echod \- Echo daemon
 
 .SH "DESCRIPTION"
 \fBechod\fR is an Echo Protocol daemon.
+
 .SH OPTIONS
 .TP
-\fB\-d\fR, \fB\-\-daemonize\fR
-Run as a daemon.
-
+\fB\-C\fR, \fB\-\-config=\fR<file>
+specify an alternative configuration file
 .TP
-\fB\-p\fR, \fB\-\-port=\fIport\fP
-Set the tcp \fIport\fP to listen on. (default: 7)
-
+\fB\-P\fR, \fB\-\-pidfile=\fR<file>
+write process id to the specified file
+.TP
+\fB\-u\fR, \fB\-\-user=\fR<username>
+run the daemon as user
+.TP
+\fB\-a\fR, \fB\-\-address=\fR<ip/domain>
+bind to the specified address
+.TP
+\fB\-p\fR, \fB\-\-port=\fR<number>
+TCP port to listen on
+.TP
+\fB\-b\fR, \fB\-\-backlog=\fR<number>
+set the backlog queue limit
+.TP
+\fB\-f\fR, \fB\-\-foreground\fR
+run the daemon in the foreground
+.TP
+\fB\-L\fR, \fB\-\-logfile=\fR<file>
+write log messages to the specified file
 .TP
 \fB\-h\fR, \fB\-\-help\fR
-Show usage information and exit.
-
+display this help and exit
 .TP
 \fB\-V\fR, \fB\-\-version\fR
-Output version information and exit.
+output version information and exit
 
 .SH "SEE ALSO"
 \fBecho\fR(1), \fBechod.conf\fR(5)
