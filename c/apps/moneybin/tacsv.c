@@ -198,7 +198,9 @@ int read_csv(char const *filename, ta_bars_t **outbars) {
 
   csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, &c);
 
-  /*printf("%s: %lu fields, %lu rows\n", filename, c.fields, c.rows);*/
+#if 0
+  printf("%s: %lu fields, %lu rows\n", filename, c.fields, c.rows);
+#endif
 
   state = malloc(sizeof(*state));
   state->ignore_first_line = 1;
