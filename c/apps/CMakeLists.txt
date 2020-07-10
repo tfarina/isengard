@@ -97,7 +97,7 @@ find_package(GTK2 2.6)
 if (GTK2_FOUND)
   add_executable(graph graph.c)
 
-  target_include_directories(graph ${GTK2_INCLUDE_DIRS})
+  target_include_directories(graph PUBLIC ${GTK2_INCLUDE_DIRS})
 
   target_link_libraries(graph ${MATH_LIB} ${GTK2_LIBRARIES})
 endif()
