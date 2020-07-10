@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
   stats_max(bars->close, bars->numrows, &max);
   stats_average(bars->close, bars->numrows, &avg);
 
-  printf("      Min       Max       Avg\n");
+  printf("      Min       Max      Mean\n");
 
   printf("%9.3f %9.3f %9.3f", min, max, avg);
 
