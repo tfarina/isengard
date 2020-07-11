@@ -9,20 +9,20 @@
 #       For example, in the project directory, to build library
 #       but not the unit tests in debug mode, type:
 #           mkdir build && cd build
-#           cmake -GNinja -DBUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Debug ..
+#           cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTS=NO ..
 #
 #   Flags:
-#       DISABLE_TESTS
+#       ENABLE_TESTS
 #           Build unit tests (default true). To disable the unit tests,
-#           pass `-DDISABLE_TESTS=TRUE` during configuration.
+#           pass `-DENABLE_TESTS=NO` during configuration.
 #
 
 cmake_minimum_required(VERSION 2.8)
 project(vector C)
 
 # Provide an option so the user can disable building tests.
-option(DISABLE_TESTS "Do not build the unit tests (default is to build)" FALSE)
-option(DISABLE_EXAMPLES "Do not build the example programs (default is to build)" FALSE)
+option(ENABLE_TESTS "Build the unit tests (default is to build)" YES)
+option(ENABLE_EXAMPLES "Build the example programs (default is to build)" YES)
 
 set(SRCS
   vector.c
@@ -34,11 +34,11 @@ set(HDRS
 
 add_library(vector ${SRCS})
 
-if (NOT DISABLE_EXAMPLES)
+if (ENABLE_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
-if (NOT DISABLE_TESTS)
+if (ENABLE_TESTS)
   add_executable(unittests greatest.h vector_test.c unittests.c)
   target_link_libraries(unittests vector)
 endif()
