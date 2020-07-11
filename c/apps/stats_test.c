@@ -7,6 +7,8 @@ static void print_array(double const *arr, size_t const size)
 {
   size_t i;
 
+  putchar('[');
+
   for (i = 0; i < size; i++) {
     if (i) {
       printf(", ");
@@ -14,7 +16,7 @@ static void print_array(double const *arr, size_t const size)
     printf("%.02f", *(arr + i));
   }
 
-  printf("\n\n");
+  putchar(']');
 }
 
 int main(void)
@@ -37,6 +39,7 @@ int main(void)
   stats_min(a, ARRAY_SIZE(a), &min);
   stats_max(a, ARRAY_SIZE(a), &max);
 
+  printf("\n\n");
   printf("Statistics summary:\n");
   printf("Sum                 %f\n", sum);
   printf("Average             %f\n", avg);
