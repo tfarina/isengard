@@ -2,11 +2,16 @@
 
 #include "financial.h"
 
-int main(int argc, char **argv)
+int main(void)
 {
+  double principal, rate, periods;
   double pv;
 
-  pv = present_value(2.20, 0.0972, 10);
+  principal = 2.20;
+  rate = 0.0972;
+  periods = 10;
+
+  pv = present_value(principal, rate, periods);
 
   printf("Present Value: $%.2f\n", pv);
 
