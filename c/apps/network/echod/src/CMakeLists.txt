@@ -21,7 +21,6 @@ set(SRCS
   debug.h
   echod.h
   ed_net.c
-  ed_privs.c
   getopt.c
   getopt.h
   getopt1.c
@@ -33,6 +32,8 @@ set(SRCS
   os_path.h
   pidfile.c
   pidfile.h
+  security.c
+  security.h
   sig2str.c
   sig2str.h
   stringize.h

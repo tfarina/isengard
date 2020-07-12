@@ -37,11 +37,11 @@
 #include "daemon.h"
 #include "echod.h"
 #include "ed_net.h"
-#include "ed_privs.h"
 #include "ed_version.h"
 #include "options.h"
 #include "os_path.h"
 #include "pidfile.h"
+#include "security.h"
 #include "sig2str.h"
 #include "ulog.h"
 #include "unused-parameter.h"
@@ -288,7 +288,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  ed_privs_check_daemon_user(opt.user);
+  security_check_daemon_user(opt.user);
 
   pid = getpid();
 
@@ -310,7 +310,7 @@ int main(int argc, char **argv) {
   /*
    * Drop root privileges.
    */
-  rc = ed_privs_drop(ed_g_daemon_uid, ed_g_daemon_gid);
+  rc = drop_privileges(ed_g_daemon_uid, ed_g_daemon_gid);
   if (rc < 0) {
     return rc;
   }

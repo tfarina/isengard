@@ -1,4 +1,4 @@
-#include "ed_privs.h"
+#include "security.h"
 
 #include <errno.h>
 #include <grp.h>
@@ -11,7 +11,7 @@
 uid_t ed_g_daemon_uid;
 gid_t ed_g_daemon_gid;
 
-void ed_privs_check_daemon_user(char const *user) {
+void security_check_daemon_user(char const *user) {
   struct passwd *pw;
 
   pw = getpwnam(user);
@@ -23,7 +23,7 @@ void ed_privs_check_daemon_user(char const *user) {
   ed_g_daemon_gid = pw->pw_gid;
 }
 
-int ed_privs_drop(uid_t uid, gid_t gid) {
+int drop_privileges(uid_t uid, gid_t gid) {
   int rc;
 
   rc = setgid(gid);
