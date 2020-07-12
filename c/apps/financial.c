@@ -25,7 +25,7 @@ double future_value(double pv, double i, double n)
 
 double present_value(double fv, double i, double n)
 {
-  double df = pow(i + 1, n);
+  double df = pow(1 + i, n);
 
   return fv / df;
 }
