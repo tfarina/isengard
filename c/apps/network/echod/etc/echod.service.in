@@ -7,6 +7,8 @@ After=network.target
 Type=forking
 ExecStart=@sbindir@/echod $ECHOD_OPTIONS
 ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-success
+RestartSec=60
 
 [Install]
 WantedBy=multi-user.target
