@@ -10,6 +10,9 @@
 
 #include "ulog.h"
 
+#define ED_NET_OK 0
+#define ED_NET_ERR -1
+
 int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;

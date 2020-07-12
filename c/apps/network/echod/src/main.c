@@ -175,7 +175,7 @@ static int ed_event_loop(int fd) {
     if (retval > 0) {
       if (FD_ISSET(fd, &rfds_out)) {
 	clientfd = ed_net_tcp_socket_accept(fd, clientip, sizeof(clientip), &clientport);
-	if (clientfd == ED_NET_ERR) {
+	if (clientfd < 0) {
 	  return -1;
 	}
 
@@ -303,7 +303,7 @@ int main(int argc, char **argv) {
   }
 
   tcpfd = ed_net_tcp_socket_listen(opt.address, opt.port, opt.backlog);
-  if (tcpfd == ED_NET_ERR) {
+  if (tcpfd < 0) {
     return EXIT_FAILURE;
   }
 
