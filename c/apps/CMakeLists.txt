@@ -21,9 +21,6 @@ target_link_libraries(tst libcsv)
 add_executable(ticks ticks.c)
 target_link_libraries(ticks libcsv)
 
-add_executable(csvinfo csvinfo.c)
-target_link_libraries(csvinfo libcsv)
-
 add_executable(readfile ffileutils.c readfile.c)
 add_executable(writefile ffileutils.c writefile.c)
 add_executable(buildtime buildtime.c)
