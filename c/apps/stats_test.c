@@ -46,7 +46,7 @@ int main(void)
   printf("Sum                 %f\n", sum);
   printf("Mean                %f\n", avg);
   printf("Variance            %f\n", variance);
-  printf("Standard deviation  %f\n", stdev);
+  printf("Std. Dev.           %f\n", stdev);
 
   return 0;
 }
