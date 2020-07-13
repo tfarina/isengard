@@ -9,6 +9,7 @@
 #include <unistd.h>
 
 #include "fnet.h"
+#include "msg.h"
 #include "os_path.h"
 #include "validate.h"
 
@@ -65,12 +66,12 @@ int main(int argc, char **argv) {
       return EXIT_SUCCESS;
 
     case '?':
-      usage(progname);
-      return EXIT_SUCCESS;
+      /* Consider unrecognized options as fatal. */
+      fatal("Try `--help' or man(1) echoc for more information, usage options and help.");
 
     default:
-      fprintf(stderr, "%s: invalid option -- '%c'", progname, optopt);
-      return -1;
+      /* An unrecognized option is considered a fatal error. */
+      fatal("Unrecognized option.");
       /* NOTREACHED */
     }
   }
