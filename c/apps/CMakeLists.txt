@@ -112,3 +112,6 @@ endif()
 
 add_executable(writexml writexml.c)
 target_link_libraries(writexml mxml -pthread)
+
+add_executable(readxml readxml.c)
+target_link_libraries(readxml mxml -pthread)
