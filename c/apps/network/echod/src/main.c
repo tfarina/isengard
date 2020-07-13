@@ -308,9 +308,9 @@ int main(int argc, char **argv) {
   }
 
   /*
-   * Drop root privileges.
+   * Release root privileges and run as this user.
    */
-  rc = drop_privileges(ed_g_daemon_uid, ed_g_daemon_gid);
+  rc = drop_privileges(opt.user);
   if (rc < 0) {
     return rc;
   }

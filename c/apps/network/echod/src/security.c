@@ -8,23 +8,24 @@
 
 #include "ulog.h"
 
-uid_t ed_g_daemon_uid;
-gid_t ed_g_daemon_gid;
-
-void security_check_daemon_user(char const *user) {
+void security_check_daemon_user(char const *name) {
   struct passwd *pw;
 
-  pw = getpwnam(user);
+  pw = getpwnam(name);
   if (pw == 0) {
-    ulog_fatal("user '%s' not found", user);
+    ulog_fatal("user '%s' not found", name);
   }
-
-  ed_g_daemon_uid = pw->pw_uid;
-  ed_g_daemon_gid = pw->pw_gid;
 }
 
-int drop_privileges(uid_t uid, gid_t gid) {
+int drop_privileges(char const *username) {
+  struct passwd *pw;
+  gid_t gid;
+  uid_t uid;
   int rc;
+
+  pw = getpwnam(username);
+  gid = pw->pw_gid;
+  uid = pw->pw_uid;
 
   rc = setgid(gid);
   if (rc < 0) {
