@@ -22,28 +22,21 @@ static char const *progname;
 
 static char short_options[] =
     "h"   /* help */
-    "p:"  /* tcp port number of the server */
-    "s:"  /* server address */
     ;
 
 static struct option long_options[] = {
     { "help",        no_argument,       NULL, 'h' }, /* help */
-    { "port",        required_argument, NULL, 'p' }, /* tcp port number of the server */
-    { "server",      required_argument, NULL, 's' }, /* server address */
     { NULL,          0,                 NULL,  0  }
 };
 
 static void usage(char const *program_name) {
   fprintf(stderr,
-	  "usage: %s [OPTION]..." CRLF CRLF,
+	  "usage: %s [OPTION] host port..." CRLF CRLF,
 	  program_name);
   fprintf(stderr,
 	  "options:" CRLF
-          "  -s, --server=           specify the server IP address" CRLF
-          "  -p, --port=N            set the tcp port of the server (default: %d)" CRLF
           "  -h, --help              display this help and exit" CRLF
-	  "",
-          DEF_ECHO_PORT);
+	  "");
 }
 
 int main(int argc, char **argv) {
@@ -52,7 +45,7 @@ int main(int argc, char **argv) {
   int err;
   char sendline[BUFSIZE];
   char recvline[BUFSIZE];
-  char *server;
+  char *host;
   int port;
 
   progname = os_path_basename(*(argv + 0));
@@ -71,24 +64,6 @@ int main(int argc, char **argv) {
       usage(progname);
       return EXIT_SUCCESS;
 
-    case 's':
-      server = optarg;
-      break;
-
-    case 'p':
-      value = atoi(optarg);
-      if (value <= 0) {
-	fprintf(stderr, "%s: option -p requires a non zero number\n", progname);
-	return EXIT_FAILURE;
-      }
-      if (!valid_port(value)) {
-	fprintf(stderr, "%s: option -s value %d is not a valid port\n", progname, value);
-	return EXIT_FAILURE;
-      }
-
-      port = value;
-      break;
-
     case '?':
       usage(progname);
       return EXIT_SUCCESS;
@@ -100,7 +75,30 @@ int main(int argc, char **argv) {
     }
   }
 
-  err = fnet_tcp_socket_connect(server, port, &sd);
+  /* Takes out the program name from the argument array. */
+  argc -= optind;
+  argv += optind;
+
+  if (argc != 2) {
+    usage(progname);
+    return -1;
+  }
+
+  host = argv[0];
+
+  value = atoi(argv[1]);
+  if (value <= 0) {
+    fprintf(stderr, "%s: port requires a non zero number\n", progname);
+    return EXIT_FAILURE;
+  }
+  if (!valid_port(value)) {
+    fprintf(stderr, "%s: %d is not a valid port\n", progname, value);
+    return EXIT_FAILURE;
+  }
+
+  port = value;
+
+  err = fnet_tcp_socket_connect(host, port, &sd);
   if (err < 0) {
     return -1;
   }
