@@ -22,5 +22,7 @@ int main(int argc, char **argv)
   mxmlSaveFile(xml, fp, MXML_NO_CALLBACK);
   fclose(fp);
 
+  mxmlDelete(xml);
+
   return 0;
 }
