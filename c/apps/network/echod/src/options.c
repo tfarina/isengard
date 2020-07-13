@@ -182,12 +182,12 @@ void parse_args(int argc, char **argv, options_t *opt) {
     fprintf(stdout, "  Config file: %s\n", DEF_PATH_ECHODCONF);
     fprintf(stdout, "  PID file:    %s\n", DEF_PATH_ECHODPID);
     fprintf(stdout, "\n *** %s configuration ***\n", progname);
-    fprintf(stdout, "config    = %s\n", opt->conffile);
-    fprintf(stdout, "pidfile   = %s\n", opt->pidfile);
-    fprintf(stdout, "user      = %s\n", opt->user);
-    fprintf(stdout, "port      = %d\n", opt->port);
-    fprintf(stdout, "backlog   = %d\n", opt->backlog);
-    fprintf(stdout, "logfile   = %s\n", opt->logfile);
+    fprintf(stdout, "ConfigFile    = %s\n", opt->conffile);
+    fprintf(stdout, "PIDFile       = %s\n", opt->pidfile);
+    fprintf(stdout, "LogFile       = %s\n", opt->logfile);
+    fprintf(stdout, "User          = %s\n", opt->user);
+    fprintf(stdout, "Port          = %d\n", opt->port);
+    fprintf(stdout, "Backlog       = %d\n", opt->backlog);
   }
 }
 
