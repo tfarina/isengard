@@ -10,11 +10,11 @@
 
 #include "msg.h"
 
-int fnet_tcp_socket_connect(char const *host, int port, int *out_sd) {
+int fnet_tcp_socket_connect(char const *host, int port, int *out_fd) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
-  int sd;
+  int sockfd;
 
   snprintf(portstr, sizeof(portstr), "%d", port);
 
@@ -32,17 +32,17 @@ int fnet_tcp_socket_connect(char const *host, int port, int *out_sd) {
 
   /* Loop through all the results and connect to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    sd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
-    if (sd < 0) {
+    sockfd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
+    if (sockfd < 0) {
       error("socket failed: %s", strerror(errno));
       continue;
     }
 
-    rv = connect(sd, cur->ai_addr, cur->ai_addrlen);
+    rv = connect(sockfd, cur->ai_addr, cur->ai_addrlen);
     if (rv < 0) {
       /* If we can't connect, try the next one. */
-      close(sd);
-      sd = -1;
+      close(sockfd);
+      sockfd = -1;
       continue;
     }
 
@@ -52,10 +52,10 @@ int fnet_tcp_socket_connect(char const *host, int port, int *out_sd) {
   freeaddrinfo(addrlist);
 
   /* Oops, we couldn't connect to any address. */
-  if (sd == -1 && cur == NULL) {
+  if (sockfd == -1 && cur == NULL) {
     return -1;
   }
 
-  *out_sd = sd;
+  *out_fd = sockfd;
   return 0;
 }
