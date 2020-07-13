@@ -19,7 +19,12 @@ int main(int argc, char **argv)
   mxmlNewText(node, 0, "XML Developer's Guide");
 
   fp = fopen("books.xml", "w");
+  if (fp == NULL) {
+    return -1;
+  }
+
   mxmlSaveFile(xml, fp, MXML_NO_CALLBACK);
+
   fclose(fp);
 
   mxmlDelete(xml);
