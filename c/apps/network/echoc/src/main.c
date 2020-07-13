@@ -47,7 +47,7 @@ static void usage(char const *program_name) {
 }
 
 int main(int argc, char **argv) {
-  int c, value;
+  int optchr, value;
   int sd;
   int err;
   char sendline[BUFSIZE];
@@ -60,13 +60,13 @@ int main(int argc, char **argv) {
   port = DEF_ECHO_PORT;
 
   for (;;) {
-    c = getopt_long(argc, argv, short_options, long_options, NULL);
-    if (c == -1) {
+    optchr = getopt_long(argc, argv, short_options, long_options, NULL);
+    if (optchr == -1) {
       /* no more options */
       break;
     }
 
-    switch (c) {
+    switch (optchr) {
     case 'h':
       usage(progname);
       return EXIT_SUCCESS;
