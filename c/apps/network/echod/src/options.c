@@ -23,7 +23,7 @@ options_t opt;
 
 #define DEF_BIND_ADDR "0.0.0.0"
 #define DEF_ECHO_PORT 7
-#define DEF_BACKLOG   1024
+#define DEF_BACKLOG   32
 
 static char const short_options[] =
   "C:" /* configuration file */
