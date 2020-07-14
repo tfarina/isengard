@@ -208,7 +208,7 @@ static void usage(int status) {
     fputs("  -P, --pidfile=<file>       write process id to the specified file\n", stdout);
     fputs("  -L, --logfile=<file>       write log messages to the specified file\n", stdout);
     fputs("  -a, --address=<ip/domain>  bind to the specified address\n", stdout);
-    fputs("  -p, --port=<number>        TCP port to listen on\n", stdout);
+    fputs("  -p, --port=<number>        specify the port to listen on\n", stdout);
     fputs("  -b, --backlog=<number>     set the backlog queue limit\n", stdout);
     fputs("  -h, --help                 display this help and exit\n", stdout);
     fputs("  -V, --version              output version information and exit\n", stdout);
