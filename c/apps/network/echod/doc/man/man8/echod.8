@@ -1,46 +1,42 @@
 .TH ECHOD "8" "August 1, 2016" "echod 0.1.0" "System Administration Utilities"
-
 .SH NAME
 echod \- Echo daemon
-
 .SH SYNOPSIS
 .B echod
 [\fI\,OPTIONS\/\fR]...
-
 .SH DESCRIPTION
 \fBechod\fR is an Echo Protocol daemon.
-
+Mandatory arguments to long options are mandatory for short options too.
 .SH OPTIONS
 .TP
+\fB\-f\fR, \fB\-\-foreground\fR
+run the daemon in the foreground
+.TP
+\fB\-u\fR, \fB\-\-user=\fR<username>
+run the daemon as user
+.TP
 \fB\-C\fR, \fB\-\-config=\fR<file>
-specify an alternative configuration file
+specify alternate configuration file
 .TP
 \fB\-P\fR, \fB\-\-pidfile=\fR<file>
 write process id to the specified file
 .TP
-\fB\-u\fR, \fB\-\-user=\fR<username>
-run the daemon as user
+\fB\-L\fR, \fB\-\-logfile=\fR<file>
+write log messages to the specified file
 .TP
 \fB\-a\fR, \fB\-\-address=\fR<ip/domain>
 bind to the specified address
 .TP
 \fB\-p\fR, \fB\-\-port=\fR<number>
-TCP port to listen on
+specify the port to listen on
 .TP
 \fB\-b\fR, \fB\-\-backlog=\fR<number>
 set the backlog queue limit
-.TP
-\fB\-f\fR, \fB\-\-foreground\fR
-run the daemon in the foreground
-.TP
-\fB\-L\fR, \fB\-\-logfile=\fR<file>
-write log messages to the specified file
 .TP
 \fB\-h\fR, \fB\-\-help\fR
 display this help and exit
 .TP
 \fB\-V\fR, \fB\-\-version\fR
 output version information and exit
-
 .SH "SEE ALSO"
 \fBecho\fR(1), \fBechod.conf\fR(5)
