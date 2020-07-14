@@ -19,7 +19,8 @@ static void print_array(double const *arr, size_t const size)
   printf("\n\n");
 }
 
-static void print_movavg(ta_bars_t *b, double *ma1, double *ma2) {
+static void print_movavg(ta_bars_t *b, double *ma1, double *ma2)
+{
   int i;
   int year, month, day;
   timestamp_t *timestamp;
@@ -96,15 +97,9 @@ int main(void)
     ta_getdate(timestamp, &year, &month, &day);
 
     if (crossover == TA_UP) {
-      printf("BUY - ENTER LONG\n");
-      printf("Date: %04d-%02d-%02d\n", year, month, day);
-      printf("Price: %9.2f\n", *(bars->close + pos));
-      printf("MA1: %9.2f\n", *(ma1 + pos));
+      printf("%02d-%02d-%04d LONG  LIMIT BUY  %9.2f %9.2f MA1\n", month, day, year, *(bars->close + pos), *(ma1 + pos));
     } else if (crossover == TA_DOWN) {
-      printf("SELL - ENTER SHORT\n");
-      printf("Date: %04d-%02d-%02d\n", year, month, day);
-      printf("Price: %9.2f\n", *(bars->close + pos));
-      printf("MA1: %9.2f\n", *(ma1 + pos));
+      printf("%02d-%02d-%04d SHORT LIMIT SELL %9.2f %9.2f MA1\n", month, day, year, *(bars->close + pos), *(ma1 + pos));
     }
   }
 
