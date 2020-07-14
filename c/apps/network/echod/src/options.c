@@ -54,7 +54,31 @@ static struct option const long_options[] = {
   { (char *) 0,    no_argument,       (int *) 0,  0  }
 };
 
-static void usage(int status);
+static void usage(int status) {
+  if (status) {
+    fprintf(stderr, "Try '%s --help' for more information.\n", progname);
+  } else {
+    printf("Usage: %s [OPTIONS]...\n", progname);
+    putc('\n', stdout);
+
+    fputs("Mandatory arguments to long options are mandatory for short options too.\n", stdout);
+    putc('\n', stdout);
+
+    fputs("Options:\n", stdout);
+    fputs("  -f, --foreground           run the daemon in the foreground\n", stdout);
+    fputs("  -u, --user=<username>      run the daemon as user\n", stdout);
+    fputs("  -C, --config=<file>        specify alternate configuration file\n", stdout);
+    fputs("  -P, --pidfile=<file>       write process id to the specified file\n", stdout);
+    fputs("  -L, --logfile=<file>       write log messages to the specified file\n", stdout);
+    fputs("  -a, --address=<ip/domain>  bind to the specified address\n", stdout);
+    fputs("  -p, --port=<number>        specify the port to listen on\n", stdout);
+    fputs("  -b, --backlog=<number>     set the backlog queue limit\n", stdout);
+    fputs("  -h, --help                 display this help and exit\n", stdout);
+    fputs("  -V, --version              output version information and exit\n", stdout);
+  }
+
+  exit(status);
+}
 
 static void version(void) {
   printf("%s %s\n", progname, ED_VERSION_STR);
@@ -189,30 +213,4 @@ void parse_args(int argc, char **argv, options_t *opt) {
     fprintf(stdout, "Port          = %d\n", opt->port);
     fprintf(stdout, "Backlog       = %d\n", opt->backlog);
   }
-}
-
-static void usage(int status) {
-  if (status) {
-    fprintf(stderr, "Try '%s --help' for more information.\n", progname);
-  } else {
-    printf("Usage: %s [OPTIONS]...\n", progname);
-    putc('\n', stdout);
-
-    fputs("Mandatory arguments to long options are mandatory for short options too.\n", stdout);
-    putc('\n', stdout);
-
-    fputs("Options:\n", stdout);
-    fputs("  -f, --foreground           run the daemon in the foreground\n", stdout);
-    fputs("  -u, --user=<username>      run the daemon as user\n", stdout);
-    fputs("  -C, --config=<file>        specify alternate configuration file\n", stdout);
-    fputs("  -P, --pidfile=<file>       write process id to the specified file\n", stdout);
-    fputs("  -L, --logfile=<file>       write log messages to the specified file\n", stdout);
-    fputs("  -a, --address=<ip/domain>  bind to the specified address\n", stdout);
-    fputs("  -p, --port=<number>        specify the port to listen on\n", stdout);
-    fputs("  -b, --backlog=<number>     set the backlog queue limit\n", stdout);
-    fputs("  -h, --help                 display this help and exit\n", stdout);
-    fputs("  -V, --version              output version information and exit\n", stdout);
-  }
-
-  exit(status);
 }
