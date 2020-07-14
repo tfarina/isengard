@@ -56,6 +56,7 @@ int main(void)
   timestamp_t *timestamp;
   size_t pos;
   int crossover;
+  int ordercnt;
 
   /* Read bar data from CSV file. */
   err = read_csv(filename, &bars);
@@ -86,6 +87,8 @@ int main(void)
 
   print_movavg(bars, ma1, ma2);
 
+  ordercnt = 0;
+
   for (pos = 0; pos < bars->numrows; pos++) {
     if (pos < window2) {
       continue;
@@ -97,11 +100,15 @@ int main(void)
     ta_getdate(timestamp, &year, &month, &day);
 
     if (crossover == TA_UP) {
+      ordercnt++;
       printf("%02d-%02d-%04d LONG  LIMIT BUY  %9.2f %9.2f MA1\n", month, day, year, *(bars->close + pos), *(ma1 + pos));
     } else if (crossover == TA_DOWN) {
+      ordercnt++;
       printf("%02d-%02d-%04d SHORT LIMIT SELL %9.2f %9.2f MA1\n", month, day, year, *(bars->close + pos), *(ma1 + pos));
     }
   }
+
+  printf("%d orders\n", ordercnt);
 
   return 0;
 }
