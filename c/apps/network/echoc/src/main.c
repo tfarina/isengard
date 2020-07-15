@@ -29,7 +29,7 @@ static struct option long_options[] = {
 };
 
 static void usage(char const *program_name) {
-  fprintf(stderr, "Usage: %s [OPTIONS] host port\n\n", program_name);
+  fprintf(stderr, "Usage: %s [OPTIONS] host [port]\n\n", program_name);
   fprintf(stderr,
 	  "Options:\n"
           "  -h, --help              display this help and exit\n"
@@ -74,24 +74,27 @@ int main(int argc, char **argv) {
   argc -= optind;
   argv += optind;
 
-  if (argc != 2) {
+  /* It should have at least the destination address or hostname of the server. */
+  if (argc < 1) {
     usage(progname);
     return -1;
   }
 
   host = argv[0];
 
-  value = atoi(argv[1]);
-  if (value <= 0) {
-    fprintf(stderr, "%s: port requires a non zero number\n", progname);
-    return EXIT_FAILURE;
+  /* Looks like we have a port argument, otherwise let's just keep going with the default port (7). */
+  if (argc > 1) {
+    value = atoi(argv[1]);
+    if (value <= 0) {
+      fprintf(stderr, "%s: port requires a non zero number\n", progname);
+      return EXIT_FAILURE;
+    }
+    if (!valid_port(value)) {
+      fprintf(stderr, "%s: %d is not a valid port\n", progname, value);
+      return EXIT_FAILURE;
+    }
+    port = value;
   }
-  if (!valid_port(value)) {
-    fprintf(stderr, "%s: %d is not a valid port\n", progname, value);
-    return EXIT_FAILURE;
-  }
-
-  port = value;
 
   err = fnet_tcp_socket_connect(host, port, &sockfd);
   if (err < 0) {
