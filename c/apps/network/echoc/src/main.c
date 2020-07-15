@@ -37,9 +37,7 @@ static void usage(char const *program_name) {
 }
 
 int main(int argc, char **argv) {
-  int optchr, value;
-  int sd;
-  int err;
+  int optchr, value, sockfd, err;
   char sendline[BUFSIZE];
   char recvline[BUFSIZE];
   char *host;
@@ -95,7 +93,7 @@ int main(int argc, char **argv) {
 
   port = value;
 
-  err = fnet_tcp_socket_connect(host, port, &sd);
+  err = fnet_tcp_socket_connect(host, port, &sockfd);
   if (err < 0) {
     return -1;
   }
@@ -106,9 +104,9 @@ int main(int argc, char **argv) {
   while (1) {
     fgets(sendline, BUFSIZE, stdin); /*stdin = 0 , for standard input */
 
-    write(sd, sendline, strlen(sendline) + 1);
+    write(sockfd, sendline, strlen(sendline) + 1);
 
-    read(sd, recvline, BUFSIZE);
+    read(sockfd, recvline, BUFSIZE);
     fputs(recvline, stdout);
   }
 
