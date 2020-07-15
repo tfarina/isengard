@@ -20,6 +20,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(vector C)
 
+include(GNUInstallDirs)
+
 # Provide an option so the user can disable building tests.
 option(ENABLE_TESTS "Build the unit tests (default is to build)" YES)
 option(ENABLE_EXAMPLES "Build the example programs (default is to build)" YES)
@@ -42,3 +44,5 @@ if (ENABLE_TESTS)
   add_executable(unittests greatest.h vector_test.c unittests.c)
   target_link_libraries(unittests vector)
 endif()
+
+configure_file(libvector.pc.in libvector.pc)
