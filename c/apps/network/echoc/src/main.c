@@ -15,8 +15,6 @@
 
 #define BUFSIZE 4096
 
-#define CRLF "\x0d\x0a"
-
 #define DEF_ECHO_PORT 7
 
 static char const *progname;
@@ -26,17 +24,15 @@ static char short_options[] =
     ;
 
 static struct option long_options[] = {
-    { "help",        no_argument,       NULL, 'h' }, /* help */
+    { "help",        no_argument,       NULL, 'h' },
     { NULL,          0,                 NULL,  0  }
 };
 
 static void usage(char const *program_name) {
+  fprintf(stderr, "Usage: %s [OPTIONS] host port\n\n", program_name);
   fprintf(stderr,
-	  "usage: %s [OPTION] host port..." CRLF CRLF,
-	  program_name);
-  fprintf(stderr,
-	  "options:" CRLF
-          "  -h, --help              display this help and exit" CRLF
+	  "Options:\n"
+          "  -h, --help              display this help and exit\n"
 	  "");
 }
 
