@@ -2,12 +2,6 @@
 #define BITOPS_H_
 
 /**
- * Helper macros for bit manipulation.
- */
-
-#define BIT_MASK(bit) (1U << (bit))
-
-/**
  * These macros work on positions defined by constants.
  *
  * Examples:
@@ -18,14 +12,19 @@
  */
 
 /**
- * Set bits
+ * Helper macro for bit manipulation.
+ */
+#define BIT_MASK(bit) (1U << (bit))
+
+/**
+ * Set bit on flags.
  *
  * @param flags the value where bits should be set
  */
 #define BIT_SET(flags, mask)   ((flags) |= (mask))
 
 /**
- * Clear bits
+ * Clear bit on flags.
  *
  * @param flags the value where bits should be clear.
  */
@@ -59,6 +58,7 @@
 /* https://github.com/ventanium/ventanium/blob/master/src/vtm/core/flag.h */
 /* https://www.coranac.com/documents/working-with-bits-and-bitfields/ */
 /* http://git.savannah.gnu.org/cgit/m4.git/tree/m4/m4private.h#n42 */
+/* https://github.com/zerotao/libzt/blob/develop/src/libzt/zt_macros.h#L153*/
 
 int flags = 0;
 
