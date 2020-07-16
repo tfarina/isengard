@@ -28,10 +28,16 @@ static struct option long_options[] = {
     { NULL,          0,                 NULL,  0  }
 };
 
-static void usage(void) {
-  fprintf(stderr, "Usage: %s [OPTIONS] host [port]\n\n", progname);
-  fprintf(stderr, "Options:\n");
-  fprintf(stderr, "  -h, --help              display this help and exit\n");
+static void usage(int status) {
+  if (status) {
+    fprintf(stderr, "Try '%s --help' for more information.\n", progname);
+  } else {
+    fprintf(stderr, "Usage: %s [OPTIONS] host [port]\n\n", progname);
+    fprintf(stderr, "Options:\n");
+    fprintf(stderr, "  -h, --help              display this help and exit\n");
+  }
+
+  exit(status);
 }
 
 int main(int argc, char **argv) {
@@ -53,9 +59,9 @@ int main(int argc, char **argv) {
     }
 
     switch (optchr) {
-    case 'h':
-      usage();
-      return EXIT_SUCCESS;
+    case 'h':  /* --help */
+      usage(0);
+      break;
 
     case '?':
       /* Consider unrecognized options as fatal. */
@@ -74,8 +80,7 @@ int main(int argc, char **argv) {
 
   /* It should have at least the destination address or hostname of the server. */
   if (argc < 1) {
-    usage();
-    return -1;
+    usage(0);
   }
 
   host = argv[0];
