@@ -59,10 +59,10 @@ static void usage(int status) {
     fprintf(stderr, "Try '%s --help' for more information.\n", progname);
   } else {
     printf("Usage: %s [OPTIONS]...\n", progname);
-    putc('\n', stdout);
+    putchar('\n');
 
     fputs("Mandatory arguments to long options are mandatory for short options too.\n", stdout);
-    putc('\n', stdout);
+    putchar('\n');
 
     fputs("Options:\n", stdout);
     fputs("  -f, --foreground           run the daemon in the foreground\n", stdout);
