@@ -30,10 +30,8 @@ static struct option long_options[] = {
 
 static void usage(void) {
   fprintf(stderr, "Usage: %s [OPTIONS] host [port]\n\n", progname);
-  fprintf(stderr,
-	  "Options:\n"
-          "  -h, --help              display this help and exit\n"
-	  "");
+  fprintf(stderr, "Options:\n");
+  fprintf(stderr, "  -h, --help              display this help and exit\n");
 }
 
 int main(int argc, char **argv) {
