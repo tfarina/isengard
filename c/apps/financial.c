@@ -2,15 +2,6 @@
 
 #include <math.h>
 
-double percentage_change(double old_value, double new_value)
-{
-  double diff = 0.0;
-
-  diff = new_value - old_value;
-
-  return (diff / old_value) * 100;
-}
-
 double future_value(double pv, double i, double n)
 {
   double cf = pow(1 + i, n);

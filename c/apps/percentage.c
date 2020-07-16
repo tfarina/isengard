@@ -1,6 +1,15 @@
 #include <stdio.h>
 
-#include "financial.h"
+#include "percentage.h"
+
+double percentage_change(double old_value, double new_value)
+{
+  double diff = 0.0;
+
+  diff = new_value - old_value;
+
+  return (diff / old_value) * 100;
+}
 
 int main(int argc, char **argv) {
   double change = 0.0;

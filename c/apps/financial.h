@@ -2,13 +2,6 @@
 #define FINANCIAL_H_
 
 /**
- * Computes the return between two values.
- *
- * @return the percentage return between the two values.
- */
-double percentage_change(double old_value, double new_value);
-
-/**
  * Computes the future value.
  *
  * @param pv   the present value
