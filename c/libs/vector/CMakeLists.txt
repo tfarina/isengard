@@ -41,8 +41,7 @@ if (ENABLE_EXAMPLES)
 endif()
 
 if (ENABLE_TESTS)
-  add_executable(unittests greatest.h vector_test.c unittests.c)
-  target_link_libraries(unittests vector)
+  add_subdirectory(tests)
 endif()
 
 configure_file(libvector.pc.in libvector.pc)
