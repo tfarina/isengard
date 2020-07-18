@@ -1,5 +1,5 @@
-libdir=@CMAKE_INSTALL_FULL_LIBDIR@
-includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
+libdir=@libdir@
+includedir=@includedir@
 
 Name: libvector
 Description: Simple C Vector library
