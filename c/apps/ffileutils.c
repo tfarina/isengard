@@ -34,7 +34,7 @@ char *f_build_filename(char *dir, char *file)
  * Reads the contents of |filename| and returns it. |rlen| holds its
  * length.
  *
- * Returns NULL on failure.
+ * @return Returns NULL on failure.
  */
 char *f_read_file(const char *filename, size_t *rlen)
 {
@@ -88,7 +88,10 @@ char *f_read_file(const char *filename, size_t *rlen)
 
   fclose(fp);
 
-  *rlen = fsize;
+  if (rlen) {
+    *rlen = fsize;
+  }
+
   return buf;
 }
 
@@ -115,3 +118,4 @@ int f_write_file(const char *filename, const char *data, size_t size)
 
   return size;
 }
+
