@@ -80,6 +80,7 @@ target_link_libraries(stats_test ${MATH_LIB})
 add_executable(ansi_colors_test ansi_colors_test.c)
 add_executable(pidfile pidfile.c)
 add_executable(buildpath ffileutils.c buildpath.c)
+add_executable(mkdirp_test strutils.c test.c mkdirp.c mkdirp_test.c)
 
 set(LIBCSV_PARSER_SRCS
   csv_parser.c
