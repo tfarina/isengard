@@ -45,3 +45,6 @@ if (ENABLE_TESTS)
 endif()
 
 configure_file(libvector.pc.in libvector.pc)
+
+install(FILES ${PROJECT_BINARY_DIR}/libvector.pc
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
