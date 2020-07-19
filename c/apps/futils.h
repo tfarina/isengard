@@ -7,6 +7,12 @@
 char *f_get_home_dir(void);
 
 /**
+ * Gets the user's configuration directory, where information like
+ * user preferences and settings can be stored.
+ */
+char *f_get_user_config_dir(void);
+
+/**
  * Gets the user name of the current user.
  */
 char *f_get_user_name(void);

@@ -1,15 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "ffileutils.h"
 #include "futils.h"
 
 int main(int argc, char **argv) {
-  char *homedir;
   char *configdir;
 
-  homedir = f_get_home_dir();
-  configdir = f_build_filename(homedir, ".config");
+  configdir = f_get_user_config_dir();
 
   printf("%s\n", configdir);
 
