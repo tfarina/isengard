@@ -4,9 +4,13 @@
 
 #include "third_party/sqlite/amalgamation/sqlite3.h"
 
+#include "ffileutils.h"
+#include "futils.h"
+#include "mkdirp.h"
 #include "strutils.h"
+#include "test.h"
 
-static const char dbname[] = "abdb.sqlite3";
+static char dbname[] = "abdb.sqlite3";
 static sqlite3 *conn = NULL;
 
 static sqlite3_stmt *insert_stmt;
@@ -70,13 +74,23 @@ static int _create_tables(void) {
 }
 
 int ab_init(void) {
+  char *dbpath;
+  char *dbfile;
+
   /* Do nothing if the database handle has been set. */
   if (conn) {
     return 0;
   }
 
-  if (sqlite3_open(dbname, &conn) != SQLITE_OK) {
-    fprintf(stderr, "error opening SQLite database %s: %s\n", dbname, sqlite3_errmsg(conn));
+  dbpath = f_build_filename(f_get_user_config_dir(), "sab");
+  if (!test_isdir(dbpath)) {
+    f_mkdirp(dbpath, 0700);
+  }
+
+  dbfile = f_build_filename(dbpath, dbname);
+
+  if (sqlite3_open(dbfile, &conn) != SQLITE_OK) {
+    fprintf(stderr, "error opening SQLite database %s: %s\n", dbfile, sqlite3_errmsg(conn));
     sqlite3_close(conn);
     return -1;
   }

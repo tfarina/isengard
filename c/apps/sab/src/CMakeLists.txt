@@ -6,7 +6,11 @@ set(SOURCES
   ab.c
   abook_contact.c
   alpm_list.c
+  ffileutils.c
+  futils.c
+  mkdirp.c
   strutils.c
+  test.c
 )
 
 set(HEADERS
@@ -14,7 +18,11 @@ set(HEADERS
   abook_contact.h
   alpm_list.h
   arraysize.h
+  ffileutils.h
+  futils.h
+  mkdirp.h
   strutils.h
+  test.h
 )
 
 add_library(ab
