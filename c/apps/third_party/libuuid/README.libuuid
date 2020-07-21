@@ -1,0 +1,8 @@
+Name: libuuid
+URL: https://sourceforge.net/projects/libuuid/
+Version: v1.0.3
+Security Critical: Yes
+License: BSD-3
+
+Description:
+Portable uuid C library
