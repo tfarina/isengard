@@ -32,9 +32,11 @@ static void usage(int status) {
   if (status) {
     fprintf(stderr, "Try '%s --help' for more information.\n", progname);
   } else {
-    fprintf(stderr, "Usage: %s [OPTIONS] host [port]\n\n", progname);
-    fprintf(stderr, "Options:\n");
-    fprintf(stderr, "  -h, --help              display this help and exit\n");
+    printf("Usage: %s [OPTIONS] host [port]\n", progname);
+    putchar('\n');
+
+    fputs("Options:\n", stdout);
+    fputs("  -h, --help              display this help and exit\n", stdout);
   }
 
   exit(status);
