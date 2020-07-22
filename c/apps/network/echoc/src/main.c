@@ -43,11 +43,11 @@ static void usage(int status) {
 }
 
 int main(int argc, char **argv) {
-  int optchr, value, sockfd, err;
-  char sendline[BUFSIZE];
-  char recvline[BUFSIZE];
+  int optchr, tmp_port, sockfd, err;
   char *host;
   int port;
+  char sendline[BUFSIZE];
+  char recvline[BUFSIZE];
 
   progname = os_path_basename(*(argv + 0));
 
@@ -87,16 +87,16 @@ int main(int argc, char **argv) {
 
   /* Looks like we have a port argument, otherwise let's just keep going with the default port (7). */
   if (argc > 1) {
-    value = atoi(argv[1]);
-    if (value <= 0) {
+    tmp_port = atoi(argv[1]);
+    if (tmp_port <= 0) {
       fprintf(stderr, "%s: port requires a non zero number\n", progname);
       return EXIT_FAILURE;
     }
-    if (!valid_port(value)) {
-      fprintf(stderr, "%s: %d is not a valid port\n", progname, value);
+    if (!valid_port(tmp_port)) {
+      fprintf(stderr, "%s: %d is not a valid port\n", progname, tmp_port);
       return EXIT_FAILURE;
     }
-    port = value;
+    port = tmp_port;
   }
 
   err = fnet_tcp_socket_connect(host, port, &sockfd);
