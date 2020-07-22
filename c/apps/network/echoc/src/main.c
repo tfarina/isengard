@@ -63,16 +63,14 @@ int main(int argc, char **argv) {
     switch (optchr) {
     case 'h':  /* --help */
       usage(0);
-      break;
 
     case '?':
-      /* Consider unrecognized options as fatal. */
-      fatal("Try `--help' or man(1) echoc for more information, usage options and help.");
+      /* Consider invalid option as fatal. e.g. echoc -R */
+      usage(1);
 
     default:
       /* An unrecognized option is considered a fatal error. */
       fatal("Unrecognized option.");
-      /* NOTREACHED */
     }
   }
 
