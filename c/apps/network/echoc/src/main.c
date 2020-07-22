@@ -24,8 +24,8 @@ static char const short_options[] =
     ;
 
 static struct option const long_options[] = {
-    { "help",        no_argument,       NULL, 'h' },
-    { NULL,          0,                 NULL,  0  }
+  { "help",        no_argument,       (int *) 0, 'h' },
+  { (char *) 0,    no_argument,       (int *) 0,  0  }
 };
 
 static void usage(int status) {
