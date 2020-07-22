@@ -19,11 +19,11 @@
 
 static char const *progname;
 
-static char short_options[] =
+static char const short_options[] =
     "h"   /* help */
     ;
 
-static struct option long_options[] = {
+static struct option const long_options[] = {
     { "help",        no_argument,       NULL, 'h' },
     { NULL,          0,                 NULL,  0  }
 };
