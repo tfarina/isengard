@@ -64,13 +64,8 @@ int main(int argc, char **argv) {
     case 'h':  /* --help */
       usage(EXIT_SUCCESS);
 
-    case '?':
-      /* Consider invalid option as fatal. e.g. echoc -R */
-      usage(EXIT_FAILURE);
-
     default:
-      /* An unrecognized option is considered a fatal error. */
-      fatal("Unrecognized option.");
+      usage(EXIT_FAILURE);
     }
   }
 
