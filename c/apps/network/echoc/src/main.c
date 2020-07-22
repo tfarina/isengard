@@ -62,11 +62,11 @@ int main(int argc, char **argv) {
 
     switch (optchr) {
     case 'h':  /* --help */
-      usage(0);
+      usage(EXIT_SUCCESS);
 
     case '?':
       /* Consider invalid option as fatal. e.g. echoc -R */
-      usage(1);
+      usage(EXIT_FAILURE);
 
     default:
       /* An unrecognized option is considered a fatal error. */
