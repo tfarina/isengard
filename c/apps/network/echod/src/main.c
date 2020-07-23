@@ -280,6 +280,14 @@ int main(int argc, char **argv) {
 
   ulog_open(progname, opt.logfile);
 
+  /*
+   * Bind to tcp socket as soon as possible.
+   */
+  tcpfd = ed_net_tcp_socket_listen(opt.address, opt.port, opt.backlog);
+  if (tcpfd < 0) {
+    return EXIT_FAILURE;
+  }
+
   if (opt.detach) {
     rc = daemonize();
     if (rc < 0) {
@@ -300,11 +308,6 @@ int main(int argc, char **argv) {
     if (rc < 0) {
       return rc;
     }
-  }
-
-  tcpfd = ed_net_tcp_socket_listen(opt.address, opt.port, opt.backlog);
-  if (tcpfd < 0) {
-    return EXIT_FAILURE;
   }
 
   /*
