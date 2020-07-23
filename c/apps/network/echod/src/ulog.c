@@ -45,12 +45,12 @@
 #define MAXLINELEN 1024
 #define RFC5424_TIMESTAMP "%Y-%m-%dT%H:%M:%S"
 
-#define ULOG_DST_CONSOLE (1 << 0)
+#define ULOG_DST_TERM    (1 << 0)
 #define ULOG_DST_FILE    (1 << 1)
 
 static char log_ident[32];
 static ulog_level_t log_level = ULOG_INFO;
-static int log_dst = ULOG_DST_CONSOLE;
+static int log_dst = ULOG_DST_TERM;
 static int log_fd = -1;
 
 typedef struct {
@@ -95,7 +95,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
     return;
   }
 
-  if (log_dst & ULOG_DST_CONSOLE) {
+  if (log_dst & ULOG_DST_TERM) {
     fd = (level == ULOG_INFO) ? STDOUT_FILENO : STDERR_FILENO;
 
     len = snprintf(buf, sizeof(buf), "\r%s: %s", log_ident, level_to_str(level));
