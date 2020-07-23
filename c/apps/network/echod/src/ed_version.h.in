@@ -3,13 +3,17 @@
 #define ED_VERSION_H_
 
 /**
+ * Numerical representation of the version number.
+ *
  * Available as a macro to provide checks at compile time.
  *
- * * Bits 16-23 contain the major version.
- * * Bits 8-15 contain the minor version.
- * * Bits 0-7 contain the patch version.
+ * This is a 24 bit number:
  *
- * In hexadecimal format, the number 0x010203 represents version 1.2.3.
+ * . Bits 16-23 contain the major version.
+ * . Bits 8-15 contain the minor version.
+ * . Bits 0-7 contain the patch version.
+ *
+ * In hexadecimal format, version 1.2.3 becomes 0x010203.
  */
 #define ED_VERSION ((@PROJECT_VERSION_MAJOR@ << 16) | (@PROJECT_VERSION_MINOR@ << 8) | @PROJECT_VERSION_PATCH@)
 
