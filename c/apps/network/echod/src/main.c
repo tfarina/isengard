@@ -288,6 +288,16 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
+  security_check_daemon_user(opt.user);
+
+  /*
+   * Release root privileges and run as this user.
+   */
+  rc = drop_privileges(opt.user);
+  if (rc < 0) {
+    return rc;
+  }
+
   if (opt.detach) {
     rc = daemonize();
     if (rc < 0) {
@@ -295,8 +305,6 @@ int main(int argc, char **argv) {
       return rc;
     }
   }
-
-  security_check_daemon_user(opt.user);
 
   pid = getpid();
 
@@ -308,14 +316,6 @@ int main(int argc, char **argv) {
     if (rc < 0) {
       return rc;
     }
-  }
-
-  /*
-   * Release root privileges and run as this user.
-   */
-  rc = drop_privileges(opt.user);
-  if (rc < 0) {
-    return rc;
   }
 
   init_signals();
