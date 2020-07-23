@@ -65,8 +65,8 @@ static void usage(int status) {
     putchar('\n');
 
     fputs("Options:\n", stdout);
-    fputs("  -f, --foreground           run the daemon in the foreground\n", stdout);
-    fputs("  -u, --user=<username>      run the daemon as user\n", stdout);
+    fputs("  -f, --foreground           run in the foreground\n", stdout);
+    fputs("  -u, --user=<username>      run as user\n", stdout);
     fputs("  -C, --config=<file>        specify alternate configuration file\n", stdout);
     fputs("  -P, --pidfile=<file>       write process id to the specified file\n", stdout);
     fputs("  -L, --logfile=<file>       write log messages to the specified file\n", stdout);
