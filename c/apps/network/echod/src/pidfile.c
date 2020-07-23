@@ -53,7 +53,7 @@ int pidfile_write(char const *pidfile_path, pid_t pid) {
 
   fd = open(pidfile_path, O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC, FILE_PERM);
   if (fd < 0) {
-    ulog_error("unable to open pidfile '%s': %s", pidfile_path,
+    ulog_error("unable to create PID file '%s': %s", pidfile_path,
                strerror(errno));
     return -1;
   }
@@ -80,7 +80,7 @@ int pidfile_write(char const *pidfile_path, pid_t pid) {
    */
   bytes_written = write(fd, pidstr, PIDSTRLEN);
   if (bytes_written < 0 || bytes_written != PIDSTRLEN) {
-    ulog_error("unable to write to pidfile '%s': %s", pidfile_path,
+    ulog_error("unable to write to PID file '%s': %s", pidfile_path,
                strerror(errno));
     close(fd);
     return -1;
@@ -88,7 +88,7 @@ int pidfile_write(char const *pidfile_path, pid_t pid) {
 
   rc = close(fd);
   if (rc < 0) {
-    ulog_error("unable to close pidfile '%s': %s", pidfile_path,
+    ulog_error("unable to close PID file '%s': %s", pidfile_path,
                strerror(errno));
     return -1;
   }
@@ -105,7 +105,7 @@ int pidfile_remove(char const *pidfile_path) {
 
   rc = unlink(pidfile_path);
   if (rc < 0) {
-    ulog_error("unable to remove pidfile '%s': %s", pidfile_path, strerror(errno));
+    ulog_error("unable to remove PID file '%s': %s", pidfile_path, strerror(errno));
     return -1;
   }
 
