@@ -160,15 +160,10 @@ void parse_args(int argc, char **argv, options_t *opt) {
 
     case 'p':  /* --port */
       value = atoi(optarg);
-      if (value <= 0) {
-	fprintf(stderr, "%s: option -p requires a non zero number\n", progname);
-	exit(1);
-      }
       if (!valid_port(value)) {
-	fprintf(stderr, "%s: option -s value %d is not a valid port\n", progname, value);
+	fprintf(stderr, "%s: port number must be between 1 and 65535\n", progname);
         exit(1);
       }
-
       opt->port = value;
       break;
 
