@@ -37,7 +37,6 @@
 #include "daemon.h"
 #include "echod.h"
 #include "ed_net.h"
-#include "ed_version.h"
 #include "options.h"
 #include "os_path.h"
 #include "pidfile.h"
@@ -46,6 +45,7 @@
 #include "ulog.h"
 #include "unused-parameter.h"
 #include "username.h"
+#include "version.h"
 
 #define BUFSIZE 8129
 
@@ -320,7 +320,7 @@ int main(int argc, char **argv) {
 
   init_signals();
 
-  ulog_info("started daemon -- pid=%d version=%s", pid, ED_VERSION_STR);
+  ulog_info("started daemon -- pid=%d version=%s", pid, ECHOD_VERSION);
 
   ulog_info("running as user '%s' (%ld) and group '%s' (%ld)",
             get_username(), (long)getuid(),

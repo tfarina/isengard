@@ -1,6 +1,6 @@
-/* ed_version.h. Generated from ed_version.h.in by cmake. */
-#ifndef ED_VERSION_H_
-#define ED_VERSION_H_
+/* version.h. Generated from version.h.in by cmake. */
+#ifndef _VERSION_H_INCLUDED_
+#define _VERSION_H_INCLUDED_ 1
 
 /**
  * Numerical representation of the version number.
@@ -15,8 +15,8 @@
  *
  * In hexadecimal format, version 1.2.3 becomes 0x010203.
  */
-#define ED_VERSION_NUM ((@PROJECT_VERSION_MAJOR@ << 16) | (@PROJECT_VERSION_MINOR@ << 8) | @PROJECT_VERSION_PATCH@)
+#define ECHOD_VERSION_NUM ((@PROJECT_VERSION_MAJOR@ << 16) | (@PROJECT_VERSION_MINOR@ << 8) | @PROJECT_VERSION_PATCH@)
 
-#define ED_VERSION_STR "@PROJECT_VERSION@"
+#define ECHOD_VERSION "@PROJECT_VERSION@"
 
-#endif  /* ED_VERSION_H_ */
+#endif  /* !defined(_VERSION_H_INCLUDED_) */

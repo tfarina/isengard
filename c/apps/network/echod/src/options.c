@@ -13,8 +13,8 @@
 
 #include "echod.h"
 #include "ed_default_paths.h"
-#include "ed_version.h"
 #include "valid.h"
+#include "version.h"
 
 options_t opt;
 
@@ -81,7 +81,7 @@ static void usage(int status) {
 }
 
 static void version(void) {
-  printf("%s %s\n", progname, ED_VERSION_STR);
+  printf("%s %s\n", progname, ECHOD_VERSION);
 }
 
 void set_default_options(options_t *opt) {

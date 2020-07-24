@@ -5,8 +5,8 @@ configure_file(
 add_definitions(-DHAVE_CONFIG_H)
 
 configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/ed_version.h.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/ed_version.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/version.h.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/version.h"
 )
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
