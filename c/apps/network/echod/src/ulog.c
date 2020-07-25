@@ -118,7 +118,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   }
 }
 
-void ulog_open(char const *ident, char const *logfile_path) {
+void ulog_open(char const *ident, char const *log_file) {
   if (ident) {
     strncpy(log_ident, ident, sizeof(log_ident));
     log_ident[sizeof(log_ident) - 1] = 0;
@@ -126,13 +126,13 @@ void ulog_open(char const *ident, char const *logfile_path) {
     *log_ident = 0;
   }
 
-  if (logfile_path == NULL || !strlen(logfile_path)) {
+  if (log_file == NULL || !strlen(log_file)) {
     return;
   }
 
   log_dst |= ULOG_DST_FILE;
 
-  log_fd = open(logfile_path, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
+  log_fd = open(log_file, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
 }
 
 /**
