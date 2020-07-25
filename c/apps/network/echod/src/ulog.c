@@ -126,7 +126,7 @@ void ulog_open(char const *ident, char const *log_file) {
     *log_ident = 0;
   }
 
-  if (log_file == NULL || !strlen(log_file)) {
+  if (log_file == NULL || *log_file == '\0') {
     return;
   }
 
