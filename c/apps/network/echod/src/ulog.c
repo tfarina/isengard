@@ -118,14 +118,16 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   }
 }
 
-void ulog_open(char const *ident, char const *log_file) {
+void ulog_open(char const *ident) {
   if (ident) {
     strncpy(log_ident, ident, sizeof(log_ident));
     log_ident[sizeof(log_ident) - 1] = 0;
   } else {
     *log_ident = 0;
   }
+}
 
+void ulog_set_file(char const *log_file) {
   if (log_file == NULL || *log_file == '\0') {
     return;
   }

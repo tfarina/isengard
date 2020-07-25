@@ -44,8 +44,8 @@ typedef enum ulog_level_e {
   ULOG_MAX
 } ulog_level_t;
 
-void ulog_open(char const *, char const *);
-
+void ulog_open(char const *);
+void ulog_set_file(char const *);
 void ulog_close(void);
 
 void ulog_fatal(char const *, ...);

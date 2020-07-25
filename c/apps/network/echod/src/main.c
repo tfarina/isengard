@@ -247,7 +247,7 @@ int main(int argc, char **argv) {
   /*
    * Initialize logging.
    */
-  ulog_open(progname, (char const *) 0);
+  ulog_open(progname);
 
   /*
    * Check if it was run by the superuser.
@@ -282,7 +282,11 @@ int main(int argc, char **argv) {
    */
   parse_args(argc, argv, &opt);
 
-  ulog_open(progname, opt.logfile);
+  /*
+   * Now that configuration file and command line has been parsed, honor either
+   * the config setting or the option '--logfile'.
+   */
+  ulog_set_file(opt.logfile);
 
   /*
    * Bind to tcp socket as soon as possible.
