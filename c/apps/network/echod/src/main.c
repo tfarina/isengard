@@ -261,6 +261,10 @@ int main(int argc, char **argv) {
    */
   set_default_options(&opt);
 
+  /*
+   * This is separate to find the configuration file if the user provided one
+   * and read it before the other user options.
+   */
   preparse_args(argc, argv, &opt);
 
   /*
