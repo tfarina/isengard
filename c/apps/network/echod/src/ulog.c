@@ -132,9 +132,9 @@ void ulog_set_file(char const *log_file) {
     return;
   }
 
-  log_dst |= ULOG_DST_FILE;
-
   log_fd = open(log_file, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
+
+  log_dst |= ULOG_DST_FILE;
 }
 
 /**
