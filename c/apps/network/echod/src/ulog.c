@@ -45,8 +45,8 @@
 #define MAXLINELEN 1024
 #define RFC5424_TIMESTAMP "%Y-%m-%dT%H:%M:%S"
 
-#define ULOG_DST_TERM    (1 << 0)
-#define ULOG_DST_FILE    (1 << 1)
+#define ULOG_DST_TERM    0
+#define ULOG_DST_FILE    1
 
 static char log_ident[32];
 static ulog_level_t log_level = ULOG_INFO;
@@ -95,7 +95,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
     return;
   }
 
-  if (log_dst & ULOG_DST_TERM) {
+  if (log_dst == ULOG_DST_TERM) {
     fd = (level == ULOG_INFO) ? STDOUT_FILENO : STDERR_FILENO;
 
     len = snprintf(buf, sizeof(buf), "\r%s: %s", log_ident, level_to_str(level));
@@ -105,7 +105,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
     write(fd, buf, len);
   }
 
-  if (log_dst & ULOG_DST_FILE && log_fd > 0) {
+  if (log_dst == ULOG_DST_FILE && log_fd > 0) {
     time(&now);
     localtm = localtime(&now);
     strftime(timebuf, sizeof(timebuf), RFC5424_TIMESTAMP, localtm);
@@ -134,14 +134,14 @@ void ulog_set_file(char const *log_file) {
 
   log_fd = open(log_file, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
 
-  log_dst |= ULOG_DST_FILE;
+  log_dst = ULOG_DST_FILE;
 }
 
 /**
  * Closes the file descriptor being used to write to the file.
  */
 void ulog_close(void) {
-  if (log_dst & ULOG_DST_FILE) {
+  if (log_dst == ULOG_DST_FILE) {
     if (log_fd < 0) {
       return;
     }
