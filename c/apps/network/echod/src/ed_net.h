@@ -4,6 +4,6 @@
 #include <stddef.h>
 
 int ed_net_tcp_socket_listen(char *host, int port, int backlog);
-int ed_net_tcp_socket_accept(int sd, char *ipbuf, size_t ipbuf_len, short unsigned *port);
+int ed_net_tcp_socket_accept(int sockfd, char *ipbuf, size_t ipbuf_len, short unsigned *port);
 
 #endif /* ED_NET_H_ */
