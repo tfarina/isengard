@@ -316,15 +316,15 @@ int main(int argc, char **argv) {
 
   pid = getpid();
 
-  /*
-   * Write PID file after daemonizing.
-   */
   if (opt.pidfile) {
     rc = pidfile_create(opt.pidfile);
     if (rc < 0) {
       return rc;
     }
 
+    /*
+     * Only write the PID file after daemonizing.
+     */
     rc = pidfile_write(opt.pidfile, pid);
     if (rc < 0) {
       return rc;
