@@ -27,7 +27,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "daemon.h"
+#include "daemonize.h"
 
 #include <errno.h>
 #include <fcntl.h>

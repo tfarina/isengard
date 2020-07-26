@@ -16,8 +16,8 @@ set(PROGRAM "echod")
 set(SRCS
   assertion.c
   assertion.h
-  daemon.c
-  daemon.h
+  daemonize.c
+  daemonize.h
   debug.h
   echod.h
   ed_net.c

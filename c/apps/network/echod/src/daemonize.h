@@ -1,5 +1,5 @@
-#ifndef _DAEMON_H_INCLUDED_
-#define _DAEMON_H_INCLUDED_ 1
+#ifndef _DAEMONIZE_H_INCLUDED_
+#define _DAEMONIZE_H_INCLUDED_ 1
 
 /*
  * http://man7.org/linux/man-pages/man3/daemon.3.html
@@ -16,4 +16,4 @@
  */
 int daemonize(void);
 
-#endif  /* !defined(_DAEMON_H_INCLUDED_) */
+#endif  /* !defined(_DAEMONIZE_H_INCLUDED_) */

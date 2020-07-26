@@ -34,7 +34,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include "daemon.h"
+#include "daemonize.h"
 #include "echod.h"
 #include "ed_net.h"
 #include "options.h"
