@@ -10,7 +10,7 @@
 /**
  * Resolves hostname to IP address.
  *
- * @return int -1 on error, 0 on success.
+ * @return 0 on success. If an error occurs, returns -1.
  */
 int fnet_resolve(char *err, char *hostname, char *ipbuf, size_t ipbuf_len);
 

@@ -12,7 +12,7 @@
  * Put the program in the background and redirect stdin, stdout and stderr
  * to /dev/null.
  *
- * @return 0 on success. -1 if an error occurs.
+ * @return 0 on success. If an error occurs, returns -1.
  */
 int daemonize(void);
 
