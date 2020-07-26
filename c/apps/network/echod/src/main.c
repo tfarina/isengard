@@ -309,7 +309,7 @@ int main(int argc, char **argv) {
   if (opt.detach) {
     rc = daemonize();
     if (rc < 0) {
-      ulog_error("Couldn't daemonize %s: %s\n", progname, strerror(errno));
+      ulog_error("failed to daemonize %s", strerror(errno));
       return rc;
     }
   }
