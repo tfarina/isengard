@@ -17,7 +17,7 @@ extern options_t opt;
 /**
  * Initialize |opt| to default values.
  */
-void set_default_options(options_t *opt);
+void init_options(options_t *opt);
 
 void preparse_args(int argc, char **argv, options_t *opt);
 

@@ -84,7 +84,7 @@ static void version(void) {
   printf("%s %s\n", progname, ECHOD_VERSION);
 }
 
-void set_default_options(options_t *opt) {
+void init_options(options_t *opt) {
   opt->detach = 1;
   opt->conffile = DEF_PATH_ECHODCONF;
   opt->pidfile = DEF_PATH_ECHODPID;

@@ -259,7 +259,7 @@ int main(int argc, char **argv) {
   /*
    * Initialize built-in parameters to their default values.
    */
-  set_default_options(&opt);
+  init_options(&opt);
 
   /*
    * This is separate to find the configuration file if the user provided one
