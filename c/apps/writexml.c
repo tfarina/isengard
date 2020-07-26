@@ -6,17 +6,19 @@ int main(int argc, char **argv)
 {
   mxml_node_t *xml = NULL;
   mxml_node_t *book = NULL;
-  mxml_node_t *node = NULL;
+  mxml_node_t *author = NULL;
+  mxml_node_t *title = NULL;
   FILE *fp = NULL;
 
   xml = mxmlNewXML("1.0");
 
   book = mxmlNewElement(xml, "book");
-  node = mxmlNewElement(book, "author");
-  mxmlNewText(node, 0, "Gambardella, Matthew");
 
-  node = mxmlNewElement(book, "title");
-  mxmlNewText(node, 0, "XML Developer's Guide");
+  author = mxmlNewElement(book, "author");
+  mxmlNewText(author, 0, "Gambardella, Matthew");
+
+  title = mxmlNewElement(book, "title");
+  mxmlNewText(title, 0, "XML Developer's Guide");
 
   fp = fopen("books.xml", "w");
   if (fp == NULL) {
@@ -27,6 +29,8 @@ int main(int argc, char **argv)
 
   fclose(fp);
 
+  mxmlDelete(title);
+  mxmlDelete(author);
   mxmlDelete(xml);
 
   return 0;
