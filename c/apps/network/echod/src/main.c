@@ -114,16 +114,16 @@ static void init_signals(void) {
   action.sa_handler = sigterm;
 
   if (sigaction(SIGINT, &action, (struct sigaction *) 0) < 0) {
-    ulog_error("unable to set SIGINT: %s", strerror(errno));
+    ulog_error("could not set up signal handler for SIGINT: %s", strerror(errno));
   }
   if (sigaction(SIGTERM, &action, (struct sigaction *) 0) < 0) {
-    ulog_error("unable to set SIGTERM: %s", strerror(errno));
+    ulog_error("could not set up signal handler for SIGTERM: %s", strerror(errno));
   }
 
   action.sa_flags |= SA_NOCLDSTOP;
   action.sa_handler = sigchld;
   if (sigaction(SIGCHLD, &action, (struct sigaction *) 0) < 0) {
-    ulog_error("unable to set SIGCHLD: %s", strerror(errno));
+    ulog_error("could not set up signal handler for SIGCHLD: %s", strerror(errno));
   }
 }
 
