@@ -44,19 +44,24 @@
  */
 #define FILE_PERM (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 
-int pidfile_write(char const *pidfile_path, pid_t pid) {
-  int fd;
-  char pidstr[PIDSTRLEN + 1]; /* +1 to include the terminating null byte ('\0'). */
-  int len;
-  ssize_t bytes_written;
-  int rc;
+static int pid_fd = -1;
 
-  fd = open(pidfile_path, O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC, FILE_PERM);
-  if (fd < 0) {
+int pidfile_create(char const *pidfile_path) {
+  pid_fd = open(pidfile_path, O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC, FILE_PERM);
+  if (pid_fd < 0) {
     ulog_error("unable to create PID file '%s': %s", pidfile_path,
                strerror(errno));
     return -1;
   }
+
+  return 0;
+}
+
+int pidfile_write(char const *pidfile_path, pid_t pid) {
+  char pidstr[PIDSTRLEN + 1]; /* +1 to include the terminating null byte ('\0'). */
+  int len;
+  ssize_t bytes_written;
+  int rc;
 
   /*
    * The |pidstr| array goes from 0 to 12.
@@ -70,7 +75,7 @@ int pidfile_write(char const *pidfile_path, pid_t pid) {
   len = snprintf(pidstr, sizeof(pidstr), "%*ld\n", PIDSTRLEN - 1, (unsigned long) pid);
   if (len < 0) {
     ulog_error("unable to convert PID to string: %s", strerror(errno));
-    close(fd);
+    close(pid_fd);
     return -1;
   }
 
@@ -78,15 +83,15 @@ int pidfile_write(char const *pidfile_path, pid_t pid) {
    * Asking write(3) to write 12 bytes, upto '\n', and thus
    * excluding the terminating null byte ('\0').
    */
-  bytes_written = write(fd, pidstr, PIDSTRLEN);
+  bytes_written = write(pid_fd, pidstr, PIDSTRLEN);
   if (bytes_written < 0 || bytes_written != PIDSTRLEN) {
     ulog_error("unable to write to PID file '%s': %s", pidfile_path,
                strerror(errno));
-    close(fd);
+    close(pid_fd);
     return -1;
   }
 
-  rc = close(fd);
+  rc = close(pid_fd);
   if (rc < 0) {
     ulog_error("unable to close PID file '%s': %s", pidfile_path,
                strerror(errno));

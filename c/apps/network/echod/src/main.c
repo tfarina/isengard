@@ -320,6 +320,11 @@ int main(int argc, char **argv) {
    * Write PID file after daemonizing.
    */
   if (opt.pidfile) {
+    rc = pidfile_create(opt.pidfile);
+    if (rc < 0) {
+      return rc;
+    }
+
     rc = pidfile_write(opt.pidfile, pid);
     if (rc < 0) {
       return rc;

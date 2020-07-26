@@ -3,6 +3,7 @@
 
 #include <sys/types.h>
 
+int pidfile_create(char const *pidfile_path);
 int pidfile_write(char const *pidfile_path, pid_t pid);
 int pidfile_remove(char const *pidfile_path);
 
