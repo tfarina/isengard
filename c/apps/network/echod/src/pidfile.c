@@ -74,7 +74,7 @@ int pidfile_write(char const *pidfile_path, pid_t pid) {
    */
   len = snprintf(pidstr, sizeof(pidstr), "%*ld\n", PIDSTRLEN - 1, (unsigned long) pid);
   if (len < 0) {
-    ulog_error("unable to convert PID to string: %s", strerror(errno));
+    ulog_error("unable to convert the PID number into a string: %s", strerror(errno));
     close(pid_fd);
     return -1;
   }
