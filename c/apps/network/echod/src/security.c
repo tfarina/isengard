@@ -8,13 +8,15 @@
 
 #include "ulog.h"
 
-void security_check_daemon_user(char const *name) {
+int security_check_daemon_user(char const *name) {
   struct passwd *pw;
 
   pw = getpwnam(name);
   if (pw == 0) {
-    ulog_fatal("user '%s' not found", name);
+    return -1;
   }
+
+  return 0;
 }
 
 int drop_privileges(char const *username) {

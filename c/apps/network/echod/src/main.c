@@ -296,7 +296,10 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  security_check_daemon_user(opt.user);
+  rc = security_check_daemon_user(opt.user);
+  if (rc < 0) {
+    ulog_fatal("user '%s' not found", opt.user);
+  }
 
   /*
    * Release root privileges and run as this user.
