@@ -15,6 +15,7 @@ add_subdirectory(third_party/libcsv)
 add_subdirectory(third_party/cJSON)
 add_subdirectory(third_party/mxml)
 add_subdirectory(third_party/libuuid)
+add_subdirectory(third_party/clark)
 
 add_executable(tst tst.c)
 target_link_libraries(tst libcsv)
@@ -126,3 +127,6 @@ target_link_libraries(uid uuid)
 
 add_executable(writexml3 writexml3.c)
 target_link_libraries(writexml3 mxml uuid -pthread)
+
+add_executable(hashtable_test hashtable_test.c)
+target_link_libraries(hashtable_test chashtable uuid ${MATH_LIB})
