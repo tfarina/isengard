@@ -123,3 +123,6 @@ target_link_libraries(writexml2 mxml -pthread)
 
 add_executable(uid uid.c)
 target_link_libraries(uid uuid)
+
+add_executable(writexml3 writexml3.c)
+target_link_libraries(writexml3 mxml uuid -pthread)
