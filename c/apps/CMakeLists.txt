@@ -14,6 +14,7 @@ add_subdirectory(third_party/iniparser)
 add_subdirectory(third_party/libcsv)
 add_subdirectory(third_party/cJSON)
 add_subdirectory(third_party/mxml)
+add_subdirectory(third_party/libuuid)
 
 add_executable(tst tst.c)
 target_link_libraries(tst libcsv)
@@ -119,3 +120,6 @@ target_link_libraries(readxml mxml -pthread)
 
 add_executable(writexml2 writexml2.c)
 target_link_libraries(writexml2 mxml -pthread)
+
+add_executable(uid uid.c)
+target_link_libraries(uid uuid)
