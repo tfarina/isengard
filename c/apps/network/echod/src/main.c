@@ -240,7 +240,7 @@ int main(int argc, char **argv) {
   }
 
   /*
-   * Save our name for later usage.
+   * Save the program name for logging, etc.
    */
   progname = os_path_basename(*argv);
 
