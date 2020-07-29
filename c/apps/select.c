@@ -21,7 +21,9 @@ static int poll_timeout(double timeout) {
   tv.tv_sec = (long)(timeout / 1000.0);
   tv.tv_usec = (long)(timeout * 1000.0) % 1000000;
 
-  /* Don't care about writefds and exceptfds. */
+  /*
+   * Watch out read events.
+   */
   rv = select(fd + 1, &readfds, NULL, NULL, &tv);
   if (rv == -1) {
     /* TODO: Check errno for EAGAIN. */
