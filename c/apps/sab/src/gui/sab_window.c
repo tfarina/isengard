@@ -521,8 +521,6 @@ static void sab_window_new(void)
   for (cur = list; cur; cur = alpm_list_next(cur)) {
     sab_window_insert_item(list_store, (ab_contact_t *)cur->data);
   }
-
-  gtk_main();
 }
 
 int main(int argc, char** argv)
@@ -530,6 +528,8 @@ int main(int argc, char** argv)
   gtk_init(&argc, &argv);
 
   sab_window_new();
+
+  gtk_main();
 
   return 0;
 }
