@@ -25,5 +25,4 @@ add_subdirectory(src/cli)
 
 if (ENABLE_GTK)
   add_subdirectory(src/gui)
-  add_subdirectory(src/examples)
 endif()
