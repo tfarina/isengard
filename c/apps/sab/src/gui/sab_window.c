@@ -370,6 +370,9 @@ void sab_window_new(void)
   GtkListStore *list_store; /* Data model */
   alpm_list_t *list, *cur;
 
+  /*
+   * Window
+   */
   main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(main_window), "Address Book");
   gtk_window_set_position(GTK_WINDOW(main_window), GTK_WIN_POS_CENTER);
@@ -384,6 +387,9 @@ void sab_window_new(void)
 
   gtk_container_add(GTK_CONTAINER(main_window), vbox);
 
+  /*
+   * Menubar
+   */
   menubar = gtk_menu_bar_new();
   accel_group = gtk_accel_group_new();
   gtk_window_add_accel_group(GTK_WINDOW(main_window), accel_group);
@@ -436,6 +442,9 @@ void sab_window_new(void)
   handlebox = gtk_hbox_new(FALSE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), handlebox, FALSE, FALSE, 0);
 
+  /*
+   * Toolbar
+   */
   toolbar = gtk_toolbar_new();
   gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH);
 
@@ -472,6 +481,9 @@ void sab_window_new(void)
   g_signal_connect(G_OBJECT(view_tol_item), "activate",
 		   G_CALLBACK(toggle_toolbar_cb), toolbar);
 
+  /*
+   * List view
+   */
   scrolledwin = gtk_scrolled_window_new(NULL, NULL);
   gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwin),
