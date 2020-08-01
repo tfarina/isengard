@@ -14,8 +14,9 @@ enum {
   LIST_COL_LAST_NAME,
   LIST_COL_EMAIL,
   LIST_COL_PTR,
-  LIST_COL_NUM
 };
+#define LIST_COL_LAST  LIST_COL_PTR
+#define LIST_COL_COUNT (LIST_COL_LAST + 1)
 
 typedef enum action_code_e {
   AC_ADD = 0,
@@ -477,7 +478,7 @@ void sab_window_new(void)
                                  GTK_POLICY_AUTOMATIC,
                                  GTK_POLICY_AUTOMATIC);
 
-  list_store = gtk_list_store_new(LIST_COL_NUM,
+  list_store = gtk_list_store_new(LIST_COL_COUNT,
                                   G_TYPE_STRING, /* First name */
                                   G_TYPE_STRING, /* Last name */
                                   G_TYPE_STRING, /* Email */
