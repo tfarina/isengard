@@ -96,7 +96,7 @@ static void sab_contact_window(GtkWindow *parent, action_code_t ac, ab_contact_t
   GtkWidget *vbox;
   GtkWidget *table;
   GtkWidget *label;
-  GtkWidget *confirm_area;
+  GtkWidget *bbox;
   GtkWidget *cancel_btn;
   GtkWidget *ok_btn;
 
@@ -159,18 +159,21 @@ static void sab_contact_window(GtkWindow *parent, action_code_t ac, ab_contact_t
   gtk_table_attach(GTK_TABLE(table), email_entry, 1, 2, 2, 3,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
-  confirm_area = gtk_hbutton_box_new();
-  gtk_button_box_set_layout(GTK_BUTTON_BOX(confirm_area), GTK_BUTTONBOX_END);
-  gtk_box_set_spacing(GTK_BOX(confirm_area), 5);
-  gtk_container_set_border_width(GTK_CONTAINER(confirm_area), 4);
+  /*
+   * Horizontal Button Box area
+   */
+  bbox = gtk_hbutton_box_new();
+  gtk_button_box_set_layout(GTK_BUTTON_BOX(bbox), GTK_BUTTONBOX_END);
+  gtk_box_set_spacing(GTK_BOX(bbox), 5);
+  gtk_container_set_border_width(GTK_CONTAINER(bbox), 4);
 
   cancel_btn = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-  gtk_box_pack_start(GTK_BOX(confirm_area), cancel_btn, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(bbox), cancel_btn, TRUE, TRUE, 0);
 
   ok_btn = gtk_button_new_from_stock(GTK_STOCK_OK);
-  gtk_box_pack_start(GTK_BOX(confirm_area), ok_btn, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(bbox), ok_btn, TRUE, TRUE, 0);
 
-  gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
+  gtk_box_pack_end(GTK_BOX(vbox), bbox, FALSE, FALSE, 0);
 
   g_signal_connect(G_OBJECT(ok_btn), "clicked",
                    G_CALLBACK(sab_contact_window_ok_btn_cb), NULL);
