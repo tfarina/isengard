@@ -56,7 +56,7 @@ static ab_contact_t *current_contact;
 typedef void (*editor_post_cb_t)(ab_contact_t *contact);
 static editor_post_cb_t add_edit_post_cb = NULL;
 
-static void sab_contact_window_ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
+static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
 {
   char const *name;
 
@@ -86,7 +86,7 @@ static void sab_contact_window_ok_btn_cb(GtkWidget *widget, gboolean *cancelled)
   }
 }
 
-static void sab_contact_window_cancel_btn_cb(GtkWidget *widget, gboolean *cancelled)
+static void _contact_editor_cancel_cb(GtkWidget *widget, gboolean *cancelled)
 {
   gtk_widget_destroy(contact_window);
 }
@@ -176,10 +176,10 @@ static void sab_contact_window(GtkWindow *parent, action_code_t ac, ab_contact_t
   gtk_box_pack_end(GTK_BOX(vbox), bbox, FALSE, FALSE, 0);
 
   g_signal_connect(G_OBJECT(ok_btn), "clicked",
-                   G_CALLBACK(sab_contact_window_ok_btn_cb), NULL);
+                   G_CALLBACK(_contact_editor_ok_cb), NULL);
 
   g_signal_connect_swapped(cancel_btn, "clicked",
-			   G_CALLBACK(sab_contact_window_cancel_btn_cb), NULL);
+			   G_CALLBACK(_contact_editor_cancel_cb), NULL);
 
   if (current_contact) {
     gtk_entry_set_text(GTK_ENTRY(fname_entry), ab_contact_get_first_name(current_contact));
