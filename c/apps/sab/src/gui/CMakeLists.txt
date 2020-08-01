@@ -7,6 +7,7 @@ set(DEPENDENCIES
 
 set(SOURCES
   about_dialog.c
+  main.c
   sab_window.c
 )
 

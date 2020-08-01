@@ -1,5 +1,7 @@
 /*https://stackoverflow.com/questions/45389291/how-to-display-data-from-a-sqlite-database-into-a-gtk-treeview*/
 
+#include "sab_window.h"
+
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
@@ -342,7 +344,7 @@ static void sab_window_about_cb(GtkWidget *widget, gpointer data)
 #define WINDOW_WIDTH 610
 #define WINDOW_HEIGHT 377
 
-static void sab_window_new(void)
+void sab_window_new(void)
 {
   GtkWidget *vbox;
   GtkWidget *menubar;
@@ -366,8 +368,6 @@ static void sab_window_new(void)
 
   GtkListStore *list_store; /* Data model */
   alpm_list_t *list, *cur;
-
-
 
   main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(main_window), "Address Book");
@@ -521,15 +521,4 @@ static void sab_window_new(void)
   for (cur = list; cur; cur = alpm_list_next(cur)) {
     sab_window_insert_item(list_store, (ab_contact_t *)cur->data);
   }
-}
-
-int main(int argc, char** argv)
-{
-  gtk_init(&argc, &argv);
-
-  sab_window_new();
-
-  gtk_main();
-
-  return 0;
 }
