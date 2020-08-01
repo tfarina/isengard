@@ -8,9 +8,9 @@
  * functions that you call.
  */
 enum {
-  DBA_SUCCESS = 0,  /* no error */
-  DBA_EINVAL,       /* invalid argument */
-  DBA_ENOMEM,       /* out of memory */
+  DBA_SUCCESS = 0,  /**< No error */
+  DBA_EINVAL,       /**< Invalid argument */
+  DBA_ENOMEM,       /**< Out of memory */
   DBA_ENOOP,
   DBA_ENOTEXIST,
   DBA_EHANDLE,
