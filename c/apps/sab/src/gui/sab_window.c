@@ -91,7 +91,7 @@ static void _contact_editor_cancel_cb(GtkWidget *widget, gboolean *cancelled)
   gtk_widget_destroy(contact_window);
 }
 
-static void sab_contact_window(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, void (*post_cb)(ab_contact_t *contact))
+static void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, void (*post_cb)(ab_contact_t *contact))
 {
   GtkWidget *vbox;
   GtkWidget *table;
@@ -221,7 +221,7 @@ static void sab_edit_contact_post_cb(ab_contact_t *contact)
 
 static void sab_window_new_button_cb(GtkWidget *widget, gpointer data)
 {
-  sab_contact_window(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
+  contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
 }
 
 static void sab_window_edit_button_cb(GtkWidget *widget, gpointer data)
@@ -239,7 +239,7 @@ static void sab_window_edit_button_cb(GtkWidget *widget, gpointer data)
 
   gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
 
-  sab_contact_window(GTK_WINDOW(data), AC_EDIT, contact, sab_edit_contact_post_cb);
+  contact_editor_new(GTK_WINDOW(data), AC_EDIT, contact, sab_edit_contact_post_cb);
 }
 
 static void sab_window_delete_button_cb(GtkWidget *widget, gpointer data)
