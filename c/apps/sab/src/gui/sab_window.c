@@ -342,7 +342,7 @@ static void sab_window_about_cb(GtkWidget *widget, gpointer data)
 #define WINDOW_WIDTH 610
 #define WINDOW_HEIGHT 377
 
-int main(int argc, char** argv)
+static void sab_window_new(void)
 {
   GtkWidget *vbox;
   GtkWidget *menubar;
@@ -367,7 +367,7 @@ int main(int argc, char** argv)
   GtkListStore *list_store; /* Data model */
   alpm_list_t *list, *cur;
 
-  gtk_init(&argc, &argv);
+
 
   main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(main_window), "Address Book");
@@ -523,6 +523,13 @@ int main(int argc, char** argv)
   }
 
   gtk_main();
+}
+
+int main(int argc, char** argv)
+{
+  gtk_init(&argc, &argv);
+
+  sab_window_new();
 
   return 0;
 }
