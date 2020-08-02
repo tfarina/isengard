@@ -106,6 +106,12 @@ static void _on_file_quit_cb(GtkAction *action, gpointer data)
   gtk_widget_destroy(main_window);
 }
 
+/* Edit menu */
+
+static void _on_edit_select_all_cb(GtkWidget *widget, gpointer data)
+{
+}
+
 /* View menu */
 
 static void _on_view_toolbar_cb(GtkWidget *widget, gpointer data)
@@ -238,6 +244,7 @@ void sab_window_new(void)
   GtkWidget *file_item;
   GtkWidget *edit_menu;
   GtkWidget *edit_item;
+  GtkWidget *selectall_item;
   GtkWidget *quit_item;
   GtkWidget *new_item;
   GtkWidget *view_menu;
@@ -307,6 +314,14 @@ void sab_window_new(void)
   edit_item = gtk_menu_item_new_with_mnemonic("_Edit");
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), edit_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(edit_item), edit_menu);
+
+  selectall_item = gtk_menu_item_new_with_mnemonic("Select _All");
+  g_signal_connect(G_OBJECT(selectall_item), "activate",
+		   G_CALLBACK(_on_edit_select_all_cb), main_window);
+  gtk_widget_add_accelerator(selectall_item, "activate", accel_group, GDK_KEY_A,
+			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_menu_shell_append(GTK_MENU_SHELL(edit_menu), selectall_item);
+
 
   /* View menu */
   view_menu = gtk_menu_new();
