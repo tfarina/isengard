@@ -62,25 +62,6 @@ static void sab_edit_contact_post_cb(ab_contact_t *contact)
                      -1);
 }
 
-static void sab_window_list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
-{
-  gint num_selected;
-
-  num_selected = gtk_tree_selection_count_selected_rows(selection);
-
-  if (num_selected == 1) {
-    gtk_widget_set_sensitive(GTK_WIDGET(edit_toolbar_button), TRUE);
-  } else {
-    gtk_widget_set_sensitive(GTK_WIDGET(edit_toolbar_button), FALSE);
-  }
-
-  if (num_selected > 0) {
-    gtk_widget_set_sensitive(GTK_WIDGET(delete_toolbar_button), TRUE);
-  } else {
-    gtk_widget_set_sensitive(GTK_WIDGET(delete_toolbar_button), FALSE);
-  }
-}
-
 /*
  * Window callbacks
  */
@@ -208,6 +189,29 @@ static void _on_delete_cb(GtkWidget *widget, gpointer data)
 
   if (has_row) {
     gtk_tree_selection_select_iter(selection, &iter);
+  }
+}
+
+/*
+ * List view callbacks
+ */
+
+static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
+{
+  gint num_selected;
+
+  num_selected = gtk_tree_selection_count_selected_rows(selection);
+
+  if (num_selected == 1) {
+    gtk_widget_set_sensitive(GTK_WIDGET(edit_toolbar_button), TRUE);
+  } else {
+    gtk_widget_set_sensitive(GTK_WIDGET(edit_toolbar_button), FALSE);
+  }
+
+  if (num_selected > 0) {
+    gtk_widget_set_sensitive(GTK_WIDGET(delete_toolbar_button), TRUE);
+  } else {
+    gtk_widget_set_sensitive(GTK_WIDGET(delete_toolbar_button), FALSE);
   }
 }
 
@@ -388,7 +392,7 @@ void sab_window_new(void)
 
   list_select = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
   g_signal_connect(list_select, "changed",
-		   G_CALLBACK(sab_window_list_selection_changed_cb), NULL);
+		   G_CALLBACK(_on_selection_changed_cb), NULL);
 
   /* Create the columns. */
   renderer = gtk_cell_renderer_text_new();
