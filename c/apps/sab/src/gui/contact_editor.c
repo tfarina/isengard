@@ -1,14 +1,17 @@
 #include "contact_editor.h"
 
-/* Editor dialog variables/widgets */
-static GtkWidget *contact_window;
-static GtkWidget *fname_entry;
-static GtkWidget *lname_entry;
-static GtkWidget *email_entry;
 static action_code_t action_code;
 static ab_contact_t *current_contact;
 typedef void (*editor_post_cb_t)(ab_contact_t *contact);
 static editor_post_cb_t add_edit_post_cb = NULL;
+
+/*
+ * Widgets
+ */
+static GtkWidget *contact_window;
+static GtkWidget *fname_entry;
+static GtkWidget *lname_entry;
+static GtkWidget *email_entry;
 
 static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
 {
