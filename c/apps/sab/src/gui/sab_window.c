@@ -282,6 +282,7 @@ void sab_window_new(void)
    */
   menubar = gtk_menu_bar_new();
 
+  /* File menu */
   file_menu = gtk_menu_new();
   file_item = gtk_menu_item_new_with_mnemonic("_File");
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), file_item);
@@ -301,11 +302,13 @@ void sab_window_new(void)
 			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), quit_item);
 
+  /* Edit menu */
   edit_menu = gtk_menu_new();
   edit_item = gtk_menu_item_new_with_mnemonic("_Edit");
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), edit_item);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(edit_item), edit_menu);
 
+  /* View menu */
   view_menu = gtk_menu_new();
   view_item = gtk_menu_item_new_with_mnemonic("_View");
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), view_item);
@@ -317,6 +320,7 @@ void sab_window_new(void)
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(view_tol_item), TRUE);
   gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), view_tol_item);
 
+  /* Help menu */
   help_menu = gtk_menu_new();
   help_item = gtk_menu_item_new_with_mnemonic("_Help");
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), help_item);
