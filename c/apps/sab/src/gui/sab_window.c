@@ -231,6 +231,7 @@ static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *cont
 
 void sab_window_new(void)
 {
+  GtkAccelGroup *accel_group;
   GtkWidget *vbox;
   GtkWidget *menubar;
   GtkWidget *file_menu;
@@ -245,7 +246,6 @@ void sab_window_new(void)
   GtkWidget *help_menu;
   GtkWidget *help_item;
   GtkWidget *about_item;
-  GtkAccelGroup *accel_group;
   GtkWidget *handlebox;
   GtkWidget* icon;
   GtkToolItem *tb_new;
@@ -270,6 +270,9 @@ void sab_window_new(void)
   g_signal_connect(G_OBJECT(main_window), "destroy",
                    G_CALLBACK(_on_destroy_cb), NULL);
 
+  accel_group = gtk_accel_group_new();
+  gtk_window_add_accel_group(GTK_WINDOW(main_window), accel_group);
+
   vbox = gtk_vbox_new(FALSE, 0);
 
   gtk_container_add(GTK_CONTAINER(main_window), vbox);
@@ -278,8 +281,6 @@ void sab_window_new(void)
    * Menubar
    */
   menubar = gtk_menu_bar_new();
-  accel_group = gtk_accel_group_new();
-  gtk_window_add_accel_group(GTK_WINDOW(main_window), accel_group);
 
   file_menu = gtk_menu_new();
   file_item = gtk_menu_item_new_with_mnemonic("_File");
