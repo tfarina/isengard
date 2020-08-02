@@ -25,8 +25,8 @@ enum {
 /* Main Window variables/widgets */
 static GtkWidget *main_window;
 static GtkWidget *toolbar;
-static GtkToolItem *edit_toolbar_button;
-static GtkToolItem *delete_toolbar_button;
+static GtkToolItem *tb_edit;
+static GtkToolItem *tb_delete;
 static GtkWidget *list_view;
 
 static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *contact);
@@ -200,15 +200,15 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
   num_selected = gtk_tree_selection_count_selected_rows(selection);
 
   if (num_selected == 1) {
-    gtk_widget_set_sensitive(GTK_WIDGET(edit_toolbar_button), TRUE);
+    gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), TRUE);
   } else {
-    gtk_widget_set_sensitive(GTK_WIDGET(edit_toolbar_button), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
   }
 
   if (num_selected > 0) {
-    gtk_widget_set_sensitive(GTK_WIDGET(delete_toolbar_button), TRUE);
+    gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), TRUE);
   } else {
-    gtk_widget_set_sensitive(GTK_WIDGET(delete_toolbar_button), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
   }
 }
 
@@ -248,7 +248,7 @@ void sab_window_new(void)
   GtkAccelGroup *accel_group;
   GtkWidget *handlebox;
   GtkWidget* icon;
-  GtkToolItem *new_toolbar_button;
+  GtkToolItem *tb_new;
   GtkWidget *scrolledwin;
   GtkTreeSelection *list_select;
   GtkCellRenderer *renderer;
@@ -339,35 +339,35 @@ void sab_window_new(void)
 
   /* New button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_NEW, GTK_ICON_SIZE_BUTTON);
-  new_toolbar_button = gtk_tool_button_new(icon, "New");
-  gtk_widget_set_tooltip_text(GTK_WIDGET(new_toolbar_button), "New contact");
-  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), new_toolbar_button, -1);
+  tb_new = gtk_tool_button_new(icon, "New");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(tb_new), "New contact");
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_new, -1);
 
   /* Edit button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT, GTK_ICON_SIZE_BUTTON);
-  edit_toolbar_button = gtk_tool_button_new(icon, "Edit");
-  gtk_widget_set_tooltip_text(GTK_WIDGET(edit_toolbar_button), "Edit contact");
-  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), edit_toolbar_button, -1);
+  tb_edit = gtk_tool_button_new(icon, "Edit");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(tb_edit), "Edit contact");
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_edit, -1);
 
   /* Delete button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_DELETE, GTK_ICON_SIZE_BUTTON);
-  delete_toolbar_button = gtk_tool_button_new(icon, "Delete");
-  gtk_widget_set_tooltip_text(GTK_WIDGET(delete_toolbar_button), "Delete contact");
-  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), delete_toolbar_button, -1);
+  tb_delete = gtk_tool_button_new(icon, "Delete");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(tb_delete), "Delete contact");
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_delete, -1);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(edit_toolbar_button), FALSE);
-  gtk_widget_set_sensitive(GTK_WIDGET(delete_toolbar_button), FALSE);
+  gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
+  gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
 
   gtk_container_add(GTK_CONTAINER(handlebox), toolbar);
   gtk_container_set_border_width(GTK_CONTAINER(handlebox), 0);
 
-  g_signal_connect(G_OBJECT(new_toolbar_button), "clicked",
+  g_signal_connect(G_OBJECT(tb_new), "clicked",
 		   G_CALLBACK(_on_new_cb), main_window);
 
-  g_signal_connect(G_OBJECT(edit_toolbar_button), "clicked",
+  g_signal_connect(G_OBJECT(tb_edit), "clicked",
 		   G_CALLBACK(_on_edit_cb), main_window);
 
-  g_signal_connect(G_OBJECT(delete_toolbar_button), "clicked",
+  g_signal_connect(G_OBJECT(tb_delete), "clicked",
 		   G_CALLBACK(_on_delete_cb), NULL);
 
   /*
