@@ -159,12 +159,21 @@ static void toggle_toolbar_cb(GtkWidget *widget, gpointer data)
   }
 }
 
-static void app_quit_cb(GtkAction *action, gpointer data)
+/*
+ * Menubar callbacks
+ */
+
+static void _on_file_quit_cb(GtkAction *action, gpointer data)
 {
   (void)action;
   (void)data;
 
   gtk_widget_destroy(main_window);
+}
+
+static void _on_help_about_cb(GtkWidget *widget, gpointer data)
+{
+  sab_show_about_dialog();
 }
 
 static gint app_delete_event_cb(GtkWidget *widget, GdkEventAny *event,
@@ -189,11 +198,6 @@ static void app_destroy_cb(GtkWidget *widget, gpointer data)
   (void)data;
 
   gtk_main_quit();
-}
-
-static void sab_window_about_cb(GtkWidget *widget, gpointer data)
-{
-  sab_show_about_dialog();
 }
 
 #define WINDOW_WIDTH 610
@@ -262,7 +266,7 @@ void sab_window_new(void)
 
   quit_item = gtk_menu_item_new_with_mnemonic("_Quit");
   g_signal_connect(G_OBJECT(quit_item), "activate",
-		   G_CALLBACK(app_quit_cb), NULL);
+		   G_CALLBACK(_on_file_quit_cb), NULL);
   gtk_widget_add_accelerator(quit_item, "activate", accel_group, GDK_KEY_q,
 			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), quit_item);
@@ -288,7 +292,7 @@ void sab_window_new(void)
 
   about_item = gtk_menu_item_new_with_mnemonic("_About");
   g_signal_connect(G_OBJECT(about_item), "activate",
-		   G_CALLBACK(sab_window_about_cb), main_window);
+		   G_CALLBACK(_on_help_about_cb), main_window);
   gtk_menu_shell_append(GTK_MENU_SHELL(help_menu), about_item);
 
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
