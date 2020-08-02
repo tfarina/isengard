@@ -22,19 +22,6 @@ enum {
 #define LIST_COL_LAST  LIST_COL_PTR
 #define LIST_COL_COUNT (LIST_COL_LAST + 1)
 
-static void sab_window_insert_item(GtkListStore *list_store, ab_contact_t *contact)
-{
-  GtkTreeIter iter;
-
-  gtk_list_store_append(list_store, &iter);
-  gtk_list_store_set(list_store, &iter,
-                     LIST_COL_FIRST_NAME, ab_contact_get_first_name(contact),
-                     LIST_COL_LAST_NAME, ab_contact_get_last_name(contact),
-                     LIST_COL_EMAIL, ab_contact_get_email(contact),
-		     LIST_COL_PTR, contact,
-                     -1);
-}
-
 /* Main Window variables/widgets */
 static GtkWidget *main_window;
 static GtkWidget *toolbar;
@@ -45,13 +32,15 @@ static GtkTreeSelection *list_select;
 static GtkCellRenderer *renderer;
 static GtkTreeViewColumn *column;
 
+static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *contact);
+
 static void sab_new_contact_post_cb(ab_contact_t *contact)
 {
   GtkListStore *store;
 
   store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list_view)));
 
-  sab_window_insert_item(store, contact);
+  _list_store_append_item(store, contact);
 }
 
 static void sab_edit_contact_post_cb(ab_contact_t *contact)
@@ -220,6 +209,23 @@ static void _on_delete_cb(GtkWidget *widget, gpointer data)
   if (has_row) {
     gtk_tree_selection_select_iter(selection, &iter);
   }
+}
+
+/*
+ * Helper functions
+ */
+
+static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *contact)
+{
+  GtkTreeIter iter;
+
+  gtk_list_store_append(list_store, &iter);
+  gtk_list_store_set(list_store, &iter,
+                     LIST_COL_FIRST_NAME, ab_contact_get_first_name(contact),
+                     LIST_COL_LAST_NAME, ab_contact_get_last_name(contact),
+                     LIST_COL_EMAIL, ab_contact_get_email(contact),
+		     LIST_COL_PTR, contact,
+                     -1);
 }
 
 void sab_window_new(void)
@@ -411,6 +417,6 @@ void sab_window_new(void)
   list = ab_get_contact_list();
 
   for (cur = list; cur; cur = alpm_list_next(cur)) {
-    sab_window_insert_item(list_store, (ab_contact_t *)cur->data);
+    _list_store_append_item(list_store, (ab_contact_t *)cur->data);
   }
 }
