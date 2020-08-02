@@ -10,6 +10,9 @@
 #include "about_dialog.h"
 #include "contact_editor.h"
 
+#define WINDOW_WIDTH 610
+#define WINDOW_HEIGHT 377
+
 enum {
   LIST_COL_FIRST_NAME = 0,
   LIST_COL_LAST_NAME,
@@ -160,6 +163,34 @@ static void toggle_toolbar_cb(GtkWidget *widget, gpointer data)
 }
 
 /*
+ * Window callbacks
+ */
+
+static gint _on_delete_event_cb(GtkWidget *widget, GdkEventAny *event,
+				gpointer data)
+{
+  (void)widget;
+  (void)event;
+  (void)data;
+
+  return FALSE;
+}
+
+/**
+ * Handle destroy signal.
+ *
+ * This function is called when the main application window receives the
+ * destroy signal, i.e., it is destroyed.
+ */
+static void _on_destroy_cb(GtkWidget *widget, gpointer data)
+{
+  (void)widget;
+  (void)data;
+
+  gtk_main_quit();
+}
+
+/*
  * Menubar callbacks
  */
 
@@ -184,33 +215,6 @@ static void _on_help_about_cb(GtkWidget *widget, gpointer data)
 {
   sab_show_about_dialog();
 }
-
-static gint app_delete_event_cb(GtkWidget *widget, GdkEventAny *event,
-				 gpointer data)
-{
-  (void)widget;
-  (void)event;
-  (void)data;
-
-  return FALSE;
-}
-
-/**
- * Handle destroy signal.
- *
- * This function is called when the main application window receives the
- * destroy signal, i.e., it is destroyed.
- */
-static void app_destroy_cb(GtkWidget *widget, gpointer data)
-{
-  (void)widget;
-  (void)data;
-
-  gtk_main_quit();
-}
-
-#define WINDOW_WIDTH 610
-#define WINDOW_HEIGHT 377
 
 void sab_window_new(void)
 {
@@ -246,9 +250,9 @@ void sab_window_new(void)
   gtk_window_set_default_size(GTK_WINDOW(main_window), WINDOW_WIDTH, WINDOW_HEIGHT);
 
   g_signal_connect(G_OBJECT(main_window), "delete_event",
-                   G_CALLBACK(app_delete_event_cb), NULL);
+                   G_CALLBACK(_on_delete_event_cb), NULL);
   g_signal_connect(G_OBJECT(main_window), "destroy",
-                   G_CALLBACK(app_destroy_cb), NULL);
+                   G_CALLBACK(_on_destroy_cb), NULL);
 
   vbox = gtk_vbox_new(FALSE, 0);
 
