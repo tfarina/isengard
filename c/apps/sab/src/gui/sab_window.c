@@ -153,15 +153,6 @@ static void sab_window_list_selection_changed_cb(GtkTreeSelection *selection, gp
   }
 }
 
-static void toggle_toolbar_cb(GtkWidget *widget, gpointer data)
-{
-  if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-    gtk_widget_show(toolbar);
-  } else {
-    gtk_widget_hide(toolbar);
-  }
-}
-
 /*
  * Window callbacks
  */
@@ -207,6 +198,17 @@ static void _on_file_quit_cb(GtkAction *action, gpointer data)
   (void)data;
 
   gtk_widget_destroy(main_window);
+}
+
+/* View menu */
+
+static void _on_view_toolbar_cb(GtkWidget *widget, gpointer data)
+{
+  if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
+    gtk_widget_show(toolbar);
+  } else {
+    gtk_widget_hide(toolbar);
+  }
 }
 
 /* Help menu */
@@ -350,7 +352,7 @@ void sab_window_new(void)
 		   G_CALLBACK(sab_window_delete_button_cb), NULL);
 
   g_signal_connect(G_OBJECT(view_tol_item), "activate",
-		   G_CALLBACK(toggle_toolbar_cb), toolbar);
+		   G_CALLBACK(_on_view_toolbar_cb), toolbar);
 
   /*
    * List view
