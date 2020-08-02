@@ -73,67 +73,6 @@ static void sab_edit_contact_post_cb(ab_contact_t *contact)
                      -1);
 }
 
-static void sab_window_new_button_cb(GtkWidget *widget, gpointer data)
-{
-  contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
-}
-
-static void sab_window_edit_button_cb(GtkWidget *widget, gpointer data)
-{
-  GtkTreeModel *model;
-  GtkTreeSelection *selection;
-  GtkTreeIter iter;
-  ab_contact_t *contact;
-
-  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
-
-  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
-
-  gtk_tree_selection_get_selected(selection, NULL, &iter);
-
-  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
-
-  contact_editor_new(GTK_WINDOW(data), AC_EDIT, contact, sab_edit_contact_post_cb);
-}
-
-static void sab_window_delete_button_cb(GtkWidget *widget, gpointer data)
-{
-  GtkTreeModel *model;
-  GtkTreeSelection *selection;
-  GtkTreeIter iter;
-  ab_contact_t *contact;
-  gboolean has_row = FALSE;
-  gint n;
-
-  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
-
-  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
-
-  gtk_tree_selection_get_selected(selection, NULL, &iter);
-
-  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
-
-  has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
-
-  ab_delete_contact(contact);
-
-  /* From claws-mail src/editaddress.c:edit_person_email_delete() */
-  if (!has_row) {
-    /* The removed row was the last in the list, so iter is not
-     * valid. Find out if there is at least one row remaining
-     * in the list, and select the last one if so. */
-    n = gtk_tree_model_iter_n_children(model, NULL);
-    if (n > 0 && gtk_tree_model_iter_nth_child(model, &iter, NULL, n-1)) {
-      /* It exists */
-      has_row = TRUE;
-    }
-  }
-
-  if (has_row) {
-    gtk_tree_selection_select_iter(selection, &iter);
-  }
-}
-
 static void sab_window_list_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 {
   gint num_selected;
@@ -218,6 +157,71 @@ static void _on_help_about_cb(GtkWidget *widget, gpointer data)
   sab_show_about_dialog();
 }
 
+/*
+ * Toolbar callbacks
+ */
+
+static void _on_new_cb(GtkWidget *widget, gpointer data)
+{
+  contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
+}
+
+static void _on_edit_cb(GtkWidget *widget, gpointer data)
+{
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+  ab_contact_t *contact;
+
+  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
+
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+
+  gtk_tree_selection_get_selected(selection, NULL, &iter);
+
+  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
+
+  contact_editor_new(GTK_WINDOW(data), AC_EDIT, contact, sab_edit_contact_post_cb);
+}
+
+static void _on_delete_cb(GtkWidget *widget, gpointer data)
+{
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+  ab_contact_t *contact;
+  gboolean has_row = FALSE;
+  gint n;
+
+  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
+
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+
+  gtk_tree_selection_get_selected(selection, NULL, &iter);
+
+  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
+
+  has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
+
+  ab_delete_contact(contact);
+
+  /* From claws-mail src/editaddress.c:edit_person_email_delete() */
+  if (!has_row) {
+    /* The removed row was the last in the list, so iter is not
+     * valid. Find out if there is at least one row remaining
+     * in the list, and select the last one if so. */
+    n = gtk_tree_model_iter_n_children(model, NULL);
+    if (n > 0 && gtk_tree_model_iter_nth_child(model, &iter, NULL, n-1)) {
+      /* It exists */
+      has_row = TRUE;
+    }
+  }
+
+  if (has_row) {
+    gtk_tree_selection_select_iter(selection, &iter);
+  }
+}
+
 void sab_window_new(void)
 {
   GtkWidget *vbox;
@@ -297,6 +301,8 @@ void sab_window_new(void)
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(view_item), view_menu);
 
   view_tol_item = gtk_check_menu_item_new_with_mnemonic("Toolbar");
+  g_signal_connect(G_OBJECT(view_tol_item), "activate",
+		   G_CALLBACK(_on_view_toolbar_cb), toolbar);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(view_tol_item), TRUE);
   gtk_menu_shell_append(GTK_MENU_SHELL(view_menu), view_tol_item);
 
@@ -321,16 +327,19 @@ void sab_window_new(void)
   toolbar = gtk_toolbar_new();
   gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH);
 
+  /* New button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_NEW, GTK_ICON_SIZE_BUTTON);
   new_toolbar_button = gtk_tool_button_new(icon, "New");
   gtk_widget_set_tooltip_text(GTK_WIDGET(new_toolbar_button), "New contact");
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), new_toolbar_button, -1);
 
+  /* Edit button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT, GTK_ICON_SIZE_BUTTON);
   edit_toolbar_button = gtk_tool_button_new(icon, "Edit");
   gtk_widget_set_tooltip_text(GTK_WIDGET(edit_toolbar_button), "Edit contact");
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), edit_toolbar_button, -1);
 
+  /* Delete button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_DELETE, GTK_ICON_SIZE_BUTTON);
   delete_toolbar_button = gtk_tool_button_new(icon, "Delete");
   gtk_widget_set_tooltip_text(GTK_WIDGET(delete_toolbar_button), "Delete contact");
@@ -343,16 +352,13 @@ void sab_window_new(void)
   gtk_container_set_border_width(GTK_CONTAINER(handlebox), 0);
 
   g_signal_connect(G_OBJECT(new_toolbar_button), "clicked",
-		   G_CALLBACK(sab_window_new_button_cb), main_window);
+		   G_CALLBACK(_on_new_cb), main_window);
 
   g_signal_connect(G_OBJECT(edit_toolbar_button), "clicked",
-		   G_CALLBACK(sab_window_edit_button_cb), main_window);
+		   G_CALLBACK(_on_edit_cb), main_window);
 
   g_signal_connect(G_OBJECT(delete_toolbar_button), "clicked",
-		   G_CALLBACK(sab_window_delete_button_cb), NULL);
-
-  g_signal_connect(G_OBJECT(view_tol_item), "activate",
-		   G_CALLBACK(_on_view_toolbar_cb), toolbar);
+		   G_CALLBACK(_on_delete_cb), NULL);
 
   /*
    * List view
