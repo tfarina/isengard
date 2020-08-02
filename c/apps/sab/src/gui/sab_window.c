@@ -28,9 +28,6 @@ static GtkWidget *toolbar;
 static GtkToolItem *edit_toolbar_button;
 static GtkToolItem *delete_toolbar_button;
 static GtkWidget *list_view;
-static GtkTreeSelection *list_select;
-static GtkCellRenderer *renderer;
-static GtkTreeViewColumn *column;
 
 static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *contact);
 
@@ -253,6 +250,9 @@ void sab_window_new(void)
   GtkWidget* icon;
   GtkToolItem *new_toolbar_button;
   GtkWidget *scrolledwin;
+  GtkTreeSelection *list_select;
+  GtkCellRenderer *renderer;
+  GtkTreeViewColumn *column;
 
   GtkListStore *list_store; /* Data model */
   alpm_list_t *list, *cur;
