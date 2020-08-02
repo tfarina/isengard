@@ -163,6 +163,13 @@ static void toggle_toolbar_cb(GtkWidget *widget, gpointer data)
  * Menubar callbacks
  */
 
+/* File menu */
+
+static void _on_file_new_cb(GtkWidget *widget, gpointer data)
+{
+  contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
+}
+
 static void _on_file_quit_cb(GtkAction *action, gpointer data)
 {
   (void)action;
@@ -170,6 +177,8 @@ static void _on_file_quit_cb(GtkAction *action, gpointer data)
 
   gtk_widget_destroy(main_window);
 }
+
+/* Help menu */
 
 static void _on_help_about_cb(GtkWidget *widget, gpointer data)
 {
@@ -259,7 +268,7 @@ void sab_window_new(void)
 
   new_item = gtk_menu_item_new_with_mnemonic("_New Contact");
   g_signal_connect(G_OBJECT(new_item), "activate",
-		   G_CALLBACK(sab_window_new_button_cb), main_window);
+		   G_CALLBACK(_on_file_new_cb), main_window);
   gtk_widget_add_accelerator(new_item, "activate", accel_group, GDK_KEY_n,
 			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), new_item);
