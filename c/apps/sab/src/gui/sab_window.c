@@ -110,10 +110,6 @@ static void _on_file_quit_cb(GtkAction *action, gpointer data)
 
 static void _on_edit_select_all_cb(GtkWidget *widget, gpointer data)
 {
-  GtkTreeSelection *selection;
-
-  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
-  gtk_tree_selection_select_all(selection);
 }
 
 /* View menu */
@@ -415,7 +411,6 @@ void sab_window_new(void)
   gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list_view), TRUE);
 
   list_select = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
-  gtk_tree_selection_set_mode(list_select, GTK_SELECTION_MULTIPLE);
   g_signal_connect(list_select, "changed",
 		   G_CALLBACK(_on_selection_changed_cb), NULL);
 
