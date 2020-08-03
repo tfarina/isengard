@@ -90,10 +90,19 @@ static void _on_edit_select_all_cb(GtkWidget *widget, gpointer data)
 
 static void _on_view_toolbar_cb(GtkWidget *widget, gpointer data)
 {
-  if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-    gtk_widget_show(toolbar);
-  } else {
-    gtk_widget_hide(toolbar);
+  gboolean state;
+
+  state = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+
+  /*
+   * This check is necessary to fix the following error:
+   * (sab_gui:14142): Gtk-CRITICAL **: IA__gtk_widget_set_visible: assertion 'GTK_IS_WIDGET (widget)' failed
+   *
+   * That occurs because the toolbar is create after the menubar, but this callback is called
+   * before the toolbar is created.
+   */
+  if (toolbar != NULL) {
+    gtk_widget_set_visible(toolbar, state);
   }
 }
 
