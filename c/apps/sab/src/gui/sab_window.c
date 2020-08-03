@@ -242,6 +242,7 @@ void sab_window_new(void)
   GtkWidget *menubar;
   GtkWidget *file_menu;
   GtkWidget *file_item;
+  GtkWidget *separator;
   GtkWidget *edit_menu;
   GtkWidget *edit_item;
   GtkWidget *selectall_item;
@@ -301,6 +302,9 @@ void sab_window_new(void)
   gtk_widget_add_accelerator(new_item, "activate", accel_group, GDK_KEY_n,
 			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), new_item);
+
+  separator = gtk_separator_menu_item_new();
+  gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), separator);
 
   quit_item = gtk_menu_item_new_with_mnemonic("_Quit");
   g_signal_connect(G_OBJECT(quit_item), "activate",
