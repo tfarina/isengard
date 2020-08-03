@@ -31,39 +31,13 @@ static GtkToolItem *tb_edit;
 static GtkToolItem *tb_delete;
 static GtkWidget *list_view;
 
-static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *contact);
-
 /*
- * Contact editor callbacks
+ * Prototype declarations
  */
 
-static void _on_new_contact_cb(ab_contact_t *contact)
-{
-  GtkListStore *store;
-
-  store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list_view)));
-
-  _list_store_append_item(store, contact);
-}
-
-static void _on_edit_contact_cb(ab_contact_t *contact)
-{
-  GtkTreeModel *model;
-  GtkTreeSelection *selection;
-  GtkTreeIter iter;
-
-  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
-
-  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
-
-  gtk_tree_selection_get_selected(selection, NULL, &iter);
-
-  gtk_list_store_set(GTK_LIST_STORE(model), &iter,
-                     LIST_COL_FIRST_NAME, ab_contact_get_first_name(contact),
-                     LIST_COL_LAST_NAME, ab_contact_get_last_name(contact),
-                     LIST_COL_EMAIL, ab_contact_get_email(contact),
-                     -1);
-}
+static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *contact);
+static void _on_new_contact_cb(ab_contact_t *contact);
+static void _on_edit_contact_cb(ab_contact_t *contact);
 
 /*
  * Window callbacks
@@ -222,6 +196,38 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
   } else {
     gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
   }
+}
+
+/*
+ * Contact editor callbacks
+ */
+
+static void _on_new_contact_cb(ab_contact_t *contact)
+{
+  GtkListStore *store;
+
+  store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list_view)));
+
+  _list_store_append_item(store, contact);
+}
+
+static void _on_edit_contact_cb(ab_contact_t *contact)
+{
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+
+  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
+
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+
+  gtk_tree_selection_get_selected(selection, NULL, &iter);
+
+  gtk_list_store_set(GTK_LIST_STORE(model), &iter,
+                     LIST_COL_FIRST_NAME, ab_contact_get_first_name(contact),
+                     LIST_COL_LAST_NAME, ab_contact_get_last_name(contact),
+                     LIST_COL_EMAIL, ab_contact_get_email(contact),
+                     -1);
 }
 
 /*
