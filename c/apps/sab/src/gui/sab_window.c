@@ -22,7 +22,9 @@ enum {
 #define LIST_COL_LAST  LIST_COL_PTR
 #define LIST_COL_COUNT (LIST_COL_LAST + 1)
 
-/* Main Window variables/widgets */
+/*
+ * Widgets
+ */
 static GtkWidget *main_window;
 static GtkWidget *toolbar;
 static GtkToolItem *tb_edit;
@@ -31,7 +33,11 @@ static GtkWidget *list_view;
 
 static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *contact);
 
-static void sab_new_contact_post_cb(ab_contact_t *contact)
+/*
+ * Contact editor callbacks
+ */
+
+static void _on_new_contact_cb(ab_contact_t *contact)
 {
   GtkListStore *store;
 
@@ -40,7 +46,7 @@ static void sab_new_contact_post_cb(ab_contact_t *contact)
   _list_store_append_item(store, contact);
 }
 
-static void sab_edit_contact_post_cb(ab_contact_t *contact)
+static void _on_edit_contact_cb(ab_contact_t *contact)
 {
   GtkTreeModel *model;
   GtkTreeSelection *selection;
@@ -95,7 +101,7 @@ static void _on_destroy_cb(GtkWidget *widget, gpointer data)
 
 static void _on_file_new_cb(GtkWidget *widget, gpointer data)
 {
-  contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
+  contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, _on_new_contact_cb);
 }
 
 static void _on_file_quit_cb(GtkAction *action, gpointer data)
@@ -136,7 +142,7 @@ static void _on_help_about_cb(GtkWidget *widget, gpointer data)
 
 static void _on_new_cb(GtkWidget *widget, gpointer data)
 {
-  contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, sab_new_contact_post_cb);
+  contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, _on_new_contact_cb);
 }
 
 static void _on_edit_cb(GtkWidget *widget, gpointer data)
@@ -154,7 +160,7 @@ static void _on_edit_cb(GtkWidget *widget, gpointer data)
 
   gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
 
-  contact_editor_new(GTK_WINDOW(data), AC_EDIT, contact, sab_edit_contact_post_cb);
+  contact_editor_new(GTK_WINDOW(data), AC_EDIT, contact, _on_edit_contact_cb);
 }
 
 static void _on_delete_cb(GtkWidget *widget, gpointer data)
