@@ -53,12 +53,6 @@ static gint _on_delete_event_cb(GtkWidget *widget, GdkEventAny *event,
   return FALSE;
 }
 
-/**
- * Handle destroy signal.
- *
- * This function is called when the main application window receives the
- * destroy signal, i.e., it is destroyed.
- */
 static void _on_destroy_cb(GtkWidget *widget, gpointer data)
 {
   (void)widget;
