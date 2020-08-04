@@ -9,7 +9,7 @@ set(SOURCES
   about_dialog.c
   contact_editor.c
   main.c
-  sab_window.c
+  window.c
 )
 
 add_executable(sab_gui

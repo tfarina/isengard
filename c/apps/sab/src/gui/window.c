@@ -1,6 +1,6 @@
 /*https://stackoverflow.com/questions/45389291/how-to-display-data-from-a-sqlite-database-into-a-gtk-treeview*/
 
-#include "sab_window.h"
+#include "window.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
@@ -344,7 +344,7 @@ static GtkWidget *_menubar_create(GtkAccelGroup *accel)
   return menubar;
 }
 
-void sab_window_new(void)
+void addrbook_window_new(void)
 {
   GtkAccelGroup *accel_group;
   GtkWidget *vbox;
