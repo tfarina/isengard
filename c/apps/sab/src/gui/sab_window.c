@@ -383,7 +383,7 @@ void sab_window_new(void)
    * Menubar
    */
   menubar = _menubar_create(accel_group);
-  gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, TRUE, 0);
 
   /*
    * Toolbar
