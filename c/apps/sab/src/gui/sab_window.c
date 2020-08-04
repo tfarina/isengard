@@ -427,7 +427,6 @@ void sab_window_new(void)
    * List view
    */
   scrolledwin = gtk_scrolled_window_new(NULL, NULL);
-  gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwin),
                                  GTK_POLICY_AUTOMATIC,
                                  GTK_POLICY_AUTOMATIC);
@@ -462,6 +461,7 @@ void sab_window_new(void)
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
+  gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
 
   gtk_widget_grab_focus(GTK_WIDGET(list_view));
 
