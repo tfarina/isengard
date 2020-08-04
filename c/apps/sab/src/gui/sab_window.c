@@ -349,7 +349,6 @@ void sab_window_new(void)
   GtkAccelGroup *accel_group;
   GtkWidget *vbox;
   GtkWidget *menubar;
-  GtkWidget *hbox;
   GtkWidget* icon;
   GtkToolItem *tb_new;
   GtkWidget *scrolledwin;
@@ -386,9 +385,6 @@ void sab_window_new(void)
   menubar = _menubar_create(accel_group);
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
 
-  hbox = gtk_hbox_new(FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-
   /*
    * Toolbar
    */
@@ -416,9 +412,6 @@ void sab_window_new(void)
   gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
   gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
 
-  gtk_container_add(GTK_CONTAINER(hbox), toolbar);
-  gtk_container_set_border_width(GTK_CONTAINER(hbox), 0);
-
   g_signal_connect(G_OBJECT(tb_new), "clicked",
 		   G_CALLBACK(_on_new_cb), main_window);
 
@@ -427,6 +420,8 @@ void sab_window_new(void)
 
   g_signal_connect(G_OBJECT(tb_delete), "clicked",
 		   G_CALLBACK(_on_delete_cb), NULL);
+
+  gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, TRUE, 0);
 
   /*
    * List view
