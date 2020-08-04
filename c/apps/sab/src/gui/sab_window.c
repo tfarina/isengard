@@ -375,9 +375,10 @@ void sab_window_new(void)
   accel_group = gtk_accel_group_new();
   gtk_window_add_accel_group(GTK_WINDOW(main_window), accel_group);
 
+  /*
+   * Vertical box
+   */
   vbox = gtk_vbox_new(FALSE, 0);
-
-  gtk_container_add(GTK_CONTAINER(main_window), vbox);
 
   /*
    * Menubar
@@ -462,6 +463,8 @@ void sab_window_new(void)
 
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
   gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
+
+  gtk_container_add(GTK_CONTAINER(main_window), vbox);
 
   gtk_widget_grab_focus(GTK_WIDGET(list_view));
 
