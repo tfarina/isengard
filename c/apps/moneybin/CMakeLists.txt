@@ -70,8 +70,8 @@ add_executable(csvstats sfldate.c timestamp.c fstrutils.c stats.c tacsv.c csvsta
 target_link_libraries(csvstats libcsv -lm)
 
 add_executable(sma_test sma.c sma_test.c)
-add_executable(trade sfldate.c timestamp.c crossover.c sma.c tacsv.c trade.c)
-target_link_libraries(trade libcsv)
+add_executable(signals sfldate.c timestamp.c crossover.c sma.c tacsv.c signals.c)
+target_link_libraries(signals libcsv)
 
 add_executable(calc sfldate.c timestamp.c crossover.c sma.c tacsv.c calc.c)
 target_link_libraries(calc libcsv)
