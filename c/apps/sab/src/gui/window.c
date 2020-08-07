@@ -355,6 +355,7 @@ void addrbook_window_new(void)
   GtkTreeSelection *list_select;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
+  GtkWidget *statusbar;
 
   GtkListStore *list_store; /* Data model */
   alpm_list_t *list, *cur;
@@ -463,6 +464,12 @@ void addrbook_window_new(void)
 
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
   gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
+
+  /*
+   * Statusbar
+   */
+  statusbar = gtk_statusbar_new();
+  gtk_box_pack_start(GTK_BOX(vbox), statusbar, FALSE, TRUE, 0);
 
   gtk_container_add(GTK_CONTAINER(main_window), vbox);
 
