@@ -2,6 +2,8 @@
 
 #include <gtk/gtk.h>
 
+#define VERSION "0.0.1"
+
 #define SAB_ABBR "SAB"
 #define SAB_NAME "Simple Address Book"
 #define SAB_COPYRIGHT "Copyright © 2019"
@@ -30,7 +32,7 @@ void sab_show_about_dialog(void) {
 			"program-name", SAB_ABBR,
 			"copyright", SAB_COPYRIGHT,
 			"comments", SAB_NAME,
-			"version", "0.0.1",
+			"version", VERSION,
 			"license", SAB_LICENSE,
 			"wrap-license", TRUE,
 			"website", "https://sab.com",
