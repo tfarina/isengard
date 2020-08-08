@@ -30,6 +30,7 @@ static GtkWidget *toolbar;
 static GtkToolItem *tb_edit;
 static GtkToolItem *tb_delete;
 static GtkWidget *list_view;
+static GtkWidget *statusbar;
 
 /*
  * Prototype declarations
@@ -103,6 +104,24 @@ static void _on_view_toolbar_cb(GtkWidget *widget, gpointer data)
    */
   if (toolbar != NULL) {
     gtk_widget_set_visible(toolbar, state);
+  }
+}
+
+static void _on_view_statusbar_cb(GtkWidget *widget, gpointer data)
+{
+  gboolean state;
+
+  state = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+
+  /*
+   * This check is necessary to avoid the following error:
+   * (sab_gui:14142): Gtk-CRITICAL **: IA__gtk_widget_set_visible: assertion 'GTK_IS_WIDGET (widget)' failed
+   *
+   * That occurs because the menubar is created before the statusbar, and this callback gets called
+   * before the statusbar is created.
+   */
+  if (statusbar != NULL) {
+    gtk_widget_set_visible(statusbar, state);
   }
 }
 
@@ -293,6 +312,12 @@ static void _view_menu_create(GtkMenuShell *menu, GtkAccelGroup *accel)
 		   G_CALLBACK(_on_view_toolbar_cb), toolbar);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
   gtk_menu_shell_append(menu, menuitem);
+
+  menuitem = gtk_check_menu_item_new_with_mnemonic("Statusbar");
+  g_signal_connect(G_OBJECT(menuitem), "activate",
+		   G_CALLBACK(_on_view_statusbar_cb), statusbar);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
+  gtk_menu_shell_append(menu, menuitem);
 }
 
 static void _help_menu_create(GtkMenuShell *menu, GtkAccelGroup *accel)
@@ -355,8 +380,6 @@ void addrbook_window_new(void)
   GtkTreeSelection *list_select;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
-  GtkWidget *statusbar;
-
   GtkListStore *list_store; /* Data model */
   alpm_list_t *list, *cur;
 
