@@ -11,7 +11,7 @@ static void print_array(double const *arr, size_t const size)
 
   for (i = 0; i < size; i++) {
     if (i) {
-      printf(", ");
+      fputs(", ", stdout);
     }
     printf("%.02f", *(arr + i));
   }
