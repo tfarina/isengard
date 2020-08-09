@@ -125,6 +125,15 @@ static void _on_view_statusbar_cb(GtkWidget *widget, gpointer data)
   }
 }
 
+static void _on_view_fullscreen_cb(GtkWidget *widget, gpointer data)
+{
+  if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
+    gtk_window_unfullscreen(GTK_WINDOW(main_window));
+  } else {
+    gtk_window_fullscreen(GTK_WINDOW(main_window));
+  }
+}
+
 /* Help menu */
 
 static void _on_help_about_cb(GtkWidget *widget, gpointer data)
@@ -317,6 +326,17 @@ static void _view_menu_create(GtkMenuShell *menu, GtkAccelGroup *accel)
   g_signal_connect(G_OBJECT(menuitem), "activate",
 		   G_CALLBACK(_on_view_statusbar_cb), statusbar);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
+  gtk_menu_shell_append(menu, menuitem);
+
+  menuitem = gtk_separator_menu_item_new();
+  gtk_menu_shell_append(menu, menuitem);
+
+  menuitem = gtk_check_menu_item_new_with_mnemonic("_Fullscreen");
+  g_signal_connect(G_OBJECT(menuitem), "activate",
+		   G_CALLBACK(_on_view_fullscreen_cb), main_window);
+  gtk_widget_add_accelerator(menuitem, "activate", accel, GDK_F11,
+			     GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), FALSE);
   gtk_menu_shell_append(menu, menuitem);
 }
 
