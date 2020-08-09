@@ -36,8 +36,8 @@ int main(void)
   stats_max(a, ARRAY_SIZE(a), &max);
   stats_sum(a, ARRAY_SIZE(a), &sum);
   stats_average(a, ARRAY_SIZE(a), &avg);
-  stats_var_sam(a, ARRAY_SIZE(a), &variance);
-  stats_stdev_sam(a, ARRAY_SIZE(a), &stdev);
+  stats_var(a, ARRAY_SIZE(a), &variance);
+  stats_stdev(a, ARRAY_SIZE(a), &stdev);
 
   printf("\n\n");
   printf("Statistics summary:\n");
