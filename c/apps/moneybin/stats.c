@@ -4,18 +4,16 @@
 
 int stats_min(double const *a, int size, double *res)
 {
+  double min;
   int i;
-  double min = +INFINITY;
 
   if (size <= 0) {
     return -1;
   }
 
-  for (i = 0; i < size; i++) {
-    if(isnan(a[i])) {
-      return NAN;
-    }
+  min = a[0];
 
+  for (i = 1; i < size; i++) {
     if (a[i] < min) {
       min = a[i];
     }
@@ -28,18 +26,16 @@ int stats_min(double const *a, int size, double *res)
 
 int stats_max(double const *a, int size, double *res)
 {
+  double max;
   int i;
-  double max = -INFINITY;
 
   if (size <= 0) {
     return -1;
   }
 
-  for (i = 0; i < size; i++) {
-    if(isnan(a[i])) {
-      return NAN;
-    }
+  max = a[0];
 
+  for (i = 1; i < size; i++) {
     if (a[i] > max) {
       max = a[i];
     }
