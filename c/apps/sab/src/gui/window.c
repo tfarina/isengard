@@ -331,7 +331,7 @@ static void _view_menu_create(GtkMenuShell *menu, GtkAccelGroup *accel)
   menuitem = gtk_separator_menu_item_new();
   gtk_menu_shell_append(menu, menuitem);
 
-  menuitem = gtk_check_menu_item_new_with_mnemonic("_Fullscreen");
+  menuitem = gtk_check_menu_item_new_with_mnemonic("_Full Screen");
   g_signal_connect(G_OBJECT(menuitem), "activate",
 		   G_CALLBACK(_on_view_fullscreen_cb), main_window);
   gtk_widget_add_accelerator(menuitem, "activate", accel, GDK_F11,
