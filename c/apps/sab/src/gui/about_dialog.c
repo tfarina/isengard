@@ -3,6 +3,7 @@
 #include <gtk/gtk.h>
 
 #define VERSION "0.0.1"
+#define PACKAGE_URL "https://sab.com"
 
 #define SAB_ABBR "SAB"
 #define SAB_NAME "Simple Address Book"
@@ -35,7 +36,7 @@ void sab_show_about_dialog(void) {
 			"version", VERSION,
 			"license", SAB_LICENSE,
 			"wrap-license", TRUE,
-			"website", "https://sab.com",
+			"website", PACKAGE_URL,
 			"translator-credits", "CREDITS",
 			NULL);
 
