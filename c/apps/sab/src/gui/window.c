@@ -44,8 +44,9 @@ static void _on_edit_contact_cb(ab_contact_t *contact);
  * Window callbacks
  */
 
-static gint _on_delete_event_cb(GtkWidget *widget, GdkEventAny *event,
-				gpointer data)
+static gboolean _on_delete_event_cb(GtkWidget *widget,
+				    GdkEvent  *event,
+				    gpointer   data)
 {
   (void)widget;
   (void)event;
