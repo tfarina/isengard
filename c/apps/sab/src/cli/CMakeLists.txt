@@ -1,3 +1,5 @@
+set(EXE_NAME "sab")
+
 set(DEPENDENCIES
   ab
 )
@@ -13,19 +15,19 @@ set(SOURCES
   main.c
 )
 
-add_executable(sab
+add_executable(${EXE_NAME}
   ${SOURCES}
 )
 
-add_dependencies(sab
+add_dependencies(${EXE_NAME}
   ${DEPENDENCIES}
 )
 
-target_include_directories(sab PUBLIC
+target_include_directories(${EXE_NAME} PUBLIC
   ${CMAKE_SOURCE_DIR}
 )
 
-target_link_libraries(sab
+target_link_libraries(${EXE_NAME}
   ${DEPENDENCIES}
 )
 

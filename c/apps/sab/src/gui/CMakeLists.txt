@@ -1,5 +1,7 @@
 find_package(GTK2 2.6 REQUIRED gtk)
 
+set(EXE_NAME "sab_gui")
+
 set(DEPENDENCIES
   ab
   sqlite3
@@ -12,19 +14,19 @@ set(SOURCES
   window.c
 )
 
-add_executable(sab_gui
+add_executable(${EXE_NAME}
   ${SOURCES}
 )
 
-add_dependencies(sab_gui
+add_dependencies(${EXE_NAME}
   ${DEPENDENCIES}
 )
 
-target_include_directories(sab_gui PUBLIC
+target_include_directories(${EXE_NAME} PUBLIC
   ${GTK2_INCLUDE_DIRS}
 )
 
-target_link_libraries(sab_gui
+target_link_libraries(${EXE_NAME}
   ${DEPENDENCIES}
   ${GTK2_LIBRARIES}
 )
