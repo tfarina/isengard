@@ -52,15 +52,9 @@ static gboolean _on_delete_event_cb(GtkWidget *widget,
   (void)event;
   (void)data;
 
-  return FALSE;
-}
-
-static void _on_destroy_cb(GtkWidget *widget, gpointer data)
-{
-  (void)widget;
-  (void)data;
-
   gtk_main_quit();
+
+  return TRUE;
 }
 
 /*
@@ -79,7 +73,7 @@ static void _on_file_quit_cb(GtkAction *action, gpointer data)
   (void)action;
   (void)data;
 
-  gtk_widget_destroy(main_window);
+  gtk_main_quit();
 }
 
 /* Edit menu */
@@ -414,8 +408,6 @@ void addrbook_window_new(void)
 
   g_signal_connect(G_OBJECT(main_window), "delete_event",
                    G_CALLBACK(_on_delete_event_cb), NULL);
-  g_signal_connect(G_OBJECT(main_window), "destroy",
-                   G_CALLBACK(_on_destroy_cb), NULL);
 
   accel_group = gtk_accel_group_new();
   gtk_window_add_accel_group(GTK_WINDOW(main_window), accel_group);
