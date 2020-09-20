@@ -41,7 +41,7 @@ void sab_show_about_dialog(void) {
 			"license", LICENSE_GPL_3,
 			"wrap-license", TRUE,
 			"website", PACKAGE_URL,
-			"translator-credits", "CREDITS",
+			"translator-credits", "",
 			NULL);
 
   g_signal_connect(dialog, "response",
