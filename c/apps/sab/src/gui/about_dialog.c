@@ -5,9 +5,6 @@
 #define VERSION "0.0.1"
 #define PACKAGE_URL "https://sab.com"
 
-#define SAB_ABBR "SAB"
-#define SAB_NAME "Simple Address Book"
-#define SAB_COPYRIGHT "Copyright © 2019"
 #define SAB_LICENSE \
     "This program is free software: you can redistribute it and/or modify it " \
     "under the terms of the GNU General Public License as published by " \
@@ -28,14 +25,18 @@
 void sab_show_about_dialog(void) {
   GtkWindow *dialog;
 
+  static char const program_name[] = "SAB";
+  static char const comments[] = "Simple Address Book";
+  static char const copyright[] = "Copyright © 2019";
+
   dialog = g_object_new(GTK_TYPE_ABOUT_DIALOG,
                         /* Hold the application while the window is shown */
                         "role", "sab-about",
 			"window-position", GTK_WIN_POS_CENTER,
 			"title", "About SAB",
-			"program-name", SAB_ABBR,
-			"copyright", SAB_COPYRIGHT,
-			"comments", SAB_NAME,
+			"program-name", program_name,
+			"comments", comments,
+			"copyright", copyright,
 			"version", VERSION,
 			"license", SAB_LICENSE,
 			"wrap-license", TRUE,
