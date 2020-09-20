@@ -22,6 +22,9 @@
         "You should have received a copy of the GNU General Public License " \
     "along with SAB. If not, see: https://www.gnu.org/licenses/"
 
+/**
+ * Display the About dialog for SAB.
+ */
 void sab_show_about_dialog(void) {
   GtkWindow *dialog;
 
