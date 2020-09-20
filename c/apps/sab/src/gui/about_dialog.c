@@ -5,7 +5,7 @@
 #define VERSION "0.0.1"
 #define PACKAGE_URL "https://sab.com"
 
-#define SAB_LICENSE \
+#define LICENSE_GPL_3 \
     "This program is free software: you can redistribute it and/or modify it " \
     "under the terms of the GNU General Public License as published by " \
     "the Free Software Foundation; either version 3 of the License, or " \
@@ -38,7 +38,7 @@ void sab_show_about_dialog(void) {
 			"comments", comments,
 			"copyright", copyright,
 			"version", VERSION,
-			"license", SAB_LICENSE,
+			"license", LICENSE_GPL_3,
 			"wrap-license", TRUE,
 			"website", PACKAGE_URL,
 			"translator-credits", "CREDITS",
