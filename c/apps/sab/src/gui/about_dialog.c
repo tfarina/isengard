@@ -2,8 +2,7 @@
 
 #include <gtk/gtk.h>
 
-#define VERSION "0.0.1"
-#define PACKAGE_URL "https://sab.com"
+#include "config.h"
 
 #define LICENSE_GPL_3 \
     "This program is free software: you can redistribute it and/or modify it " \

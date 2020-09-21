@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
 project(sab C)
 
+set(SAB_VERSION "0.0.1")
+
 option(ENABLE_GTK "Build GTK+ client" OFF)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
@@ -21,8 +23,13 @@ add_compile_options(-Wextra)
 add_compile_options(-Werror)
 add_compile_options(-Wno-unused-parameter)
 
+# This is a hack to allow the inclusion of "config.h".
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
+
 add_subdirectory(src/cli)
 
 if (ENABLE_GTK)
   add_subdirectory(src/gui)
 endif()
+
+message("BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}")
