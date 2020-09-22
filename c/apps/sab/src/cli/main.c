@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "config.h"
+
 #include "arraysize.h"
 #include "commands.h"
 
@@ -23,7 +25,7 @@ static command_t cmds[] = {
 
 static void usage(void) {
         static const char *usage_msg =
-                "usage: %s <command> [<args>]\n\n"
+                "usage: %s [--version] <command> [<args>]\n\n"
                 "The available commands are as follows:\n\n"
                 "   add       Add a new contact\n"
                 "   change    Change a contact\n"
@@ -31,6 +33,10 @@ static void usage(void) {
                 "   list      List all contacts\n"
                 "";
         fprintf(stderr, usage_msg, progname);
+}
+
+static void version(void) {
+  printf("%s %s\n", progname, VERSION);
 }
 
 static command_t *_find_cmd(const char *name) {
@@ -48,6 +54,7 @@ static command_t *_find_cmd(const char *name) {
 }
 
 int main(int argc, char **argv) {
+        int i;
         command_t *cmd;
         int rc;
 
@@ -56,6 +63,13 @@ int main(int argc, char **argv) {
         if (argc < 2) {
                 usage();
 		return EXIT_FAILURE;
+	}
+
+	for (i = 1; i < argc; i++) {
+	  if (strcmp(argv[i], "--version") == 0) {
+            version();
+	    exit(0);
+	  }
 	}
 
         cmd = _find_cmd(argv[1]);
