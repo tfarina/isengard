@@ -25,7 +25,7 @@ void sab_show_about_dialog(void) {
   GtkWindow *dialog;
 
   static char const program_name[] = "SAB";
-  static char const comments[] = "Simple Address Book";
+  static char const comments[] = "A simple and easy to use address book";
   static char const copyright[] = "Copyright © 2019";
 
   dialog = g_object_new(GTK_TYPE_ABOUT_DIALOG,
