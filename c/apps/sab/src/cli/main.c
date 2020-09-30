@@ -24,15 +24,12 @@ static command_t cmds[] = {
 };
 
 static void usage(void) {
-        static const char *usage_msg =
-                "usage: %s [--version] <command> [<args>]\n\n"
-                "The available commands are as follows:\n\n"
-                "   add       Add a new contact\n"
-                "   change    Change a contact\n"
-                "   delete    Delete the specified contact\n"
-                "   list      List all contacts\n"
-                "";
-        fprintf(stderr, usage_msg, progname);
+        fprintf(stderr, "usage: %s [--version] <command> [<args>]\n\n", progname);
+        fprintf(stderr, "The available commands are as follows:\n\n");
+        fprintf(stderr, "   add       Add a new contact\n");
+        fprintf(stderr, "   change    Change a contact\n");
+        fprintf(stderr, "   delete    Delete the specified contact\n");
+        fprintf(stderr, "   list      List all contacts\n");
 }
 
 static void version(void) {
