@@ -36,7 +36,7 @@ static void usage(void) {
 }
 
 static void version(void) {
-  printf("%s %s\n", progname, VERSION);
+        printf("%s %s\n", progname, VERSION);
 }
 
 static command_t *_find_cmd(const char *name) {
