@@ -13,7 +13,7 @@ static const char *progname;
 
 typedef struct command_s {
         const char *name;
-        int (*exec)(int argc, char **argv);
+        int (*run)(int argc, char **argv);
 } command_t;
 
 static command_t cmds[] = {
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 
-        rc = cmd->exec(argc - 1, argv + 1);
+        rc = cmd->run(argc - 1, argv + 1);
 
         return rc;
 }
