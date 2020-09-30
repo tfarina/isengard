@@ -84,18 +84,18 @@ static void version(void) {
   printf("%s %s\n", progname, ECHOD_VERSION);
 }
 
-void init_options(options_t *opt) {
-  opt->detach = 1;
-  opt->conffile = DEF_PATH_ECHODCONF;
-  opt->pidfile = DEF_PATH_ECHODPID;
-  opt->user = DEF_DAEMON_USER;
-  opt->address = DEF_BIND_ADDR;
-  opt->port = DEF_ECHO_PORT;
-  opt->backlog = DEF_BACKLOG;
-  opt->logfile = (char *) 0;
+void init_options(void) {
+  opt.detach = 1;
+  opt.conffile = DEF_PATH_ECHODCONF;
+  opt.pidfile = DEF_PATH_ECHODPID;
+  opt.user = DEF_DAEMON_USER;
+  opt.address = DEF_BIND_ADDR;
+  opt.port = DEF_ECHO_PORT;
+  opt.backlog = DEF_BACKLOG;
+  opt.logfile = (char *) 0;
 }
 
-void preparse_args(int argc, char **argv, options_t *opt) {
+void preparse_args(int argc, char **argv) {
   int opt_char;
 
   /*
@@ -111,7 +111,7 @@ void preparse_args(int argc, char **argv, options_t *opt) {
 
     switch (opt_char) {
     case 'C': /* --config */
-      opt->conffile = optarg;
+      opt.conffile = optarg;
       break;
 
     default:
@@ -120,7 +120,7 @@ void preparse_args(int argc, char **argv, options_t *opt) {
   }
 }
 
-void parse_args(int argc, char **argv, options_t *opt) {
+void parse_args(int argc, char **argv) {
   int opt_char, value;
   int show_config = 0;
 
@@ -135,7 +135,7 @@ void parse_args(int argc, char **argv, options_t *opt) {
 
     switch (opt_char) {
     case 'f':  /* --foreground */
-      opt->detach = 0;
+      opt.detach = 0;
       break;
 
     case 'C':  /* --config */
@@ -143,19 +143,19 @@ void parse_args(int argc, char **argv, options_t *opt) {
       break;
 
     case 'L':  /* --logfile */
-      opt->logfile = optarg;
+      opt.logfile = optarg;
       break;
 
     case 'P':  /* --pidfile */
-      opt->pidfile = optarg;
+      opt.pidfile = optarg;
       break;
 
     case 'u':  /* --user */
-      opt->user = optarg;
+      opt.user = optarg;
       break;
 
     case 'a':  /* --address */
-      opt->address = optarg;
+      opt.address = optarg;
       break;
 
     case 'p':  /* --port */
@@ -164,7 +164,7 @@ void parse_args(int argc, char **argv, options_t *opt) {
 	fprintf(stderr, "%s: port number must be between 1 and 65535\n", progname);
         exit(1);
       }
-      opt->port = value;
+      opt.port = value;
       break;
 
     case 'b':  /* --backlog */
@@ -174,7 +174,7 @@ void parse_args(int argc, char **argv, options_t *opt) {
 	exit(1);
       }
 
-      opt->backlog = value;
+      opt.backlog = value;
       break;
 
     /* undocumented -- dump CLI options for testing */
@@ -201,11 +201,11 @@ void parse_args(int argc, char **argv, options_t *opt) {
     fprintf(stdout, "  Config file: %s\n", DEF_PATH_ECHODCONF);
     fprintf(stdout, "  PID file:    %s\n", DEF_PATH_ECHODPID);
     fprintf(stdout, "\n *** %s configuration ***\n", progname);
-    fprintf(stdout, "ConfigFile    = %s\n", opt->conffile);
-    fprintf(stdout, "PIDFile       = %s\n", opt->pidfile);
-    fprintf(stdout, "LogFile       = %s\n", opt->logfile);
-    fprintf(stdout, "User          = %s\n", opt->user);
-    fprintf(stdout, "Port          = %d\n", opt->port);
-    fprintf(stdout, "Backlog       = %d\n", opt->backlog);
+    fprintf(stdout, "ConfigFile    = %s\n", opt.conffile);
+    fprintf(stdout, "PIDFile       = %s\n", opt.pidfile);
+    fprintf(stdout, "LogFile       = %s\n", opt.logfile);
+    fprintf(stdout, "User          = %s\n", opt.user);
+    fprintf(stdout, "Port          = %d\n", opt.port);
+    fprintf(stdout, "Backlog       = %d\n", opt.backlog);
   }
 }

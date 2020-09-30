@@ -17,13 +17,13 @@ extern options_t opt;
 /**
  * Initialize |opt| to default values.
  */
-void init_options(options_t *opt);
+void init_options(void);
 
-void preparse_args(int argc, char **argv, options_t *opt);
+void preparse_args(int argc, char **argv);
 
 /**
- * Parse command-line options from arguments given into |opt|.
+ * Parse command-line options from arguments into |opt|.
  */
-void parse_args(int argc, char **argv, options_t *opt);
+void parse_args(int argc, char **argv);
 
 #endif  /* !defined(_OPTIONS_H_INCLUDED_) */

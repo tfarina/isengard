@@ -259,13 +259,13 @@ int main(int argc, char **argv) {
   /*
    * Initialize built-in parameters to their default values.
    */
-  init_options(&opt);
+  init_options();
 
   /*
    * This is separate to find the configuration file if the user provided one
    * and read it before the other user options.
    */
-  preparse_args(argc, argv, &opt);
+  preparse_args(argc, argv);
 
   /*
    * Load configuration file.
@@ -280,7 +280,7 @@ int main(int argc, char **argv) {
    *
    * Command-line arguments override configuration file settings.
    */
-  parse_args(argc, argv, &opt);
+  parse_args(argc, argv);
 
   /*
    * Now that configuration file and command line has been parsed, honor either
