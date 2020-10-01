@@ -12,26 +12,30 @@
 static const char *progname;
 
 typedef struct command_s {
-        const char *name;
         int (*run)(int argc, char **argv);
+        const char *name;
+        const char *description;
 } command_t;
 
 static command_t cmds[] = {
-        { "add", cmd_add },
-        { "change", cmd_change },
-        { "delete", cmd_delete },
-        { "list", cmd_list },
+        { cmd_add,    "add",    "Add a new contact" },
+        { cmd_change, "change", "Change a contact" },
+        { cmd_delete, "delete", "Delete the specified contact" },
+        { cmd_list,   "list",   "List all contacts" },
 };
 
 static void usage(void) {
+        size_t i;
+
         fprintf(stderr, "usage: %s [--version] <command> [<args>]\n", progname);
         putchar('\n');
         fputs("The available commands are as follows:\n", stderr);
         putchar('\n');
-        fputs("   add       Add a new contact\n", stderr);
-        fputs("   change    Change a contact\n", stderr);
-        fputs("   delete    Delete the specified contact\n", stderr);
-        fputs("   list      List all contacts\n", stderr);
+
+        for (i = 0; i < ARRAY_SIZE(cmds); i++) {
+	        command_t *cmd = cmds + i;
+                fprintf(stderr, "   %-12s%s\n", cmd->name, cmd->description);
+	}
 }
 
 static void version(void) {
