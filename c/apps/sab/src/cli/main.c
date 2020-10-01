@@ -24,8 +24,10 @@ static command_t cmds[] = {
 };
 
 static void usage(void) {
-        fprintf(stderr, "usage: %s [--version] <command> [<args>]\n\n", progname);
-        fprintf(stderr, "The available commands are as follows:\n\n");
+        fprintf(stderr, "usage: %s [--version] <command> [<args>]\n", progname);
+        putchar('\n');
+        fprintf(stderr, "The available commands are as follows:\n");
+        putchar('\n');
         fprintf(stderr, "   add       Add a new contact\n");
         fprintf(stderr, "   change    Change a contact\n");
         fprintf(stderr, "   delete    Delete the specified contact\n");
