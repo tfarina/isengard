@@ -19,10 +19,10 @@ include(UninstallTarget)
 # Provides install directory variables as defined by the GNU Coding Standards.
 include(GNUInstallDirs)
 
-include(CheckIncludeFiles)
+include(CheckIncludeFile)
 include(CheckFunctionExists)
 
-check_include_files(getopt.h HAVE_GETOPT_H)
+check_include_file(getopt.h HAVE_GETOPT_H)
 check_function_exists(getopt_long HAVE_GETOPT_LONG)
 if (HAVE_GETOPT_H)
   message("-- Found header getopt.h")
