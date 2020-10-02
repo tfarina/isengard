@@ -96,20 +96,20 @@ void init_options(void) {
 }
 
 void preparse_args(int argc, char **argv) {
-  int opt_char;
+  int optchr;
 
   /*
    * This separate getopt_long is needed to find the user config file
    * option ("--config") and parse it before the other user options.
    */
   for (;;) {
-    opt_char = getopt_long(argc, argv, short_options, long_options, (int *) 0);
-    if (opt_char == -1) {
+    optchr = getopt_long(argc, argv, short_options, long_options, (int *) 0);
+    if (optchr == -1) {
       /* no more options */
       break;
     }
 
-    switch (opt_char) {
+    switch (optchr) {
     case 'C': /* --config */
       opt.conffile = optarg;
       break;
@@ -121,19 +121,19 @@ void preparse_args(int argc, char **argv) {
 }
 
 void parse_args(int argc, char **argv) {
-  int opt_char, value;
+  int optchr, value;
   int show_config = 0;
 
   optind = 0;
 
   for (;;) {
-    opt_char = getopt_long(argc, argv, short_options, long_options, (int *) 0);
-    if (opt_char == -1) {
+    optchr = getopt_long(argc, argv, short_options, long_options, (int *) 0);
+    if (optchr == -1) {
       /* no more options */
       break;
     }
 
-    switch (opt_char) {
+    switch (optchr) {
     case 'f':  /* --foreground */
       opt.detach = 0;
       break;
