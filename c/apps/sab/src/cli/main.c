@@ -24,7 +24,7 @@ static command_t cmds[] = {
         { cmd_list,   "list",   "List all contacts" },
 };
 
-static void usage(void) {
+static void usage(int status) {
         size_t i;
 
         fprintf(stderr, "usage: %s [--version] <command> [<args>]\n", progname);
@@ -36,6 +36,8 @@ static void usage(void) {
 	        command_t *cmd = cmds + i;
                 fprintf(stderr, "   %-12s%s\n", cmd->name, cmd->description);
 	}
+
+	exit(status);
 }
 
 static void version(void) {
@@ -64,8 +66,7 @@ int main(int argc, char **argv) {
         progname = basename(argv[0]);
 
         if (argc < 2) {
-                usage();
-		return EXIT_FAILURE;
+                usage(EXIT_FAILURE);
 	}
 
 	for (i = 1; i < argc; i++) {
@@ -77,8 +78,7 @@ int main(int argc, char **argv) {
 
         cmd = _find_cmd(argv[1]);
         if (cmd == NULL) {
-                usage();
-		return EXIT_FAILURE;
+                usage(EXIT_FAILURE);
 	}
 
         rc = cmd->run(argc - 1, argv + 1);
