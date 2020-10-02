@@ -23,7 +23,7 @@ include(CheckIncludeFiles)
 include(CheckFunctionExists)
 
 check_include_files(getopt.h HAVE_GETOPT_H)
-check_function_exists(getopt HAVE_GETOPT)
+check_function_exists(getopt_long HAVE_GETOPT_LONG)
 if (HAVE_GETOPT_H)
   message("-- Found header getopt.h")
 endif()
