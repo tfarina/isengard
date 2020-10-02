@@ -103,9 +103,9 @@ if (GTK2_FOUND)
 endif()
 
 # These options are settable from the CMake command line. For example, to disable
-# SQL, put -D WITH_SQL=OFF on the command line.
+# SQL, put -DWITH_SQL=OFF on the command line.
 
-option(WITH_SQL "Build this project with SQL (mysql) support" OFF)
+option(WITH_SQL "Include MySQL support" OFF)
 
 if (WITH_SQL)
   find_package(MySQL)
