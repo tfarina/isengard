@@ -48,7 +48,7 @@ endif()
 
 if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
   add_definitions(-D_GNU_SOURCE)
-endif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
+endif()
 
 if (DEFINED CMAKE_INSTALL_PREFIX)
   set(SYSCONFDIR ${CMAKE_INSTALL_PREFIX}/etc CACHE PATH "configuration directory")
