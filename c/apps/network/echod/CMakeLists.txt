@@ -21,6 +21,7 @@ include(GNUInstallDirs)
 
 include(CheckIncludeFile)
 include(CheckFunctionExists)
+include(CheckSymbolExists)
 
 check_include_file(getopt.h HAVE_GETOPT_H)
 check_function_exists(getopt_long HAVE_GETOPT_LONG)
@@ -46,7 +47,18 @@ elseif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0")
 endif()
 
-if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
+# Check if _GNU_SOURCE is available.
+
+if (NOT _GNU_SOURCE)
+  check_symbol_exists(__GNU_LIBRARY__ "features.h" _GNU_SOURCE)
+
+  if (NOT _GNU_SOURCE)
+    unset(_GNU_SOURCE CACHE)
+    check_symbol_exists(_GNU_SOURCE "features.h" _GNU_SOURCE)
+  endif()
+endif()
+
+if (_GNU_SOURCE)
   add_definitions(-D_GNU_SOURCE)
 endif()
 
