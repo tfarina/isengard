@@ -38,7 +38,7 @@ vector_t *vector_alloc(size_t datasize, size_t capacity);
 /**
  * Inserts the specified element at the end of the array.
  *
- * @param[in,out] self    The vector instance (must not be NULL).
+ * @param[in,out] self    A pointer to the `vector_t` instance (must not be NULL).
  * @param[in]     element The element to be inserted.
  */
 void vector_push_back(vector_t *self, void *element);
@@ -46,7 +46,7 @@ void vector_push_back(vector_t *self, void *element);
 /**
  * Returns the pointer to the element at specified location index.
  *
- * @param[in,out] self  The vector instance (must not be NULL).
+ * @param[in,out] self  A pointer to the `vector_t` instance (must not be NULL).
  * @param[in]     index The index of the element.
  *
  * @return Pointer to the element at specified index or `NULL` if it doesn't exists.
@@ -56,7 +56,7 @@ void *vector_at(vector_t const * const self, int unsigned const index);
 /**
  * Returns the current number of elements stored in the array.
  *
- * @param[in,out] self The vector instance (must not be NULL).
+ * @param[in,out] self A pointer to the `vector_t` instance (must not be NULL).
  *
  * @return The number of elements in the array.
  */
@@ -66,7 +66,7 @@ size_t vector_size(vector_t const * const self);
  * Returns the number of elements the container can store without having
  * to expand.
  *
- * @param[in,out] self The vector instance (must not be NULL).
+ * @param[in,out] self A pointer to the `vector_t` instance (must not be NULL).
  *
  * @return The number of elements that can be stored before having to expand.
  */
@@ -75,7 +75,8 @@ size_t vector_capacity(vector_t const * const self);
 /**
  * Returns a pointer to the elements of `self`.
  *
- * @param[in] self pointer to `vector_t`
+ * @param[in] self A pointer to the `vector_t` instance.
+ *
  * @return pointer to elements, `NULL` if empty.
  */
 void *vector_data(vector_t const * const self);
@@ -83,7 +84,8 @@ void *vector_data(vector_t const * const self);
 /**
  * Tests whether vector is empty.
  *
- * @param[in,out] self The vector instance.
+ * @param[in,out] self A pointer to the `vector_t` instance.
+ *
  * @return non-zero if the vector size is 0, zero otherwise.
  */
 int vector_empty(vector_t const * const self);
@@ -94,7 +96,7 @@ int vector_empty(vector_t const * const self);
  *
  * If 'self' is NULL, no action will be performed.
  *
- * @param[in,out] self The vector instance to be deleted.
+ * @param[in,out] self A pointer to the `vector_t` instance.
  */
 void vector_free(vector_t *self);
 
