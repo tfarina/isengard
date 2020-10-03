@@ -12,16 +12,21 @@ extern "C" {
  */
 typedef struct vector_s
 {
-        /* The pointer to the underlying array data. */
+        /**
+	 * The pointer to the underlying array data.
+         */
         void *data;
-
-        /* The size of each element (in bytes). */
+        /**
+         * The size of each element (in bytes).
+         */
         size_t datasize;
-
-        /* The current number of elements the array can hold. */
+        /**
+         * The current number of elements the array can hold.
+         */
 	size_t capacity;
-
-        /* The current number of elements stored in the array. */
+        /**
+         * The current number of elements stored in the array.
+         */
 	size_t size;
 } vector_t;
 
