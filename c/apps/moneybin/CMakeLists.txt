@@ -33,6 +33,7 @@ if (WITH_MYSQL)
   find_package(MySQL REQUIRED)
   if (MYSQL_FOUND)
     add_definitions(-DHAVE_MYSQL)
+    set(LIBS ${LIBS} ${MYSQL_LIBRARIES})
   else ()
     message("MySQL not found")
   endif()
@@ -61,7 +62,7 @@ set(SRCS
 )
 
 add_library(moneybin ${SRCS})
-target_link_libraries(moneybin iniparser libconfigini ini libcsv ${MYSQL_LIBRARIES})
+target_link_libraries(moneybin iniparser libconfigini ini libcsv ${LIBS})
 
 add_executable(csvcat sfldate.c timestamp.c tacsv.c fstrutils.c csvcat.c)
 target_link_libraries(csvcat libcsv)
@@ -83,12 +84,12 @@ target_link_libraries(csvget moneybin ${CURL_LIBRARIES})
 target_include_directories(csvget PUBLIC ${CURL_INCLUDE_DIRS})
 
 add_executable(csvimport csvimport.c)
-target_link_libraries(csvimport iniparser libcsv moneybin ${MYSQL_LIBRARIES})
+target_link_libraries(csvimport iniparser libcsv moneybin ${LIBS})
 
 add_executable(lastdate lastdate.c)
-target_link_libraries(lastdate iniparser moneybin ${MYSQL_LIBRARIES})
+target_link_libraries(lastdate iniparser moneybin ${LIBS})
 
 add_executable(startdate startdate.c)
-target_link_libraries(startdate iniparser moneybin ${MYSQL_LIBRARIES})
+target_link_libraries(startdate iniparser moneybin ${LIBS})
 
 add_executable(enddate enddate.c)
