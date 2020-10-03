@@ -92,6 +92,8 @@ install(FILES doc/man/man8/echod.8 DESTINATION "${CMAKE_INSTALL_MANDIR}/man8" CO
 
 message(STATUS "Running cmake version ${CMAKE_VERSION}")
 message(STATUS "")
+message(STATUS "Generator:         ${CMAKE_GENERATOR}")
+message(STATUS "")
 message(STATUS "Host Processor:    ${CMAKE_HOST_SYSTEM_PROCESSOR}")
 message(STATUS "Host OS:           ${CMAKE_HOST_SYSTEM_NAME}")
 message(STATUS "")
