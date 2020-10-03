@@ -29,7 +29,7 @@ typedef struct vector_s
  * Creates a new instance of vector_t with at least the specified capacity.
  *
  * @param[in] datasize  The size of each element (in bytes).
- * @param[in] capacity  The max number of elements.
+ * @param[in] capacity  The initial capacity (number of elements).
  *
  * @return A new instance of vector_t or `NULL` on error.
  */
