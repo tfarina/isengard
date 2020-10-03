@@ -8,6 +8,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "config.h"
+
 #include "fnet.h"
 #include "msg.h"
 #include "os_path.h"
@@ -20,11 +22,13 @@
 static char const *progname;
 
 static char const short_options[] =
-    "h"   /* help */
+    "h"  /* help */
+    "V"  /* version */
     ;
 
 static struct option const long_options[] = {
   { "help",        no_argument,       (int *) 0, 'h' },
+  { "version",     no_argument,       (int *) 0, 'V' },
   { (char *) 0,    no_argument,       (int *) 0,  0  }
 };
 
@@ -37,9 +41,15 @@ static void usage(int status) {
 
     fputs("Options:\n", stdout);
     fputs("  -h, --help              display this help and exit\n", stdout);
+    fputs("  -V, --version           output version information and exit\n", stdout);
+
   }
 
   exit(status);
+}
+
+static void version(void) {
+  printf("%s %s\n", progname, VERSION);
 }
 
 int main(int argc, char **argv) {
@@ -63,6 +73,10 @@ int main(int argc, char **argv) {
     switch (optchr) {
     case 'h':  /* --help */
       usage(EXIT_SUCCESS);
+
+    case 'V':  /* --version */
+      version();
+      exit(EXIT_SUCCESS);
 
     default:
       usage(EXIT_FAILURE);

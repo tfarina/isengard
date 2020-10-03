@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
 project(echoc C)
 
+set(ECHOC_VERSION "0.1.0")
+
 set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-std=c99 -pedantic -Wall")
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
@@ -13,6 +15,14 @@ elseif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
 endif()
 
 add_definitions(-D_GNU_SOURCE)
+
+configure_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/config.h"
+)
+
+# This is a hack to allow the inclusion of "config.h".
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 set(ECHOC_SRCS
   src/fnet.c
