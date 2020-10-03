@@ -1,14 +1,14 @@
-#ifndef _CORE_H_INCLUDED_
-#define _CORE_H_INCLUDED_ 1
+#ifndef _STRINGIZE_H_INCLUDED_
+#define _STRINGIZE_H_INCLUDED_ 1
 
 /**
  * M_STRINGIZE:
  *
  * Turns the macro @x into a string.
  *
- * @x: macro.
+ * @param   x   A macro.
  */
 #define M_STRINGIZE_(x) #x
 #define M_STRINGIZE(x)  M_STRINGIZE_(x)
 
-#endif  /* !defined(_CORE_H_INCLUDED_) */
+#endif  /* !defined(_STRINGIZE_H_INCLUDED_) */
