@@ -89,7 +89,8 @@ void *vector_data(vector_t const * const self);
 int vector_empty(vector_t const * const self);
 
 /**
- * Destroys 'self', freeing all memory that was allocated internally.
+ * Destroys the given `vector_t` instance', freeing all memory that was
+ * allocated internally.
  *
  * If 'self' is NULL, no action will be performed.
  *
