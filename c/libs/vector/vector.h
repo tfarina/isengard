@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Implements the vector container class.
+ */
+
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
