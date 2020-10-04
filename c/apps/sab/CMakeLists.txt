@@ -3,7 +3,7 @@ project(sab C)
 
 set(SAB_VERSION "0.0.1")
 
-option(ENABLE_GTK "Build GTK+ client" OFF)
+option(WITH_GTK "Build GTK+ front end" OFF)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
@@ -28,7 +28,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
 
 add_subdirectory(src/cli)
 
-if (ENABLE_GTK)
+if (WITH_GTK)
   add_subdirectory(src/gui)
 endif()
 
