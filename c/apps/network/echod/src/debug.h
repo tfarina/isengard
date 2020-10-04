@@ -6,11 +6,11 @@
 
 #ifdef NDEBUG
 
-#define DEBUG_PRINT(msg) ((void) 0)
+#define DPRINT(msg) ((void) 0)
 
 #else
 
-#define DEBUG_PRINT(msg)  \
+#define DPRINT(msg)  \
   do {                    \
   } while (0)
 
