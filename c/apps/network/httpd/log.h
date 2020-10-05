@@ -1,8 +1,8 @@
 #ifndef LOG_H_
 #define LOG_H_
 
-#include "macros.h"
+#include "attributes.h"
 
-NORETURN void fatal(const char *msg, ...) ATTRIBUTE_PRINTF(1, 2);
+MK_NORETURN void fatal(const char *msg, ...) MK_PRINTF(1, 2);
 
 #endif  /* LOG_H_ */
