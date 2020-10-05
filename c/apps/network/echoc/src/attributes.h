@@ -1,5 +1,5 @@
-#ifndef HINTS_H_
-#define HINTS_H_
+#ifndef _ATTRIBUTES_H_INCLUDED_
+#define _ATTRIBUTES_H_INCLUDED_ 1
 
 /*
  * Macro to test if we're using a specific version of gcc or later.
@@ -52,4 +52,4 @@
 #define MK_PRINTF(string_index, first_to_check)
 #endif
 
-#endif  /* HINTS_H_ */
+#endif  /* !defined(_ATTRIBUTES_H_INCLUDED_) */
