@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
   size_t len;
   char *buf;
 
-  if (argc != 2) {
+  if (argc < 2) {
     fprintf(stderr, "usage: lexer <filename>\n");
     exit(EXIT_FAILURE);
   }
