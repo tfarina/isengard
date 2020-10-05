@@ -14,7 +14,6 @@
 
 #include "buffer.h"
 #include "fnet.h"
-#include "macros.h"
 
 #define MIN_BUFLEN 1024
 

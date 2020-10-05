@@ -5,9 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "macros.h"
+#include "attributes.h"
 
-static NORETURN void fatal(const char *fmt, ...)
+static MK_NORETURN void fatal(const char *fmt, ...)
 {
         va_list args;
 
