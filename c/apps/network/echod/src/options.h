@@ -22,7 +22,10 @@ void init_options(void);
 void preparse_args(int argc, char **argv);
 
 /**
- * Parse command-line options from arguments into |opt|.
+ * Parse command-line arguments into |opt|.
+ *
+ * @param   argc   Size of @a argv.
+ * @param   argv   List of arguments.
  */
 void parse_args(int argc, char **argv);
 
