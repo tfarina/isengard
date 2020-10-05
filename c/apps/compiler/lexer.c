@@ -1,12 +1,8 @@
-#include <errno.h>
-#include <string.h>
-#include <stddef.h>
+#include "lexer.h"
+
 #include <stdio.h>
-#include <stdlib.h>
 
-#include "ffileutils.h"
-
-static void lex(const char *input)
+void lex(const char *input)
 {
   const char *c;
 
@@ -27,22 +23,4 @@ static void lex(const char *input)
         break;
     }
   }
-}
-
-int main(int argc, char **argv) {
-  size_t len;
-  char *buf;
-
-  if (argc != 2) {
-    fprintf(stderr, "usage: lexer <filename>\n");
-    exit(EXIT_FAILURE);
-  }
-
-  buf = f_read_file(argv[1], &len);
-
-  lex(buf);
-
-  free(buf);
-
-  return 0;
 }
