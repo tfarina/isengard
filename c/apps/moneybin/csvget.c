@@ -61,14 +61,14 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
 
   buffer_init(&html);
 
+  memset(histurl, 0, MAXURLLEN);
+  snprintf(histurl, sizeof(histurl), "https://finance.yahoo.com/quote/%s/history", symbol);
+
   curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
   curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
   curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "br, gzip");
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&html);
-
-  memset(histurl, 0, MAXURLLEN);
-  snprintf(histurl, sizeof(histurl), "https://finance.yahoo.com/quote/%s/history", symbol);
   curl_easy_setopt(curl, CURLOPT_URL, histurl);
 
   result = curl_easy_perform(curl);
