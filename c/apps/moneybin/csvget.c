@@ -86,13 +86,15 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   }
 
   buffer_init(out_csv);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)out_csv);
 
   memset(downloadurl, 0, MAXURLLEN);
   snprintf(downloadurl, sizeof(downloadurl),
          "https://query1.finance.yahoo.com/v7/finance/download/%s?period1=%ld&period2=%ld&interval=1d&events=history&crumb=%s",
 	  symbol, start_date, end_date, crumb);
+
   printf("Download URL: %s\n\n", downloadurl);
+
+  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)out_csv);
   curl_easy_setopt(curl, CURLOPT_URL, downloadurl);
 
   printf("Downloading file...\n\n");
