@@ -12,13 +12,13 @@ int main(int argc, char **argv) {
 
   if (argc != 2) {
     fprintf(stderr, "usage: readfile <filename>\n");
-    return -1;
+    return 1;
   }
 
   buf = f_read_file(argv[1], &len);
   if (!buf) {
     free(buf);
-    return -1;
+    return 1;
   }
 
   fwrite(buf, 1, len, stdout);

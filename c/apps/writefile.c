@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
 
   if (argc != 2) {
     fprintf(stderr, "usage: writefile <filename>\n");
-    return -1;
+    return 1;
   }
 
   f_write_file(argv[1], buf, sizeof(buf));
