@@ -8,6 +8,7 @@
 
 #include "arraysize.h"
 #include "commands.h"
+#include "os_path.h"
 
 static const char *progname;
 
@@ -63,7 +64,7 @@ int main(int argc, char **argv) {
         command_t *cmd;
         int rc;
 
-        progname = basename(argv[0]);
+        progname = os_path_basename(argv[0]);
 
         if (argc < 2) {
                 usage(EXIT_FAILURE);

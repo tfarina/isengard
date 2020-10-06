@@ -13,6 +13,7 @@ set(SOURCES
   common.c
   fort.c
   main.c
+  os_path.c
 )
 
 add_executable(${EXE_NAME}
