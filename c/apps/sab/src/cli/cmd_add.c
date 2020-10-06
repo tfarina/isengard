@@ -15,6 +15,9 @@ int cmd_add(int argc, char **argv) {
   ab_init();
 
   contact = ab_contact_alloc();
+  if (!contact) {
+    return -1;
+  }
 
   ab_contact_set_first_name(contact, argv[1]);
   ab_contact_set_last_name(contact, argv[2]);
