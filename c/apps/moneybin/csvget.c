@@ -59,12 +59,12 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
     return -1;
   }
 
+  buffer_init(&html);
+
   curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
   curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
   curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "br, gzip");
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data_to_memory);
-
-  buffer_init(&html);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&html);
 
   memset(histurl, 0, MAXURLLEN);
