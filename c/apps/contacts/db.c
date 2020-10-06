@@ -25,4 +25,3 @@ void db_config_init(db_config_t *config) {
 
   iniparser_freedict(ini);
 }
-

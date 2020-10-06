@@ -955,4 +955,3 @@ struct tm
 
     return (time_struct);
 }
-

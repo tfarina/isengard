@@ -18,4 +18,3 @@ fnet_set_reuseaddr(int fd)
 
   return FNET_OK;
 }
-

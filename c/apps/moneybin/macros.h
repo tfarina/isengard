@@ -14,4 +14,3 @@
 #endif
 
 #endif  /* MACROS_H_ */
-

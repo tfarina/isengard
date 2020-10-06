@@ -17,4 +17,3 @@ int fnet_set_reuseaddr(int fd)
 
   return 0;
 }
-

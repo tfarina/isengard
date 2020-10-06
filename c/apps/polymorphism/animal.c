@@ -11,4 +11,3 @@ animal_eat(animal_t *animal)
 {
   animal->ops->eat();
 }
-
