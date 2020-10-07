@@ -81,15 +81,15 @@ static char const *level_to_str(ulog_level_t level) {
  * arguments in 'ap'.
  */
 static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
+  int fd;
+  int len;
+  char buf[MAXLINELEN];
   time_t now;
   struct tm *localtm;
   char timebuf[32];
-  char buf[MAXLINELEN];
-  int len;
-  int fd;
 
   /*
-   * Check if user is interested in this log message.
+   * Check if user is interested in logging this message.
    */
   if (level > log_level) {
     return;
