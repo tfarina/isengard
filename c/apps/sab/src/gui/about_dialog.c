@@ -38,7 +38,6 @@ void sab_show_about_dialog(void) {
 			"copyright", copyright,
 			"version", VERSION,
 			"license", license_gpl3,
-			"wrap-license", TRUE,
 			"website", PACKAGE_URL,
 			"translator-credits", "",
 			NULL);
