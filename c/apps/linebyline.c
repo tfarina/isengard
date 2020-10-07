@@ -21,23 +21,25 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  if ((fp = fopen(argv[1], "r"))) {
-    /* This loops through the lines of the file, printing it. */
-    while (fgets(linebuf, sizeof(linebuf), fp)) {
-      lineno++;
-      printf("%d:%s", lineno, linebuf);
-
-      /* This loops through *every* character present in this line. */
-      char *c;
-      for (c = linebuf; *c; c++) {
-        printf("%c", *c);
-      }
-    }
-    fclose(fp);
-  } else {
+  fp = fopen(argv[1], "r");
+  if (fp == NULL) {
     fprintf(stderr, "%s: %s\n", argv[1], strerror(errno));
     exit(EXIT_FAILURE);
   }
+
+  /* This loops through the lines of the file, printing it. */
+  while (fgets(linebuf, sizeof(linebuf), fp)) {
+    lineno++;
+    printf("%d:%s", lineno, linebuf);
+
+    /* This loops through *every* character present in this line. */
+    char *c;
+    for (c = linebuf; *c; c++) {
+      printf("%c", *c);
+    }
+  }
+
+  fclose(fp);
 
   return 0;
 }
