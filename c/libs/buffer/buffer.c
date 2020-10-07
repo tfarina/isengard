@@ -74,9 +74,13 @@ void buffer_free(buffer_t *self)
                 return;
         }
 
-        free(self->data);
-        self->data = NULL;
+	if (self->data != NULL) {
+                free(self->data);
+                self->data = NULL;
+	}
+
         self->length = 0;
         self->capacity = 0;
+
         free(self);
 }
