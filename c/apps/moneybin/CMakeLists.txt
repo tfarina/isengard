@@ -74,8 +74,8 @@ add_executable(sma_test sma.c sma_test.c)
 add_executable(gensignals sfldate.c timestamp.c crossover.c sma.c tacsv.c gensignals.c)
 target_link_libraries(gensignals libcsv)
 
-add_executable(calc sfldate.c timestamp.c crossover.c sma.c tacsv.c calc.c)
-target_link_libraries(calc libcsv)
+add_executable(genmovavgs sfldate.c timestamp.c crossover.c sma.c tacsv.c genmovavgs.c)
+target_link_libraries(genmovavgs libcsv)
 
 find_package(CURL REQUIRED)
 
