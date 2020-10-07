@@ -13,6 +13,8 @@
 
 #define MAXURLLEN 256
 
+static int verbose = 1;
+
 static char *crumb;
 
 /*https://github.com/jerryvig/cython-project1/blob/351aece6a910ecff8867708fa16155a6bc444217/compute_statistics.c#L53*/
@@ -92,12 +94,16 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
          "https://query1.finance.yahoo.com/v7/finance/download/%s?period1=%ld&period2=%ld&interval=1d&events=history&crumb=%s",
 	  symbol, start_date, end_date, crumb);
 
-  printf("Download URL: %s\n\n", downloadurl);
+  if (verbose) {
+    printf("Download URL: %s\n\n", downloadurl);
+  }
 
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)out_csv);
   curl_easy_setopt(curl, CURLOPT_URL, downloadurl);
 
-  printf("Downloading file...\n\n");
+  if (verbose) {
+    printf("Downloading file...\n\n");
+  }
 
   result = curl_easy_perform(curl);
   if (result != CURLE_OK) {
@@ -139,14 +145,18 @@ int main(int argc, char *argv[])
   one_year_ago = mktime(now_tm);
 
   /* TODO: Write this into a log file instead. So it can be inspected after the program ends. */
-  printf("Start Date: %s\n", start_date_str);
-  printf("End Date: %s\n", end_date_str);
-  printf("Period: Daily\n\n");
+  if (verbose) {
+    printf("Start Date: %s\n", start_date_str);
+    printf("End Date: %s\n", end_date_str);
+    printf("Period: Daily\n\n");
+  }
 
   download_quotes_from_yahoo(symbol, one_year_ago, now, &buf);
 
   /* TODO: do not print this by default. */
-  printf("%s\n", buf.data);
+  if (verbose) {
+    printf("%s\n", buf.data);
+  }
 
   sprintf(filename, "%s.csv", symbol);
   f_write_file(filename, buf.data, buf.length);
