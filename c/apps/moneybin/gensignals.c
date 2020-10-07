@@ -59,7 +59,7 @@ int main(int argc, char **argv)
   int ordercnt;
 
   if (argc < 2) {
-    fprintf(stderr, "usage: signals <filename>\n");
+    fprintf(stderr, "usage: gensignals <filename>\n");
     return 1;
   }
 
