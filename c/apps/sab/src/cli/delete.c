@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
 
   if (argc != 2) {
     fprintf(stderr, "usage: %s 'ID'\n", argv[0]);
-    return -1;
+    return 1;
   }
 
   ab_init();
@@ -22,11 +22,11 @@ int main(int argc, char **argv) {
   if (!contact) {
     fprintf(stderr, "%s: contact (%s) does not exist in our database.\n",
             argv[0], argv[1]);
-    return -1;
+    return 1;
   }
 
   if (ab_delete_contact(contact)) {
-    return -1;
+    return 1;
   }
 
   ab_fini();

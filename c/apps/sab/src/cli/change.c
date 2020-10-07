@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 
   if (argc != 5) {
     fprintf(stderr, "usage: %s 'ID' 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
-    return -1;
+    return 1;
   }
 
   ab_init();
@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
   if (!contact) {
     fprintf(stderr, "%s: contact (%s) does not exist in our database.\n",
             argv[0], argv[1]);
-    return -1;
+    return 1;
   }
 
   ab_contact_set_first_name(contact, argv[2]);
@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
   ab_contact_set_email(contact, argv[4]);
 
   if (ab_change_contact(contact)) {
-    return -1;
+    return 1;
   }
 
   ab_fini();

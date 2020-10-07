@@ -10,14 +10,14 @@ int main(int argc, char **argv) {
 
   if (argc != 4) {
     printf("usage: %s 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
-    return -1;
+    return 1;
   }
 
   ab_init();
 
   contact = ab_contact_alloc();
   if (!contact) {
-    return -1;
+    return 1;
   }
 
   ab_contact_set_first_name(contact, argv[1]);
@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
 
   /* It's okay to add duplicate records. */
   if (ab_add_contact(contact)) {
-    return -1;
+    return 1;
   }
 
   ab_fini();
