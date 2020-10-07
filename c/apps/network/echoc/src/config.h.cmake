@@ -10,7 +10,7 @@
 #define PACKAGE_NAME "${PROJECT_NAME}"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "${PROJECT_NAME} ${ECHOC_VERSION}"
+#define PACKAGE_STRING "${PROJECT_NAME} ${VERSION}"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "${PROJECT_NAME}"
@@ -19,7 +19,7 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "${ECHOC_VERSION}"
+#define PACKAGE_VERSION "${VERSION}"
 
 /* Version number of package */
-#define VERSION "${ECHOC_VERSION}"
+#define VERSION "${VERSION}"
