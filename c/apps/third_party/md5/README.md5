@@ -1,0 +1,8 @@
+Name: md5
+URL: http://openwall.info/wiki/people/solar/software/public-domain-source-code/md5
+Version: 
+Included In Release: Yes
+Security Critical: Yes
+License: BSD
+
+A portable, fast, and free implementation of the MD5 Message-Digest Algorithm (RFC 1321)
