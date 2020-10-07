@@ -4,19 +4,19 @@
 
 #include "config.h"
 
-#define LICENSE_GPL_3 \
-    "This program is free software: you can redistribute it and/or modify it " \
-    "under the terms of the GNU General Public License as published by " \
-    "the Free Software Foundation; either version 3 of the License, or " \
-    "(at your option) any later version."                                \
-    "\n\n"                                                               \
-    "This program is distributed in the hope that it will be useful, "   \
-    "but WITHOUT ANY WARRANTY; without even the implied warranty of "    \
-    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "     \
-    "GNU General Public License for more details."                       \
-    "\n\n"                                                               \
-    "You should have received a copy of the GNU General Public License " \
-    "along with this program. If not, see: https://www.gnu.org/licenses/"
+static char const license_gpl3[] =
+    "This program is free software: you can redistribute it and/or modify it "
+    "under the terms of the GNU General Public License as published by "
+    "the Free Software Foundation; either version 3 of the License, or "
+    "(at your option) any later version."
+    "\n\n"
+    "This program is distributed in the hope that it will be useful, "
+    "but WITHOUT ANY WARRANTY; without even the implied warranty of "
+    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
+    "GNU General Public License for more details."
+    "\n\n"
+    "You should have received a copy of the GNU General Public License "
+    "along with this program. If not, see: https://www.gnu.org/licenses/";
 
 /**
  * Display the About dialog for SAB.
@@ -37,7 +37,7 @@ void sab_show_about_dialog(void) {
 			"comments", comments,
 			"copyright", copyright,
 			"version", VERSION,
-			"license", LICENSE_GPL_3,
+			"license", license_gpl3,
 			"wrap-license", TRUE,
 			"website", PACKAGE_URL,
 			"translator-credits", "",
