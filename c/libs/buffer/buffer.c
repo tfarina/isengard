@@ -46,12 +46,20 @@ buffer_t *buffer_alloc(size_t capacity)
 
 void buffer_clear(buffer_t *self)
 {
+        if (self == NULL) {
+                return;
+        }
+
 	self->length = 0;
 	*self->data = 0;
 }
 
 void buffer_write(buffer_t *self, void const *data, size_t length)
 {
+        if (self == NULL) {
+                return;
+        }
+
         if (self->capacity < self->length + length) {
           _buffer_realloc(self, self->length * 2 + length);
 	}
@@ -62,6 +70,10 @@ void buffer_write(buffer_t *self, void const *data, size_t length)
 
 void buffer_free(buffer_t *self)
 {
+        if (self == NULL) {
+                return;
+        }
+
         free(self->data);
         self->data = NULL;
         self->length = 0;
