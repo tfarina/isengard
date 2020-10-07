@@ -32,7 +32,7 @@ buffer_t *buffer_alloc(size_t capacity)
 	        return NULL;
 	}
 
-	b->data = malloc(capacity);
+	b->data = malloc(sizeof(char) * capacity);
         if (b->data == NULL) {
 	        free(b);
                 return NULL;
