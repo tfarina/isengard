@@ -45,10 +45,10 @@ static void print_movavg(ta_bars_t *b, double *ma1, double *ma2)
   }
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
   int err;
-  char filename[13] = "PETR4.SA.csv";
+  char *filename;
   ta_bars_t *bars;
   double *ma1, *ma2;
   int window1 = 5 /* fast period */, window2 = 20 /* slow period */;
@@ -57,6 +57,13 @@ int main(void)
   size_t pos;
   int crossover;
   int ordercnt;
+
+  if (argc < 2) {
+    fprintf(stderr, "usage: signals <filename>\n");
+    return 1;
+  }
+
+  filename = argv[1];
 
   /* Read bar data from CSV file. */
   err = read_csv(filename, &bars);
