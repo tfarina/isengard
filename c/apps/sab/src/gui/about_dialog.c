@@ -22,27 +22,20 @@ static char const license_gpl3[] =
  * Display the About dialog for SAB.
  */
 void sab_show_about_dialog(void) {
-  GtkWindow *dialog;
-
   static char const program_name[] = "SAB";
   static char const comments[] = "A simple and easy to use address book";
   static char const copyright[] = "Copyright © 2019";
 
-  dialog = g_object_new(GTK_TYPE_ABOUT_DIALOG,
-                        /* Hold the application while the window is shown */
-                        "role", "sab-about",
-			"window-position", GTK_WIN_POS_CENTER,
-			"title", "About SAB",
-			"program-name", program_name,
-			"comments", comments,
-			"copyright", copyright,
-			"version", VERSION,
-			"license", license_gpl3,
-			"website", PACKAGE_URL,
+  gtk_show_about_dialog(NULL,
+			"artists",            0,
+			"authors",            0,
+			"comments",           comments,
+			"copyright",          copyright,
+			"documenters",        0,
+			"license",            license_gpl3,
+                        "program-name",       program_name,
 			"translator-credits", "",
+			"version",            VERSION,
+			"website",            PACKAGE_URL,
 			NULL);
-
-  g_signal_connect(dialog, "response",
-                   G_CALLBACK(gtk_widget_destroy), NULL);
-  gtk_window_present(dialog);
 }
