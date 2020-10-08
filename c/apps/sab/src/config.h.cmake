@@ -7,10 +7,10 @@
 #define PACKAGE_TARNAME "${PROJECT_NAME}"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "${SAB_VERSION}"
+#define PACKAGE_VERSION "${VERSION}"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "${PROJECT_NAME} ${SAB_VERSION}"
+#define PACKAGE_STRING "${PROJECT_NAME} ${VERSION}"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
@@ -22,4 +22,4 @@
 #define PACKAGE "${PROJECT_NAME}"
 
 /* Version number of package */
-#define VERSION "${SAB_VERSION}"
+#define VERSION "${VERSION}"

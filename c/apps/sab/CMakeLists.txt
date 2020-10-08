@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 2.6)
 project(sab C)
 
-set(SAB_VERSION "0.0.1")
+set(VERSION_MAJOR "0")
+set(VERSION_MINOR "0")
+set(VERSION_PATCH "1")
+set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 option(WITH_GTK "Build GTK+ front end" OFF)
 
