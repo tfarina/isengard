@@ -28,11 +28,11 @@ configure_file(
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 set(ECHOC_SRCS
+  src/check.c
   src/fnet.c
   src/main.c
   src/msg.c
   src/os_path.c
-  src/validate.c
 )
 
 add_executable(echoc ${ECHOC_SRCS})

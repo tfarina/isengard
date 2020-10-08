@@ -10,10 +10,10 @@
 
 #include "config.h"
 
+#include "check.h"
 #include "fnet.h"
 #include "msg.h"
 #include "os_path.h"
-#include "validate.h"
 
 #define BUFSIZE 4096
 
