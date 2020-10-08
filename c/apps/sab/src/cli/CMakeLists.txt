@@ -71,12 +71,12 @@ target_link_libraries(sab-delete
 set(SOURCES
   fort.c
   common.c
-  sab-showrec.c
+  sab-ls.c
 )
 
-add_executable(sab-showrec
+add_executable(sab-ls
   ${SOURCES})
 
-target_link_libraries(sab-showrec
+target_link_libraries(sab-ls
   ${DEPENDENCIES}
 )
