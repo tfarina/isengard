@@ -12,13 +12,17 @@ extern "C" {
  */
 typedef struct buffer_s
 {
-        /* The data contained in the buffer. */
+        /**
+         * The data contained in the buffer.
+         */
 	char *data;
-
-        /* The current length of the buffer, the position for reading/writing. */
+        /**
+         * The current length of the buffer, the position for reading/writing.
+         */
 	size_t length;
-
-        /* The amount of data the buffer can contain. */
+        /**
+	 * The amount of data the buffer can contain.
+         */
 	size_t capacity;
 } buffer_t;
 
