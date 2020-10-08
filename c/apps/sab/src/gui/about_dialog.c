@@ -22,7 +22,6 @@ static char const license_gpl3[] =
  * Display the About dialog for SAB.
  */
 void sab_show_about_dialog(void) {
-  static char const program_name[] = "SAB";
   static char const comments[] = "A simple and easy to use address book";
   static char const copyright[] = "Copyright © 2019";
 
@@ -33,7 +32,7 @@ void sab_show_about_dialog(void) {
 			"copyright",          copyright,
 			"documenters",        0,
 			"license",            license_gpl3,
-                        "program-name",       program_name,
+                        "program-name",       PACKAGE,
 			"translator-credits", "",
 			"version",            VERSION,
 			"website",            PACKAGE_URL,
