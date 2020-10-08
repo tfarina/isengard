@@ -33,50 +33,50 @@ target_link_libraries(${EXE_NAME}
 )
 
 set(SOURCES
-  add.c
+  sab-add.c
 )
 
-add_executable(add
+add_executable(sab-add
   ${SOURCES}
 )
 
-target_link_libraries(add
+target_link_libraries(sab-add
   ${DEPENDENCIES}
 )
 
 set(SOURCES
-  change.c
+  sab-change.c
 )
 
-add_executable(change
+add_executable(sab-change
   ${SOURCES}
 )
 
-target_link_libraries(change
+target_link_libraries(sab-change
   ${DEPENDENCIES}
 )
 
 set(SOURCES
-  delete.c
+  sab-delete.c
 )
 
-add_executable(delete
+add_executable(sab-delete
   ${SOURCES}
 )
 
-target_link_libraries(delete
+target_link_libraries(sab-delete
   ${DEPENDENCIES}
 )
 
 set(SOURCES
   fort.c
   common.c
-  showrec.c
+  sab-showrec.c
 )
 
-add_executable(showrec
+add_executable(sab-showrec
   ${SOURCES})
 
-target_link_libraries(showrec
+target_link_libraries(sab-showrec
   ${DEPENDENCIES}
 )
