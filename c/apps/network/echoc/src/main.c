@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
       fprintf(stderr, "%s: port requires a non zero number\n", progname);
       return EXIT_FAILURE;
     }
-    if (!valid_port(tmp_port)) {
+    if (!is_valid_port(tmp_port)) {
       fprintf(stderr, "%s: %d is not a valid port\n", progname, tmp_port);
       return EXIT_FAILURE;
     }

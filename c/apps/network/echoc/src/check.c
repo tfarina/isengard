@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-int valid_port(int port) {
+int is_valid_port(int port) {
   if (port < 1 || port > UINT16_MAX) {
     return 0;
   }
