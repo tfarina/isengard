@@ -1,4 +1,4 @@
-set(EXE_NAME "sab")
+set(EXENAME "${PROJECT_NAME}")
 
 set(DEPENDENCIES
   ab
@@ -16,19 +16,19 @@ set(SOURCES
   os_path.c
 )
 
-add_executable(${EXE_NAME}
+add_executable(${EXENAME}
   ${SOURCES}
 )
 
-add_dependencies(${EXE_NAME}
+add_dependencies(${EXENAME}
   ${DEPENDENCIES}
 )
 
-target_include_directories(${EXE_NAME} PUBLIC
+target_include_directories(${EXENAME} PUBLIC
   ${CMAKE_SOURCE_DIR}
 )
 
-target_link_libraries(${EXE_NAME}
+target_link_libraries(${EXENAME}
   ${DEPENDENCIES}
 )
 

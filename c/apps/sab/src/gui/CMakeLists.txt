@@ -1,6 +1,6 @@
 find_package(GTK2 2.6 REQUIRED gtk)
 
-set(EXE_NAME "sab_gui")
+set(EXENAME "${PROJECT_NAME}_gui")
 
 set(DEPENDENCIES
   ab
@@ -14,19 +14,19 @@ set(SOURCES
   window.c
 )
 
-add_executable(${EXE_NAME}
+add_executable(${EXENAME}
   ${SOURCES}
 )
 
-add_dependencies(${EXE_NAME}
+add_dependencies(${EXENAME}
   ${DEPENDENCIES}
 )
 
-target_include_directories(${EXE_NAME} PUBLIC
+target_include_directories(${EXENAME} PUBLIC
   ${GTK2_INCLUDE_DIRS}
 )
 
-target_link_libraries(${EXE_NAME}
+target_link_libraries(${EXENAME}
   ${DEPENDENCIES}
   ${GTK2_LIBRARIES}
 )
