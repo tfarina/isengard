@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
   ab_contact_t *contact = NULL;
 
   if (argc != 2) {
-    fprintf(stderr, "usage: %s 'ID'\n", argv[0]);
+    fprintf(stderr, "usage: %s <id>\n", argv[0]);
     return 1;
   }
 
