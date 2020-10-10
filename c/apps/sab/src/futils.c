@@ -44,6 +44,21 @@ char *f_get_user_config_dir(void)
 }
 
 /**
+ * Gets the user's data directory, where information like
+ * application data can be stored.
+ */
+char *f_get_user_data_dir(void)
+{
+  char *homedir;
+  char *datadir;
+
+  homedir = f_get_home_dir();
+  datadir = f_build_filename(homedir, ".local/share");
+
+  return datadir;
+}
+
+/**
  * Gets the user name of the current user.
  */
 char *f_get_user_name(void)

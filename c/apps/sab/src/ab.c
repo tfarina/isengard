@@ -82,7 +82,7 @@ int ab_init(void) {
     return 0;
   }
 
-  dbpath = f_build_filename(f_get_user_config_dir(), "sab");
+  dbpath = f_build_filename(f_get_user_data_dir(), "sab");
   if (!test_isdir(dbpath)) {
     f_mkdirp(dbpath, 0700);
   }
