@@ -4,7 +4,7 @@
 #include "abook_contact.h"
 #include "alpm_list.h"
 
-int ab_init(void);
+int ab_init(char *dbpath);
 int ab_fini(void);
 
 void ab_load_contacts(void);

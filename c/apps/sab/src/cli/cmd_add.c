@@ -3,8 +3,10 @@
 #include <stdio.h>
 
 #include "ab.h"
+#include "util.h"
 
 int cmd_add(int argc, char **argv) {
+  char *dbdir;
   ab_contact_t *contact;
 
   if (argc != 4) {
@@ -12,7 +14,9 @@ int cmd_add(int argc, char **argv) {
     return 1;
   }
 
-  ab_init();
+  dbdir = ensure_data_dir();
+
+  ab_init(dbdir);
 
   contact = ab_contact_alloc();
   if (!contact) {

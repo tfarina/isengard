@@ -16,6 +16,7 @@ set(SOURCES
   mkdirp.c
   strutils.c
   test.c
+  util.c
 )
 
 set(HEADERS
@@ -28,6 +29,7 @@ set(HEADERS
   mkdirp.h
   strutils.h
   test.h
+  util.h
 )
 
 add_library(ab

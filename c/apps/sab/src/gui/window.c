@@ -9,6 +9,7 @@
 #include "ab.h"
 #include "about_dialog.h"
 #include "contact_editor.h"
+#include "util.h"
 
 #define WINDOW_WIDTH 610
 #define WINDOW_HEIGHT 377
@@ -386,6 +387,7 @@ static GtkWidget *_menubar_create(GtkAccelGroup *accel)
 
 void addrbook_window_new(void)
 {
+  char *dbdir;
   GtkAccelGroup *accel_group;
   GtkWidget *vbox;
   GtkWidget *menubar;
@@ -513,7 +515,9 @@ void addrbook_window_new(void)
 
   gtk_widget_show_all(main_window);
 
-  ab_init();
+  dbdir = ensure_data_dir();
+
+  ab_init(dbdir);
 
   ab_load_contacts();
 

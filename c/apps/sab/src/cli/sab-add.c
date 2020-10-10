@@ -2,10 +2,12 @@
 #include <stdlib.h>
 
 #include "ab.h"
+#include "util.h"
 
 // http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
 int main(int argc, char **argv) {
+  char *dbdir;
   ab_contact_t *contact = NULL;
 
   if (argc != 4) {
@@ -13,7 +15,9 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  ab_init();
+  dbdir = ensure_data_dir();
+
+  ab_init(dbdir);
 
   contact = ab_contact_alloc();
   if (!contact) {

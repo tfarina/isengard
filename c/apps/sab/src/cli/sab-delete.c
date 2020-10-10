@@ -2,8 +2,10 @@
 #include <stdlib.h>
 
 #include "ab.h"
+#include "util.h"
 
 int main(int argc, char **argv) {
+  char *dbdir;
   int id;
   ab_contact_t *contact = NULL;
 
@@ -12,7 +14,9 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  ab_init();
+  dbdir = ensure_data_dir();
+
+  ab_init(dbdir);
 
   ab_load_contacts();
 
