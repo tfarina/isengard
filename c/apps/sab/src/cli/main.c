@@ -51,7 +51,6 @@ static command_t *_find_cmd(const char *name) {
         for (i = 0; i < ARRAY_SIZE(cmds); i++) {
                 command_t *cmd = &cmds[i];
                 if (strcmp(name, cmd->name) == 0) {
-                        printf("Command name: %s\n", cmds[i].name);
                         return cmd;
                 }
         }
