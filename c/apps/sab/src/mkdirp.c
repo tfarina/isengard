@@ -17,8 +17,12 @@
 int f_mkdirp(char const *pathname, mode_t mode)
 {
 #if 0
-  printf("pathname %s \n", pathname);
+  printf("pathname = %s\n", pathname);
 #endif
+
+  if ((pathname == NULL) || (*pathname == '\0')) {
+    return -1;
+  }
 
   char* path = f_strdup(pathname);
   char* p = path;
