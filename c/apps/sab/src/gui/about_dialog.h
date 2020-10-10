@@ -3,6 +3,6 @@
 
 #include <gtk/gtk.h>
 
-void sab_show_about_dialog(GtkWindow *parent);
+void show_about_dialog(GtkWindow *parent);
 
 #endif  /* !defined(_ABOUT_DIALOG_H_INCLUDED_) */

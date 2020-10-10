@@ -142,7 +142,7 @@ static void _on_view_fullscreen_cb(GtkWidget *widget, gpointer data)
 
 static void _on_help_about_cb(GtkWidget *widget, gpointer data)
 {
-  sab_show_about_dialog(GTK_WINDOW(main_window));
+  show_about_dialog(GTK_WINDOW(main_window));
 }
 
 /*

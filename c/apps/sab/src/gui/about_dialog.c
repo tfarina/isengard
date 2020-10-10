@@ -18,10 +18,7 @@ static char const license_gpl3[] =
     "You should have received a copy of the GNU General Public License\n"
     "along with this program. If not, see <https://www.gnu.org/licenses/>.";
 
-/**
- * Display the About dialog for SAB.
- */
-void sab_show_about_dialog(GtkWindow *parent) {
+void show_about_dialog(GtkWindow *parent) {
   static char const comments[] = "A simple and easy to use address book";
   static char const copyright[] = "Copyright © 2019";
 
