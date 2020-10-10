@@ -36,11 +36,11 @@ set(SOURCES
   sab-add.c
 )
 
-add_executable(sab-add
+add_executable(${EXENAME}-add
   ${SOURCES}
 )
 
-target_link_libraries(sab-add
+target_link_libraries(${EXENAME}-add
   ${DEPENDENCIES}
 )
 
@@ -48,11 +48,11 @@ set(SOURCES
   sab-change.c
 )
 
-add_executable(sab-change
+add_executable(${EXENAME}-change
   ${SOURCES}
 )
 
-target_link_libraries(sab-change
+target_link_libraries(${EXENAME}-change
   ${DEPENDENCIES}
 )
 
@@ -60,11 +60,11 @@ set(SOURCES
   sab-delete.c
 )
 
-add_executable(sab-delete
+add_executable(${EXENAME}-delete
   ${SOURCES}
 )
 
-target_link_libraries(sab-delete
+target_link_libraries(${EXENAME}-delete
   ${DEPENDENCIES}
 )
 
@@ -74,9 +74,9 @@ set(SOURCES
   sab-ls.c
 )
 
-add_executable(sab-ls
+add_executable(${EXENAME}-ls
   ${SOURCES})
 
-target_link_libraries(sab-ls
+target_link_libraries(${EXENAME}-ls
   ${DEPENDENCIES}
 )
