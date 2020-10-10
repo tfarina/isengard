@@ -62,7 +62,9 @@ static gboolean _on_delete_event_cb(GtkWidget *widget,
  * Menubar callbacks
  */
 
-/* File menu */
+/*
+ * File menu
+ */
 
 static void _on_file_new_cb(GtkWidget *widget, gpointer data)
 {
@@ -77,13 +79,17 @@ static void _on_file_quit_cb(GtkAction *action, gpointer data)
   gtk_main_quit();
 }
 
-/* Edit menu */
+/*
+ * Edit menu
+ */
 
 static void _on_edit_select_all_cb(GtkWidget *widget, gpointer data)
 {
 }
 
-/* View menu */
+/*
+ * View menu
+ */
 
 static void _on_view_toolbar_cb(GtkWidget *widget, gpointer data)
 {
@@ -130,11 +136,13 @@ static void _on_view_fullscreen_cb(GtkWidget *widget, gpointer data)
   }
 }
 
-/* Help menu */
+/*
+ * Help menu
+ */
 
 static void _on_help_about_cb(GtkWidget *widget, gpointer data)
 {
-  sab_show_about_dialog();
+  sab_show_about_dialog(GTK_WINDOW(main_window));
 }
 
 /*

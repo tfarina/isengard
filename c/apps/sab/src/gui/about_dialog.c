@@ -21,11 +21,11 @@ static char const license_gpl3[] =
 /**
  * Display the About dialog for SAB.
  */
-void sab_show_about_dialog(void) {
+void sab_show_about_dialog(GtkWindow *parent) {
   static char const comments[] = "A simple and easy to use address book";
   static char const copyright[] = "Copyright © 2019";
 
-  gtk_show_about_dialog(NULL,
+  gtk_show_about_dialog(parent,
 			"artists",            0,
 			"authors",            0,
 			"comments",           comments,
