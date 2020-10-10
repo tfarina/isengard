@@ -16,6 +16,10 @@
  */
 int f_mkdirp(char const *pathname, mode_t mode)
 {
+  char* path;
+  char* p;
+  int rv = 0;
+
 #if 0
   printf("pathname = %s\n", pathname);
 #endif
@@ -24,9 +28,12 @@ int f_mkdirp(char const *pathname, mode_t mode)
     return -1;
   }
 
-  char* path = f_strdup(pathname);
-  char* p = path;
-  int rv = 0;
+  path = f_strdup(pathname);
+  if (path == NULL) {
+    return -1;
+  }
+
+  p = path;
 
   while (*p != '\0') {
     /* Skip first character. */
