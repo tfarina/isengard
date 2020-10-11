@@ -31,7 +31,7 @@ static void send_udp_message(int sockfd) {
 
   buf[recvlen] = '\0';
 
-  printf("received message: %s\n", buf);
+  printf("request: < %s\n", buf);
 
   sprintf(buf, "ack %d", msgcnt++);
 
@@ -40,7 +40,7 @@ static void send_udp_message(int sockfd) {
     error("sendto failed: %s", strerror(errno));
   }
 
-  printf("response sent: %s\n", buf);
+  printf("response: > %s\n", buf);
 }
 
 int main(int argc, char **argv) {
