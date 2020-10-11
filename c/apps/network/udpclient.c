@@ -50,8 +50,8 @@ int main(int argc, char **argv) {
 
   printf("sending message to %s:%d\n", argv[1], PORT);
 
-  if (sendto(sockfd, buf, strlen(buf), 0,
-             addrlist->ai_addr, addrlist->ai_addrlen) == -1) {
+  rv = sendto(sockfd, buf, strlen(buf), 0, addrlist->ai_addr, addrlist->ai_addrlen);
+  if (rv < 0) {
     error("sendto failed: %s", strerror(errno));
     exit(EXIT_FAILURE);
   }
