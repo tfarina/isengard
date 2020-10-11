@@ -50,7 +50,6 @@ set(SRCS
   timestamp.c
   backends/mysql.c
   buffer.c
-  csv_helper.c
   curl_write_callbacks.c
   config.c
   dba.c
