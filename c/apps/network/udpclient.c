@@ -27,6 +27,8 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
+  printf("sending message to %s:%d\n", argv[1], PORT);
+
   snprintf(strport, sizeof(strport), "%d", PORT);
 
   memset(&hints, 0, sizeof(hints));
@@ -47,8 +49,6 @@ int main(int argc, char **argv) {
     error("cannot create socket: %s", strerror(errno));
     exit(EXIT_FAILURE);
   }
-
-  printf("sending message to %s:%d\n", argv[1], PORT);
 
   rv = sendto(sockfd, buf, strlen(buf), 0, addrlist->ai_addr, addrlist->ai_addrlen);
   if (rv < 0) {
