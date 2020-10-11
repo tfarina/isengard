@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
   ssize_t recvlen;
 
   if (argc != 2) {
-    fprintf(stderr, "usage: %s [hostname]\n", argv[0]);
+    fprintf(stderr, "usage: %s <hostname>\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 
