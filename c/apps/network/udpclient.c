@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
   recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&from,
                      &fromlen);
 
-  if (recvlen <= 0) {
+  if (recvlen < 0) {
     warning("can't receive reply");
     exit(EXIT_FAILURE);
   }
