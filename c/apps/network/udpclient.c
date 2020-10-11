@@ -50,13 +50,13 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
+  printf("the message is: %s\n", buf);
+
   rv = sendto(sockfd, buf, strlen(buf), 0, addrlist->ai_addr, addrlist->ai_addrlen);
   if (rv < 0) {
     error("sendto failed: %s", strerror(errno));
     exit(EXIT_FAILURE);
   }
-
-  printf("the message is: %s\n", buf);
 
   recvlen = recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)&from,
                      &fromlen);
