@@ -2,6 +2,7 @@
 
 #include <errno.h>
 #include <netdb.h>
+#include <stdarg.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
