@@ -13,6 +13,7 @@
 #define PORT 5300
 
 int main(int argc, char **argv) {
+  char *hostname;
   char strport[NI_MAXSERV];
   struct addrinfo hints, *addrlist;
   int rv;
@@ -27,7 +28,8 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  printf("sending message to %s:%d\n", argv[1], PORT);
+  hostname = argv[1];
+  printf("sending message to %s:%d\n", hostname, PORT);
 
   snprintf(strport, sizeof(strport), "%d", PORT);
 
@@ -35,7 +37,7 @@ int main(int argc, char **argv) {
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_DGRAM;
 
-  if ((rv = getaddrinfo(argv[1], strport, &hints, &addrlist)) != 0) {
+  if ((rv = getaddrinfo(hostname, strport, &hints, &addrlist)) != 0) {
     error("getaddrinfo failed: %s", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
