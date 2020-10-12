@@ -1,4 +1,4 @@
-/* config.h.  Generated from config.h.cmake by CMake.  */
+/* config.h.  Generated from config.h.cmake.in by CMake.  */
 
 /* Name of package */
 #define PACKAGE "${PROJECT_NAME}"

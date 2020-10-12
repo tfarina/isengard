@@ -20,7 +20,7 @@ endif()
 add_definitions(-D_GNU_SOURCE)
 
 configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.cmake.in"
   "${CMAKE_CURRENT_BINARY_DIR}/config.h"
 )
 
