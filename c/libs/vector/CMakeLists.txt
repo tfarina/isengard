@@ -44,8 +44,9 @@ if (ENABLE_TESTS)
   add_subdirectory(tests)
 endif()
 
-set(libdir ${CMAKE_INSTALL_FULL_LIBDIR})
-set(includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
+# libvector.pc (pkg-config file).
+set(libdir     "${CMAKE_INSTALL_FULL_LIBDIR}")
+set(includedir "${CMAKE_INSTALL_FULL_INCLUDEDIR}")
 configure_file(libvector.pc.in libvector.pc @ONLY)
 
 install(FILES ${PROJECT_BINARY_DIR}/libvector.pc
