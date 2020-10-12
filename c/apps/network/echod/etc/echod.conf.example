@@ -2,7 +2,7 @@
 ### Example of echod.conf file.
 ###
 
-### See echod.conf man page for more information.
+### See echod.conf(5) for more information.
 
 [server]
 
