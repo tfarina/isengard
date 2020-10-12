@@ -6,10 +6,4 @@
  */
 #define DEF_PATH_ECHODCONF SYSCONFDIR"/echod.conf"
 
-/**
- * The file in which to write the process id after the initial fork,
- * when run in daemon (background) mode.
- */
-#define DEF_PATH_ECHODPID LOCALSTATEDIR"/run/echod.pid"
-
 #endif  /* ED_DEFAULT_PATHS_H_ */
