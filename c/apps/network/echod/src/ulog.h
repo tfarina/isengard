@@ -40,8 +40,7 @@ typedef enum ulog_level_e {
   ULOG_FATAL = 0,  /* software error (unrecoverable) */
   ULOG_ERROR = 1,  /* recoverable conditions */
   ULOG_WARN  = 2,  /* warning messages */
-  ULOG_INFO  = 3,  /* informative messages */
-  ULOG_MAX
+  ULOG_INFO  = 3   /* informative messages */
 } ulog_level_t;
 
 void ulog_open(char const *);
