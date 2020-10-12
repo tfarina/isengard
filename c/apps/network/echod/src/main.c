@@ -293,7 +293,7 @@ int main(int argc, char **argv) {
    */
   tcpfd = ed_net_tcp_socket_listen(opt.address, opt.port, opt.backlog);
   if (tcpfd < 0) {
-    return EXIT_FAILURE;
+    return 1;
   }
 
   rc = security_check_daemon_user(opt.user);
@@ -306,14 +306,14 @@ int main(int argc, char **argv) {
    */
   rc = drop_privileges(opt.user);
   if (rc < 0) {
-    return rc;
+    return 1;
   }
 
   if (opt.detach) {
     rc = daemonize();
     if (rc < 0) {
       ulog_error("failed to daemonize %s", strerror(errno));
-      return rc;
+      return 1;
     }
   }
 
@@ -322,7 +322,7 @@ int main(int argc, char **argv) {
   if (opt.pidfile) {
     rc = pidfile_create(opt.pidfile);
     if (rc < 0) {
-      return rc;
+      return 1;
     }
 
     /*
@@ -330,7 +330,7 @@ int main(int argc, char **argv) {
      */
     rc = pidfile_write(opt.pidfile, pid);
     if (rc < 0) {
-      return rc;
+      return 1;
     }
   }
 
@@ -347,5 +347,5 @@ int main(int argc, char **argv) {
   pidfile_remove(opt.pidfile);
   ulog_close();
 
-  return EXIT_SUCCESS;
+  return 0;
 }
