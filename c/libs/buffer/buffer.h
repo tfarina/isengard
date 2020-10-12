@@ -17,9 +17,9 @@ typedef struct buffer_s
          */
 	char *data;
         /**
-         * The current length of the buffer, the position for reading/writing.
+         * The current number of characters (bytes) in the buffer.
          */
-	size_t length;
+	size_t size;
         /**
 	 * The amount of data the buffer can contain.
          */

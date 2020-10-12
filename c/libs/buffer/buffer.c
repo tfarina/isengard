@@ -39,7 +39,7 @@ buffer_t *buffer_alloc(size_t capacity)
 	}
 
 	b->capacity = capacity;
-	b->length = 0;
+	b->size = 0;
 
         return b;
 }
@@ -50,22 +50,23 @@ void buffer_clear(buffer_t *self)
                 return;
         }
 
-	self->length = 0;
+	self->size = 0;
 	*self->data = 0;
 }
 
-void buffer_write(buffer_t *self, void const *data, size_t length)
+void buffer_write(buffer_t *self, void const *data, size_t size)
 {
         if (self == NULL) {
                 return;
         }
 
-        if (self->capacity < self->length + length) {
-          _buffer_realloc(self, self->length * 2 + length);
+        if (self->capacity < self->size + size) {
+          _buffer_realloc(self, self->size * 2 + size);
 	}
-	memcpy(self->data + self->length, data, length);
-        self->length += length;
-        self->data[self->length] = '\0'; /* always 0 terminate data. */
+
+	memcpy(self->data + self->size, data, size);
+        self->size += size;
+        self->data[self->size] = '\0'; /* always 0 terminate data. */
 }
 
 void buffer_free(buffer_t *self)
@@ -79,7 +80,7 @@ void buffer_free(buffer_t *self)
                 self->data = NULL;
 	}
 
-        self->length = 0;
+        self->size = 0;
         self->capacity = 0;
 
         free(self);
