@@ -32,7 +32,7 @@ already taken.
 
 Usage
 -----
-Assuming echod is listening on localhost, this examples connects via TCP:
+Assuming echod is listening on localhost, this example connects via TCP:
 
 $ telnet localhost 7
 
