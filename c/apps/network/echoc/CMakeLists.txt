@@ -37,4 +37,4 @@ set(ECHOC_SRCS
 
 add_executable(echoc ${ECHOC_SRCS})
 
-install(TARGETS echoc RUNTIME DESTINATION sbin)
+install(TARGETS echoc RUNTIME DESTINATION ${CMAKE_INSTALL_SBINDIR})
