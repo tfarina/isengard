@@ -139,7 +139,7 @@ static void echo_stream(int fd) {
   exit(EXIT_SUCCESS);
 }
 
-static int ed_event_loop(int fd) {
+static int main_loop(int fd) {
   char sigstr[SIG2STR_MAX];
   fd_set rfds_in;
   /* We need to have a copy of the fd set as it's not safe to reuse FD sets
@@ -342,7 +342,7 @@ int main(int argc, char **argv) {
             get_username(), (long)getuid(),
             get_groupname(), (long)getgid());
 
-  ed_event_loop(tcpfd);
+  main_loop(tcpfd);
 
   pidfile_remove(opt.pidfile);
   ulog_close();
