@@ -56,6 +56,9 @@ static sig_atomic_t volatile quit;
 static sig_atomic_t volatile got_sigchld;
 static int unsigned connected_clients = 0; /* Number of child processes. */
 
+static void read_config_file(void) {
+}
+
 static void print_stats(void) {
   ulog_info("connected_clients=%d", connected_clients);
 }
@@ -274,6 +277,7 @@ int main(int argc, char **argv) {
    *
    * If the user did not specify a config, read the system echod.conf.
    */
+  read_config_file();
 
   /*
    * Process command-line.
