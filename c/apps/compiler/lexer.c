@@ -17,7 +17,6 @@ void lex(const char *input)
       case '{':
         printf("<'{', LEFT_BRACE>\n");
         break;
-
       case '}':
         printf("<'}', RIGHT_BRACE>\n");
         break;
