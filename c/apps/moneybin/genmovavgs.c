@@ -44,6 +44,10 @@ int main(int argc, char **argv)
 
   if (argc < 2) {
     fprintf(stderr, "usage: genmovavgs <filename>\n");
+    putchar('\n');
+    fputs("Example:\n", stdout);
+    putchar('\n');
+    fputs("   genmovavgs PETR4.SA.csv > gnuplot/data/petr4.dat\n", stdout);
     return 1;
   }
 
