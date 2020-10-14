@@ -90,6 +90,15 @@ add_subdirectory(src)
 
 install(FILES doc/man/man8/echod.8 DESTINATION "${CMAKE_INSTALL_MANDIR}/man8" COMPONENT doc)
 
+## ==============================================================================
+##
+##  Configuration summary
+##
+## ==============================================================================
+
+message(STATUS "------------------------------------------------------------" )
+message(STATUS "[Echod] Configuration summary."                               )
+message(STATUS "------------------------------------------------------------ ")
 message(STATUS "Running cmake version ${CMAKE_VERSION}")
 message(STATUS "")
 message(STATUS "Generator:         ${CMAKE_GENERATOR}")
