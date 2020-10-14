@@ -51,3 +51,5 @@ configure_file(libvector.pc.in libvector.pc @ONLY)
 
 install(FILES ${PROJECT_BINARY_DIR}/libvector.pc
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+
+install(FILES ${HDRS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
