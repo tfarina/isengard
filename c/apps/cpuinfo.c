@@ -14,12 +14,12 @@ static void __cpuid(int dst[4], int ax)
                           "=d" (dst[3])
                         : "0" (ax));
 #elif defined(__GNUC__) && defined(__x86_64__)
-        asm volatile("cpuid"
-                   : "=a" (dst[0]),
-	             "=b" (dst[1]),
-                     "=c" (dst[2]),
-                     "=d" (dst[3])
-                   : "0" (ax));
+        __asm__ volatile("cpuid"
+			 : "=a" (dst[0]),
+	                  "=b" (dst[1]),
+			  "=c" (dst[2]),
+			  "=d" (dst[3])
+			 : "0" (ax));
 #else
         dst[0] = dst[1] = dst[2] = dst[3] = 0;
 #endif
