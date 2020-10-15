@@ -1,6 +1,7 @@
 /* https://vcansimplify.wordpress.com/2013/03/14/c-socket-tutorial-echo-server/ */
 
-#include <getopt.h>
+#include "config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,10 +9,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "config.h"
-
 #include "check.h"
 #include "fnet.h"
+#include "getopt.h"
 #include "msg.h"
 #include "os_path.h"
 
