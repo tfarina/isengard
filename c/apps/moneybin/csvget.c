@@ -21,7 +21,7 @@ static char *crumb;
 static int get_crumb(const char *response_text, char *crumb) {
   const char *crumbstore = strstr(response_text, "CrumbStore");
   if (crumbstore == NULL) {
-    puts("Failed to find crumbstore....");
+    fputs("Failed to find CrumbStore\n", stderr);
     return 1;
   }
   const char *colon_quote = strstr(crumbstore, ":\"");
