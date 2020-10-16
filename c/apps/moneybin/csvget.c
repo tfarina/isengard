@@ -48,6 +48,7 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   buffer_t html;
   char histurl[MAXURLLEN];
   char downloadurl[MAXURLLEN];
+  int retval;
 
   result = curl_global_init(CURL_GLOBAL_DEFAULT);
   if (result != CURLE_OK) {
@@ -82,8 +83,8 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
 
   crumb = (char*)malloc(MAXURLLEN * sizeof(char));
   memset(crumb, 0, MAXURLLEN);
-  int crumb_failure = get_crumb(html.data, crumb);
-  if (crumb_failure) {
+  retval = get_crumb(html.data, crumb);
+  if (retval) {
     return -1;
   }
 
