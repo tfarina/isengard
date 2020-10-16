@@ -15,8 +15,6 @@
 
 static int verbose = 1;
 
-static char *crumb;
-
 /*https://github.com/jerryvig/cython-project1/blob/351aece6a910ecff8867708fa16155a6bc444217/compute_statistics.c#L53*/
 static int get_crumb(const char *response_text, char *crumb) {
   const char *crumbstore = strstr(response_text, "CrumbStore");
@@ -48,6 +46,7 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   buffer_t html;
   char histurl[MAXURLLEN];
   char downloadurl[MAXURLLEN];
+  char *crumb;
   int retval;
 
   result = curl_global_init(CURL_GLOBAL_DEFAULT);
