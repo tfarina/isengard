@@ -18,7 +18,7 @@ static int verbose = 1;
 /*https://github.com/jerryvig/cython-project1/blob/351aece6a910ecff8867708fa16155a6bc444217/compute_statistics.c#L53*/
 /**
  * In @a response_text we should see a text like this near CrumbStore:
- * "CrumbStore":{"crumb":"z6M4ACgDGXK"}
+ * "CrumbStore\":{\"crumb\":\"k2MN42m9KC\\u002F\"
  */
 static int get_crumb(const char *response_text, char *crumb) {
   const char *crumbstore = strstr(response_text, "CrumbStore");
