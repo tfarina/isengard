@@ -27,12 +27,12 @@ static const char select_sql[] = "SELECT * FROM contacts";
 
 static alpm_list_t *contact_list;
 
-static void _close_db(sqlite3 *db) {
+static void _close_db(void) {
   int rc;
 
-  rc = sqlite3_close(db);
+  rc = sqlite3_close(conn);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errmsg(db));
+    fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errmsg(conn));
   }
 }
 
@@ -55,7 +55,7 @@ static int _create_tables(void) {
   rc = sqlite3_prepare_v2(conn, create_sql, -1, &create_stmt, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errmsg(conn));
-    _close_db(conn);
+    _close_db();
     return -1;
   }
 
@@ -66,7 +66,7 @@ static int _create_tables(void) {
 
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "error creating contacts table: %s\n", sqlite3_errmsg(conn));
-    _close_db(conn);
+    _close_db();
     return -1;
   }
 
@@ -90,14 +90,14 @@ int ab_init(char *dbpath) {
   }
 
   if (_create_tables()) {
-    _close_db(conn);
+    _close_db();
     return -1;
   }
 
   if (sqlite3_prepare_v2(conn, insert_sql, -1, &insert_stmt, NULL) != SQLITE_OK) {
     fprintf(stderr, "error preparing insert statement: %s\n",
             sqlite3_errmsg(conn));
-    _close_db(conn);
+    _close_db();
     return -1;
   }
 
@@ -135,7 +135,7 @@ int ab_fini(void) {
   sqlite3_finalize(select_stmt);
   select_stmt = NULL;
 
-  _close_db(conn);
+  _close_db();
   conn = NULL;
 
   return 0;
