@@ -43,7 +43,11 @@
 #include <unistd.h>
 
 #define MAXLINELEN 1024
-#define RFC5424_TIMESTAMP "%Y-%m-%dT%H:%M:%S"
+
+/*
+ * Timestamp according to https://tools.ietf.org/html/rfc5424#section-6.2.3
+ */
+#define DATETIMEFORMAT "%Y-%m-%dT%H:%M:%S"
 
 #define ULOG_DST_TERM    0
 #define ULOG_DST_FILE    1
@@ -95,7 +99,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   if (log_dst == ULOG_DST_FILE && log_fd > 0) {
     time(&now);
     localtm = localtime(&now);
-    strftime(timebuf, sizeof(timebuf), RFC5424_TIMESTAMP, localtm);
+    strftime(timebuf, sizeof(timebuf), DATETIMEFORMAT, localtm);
 
     len = snprintf(buf, sizeof(buf), "[%.*s] %s", strlen(timebuf), timebuf, level_to_str(level));
     len += vsnprintf(buf + len, sizeof(buf) - len, fmt, ap);
