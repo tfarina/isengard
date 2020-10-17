@@ -92,3 +92,5 @@ add_executable(startdate startdate.c)
 target_link_libraries(startdate iniparser moneybin ${LIBS})
 
 add_executable(enddate enddate.c)
+
+add_executable(strtotime strtotime.c)
