@@ -37,6 +37,7 @@
 #include "daemonize.h"
 #include "echod.h"
 #include "ed_net.h"
+#include "id.h"
 #include "options.h"
 #include "os_path.h"
 #include "pidfile.h"
@@ -44,7 +45,6 @@
 #include "sig2str.h"
 #include "ulog.h"
 #include "unused-parameter.h"
-#include "username.h"
 #include "version.h"
 
 #define BUFSIZE 8129

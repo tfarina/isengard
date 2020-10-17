@@ -24,6 +24,8 @@ set(SRCS
   getopt.c
   getopt.h
   getopt1.c
+  id.c
+  id.h
   main.c
   optimization.h
   options.c
@@ -39,8 +41,6 @@ set(SRCS
   stringize.h
   ulog.c
   ulog.h
-  username.c
-  username.h
   valid.c
   valid.h
 )
