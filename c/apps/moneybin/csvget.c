@@ -20,8 +20,9 @@ static int get_crumb(const char *response_text, char *crumb) {
   const char *crumbstore = strstr(response_text, "CrumbStore");
   if (crumbstore == NULL) {
     fputs("Failed to find CrumbStore\n", stderr);
-    return 1;
+    return -1;
   }
+
   const char *colon_quote = strstr(crumbstore, ":\"");
   const char *end_quote = strstr(&colon_quote[2], "\"");
   char crumbclean[128];
@@ -36,6 +37,7 @@ static int get_crumb(const char *response_text, char *crumb) {
     memset(crumb, 0, 128);
     strcpy(crumb, crumbclean);
   }
+
   return 0;
 }
 
@@ -83,7 +85,7 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   crumb = (char*)malloc(MAXURLLEN * sizeof(char));
   memset(crumb, 0, MAXURLLEN);
   retval = get_crumb(html.data, crumb);
-  if (retval) {
+  if (retval < 0) {
     return -1;
   }
 
