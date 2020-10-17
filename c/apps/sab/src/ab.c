@@ -28,7 +28,10 @@ static const char select_sql[] = "SELECT * FROM contacts";
 static alpm_list_t *contact_list;
 
 static void _ab_sqlite_disconnect(sqlite3 *db) {
-  if (sqlite3_close(db) != SQLITE_OK) {
+  int rc;
+
+  rc = sqlite3_close(db);
+  if (rc != SQLITE_OK) {
     fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errmsg(db));
   }
 }
