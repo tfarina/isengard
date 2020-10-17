@@ -55,6 +55,11 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   char *crumb;
   int retval;
 
+  buffer_init(&html);
+
+  memset(histurl, 0, MAXURLLEN);
+  snprintf(histurl, sizeof(histurl), "https://finance.yahoo.com/quote/%s/history", symbol);
+
   result = curl_global_init(CURL_GLOBAL_DEFAULT);
   if (result != CURLE_OK) {
     fprintf(stderr, "curl_global_init() failed\n");
@@ -66,11 +71,6 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
     fprintf(stderr, "curl_easy_init() failed\n");
     return -1;
   }
-
-  buffer_init(&html);
-
-  memset(histurl, 0, MAXURLLEN);
-  snprintf(histurl, sizeof(histurl), "https://finance.yahoo.com/quote/%s/history", symbol);
 
   curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
   curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookies.txt");
@@ -119,6 +119,7 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   }
 
   curl_easy_cleanup(curl);
+
   curl_global_cleanup();
 
   return 0;
