@@ -16,6 +16,8 @@ set(PROGRAM "echod")
 set(SRCS
   assertion.c
   assertion.h
+  cfgfile.c
+  cfgfile.h
   daemonize.c
   daemonize.h
   debug.h

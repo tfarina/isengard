@@ -34,6 +34,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "cfgfile.h"
 #include "daemonize.h"
 #include "echod.h"
 #include "ed_net.h"
@@ -55,15 +56,6 @@ static int volatile signo = 0;
 static sig_atomic_t volatile quit;
 static sig_atomic_t volatile got_sigchld;
 static int unsigned connected_clients = 0; /* Number of child processes. */
-
-static void read_config_file(char const *cfgfile) {
-  FILE *fp;
-
-  fp = fopen(cfgfile, "r");
-  if (fp == NULL) {
-    return;
-  }
-}
 
 static void print_stats(void) {
   ulog_info("connected_clients=%d", connected_clients);
