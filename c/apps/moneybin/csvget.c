@@ -163,7 +163,7 @@ int main(int argc, char *argv[])
   }
 
   sprintf(filename, "%s.csv", symbol);
-  f_write_file(filename, buf.data, buf.length);
+  f_write_file(filename, buf.data, buf.size);
 
   return 0;
 }
