@@ -27,7 +27,6 @@ buffer_t *buffer_alloc(size_t capacity)
         buffer_t *b;
 
 	b = malloc(sizeof(buffer_t));
-
 	if (b == NULL) {
 	        return NULL;
 	}

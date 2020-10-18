@@ -7,7 +7,7 @@ vector_t *vector_alloc(size_t datasize, size_t capacity)
 {
         vector_t *self;
 
-        self = (vector_t *) malloc(sizeof(*self));
+        self = malloc(sizeof(vector_t));
         if (self == NULL) {
 	        return NULL;
 	}
