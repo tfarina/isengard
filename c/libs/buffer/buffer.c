@@ -22,23 +22,23 @@ static void _buffer_realloc(buffer_t *self, size_t capacity)
 
 buffer_t *buffer_alloc(size_t capacity)
 {
-        buffer_t *b;
+        buffer_t *buf;
 
-	b = malloc(sizeof(buffer_t));
-	if (b == NULL) {
+	buf = malloc(sizeof(buffer_t));
+	if (buf == NULL) {
 	        return NULL;
 	}
 
-	b->data = malloc(sizeof(char) * capacity);
-        if (b->data == NULL) {
-	        free(b);
+	buf->data = malloc(sizeof(char) * capacity);
+        if (buf->data == NULL) {
+	        free(buf);
                 return NULL;
 	}
 
-	b->capacity = capacity;
-	b->size = 0;
+	buf->capacity = capacity;
+	buf->size = 0;
 
-        return b;
+        return buf;
 }
 
 void buffer_clear(buffer_t *self)
