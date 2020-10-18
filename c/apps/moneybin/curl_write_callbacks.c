@@ -6,7 +6,7 @@
 
 #include "buffer.h"
 
-size_t write_data_to_file(void *data, size_t size, size_t nmemb, void *stream)
+size_t curl_write_file_cb(void *data, size_t size, size_t nmemb, void *stream)
 {
   size_t written;
 
@@ -15,7 +15,7 @@ size_t write_data_to_file(void *data, size_t size, size_t nmemb, void *stream)
   return written;
 }
 
-size_t write_data_to_memory(void *data, size_t size, size_t nmemb, void *userdata)
+size_t curl_write_memory_cb(void *data, size_t size, size_t nmemb, void *userdata)
 {
     buffer_t *buf = (buffer_t *)userdata;
     size_t realsize = size * nmemb;
