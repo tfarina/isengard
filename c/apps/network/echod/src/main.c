@@ -303,18 +303,6 @@ int main(int argc, char **argv) {
     ulog_fatal("user '%s' not found", opt.user);
   }
 
-  /*
-   * Release root privileges and run as this user.
-   */
-  rc = drop_privileges(opt.user);
-  if (rc < 0) {
-    return 1;
-  }
-
-  ulog_info("running as user '%s' (%ld) and group '%s' (%ld)",
-            get_username(), (long)getuid(),
-            get_groupname(), (long)getgid());
-
   if (opt.detach) {
     rc = daemonize();
     if (rc < 0) {
@@ -326,6 +314,9 @@ int main(int argc, char **argv) {
   pid = getpid();
 
   if (opt.pidfile) {
+    /*
+     * Creating the PID file in /var/run directory needs root privilege.
+     */
     rc = pidfile_create(opt.pidfile);
     if (rc < 0) {
       return 1;
@@ -339,6 +330,18 @@ int main(int argc, char **argv) {
       return 1;
     }
   }
+
+  /*
+   * Release root privileges and run as this user.
+   */
+  rc = drop_privileges(opt.user);
+  if (rc < 0) {
+    return 1;
+  }
+
+  ulog_info("running as user '%s' (%ld) and group '%s' (%ld)",
+            get_username(), (long)getuid(),
+            get_groupname(), (long)getgid());
 
   init_signals();
 
