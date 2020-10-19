@@ -338,7 +338,7 @@ int main(int argc, char **argv) {
 
   init_signals();
 
-  ulog_info("started daemon -- pid=%d version=%s", pid, ECHOD_VERSION);
+  ulog_info("echo daemon %s started -- pid=%d", ECHOD_VERSION, pid);
 
   ulog_info("running as user '%s' (%ld) and group '%s' (%ld)",
             get_username(), (long)getuid(),
