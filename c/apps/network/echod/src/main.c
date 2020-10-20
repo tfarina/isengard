@@ -338,6 +338,8 @@ int main(int argc, char **argv) {
 
   /*
    * Release root privileges and run as this user.
+   *
+   * This should be done only after getpwnam, writing pidfile, etc.
    */
   rc = drop_privileges(opt.user);
   if (rc < 0) {
