@@ -10,6 +10,7 @@
 #include "getopt.h"
 #endif
 
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -43,11 +44,19 @@ static char const short_options[] =
   "u:" /* user identity to run as */
   ;
 
+/*
+ * For long options that have no equivalent short option, use a
+ * non-character as a pseudo short option, starting with CHAR_MAX + 1.
+*/
+enum {
+  DUMP_OPTIONS_OPTION = CHAR_MAX + 1
+};
+
 static struct option const long_options[] = {
   { "config",       required_argument, (int *) 0, 'C' },
   { "logfile",      required_argument, (int *) 0, 'L' },
   { "pidfile",      required_argument, (int *) 0, 'P' },
-  { "dump-options", no_argument,       (int *) 0, 'S' },
+  { "dump-options", no_argument,       (int *) 0, DUMP_OPTIONS_OPTION },
   { "version",      no_argument,       (int *) 0, 'V' },
   { "address",      required_argument, (int *) 0, 'a' },
   { "backlog",      required_argument, (int *) 0, 'b' },
@@ -195,7 +204,7 @@ void parse_args(int argc, char **argv) {
       break;
 
     /* undocumented -- dump CLI options for testing */
-    case 'S':  /* --dump-options */
+    case DUMP_OPTIONS_OPTION:  /* --dump-options */
       opt.dump_options = 1;
       break;
 
