@@ -75,6 +75,7 @@ static int _create_tables(void) {
 
 int ab_init(char *dbpath) {
   char *dbfile;
+  int rc;
 
   /* Do nothing if the database handle has been set. */
   if (conn) {
@@ -83,37 +84,43 @@ int ab_init(char *dbpath) {
 
   dbfile = f_build_filename(dbpath, dbname);
 
-  if (sqlite3_open(dbfile, &conn) != SQLITE_OK) {
+  rc = sqlite3_open(dbfile, &conn);
+  if (rc != SQLITE_OK) {
     fprintf(stderr, "error opening SQLite database %s: %s\n", dbfile, sqlite3_errmsg(conn));
     sqlite3_close(conn);
     return -1;
   }
 
-  if (_create_tables()) {
+  rc = _create_tables();
+  if (rc < 0) {
     _close_db();
     return -1;
   }
 
-  if (sqlite3_prepare_v2(conn, insert_sql, -1, &insert_stmt, NULL) != SQLITE_OK) {
+  rc = sqlite3_prepare_v2(conn, insert_sql, -1, &insert_stmt, NULL);
+  if (rc != SQLITE_OK) {
     fprintf(stderr, "error preparing insert statement: %s\n",
             sqlite3_errmsg(conn));
     _close_db();
     return -1;
   }
 
-  if (sqlite3_prepare_v2(conn, update_sql, -1, &update_stmt, NULL) != SQLITE_OK) {
+  rc = sqlite3_prepare_v2(conn, update_sql, -1, &update_stmt, NULL);
+  if (rc != SQLITE_OK) {
     fprintf(stderr, "error preparing update statement: %s\n",
             sqlite3_errmsg(conn));
     return -1;
   }
 
-  if (sqlite3_prepare_v2(conn, delete_sql, -1, &delete_stmt, NULL) != SQLITE_OK) {
+  rc = sqlite3_prepare_v2(conn, delete_sql, -1, &delete_stmt, NULL);
+  if (rc != SQLITE_OK) {
     fprintf(stderr, "error preparing delete statement: %s\n",
             sqlite3_errmsg(conn));
     return -1;
   }
 
-  if (sqlite3_prepare_v2(conn, select_sql, -1, &select_stmt, NULL) != SQLITE_OK) {
+  rc = sqlite3_prepare_v2(conn, select_sql, -1, &select_stmt, NULL);
+  if (rc != SQLITE_OK) {
     fprintf(stderr, "error preparing select statement: %s\n",
             sqlite3_errmsg(conn));
     return -1;
