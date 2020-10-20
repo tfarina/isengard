@@ -10,6 +10,7 @@ typedef struct options_s {
   char *address;         /* local address to bind */
   int   port;            /* tcp listening port */
   int   backlog;         /* tcp backlog */
+  int unsigned dump_options:1;
 } options_t;
 
 extern options_t opt;
@@ -18,6 +19,11 @@ extern options_t opt;
  * Initialize |opt| to default values.
  */
 void init_options(void);
+
+/**
+ * Dump command-line options to standard output for testing.
+ */
+void dump_options(void);
 
 void preparse_args(int argc, char **argv);
 

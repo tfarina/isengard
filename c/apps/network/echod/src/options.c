@@ -44,18 +44,18 @@ static char const short_options[] =
   ;
 
 static struct option const long_options[] = {
-  { "config",      required_argument, (int *) 0, 'C' },
-  { "logfile",     required_argument, (int *) 0, 'L' },
-  { "pidfile",     required_argument, (int *) 0, 'P' },
-  { "show-config", no_argument,       (int *) 0, 'S' },
-  { "version",     no_argument,       (int *) 0, 'V' },
-  { "address",     required_argument, (int *) 0, 'a' },
-  { "backlog",     required_argument, (int *) 0, 'b' },
-  { "foreground",  no_argument,       (int *) 0, 'f' },
-  { "help",        no_argument,       (int *) 0, 'h' },
-  { "port",        required_argument, (int *) 0, 'p' },
-  { "user",        required_argument, (int *) 0, 'u' },
-  { (char *) 0,    no_argument,       (int *) 0,  0  }
+  { "config",       required_argument, (int *) 0, 'C' },
+  { "logfile",      required_argument, (int *) 0, 'L' },
+  { "pidfile",      required_argument, (int *) 0, 'P' },
+  { "dump-options", no_argument,       (int *) 0, 'S' },
+  { "version",      no_argument,       (int *) 0, 'V' },
+  { "address",      required_argument, (int *) 0, 'a' },
+  { "backlog",      required_argument, (int *) 0, 'b' },
+  { "foreground",   no_argument,       (int *) 0, 'f' },
+  { "help",         no_argument,       (int *) 0, 'h' },
+  { "port",         required_argument, (int *) 0, 'p' },
+  { "user",         required_argument, (int *) 0, 'u' },
+  { (char *) 0,     no_argument,       (int *) 0,  0  }
 };
 
 static void usage(int status) {
@@ -100,6 +100,19 @@ void init_options(void) {
   opt.logfile = (char *) 0;
 }
 
+void dump_options(void) {
+  fputs("Default paths:\n", stdout);
+  fprintf(stdout, "  Config file: %s\n", DEF_PATH_ECHODCONF);
+  fprintf(stdout, "  PID file:    %s\n", DEF_PIDFILE);
+  fprintf(stdout, "\n *** %s configuration ***\n", progname);
+  fprintf(stdout, "ConfigFile    = %s\n", opt.conffile);
+  fprintf(stdout, "PIDFile       = %s\n", opt.pidfile);
+  fprintf(stdout, "LogFile       = %s\n", opt.logfile);
+  fprintf(stdout, "User          = %s\n", opt.user);
+  fprintf(stdout, "Port          = %d\n", opt.port);
+  fprintf(stdout, "Backlog       = %d\n", opt.backlog);
+}
+
 void preparse_args(int argc, char **argv) {
   int optchr;
 
@@ -127,7 +140,6 @@ void preparse_args(int argc, char **argv) {
 
 void parse_args(int argc, char **argv) {
   int optchr, value;
-  int show_config = 0;
 
   optind = 0;
 
@@ -183,8 +195,8 @@ void parse_args(int argc, char **argv) {
       break;
 
     /* undocumented -- dump CLI options for testing */
-    case 'S':  /* --show-config */
-      show_config = 1;
+    case 'S':  /* --dump-options */
+      opt.dump_options = 1;
       break;
 
     case 'h':  /* --help */
@@ -199,18 +211,5 @@ void parse_args(int argc, char **argv) {
     default:
       usage(1);
     }
-  }
-
-  if (show_config) {
-    fputs("Default paths:\n", stdout);
-    fprintf(stdout, "  Config file: %s\n", DEF_PATH_ECHODCONF);
-    fprintf(stdout, "  PID file:    %s\n", DEF_PIDFILE);
-    fprintf(stdout, "\n *** %s configuration ***\n", progname);
-    fprintf(stdout, "ConfigFile    = %s\n", opt.conffile);
-    fprintf(stdout, "PIDFile       = %s\n", opt.pidfile);
-    fprintf(stdout, "LogFile       = %s\n", opt.logfile);
-    fprintf(stdout, "User          = %s\n", opt.user);
-    fprintf(stdout, "Port          = %d\n", opt.port);
-    fprintf(stdout, "Backlog       = %d\n", opt.backlog);
   }
 }

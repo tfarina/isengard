@@ -284,6 +284,11 @@ int main(int argc, char **argv) {
    */
   parse_args(argc, argv);
 
+  if (opt.dump_options) {
+    dump_options();
+    return 0;
+  }
+
   /*
    * Now that configuration file and command line has been parsed, honor either
    * the config setting or the option '--logfile'.
