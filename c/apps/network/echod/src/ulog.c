@@ -57,7 +57,7 @@ static ulog_level_t log_level = ULOG_INFO;
 static int log_dst = ULOG_DST_TERM;
 static int log_fd = -1;
 
-static char const *level_to_str(ulog_level_t level) {
+static char const *__ulog_level_to_str(ulog_level_t level) {
   switch (level) {
   case ULOG_FATAL: return "fatal: ";
   case ULOG_ERROR: return "error: ";
@@ -89,7 +89,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   if (log_dst == ULOG_DST_TERM) {
     fd = (level == ULOG_INFO) ? STDOUT_FILENO : STDERR_FILENO;
 
-    len = snprintf(buf, sizeof(buf), "\r%s", level_to_str(level));
+    len = snprintf(buf, sizeof(buf), "\r%s", __ulog_level_to_str(level));
     len += vsnprintf(buf + len, sizeof(buf) - len, fmt, ap);
     buf[len++] = '\n';
     buf[sizeof(buf) - 1] = '\0'; /* Ensure the buffer is NUL-terminated. */
@@ -101,7 +101,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
     localtm = localtime(&now);
     strftime(timebuf, sizeof(timebuf), DATETIMEFORMAT, localtm);
 
-    len = snprintf(buf, sizeof(buf), "[%.*s] %s", strlen(timebuf), timebuf, level_to_str(level));
+    len = snprintf(buf, sizeof(buf), "[%.*s] %s", strlen(timebuf), timebuf, __ulog_level_to_str(level));
     len += vsnprintf(buf + len, sizeof(buf) - len, fmt, ap);
     buf[len++] = '\n';
     buf[sizeof(buf) - 1] = '\0'; /* Ensure the buffer is NUL-terminated. */
