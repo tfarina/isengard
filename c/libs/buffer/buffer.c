@@ -3,23 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
- * _buffer_realloc ensures that the buffer has at least |length| more bytes between its
- * length and capacity.
- */
-static void _buffer_realloc(buffer_t *self, size_t capacity)
-{
-        void *temp;
-
-        temp = realloc(self->data, capacity);
-        if (temp == NULL) {
-	        return;
-	}
-
-        self->data = temp;
-        self->capacity = capacity;
-}
-
 buffer_t *buffer_alloc(size_t capacity)
 {
         buffer_t *buf;
@@ -58,7 +41,13 @@ void buffer_write(buffer_t *self, void const *data, size_t size)
         }
 
         if (self->capacity < self->size + size) {
-          _buffer_realloc(self, self->size * 2 + size);
+                size_t const new_capacity = (self->size * 2) + size;
+                self->data = realloc(self->data, new_capacity);
+                if (self->data == NULL) {
+	                return;
+	        }
+
+                self->capacity = new_capacity;
 	}
 
 	memcpy(self->data + self->size, data, size);
