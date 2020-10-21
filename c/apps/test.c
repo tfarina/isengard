@@ -4,6 +4,9 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+/**
+ * [-e FILE] FILE exists?
+ */
 int test_exists(char const *path)
 {
   struct stat sb;
@@ -14,6 +17,9 @@ int test_exists(char const *path)
   return rv == 0;
 }
 
+/**
+ * [-d FILE ] FILE exists and is a directory?
+ */
 int test_isdir(char const *path)
 {
   struct stat sb;
