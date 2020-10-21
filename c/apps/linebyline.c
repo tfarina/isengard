@@ -3,11 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
+
+#include "test.h"
 
 int main(int argc, char **argv) {
   char *filename;
-  struct stat st;
   FILE *fp;
   char linebuf[BUFSIZ];
   int lineno = 0;
@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
 
   filename = argv[1];
 
-  if (stat(filename, &st)) {
+  if (!test_exists(filename)) {
     fprintf(stderr, "%s: %s\n", filename, strerror(errno));
     return 1;
   }
