@@ -6,24 +6,27 @@
 #include <sys/stat.h>
 
 int main(int argc, char **argv) {
+  char *filename;
+  struct stat st;
   FILE *fp;
   char linebuf[BUFSIZ];
   int lineno = 0;
-  struct stat st;
 
   if (argc != 2) {
     fprintf(stderr, "usage: linebyline <filename>\n");
     return 1;
   }
 
-  if (stat(argv[1], &st)) {
-    fprintf(stderr, "%s: %s\n", argv[1], strerror(errno));
+  filename = argv[1];
+
+  if (stat(filename, &st)) {
+    fprintf(stderr, "%s: %s\n", filename, strerror(errno));
     return 1;
   }
 
-  fp = fopen(argv[1], "r");
+  fp = fopen(filename, "r");
   if (fp == NULL) {
-    fprintf(stderr, "%s: %s\n", argv[1], strerror(errno));
+    fprintf(stderr, "%s: %s\n", filename, strerror(errno));
     return 1;
   }
 
