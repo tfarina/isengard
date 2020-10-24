@@ -11,6 +11,7 @@
 #include "ffileutils.h"
 #include "fstrutils.h"
 
+#define BUFSIZE 128
 #define MAXURLLEN 256
 
 static int verbose = 1;
@@ -29,8 +30,8 @@ static int get_crumb(const char *response_text, char *crumb) {
 
   const char *colon_quote = strstr(crumbstore, ":\"");
   const char *end_quote = strstr(&colon_quote[2], "\"");
-  char crumbclean[128];
-  memset(crumbclean, 0, 128);
+  char crumbclean[BUFSIZE];
+  memset(crumbclean, 0, BUFSIZE);
   strncpy(crumb, &colon_quote[2], strlen(&colon_quote[2]) - strlen(end_quote));
   const char *twofpos = strstr(crumb, "\\u002F");
 
@@ -38,7 +39,7 @@ static int get_crumb(const char *response_text, char *crumb) {
     strncpy(crumbclean, crumb, twofpos - crumb);
     strcat(crumbclean, "%2F");
     strcat(crumbclean, &twofpos[6]);
-    memset(crumb, 0, 128);
+    memset(crumb, 0, BUFSIZE);
     strcpy(crumb, crumbclean);
   }
 
@@ -83,8 +84,8 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
     return -1;
   }
 
-  crumb = (char*)malloc(MAXURLLEN * sizeof(char));
-  memset(crumb, 0, MAXURLLEN);
+  crumb = (char*)malloc(BUFSIZE * sizeof(char));
+  memset(crumb, 0, BUFSIZE);
   retval = get_crumb(html.data, crumb);
   if (retval < 0) {
     return -1;
