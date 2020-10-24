@@ -32,35 +32,36 @@ int f_read_file(const char *filename, char **contents_out, size_t *len)
   char *contents;
   size_t bytes_read;
 
-  /* Open file for reading. */
+  /* Open the file for reading. */
   fp = fopen(filename, "r");
   if (fp == NULL) {
     perror("fopen()");
     return -1;
   }
 
-  /* Go to the end on the input */
+  /* Go to the end on the stream. */
   rc = fseek(fp, 0, SEEK_END);
   if (rc < 0) {
     perror("fseek(END)");
     return -1;
   }
 
-  /* to get the file size. */
+  /* And get the file size. */
   bufsize = ftell(fp);
   if (bufsize < 0) {
     perror("ftell()");
     return -1;
   }
 
-  /* Return file pointer to the beginning. */
+  /* Return the file's pointer to the beginning of the stream. */
   rc = fseek(fp, 0, SEEK_SET);
   if (rc < 0) {
     perror("fseek(SET)");
     return -1;
   }
 
-  /* Allocate buffer memory for that file size.
+  /*
+   * Allocate memory for that file size.
    * The +1 is to add room for adding the NULL-terminator at the end.
    */
   contents = malloc(sizeof(char) * bufsize + 1);
@@ -70,7 +71,6 @@ int f_read_file(const char *filename, char **contents_out, size_t *len)
   }
 
   bytes_read = fread(contents, sizeof(char), bufsize, fp);
-
   if ((bytes_read == 0 && ferror(fp)) || feof(fp)) {
     fprintf(stderr, "Error reading file \"%s\"\n", filename);
     free(contents);
