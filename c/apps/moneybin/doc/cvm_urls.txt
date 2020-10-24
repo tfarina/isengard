@@ -1,2 +1,3 @@
 http://dados.cvm.gov.br/dados/CIA_ABERTA/CAD/DADOS/inf_cadastral_cia_aberta.csv
 http://dados.cvm.gov.br/dados/CIA_ABERTA/CAD/META/meta_inf_cadastral_cia_aberta.txt
+http://sistemas.cvm.gov.br/cadastro/SPW_CIA_ABERTA.ZIP
