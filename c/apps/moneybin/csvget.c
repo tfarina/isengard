@@ -72,9 +72,9 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
     return -1;
   }
 
+  curl_easy_setopt(curl, CURLOPT_URL, histurl);
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_write_memory_cb);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&html);
-  curl_easy_setopt(curl, CURLOPT_URL, histurl);
 
   result = curl_easy_perform(curl);
   if (result != CURLE_OK) {
@@ -101,8 +101,8 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
     printf("Download URL: %s\n\n", downloadurl);
   }
 
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)out_csv);
   curl_easy_setopt(curl, CURLOPT_URL, downloadurl);
+  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)out_csv);
 
   if (verbose) {
     printf("Downloading file...\n\n");
