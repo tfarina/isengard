@@ -25,6 +25,7 @@ add_subdirectory(third_party/iniparser)
 add_subdirectory(third_party/libconfigini)
 add_subdirectory(third_party/ini)
 add_subdirectory(third_party/libcsv)
+add_subdirectory(third_party/mxml)
 
 option(WITH_MYSQL "Use MySQL library" ON)
 
@@ -94,3 +95,6 @@ target_link_libraries(startdate iniparser moneybin ${LIBS})
 add_executable(enddate enddate.c)
 
 add_executable(strtotime strtotime.c)
+
+add_executable(dadosempresa dadosempresa.c)
+target_link_libraries(dadosempresa mxml)
