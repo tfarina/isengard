@@ -2,6 +2,11 @@
 #define ARRAYSIZE_H_
 
 /**
+ * The undef is needed in case some other header already defined a macro like this.
+ */
+#undef ARRAY_SIZE
+
+/**
  * @brief Computes the number of elements in a statically-allocated array.
  *
  * @note Ensure that 'array' is actually an array, not a pointer. Otherwise,
