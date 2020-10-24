@@ -9,7 +9,7 @@
 #include <sys/select.h>
 #include <sys/time.h>
 
-static int poll_timeout(double timeout) {
+static int wait(double timeout) {
   int fd = 0; /* File descriptor for standard input (STDIN). */
   fd_set readfds;
   struct timeval tv;
@@ -47,7 +47,7 @@ static int poll_timeout(double timeout) {
 int main(void) {
   double timeout = 2500.0; /* This is in milliseconds. */
 
-  poll_timeout(timeout);
+  wait(timeout);
 
   return 0;
 }
