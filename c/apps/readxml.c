@@ -5,11 +5,14 @@
 int
 main(int argc, char **argv)
 {
+  char *xmlfile;
   FILE *fp = NULL;
   mxml_node_t *tree = NULL;
   mxml_node_t *node = NULL;
 
-  fp = fopen("books.xml", "r");
+  xmlfile = "books.xml";
+
+  fp = fopen(xmlfile, "r");
   if (fp == NULL) {
     return -1;
   }
@@ -18,7 +21,7 @@ main(int argc, char **argv)
   fclose(fp);
 
   if (tree == NULL) {
-    fprintf(stderr, "Unable to read xml file '%s'.\n", "books.xml");
+    fprintf(stderr, "Unable to read the XML file \"%s\".\n", xmlfile);
     return -1;
   }
 
