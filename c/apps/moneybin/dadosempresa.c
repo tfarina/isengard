@@ -2,7 +2,8 @@
 
 #include "third_party/mxml/mxml.h"
 
-int main(int argc, char **argv)
+int
+main(int argc, char **argv)
 {
   char *filename;
   FILE *fp = NULL;
@@ -13,7 +14,7 @@ int main(int argc, char **argv)
   filename = "ComposicaoCapitalSocialDemonstracaoFinanceiraNegocios.xml";
   fp = fopen(filename, "r");
   if (fp == NULL) {
-    return -1;
+    return 1;
   }
 
   xml = mxmlLoadFile(NULL, fp, MXML_OPAQUE_CALLBACK);
@@ -21,14 +22,14 @@ int main(int argc, char **argv)
 
   if (xml == NULL) {
     fprintf(stderr, "Unable to read xml file '%s'.\n", filename);
-    return -1;
+    return 1;
   }
 
   node = mxmlFindElement(xml, xml, "QuantidadeTotalAcaoCapitalIntegralizado", NULL, NULL, MXML_DESCEND);
   if (node == NULL) {
     fputs("Unable to find this element in XML tree.\n", stderr);
     mxmlDelete(xml);
-    return -1;
+    return 1;
   }
 
   mxml_type_t type;
