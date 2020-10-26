@@ -4,7 +4,7 @@ with Ada.Text_IO, Ada.Integer_Text_IO;
 use Ada.Text_IO, Ada.Integer_Text_IO;
 
 procedure Int is
-   Index : INTEGER;           -- A simple Integer type
+   Index : Integer;           -- A simple Integer type
 begin
    Index := 23;
    Put("The value of Index is");
