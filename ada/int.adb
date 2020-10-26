@@ -1,10 +1,10 @@
 -- http://perso.telecom-paristech.fr/~pautet/Ada95/e_c03_p1.ada
 
-with Ada.Text_IO, Ada.Integer_Text_IO;
-use Ada.Text_IO, Ada.Integer_Text_IO;
+with Ada.Text_IO;         use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
 procedure Int is
-   Index : Integer;           -- A simple Integer type
+   Index : Integer;
 begin
    Index := 23;
    Put("The value of Index is");
