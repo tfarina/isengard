@@ -14,6 +14,7 @@ main(int argc, char **argv)
   filename = "ComposicaoCapitalSocialDemonstracaoFinanceiraNegocios.xml";
   fp = fopen(filename, "r");
   if (fp == NULL) {
+    fprintf(stderr, "Could not open \"%s\": %s\n", filename, strerror(errno));
     return 1;
   }
 
