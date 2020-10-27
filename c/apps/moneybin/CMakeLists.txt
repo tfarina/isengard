@@ -102,3 +102,6 @@ target_link_libraries(dadosempresa mxml)
 add_executable(fetchdfp fetchdfp.c)
 target_link_libraries(fetchdfp moneybin ${CURL_LIBRARIES})
 target_include_directories(fetchdfp PRIVATE ${CURL_INCLUDE_DIRS})
+
+add_executable(infofina infofina.c)
+target_link_libraries(infofina mxml)
