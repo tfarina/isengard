@@ -40,7 +40,7 @@ void buffer_write(buffer_t *self, void const *data, size_t size)
                 return;
         }
 
-        if (self->capacity < self->size + size) {
+        if (self->size + size > self->capacity) {
                 size_t const new_capacity = (self->size * 2) + size;
                 self->data = realloc(self->data, new_capacity);
                 if (self->data == NULL) {
