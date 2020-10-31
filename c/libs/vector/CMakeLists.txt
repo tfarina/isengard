@@ -49,7 +49,7 @@ set(libdir     "${CMAKE_INSTALL_FULL_LIBDIR}")
 set(includedir "${CMAKE_INSTALL_FULL_INCLUDEDIR}")
 configure_file(libvector.pc.in libvector.pc @ONLY)
 
-install(FILES ${PROJECT_BINARY_DIR}/libvector.pc
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libvector.pc
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
 install(FILES ${HDRS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
