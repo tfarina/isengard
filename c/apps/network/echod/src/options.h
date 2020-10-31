@@ -1,6 +1,11 @@
 #ifndef _OPTIONS_H_INCLUDED_
 #define _OPTIONS_H_INCLUDED_ 1
 
+/**
+ * Where to keep state files.
+ */
+#define DEF_STATEDIR "/var/run/echod"
+
 typedef struct options_s {
   int unsigned detach:1; /* foreground mode */
   char *conffile;        /* configuration filename */

@@ -309,6 +309,16 @@ int main(int argc, char **argv) {
     ulog_fatal("user '%s' not found", opt.user);
   }
 
+  rc = mkdir(DEF_STATEDIR, 0750);
+  if (rc < 0 && errno != EEXIST) {
+    ulog_warn("Could not create " DEF_STATEDIR ": %s", strerror(errno));
+  } else {
+    rc = chown(DEF_STATEDIR, pw->pw_uid, pw->pw_gid);
+    if (rc < 0) {
+      ulog_error("chown() failed: %s", strerror(errno));
+    }
+  }
+
   if (opt.detach) {
     rc = daemonize();
     if (rc < 0) {
