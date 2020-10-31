@@ -1,4 +1,3 @@
-
 # Disallow in-source builds to prevent source tree corruption.
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR
@@ -8,6 +7,19 @@ endif()
 
 cmake_minimum_required(VERSION 3.0)
 project(echod LANGUAGES C VERSION 0.1.0)
+
+set(VERSION_MAJOR "0")
+set(VERSION_MINOR "1")
+set(VERSION_PATCH "0")
+set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+
+set(PACKAGE           "${PROJECT_NAME}")
+set(PACKAGE_BUGREPORT "")
+set(PACKAGE_NAME      "${PACKAGE}")
+set(PACKAGE_TARNAME   "${PACKAGE}")
+set(PACKAGE_URL       "")
+set(PACKAGE_VERSION   "${VERSION}")
+set(PACKAGE_STRING    "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 
 # Add local cmake modules
 list(APPEND CMAKE_MODULE_PATH

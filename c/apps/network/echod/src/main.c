@@ -34,6 +34,10 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include "cfgfile.h"
 #include "daemonize.h"
 #include "echod.h"
@@ -46,7 +50,6 @@
 #include "sig2str.h"
 #include "ulog.h"
 #include "unused-parameter.h"
-#include "version.h"
 
 #define BUFSIZE 8129
 
@@ -371,7 +374,7 @@ int main(int argc, char **argv) {
 
   init_signals();
 
-  ulog_notice("echo daemon %s started -- pid=%d", ECHOD_VERSION, pid);
+  ulog_notice("echo daemon %s started -- pid=%d", PACKAGE_VERSION, pid);
 
   main_loop(tcpfd);
 

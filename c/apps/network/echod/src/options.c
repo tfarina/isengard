@@ -16,7 +16,6 @@
 
 #include "echod.h"
 #include "valid.h"
-#include "version.h"
 
 options_t opt;
 
@@ -98,7 +97,7 @@ static void usage(int status) {
 }
 
 static void version(void) {
-  printf("%s %s\n", progname, ECHOD_VERSION);
+  printf("%s %s\n", progname, PACKAGE_VERSION);
 }
 
 void init_options(void) {
