@@ -11,7 +11,7 @@
 #
 # Start as a daemon.
 #
-# By default Echod does not run as a daemon. Set to 'yes' to enable.
+# By default Echod does run as a daemon. Set to 'no' to disable.
 #
 Daemonize no
 
