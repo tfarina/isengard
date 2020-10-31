@@ -164,7 +164,7 @@ static int main_loop(int fd) {
   for (;;) {
     if (quit == 1) {
       sig2str(signo, sigstr);
-      ulog_info("terminating on signal %d (%s)", signo, sigstr);
+      ulog_info("received signal %d %s", signo, sigstr);
 
       break;
     }
