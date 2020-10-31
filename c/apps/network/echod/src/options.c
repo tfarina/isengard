@@ -81,8 +81,10 @@ static void usage(int status) {
     fputs("Options:\n", stdout);
     fputs("  -f, --foreground           run in the foreground\n", stdout);
     fputs("  -u, --user=<username>      run as user\n", stdout);
-    fputs("  -C, --config=<file>        specify alternate configuration file\n", stdout);
-    fputs("  -P, --pidfile=<file>       write process id to the specified file\n", stdout);
+    fprintf(stdout,
+          "  -C, --config=<file>        specify alternate configuration file [default: %s]\n", DEF_CFGFILE);
+    fprintf(stdout,
+          "  -P, --pidfile=<file>       write process id to the specified file [default: %s]\n", DEF_PIDFILE);
     fputs("  -L, --logfile=<file>       write log messages to the specified file\n", stdout);
     fputs("  -a, --address=<ip/domain>  bind to the specified address\n", stdout);
     fprintf(stdout,
@@ -111,9 +113,6 @@ void init_options(void) {
 }
 
 void dump_options(void) {
-  fputs("Default paths:\n", stdout);
-  fprintf(stdout, "  Config file: %s\n", DEF_CFGFILE);
-  fprintf(stdout, "  PID file:    %s\n", DEF_PIDFILE);
   fprintf(stdout, "\n *** %s configuration ***\n", progname);
   fprintf(stdout, "ConfigFile    = %s\n", opt.conffile);
   fprintf(stdout, "PIDFile       = %s\n", opt.pidfile);
