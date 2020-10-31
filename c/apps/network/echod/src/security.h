@@ -3,8 +3,6 @@
 
 #define ROOT_UID 0
 
-int security_check_daemon_user(char const *name);
-
 /**
  * Drop root privileges.
  */

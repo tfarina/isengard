@@ -8,17 +8,6 @@
 
 #include "ulog.h"
 
-int security_check_daemon_user(char const *name) {
-  struct passwd *pw;
-
-  pw = getpwnam(name);
-  if (pw == 0) {
-    return -1;
-  }
-
-  return 0;
-}
-
 int drop_privileges(char const *username) {
   struct passwd *pw;
   gid_t gid;

@@ -225,6 +225,7 @@ int main(int argc, char **argv) {
   int rc;
   int pid;
   int tcpfd;
+  struct passwd *pw;
 
   /*
    * Set the umask to octal 022 to prevent clients from accidentally
@@ -303,8 +304,8 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  rc = security_check_daemon_user(opt.user);
-  if (rc < 0) {
+  pw = getpwnam(opt.user);
+  if (pw == 0) {
     ulog_fatal("user '%s' not found", opt.user);
   }
 
@@ -333,6 +334,14 @@ int main(int argc, char **argv) {
     rc = pidfile_write(opt.pidfile, pid);
     if (rc < 0) {
       return 1;
+    }
+
+    /*
+     * Change the PID file owner, to be able to remove it later.
+     */
+    rc = chown(opt.pidfile, pw->pw_uid, pw->pw_gid);
+    if (rc < 0) {
+      ulog_error("chown() failed: %s", strerror(errno));
     }
   }
 
