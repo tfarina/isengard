@@ -15,7 +15,6 @@
 #include <stdlib.h>
 
 #include "echod.h"
-#include "ed_default_paths.h"
 #include "valid.h"
 #include "version.h"
 
@@ -28,6 +27,8 @@ options_t opt;
 #define DEF_ECHO_PORT 7
 #define DEF_BACKLOG   32
 
+#define DEF_SYSCONFDIR "/etc"
+#define DEF_CFGFILE DEF_SYSCONFDIR "/echod.conf"
 #define DEF_PIDFILE DEF_STATEDIR "/echod.pid"
 
 static char const short_options[] =
@@ -100,7 +101,7 @@ static void version(void) {
 
 void init_options(void) {
   opt.detach = 1;
-  opt.conffile = DEF_PATH_ECHODCONF;
+  opt.conffile = DEF_CFGFILE;
   opt.pidfile = DEF_PIDFILE;
   opt.user = DEF_DAEMON_USER;
   opt.address = DEF_BIND_ADDR;
@@ -111,7 +112,7 @@ void init_options(void) {
 
 void dump_options(void) {
   fputs("Default paths:\n", stdout);
-  fprintf(stdout, "  Config file: %s\n", DEF_PATH_ECHODCONF);
+  fprintf(stdout, "  Config file: %s\n", DEF_CFGFILE);
   fprintf(stdout, "  PID file:    %s\n", DEF_PIDFILE);
   fprintf(stdout, "\n *** %s configuration ***\n", progname);
   fprintf(stdout, "ConfigFile    = %s\n", opt.conffile);
