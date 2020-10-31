@@ -11,6 +11,7 @@
 
 static int wait(double timeout) {
   int fd = 0; /* File descriptor for standard input (STDIN). */
+  int maxfd = -1;
   fd_set readfds;
   struct timeval tv;
   ssize_t rv;
@@ -18,13 +19,17 @@ static int wait(double timeout) {
   FD_ZERO(&readfds);
   FD_SET(fd, &readfds);
 
+  if (maxfd < fd) {
+    maxfd = fd;
+  }
+
   tv.tv_sec = (long)(timeout / 1000.0);
   tv.tv_usec = (long)(timeout * 1000.0) % 1000000;
 
   /*
    * Watch out read events.
    */
-  rv = select(fd + 1, &readfds, NULL, NULL, &tv);
+  rv = select(maxfd + 1, &readfds, NULL, NULL, &tv);
   if (rv == -1) {
     /* TODO: Check errno for EAGAIN. */
     if (errno == EINTR) { /* ^C was pressed. */
