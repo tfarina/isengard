@@ -276,7 +276,7 @@ int main(int argc, char **argv) {
    *
    * If the user did not specify a config, read the system echod.conf.
    */
-  read_config_file("");
+  read_config_file(opt.conffile);
 
   /*
    * Process command-line.
