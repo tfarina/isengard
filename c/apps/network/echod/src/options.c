@@ -28,7 +28,7 @@ options_t opt;
 #define DEF_ECHO_PORT 7
 #define DEF_BACKLOG   32
 
-#define DEF_PIDFILE "/var/run/echod.pid"
+#define DEF_PIDFILE DEF_STATEDIR "/echod.pid"
 
 static char const short_options[] =
   "C:" /* configuration file */
