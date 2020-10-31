@@ -133,3 +133,4 @@ add_executable(hashtable_test hashtable_test.c)
 target_link_libraries(hashtable_test chashtable uuid ${M_LIBRARY})
 
 add_executable(encode base64.c encode.c)
+add_executable(backlog backlog.c)
