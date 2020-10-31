@@ -62,6 +62,7 @@ static char const *__ulog_level_to_str(ulog_level_t level) {
   case ULOG_FATAL: return "fatal: ";
   case ULOG_ERROR: return "error: ";
   case ULOG_WARN:  return "warning: ";
+  case ULOG_NOTICE:return "";
   case ULOG_INFO:  return "";
   default:         return "unknown";
   }
@@ -172,6 +173,14 @@ void ulog_warn(char const *fmt, ...) {
 
   va_start(ap, fmt);
   __vlogmsg(ULOG_WARN, fmt, ap);
+  va_end(ap);
+}
+
+void ulog_notice(char const *fmt, ...) {
+  va_list ap;
+
+  va_start(ap, fmt);
+  __vlogmsg(ULOG_NOTICE, fmt, ap);
   va_end(ap);
 }
 

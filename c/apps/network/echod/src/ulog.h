@@ -37,10 +37,11 @@
 #define _ULOG_H_INCLUDED_ 1
 
 typedef enum ulog_level_e {
-  ULOG_FATAL = 0,  /* software error (unrecoverable) */
-  ULOG_ERROR = 1,  /* recoverable conditions */
-  ULOG_WARN  = 2,  /* warning messages */
-  ULOG_INFO  = 3   /* informative messages */
+  ULOG_FATAL  = 0,  /* software error (unrecoverable) */
+  ULOG_ERROR  = 1,  /* recoverable conditions */
+  ULOG_WARN   = 2,  /* warning messages */
+  ULOG_NOTICE = 3,  /* normal but significant condition */
+  ULOG_INFO   = 4   /* informative messages */
 } ulog_level_t;
 
 void ulog_open(char const *);
@@ -50,6 +51,7 @@ void ulog_close(void);
 void ulog_fatal(char const *, ...);
 void ulog_error(char const *, ...);
 void ulog_warn(char const *, ...);
+void ulog_notice(char const *, ...);
 void ulog_info(char const *, ...);
 
 #endif  /* !defined(_ULOG_H_INCLUDED_) */

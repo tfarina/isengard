@@ -365,13 +365,13 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  ulog_info("running as user '%s' (%ld) and group '%s' (%ld)",
-            get_username(), (long)getuid(),
-            get_groupname(), (long)getgid());
+  ulog_notice("running as user '%s' (%ld) and group '%s' (%ld)",
+              get_username(), (long)getuid(),
+              get_groupname(), (long)getgid());
 
   init_signals();
 
-  ulog_info("echo daemon %s started -- pid=%d", ECHOD_VERSION, pid);
+  ulog_notice("echo daemon %s started -- pid=%d", ECHOD_VERSION, pid);
 
   main_loop(tcpfd);
 
