@@ -11,7 +11,8 @@ build int: ada int.adb
 build chargender: ada chargender.adb
 build md5digest: ada md5digest.adb
 build home: ada home.adb
+build arguments: ada arguments.adb
 
-build clean: cleanit hello int chargender home
+build clean: cleanit hello int chargender home arguments
 
 default hello
