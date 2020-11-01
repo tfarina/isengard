@@ -25,9 +25,8 @@
 #------------------------------ DATA --------------------------------------#
 .section .data
 
-hello_str:
-    .asciz "Hello, world!\n" # the string to print
-    len = . - hello_str      # length of the string
+hello_str: .asciz "Hello, world!\n" # the string to print
+hello_str_len = . - hello_str       # length of the string
 
 #---------------------------- MAIN CODE -----------------------------------#
 .section .text
@@ -37,7 +36,7 @@ hello_str:
 .type _start, @function
 _start:
     # write(1, hello_str, 14)
-    movl $len,               %edx  # third argument: message length.
+    movl $hello_str_len,     %edx  # third argument: message length.
     movl $hello_str,         %ecx  # second argument: pointer to message to write.
     movl $STDOUT_FILENO,     %ebx  # first argument: file handle (stdout).
     movl $SYSCALL_WRITE,     %eax  # system call number (sys_write).
