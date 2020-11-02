@@ -79,7 +79,7 @@ char *f_read_file(const char *filename, size_t *out_file_size)
 
   bytes_read = fread(buf, sizeof(char), fsize, fp);
   if (ferror(fp) != 0 || bytes_read != (size_t)fsize) {
-    fprintf(stderr, "fread failed\n");
+    fprintf(stderr, "fread failed: %s\n", strerror(errno));
     free(buf);
     fclose(fp);
     return NULL;
