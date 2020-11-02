@@ -1,27 +1,25 @@
 ##
 ## Echod configuration file example.
 ##
+## Lines that begin with "## " try to explain the configuration directive.
+## Lines that begin with just "#" are disabled directives: you can enable them
+## by removing the "#" symbol.
+##
 ## See echod.conf(5) for more information.
 
-#
-# Start as a daemon.
-#
-# By default Echod does run as a daemon. Set to 'no' to disable.
-#
-Daemonize no
+## Start as a daemon.
+##
+## By default Echod does run as a daemon. Set to 'no' to disable.
+#Daemonize no
 
-#
-# Pid file.
-#
-# If pidfile is specified, Echod will write its process id to
-# the specified file at startup.
-#
-PidFile "/var/run/echod.pid"
+## Pid file.
+##
+## If pidfile is specified, Echod will write its process id to
+## the specified file at startup.
+#PidFile "/var/run/echod.pid"
 
-#
-# Log file.
-#
-# If logfile is specified, Echod will additionally use it to write
-# log events.
-#
-LogFile "/var/log/echod.log"
+## Log file.
+##
+## If logfile is specified, Echod will additionally use it to write
+## log events.
+#LogFile "/var/log/echod.log"
