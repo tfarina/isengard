@@ -1,12 +1,8 @@
-###
-### Example of echod.conf file.
-###
+##
+## Example of echod.conf file.
+##
 
-### See echod.conf(5) for more information.
-
-###
-### SERVICE
-###
+## See echod.conf(5) for more information.
 
 #
 # Start as a daemon.
@@ -22,10 +18,6 @@ Daemonize no
 # the specified file at startup.
 #
 PidFile "/var/run/echod.pid"
-
-###
-### LOGGING
-###
 
 #
 # Log file.
