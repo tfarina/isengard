@@ -31,12 +31,11 @@ char *f_build_filename(char *dir, char *file)
 }
 
 /**
- * Reads the contents of |filename| and returns it. |rlen| holds its
- * length.
+ * Reads the contents of |filename| and returns it.
  *
  * @return Returns NULL on failure.
  */
-char *f_read_file(const char *filename, size_t *rlen)
+char *f_read_file(const char *filename, size_t *out_file_size)
 {
   FILE *fp;
   int rv;
@@ -88,8 +87,8 @@ char *f_read_file(const char *filename, size_t *rlen)
 
   fclose(fp);
 
-  if (rlen) {
-    *rlen = fsize;
+  if (out_file_size) {
+    *out_file_size = fsize;
   }
 
   return buf;
