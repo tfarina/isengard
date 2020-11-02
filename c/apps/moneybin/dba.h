@@ -2,6 +2,11 @@
 #define MB_DBA_H_
 
 /**
+ * @brief Error codes for dba functions.
+ *
+ * See the `dba_strerror()` function for an example of how to convert the
+ * enum number into a string.
+ *
  * Error Handling: this api follows the error reporting conventions of
  * the errno.h. Functions return a non-error code to indicate an error
  * and 0 to indicate success. You should check the return status of the
