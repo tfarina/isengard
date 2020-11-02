@@ -102,7 +102,7 @@ int f_write_file(const char *filename, const char *data, size_t size)
     return -1;
   }
 
-  ssize_t bytes_written_total = 0;
+  size_t bytes_written_total = 0;
   for (ssize_t bytes_written_partial = 0; bytes_written_total < size;
        bytes_written_total += bytes_written_partial) {
     bytes_written_partial = write(fd, data + bytes_written_total,
