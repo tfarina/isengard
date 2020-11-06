@@ -10,6 +10,7 @@ main(int argc, char **argv)
   mxml_node_t *xml = NULL;
   mxml_node_t *node = NULL;
   mxml_node_t *child = NULL;
+  mxml_type_t type;
 
   filename = "ComposicaoCapitalSocialDemonstracaoFinanceiraNegocios.xml";
   fp = fopen(filename, "r");
@@ -32,8 +33,6 @@ main(int argc, char **argv)
     mxmlDelete(xml);
     return 1;
   }
-
-  mxml_type_t type;
 
   type = mxmlGetType(node);
 
