@@ -16,6 +16,8 @@ main(int argc, char **argv)
   mxml_node_t *node;
   mxml_node_t *num_ident;
   mxml_node_t *account_plan;
+  mxml_node_t *account_version;
+  mxml_node_t *df_type;
   mxml_node_t *account_num;
 
   xmlfile = "InfoFinaDFin.xml";
@@ -42,19 +44,25 @@ main(int argc, char **argv)
   node = mxmlFindElement(tree, tree, "InfoFinaDFin", NULL, NULL, MXML_DESCEND);
 
   while (node) {
-    num_ident = mxmlFindElement(node, tree, "DescricaoConta1", NULL, NULL, MXML_DESCEND);
-    if (num_ident == NULL) {
-      fputs("DescricaoConta1 not found!\n", stderr);
-      break;
-    } else {
-      printf("DescricaoConta1: %s\n", mxmlGetOpaque(num_ident));
-    }
-
     account_plan = mxmlFindElement(node, tree, "PlanoConta", NULL, NULL, MXML_DESCEND);
     if (account_plan == NULL) {
       fputs("PlanoConta not found!\n", stderr);
       break;
     } else {
+      account_version = mxmlFindElement(account_plan, tree, "VersaoPlanoConta", NULL, NULL, MXML_DESCEND);
+      if (account_version == NULL) {
+        fputs("VersaoPlanoConta not found!\n", stderr);
+        break;
+      } else {
+        df_type = mxmlFindElement(account_version, tree, "CodigoTipoDemonstracaoFinanceira", NULL, NULL, MXML_DESCEND);
+        if (df_type == NULL) {
+          fputs("CodigoTipoDemonstracaoFinanceira not found!\n", stderr);
+          break;
+        } else {
+          printf("CodigoTipoDemonstracaoFinanceira: %s\n", mxmlGetOpaque(df_type));
+        }
+      }
+
       account_num = mxmlFindElement(account_plan, tree, "NumeroConta", NULL, NULL, MXML_DESCEND);
       if (account_num == NULL) {
         fputs("NumeroConta not found!\n", stderr);
@@ -62,6 +70,14 @@ main(int argc, char **argv)
       } else {
         printf("NumeroConta: %s\n", mxmlGetOpaque(account_num));
       }
+    }
+
+    num_ident = mxmlFindElement(node, tree, "DescricaoConta1", NULL, NULL, MXML_DESCEND);
+    if (num_ident == NULL) {
+      fputs("DescricaoConta1 not found!\n", stderr);
+      break;
+    } else {
+      printf("DescricaoConta1: %s\n", mxmlGetOpaque(num_ident));
     }
 
     node = mxmlFindElement(node, tree, "InfoFinaDFin", NULL, NULL, MXML_DESCEND);
