@@ -8,8 +8,8 @@ main(int argc, char **argv)
   char *filename;
   FILE *fp = NULL;
   mxml_node_t *xml = NULL;
-  mxml_node_t *node = NULL;
-  mxml_node_t *child = NULL;
+  mxml_node_t *node = NULL; /* MXML_ELEMENT */
+  mxml_node_t *child = NULL; /* MXML_OPAQUE */
   mxml_type_t type;
 
   filename = "ComposicaoCapitalSocialDemonstracaoFinanceiraNegocios.xml";
@@ -34,32 +34,12 @@ main(int argc, char **argv)
     return 1;
   }
 
-  type = mxmlGetType(node);
-
-  switch(type) {
-  case  MXML_ELEMENT: printf("ELEMENT\n");break;
-  case   MXML_INTEGER: printf("INTEGER\n"); break;
-  case MXML_OPAQUE: printf("OPAQUE\n"); break;
-  case MXML_REAL: printf("REAL\n"); break;
-  case MXML_TEXT: printf("TEXT\n");break;
-  case   MXML_CUSTOM	: printf("CUSTOM\n"); break;
-  }
-
   child = mxmlGetFirstChild(node);
 
-  type = mxmlGetType(child);
-
-  switch(type) {
-  case  MXML_ELEMENT: printf("ELEMENT\n");break;
-  case   MXML_INTEGER: printf("INTEGER\n"); break;
-  case MXML_OPAQUE: printf("OPAQUE\n"); break;
-  case MXML_REAL: printf("REAL\n"); break;
-  case MXML_TEXT: printf("TEXT\n");break;
-  case   MXML_CUSTOM	: printf("CUSTOM\n"); break;
+  if (child != NULL) {
+    puts("Numero Acoes (mil):");
+    printf("Total: %s\n", mxmlGetOpaque(child));
   }
-
-  puts("Numero Acoes (mil):");
-  printf("Total: %s\n", mxmlGetOpaque(child));
 
   mxmlDelete(xml);
 
