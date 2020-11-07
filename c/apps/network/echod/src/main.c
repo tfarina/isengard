@@ -45,6 +45,7 @@
 #include "id.h"
 #include "options.h"
 #include "os_path.h"
+#include "pathnames.h"
 #include "pidfile.h"
 #include "security.h"
 #include "sig2str.h"

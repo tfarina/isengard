@@ -15,6 +15,7 @@
 #include <stdlib.h>
 
 #include "echod.h"
+#include "pathnames.h"
 #include "valid.h"
 
 options_t opt;
@@ -25,10 +26,6 @@ options_t opt;
 #define DEF_BIND_ADDR "0.0.0.0"
 #define DEF_ECHO_PORT 7
 #define DEF_BACKLOG   32
-
-#define DEF_SYSCONFDIR "/etc"
-#define DEF_CFGFILE DEF_SYSCONFDIR "/echod.conf"
-#define DEF_PIDFILE DEF_STATEDIR "/echod.pid"
 
 static char const short_options[] =
   "C:" /* configuration file */

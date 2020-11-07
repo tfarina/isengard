@@ -29,6 +29,7 @@ set(SRCS
   options.h
   os_path.c
   os_path.h
+  pathnames.h
   pidfile.c
   pidfile.h
   security.c
