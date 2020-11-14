@@ -5,8 +5,6 @@
 
 #include "third_party/mxml/mxml.h"
 
-/*CodigoTipoDemonstracaoFinanceira*/
-
 int
 main(int argc, char **argv)
 {
@@ -21,6 +19,7 @@ main(int argc, char **argv)
   mxml_node_t *account_num;
   mxml_node_t *account_description;
   mxml_node_t *account_value;
+  int fstype;
 
   xmlfile = "InfoFinaDFin.xml";
   fp = fopen(xmlfile, "r");
@@ -61,7 +60,8 @@ main(int argc, char **argv)
           fputs("CodigoTipoDemonstracaoFinanceira not found!\n", stderr);
           break;
         } else {
-          printf("CodigoTipoDemonstracaoFinanceira: %s\n", mxmlGetOpaque(df_type));
+          fstype = atoi(mxmlGetOpaque(df_type));
+          printf("CodigoTipoDemonstracaoFinanceira: %d\n", fstype);
         }
 
         fi_type = mxmlFindElement(account_version, tree, "CodigoTipoInformacaoFinanceira", NULL, NULL, MXML_DESCEND);
