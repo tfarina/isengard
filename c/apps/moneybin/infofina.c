@@ -14,12 +14,12 @@ main(int argc, char **argv)
   FILE *fp;
   mxml_node_t *tree;
   mxml_node_t *node;
-  mxml_node_t *num_ident;
   mxml_node_t *account_plan;
   mxml_node_t *account_version;
   mxml_node_t *df_type;
   mxml_node_t *fi_type;
   mxml_node_t *account_num;
+  mxml_node_t *account_description;
   mxml_node_t *account_value;
 
   xmlfile = "InfoFinaDFin.xml";
@@ -82,16 +82,16 @@ main(int argc, char **argv)
       }
     }
 
-    num_ident = mxmlFindElement(node, tree, "DescricaoConta1", NULL, NULL, MXML_DESCEND);
-    if (num_ident == NULL) {
+    account_description = mxmlFindElement(node, tree, "DescricaoConta1", NULL, NULL, MXML_DESCEND);
+    if (account_description == NULL) {
       fputs("DescricaoConta1 not found!\n", stderr);
       break;
     } else {
-      printf("DescricaoConta1: %s\n", mxmlGetOpaque(num_ident));
+      printf("DescricaoConta1: %s\n", mxmlGetOpaque(account_description));
     }
 
     account_value = mxmlFindElement(node, tree, "ValorConta1", NULL, NULL, MXML_DESCEND);
-    if (num_ident == NULL) {
+    if (account_value == NULL) {
       fputs("ValorConta1 not found!\n", stderr);
       break;
     } else {
