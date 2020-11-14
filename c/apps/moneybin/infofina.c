@@ -20,6 +20,7 @@ main(int argc, char **argv)
   mxml_node_t *account_description;
   mxml_node_t *account_value;
   int fstype;
+  int fitype;
 
   xmlfile = "InfoFinaDFin.xml";
   fp = fopen(xmlfile, "r");
@@ -69,7 +70,8 @@ main(int argc, char **argv)
           fputs("CodigoTipoInformacaoFinanceira not found!\n", stderr);
           break;
         } else {
-          printf("CodigoTipoInformacaoFinanceira: %s\n", mxmlGetOpaque(fi_type));
+          fitype = atoi(mxmlGetOpaque(fi_type));
+          printf("CodigoTipoInformacaoFinanceira: %d\n", fitype);
         }
       }
 
