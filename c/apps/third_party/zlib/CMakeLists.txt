@@ -57,6 +57,13 @@ set(ZLIB_PRIVATE_HDRS
 )
 
 set(ZLIB_SRCS
+  contrib/minizip/crypt.h
+  contrib/minizip/ioapi.c
+  contrib/minizip/ioapi.h
+  contrib/minizip/unzip.c
+  contrib/minizip/unzip.h
+  contrib/minizip/zip.c
+  contrib/minizip/zip.h
   adler32.c
   compress.c
   crc32.c
