@@ -61,7 +61,8 @@ int f_read_file(const char *filename, char **contents_out, size_t *out_file_size
   }
 
   /*
-   * Allocate memory for that file size.
+   * Allocate enough memory for the new buffer.
+   *
    * The +1 is to add room for adding the NULL-terminator at the end.
    */
   contents = malloc(sizeof(char) * bufsize + 1);
