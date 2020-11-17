@@ -24,7 +24,7 @@ char *f_build_filename(const char *directory, const char *name)
   return path;
 }
 
-int f_read_file(const char *filename, char **contents_out, size_t *len)
+int f_read_file(const char *filename, char **contents_out, size_t *out_file_size)
 {
   FILE *fp;
   int rc;
@@ -82,8 +82,8 @@ int f_read_file(const char *filename, char **contents_out, size_t *len)
 
   contents[++bytes_read] = '\0'; /* NULL-terminate the string, just to be safe. */
 
-  if (len) {
-    *len = bufsize;
+  if (out_file_size) {
+    *out_file_size = bufsize;
   }
 
   *contents_out = contents;
