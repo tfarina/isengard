@@ -75,6 +75,7 @@ int main(int argc, char **argv)
 {
   int numseqdoc;
   char url[MAXURLLEN];
+  char *destfile;
 
   if (argc < 2) {
     fputs("usage: fetchdfp numseqdoc\n", stderr);
@@ -87,7 +88,9 @@ int main(int argc, char **argv)
   snprintf(url, sizeof(url), "https://www.rad.cvm.gov.br/enetconsulta/frmDownloadDocumento.aspx?"
 	   "CodigoInstituicao=2&NumeroSequencialDocumento=%d", numseqdoc);
 
-  download_file(url, "dfp.zip");
+  destfile = "dfp.zip";
+
+  download_file(url, destfile);
 
   return 0;
 }
