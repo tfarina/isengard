@@ -26,6 +26,7 @@ add_subdirectory(third_party/libconfigini)
 add_subdirectory(third_party/ini)
 add_subdirectory(third_party/libcsv)
 add_subdirectory(third_party/mxml)
+add_subdirectory(third_party/zlib)
 
 option(WITH_MYSQL "Use MySQL library" ON)
 
@@ -99,8 +100,8 @@ add_executable(strtotime strtotime.c)
 add_executable(dadosempresa dadosempresa.c)
 target_link_libraries(dadosempresa mxml)
 
-add_executable(fetchdfp fetchdfp.c)
-target_link_libraries(fetchdfp moneybin ${CURL_LIBRARIES})
+add_executable(fetchdfp dounzip.c fetchdfp.c)
+target_link_libraries(fetchdfp zlib moneybin ${CURL_LIBRARIES})
 target_include_directories(fetchdfp PRIVATE ${CURL_INCLUDE_DIRS})
 
 add_executable(infofina infofina.c)

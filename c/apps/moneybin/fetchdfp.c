@@ -7,6 +7,7 @@
 #include <curl/curl.h>
 
 #include "curl_write_callbacks.h"
+#include "dounzip.h"
 #include "ffileutils.h"
 #include "fstrutils.h"
 
@@ -91,6 +92,8 @@ int main(int argc, char **argv)
   destfile = "dfp.zip";
 
   download_file(url, destfile);
+
+  unzip(destfile, ".");
 
   return 0;
 }
