@@ -100,7 +100,7 @@ add_executable(strtotime strtotime.c)
 add_executable(dadosempresa dadosempresa.c)
 target_link_libraries(dadosempresa mxml)
 
-add_executable(fetchdfp dounzip.c fetchdfp.c)
+add_executable(fetchdfp download.c dounzip.c fetchdfp.c)
 target_link_libraries(fetchdfp zlib moneybin ${CURL_LIBRARIES})
 target_include_directories(fetchdfp PRIVATE ${CURL_INCLUDE_DIRS})
 
