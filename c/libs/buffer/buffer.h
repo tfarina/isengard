@@ -21,7 +21,7 @@ typedef struct buffer_s
          */
 	size_t size;
         /**
-	 * The amount of data the buffer can contain.
+	 * The number of bytes currently allocated.
          */
 	size_t capacity;
 } buffer_t;
