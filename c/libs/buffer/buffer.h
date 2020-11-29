@@ -43,7 +43,7 @@ void buffer_clear(buffer_t *self);
 /**
  * buffer_write writes |data| to the end of the buffer.
  */
-void buffer_write(buffer_t *self, void const *data, size_t length);
+void buffer_write(buffer_t *self, void const *data, size_t size);
 
 /**
  * buffer_free frees any memory used by the buffer.
