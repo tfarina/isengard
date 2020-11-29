@@ -41,12 +41,12 @@ buffer_t *buffer_alloc(size_t capacity);
 void buffer_clear(buffer_t *self);
 
 /**
- * buffer_write writes |data| to the buffer.
+ * buffer_write writes |data| to the end of the buffer.
  */
 void buffer_write(buffer_t *self, void const *data, size_t length);
 
 /**
- * buffer_free frees the buffer and all its contents.
+ * buffer_free frees any memory used by the buffer.
  */
 void buffer_free(buffer_t *self);
 
