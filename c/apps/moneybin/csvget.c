@@ -61,12 +61,6 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
   memset(histurl, 0, MAXURLLEN);
   snprintf(histurl, sizeof(histurl), "https://finance.yahoo.com/quote/%s/history", symbol);
 
-  result = curl_global_init(CURL_GLOBAL_DEFAULT);
-  if (result != CURLE_OK) {
-    fprintf(stderr, "curl_global_init() failed\n");
-    return -1;
-  }
-
   curl = curl_easy_init();
   if (curl == NULL) {
     fprintf(stderr, "curl_easy_init() failed\n");
@@ -118,8 +112,6 @@ static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t en
 
   curl_easy_cleanup(curl);
 
-  curl_global_cleanup();
-
   return 0;
 }
 
@@ -133,6 +125,7 @@ int main(int argc, char *argv[])
   char end_date_str[12];
   buffer_t buf;
   char filename[255];
+  CURLcode result;
   int retval;
 
   if (argc != 2) {
@@ -157,10 +150,18 @@ int main(int argc, char *argv[])
     printf("Period: Daily\n\n");
   }
 
+  result = curl_global_init(CURL_GLOBAL_DEFAULT);
+  if (result != CURLE_OK) {
+    fprintf(stderr, "curl_global_init() failed\n");
+    return 1;
+  }
+
   retval = download_quotes_from_yahoo(symbol, one_year_ago, now, &buf);
   if (retval < 0) {
     return 1;
   }
+
+  curl_global_cleanup();
 
   /* TODO: do not print this by default. */
   if (verbose) {
