@@ -133,6 +133,7 @@ int main(int argc, char *argv[])
   char end_date_str[12];
   buffer_t buf;
   char filename[255];
+  int retval;
 
   if (argc != 2) {
     fputs("usage: csvget symbol\n", stderr);
@@ -156,7 +157,10 @@ int main(int argc, char *argv[])
     printf("Period: Daily\n\n");
   }
 
-  download_quotes_from_yahoo(symbol, one_year_ago, now, &buf);
+  retval = download_quotes_from_yahoo(symbol, one_year_ago, now, &buf);
+  if (retval < 0) {
+    return 1;
+  }
 
   /* TODO: do not print this by default. */
   if (verbose) {
