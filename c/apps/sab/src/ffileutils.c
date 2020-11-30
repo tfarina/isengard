@@ -12,14 +12,12 @@ char *f_build_filename(char *dir, char *file)
   char *path;
   size_t len;
 
-  len = strlen(dir);
-
-  len += strlen(file);
-
   /* Add 2 bytes to the resulting length to have enough memory available
    * for the directory separator ('/') and the null byte ('\0').
    */
-  path = (char *) malloc(len + 2);
+  len = strlen(dir) + strlen(file) + 2;
+
+  path = malloc(len);
 
   strcpy(path, dir);
 
