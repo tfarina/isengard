@@ -5,7 +5,7 @@
 
 char *f_build_filename(const char *directory, const char *name);
 
-int f_read_file(const char *filename, char **contents, size_t *out_file_size);
+int f_read_file(const char *filename, char **out_contents, size_t *out_file_size);
 
 int f_write_file(const char *filename, const char *data, size_t size);
 

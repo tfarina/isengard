@@ -24,7 +24,7 @@ char *f_build_filename(const char *directory, const char *name)
   return path;
 }
 
-int f_read_file(const char *filename, char **contents_out, size_t *out_file_size)
+int f_read_file(const char *filename, char **out_contents, size_t *out_file_size)
 {
   FILE *fp;
   int rc;
@@ -87,7 +87,7 @@ int f_read_file(const char *filename, char **contents_out, size_t *out_file_size
     *out_file_size = bufsize;
   }
 
-  *contents_out = contents;
+  *out_contents = contents;
 
   return 0;
 }
