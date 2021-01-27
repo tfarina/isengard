@@ -426,6 +426,7 @@ void addrbook_window_new(void)
    * Vertical box
    */
   vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_add(GTK_CONTAINER(main_window), vbox);
 
   /*
    * Menubar
@@ -516,8 +517,6 @@ void addrbook_window_new(void)
    */
   statusbar = gtk_statusbar_new();
   gtk_box_pack_start(GTK_BOX(vbox), statusbar, FALSE, TRUE, 0);
-
-  gtk_container_add(GTK_CONTAINER(main_window), vbox);
 
   gtk_widget_grab_focus(GTK_WIDGET(list_view));
 
