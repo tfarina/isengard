@@ -393,14 +393,53 @@ static GtkWidget *_menubar_create(GtkAccelGroup *accel)
   return menubar;
 }
 
+static GtkWidget *_toolbar_create(void)
+{
+  GtkWidget* icon;
+  GtkToolItem *tb_new;
+
+  toolbar = gtk_toolbar_new();
+  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH);
+
+  /* New button */
+  icon = gtk_image_new_from_icon_name(GTK_STOCK_NEW, GTK_ICON_SIZE_BUTTON);
+  tb_new = gtk_tool_button_new(icon, "New");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(tb_new), "New contact");
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_new, -1);
+
+  /* Edit button */
+  icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT, GTK_ICON_SIZE_BUTTON);
+  tb_edit = gtk_tool_button_new(icon, "Edit");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(tb_edit), "Edit contact");
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_edit, -1);
+
+  /* Delete button */
+  icon = gtk_image_new_from_icon_name(GTK_STOCK_DELETE, GTK_ICON_SIZE_BUTTON);
+  tb_delete = gtk_tool_button_new(icon, "Delete");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(tb_delete), "Delete contact");
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_delete, -1);
+
+  gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
+  gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
+
+  g_signal_connect(G_OBJECT(tb_new), "clicked",
+		   G_CALLBACK(_on_new_cb), main_window);
+
+  g_signal_connect(G_OBJECT(tb_edit), "clicked",
+		   G_CALLBACK(_on_edit_cb), main_window);
+
+  g_signal_connect(G_OBJECT(tb_delete), "clicked",
+		   G_CALLBACK(_on_delete_cb), NULL);
+
+  return toolbar;
+}
+
 void addrbook_window_new(void)
 {
   char *dbdir;
   GtkAccelGroup *accel_group;
   GtkWidget *vbox;
   GtkWidget *menubar;
-  GtkWidget* icon;
-  GtkToolItem *tb_new;
   GtkWidget *scrolledwin;
   GtkTreeSelection *list_select;
   GtkCellRenderer *renderer;
@@ -437,39 +476,7 @@ void addrbook_window_new(void)
   /*
    * Toolbar
    */
-  toolbar = gtk_toolbar_new();
-  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH);
-
-  /* New button */
-  icon = gtk_image_new_from_icon_name(GTK_STOCK_NEW, GTK_ICON_SIZE_BUTTON);
-  tb_new = gtk_tool_button_new(icon, "New");
-  gtk_widget_set_tooltip_text(GTK_WIDGET(tb_new), "New contact");
-  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_new, -1);
-
-  /* Edit button */
-  icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT, GTK_ICON_SIZE_BUTTON);
-  tb_edit = gtk_tool_button_new(icon, "Edit");
-  gtk_widget_set_tooltip_text(GTK_WIDGET(tb_edit), "Edit contact");
-  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_edit, -1);
-
-  /* Delete button */
-  icon = gtk_image_new_from_icon_name(GTK_STOCK_DELETE, GTK_ICON_SIZE_BUTTON);
-  tb_delete = gtk_tool_button_new(icon, "Delete");
-  gtk_widget_set_tooltip_text(GTK_WIDGET(tb_delete), "Delete contact");
-  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_delete, -1);
-
-  gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
-  gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
-
-  g_signal_connect(G_OBJECT(tb_new), "clicked",
-		   G_CALLBACK(_on_new_cb), main_window);
-
-  g_signal_connect(G_OBJECT(tb_edit), "clicked",
-		   G_CALLBACK(_on_edit_cb), main_window);
-
-  g_signal_connect(G_OBJECT(tb_delete), "clicked",
-		   G_CALLBACK(_on_delete_cb), NULL);
-
+  toolbar = _toolbar_create();
   gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, TRUE, 0);
 
   /*
