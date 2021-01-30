@@ -33,6 +33,59 @@ static GtkToolItem *tb_delete;
 static GtkWidget *list_view;
 static GtkWidget *statusbar;
 
+static void _on_file_new_cb(GtkWidget *widget, gpointer data);
+static void _on_file_quit_cb(GtkAction *action, gpointer data);
+static void _on_edit_select_all_cb(GtkWidget *widget, gpointer data);
+static void _on_view_toolbar_cb(GtkAction *action, gpointer data);
+static void _on_view_statusbar_cb(GtkAction *action, gpointer data);
+static void _on_view_fullscreen_cb(GtkAction *action, gpointer data);
+static void _on_help_about_cb(GtkWidget *widget, gpointer data);
+
+static GtkActionEntry menubar_entries[] =
+{
+  {"Menu", NULL, "Menu", NULL, NULL, NULL },
+
+  /*
+   * Menus
+   */
+  {"File", NULL, "_File", NULL, NULL, NULL },
+  {"Edit", NULL, "_Edit", NULL, NULL, NULL },
+  {"View", NULL, "_View", NULL, NULL, NULL },
+  {"Help", NULL, "_Help", NULL, NULL, NULL },
+
+  /*
+   * File menu
+   */
+  {"File/NewContact", NULL, "_New Contact", "<control>N", NULL, G_CALLBACK(_on_file_new_cb) },
+  {"File/---", NULL, "---", NULL, NULL, NULL },
+  {"File/Quit", NULL, "_Quit", "<control>Q", NULL, G_CALLBACK(_on_file_quit_cb) },
+
+  /*
+   * Edit menu
+   */
+  {"Edit/SelectAll", NULL, "_Select all", "<control>A", NULL, G_CALLBACK(_on_edit_select_all_cb) },
+
+  /*
+   * View menu
+   */
+
+  /*
+   * Help menu
+   */
+  {"Help/About", NULL, "_About", NULL, NULL, G_CALLBACK(_on_help_about_cb) }
+};
+
+static GtkToggleActionEntry menubar_toggle_entries[] =
+{
+  /*
+   * View menu
+   */
+  {"View/ToolBar", NULL, "Toolbar", NULL, NULL, G_CALLBACK(_on_view_toolbar_cb), FALSE },
+  {"View/StatusBar", NULL, "Statusbar", NULL, NULL, G_CALLBACK(_on_view_statusbar_cb), FALSE },
+  {"View/---", NULL, "---", NULL, NULL, NULL, FALSE },
+  {"View/FullScreen", NULL, "_Fullscreen", "F11", NULL, G_CALLBACK(_on_view_fullscreen_cb), FALSE },
+};
+
 /*
  * Prototype declarations
  */
@@ -91,11 +144,11 @@ static void _on_edit_select_all_cb(GtkWidget *widget, gpointer data)
  * View menu
  */
 
-static void _on_view_toolbar_cb(GtkWidget *widget, gpointer data)
+static void _on_view_toolbar_cb(GtkAction *action, gpointer data)
 {
   gboolean state;
 
-  state = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+  state = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
 
   /*
    * This check is necessary to fix the following error:
@@ -109,11 +162,11 @@ static void _on_view_toolbar_cb(GtkWidget *widget, gpointer data)
   }
 }
 
-static void _on_view_statusbar_cb(GtkWidget *widget, gpointer data)
+static void _on_view_statusbar_cb(GtkAction *action, gpointer data)
 {
   gboolean state;
 
-  state = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+  state = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
 
   /*
    * This check is necessary to avoid the following error:
@@ -127,9 +180,9 @@ static void _on_view_statusbar_cb(GtkWidget *widget, gpointer data)
   }
 }
 
-static void _on_view_fullscreen_cb(GtkWidget *widget, gpointer data)
+static void _on_view_fullscreen_cb(GtkAction *action, gpointer data)
 {
-  if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
+  if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
     gtk_window_unfullscreen(GTK_WINDOW(main_window));
   } else {
     gtk_window_fullscreen(GTK_WINDOW(main_window));
@@ -282,113 +335,70 @@ static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *cont
                      -1);
 }
 
-static void _file_menu_create(GtkMenuShell *menu, GtkAccelGroup *accel)
+static GtkWidget *_menubar_create(void)
 {
-  GtkWidget *menuitem;
+  GtkUIManager *ui_manager;
+  GtkActionGroup *action_group;
 
-  menuitem = gtk_menu_item_new_with_mnemonic("_New Contact");
-  g_signal_connect(G_OBJECT(menuitem), "activate",
-		   G_CALLBACK(_on_file_new_cb), main_window);
-  gtk_widget_add_accelerator(menuitem, "activate", accel, GDK_KEY_n,
-			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append(menu, menuitem);
-
-  menuitem = gtk_separator_menu_item_new();
-  gtk_menu_shell_append(menu, menuitem);
-
-  menuitem = gtk_menu_item_new_with_mnemonic("_Quit");
-  g_signal_connect(G_OBJECT(menuitem), "activate",
-		   G_CALLBACK(_on_file_quit_cb), NULL);
-  gtk_widget_add_accelerator(menuitem, "activate", accel, GDK_KEY_q,
-			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append(menu, menuitem);
-}
-
-static void _edit_menu_create(GtkMenuShell *menu, GtkAccelGroup *accel)
-{
-  GtkWidget *menuitem;
-
-  menuitem = gtk_menu_item_new_with_mnemonic("Select _All");
-  g_signal_connect(G_OBJECT(menuitem), "activate",
-		   G_CALLBACK(_on_edit_select_all_cb), main_window);
-  gtk_widget_add_accelerator(menuitem, "activate", accel, GDK_KEY_A,
-			     GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append(menu, menuitem);
-}
-
-static void _view_menu_create(GtkMenuShell *menu, GtkAccelGroup *accel)
-{
-  GtkWidget *menuitem;
-
-  menuitem = gtk_check_menu_item_new_with_mnemonic("Toolbar");
-  g_signal_connect(G_OBJECT(menuitem), "activate",
-		   G_CALLBACK(_on_view_toolbar_cb), toolbar);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
-  gtk_menu_shell_append(menu, menuitem);
-
-  menuitem = gtk_check_menu_item_new_with_mnemonic("Statusbar");
-  g_signal_connect(G_OBJECT(menuitem), "activate",
-		   G_CALLBACK(_on_view_statusbar_cb), statusbar);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
-  gtk_menu_shell_append(menu, menuitem);
-
-  menuitem = gtk_separator_menu_item_new();
-  gtk_menu_shell_append(menu, menuitem);
-
-  menuitem = gtk_check_menu_item_new_with_mnemonic("_Full Screen");
-  g_signal_connect(G_OBJECT(menuitem), "activate",
-		   G_CALLBACK(_on_view_fullscreen_cb), main_window);
-  gtk_widget_add_accelerator(menuitem, "activate", accel, GDK_F11,
-			     GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), FALSE);
-  gtk_menu_shell_append(menu, menuitem);
-}
-
-static void _help_menu_create(GtkMenuShell *menu, GtkAccelGroup *accel)
-{
-  GtkWidget *menuitem;
-
-  menuitem = gtk_menu_item_new_with_mnemonic("_About");
-  g_signal_connect(G_OBJECT(menuitem), "activate",
-		   G_CALLBACK(_on_help_about_cb), main_window);
-  gtk_menu_shell_append(menu, menuitem);
-}
-
-static GtkWidget *_menubar_create(GtkAccelGroup *accel)
-{
   GtkWidget *menubar;
-  GtkWidget *submenu;
   GtkWidget *menuitem;
 
-  menubar = gtk_menu_bar_new();
+  ui_manager = gtk_ui_manager_new();
+
+  action_group = gtk_action_group_new("Menu");
+  gtk_action_group_set_translation_domain(action_group, NULL);
+  gtk_action_group_add_actions(action_group, menubar_entries,
+			       G_N_ELEMENTS(menubar_entries), NULL);
+  gtk_action_group_add_toggle_actions(action_group, menubar_toggle_entries,
+			              G_N_ELEMENTS(menubar_toggle_entries), NULL);
+  gtk_ui_manager_insert_action_group(ui_manager, action_group, 0);
+
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/", "Menu", NULL, GTK_UI_MANAGER_MENUBAR, FALSE);
+
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu", "File", "File", GTK_UI_MANAGER_MENU, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu", "Edit", "Edit", GTK_UI_MANAGER_MENU, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu", "View", "View", GTK_UI_MANAGER_MENU, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu", "Help", "Help", GTK_UI_MANAGER_MENU, FALSE);
 
   /* File menu */
-  submenu = gtk_menu_new();
-  menuitem = gtk_menu_item_new_with_mnemonic("_File");
-  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), menuitem);
-  gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem), submenu);
-  _file_menu_create(GTK_MENU_SHELL(submenu), accel);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/File", "NewContact", "File/NewContact", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/File", "Separator1", "File/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/File", "Quit", "File/Quit", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* Edit menu */
-  submenu = gtk_menu_new();
-  menuitem = gtk_menu_item_new_with_mnemonic("_Edit");
-  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), menuitem);
-  gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem), submenu);
-  _edit_menu_create(GTK_MENU_SHELL(submenu), accel);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/Edit", "SelectAll", "Edit/SelectAll", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* View menu */
-  submenu = gtk_menu_new();
-  menuitem = gtk_menu_item_new_with_mnemonic("_View");
-  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), menuitem);
-  gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem), submenu);
-  _view_menu_create(GTK_MENU_SHELL(submenu), accel);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/View", "ToolBar", "View/ToolBar", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/View", "StatusBar", "View/StatusBar", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/View", "Separator1", "View/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/View", "FullScreen", "View/FullScreen", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* Help menu */
-  submenu = gtk_menu_new();
-  menuitem = gtk_menu_item_new_with_mnemonic("_Help");
-  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), menuitem);
-  gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem), submenu);
-  _help_menu_create(GTK_MENU_SHELL(submenu), accel);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/Help", "About", "Help/About", GTK_UI_MANAGER_MENUITEM, FALSE);
+
+  gtk_window_add_accel_group(GTK_WINDOW(main_window), gtk_ui_manager_get_accel_group(ui_manager));
+
+  menubar = gtk_ui_manager_get_widget(ui_manager, "/Menu");
+
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolBar");
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/StatusBar");
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
   return menubar;
 }
@@ -437,7 +447,6 @@ static GtkWidget *_toolbar_create(void)
 void addrbook_window_new(void)
 {
   char *dbdir;
-  GtkAccelGroup *accel_group;
   GtkWidget *vbox;
   GtkWidget *menubar;
   GtkWidget *scrolledwin;
@@ -458,9 +467,6 @@ void addrbook_window_new(void)
   g_signal_connect(G_OBJECT(main_window), "delete_event",
                    G_CALLBACK(_on_delete_event_cb), NULL);
 
-  accel_group = gtk_accel_group_new();
-  gtk_window_add_accel_group(GTK_WINDOW(main_window), accel_group);
-
   /*
    * Vertical box
    */
@@ -470,7 +476,7 @@ void addrbook_window_new(void)
   /*
    * Menubar
    */
-  menubar = _menubar_create(accel_group);
+  menubar = _menubar_create();
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, TRUE, 0);
 
   /*
