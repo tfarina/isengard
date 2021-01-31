@@ -11,6 +11,7 @@ set(SOURCES
   ab.c
   abook_contact.c
   alpm_list.c
+  dirs.c
   ffileutils.c
   futils.c
   mkdirp.c

@@ -1,17 +1,16 @@
 #include "util.h"
 
-#include "ffileutils.h"
-#include "futils.h"
+#include "dirs.h"
 #include "mkdirp.h"
 #include "test.h"
 
-char *ensure_data_dir(void) {
-  char *dbdir;
+int ensure_data_dir(void) {
+  char const *data_dir;
 
-  dbdir = f_build_filename(f_get_user_data_dir(), "sab");
-  if (!test_isdir(dbdir)) {
-    f_mkdirp(dbdir, 0700);
+  data_dir = dirs_get_user_data_dir();
+  if (!test_isdir(data_dir)) {
+    f_mkdirp(data_dir, 0700);
   }
 
-  return dbdir;
+  return 1;
 }

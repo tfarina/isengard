@@ -9,7 +9,7 @@
 #include "ab.h"
 #include "about_dialog.h"
 #include "contact_editor.h"
-#include "util.h"
+#include "dirs.h"
 
 #define WINDOW_WIDTH 610
 #define WINDOW_HEIGHT 377
@@ -535,7 +535,7 @@ void addrbook_window_new(void)
 
   gtk_widget_show_all(main_window);
 
-  dbdir = ensure_data_dir();
+  dbdir = dirs_get_user_data_dir();
 
   ab_init(dbdir);
 

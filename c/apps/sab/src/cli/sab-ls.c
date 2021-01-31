@@ -1,12 +1,19 @@
 #include "ab.h"
 #include "common.h"
+#include "dirs.h"
 #include "util.h"
 
 int main(int argc, char **argv) {
   int rc;
   char *dbdir;
 
-  dbdir = ensure_data_dir();
+  dirs_init();
+
+  if (!ensure_data_dir()) {
+    return 1;
+  }
+
+  dbdir = dirs_get_user_data_dir();
 
   ab_init(dbdir);
 
