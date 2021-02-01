@@ -450,7 +450,7 @@ void addrbook_window_new(void)
   GtkWidget *vbox;
   GtkWidget *menubar;
   GtkWidget *scrolledwin;
-  GtkTreeSelection *list_select;
+  GtkTreeSelection *selection;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
   GtkListStore *list_store; /* Data model */
@@ -504,8 +504,8 @@ void addrbook_window_new(void)
 
   gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list_view), TRUE);
 
-  list_select = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
-  g_signal_connect(list_select, "changed",
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+  g_signal_connect(selection, "changed",
 		   G_CALLBACK(_on_selection_changed_cb), NULL);
 
   /* Create the columns. */
