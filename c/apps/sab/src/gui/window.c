@@ -501,8 +501,6 @@ void addrbook_window_new(void)
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
   g_object_unref(list_store);
 
-  gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list_view), TRUE);
-
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
   g_signal_connect(selection, "changed",
 		   G_CALLBACK(_on_selection_changed_cb), NULL);
