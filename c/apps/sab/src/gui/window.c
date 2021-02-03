@@ -494,11 +494,10 @@ void addrbook_window_new(void)
                                  GTK_POLICY_AUTOMATIC);
 
   list_store = gtk_list_store_new(LIST_COL_COUNT,
-                                  G_TYPE_STRING, /* First name */
-                                  G_TYPE_STRING, /* Last name */
-                                  G_TYPE_STRING, /* Email */
-                                  G_TYPE_POINTER /* Contact pointer */
-                                  );
+                                  G_TYPE_STRING,    /* First name */
+                                  G_TYPE_STRING,    /* Last name */
+                                  G_TYPE_STRING,    /* Email */
+                                  G_TYPE_POINTER);  /* Contact pointer */
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
   g_object_unref(list_store);
 
