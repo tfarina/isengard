@@ -85,15 +85,13 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   gtk_table_set_col_spacings(GTK_TABLE(table), 4);
   gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 0);
 
-  fname_entry = gtk_entry_new();
-  lname_entry = gtk_entry_new();
-  email_entry = gtk_entry_new();
-
   /* First row. */
   label = gtk_label_new("First Name");
   gtk_table_attach(GTK_TABLE(table), label, 0, 1, 0, 1,
 		   GTK_FILL, 0, 0, 0);
   gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
+  fname_entry = gtk_entry_new();
 
   gtk_table_attach(GTK_TABLE(table), fname_entry, 1, 2, 0, 1,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
@@ -104,6 +102,8 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
 		   GTK_FILL, 0, 0, 0);
   gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 
+  lname_entry = gtk_entry_new();
+
   gtk_table_attach(GTK_TABLE(table), lname_entry, 1, 2, 1, 2,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
@@ -112,6 +112,8 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   gtk_table_attach(GTK_TABLE(table), label, 0, 1, 2, 3,
 		   GTK_FILL, 0, 0, 0);
   gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+
+  email_entry = gtk_entry_new();
 
   gtk_table_attach(GTK_TABLE(table), email_entry, 1, 2, 2, 3,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
