@@ -408,6 +408,12 @@ static GtkWidget *_menubar_create(void)
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/StatusBar");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Edit");
+  gtk_widget_set_sensitive(menuitem, FALSE);
+
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Delete");
+  gtk_widget_set_sensitive(menuitem, FALSE);
+
   return menubar;
 }
 
