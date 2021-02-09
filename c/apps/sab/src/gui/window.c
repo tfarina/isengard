@@ -27,6 +27,7 @@ enum {
  * Widgets
  */
 static GtkWidget *main_window;
+static GtkUIManager *ui_manager;
 static GtkWidget *toolbar;
 static GtkToolItem *tb_edit;
 static GtkToolItem *tb_delete;
@@ -276,16 +277,23 @@ static void _on_delete_cb(GtkWidget *widget, gpointer data)
 static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 {
   gint num_selected;
+  GtkWidget *menuitem;
 
   num_selected = gtk_tree_selection_count_selected_rows(selection);
 
   if (num_selected == 1) {
+    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Edit");
+    gtk_widget_set_sensitive(menuitem, TRUE);
+
     gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), TRUE);
   } else {
     gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
   }
 
   if (num_selected > 0) {
+    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Delete");
+    gtk_widget_set_sensitive(menuitem, TRUE);
+
     gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), TRUE);
   } else {
     gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
@@ -343,7 +351,6 @@ static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *cont
 
 static GtkWidget *_menubar_create(void)
 {
-  GtkUIManager *ui_manager;
   GtkActionGroup *action_group;
 
   GtkWidget *menubar;
