@@ -464,7 +464,6 @@ static GtkWidget *_toolbar_create(void)
 
 void addrbook_window_new(void)
 {
-  char *dbdir;
   GtkWidget *vbox;
   GtkWidget *menubar;
   GtkWidget *scrolledwin;
@@ -472,6 +471,7 @@ void addrbook_window_new(void)
   GtkTreeSelection *selection;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
+  char *dbdir;
   alpm_list_t *list, *cur;
 
   /*
