@@ -468,10 +468,10 @@ void addrbook_window_new(void)
   GtkWidget *vbox;
   GtkWidget *menubar;
   GtkWidget *scrolledwin;
+  GtkListStore *list_store;
   GtkTreeSelection *selection;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
-  GtkListStore *list_store; /* Data model */
   alpm_list_t *list, *cur;
 
   /*
