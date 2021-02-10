@@ -19,15 +19,25 @@ static char const license_gpl3[] =
     "along with this program. If not, see <https://www.gnu.org/licenses/>.";
 
 void show_about_dialog(GtkWindow *parent) {
+  /* List of authors */
+  static char const *authors[] = {
+    NULL
+  };
+
+  /* List of documentation writers */
+  static char const *documenters[] = {
+    NULL
+  };
+
   static char const comments[] = "A simple and easy to use address book";
   static char const copyright[] = "Copyright © 2019";
 
   gtk_show_about_dialog(parent,
 			"artists",            0,
-			"authors",            0,
+			"authors",            authors,
 			"comments",           comments,
 			"copyright",          copyright,
-			"documenters",        0,
+			"documenters",        documenters,
 			"license",            license_gpl3,
                         "program-name",       PACKAGE,
 			"translator-credits", "",
