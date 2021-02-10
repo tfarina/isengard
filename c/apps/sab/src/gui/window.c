@@ -97,6 +97,62 @@ static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *cont
 static void _on_new_contact_cb(ab_contact_t *contact);
 static void _on_edit_contact_cb(ab_contact_t *contact);
 
+static void _edit_selection(gpointer data)
+{
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+  ab_contact_t *contact;
+
+  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
+
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+
+  gtk_tree_selection_get_selected(selection, NULL, &iter);
+
+  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
+
+  contact_editor_new(GTK_WINDOW(data), AC_EDIT, contact, _on_edit_contact_cb);
+}
+
+static void _remove_selection(void)
+{
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+  ab_contact_t *contact;
+  gboolean has_row = FALSE;
+  gint n;
+
+  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
+
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+
+  gtk_tree_selection_get_selected(selection, NULL, &iter);
+
+  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
+
+  has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
+
+  ab_delete_contact(contact);
+
+  /* From claws-mail src/editaddress.c:edit_person_email_delete() */
+  if (!has_row) {
+    /* The removed row was the last in the list, so iter is not
+     * valid. Find out if there is at least one row remaining
+     * in the list, and select the last one if so. */
+    n = gtk_tree_model_iter_n_children(model, NULL);
+    if (n > 0 && gtk_tree_model_iter_nth_child(model, &iter, NULL, n-1)) {
+      /* It exists */
+      has_row = TRUE;
+    }
+  }
+
+  if (has_row) {
+    gtk_tree_selection_select_iter(selection, &iter);
+  }
+}
+
 /*
  * Window callbacks
  */
@@ -141,10 +197,12 @@ static void _on_file_quit_cb(GtkAction *action, gpointer data)
 
 static void _on_edit_edit_cb(GtkWidget *widget, gpointer data)
 {
+  _edit_selection(data);
 }
 
 static void _on_edit_delete_cb(GtkWidget *widget, gpointer data)
 {
+  _remove_selection();
 }
 
 /*
@@ -216,58 +274,12 @@ static void _on_new_cb(GtkWidget *widget, gpointer data)
 
 static void _on_edit_cb(GtkWidget *widget, gpointer data)
 {
-  GtkTreeModel *model;
-  GtkTreeSelection *selection;
-  GtkTreeIter iter;
-  ab_contact_t *contact;
-
-  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
-
-  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
-
-  gtk_tree_selection_get_selected(selection, NULL, &iter);
-
-  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
-
-  contact_editor_new(GTK_WINDOW(data), AC_EDIT, contact, _on_edit_contact_cb);
+  _edit_selection(data);
 }
 
 static void _on_delete_cb(GtkWidget *widget, gpointer data)
 {
-  GtkTreeModel *model;
-  GtkTreeSelection *selection;
-  GtkTreeIter iter;
-  ab_contact_t *contact;
-  gboolean has_row = FALSE;
-  gint n;
-
-  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
-
-  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
-
-  gtk_tree_selection_get_selected(selection, NULL, &iter);
-
-  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
-
-  has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
-
-  ab_delete_contact(contact);
-
-  /* From claws-mail src/editaddress.c:edit_person_email_delete() */
-  if (!has_row) {
-    /* The removed row was the last in the list, so iter is not
-     * valid. Find out if there is at least one row remaining
-     * in the list, and select the last one if so. */
-    n = gtk_tree_model_iter_n_children(model, NULL);
-    if (n > 0 && gtk_tree_model_iter_nth_child(model, &iter, NULL, n-1)) {
-      /* It exists */
-      has_row = TRUE;
-    }
-  }
-
-  if (has_row) {
-    gtk_tree_selection_select_iter(selection, &iter);
-  }
+  _remove_selection();
 }
 
 /*
