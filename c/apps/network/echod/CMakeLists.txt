@@ -27,8 +27,9 @@ list(APPEND CMAKE_MODULE_PATH
 
 include(UninstallTarget)
 
-###############################################################################
-# Provides install directory variables as defined by the GNU Coding Standards.
+#=======================================================================================
+# Provides GNU standard installation directories as defined by the GNU Coding Standards:
+========================================================================================
 include(GNUInstallDirs)
 
 include(CheckIncludeFile)
