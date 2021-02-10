@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-#include "abook_contact.h"
+#include "ab_contact.h"
 #include "fort.h"
 
 int print_contact_list(alpm_list_t *contact_list) {

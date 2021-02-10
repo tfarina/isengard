@@ -9,7 +9,7 @@ set(DEPENDENCIES
 
 set(SOURCES
   ab.c
-  abook_contact.c
+  ab_contact.c
   alpm_list.c
   dirs.c
   ffileutils.c
@@ -22,7 +22,7 @@ set(SOURCES
 
 set(HEADERS
   ab.h
-  abook_contact.h
+  ab_contact.h
   alpm_list.h
   arraysize.h
   ffileutils.h

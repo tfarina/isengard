@@ -1,7 +1,7 @@
 #ifndef AB_H_
 #define AB_H_
 
-#include "abook_contact.h"
+#include "ab_contact.h"
 #include "alpm_list.h"
 
 int ab_init(char *dbpath);
