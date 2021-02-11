@@ -1,4 +1,6 @@
-find_package(GTK2 2.6 REQUIRED gtk)
+# Use the package PkgConfig to detect GTK+ headers/library files
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTK2 REQUIRED gtk+-2.0)
 
 set(EXENAME "${PROJECT_NAME}_gui")
 
