@@ -3,7 +3,7 @@ includedir=@includedir@
 
 Name: libvector
 Description: Simple C Vector library
-URL: https://github.com/tfarina/junkyard/c/libs/vector
+URL: https://github.com/tfarina/maple3/c/libs/vector
 Version: 0.1.0
 
 Libs: -L${libdir} -lvector
