@@ -558,8 +558,6 @@ void addrbook_window_new(void)
   statusbar = gtk_statusbar_new();
   gtk_box_pack_start(GTK_BOX(vbox), statusbar, FALSE, TRUE, 0);
 
-  gtk_widget_grab_focus(GTK_WIDGET(list_view));
-
   gtk_widget_show_all(main_window);
 
   dbdir = dirs_get_user_data_dir();
