@@ -474,6 +474,24 @@ static GtkWidget *_toolbar_create(void)
   return toolbar;
 }
 
+static void _populate_list_view(GtkListStore* list_store)
+{
+  char *dbdir;
+  alpm_list_t *list, *cur;
+
+  dbdir = dirs_get_user_data_dir();
+
+  ab_init(dbdir);
+
+  ab_load_contacts();
+
+  list = ab_get_contact_list();
+
+  for (cur = list; cur; cur = alpm_list_next(cur)) {
+    _list_store_append_item(list_store, (ab_contact_t *)cur->data);
+  }
+}
+
 void addrbook_window_new(void)
 {
   GtkWidget *vbox;
@@ -483,8 +501,6 @@ void addrbook_window_new(void)
   GtkTreeSelection *selection;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
-  char *dbdir;
-  alpm_list_t *list, *cur;
 
   /*
    * Window
@@ -560,15 +576,5 @@ void addrbook_window_new(void)
 
   gtk_widget_show_all(main_window);
 
-  dbdir = dirs_get_user_data_dir();
-
-  ab_init(dbdir);
-
-  ab_load_contacts();
-
-  list = ab_get_contact_list();
-
-  for (cur = list; cur; cur = alpm_list_next(cur)) {
-    _list_store_append_item(list_store, (ab_contact_t *)cur->data);
-  }
+  _populate_list_view(list_store);
 }
