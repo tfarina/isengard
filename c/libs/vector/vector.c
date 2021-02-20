@@ -98,6 +98,15 @@ int vector_empty(vector_t const * const self)
         return self->size == 0;
 }
 
+void vector_clear(vector_t *self)
+{
+        if (self == NULL) {
+                return;
+        }
+
+        self->size = 0;
+}
+
 void vector_free(vector_t *self)
 {
         if (self == NULL) {
