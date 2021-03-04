@@ -22,7 +22,7 @@ int f_file_size(char const *path)
   return sb.st_size;
 }
 
-char *f_read_file(const char *filename, size_t *rlen)
+char *f_read_file(const char *filename, size_t *out_file_size)
 {
   FILE *fp;
   long len;
@@ -71,6 +71,9 @@ char *f_read_file(const char *filename, size_t *rlen)
 
   fclose(fp);
 
-  *rlen = len;
+  if (out_file_size) {
+    *out_file_size = len;
+  }
+
   return buf;
 }
