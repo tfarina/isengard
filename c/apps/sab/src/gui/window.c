@@ -24,7 +24,7 @@ enum {
 #define LIST_COL_COUNT (LIST_COL_LAST + 1)
 
 /*
- * Widgets
+ * Main window widgets.
  */
 static GtkWidget *main_window;
 static GtkUIManager *ui_manager;
