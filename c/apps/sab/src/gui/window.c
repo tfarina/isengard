@@ -34,14 +34,14 @@ static GtkToolItem *tb_delete;
 static GtkWidget *list_view;
 static GtkWidget *statusbar;
 
-static void _on_file_new_cb(GtkWidget *widget, gpointer data);
+static void _on_file_new_cb(GtkAction *action, gpointer data);
 static void _on_file_quit_cb(GtkAction *action, gpointer data);
-static void _on_edit_edit_cb(GtkWidget *widget, gpointer data);
-static void _on_edit_delete_cb(GtkWidget *widget, gpointer data);
+static void _on_edit_edit_cb(GtkAction *action, gpointer data);
+static void _on_edit_delete_cb(GtkAction *action, gpointer data);
 static void _on_view_toolbar_cb(GtkAction *action, gpointer data);
 static void _on_view_statusbar_cb(GtkAction *action, gpointer data);
 static void _on_view_fullscreen_cb(GtkAction *action, gpointer data);
-static void _on_help_about_cb(GtkWidget *widget, gpointer data);
+static void _on_help_about_cb(GtkAction *action, gpointer data);
 
 static GtkActionEntry menubar_entries[] =
 {
@@ -178,7 +178,7 @@ static gboolean _on_delete_event_cb(GtkWidget *widget,
  * File menu
  */
 
-static void _on_file_new_cb(GtkWidget *widget, gpointer data)
+static void _on_file_new_cb(GtkAction *action, gpointer data)
 {
   contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, _on_new_contact_cb);
 }
@@ -195,12 +195,12 @@ static void _on_file_quit_cb(GtkAction *action, gpointer data)
  * Edit menu
  */
 
-static void _on_edit_edit_cb(GtkWidget *widget, gpointer data)
+static void _on_edit_edit_cb(GtkAction *action, gpointer data)
 {
   _edit_selection(data);
 }
 
-static void _on_edit_delete_cb(GtkWidget *widget, gpointer data)
+static void _on_edit_delete_cb(GtkAction *action, gpointer data)
 {
   _remove_selection();
 }
@@ -258,7 +258,7 @@ static void _on_view_fullscreen_cb(GtkAction *action, gpointer data)
  * Help menu
  */
 
-static void _on_help_about_cb(GtkWidget *widget, gpointer data)
+static void _on_help_about_cb(GtkAction *action, gpointer data)
 {
   show_about_dialog(GTK_WINDOW(main_window));
 }
