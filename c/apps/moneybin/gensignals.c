@@ -96,6 +96,8 @@ int main(int argc, char **argv)
 
   ordercnt = 0;
 
+  printf("Date\tEnter\tOrder Type\tSignal\tClose\tMA (5)\n");
+
   for (pos = 0; pos < bars->numrows; pos++) {
     if (pos < window2) {
       continue;
@@ -108,10 +110,10 @@ int main(int argc, char **argv)
 
     if (crossover == TA_UP) {
       ordercnt++;
-      printf("%02d-%02d-%04d LONG  LIMIT BUY  %9.2f %9.2f MA1\n", month, day, year, *(bars->close + pos), *(ma1 + pos));
+      printf("%02d-%02d-%04d LONG  LIMIT BUY  %9.2f %9.2f\n", month, day, year, *(bars->close + pos), *(ma1 + pos));
     } else if (crossover == TA_DOWN) {
       ordercnt++;
-      printf("%02d-%02d-%04d SHORT LIMIT SELL %9.2f %9.2f MA1\n", month, day, year, *(bars->close + pos), *(ma1 + pos));
+      printf("%02d-%02d-%04d SHORT LIMIT SELL %9.2f %9.2f\n", month, day, year, *(bars->close + pos), *(ma1 + pos));
     }
   }
 
