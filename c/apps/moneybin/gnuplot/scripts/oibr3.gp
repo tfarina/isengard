@@ -1,6 +1,6 @@
 reset
 
-set title "OIBR3 Stock Chart"
+set title "OIBR3 (Daily)"
 
 set key top
 
