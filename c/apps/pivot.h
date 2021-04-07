@@ -1,6 +1,11 @@
 #ifndef PIVOT_H_
 #define PIVOT_H_
 
+/**
+ * The pivot point is the point in which the market sentiment changes from
+ * bearish to bullish.
+ */
+
 float pivot_point(float high, float low, float close);
 
 float resistance1(float pivot_point, float low);
