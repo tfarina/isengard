@@ -63,7 +63,7 @@ char *f_read_file(const char *filename, size_t *out_file_size)
 
   bytes_read = fread(buf, 1, len, fp);
   if (ferror(fp) != 0 || bytes_read != (size_t)len) {
-    fprintf(stderr, "fread failed\n");
+    fprintf(stderr, "unable to fread file %s\n", filename);
     free(buf);
     fclose(fp);
     return NULL;
