@@ -101,8 +101,12 @@ void *vector_data(vector_t const * const self);
 int vector_empty(vector_t const * const self);
 
 /**
- * Erases all elements from the container. After this call, size() returns
- * zero. Leaves the capacity() of the vector unchanged.
+ * Erases all elements from the container.
+ *
+ * After this call, size() returns zero. Leaves the capacity() of the vector
+ * unchanged.
+ *
+ * @param[in,out] self A pointer to the `vector_t` instance.
  */
 void vector_clear(vector_t *self);
 
