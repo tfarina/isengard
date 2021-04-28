@@ -10,6 +10,8 @@ TEST vector_test_alloc(void)
 
   ASSERT_EQ(0, vector_size(vp));
 
+  vector_free(vp);
+
   PASS();
 }
 
