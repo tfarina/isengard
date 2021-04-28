@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-vector_t *vector_alloc(size_t datasize, size_t capacity)
+vector_t *vector_create(size_t datasize, size_t capacity)
 {
         vector_t *self;
 
@@ -107,7 +107,7 @@ void vector_clear(vector_t *self)
         self->size = 0;
 }
 
-void vector_free(vector_t *self)
+void vector_destroy(vector_t *self)
 {
         if (self == NULL) {
                 return;

@@ -22,7 +22,7 @@ int main(void) {
         p3.x = 13;
         p3.y = 21;
 
-        vp = vector_alloc(sizeof(point_t), 2);
+        vp = vector_create(sizeof(point_t), 2);
 
         printf("%d\n", vector_size(vp));
 
@@ -39,7 +39,7 @@ int main(void) {
                 printf("x: %d, y: %d\n", point->x, point->y);
         }
 
-	vector_free(vp);
+	vector_destroy(vp);
 
         printf("%d\n", vector_size(vp));
 

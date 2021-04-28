@@ -43,7 +43,7 @@ typedef struct vector_s
  *
  * @return A new instance of vector_t or `NULL` on error.
  */
-vector_t *vector_alloc(size_t datasize, size_t capacity);
+vector_t *vector_create(size_t datasize, size_t capacity);
 
 /**
  * Inserts the specified element at the end of the array.
@@ -114,7 +114,7 @@ void vector_clear(vector_t *self);
  *
  * @param[in,out] self A pointer to the `vector_t` instance.
  */
-void vector_free(vector_t *self);
+void vector_destroy(vector_t *self);
 
 #ifdef __cplusplus
 }

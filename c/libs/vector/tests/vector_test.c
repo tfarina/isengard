@@ -2,20 +2,20 @@
 
 #include "vector.h"
 
-TEST vector_test_alloc(void)
+TEST vector_test_create(void)
 {
   vector_t *vp;
 
-  vp = vector_alloc(sizeof(int), 2);
+  vp = vector_create(sizeof(int), 2);
 
   ASSERT_EQ(0, vector_size(vp));
 
-  vector_free(vp);
+  vector_destroy(vp);
 
   PASS();
 }
 
 SUITE(vector_suite)
 {
-  RUN_TEST(vector_test_alloc);
+  RUN_TEST(vector_test_create);
 }
