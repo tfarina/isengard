@@ -25,6 +25,23 @@ vector_t *vector_create(size_t datasize, size_t capacity)
         return self;
 }
 
+void vector_destroy(vector_t *self)
+{
+        if (self == NULL) {
+                return;
+        }
+
+	if (self->data != NULL) {
+                free(self->data);
+                self->data = NULL;
+	}
+
+        self->capacity = 0;
+        self->size = 0;
+
+        free(self);
+}
+
 void vector_push_back(vector_t *self, void *element)
 {
         if (self == NULL) {
@@ -105,21 +122,4 @@ void vector_clear(vector_t *self)
         }
 
         self->size = 0;
-}
-
-void vector_destroy(vector_t *self)
-{
-        if (self == NULL) {
-                return;
-        }
-
-	if (self->data != NULL) {
-                free(self->data);
-                self->data = NULL;
-	}
-
-        self->capacity = 0;
-        self->size = 0;
-
-        free(self);
 }

@@ -54,6 +54,16 @@ typedef struct vector_s
 vector_t *vector_create(size_t datasize, size_t capacity);
 
 /**
+ * Destroys the given `vector_t` instance', freeing all memory that was
+ * allocated internally.
+ *
+ * If 'self' is NULL, no action will be performed.
+ *
+ * @param[in,out] self A pointer to the `vector_t` instance.
+ */
+void vector_destroy(vector_t *self);
+
+/**
  * Inserts the specified element at the end of the array.
  *
  * @param[in,out] self    A pointer to the `vector_t` instance (must not be NULL).
@@ -117,16 +127,6 @@ int vector_empty(vector_t const * const self);
  * @param[in,out] self A pointer to the `vector_t` instance.
  */
 void vector_clear(vector_t *self);
-
-/**
- * Destroys the given `vector_t` instance', freeing all memory that was
- * allocated internally.
- *
- * If 'self' is NULL, no action will be performed.
- *
- * @param[in,out] self A pointer to the `vector_t` instance.
- */
-void vector_destroy(vector_t *self);
 
 #ifdef __cplusplus
 }
