@@ -17,6 +17,9 @@ int main(int argc, char **argv) {
   }
 
   buf = f_read_file(argv[1], &len);
+  if (buf == NULL) {
+    return 1;
+  }
 
   lex(buf);
 
