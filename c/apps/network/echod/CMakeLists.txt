@@ -29,7 +29,7 @@ include(UninstallTarget)
 
 #=======================================================================================
 # Provides GNU standard installation directories as defined by the GNU Coding Standards:
-========================================================================================
+#=======================================================================================
 include(GNUInstallDirs)
 
 include(CheckIncludeFile)
