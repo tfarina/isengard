@@ -25,15 +25,20 @@
  *
  * Tells the compiler to perform `printf` format string checking if the
  * compiler supports it.
+ *
+ * index starts at 1.
+ *
+ * fmtarg is the index of the format argument it should check.
+ * firstvararg is the index of the first variable argument (...) it should check.
  */
 
 #if defined(MK_PRINTF)
 #undef MK_PRINTF
 #endif
 #if defined(__GNUC__)
-#define MK_PRINTF(string_index, first_to_check) __attribute__ ((__format__ (__printf__, string_index, first_to_check)))
+#define MK_PRINTF(fmtarg, firstvararg) __attribute__ ((__format__ (__printf__, fmtarg, firstvararg)))
 #else
-#define MK_PRINTF(string_index, first_to_check)
+#define MK_PRINTF(fmtarg, firstvararg)
 #endif
 
 #endif  /* !defined(_ATTRIBUTES_H_INCLUDED_) */
