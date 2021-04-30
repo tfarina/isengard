@@ -11,6 +11,7 @@
 #endif
 
 #include <limits.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -63,6 +64,18 @@ static struct option const long_options[] = {
   { "user",         required_argument, (int *) 0, 'u' },
   { (char *) 0,     no_argument,       (int *) 0,  0  }
 };
+
+static void errx(int const code, char const *format, ...) {
+  va_list ap;
+
+  va_start(ap, format);
+  fprintf(stderr, "error: ");
+  vfprintf(stderr, format, ap);
+  fprintf(stderr, "\n");
+  va_end(ap);
+
+  exit(code);
+}
 
 static void usage(int status) {
   if (status) {
@@ -183,8 +196,7 @@ void parse_args(int argc, char **argv) {
     case 'p':  /* --port */
       value = atoi(optarg);
       if (!valid_port(value)) {
-	fprintf(stderr, "%s: port number must be between 1 and 65535\n", progname);
-        exit(1);
+        errx(1, "port number must be between 1 and 65535");
       }
       opt.port = value;
       break;
@@ -192,8 +204,7 @@ void parse_args(int argc, char **argv) {
     case 'b':  /* --backlog */
       value = atoi(optarg);
       if (value <= 0) {
-	fprintf(stderr, "%s: option -b requires a non zero number\n", progname);
-	exit(1);
+	errx(1, "option -b requires a non zero number");
       }
 
       opt.backlog = value;
