@@ -12,6 +12,10 @@ void lex(const char *input)
 
   for (c = input; *c; ++c) {
     switch (*c) {
+      case '+':
+        kind = TOK_PLUS;
+        printf("<'+', PLUS>\n");
+        break;
       case '[':
         kind = TOK_LBRACKET;
         printf("<'[', LEFT_BRACKET>\n");
