@@ -63,6 +63,10 @@ vector_t *vector_create(size_t datasize, size_t capacity);
  */
 void vector_destroy(vector_t *self);
 
+/* ------------------------------------------------------------------------- */
+/* Insertion                                                                 */
+/* ------------------------------------------------------------------------- */
+
 /**
  * Inserts the specified element at the end of the array.
  *
@@ -117,6 +121,10 @@ void *vector_data(vector_t const * const self);
  * @return non-zero if the vector size is 0, zero otherwise.
  */
 int vector_empty(vector_t const * const self);
+
+/* ------------------------------------------------------------------------- */
+/* Deletion                                                                  */
+/* ------------------------------------------------------------------------- */
 
 /**
  * Erases all elements from the container.
