@@ -20,5 +20,5 @@ set terminal png enhanced
 set output 'img/bpan4.png'
 
 plot 'data/bpan4.dat' using 1:2:4:3:5 notitle with candlesticks lc rgbcolor "black", \
-     'data/bpan4.dat' using 1:8 title '5-day Moving Average' with lines lc rgbcolor "green", \
-     'data/bpan4.dat' using 1:9 title '20-day Moving Average' with lines lc rgbcolor "red"
+     'data/bpan4.dat' using 1:8 title '5-day Moving Average' with lines lc rgbcolor "red", \
+     'data/bpan4.dat' using 1:9 title '20-day Moving Average' with lines lc rgbcolor "blue"
