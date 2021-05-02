@@ -59,7 +59,7 @@ static int _create_tables(void) {
 
   rc = sqlite3_prepare_v2(conn, create_sql, -1, &create_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "error preparing create statement: %s\n", sqlite3_errmsg(conn));
+    fprintf(stderr, "error: preparing statement failed: %s\n", sqlite3_errmsg(conn));
     _close_db();
     return -1;
   }
@@ -70,7 +70,7 @@ static int _create_tables(void) {
   create_stmt = NULL;
 
   if (rc != SQLITE_DONE) {
-    fprintf(stderr, "error creating contacts table: %s\n", sqlite3_errmsg(conn));
+    fprintf(stderr, "error: step failed: %s\n", sqlite3_errmsg(conn));
     _close_db();
     return -1;
   }
