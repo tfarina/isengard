@@ -33,6 +33,11 @@ static void _close_db(void) {
   rc = sqlite3_close(conn);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errmsg(conn));
+  } else {
+    conn = NULL;
+    /*if (debug) {
+      printf("Database closed\n");
+    }*/
   }
 }
 
