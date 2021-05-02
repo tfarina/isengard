@@ -1,4 +1,4 @@
-CREATE TABLE historicaldata (
+CREATE TABLE security_price (
   id INTEGER,
   date TEXT NOT NULL,
   open REAL NOT NULL,
