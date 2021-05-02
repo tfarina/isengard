@@ -1,11 +1,11 @@
 CREATE TABLE historicaldata (
-  id INTEGER PRIMARY KEY,
-  symbol TEXT,
-  date TEXT,
-  open REAL,
-  high REAL,
-  low REAL,
-  close REAL,
-  adjClose REAL,
-  volume INTEGER
+  id INTEGER,
+  date TEXT NOT NULL,
+  open REAL NOT NULL,
+  high REAL NOT NULL,
+  low REAL NOT NULL,
+  close REAL NOT NULL,
+  adjClose REAL NOT NULL,
+  volume INTEGER,
+  PRIMARY KEY(id)
 );
