@@ -41,33 +41,21 @@ static void _close_db(void) {
   }
 }
 
-/**
- * Makes sure the 'contacts' table is created if it does not exist yet.
- *
- * @return return 0 on success, -1 otherwise.
- */
-static int _create_tables(void) {
+static int _execute_sql(char const *sql) {
   int rc;
-  sqlite3_stmt *create_stmt;
-  static const char create_sql[] =
-    "CREATE TABLE IF NOT EXISTS contacts ("
-    "  id INTEGER PRIMARY KEY,"     /* id */
-    "  fname TEXT,"                 /* first name */
-    "  lname TEXT,"                 /* last name */
-    "  email TEXT"                  /* email */
-    ");";
+  sqlite3_stmt *sql_stmt;
 
-  rc = sqlite3_prepare_v2(conn, create_sql, -1, &create_stmt, NULL);
+  rc = sqlite3_prepare_v2(conn, sql, -1, &sql_stmt, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error: preparing statement failed: %s\n", sqlite3_errmsg(conn));
     _close_db();
     return -1;
   }
 
-  rc = sqlite3_step(create_stmt);
+  rc = sqlite3_step(sql_stmt);
 
-  sqlite3_finalize(create_stmt);
-  create_stmt = NULL;
+  sqlite3_finalize(sql_stmt);
+  sql_stmt = NULL;
 
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "error: step failed: %s\n", sqlite3_errmsg(conn));
@@ -76,6 +64,26 @@ static int _create_tables(void) {
   }
 
   return 0;
+}
+
+/**
+ * Makes sure the 'contacts' table is created if it does not exist yet.
+ *
+ * @return return 0 on success, -1 otherwise.
+ */
+static int _create_tables(void) {
+  int rc;
+  static const char create_sql[] =
+    "CREATE TABLE IF NOT EXISTS contacts ("
+    "  id INTEGER PRIMARY KEY,"     /* id */
+    "  fname TEXT,"                 /* first name */
+    "  lname TEXT,"                 /* last name */
+    "  email TEXT"                  /* email */
+    ");";
+
+  rc = _execute_sql(create_sql);
+
+  return rc;
 }
 
 int ab_init(char *dbpath) {
