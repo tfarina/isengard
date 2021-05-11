@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 
   ordercnt = 0;
 
-  printf("Date\tOrder Type\tSignal\tEnter\tClose\tMA (5)\n");
+  printf("Date\tOrder Type\tSignal\tEnter\tClose\tSMA (5)\n");
 
   for (pos = 0; pos < bars->numrows; pos++) {
     if (pos < window2) {
