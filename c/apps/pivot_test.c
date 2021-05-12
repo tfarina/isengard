@@ -17,13 +17,13 @@ int main(int argc, char **argv)
   low = 59.74;
   close = 60.16;
 
-  pp = pivot_point(high, low, close);
-  s1 = support1(pp, high);
-  r1 = resistance1(pp, low);
-  r2 = resistance2(pp, r1, s1);
-  r3 = resistance3(pp, high, low);
-  s2 = support2(pp, r1, s1);
-  s3 = support3(pp, high, low);
+  pp = classic_pp_pivot_point(high, low, close);
+  s1 = classic_pp_support1(pp, high);
+  r1 = classic_pp_resistance1(pp, low);
+  r2 = classic_pp_resistance2(pp, r1, s1);
+  r3 = classic_pp_resistance3(pp, high, low);
+  s2 = classic_pp_support2(pp, r1, s1);
+  s3 = classic_pp_support3(pp, high, low);
 
   printf("Close\tHigh\tLow\n");
   printf("%.2f\t%.2f\t%.2f\n\n", close, high, low);
