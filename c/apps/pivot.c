@@ -44,9 +44,9 @@ float classic_pp_support1(float pivot_point, float high)
   return (2 * pivot_point) - high;
 }
 
-float classic_pp_support2(float pivot_point, float r1, float s1)
+float classic_pp_support2(float pivot_point, float high, float low)
 {
-  return pivot_point - (r1 - s1);
+  return pivot_point - (high - low);
 }
 
 float classic_pp_support3(float pivot_point, float high, float low)
