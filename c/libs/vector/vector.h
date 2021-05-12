@@ -82,10 +82,12 @@ void vector_push_back(vector_t *self, void *element);
 /**
  * Returns the pointer to the element at specified location index.
  *
- * @param[in,out] self  A pointer to the `vector_t` instance (must not be NULL).
- * @param[in]     index The index of the element.
+ * @param[in,out] self   A pointer to the `vector_t` instance (must not be
+ *                       NULL).
+ * @param[in]     index  The element index.
  *
- * @return Pointer to the element at specified index or `NULL` if it doesn't exists.
+ * @return Pointer to the element at specified index or `NULL` if it doesn't
+ *         exists.
  */
 void *vector_at(vector_t const * const self, int unsigned const index);
 
