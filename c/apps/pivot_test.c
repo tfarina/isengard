@@ -28,7 +28,7 @@ int main(int argc, char **argv)
   printf("Close\tHigh\tLow\n");
   printf("%.2f\t%.2f\t%.2f\n\n", close, high, low);
 
-  printf("S3: %.4f\nS2: %.4f\nS1: %.4f\nP:  %.4f\nR1: %.4f\nR2: %.4f\nR3: %.4f\n", s3, s2, s1, pp, r1, r2, r3);
+  printf("S3: %.4f\nS2: %.4f\nS1: %.4f\nPP: %.4f\nR1: %.4f\nR2: %.4f\nR3: %.4f\n", s3, s2, s1, pp, r1, r2, r3);
 
   return 0;
 }
