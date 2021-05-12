@@ -75,6 +75,10 @@ void vector_destroy(vector_t *self);
  */
 void vector_push_back(vector_t *self, void *element);
 
+/* ------------------------------------------------------------------------- */
+/* Element access                                                            */
+/* ------------------------------------------------------------------------- */
+
 /**
  * Returns the pointer to the element at specified location index.
  *
@@ -84,6 +88,10 @@ void vector_push_back(vector_t *self, void *element);
  * @return Pointer to the element at specified index or `NULL` if it doesn't exists.
  */
 void *vector_at(vector_t const * const self, int unsigned const index);
+
+/* ------------------------------------------------------------------------- */
+/* Information                                                               */
+/* ------------------------------------------------------------------------- */
 
 /**
  * Returns the current number of elements stored in the array.
