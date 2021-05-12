@@ -29,9 +29,9 @@ float classic_pp_resistance1(float pivot_point, float low)
   return (2 * pivot_point) - low;
 }
 
-float classic_pp_resistance2(float pivot_point, float r1, float s1)
+float classic_pp_resistance2(float pivot_point, float high, float low)
 {
-  return pivot_point + (r1 - s1);
+  return pivot_point + (high - low);
 }
 
 float classic_pp_resistance3(float pivot_point, float high, float low)

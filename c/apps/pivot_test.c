@@ -20,7 +20,7 @@ int main(int argc, char **argv)
   pp = classic_pp_pivot_point(high, low, close);
   s1 = classic_pp_support1(pp, high);
   r1 = classic_pp_resistance1(pp, low);
-  r2 = classic_pp_resistance2(pp, r1, s1);
+  r2 = classic_pp_resistance2(pp, high, low);
   r3 = classic_pp_resistance3(pp, high, low);
   s2 = classic_pp_support2(pp, high, low);
   s3 = classic_pp_support3(pp, high, low);
