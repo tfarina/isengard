@@ -78,6 +78,9 @@ target_link_libraries(gensignals libcsv)
 add_executable(genmovavgs sfldate.c timestamp.c crossover.c sma.c tacsv.c genmovavgs.c)
 target_link_libraries(genmovavgs libcsv)
 
+add_executable(calcpp sfldate.c timestamp.c tacsv.c pivot.c calcpp.c)
+target_link_libraries(calcpp libcsv)
+
 find_package(CURL REQUIRED)
 
 add_executable(csvget csvget.c)
