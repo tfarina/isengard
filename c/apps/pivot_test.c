@@ -5,25 +5,19 @@
 int main(int argc, char **argv)
 {
   double high, low, close;
-  double pp;
-  double r1;
-  double r2;
-  double r3;
-  double s1;
-  double s2;
-  double s3;
+  double pp, r1, r2, r3, s1, s2, s3;
 
   high = 60.82;
   low = 59.74;
   close = 60.16;
 
-  pp = classic_pp_pivot_point(high, low, close);
-  s1 = classic_pp_support1(pp, high);
-  r1 = classic_pp_resistance1(pp, low);
-  r2 = classic_pp_resistance2(pp, high, low);
-  r3 = classic_pp_resistance3(pp, high, low);
-  s2 = classic_pp_support2(pp, high, low);
-  s3 = classic_pp_support3(pp, high, low);
+  pp = pivot_classic_pp(high, low, close);
+  s1 = pivot_classic_s1(pp, high);
+  r1 = pivot_classic_r1(pp, low);
+  r2 = pivot_classic_r2(pp, high, low);
+  r3 = pivot_classic_r3(pp, high, low);
+  s2 = pivot_classic_s2(pp, high, low);
+  s3 = pivot_classic_s3(pp, high, low);
 
   printf("Close\tHigh\tLow\n");
   printf("%.2f\t%.2f\t%.2f\n\n", close, high, low);
