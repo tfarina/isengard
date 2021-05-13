@@ -10,13 +10,7 @@ int main(int argc, char **argv)
   char *filename;
   ta_bars_t *bars;
   float high, low, close;
-  float pp;
-  float r1;
-  float r2;
-  float r3;
-  float s1;
-  float s2;
-  float s3;
+  float pp, r1, r2, r3, s1, s2, s3;
 
   if (argc < 2) {
     fprintf(stderr, "usage: calcpivot <filename>\n");
