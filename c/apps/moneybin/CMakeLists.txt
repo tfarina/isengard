@@ -78,8 +78,8 @@ target_link_libraries(gensignals libcsv)
 add_executable(genmovavgs sfldate.c timestamp.c crossover.c sma.c tacsv.c genmovavgs.c)
 target_link_libraries(genmovavgs libcsv)
 
-add_executable(calcpp sfldate.c timestamp.c tacsv.c pivot.c calcpp.c)
-target_link_libraries(calcpp libcsv)
+add_executable(calcpivot sfldate.c timestamp.c tacsv.c pivot.c calcpivot.c)
+target_link_libraries(calcpivot libcsv)
 
 find_package(CURL REQUIRED)
 
@@ -109,3 +109,7 @@ target_include_directories(fetchdfp PRIVATE ${CURL_INCLUDE_DIRS})
 
 add_executable(infofina infofina.c)
 target_link_libraries(infofina mxml)
+
+add_executable(dbinit dbinit.c)
+target_include_directories(dbinit PUBLIC ${CMAKE_SOURCE_DIR})
+target_link_libraries(dbinit sqlite3 moneybin)

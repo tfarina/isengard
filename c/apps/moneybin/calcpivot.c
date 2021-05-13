@@ -19,11 +19,11 @@ int main(int argc, char **argv)
   float s3;
 
   if (argc < 2) {
-    fprintf(stderr, "usage: calcpp <filename>\n");
+    fprintf(stderr, "usage: calcpivot <filename>\n");
     putchar('\n');
     fputs("Example:\n", stdout);
     putchar('\n');
-    fputs("   calcpp BPAN4.SA.csv\n", stdout);
+    fputs("   calcpivot BPAN4.SA.csv\n", stdout);
     return 1;
   }
 
