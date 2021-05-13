@@ -12,10 +12,10 @@ int main(int argc, char **argv)
   close = 60.16;
 
   pp = pivot_classic_pp(high, low, close);
-  s1 = pivot_classic_s1(pp, high);
   r1 = pivot_classic_r1(pp, low);
   r2 = pivot_classic_r2(pp, high, low);
   r3 = pivot_classic_r3(pp, high, low);
+  s1 = pivot_classic_s1(pp, high);
   s2 = pivot_classic_s2(pp, high, low);
   s3 = pivot_classic_s3(pp, high, low);
 
