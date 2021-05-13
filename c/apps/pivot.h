@@ -6,18 +6,18 @@
  * bearish to bullish.
  */
 
-float classic_pp_pivot_point(float high, float low, float close);
+double classic_pp_pivot_point(double high, double low, double close);
 
-float classic_pp_resistance1(float pivot_point, float low);
+double classic_pp_resistance1(double pivot_point, double low);
 
-float classic_pp_resistance2(float pivot_point, float high, float low);
+double classic_pp_resistance2(double pivot_point, double high, double low);
 
-float classic_pp_resistance3(float pivot_point, float high, float low);
+double classic_pp_resistance3(double pivot_point, double high, double low);
 
-float classic_pp_support1(float pivot_point, float high);
+double classic_pp_support1(double pivot_point, double high);
 
-float classic_pp_support2(float pivot_point, float high, float low);
+double classic_pp_support2(double pivot_point, double high, double low);
 
-float classic_pp_support3(float pivot_point, float high, float low);
+double classic_pp_support3(double pivot_point, double high, double low);
 
 #endif /* PIVOT_H_ */

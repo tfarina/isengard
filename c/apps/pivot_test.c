@@ -4,14 +4,14 @@
 
 int main(int argc, char **argv)
 {
-  float high, low, close;
-  float pp;
-  float r1;
-  float r2;
-  float r3;
-  float s1;
-  float s2;
-  float s3;
+  double high, low, close;
+  double pp;
+  double r1;
+  double r2;
+  double r3;
+  double s1;
+  double s2;
+  double s3;
 
   high = 60.82;
   low = 59.74;

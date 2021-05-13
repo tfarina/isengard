@@ -19,37 +19,37 @@
 
 #include "pivot.h"
 
-float classic_pp_pivot_point(float high, float low, float close)
+double classic_pp_pivot_point(double high, double low, double close)
 {
   return (high + low + close) / 3;
 }
 
-float classic_pp_resistance1(float pivot_point, float low)
+double classic_pp_resistance1(double pivot_point, double low)
 {
   return (2 * pivot_point) - low;
 }
 
-float classic_pp_resistance2(float pivot_point, float high, float low)
+double classic_pp_resistance2(double pivot_point, double high, double low)
 {
   return pivot_point + (high - low);
 }
 
-float classic_pp_resistance3(float pivot_point, float high, float low)
+double classic_pp_resistance3(double pivot_point, double high, double low)
 {
   return high + 2 * (pivot_point - low);
 }
 
-float classic_pp_support1(float pivot_point, float high)
+double classic_pp_support1(double pivot_point, double high)
 {
   return (2 * pivot_point) - high;
 }
 
-float classic_pp_support2(float pivot_point, float high, float low)
+double classic_pp_support2(double pivot_point, double high, double low)
 {
   return pivot_point - (high - low);
 }
 
-float classic_pp_support3(float pivot_point, float high, float low)
+double classic_pp_support3(double pivot_point, double high, double low)
 {
   return low - 2 * (high - pivot_point);
 }
