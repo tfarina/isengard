@@ -109,7 +109,3 @@ target_include_directories(fetchdfp PRIVATE ${CURL_INCLUDE_DIRS})
 
 add_executable(infofina infofina.c)
 target_link_libraries(infofina mxml)
-
-add_executable(dbinit dbinit.c)
-target_include_directories(dbinit PUBLIC ${CMAKE_SOURCE_DIR})
-target_link_libraries(dbinit sqlite3 moneybin)
