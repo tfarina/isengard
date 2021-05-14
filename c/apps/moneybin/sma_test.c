@@ -28,7 +28,7 @@ int main(void)
   res = malloc(sizeof(double) * size);
   if (res == NULL) {
     fprintf(stderr, "Out of memory\n");
-    return -1;
+    return 1;
   }
 
   smovavg(arr, size, window, res);
