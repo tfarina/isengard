@@ -9,8 +9,8 @@ int main(int argc, char **argv)
   int err;
   char *filename;
   ta_bars_t *bars;
-  float high, low, close;
-  float pp, r1, r2, r3, s1, s2, s3;
+  double high, low, close;
+  double pp, r1, r2, r3, s1, s2, s3;
 
   if (argc < 2) {
     fprintf(stderr, "usage: calcpivot <filename>\n");
@@ -33,13 +33,13 @@ int main(int argc, char **argv)
   high = bars->high[bars->numrows - 1];
   low = bars->low[bars->numrows - 1];
 
-  pp = classic_pp_pivot_point(high, low, close);
-  s1 = classic_pp_support1(pp, high);
-  r1 = classic_pp_resistance1(pp, low);
-  r2 = classic_pp_resistance2(pp, r1, s1);
-  r3 = classic_pp_resistance3(pp, high, low);
-  s2 = classic_pp_support2(pp, r1, s1);
-  s3 = classic_pp_support3(pp, high, low);
+  pp = pivot_classic_pp(high, low, close);
+  r1 = pivot_classic_r1(pp, low);
+  r2 = pivot_classic_r2(pp, high, low);
+  r3 = pivot_classic_r3(pp, high, low);
+  s1 = pivot_classic_s1(pp, high);
+  s2 = pivot_classic_s2(pp, high, low);
+  s3 = pivot_classic_s3(pp, high, low);
 
   printf("Close\tHigh\tLow\n");
   printf("%.2f\t%.2f\t%.2f\n\n", close, high, low);
