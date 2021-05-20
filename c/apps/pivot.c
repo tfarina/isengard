@@ -15,6 +15,17 @@
  * First area of support = S1 = 2P - H
  * Second area of support = S2 = P - (R1 - S1)
  * Third area of support = S3 = L - 2 * (H - P)
+ *
+ *
+ * Fibonacci formulas:
+ *
+ * R3 = PP + 1.000 * (High - Low)
+ * R2 = PP + 0.618 * (High - Low)
+ * R1 = PP + 0.382 * (High - Low)
+ * PP = (High + Low + Close) / 3
+ * S1 = PP - 0.382 * (High - Low)
+ * S2 = PP - 0.618 * (High - Low)
+ * S3 = PP - 1.000 * (High - Low)
  */
 
 #include "pivot.h"
