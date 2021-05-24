@@ -7,8 +7,8 @@ set key top
 set grid
 
 set yrange [4:22]
-set ytics 1 # smaller ytics
-set mytics 1
+set ytics 2 # smaller ytics
+set mytics 2
 
 set timefmt "%Y-%m-%d"  # specify our time string format
 set xdata time          # tells gnuplot the x axis is time data
