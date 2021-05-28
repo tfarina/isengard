@@ -20,3 +20,8 @@ double growth_rate(double future_value, double present_value, double n)
 {
   return (pow(future_value / present_value, 1/n) - 1);
 }
+
+double break_even(double buy_price, double commission, int num_shares)
+{
+  return ((buy_price * num_shares) + (2 * commission)) / num_shares;
+}

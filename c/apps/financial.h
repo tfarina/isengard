@@ -28,4 +28,6 @@ double present_value(double fv, double i, double n);
  */
 double growth_rate(double future_value, double present_value, double n);
 
+double break_even(double buy_price, double commission, int num_shares);
+
 #endif  /* FINANCIAL_H_ */
