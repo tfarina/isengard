@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "crossover.h"
 #include "sma.h"
 #include "ta.h"
 
@@ -37,10 +36,6 @@ int main(int argc, char **argv)
   ta_bars_t *bars;
   double *ma1, *ma2;
   int window1 = 5 /* fast period */, window2 = 20 /* slow period */;
-  int year, month, day;
-  timestamp_t *timestamp;
-  size_t pos;
-  int crossover;
 
   if (argc < 2) {
     fprintf(stderr, "usage: genmovavgs <filename>\n");
