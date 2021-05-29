@@ -81,6 +81,8 @@ target_link_libraries(genmovavgs libcsv)
 add_executable(calcpivot sfldate.c timestamp.c tacsv.c pivot.c calcpivot.c)
 target_link_libraries(calcpivot libcsv)
 
+add_executable(ema_test ema.c ema_test.c)
+
 find_package(CURL REQUIRED)
 
 add_executable(csvget csvget.c)
