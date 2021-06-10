@@ -6,7 +6,7 @@ set key top
 
 set grid
 
-set yrange [4:22]
+set yrange [4:24]
 set ytics 2 # smaller ytics
 set mytics 2
 
