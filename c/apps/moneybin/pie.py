@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 
-labels= ['REN', 'EDP', 'GALP', 'REPSOL', 'TELEFONICA', 'ENAGAS']
+labels= ['REN', 'REPSOL', 'TELEFONICA', 'ENAGAS', 'GALP', 'NOS']
 
 colors=['blue', 'red', 'orange', 'yellow', 'purple', 'green']
 
-sizes= [30, 2, 8, 20, 20, 20]
+sizes= [42.65, 16.20, 16.19, 16.19, 6.49, 2.28]
 
 plt.pie(sizes,labels=labels, colors=colors, startangle=90, autopct='%1.1f%%')
 
