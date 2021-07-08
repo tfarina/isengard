@@ -11,7 +11,7 @@ set yrange [4:25]
 set ytics 1 # smaller ytics
 set mytics 1
 
-set timefmt "%Y-%m-%d"  # specify our time string format
+set timefmt "%Y-%m-%d"  # tells gnuplot the time format of the date in the dat file
 set xdata time          # tells gnuplot the x axis is time data
 
 # Set the format of the dates on the x axis.
