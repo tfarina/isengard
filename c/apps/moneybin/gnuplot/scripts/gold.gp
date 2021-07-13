@@ -13,7 +13,7 @@ set timefmt "%Y"
 # Horizontal (time) axis layout
 set xdata time    # tells gnuplot the x axis is time data
 set xrange ["1971":"2020"]
-set xtics format "%Y"
+set format x "%Y"
 set mxtics 5
 
 set yrange [10:1800]
