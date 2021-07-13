@@ -7,7 +7,10 @@ set title font "Helvetica,14"
 
 unset key
 
-set timefmt "%Y"  # tells gnuplot the time format of the date in the dat file
+# Tells gnuplot the input format in which the date is at the data file.
+set timefmt "%Y"
+
+# Horizontal (time) axis layout
 set xdata time    # tells gnuplot the x axis is time data
 set xrange ["1971":"2020"]
 set xtics format "%Y"
