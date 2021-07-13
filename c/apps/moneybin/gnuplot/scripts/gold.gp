@@ -14,6 +14,7 @@ set timefmt "%Y"
 set xdata time    # tells gnuplot the x axis is time data
 set xrange ["1971":"2020"]
 set xtics format "%Y"
+set mxtics 5
 
 set yrange [10:1800]
 set ytics 50, 250, 1800
