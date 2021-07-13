@@ -16,8 +16,10 @@ set xrange ["1971":"2020"]
 set format x "%Y"
 set mxtics 5
 
-set yrange [10:1800]
-set ytics 50, 250, 1800
 set ylabel "U.S. dollars (US$) per troy ounce"
+set yrange [0:2000]
+set ytics 250
+set mytics 5
+
 
 plot 'data/gold.dat' using 1:2 with lines lc rgbcolor "blue"
