@@ -14,25 +14,25 @@
  *     //=>   │       └─(2+3+4+5)/4
  *     //=>   └─(1+2+3+4)/4
  */
-void smovavg(double const *arr, size_t size, int window, double *outarr)
+void smovavg(double const *arr, size_t size, int period, double *outarr)
 {
   int i;
   double sum = 0;
 
   /* Calculate the average for each of the first elements. */
-  for (i = 0; i < window; i++) {
+  for (i = 0; i < period; i++) {
     sum += *(arr + i);
 
     *(outarr + i) = sum / (i + 1);
   }
 
-  for (i = window; i < size; i++) {
-    sum -= *(arr + i - window);  /* Remove the old elements from the sum */
+  for (i = period; i < size; i++) {
+    sum -= *(arr + i - period);  /* Remove the old elements from the sum */
 
     sum += *(arr + i);  /* Add the new (or most recent) elements to the sum */
 
 
     /* Calculate the average */
-    *(outarr + i) = sum / window;
+    *(outarr + i) = sum / period;
   }
 }
