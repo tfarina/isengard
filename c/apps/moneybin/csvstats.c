@@ -11,6 +11,7 @@ int main(int argc, char **argv) {
   double min;
   double max;
   double avg;
+  double stdev;
 
   if (argc != 2) {
     fputs("usage: csvcat filename.csv\n", stderr);
@@ -27,10 +28,11 @@ int main(int argc, char **argv) {
   stats_min(bars->close, bars->numrows, &min);
   stats_max(bars->close, bars->numrows, &max);
   stats_avg(bars->close, bars->numrows, &avg);
+  stats_stdev(bars->close, bars->numrows, &stdev);
 
-  printf("      Min       Max      Mean\n");
+  printf("      Min       Max      Mean       Stdev\n");
 
-  printf("%9.3f %9.3f %9.3f", min, max, avg);
+  printf("%9.3f %9.3f %9.3f %9.3f", min, max, avg, stdev);
 
   printf("\n");
 
