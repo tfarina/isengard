@@ -1,0 +1,8 @@
+In order to update the OSCILLATOR-RSI.xlsx spreadsheet do the following:
+
+$ tail -n 15 BPAN4.SA.csv
+
+Copy the terminal output, open the spreadsheet, select the A2 cell,
+paste the output, choose 'Comma' separator, press OK and you are done.
+
+Everything should be recalculated.
