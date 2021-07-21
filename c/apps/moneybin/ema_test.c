@@ -22,7 +22,7 @@ int main(void)
 {
   double arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
   size_t size = ARRAY_SIZE(arr);
-  int window = 4;
+  int period = 4;
   double *res;
 
   res = malloc(sizeof(double) * size);
@@ -31,7 +31,7 @@ int main(void)
     return 1;
   }
 
-  ema(arr, size, window, res);
+  ema(arr, size, period, res);
 
   print_array(arr, size);
   print_array(res, size);
