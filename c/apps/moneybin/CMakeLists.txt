@@ -83,6 +83,9 @@ target_link_libraries(calcpivot libcsv)
 
 add_executable(ema_test ema.c ema_test.c)
 
+add_executable(calcrsi sfldate.c timestamp.c tacsv.c calcrsi.c)
+target_link_libraries(calcrsi libcsv)
+
 find_package(CURL REQUIRED)
 
 add_executable(csvget csvget.c)
@@ -111,3 +114,7 @@ target_include_directories(fetchdfp PRIVATE ${CURL_INCLUDE_DIRS})
 
 add_executable(infofina infofina.c)
 target_link_libraries(infofina mxml)
+
+add_executable(dbinit dbinit.c)
+target_include_directories(dbinit PUBLIC ${CMAKE_SOURCE_DIR})
+target_link_libraries(dbinit sqlite3 moneybin)
