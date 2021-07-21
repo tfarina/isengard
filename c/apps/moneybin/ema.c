@@ -14,7 +14,7 @@ void ema(double const *arr, size_t size, int lookback_period, double *outarr)
   *outarr++ = val;
 
   for (i = 1; i < size; i++) {
-    /* EMA = [close - EMA(previous day)] * multiplier + EMA(previous day)*/
+    /* EMA = (close - prev_day_ema) * k + prev_day_ema */
     val = (*(arr + i) - val) * k + val;
 
     *outarr++ = val;
