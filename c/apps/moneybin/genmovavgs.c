@@ -67,8 +67,8 @@ int main(int argc, char **argv)
   }
 
   /* Calculate the moving averages. */
-  smovavg(bars->close, bars->numrows, window1, ma1);
-  smovavg(bars->close, bars->numrows, window2, ma2);
+  sma(bars->close, bars->numrows, window1, ma1);
+  sma(bars->close, bars->numrows, window2, ma2);
 
   print_movavg(bars, ma1, ma2);
 

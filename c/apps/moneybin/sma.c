@@ -14,7 +14,7 @@
  *     //=>   │       └─(2+3+4+5)/4
  *     //=>   └─(1+2+3+4)/4
  */
-void smovavg(double const *arr, size_t size, int period, double *outarr)
+void sma(double const *arr, size_t size, int period, double *outarr)
 {
   int i;
   double sum = 0;

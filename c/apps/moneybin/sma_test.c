@@ -31,7 +31,7 @@ int main(void)
     return 1;
   }
 
-  smovavg(arr, size, period, res);
+  sma(arr, size, period, res);
 
   print_array(arr, size);
   print_array(res, size);
