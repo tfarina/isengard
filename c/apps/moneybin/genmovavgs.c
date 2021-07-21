@@ -35,7 +35,8 @@ int main(int argc, char **argv)
   char *filename;
   ta_bars_t *bars;
   double *ma1, *ma2;
-  int window1 = 5 /* fast period */, window2 = 20 /* slow period */;
+  int period1 = 5;  /* fast period */
+  int period2 = 20; /* slow period */
 
   if (argc < 2) {
     fprintf(stderr, "usage: genmovavgs <filename>\n");
@@ -67,8 +68,8 @@ int main(int argc, char **argv)
   }
 
   /* Calculate the moving averages. */
-  sma(bars->close, bars->numrows, window1, ma1);
-  sma(bars->close, bars->numrows, window2, ma2);
+  sma(bars->close, bars->numrows, period1, ma1);
+  sma(bars->close, bars->numrows, period2, ma2);
 
   print_movavg(bars, ma1, ma2);
 

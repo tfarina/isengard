@@ -51,7 +51,8 @@ int main(int argc, char **argv)
   char *filename;
   ta_bars_t *bars;
   double *ma1, *ma2;
-  int window1 = 5 /* fast period */, window2 = 20 /* slow period */;
+  int period1 = 5;  /* fast period */
+  int period2 = 20; /* slow period */
   int year, month, day;
   timestamp_t *timestamp;
   size_t pos;
@@ -84,8 +85,8 @@ int main(int argc, char **argv)
   }
 
   /* Calculate the moving averages. */
-  sma(bars->close, bars->numrows, window1, ma1);
-  sma(bars->close, bars->numrows, window2, ma2);
+  sma(bars->close, bars->numrows, period1, ma1);
+  sma(bars->close, bars->numrows, period2, ma2);
 
   print_array(bars->close, bars->numrows);
   print_array(ma1, bars->numrows);
@@ -98,7 +99,7 @@ int main(int argc, char **argv)
   printf("Date\tSignal\tClose\tSMA (5)\n");
 
   for (pos = 0; pos < bars->numrows; pos++) {
-    if (pos < window2) {
+    if (pos < period2) {
       continue;
     }
 
