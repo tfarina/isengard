@@ -110,10 +110,10 @@ int main(int argc, char **argv)
 
     if (crossover == TA_UP) {
       ordercnt++;
-      printf("%02d-%02d-%04d BUY %9.2f %9.2f\n", month, day, year, *(bars->close + pos), *(ma1 + pos));
+      printf("%04d-%02d-%02d BUY %9.2f %9.2f\n", year, month, day, *(bars->close + pos), *(ma1 + pos));
     } else if (crossover == TA_DOWN) {
       ordercnt++;
-      printf("%02d-%02d-%04d SELL %9.2f %9.2f\n", month, day, year, *(bars->close + pos), *(ma1 + pos));
+      printf("%04d-%02d-%02d SELL %9.2f %9.2f\n", year, month, day, *(bars->close + pos), *(ma1 + pos));
     }
   }
 
