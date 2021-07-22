@@ -121,6 +121,7 @@ int main(int argc, char *argv[])
   time_t now;
   time_t one_year_ago;
   struct tm* now_tm;
+  struct tm* start_tm;
   char start_date_str[12];
   char end_date_str[12];
   buffer_t buf;
@@ -136,12 +137,12 @@ int main(int argc, char *argv[])
   symbol = f_strdup(argv[1]);
 
   now = time(NULL); /* get time right now */
-  now_tm = localtime(&now);
+  now_tm = start_tm = localtime(&now);
   strftime(end_date_str, sizeof(end_date_str), "%F", now_tm);
 
-  now_tm->tm_year = now_tm->tm_year - 1; /* Calculate 1 year ago date */
-  strftime(start_date_str, sizeof(start_date_str), "%F", now_tm);
-  one_year_ago = mktime(now_tm);
+  start_tm->tm_year = now_tm->tm_year - 1; /* Calculate 1 year ago date */
+  strftime(start_date_str, sizeof(start_date_str), "%F", start_tm);
+  one_year_ago = mktime(start_tm);
 
   /* TODO: Write this into a log file instead. So it can be inspected after the program ends. */
   if (verbose) {
