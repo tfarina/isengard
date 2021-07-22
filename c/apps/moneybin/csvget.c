@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
 
     printf("Start Date: %s\n", start_date_str);
     printf("End Date: %s\n", end_date_str);
-    printf("Period: Daily\n\n");
+    printf("Frequency: Daily\n\n");
   }
 
   result = curl_global_init(CURL_GLOBAL_DEFAULT);
