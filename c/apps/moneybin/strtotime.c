@@ -3,6 +3,13 @@
 #include <string.h>
 #include <stdio.h>
 
+/**
+ * ISO 8601 Date and Time Format:
+ *
+ * YYYY-MM-DD
+ *
+ * https://www.iso.org/iso-8601-date-and-time-format.html
+ */
 static time_t str_to_time(char const *str) {
   struct tm time_tm;
   time_t unixtime;
