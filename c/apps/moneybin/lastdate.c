@@ -167,7 +167,7 @@ int main(void)
 
   ld = parse_date(lastdate, '-');
   tim = localtime(&ld);
-  strftime(last_date_str, sizeof(last_date_str), "%F", tim);
+  strftime(last_date_str, sizeof(last_date_str), "%Y-%m-%d", tim);
   printf("%s\n", last_date_str);
 
   (void)dba_result_deinit(result);

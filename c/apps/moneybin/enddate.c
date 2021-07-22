@@ -11,7 +11,7 @@ int main(void)
 
   now = time(NULL); /* get time right now */
   now_tm = localtime(&now);
-  strftime(end_date_str, sizeof(end_date_str), "%F", now_tm);
+  strftime(end_date_str, sizeof(end_date_str), "%Y-%m-%d", now_tm);
 
   printf("%s\n", end_date_str);
 
