@@ -91,7 +91,7 @@ target_link_libraries(calcrsi libcsv)
 
 find_package(CURL REQUIRED)
 
-add_executable(csvget csvget.c)
+add_executable(csvget iso8601.c csvget.c)
 target_link_libraries(csvget moneybin ${CURL_LIBRARIES})
 target_include_directories(csvget PRIVATE ${CURL_INCLUDE_DIRS})
 

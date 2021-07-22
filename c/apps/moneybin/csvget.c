@@ -10,6 +10,7 @@
 #include "curl_write_callbacks.h"
 #include "ffileutils.h"
 #include "fstrutils.h"
+#include "iso8601.h"
 
 #define BUFSIZE 128
 #define MAXURLLEN 256
@@ -138,14 +139,15 @@ int main(int argc, char *argv[])
 
   now = time(NULL); /* get time right now */
   now_tm = start_tm = localtime(&now);
-  strftime(end_date_str, sizeof(end_date_str), "%Y-%m-%d", now_tm);
 
   start_tm->tm_year = now_tm->tm_year - 1; /* Calculate 1 year ago date */
-  strftime(start_date_str, sizeof(start_date_str), "%Y-%m-%d", start_tm);
   one_year_ago = mktime(start_tm);
 
   /* TODO: Write this into a log file instead. So it can be inspected after the program ends. */
   if (verbose) {
+    time_to_str(one_year_ago, start_date_str, sizeof(start_date_str));
+    time_to_str(now, end_date_str, sizeof(end_date_str));
+
     printf("Start Date: %s\n", start_date_str);
     printf("End Date: %s\n", end_date_str);
     printf("Period: Daily\n\n");
