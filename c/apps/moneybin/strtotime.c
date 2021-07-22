@@ -35,7 +35,7 @@ static void time_to_str(time_t t, char *dst, int len) {
   }
 
   time_tm = localtime(&t);
-  strftime(dst, len, "%D", time_tm);
+  strftime(dst, len, "%Y-%m-%d", time_tm);
 }
 
 int main(int argc, char **argv) {
