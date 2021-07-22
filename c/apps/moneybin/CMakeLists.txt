@@ -78,6 +78,9 @@ target_link_libraries(gensignals libcsv)
 add_executable(genmovavgs sfldate.c timestamp.c crossover.c sma.c tacsv.c genmovavgs.c)
 target_link_libraries(genmovavgs libcsv)
 
+add_executable(genexpma sfldate.c timestamp.c ema.c tacsv.c genexpma.c)
+target_link_libraries(genexpma libcsv)
+
 add_executable(calcpivot sfldate.c timestamp.c tacsv.c pivot.c calcpivot.c)
 target_link_libraries(calcpivot libcsv)
 
