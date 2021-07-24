@@ -58,9 +58,14 @@ int main(int argc, char **argv)
   double rs = upavg / downavg;
   printf("RS: %.2f\n", rs);
 
-  double rsi = 100 - (100 / (1 + rs));
+  /* Allocate memory for RSI array. */
+  double *rsi;
 
-  printf("RSI: %.2f\n", rsi);
+  rsi = malloc(sizeof(double) * bars->numrows);
+
+  rsi[period] = 100 - (100 / (1 + rs));
+
+  printf("RSI: %.2f\n", rsi[period]);
 
   return 0;
 }
