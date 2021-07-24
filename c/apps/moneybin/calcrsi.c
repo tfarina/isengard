@@ -9,7 +9,7 @@ int main(int argc, char **argv)
   char *filename;
   ta_bars_t *bars;
   double *close;
-  double *res;
+  double *rsi;
 
   if (argc < 2) {
     fprintf(stderr, "usage: calcrsi <filename>\n");
@@ -30,9 +30,11 @@ int main(int argc, char **argv)
 
   close = bars->close;
 
-  res = malloc(sizeof(double) * bars->numrows);
-  if (res == NULL) {
-    return -1;
+  /* Allocate memory for RSI array. */
+  rsi = malloc(sizeof(double) * bars->numrows);
+  if (rsi == NULL) {
+    fprintf(stderr, "Out of memory\n");
+    return 1;
   }
 
   double upavg, downavg;
@@ -57,11 +59,6 @@ int main(int argc, char **argv)
 
   double rs = upavg / downavg;
   printf("RS: %.2f\n", rs);
-
-  /* Allocate memory for RSI array. */
-  double *rsi;
-
-  rsi = malloc(sizeof(double) * bars->numrows);
 
   rsi[period] = 100 - (100 / (1 + rs));
 
