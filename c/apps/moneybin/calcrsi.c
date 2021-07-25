@@ -65,31 +65,37 @@ void down_average(double const *a1, size_t size, int period, double *a2)
 
 void ind_rsi(double const *close, size_t size, int period, double *rsi)
 {
-  double upavg = 0, downavg = 0;
+  double *gains;
+  double *losses;
   int i;
 
-  for (i = 1; i <= period; i++) {
-    double upward = close[i] > close[i-1] ? close[i] - close[i-1] : 0;
-    double downward = close[i] < close[i-1] ? close[i-1] - close[i] : 0;
-
-    upavg += upward;
-    downavg += downward;
+  /* Allocate memory for Gains array. */
+  gains = malloc(sizeof(double) * size);
+  if (gains == NULL) {
+    fprintf(stderr, "Out of memory\n");
+    return;
   }
-  printf("Gain: %.2f\n", upavg);
-  printf("Loss: %.2f\n", downavg);
 
-  upavg /= period;
-  downavg /= period;
+  /* Allocate memory for Losses array. */
+  losses = malloc(sizeof(double) * size);
+  if (losses == NULL) {
+    fprintf(stderr, "Out of memory\n");
+    return;
+  }
 
-  printf("Avg Gain: %.2f\n", upavg);
-  printf("Avg Loss: %.2f\n", downavg);
+  up_average(close, size, period, gains);
+  down_average(close, size, period, losses);
 
-  double rs = upavg / downavg;
-  printf("RS: %.2f\n", rs);
+  for (i = period; i < size; i++) {
+    double rs = gains[i] / losses[i];
+    printf("RS: %.2f\n", rs);
 
-  rsi[period] = 100 - (100 / (1 + rs));
+    rsi[i] = 100 - (100 / (1 + rs));
+    printf("RSI: %.2f\n", rsi[i]);
+  }
 
-  printf("RSI: %.2f\n", rsi[period]);
+  free(gains);
+  free(losses);
 }
 
 int main(int argc, char **argv)
@@ -98,8 +104,6 @@ int main(int argc, char **argv)
   char *filename;
   ta_bars_t *bars;
   double *close;
-  double *gains;
-  double *losses;
   double *rsi;
 
   int period = 14;
@@ -128,28 +132,6 @@ int main(int argc, char **argv)
   if (rsi == NULL) {
     fprintf(stderr, "Out of memory\n");
     return 1;
-  }
-
-  /* Allocate memory for Gains array. */
-  gains = malloc(sizeof(double) * bars->numrows);
-  if (gains == NULL) {
-    fprintf(stderr, "Out of memory\n");
-    return 1;
-  }
-
-  /* Allocate memory for Losses array. */
-  losses = malloc(sizeof(double) * bars->numrows);
-  if (losses == NULL) {
-    fprintf(stderr, "Out of memory\n");
-    return 1;
-  }
-
-  up_average(close, bars->numrows, period, gains);
-  down_average(close, bars->numrows, period, losses);
-  int i;
-  for (i = period; i < bars->numrows; i++) {
-    rsi[i] = 100 - (100 / (1 + gains[i]/losses[i]));
-    printf("RSI: %.2f\n", rsi[i]);
   }
 
   ind_rsi(close, bars->numrows, period, rsi);
