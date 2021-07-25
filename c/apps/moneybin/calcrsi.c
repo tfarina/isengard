@@ -146,6 +146,11 @@ int main(int argc, char **argv)
 
   up_average(close, bars->numrows, period, gains);
   down_average(close, bars->numrows, period, losses);
+  int i;
+  for (i = period; i < bars->numrows; i++) {
+    rsi[i] = 100 - (100 / (1 + gains[i]/losses[i]));
+    printf("RSI: %.2f\n", rsi[i]);
+  }
 
   ind_rsi(close, bars->numrows, period, rsi);
 
