@@ -21,6 +21,16 @@ void up_average(double const *a1, size_t size, int period, double *a2)
 
   printf("Sum: %.2f\n", sum);
   printf("Up Average: %.2f\n", a2[i - 1]);
+
+  for (; i < size; i++) {
+    if (a1[i] > a1[i - 1]) {
+      sum = a1[i] - a1[i - 1];
+    } else {
+      sum = 0;
+    }
+    a2[i] = ((a2[i - 1] * (period - 1)) + sum) / period;
+  }
+  printf("Up Average: %.2f\n", a2[i - 1]);
 }
 
 void down_average(double const *a1, size_t size, int period, double *a2)
@@ -40,7 +50,16 @@ void down_average(double const *a1, size_t size, int period, double *a2)
 
   a2[i - 1] = sum / period;
 
+  printf("Down Average: %.2f\n", a2[i - 1]);
 
+  for (; i < size; i++) {
+    if (a1[i] < a1[i - 1]) {
+      sum = a1[i - 1] - a1[i];
+    } else {
+      sum = 0;
+    }
+    a2[i] = ((a2[i - 1] * (period - 1)) + sum) / period;
+  }
   printf("Down Average: %.2f\n", a2[i - 1]);
 }
 
