@@ -9,7 +9,6 @@ int main(int argc, char **argv)
   int err;
   char *filename;
   ta_bars_t *bars;
-  double *close;
   double *rsi;
   int period = 14;
 
@@ -30,8 +29,6 @@ int main(int argc, char **argv)
     return err;
   }
 
-  close = bars->close;
-
   /* Allocate memory for RSI array. */
   rsi = malloc(sizeof(double) * bars->numrows);
   if (rsi == NULL) {
@@ -39,7 +36,7 @@ int main(int argc, char **argv)
     return 1;
   }
 
-  ind_rsi(close, bars->numrows, period, rsi);
+  ind_rsi(bars->close, bars->numrows, period, rsi);
 
   return 0;
 }
