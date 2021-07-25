@@ -86,7 +86,7 @@ target_link_libraries(calcpivot libcsv)
 
 add_executable(ema_test ema.c ema_test.c)
 
-add_executable(calcrsi sfldate.c timestamp.c tacsv.c calcrsi.c)
+add_executable(calcrsi sfldate.c timestamp.c tacsv.c rsi.c calcrsi.c)
 target_link_libraries(calcrsi libcsv)
 
 find_package(CURL REQUIRED)
