@@ -2,7 +2,7 @@ reset
 
 set title "Twitter (TWTR) (Daily) \n 23-Jul-2021      Close: $71.69"
 
-set key top
+set key top left
 
 set grid
 
@@ -20,5 +20,5 @@ set terminal png enhanced
 set output 'img/twtr_sma.png'
 
 plot 'data/twtr_sma.dat' using 1:5 notitle with lines lc rgbcolor "black", \
-     'data/twtr_sma.dat' using 1:8 title '5-day Simple Moving Average' with lines lc rgbcolor "green", \
-     'data/twtr_sma.dat' using 1:9 title '20-day Simple Moving Average' with lines lc rgbcolor "red"
+     'data/twtr_sma.dat' using 1:8 title 'SMA(5)' with lines lc rgbcolor "green", \
+     'data/twtr_sma.dat' using 1:9 title 'SMA(20)' with lines lc rgbcolor "red"

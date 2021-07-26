@@ -2,7 +2,7 @@ reset
 
 set title "Twitter (TWTR) (Daily) \n 23-Jul-2021      Close: $71.69"
 
-set key top
+set key top left
 
 set grid
 
@@ -20,5 +20,5 @@ set terminal png enhanced
 set output 'img/twtr_ema.png'
 
 plot 'data/twtr_ema.dat' using 1:5 notitle with lines lc rgbcolor "black", \
-     'data/twtr_ema.dat' using 1:8 title '12-day Exp Moving Average' with lines lc rgbcolor "green", \
-     'data/twtr_ema.dat' using 1:9 title '26-day Exp Moving Average' with lines lc rgbcolor "red"
+     'data/twtr_ema.dat' using 1:8 title 'EMA(12)' with lines lc rgbcolor "green", \
+     'data/twtr_ema.dat' using 1:9 title 'EMA(26)' with lines lc rgbcolor "red"
