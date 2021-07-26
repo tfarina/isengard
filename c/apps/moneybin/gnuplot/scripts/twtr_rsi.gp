@@ -7,9 +7,11 @@ set key top
 set grid
 
 set yrange [0:100]
-set ytics 10 # smaller ytics
-set mytics 1
+set ytics 10,20
 set ylabel "Relative Strength Index"
+
+set arrow from graph 0, first 70 to graph 1, first 70 nohead
+set arrow from graph 0, first 30 to graph 1, first 30 nohead
 
 set timefmt "%Y-%m-%d"  # specify our time string format
 set xdata time          # tells gnuplot the x axis is time data
