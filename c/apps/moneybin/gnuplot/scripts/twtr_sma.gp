@@ -1,6 +1,6 @@
 reset
 
-set title "Twitter (TWTR) (Daily) - 2021-07-23 - Close: $71.69"
+set title "Twitter (TWTR) (Daily) \n 23-Jul-2021      Close: $71.69"
 
 set key top
 
