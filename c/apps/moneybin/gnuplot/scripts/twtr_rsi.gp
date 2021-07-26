@@ -2,7 +2,7 @@ reset
 
 set title "Twitter (TWTR) (Daily) \n 23-Jul-2021      Close: $71.69"
 
-set key top
+set key top left
 
 set grid
 
@@ -22,4 +22,4 @@ set xtics rotate # rotate labels on the x axis
 set terminal png enhanced
 set output 'img/twtr_rsi.png'
 
-plot 'data/twtr_rsi.dat' using 1:8 notitle with lines lc rgbcolor "blue" 
+plot 'data/twtr_rsi.dat' using 1:8 title 'RSI(14) 65.77' with lines lc rgbcolor "blue"
