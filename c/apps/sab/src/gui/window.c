@@ -14,6 +14,9 @@
 #define WINDOW_WIDTH 610
 #define WINDOW_HEIGHT 377
 
+/*
+ * Constants for accessing columns in a GtkListStore.
+ */
 enum {
   LIST_COL_FIRST_NAME = 0,
   LIST_COL_LAST_NAME,
