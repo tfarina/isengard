@@ -53,7 +53,7 @@
 #define ULOG_DST_FILE    1
 
 static char log_ident[32];
-static ulog_level_t log_level = ULOG_INFO;
+static ulog_level_t current_loglevel = ULOG_INFO;
 static int log_dst = ULOG_DST_TERM;
 static int log_fd = -1;
 
@@ -83,7 +83,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
   /*
    * Check if user is interested in logging this message.
    */
-  if (level > log_level) {
+  if (level > current_loglevel) {
     return;
   }
 
