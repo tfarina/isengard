@@ -82,6 +82,12 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
 
   /*
    * Check if user is interested in logging this message.
+   *
+   * Example: If current level is at WARN (2) and the code came here through
+   * calling ulog_info function, then level will be INFO (4), which means in
+   * this case with the current settings we are not interested in seeing
+   * info messages. To see them the user would have to increase the verbosity
+   * level.
    */
   if (level > current_loglevel) {
     return;
