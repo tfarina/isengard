@@ -119,20 +119,22 @@ void ulog_open(char const *ident) {
   }
 }
 
-void ulog_set_file(char const *log_file) {
+int ulog_set_file(char const *log_file) {
   int fd;
 
   if (log_file == NULL || *log_file == '\0') {
-    return;
+    return -1;
   }
 
   fd = open(log_file, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
   if (fd < 0) {
-    return;
+    return -1;
   }
 
   log_fd = fd;
   log_dst = ULOG_DST_FILE;
+
+  return 0;
 }
 
 /**
