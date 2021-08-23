@@ -34,6 +34,7 @@ static GtkUIManager *ui_manager;
 static GtkWidget *toolbar;
 static GtkToolItem *tb_edit;
 static GtkToolItem *tb_delete;
+static GtkListStore *list_store;
 static GtkWidget *list_view;
 static GtkWidget *statusbar;
 
@@ -315,6 +316,42 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
   }
 }
 
+static gboolean _on_list_button_pressed_cb(GtkTreeView *widget,
+                                           GdkEventButton *event,
+                                           gpointer data)
+{
+  GtkTreePath *path;
+  GtkTreeViewColumn *column;
+  GtkTreeIter iter;
+  ab_contact_t *contact;
+
+  if (event->window != gtk_tree_view_get_bin_window(widget)) {
+    return FALSE;
+  }
+
+  /* Figure out which node was clicked. */
+  if (!gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(list_view), event->x, event->y, &path, &column, NULL, NULL)) {
+    return FALSE;
+  }
+  if (column == gtk_tree_view_get_column(GTK_TREE_VIEW(list_view), 0)) {
+    gtk_tree_path_free(path);
+    return FALSE;
+  }
+
+  gtk_tree_model_get_iter(GTK_TREE_MODEL(list_store), &iter, path);
+  gtk_tree_path_free(path);
+  gtk_tree_model_get(GTK_TREE_MODEL(list_store), &iter, LIST_COL_PTR, &contact, -1);
+
+  if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
+    if (contact != NULL) {
+      contact_editor_new(GTK_WINDOW(main_window), AC_EDIT, contact, _on_edit_contact_cb);
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
 /*
  * Contact editor callbacks
  */
@@ -500,7 +537,6 @@ void addrbook_window_new(void)
   GtkWidget *vbox;
   GtkWidget *menubar;
   GtkWidget *scrolledwin;
-  GtkListStore *list_store;
   GtkTreeSelection *selection;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
@@ -553,6 +589,10 @@ void addrbook_window_new(void)
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
   g_signal_connect(selection, "changed",
 		   G_CALLBACK(_on_selection_changed_cb), NULL);
+
+  /* Handle double-clicking. */
+  g_signal_connect(list_view, "button_press_event",
+		   G_CALLBACK(_on_list_button_pressed_cb), NULL);
 
   /* Create the columns. */
   renderer = gtk_cell_renderer_text_new();
