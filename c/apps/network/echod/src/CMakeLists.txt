@@ -49,3 +49,5 @@ set_target_properties(${PROGRAM} PROPERTIES LINKER_LANGUAGE C)
 install(TARGETS ${PROGRAM}
         RUNTIME DESTINATION ${CMAKE_INSTALL_SBINDIR}
 )
+
+add_executable(verbosity getopt.c getopt1.c verbosity.c)
