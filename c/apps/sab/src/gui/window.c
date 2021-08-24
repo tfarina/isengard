@@ -37,6 +37,7 @@ static GtkToolItem *tb_delete;
 static GtkListStore *list_store;
 static GtkWidget *list_view;
 static GtkWidget *statusbar;
+static guint statusbar_cid;
 
 static void _on_file_new_cb(GtkAction *action, gpointer data);
 static void _on_file_quit_cb(GtkAction *action, gpointer data);
@@ -618,6 +619,8 @@ void addrbook_window_new(void)
   gtk_box_pack_start(GTK_BOX(vbox), statusbar, FALSE, TRUE, 0);
 
   gtk_widget_show_all(main_window);
+
+  statusbar_cid = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "Address Book Window");
 
   _populate_list_view(list_store);
 }
