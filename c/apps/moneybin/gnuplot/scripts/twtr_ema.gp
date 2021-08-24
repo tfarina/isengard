@@ -1,5 +1,7 @@
 reset
 
+set terminal png enhanced
+
 set title "Twitter (TWTR) (Daily) \n 19-Aug-2021      Close: $62.05"
 
 set key top left
@@ -14,9 +16,7 @@ set timefmt "%Y-%m-%d"  # specify our time string format
 set xdata time          # tells gnuplot the x axis is time data
 set format x "%b\n%y"
 
-#set xtics rotate # rotate labels on the x axis
-
-set terminal png enhanced
+# Name our output file.
 set output 'img/twtr_ema.png'
 
 plot 'data/twtr_ema.dat' using 1:5 notitle with lines lc rgbcolor "black", \
