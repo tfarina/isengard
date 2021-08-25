@@ -574,19 +574,25 @@ void addrbook_window_new(void)
   /*
    * List view
    */
+
+  /* Setup the scrolled window. */
   scrolledwin = gtk_scrolled_window_new(NULL, NULL);
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwin),
                                  GTK_POLICY_AUTOMATIC,
                                  GTK_POLICY_AUTOMATIC);
 
+  /* Create the list store. */
   list_store = gtk_list_store_new(LIST_COL_COUNT,
                                   G_TYPE_STRING,    /* First name */
                                   G_TYPE_STRING,    /* Last name */
                                   G_TYPE_STRING,    /* Email */
                                   G_TYPE_POINTER);  /* Contact pointer */
+
+  /* Create the list view. */
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
   g_object_unref(list_store);
 
+  /* Set selection properties. */
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
   g_signal_connect(selection, "changed",
 		   G_CALLBACK(_on_selection_changed_cb), NULL);
@@ -609,6 +615,7 @@ void addrbook_window_new(void)
                                                     renderer, "text", LIST_COL_EMAIL, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
+  /* Attach list view the scrolled window. */
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
   gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
 
