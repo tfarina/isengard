@@ -7,6 +7,14 @@
  * MK_NORETURN:
  *
  * Indicates to the compiler that a given function never returns.
+ *
+ * NOTE: It must go before the function declaration, rather than after the
+ * declaration, as the MSVC version has to go before the declaration.
+ *
+ * Example:
+ *
+ * extern MK_NORETURN func(...);
+ *
  */
 
 #if defined(MK_NORETURN)
