@@ -31,8 +31,9 @@
 /**
  * MK_PRINTF:
  *
- * Tells the compiler to perform `printf` format string checking if the
- * compiler supports it.
+ * Tells the compiler to check the arguments in calls to the function for
+ * consistency with the `printf` style format string argument (if the
+ * compiler supports it).
  *
  * index starts at 1.
  *
