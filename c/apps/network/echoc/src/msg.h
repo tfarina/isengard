@@ -3,7 +3,7 @@
 
 #include "attributes.h"
 
-void fatal(char const *, ...) MK_PRINTF(1, 2) MK_NORETURN;
+MK_NORETURN void fatal(char const *, ...) MK_PRINTF(1, 2);
 void error(char const *, ...) MK_PRINTF(1, 2);
 void warn(char const *, ...)  MK_PRINTF(1, 2);
 void info(char const *, ...)  MK_PRINTF(1, 2);
