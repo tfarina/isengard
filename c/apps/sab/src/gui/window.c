@@ -515,65 +515,12 @@ static GtkWidget *_toolbar_create(void)
   return toolbar;
 }
 
-static void _populate_list_view(GtkListStore* list_store)
+static GtkWidget *_list_view_create(void)
 {
-  char *dbdir;
-  alpm_list_t *list, *cur;
-
-  dbdir = dirs_get_user_data_dir();
-
-  ab_init(dbdir);
-
-  ab_load_contacts();
-
-  list = ab_get_contact_list();
-
-  for (cur = list; cur; cur = alpm_list_next(cur)) {
-    _list_store_append_item(list_store, (ab_contact_t *)cur->data);
-  }
-}
-
-void addrbook_window_new(void)
-{
-  GtkWidget *vbox;
-  GtkWidget *menubar;
   GtkWidget *scrolledwin;
   GtkTreeSelection *selection;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
-
-  /*
-   * Window
-   */
-  main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(main_window), "Address Book");
-  gtk_window_set_position(GTK_WINDOW(main_window), GTK_WIN_POS_CENTER);
-  gtk_window_set_default_size(GTK_WINDOW(main_window), WINDOW_WIDTH, WINDOW_HEIGHT);
-
-  g_signal_connect(G_OBJECT(main_window), "delete_event",
-                   G_CALLBACK(_on_delete_event_cb), NULL);
-
-  /*
-   * Vertical box
-   */
-  vbox = gtk_vbox_new(FALSE, 0);
-  gtk_container_add(GTK_CONTAINER(main_window), vbox);
-
-  /*
-   * Menubar
-   */
-  menubar = _menubar_create();
-  gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, TRUE, 0);
-
-  /*
-   * Toolbar
-   */
-  toolbar = _toolbar_create();
-  gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, TRUE, 0);
-
-  /*
-   * List view
-   */
 
   /* Setup the scrolled window. */
   scrolledwin = gtk_scrolled_window_new(NULL, NULL);
@@ -617,6 +564,67 @@ void addrbook_window_new(void)
 
   /* Attach list view the scrolled window. */
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
+
+  return scrolledwin;
+}
+
+static void _populate_list_view(GtkListStore* list_store)
+{
+  char *dbdir;
+  alpm_list_t *list, *cur;
+
+  dbdir = dirs_get_user_data_dir();
+
+  ab_init(dbdir);
+
+  ab_load_contacts();
+
+  list = ab_get_contact_list();
+
+  for (cur = list; cur; cur = alpm_list_next(cur)) {
+    _list_store_append_item(list_store, (ab_contact_t *)cur->data);
+  }
+}
+
+void addrbook_window_new(void)
+{
+  GtkWidget *vbox;
+  GtkWidget *menubar;
+  GtkWidget *scrolledwin;
+
+  /*
+   * Window
+   */
+  main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(main_window), "Address Book");
+  gtk_window_set_position(GTK_WINDOW(main_window), GTK_WIN_POS_CENTER);
+  gtk_window_set_default_size(GTK_WINDOW(main_window), WINDOW_WIDTH, WINDOW_HEIGHT);
+
+  g_signal_connect(G_OBJECT(main_window), "delete_event",
+                   G_CALLBACK(_on_delete_event_cb), NULL);
+
+  /*
+   * Vertical box
+   */
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_add(GTK_CONTAINER(main_window), vbox);
+
+  /*
+   * Menubar
+   */
+  menubar = _menubar_create();
+  gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, TRUE, 0);
+
+  /*
+   * Toolbar
+   */
+  toolbar = _toolbar_create();
+  gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, TRUE, 0);
+
+  /*
+   * List view
+   */
+  scrolledwin = _list_view_create();
   gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
 
   /*
