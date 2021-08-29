@@ -6,6 +6,9 @@
 
 static int log_level = 2;
 
+/**
+ * Display the help message and exit with 'status'.
+ */
 static void
 usage(int status)
 {
