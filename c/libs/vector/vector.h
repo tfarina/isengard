@@ -49,7 +49,7 @@ typedef struct vector_s
  * @param[in] datasize  The size of each element (in bytes).
  * @param[in] capacity  The initial capacity (number of elements).
  *
- * @return A new instance of vector_t or `NULL` on error.
+ * @return A pointer to a new vector_t or `NULL` on failure.
  */
 vector_t *vector_create(size_t datasize, size_t capacity);
 

@@ -31,7 +31,7 @@ typedef struct buffer_s
  *
  * @param[in] capacity the size (in) bytes to allocate for the buffer.
  *
- * @return A new instance of buffer_t or `NULL` on error.
+ * @return A pointer to a new buffer_t or `NULL` on failure.
  */
 buffer_t *buffer_alloc(size_t capacity);
 
