@@ -46,7 +46,12 @@ void buffer_clear(buffer_t *self);
 void buffer_write(buffer_t *self, void const *data, size_t size);
 
 /**
- * buffer_free frees any memory used by the buffer.
+ * Destroys the given `buffer_t` instance', freeing all memory that was
+ * allocated internally.
+ *
+ * If 'self' is NULL, no action will be performed.
+ *
+ * @param[in,out] self A pointer to the `buffer_t` instance.
  */
 void buffer_free(buffer_t *self);
 
