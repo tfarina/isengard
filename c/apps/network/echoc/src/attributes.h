@@ -29,7 +29,7 @@
 #endif
 
 /**
- * MK_PRINTF:
+ * MK_PRINTFLIKE:
  *
  * Tells the compiler to check the arguments in calls to the function for
  * consistency with the `printf` style format string argument (if the
@@ -41,13 +41,13 @@
  * firstvararg is the index of the first variable argument (...) it should check.
  */
 
-#if defined(MK_PRINTF)
-#undef MK_PRINTF
+#if defined(MK_PRINTFLIKE)
+#undef MK_PRINTFLIKE
 #endif
 #if defined(__GNUC__)
-#define MK_PRINTF(fmtarg, firstvararg) __attribute__ ((__format__ (__printf__, fmtarg, firstvararg)))
+#define MK_PRINTFLIKE(fmtarg, firstvararg) __attribute__ ((__format__ (__printf__, fmtarg, firstvararg)))
 #else
-#define MK_PRINTF(fmtarg, firstvararg)
+#define MK_PRINTFLIKE(fmtarg, firstvararg)
 #endif
 
 #endif  /* !defined(_ATTRIBUTES_H_INCLUDED_) */

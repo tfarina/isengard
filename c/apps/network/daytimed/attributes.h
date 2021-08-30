@@ -21,19 +21,19 @@
 #endif
 
 /**
- * MK_PRINTF:
+ * MK_PRINTFLIKE:
  *
  * Tells the compiler to perform `printf` format string checking if the
  * compiler supports it.
  */
 
-#if defined(MK_PRINTF)
-#undef MK_PRINTF
+#if defined(MK_PRINTFLIKE)
+#undef MK_PRINTFLIKE
 #endif
 #if defined(__GNUC__)
-#define MK_PRINTF(string_index, first_to_check) __attribute__ ((__format__ (__printf__, string_index, first_to_check)))
+#define MK_PRINTFLIKE(string_index, first_to_check) __attribute__ ((__format__ (__printf__, string_index, first_to_check)))
 #else
-#define MK_PRINTF(string_index, first_to_check)
+#define MK_PRINTFLIKE(string_index, first_to_check)
 #endif
 
 #endif  /* !defined(_ATTRIBUTES_H_INCLUDED_) */
