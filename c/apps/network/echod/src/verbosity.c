@@ -26,8 +26,8 @@ usage(int status)
   exit(status);
 }
 
-int
-main(int argc, char **argv)
+static void
+parse_args(int argc, char **argv)
 {
   int optchr;
 
@@ -72,6 +72,12 @@ main(int argc, char **argv)
   }
 
   printf("%d\n", log_level);
+}
+
+int
+main(int argc, char **argv)
+{
+  parse_args(argc, argv);
 
   return 0;
 }
