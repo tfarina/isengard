@@ -10,10 +10,13 @@
 /* SEE https://github.com/freebsd/freebsd/blob/master/lib/libutil/pidfile.c#L77 */
 /* SEE http://git.savannah.gnu.org/cgit/tpop3d.git/tree/pidfile.c */
 
-static int pidfile_read(char const *path, pid_t *pid_out) {
-  char buf[16], *endptr;
+static int
+pidfile_read(char const *path, pid_t *pid_out)
+{
   int fd;
+  char buf[16];
   ssize_t nbytes;
+  char *endptr;
 
   fd = open(path, O_RDONLY);
   if (fd < 0) {
@@ -41,7 +44,7 @@ static int pidfile_read(char const *path, pid_t *pid_out) {
 int main(void) {
   pid_t pid;
 
-  pidfile_read("/var/run/atd.pid", &pid);
+  pidfile_read("/var/run/crond.pid", &pid);
 
   printf("%ld\n", (long) pid);
 
