@@ -68,7 +68,7 @@ char *f_read_file(const char *filename, size_t *out_file_size)
     return NULL;
   }
 
-  buf = malloc(sizeof(char) * fsize);
+  buf = malloc(sizeof(char) * fsize + 1);
   if (buf == NULL) {
     fprintf(stderr, "malloc failed (file too large?): %s\n", strerror(errno));
     fclose(fp);
@@ -83,6 +83,7 @@ char *f_read_file(const char *filename, size_t *out_file_size)
     return NULL;
   }
 
+  buf[fsize] = '\0'; /* NUL-terminate the buffer, just to be safe. */
   fclose(fp);
 
   if (out_file_size) {
