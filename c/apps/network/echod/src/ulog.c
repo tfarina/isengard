@@ -45,6 +45,30 @@
 #define MAXLINELEN 1024
 
 /*
+ * File permissions for Log file, -rw-------, 0600.
+ *
+ * Owner or user permissions: After the directory (d) slot, the first set of
+ * three characters indicate permission settings for the owner (also known as
+ * the user).
+ *
+ * In this case, the owner permissions are rw-, indicating that the
+ * owner (user) can read and write to the file but can't execute it
+ * as a program.
+ *
+ * Absolute form:
+ * The three numbers are specified in the order: user (or owner), group, and
+ * other. Each number is the sum of values that specify read, write, and
+ * execute access:
+ * Permission | Number
+ * Read(r)    | 4
+ * Write(w)   | 2
+ * Execute(x) | 1
+ *
+ * 400 + 200 = 600
+ */
+#define FILE_PERM (S_IRUSR | S_IWUSR)
+
+/*
  * Timestamp according to https://tools.ietf.org/html/rfc5424#section-6.2.3
  */
 #define DATETIMEFORMAT "%Y-%m-%dT%H:%M:%S"
@@ -132,7 +156,7 @@ int ulog_set_file(char const *log_file) {
     return -1;
   }
 
-  fd = open(log_file, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, S_IRUSR | S_IWUSR);
+  fd = open(log_file, O_CREAT | O_WRONLY | O_APPEND | O_CLOEXEC, FILE_PERM);
   if (fd < 0) {
     return -1;
   }
