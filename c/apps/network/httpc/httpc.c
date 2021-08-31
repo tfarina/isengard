@@ -19,39 +19,39 @@
 
 static ssize_t fd_write(int fd, const char *buf, size_t len)
 {
-  ssize_t rv;
+  ssize_t num_written; /* On success, the number of bytes written (sent). */
 
   do {
-    rv = write(fd, buf, len);
-  } while (rv == -1 && errno == EINTR);
+    num_written = write(fd, buf, len);
+  } while (num_written == -1 && errno == EINTR);
 
-  return rv;
+  return num_written;
 }
 
 static ssize_t fd_write_all(int fd, const char *buf, size_t len)
 {
-  ssize_t total_bytes_sent = 0;
+  ssize_t total_written = 0; /* Number of total bytes written (sent). */
 
   while (len > 0) {
-    ssize_t bytes_sent;
+    ssize_t num_written; /* On success, the number of bytes written (sent). */
 
-    bytes_sent = fd_write(fd, buf, len);
+    num_written = fd_write(fd, buf, len);
 
-    if (bytes_sent < 0)
-      return bytes_sent;
+    if (num_written < 0)
+      return num_written;
 
-    if (bytes_sent == 0)
+    if (num_written == 0)
       break;
 
-    printf("[DEBUG]: bytes sent: %zd\n", bytes_sent);
+    printf("[DEBUG]: number of bytes sent: %zd\n", num_written);
 
-    total_bytes_sent += bytes_sent;
+    total_written += num_written;
 
-    buf += bytes_sent;
-    len -= bytes_sent;
+    buf += num_written;
+    len -= num_written;
   }
 
-  return total_bytes_sent;
+  return total_written;
 }
 
 static ssize_t fd_read(int fd, char *buf, size_t len)
