@@ -1,6 +1,10 @@
 #ifndef _PIDFILE_H_INCLUDED_
 #define _PIDFILE_H_INCLUDED_ 1
 
+/**
+ * Functions for creating and removing PID files.
+ */
+
 #include <sys/types.h>
 
 int pidfile_create(char const *pidfile_path);
