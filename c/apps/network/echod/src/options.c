@@ -51,6 +51,7 @@ enum {
 };
 
 static struct option const long_options[] = {
+/*{  name,          has_arg,           *flag,     val } */
   { "config",       required_argument, (int *) 0, 'C' },
   { "logfile",      required_argument, (int *) 0, 'L' },
   { "pidfile",      required_argument, (int *) 0, 'P' },
