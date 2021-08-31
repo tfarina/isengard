@@ -24,6 +24,23 @@ buffer_t *buffer_alloc(size_t capacity)
         return buf;
 }
 
+void buffer_free(buffer_t *self)
+{
+        if (self == NULL) {
+                return;
+        }
+
+	if (self->data != NULL) {
+                free(self->data);
+                self->data = NULL;
+	}
+
+        self->size = 0;
+        self->capacity = 0;
+
+        free(self);
+}
+
 void buffer_clear(buffer_t *self)
 {
         if (self == NULL) {
@@ -53,21 +70,4 @@ void buffer_write(buffer_t *self, void const *data, size_t size)
 	memcpy(self->data + self->size, data, size);
         self->size += size;
         self->data[self->size] = '\0'; /* always 0 terminate data. */
-}
-
-void buffer_free(buffer_t *self)
-{
-        if (self == NULL) {
-                return;
-        }
-
-	if (self->data != NULL) {
-                free(self->data);
-                self->data = NULL;
-	}
-
-        self->size = 0;
-        self->capacity = 0;
-
-        free(self);
 }

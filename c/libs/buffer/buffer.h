@@ -26,6 +26,10 @@ typedef struct buffer_s
 	size_t capacity;
 } buffer_t;
 
+/* ------------------------------------------------------------------------- */
+/* Constructor and destructor                                                */
+/* ------------------------------------------------------------------------- */
+
 /**
  * buffer_alloc creates a new buffer with the specified capacity.
  *
@@ -36,16 +40,6 @@ typedef struct buffer_s
 buffer_t *buffer_alloc(size_t capacity);
 
 /**
- * buffer_clear sets the length and its first byte to zero.
- */
-void buffer_clear(buffer_t *self);
-
-/**
- * buffer_write writes |data| to the end of the buffer.
- */
-void buffer_write(buffer_t *self, void const *data, size_t size);
-
-/**
  * Destroys the given `buffer_t` instance', freeing all memory that was
  * allocated internally.
  *
@@ -54,6 +48,24 @@ void buffer_write(buffer_t *self, void const *data, size_t size);
  * @param[in,out] self A pointer to the `buffer_t` instance.
  */
 void buffer_free(buffer_t *self);
+
+/* ------------------------------------------------------------------------- */
+/* Deletion                                                                  */
+/* ------------------------------------------------------------------------- */
+
+/**
+ * buffer_clear sets the length and its first byte to zero.
+ */
+void buffer_clear(buffer_t *self);
+
+/* ------------------------------------------------------------------------- */
+/* Insertion                                                                 */
+/* ------------------------------------------------------------------------- */
+
+/**
+ * buffer_write writes |data| to the end of the buffer.
+ */
+void buffer_write(buffer_t *self, void const *data, size_t size);
 
 #ifdef __cplusplus
 }
