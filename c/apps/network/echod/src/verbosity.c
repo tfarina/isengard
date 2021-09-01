@@ -7,6 +7,14 @@
 static int log_level = 2;
 
 /**
+ * Short options.
+ */
+static char const short_options[] =
+  "h"    /* help */
+  "v::"  /* verbosity */
+  ;
+
+/**
  * Display the help message and exit with 'status'.
  */
 static void
@@ -31,7 +39,6 @@ parse_args(int argc, char **argv)
 {
   int optchr;
 
-  static char const short_options[] = "hv::";
   static struct option const long_options[] = {
     { "help",      no_argument,       0, 'h' },
     { "verbosity", optional_argument, 0, 'v' },
