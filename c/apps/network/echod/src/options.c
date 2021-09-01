@@ -85,24 +85,44 @@ static void usage(int status) {
     printf("Usage: %s [OPTIONS]...\n", progname);
     putchar('\n');
 
-    fputs("Mandatory arguments to long options are mandatory for short options too.\n", stdout);
+    fputs("\
+Mandatory arguments to long options are mandatory for short options too.\n\
+", stdout);
     putchar('\n');
 
-    fputs("Options:\n", stdout);
-    fputs("  -f, --foreground           run in the foreground\n", stdout);
-    fprintf(stdout,
-          "  -u, --user=<username>      run %s as this user after init\n", progname);
-    fprintf(stdout,
-          "  -C, --config=<file>        specify alternate configuration file [default: %s]\n", DEF_CFGFILE);
-    fprintf(stdout,
-          "  -P, --pidfile=<file>       write process id to the specified file [default: %s]\n", DEF_PIDFILE);
-    fputs("  -L, --logfile=<file>       write log messages to the specified file\n", stdout);
-    fputs("  -a, --address=<ip/domain>  bind to the specified address\n", stdout);
-    fprintf(stdout,
-          "  -p, --port=<number>        specify the port to listen on [default: %d]\n", DEF_ECHO_PORT);
-    fputs("  -b, --backlog=<number>     set the backlog queue limit\n", stdout);
-    fputs("  -h, --help                 display this help and exit\n", stdout);
-    fputs("  -V, --version              output version information and exit\n", stdout);
+    fputs("\
+Options:\n\
+", stdout);
+    fputs("\
+  -f, --foreground           run in the foreground\n\
+", stdout);
+    fprintf(stdout, "\
+  -u, --user=<username>      run %s as this user after init\n\
+", progname);
+    fprintf(stdout, "\
+  -C, --config=<file>        specify alternate configuration file [default: %s]\n\
+", DEF_CFGFILE);
+    fprintf(stdout, "\
+  -P, --pidfile=<file>       write process id to the specified file [default: %s]\n\
+", DEF_PIDFILE);
+    fputs("\
+  -L, --logfile=<file>       write log messages to the specified file\n\
+", stdout);
+    fputs("\
+  -a, --address=<ip/domain>  bind to the specified address\n\
+", stdout);
+    fprintf(stdout, "\
+  -p, --port=<number>        specify the port to listen on [default: %d]\n\
+", DEF_ECHO_PORT);
+    fputs("\
+  -b, --backlog=<number>     set the backlog queue limit\n\
+", stdout);
+    fputs("\
+  -h, --help                 display this help and exit\n\
+", stdout);
+    fputs("\
+  -V, --version              output version information and exit\n\
+", stdout);
   }
 
   exit(status);
