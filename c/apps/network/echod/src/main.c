@@ -313,11 +313,11 @@ int main(int argc, char **argv) {
     ulog_fatal("user '%s' not found", opt.user);
   }
 
-  rc = mkdir(DEF_STATEDIR, 0750);
+  rc = mkdir(DEF_PIDDIR, 0750);
   if (rc < 0 && errno != EEXIST) {
-    ulog_warn("Could not create " DEF_STATEDIR ": %s", strerror(errno));
+    ulog_warn("Could not create " DEF_PIDDIR ": %s", strerror(errno));
   } else {
-    rc = chown(DEF_STATEDIR, pw->pw_uid, pw->pw_gid);
+    rc = chown(DEF_PIDDIR, pw->pw_uid, pw->pw_gid);
     if (rc < 0) {
       ulog_error("chown() failed: %s", strerror(errno));
     }

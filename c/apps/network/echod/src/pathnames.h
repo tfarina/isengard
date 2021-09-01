@@ -3,12 +3,11 @@
 
 #define DEF_SYSCONFDIR "/etc"
 
-/**
- * Where to keep state files.
- */
-#define DEF_STATEDIR "/var/run/echod"
+#define LOCAL_STATE_DIR "/var"
 
 #define DEF_CFGFILE DEF_SYSCONFDIR "/echod.conf"
-#define DEF_PIDFILE DEF_STATEDIR "/echod.pid"
+
+#define DEF_PIDDIR LOCAL_STATE_DIR "/run/echod"
+#define DEF_PIDFILE DEF_PIDDIR "/echod.pid"
 
 #endif  /* !defined(_PATHNAMES_H_INCLUDED_) */
