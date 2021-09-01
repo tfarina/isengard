@@ -22,7 +22,7 @@ usage(int status)
 {
   printf("Usage: %s [OPTION]... FILE\n\n", "verbosity");
   fputs(
-"  -v[v...], --verbosity  increase verbosity (can use multiple v)\n"
+"  -v[v...], --verbosity  be more verbose (use multiple times to increase verbosity)\n"
 "  -vNUM, --verbosity=NUM set verbosity to NUM (higher level means more output):\n"
 "                          -v1 - only errors and messages\n"
 "                          -v2 - also warnings (default level)\n"
