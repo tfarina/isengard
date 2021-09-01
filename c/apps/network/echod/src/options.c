@@ -90,7 +90,8 @@ static void usage(int status) {
 
     fputs("Options:\n", stdout);
     fputs("  -f, --foreground           run in the foreground\n", stdout);
-    fputs("  -u, --user=<username>      run as user\n", stdout);
+    fprintf(stdout,
+          "  -u, --user=<username>      run %s as this user after init\n", progname);
     fprintf(stdout,
           "  -C, --config=<file>        specify alternate configuration file [default: %s]\n", DEF_CFGFILE);
     fprintf(stdout,
