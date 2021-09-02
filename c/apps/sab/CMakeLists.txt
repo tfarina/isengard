@@ -32,7 +32,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
 add_subdirectory(src/ui/cli)
 
 if (WITH_GTK)
-  add_subdirectory(src/gui)
+  add_subdirectory(src/ui/gtk)
 endif()
 
 message("BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}")
