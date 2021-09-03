@@ -12,6 +12,10 @@ set yrange [0:100]
 set ytics 10,20
 set ylabel "Relative Strength Index"
 
+# nomirror means do not put tics on the opposite side of the plot.
+set xtics nomirror
+set ytics nomirror
+
 set arrow from graph 0, first 70 to graph 1, first 70 nohead
 set arrow from graph 0, first 30 to graph 1, first 30 nohead
 
