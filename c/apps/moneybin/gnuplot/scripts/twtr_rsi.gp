@@ -1,5 +1,7 @@
 reset
 
+set terminal png enhanced
+
 set title "Twitter (TWTR) (Daily) \n 23-Jul-2021      Close: $71.69"
 
 set key top left
@@ -15,11 +17,8 @@ set arrow from graph 0, first 30 to graph 1, first 30 nohead
 
 set timefmt "%Y-%m-%d"  # specify our time string format
 set xdata time          # tells gnuplot the x axis is time data
-set format x "%b %y"
+set format x "%b\n%y"
 
-set xtics rotate # rotate labels on the x axis
-
-set terminal png enhanced
 set output 'img/twtr_rsi.png'
 
 plot 'data/twtr_rsi.dat' using 1:8 title 'RSI(14) 65.77' with lines lc rgbcolor "blue"
