@@ -57,9 +57,6 @@ parse_args(int argc, char **argv)
     }
 
     switch (optchr) {
-    default:
-      usage(EXIT_FAILURE);
-
     case 'h':
       usage(EXIT_SUCCESS);
 
@@ -75,6 +72,9 @@ parse_args(int argc, char **argv)
 	log_level++;
       }
       break;
+
+    default:
+      usage(EXIT_FAILURE);
     }
   }
 
