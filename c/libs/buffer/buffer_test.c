@@ -9,7 +9,7 @@ int main(void) {
         char *message1;
         char *message2;
 
-        b = buffer_alloc(16);
+        b = buffer_create(16);
 
         message1 = "C is hard!";
         buffer_write(b, message1, strlen(message1));
@@ -17,7 +17,7 @@ int main(void) {
         printf("%s\n", b->data);
         printf("%zu\n", b->size);
 
-	bp = buffer_alloc(512);
+	bp = buffer_create(512);
 
         message2 = "C is very hard";
         buffer_write(bp, message2, strlen(message2));
@@ -25,8 +25,8 @@ int main(void) {
         printf("%s\n", bp->data);
         printf("%zu\n", bp->size);
 
-	buffer_free(b);
-	buffer_free(bp);
+	buffer_destroy(b);
+	buffer_destroy(bp);
 
         return 0;
 }

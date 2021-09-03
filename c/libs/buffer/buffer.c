@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-buffer_t *buffer_alloc(size_t capacity)
+buffer_t *buffer_create(size_t capacity)
 {
         buffer_t *buf;
 
@@ -24,7 +24,7 @@ buffer_t *buffer_alloc(size_t capacity)
         return buf;
 }
 
-void buffer_free(buffer_t *self)
+void buffer_destroy(buffer_t *self)
 {
         if (self == NULL) {
                 return;

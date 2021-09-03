@@ -31,13 +31,13 @@ typedef struct buffer_s
 /* ------------------------------------------------------------------------- */
 
 /**
- * buffer_alloc creates a new buffer with the specified capacity.
+ * buffer_create creates a new buffer with the specified capacity.
  *
  * @param[in] capacity the size (in) bytes to allocate for the buffer.
  *
  * @return A pointer to a new buffer_t or `NULL` on failure.
  */
-buffer_t *buffer_alloc(size_t capacity);
+buffer_t *buffer_create(size_t capacity);
 
 /**
  * Destroys the given `buffer_t` instance', freeing all memory that was
@@ -47,7 +47,7 @@ buffer_t *buffer_alloc(size_t capacity);
  *
  * @param[in,out] self A pointer to the `buffer_t` instance.
  */
-void buffer_free(buffer_t *self);
+void buffer_destroy(buffer_t *self);
 
 /* ------------------------------------------------------------------------- */
 /* Deletion                                                                  */
