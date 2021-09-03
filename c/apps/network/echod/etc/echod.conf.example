@@ -1,11 +1,14 @@
 ##
 ## Echod configuration file example.
 ##
+## Edit and copy me to /etc/echod.conf
+##
 ## Lines that begin with "## " try to explain the configuration directive.
 ## Lines that begin with just "#" are disabled directives: you can enable them
 ## by removing the "#" symbol.
 ##
 ## See echod.conf(5) for more information.
+##
 
 ## Start as a daemon.
 ##
