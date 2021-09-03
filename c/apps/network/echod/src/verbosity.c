@@ -40,9 +40,10 @@ parse_args(int argc, char **argv)
   int optchr;
 
   static struct option const long_options[] = {
+  /*{  name,       has_arg,       *flag, val } */
     { "help",      no_argument,       0, 'h' },
     { "verbosity", optional_argument, 0, 'v' },
-    { (char *) 0, no_argument, (int *) 0, 0 }
+    { (char *) 0,  no_argument, (int *) 0, 0 }
   };
 
   optind = 0;
