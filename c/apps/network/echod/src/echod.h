@@ -5,7 +5,7 @@
 #define _ECHOD_H_INCLUDED_ 1
 
 /*
- * The name the program were called with.
+ * The name the program was invoked with.
  */
 extern char const *progname;
 
