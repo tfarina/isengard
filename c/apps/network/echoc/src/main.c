@@ -42,7 +42,6 @@ static void usage(int status) {
     fputs("Options:\n", stdout);
     fputs("  -h, --help              display this help and exit\n", stdout);
     fputs("  -V, --version           output version information and exit\n", stdout);
-
   }
 
   exit(status);
@@ -52,16 +51,8 @@ static void version(void) {
   printf("%s %s\n", progname, VERSION);
 }
 
-int main(int argc, char **argv) {
-  int optchr, tmp_port, sockfd, err;
-  char *host;
-  int port;
-  char sendline[BUFSIZE];
-  char recvline[BUFSIZE];
-
-  progname = os_path_basename(*(argv + 0));
-
-  port = DEF_ECHO_PORT;
+static void parse_args(int argc, char **argv) {
+  int optchr;
 
   for (;;) {
     optchr = getopt_long(argc, argv, short_options, long_options, NULL);
@@ -82,6 +73,20 @@ int main(int argc, char **argv) {
       usage(EXIT_FAILURE);
     }
   }
+}
+
+int main(int argc, char **argv) {
+  int tmp_port, sockfd, err;
+  char *host;
+  int port;
+  char sendline[BUFSIZE];
+  char recvline[BUFSIZE];
+
+  progname = os_path_basename(*(argv + 0));
+
+  port = DEF_ECHO_PORT;
+
+  parse_args(argc, argv);
 
   /* Takes out the program name from the argument array. */
   argc -= optind;
