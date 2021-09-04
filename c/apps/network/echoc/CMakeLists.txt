@@ -42,6 +42,7 @@ set(ECHOC_SRCS
   src/getopt1.c
   src/main.c
   src/msg.c
+  src/options.c
   src/os_path.c
 )
 
