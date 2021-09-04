@@ -82,6 +82,11 @@ static void usage(int status) {
   if (status) {
     fprintf(stderr, "Try '%s --help' for more information.\n", progname);
   } else {
+    /*
+     * This is written in this way to make the life of translators easier,
+     * especially those trying to translate right-to-left languages like
+     * Hebrew.
+     */
     printf("Usage: %s [OPTIONS]...\n", progname);
     putchar('\n');
 
