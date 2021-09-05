@@ -22,12 +22,23 @@ static void usage(int status) {
   if (status) {
     fprintf(stderr, "Try '%s --help' for more information.\n", progname);
   } else {
+    /*
+     * This is written in this way to make the life of translators easier,
+     * especially those trying to translate right-to-left languages like
+     * Hebrew.
+     */
     printf("Usage: %s [OPTIONS] host [port]\n", progname);
     putchar('\n');
 
-    fputs("Options:\n", stdout);
-    fputs("  -h, --help              display this help and exit\n", stdout);
-    fputs("  -V, --version           output version information and exit\n", stdout);
+    fputs("\
+Options:\n\
+", stdout);
+    fputs("\
+  -h, --help              display this help and exit\n\
+", stdout);
+    fputs("\
+  -V, --version           output version information and exit\n\
+", stdout);
   }
 
   exit(status);
