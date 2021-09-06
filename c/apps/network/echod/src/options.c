@@ -248,14 +248,16 @@ void parse_args(int argc, char **argv) {
       opt.dump_options = 1;
       break;
 
+    /* --help and --version will exit immediately.
+     *
+     * OBS: Please, keep these two cases and the default at last.
+     */
     case 'h':  /* --help */
       usage(0);
-      break;
 
     case 'V':  /* --version */
       version();
       exit(0);
-      break;
 
     default:
       usage(1);
