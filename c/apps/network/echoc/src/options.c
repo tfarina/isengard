@@ -9,6 +9,9 @@
 #include "echoc.h"
 #include "getopt.h"
 
+/* For now, no gettext support. */
+#define _(STRING) STRING
+
 static char const short_options[] =
     "h"  /* help */
     "V"  /* version */
@@ -22,25 +25,25 @@ static struct option const long_options[] = {
 
 static void usage(int status) {
   if (status) {
-    fprintf(stderr, "Try '%s --help' for more information.\n", progname);
+    fprintf(stderr, _("Try '%s --help' for more information.\n"), progname);
   } else {
     /*
      * This is written in this way to make the life of translators easier,
      * especially those trying to translate right-to-left languages like
      * Hebrew.
      */
-    printf("Usage: %s [OPTIONS] host [port]\n", progname);
+    printf(_("Usage: %s [OPTIONS] host [port]\n"), progname);
     putchar('\n');
 
-    fputs("\
+    fputs(_("\
 Options:\n\
-", stdout);
-    fputs("\
+"), stdout);
+    fputs(_("\
   -h, --help              display this help and exit\n\
-", stdout);
-    fputs("\
+"), stdout);
+    fputs(_("\
   -V, --version           output version information and exit\n\
-", stdout);
+"), stdout);
   }
 
   exit(status);

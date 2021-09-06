@@ -20,6 +20,9 @@
 #include "pathnames.h"
 #include "valid.h"
 
+/* For now, no gettext support. */
+#define _(STRING) STRING
+
 options_t opt;
 
 /* User for running the Echo daemon. */
@@ -81,54 +84,54 @@ static void errx(int const code, char const *format, ...) {
 
 static void usage(int status) {
   if (status) {
-    fprintf(stderr, "Try '%s --help' for more information.\n", progname);
+    fprintf(stderr, _("Try '%s --help' for more information.\n"), progname);
   } else {
     /*
      * This is written in this way to make the life of translators easier,
      * especially those trying to translate right-to-left languages like
      * Hebrew.
      */
-    printf("Usage: %s [OPTIONS]...\n", progname);
+    printf(_("Usage: %s [OPTIONS]...\n"), progname);
     putchar('\n');
 
-    fputs("\
+    fputs(_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
-", stdout);
+"), stdout);
     putchar('\n');
 
-    fputs("\
+    fputs(_("\
 Options:\n\
-", stdout);
-    fputs("\
+"), stdout);
+    fputs(_("\
   -f, --foreground           run in the foreground\n\
-", stdout);
-    fprintf(stdout, "\
+"), stdout);
+    fprintf(stdout, _("\
   -u, --user=<username>      run %s as this user after init\n\
-", progname);
-    fprintf(stdout, "\
+"), progname);
+    fprintf(stdout, _("\
   -C, --config=<file>        specify alternate configuration file [default: %s]\n\
-", DEF_CFGFILE);
-    fprintf(stdout, "\
+"), DEF_CFGFILE);
+    fprintf(stdout, _("\
   -P, --pidfile=<file>       write process id to the specified file [default: %s]\n\
-", DEF_PIDFILE);
-    fputs("\
+"), DEF_PIDFILE);
+    fputs(_("\
   -L, --logfile=<file>       write log messages to the specified file\n\
-", stdout);
-    fputs("\
+"), stdout);
+    fputs(_("\
   -a, --address=<ip/domain>  bind to the specified address\n\
-", stdout);
-    fprintf(stdout, "\
+"), stdout);
+    fprintf(stdout, _("\
   -p, --port=<number>        specify the port to listen on [default: %d]\n\
-", DEF_ECHO_PORT);
-    fputs("\
+"), DEF_ECHO_PORT);
+    fputs(_("\
   -b, --backlog=<number>     set the backlog queue limit\n\
-", stdout);
-    fputs("\
+"), stdout);
+    fputs(_("\
   -h, --help                 display this help and exit\n\
-", stdout);
-    fputs("\
+"), stdout);
+    fputs(_("\
   -V, --version              output version information and exit\n\
-", stdout);
+"), stdout);
   }
 
   exit(status);
