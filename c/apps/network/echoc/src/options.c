@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "attributes.h"
 #include "echoc.h"
 #include "getopt.h"
 
@@ -23,7 +24,7 @@ static struct option const long_options[] = {
   { (char *) 0,    no_argument,       (int *) 0,  0  }
 };
 
-static void usage(int status) {
+static MK_NORETURN void usage(int status) {
   if (status) {
     fprintf(stderr, _("Try '%s --help' for more information.\n"), progname);
   } else {
