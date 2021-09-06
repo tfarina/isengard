@@ -34,7 +34,7 @@ static MK_NORETURN void usage(int status) {
      * Hebrew.
      */
     printf(_("Usage: %s [OPTIONS] host [port]\n"), progname);
-    putchar('\n');
+    putc('\n', stdout);
 
     fputs(_("\
 Options:\n\
