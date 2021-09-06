@@ -59,8 +59,10 @@ void parse_args(int argc, char **argv) {
 
   for (;;) {
     optchr = getopt_long(argc, argv, short_options, long_options, NULL);
+    /*
+     * No more options. All command-line options have been parsed.
+     */
     if (optchr == -1) {
-      /* no more options */
       break;
     }
 
