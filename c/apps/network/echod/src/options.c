@@ -1,5 +1,6 @@
 #include "options.h"
 
+/* config.h must be included first. */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif

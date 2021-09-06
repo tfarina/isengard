@@ -18,6 +18,11 @@
 
 /* https://vcansimplify.wordpress.com/2013/03/14/c-socket-tutorial-echo-server/ */
 
+/* config.h must be included first. */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <arpa/inet.h>
 #include <errno.h>
 #include <grp.h>
@@ -33,10 +38,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
 
 #include "cfgfile.h"
 #include "daemonize.h"

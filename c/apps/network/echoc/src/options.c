@@ -1,10 +1,12 @@
 #include "options.h"
 
+/* config.h must be included first.*/
+#include "config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "echoc.h"
-#include "config.h"
 #include "getopt.h"
 
 static char const short_options[] =

@@ -1,5 +1,6 @@
 /* https://vcansimplify.wordpress.com/2013/03/14/c-socket-tutorial-echo-server/ */
 
+/* config.h must be included first.*/
 #include "config.h"
 
 #include <stdio.h>
