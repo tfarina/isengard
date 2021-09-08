@@ -19,8 +19,10 @@ void up_average(double const *a1, size_t size, int period, double *a2)
 
   a2[i - 1] = sum / period;
 
+#if 0
   printf("Sum: %.2f\n", sum);
   printf("Up Average: %.2f\n", a2[i - 1]);
+#endif
 
   for (; i < size; i++) {
     if (a1[i] > a1[i - 1]) {
@@ -30,7 +32,10 @@ void up_average(double const *a1, size_t size, int period, double *a2)
     }
     a2[i] = ((a2[i - 1] * (period - 1)) + sum) / period;
   }
+
+#if 0
   printf("Up Average: %.2f\n", a2[i - 1]);
+#endif
 }
 
 void down_average(double const *a1, size_t size, int period, double *a2)
@@ -43,14 +48,18 @@ void down_average(double const *a1, size_t size, int period, double *a2)
   for (i = 1; i <= period && i < size; i++) {
     if (a1[i] < a1[i - 1]) {
       sum += a1[i - 1] - a1[i];
+#if 0
       printf("i: %d Sum: %.2f\n", i, sum);
+#endif
     }
     a2[i] = 0;
   }
 
   a2[i - 1] = sum / period;
 
+#if 0
   printf("Down Average: %.2f\n", a2[i - 1]);
+#endif
 
   for (; i < size; i++) {
     if (a1[i] < a1[i - 1]) {
@@ -60,7 +69,10 @@ void down_average(double const *a1, size_t size, int period, double *a2)
     }
     a2[i] = ((a2[i - 1] * (period - 1)) + sum) / period;
   }
+
+#if 0
   printf("Down Average: %.2f\n", a2[i - 1]);
+#endif
 }
 
 void ind_rsi(double const *close, size_t size, int period, double *rsi)
@@ -88,10 +100,15 @@ void ind_rsi(double const *close, size_t size, int period, double *rsi)
 
   for (i = period; i < size; i++) {
     double rs = gains[i] / losses[i];
+#if 0
     printf("RS: %.2f\n", rs);
+#endif
 
     rsi[i] = 100 - (100 / (1 + rs));
+
+#if 0
     printf("RSI: %.2f\n", rsi[i]);
+#endif
   }
 
   free(gains);
