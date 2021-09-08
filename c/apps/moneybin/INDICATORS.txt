@@ -1,0 +1,116 @@
+Accumulation/Distribution
+Accumulative Swing Index
+ADX/DMS
+Alligator
+Anchored VWAP
+Aroon
+Aroon Oscillator
+ATR Bands
+ATR Trailing Stops
+Average True Range
+Awesome Oscillator
+Balance of Power
+Beta
+Bollinger %b
+Bollinger Bands
+Bollinger Bandwidth
+Center of Gravity
+Chaikin Money Flow
+Chaikin Volatility
+Chande Forecast Oscillator
+Chande Momentum Oscillator
+Change in short Interest 15 days
+Choppines Index
+Commodity Channel Index
+Coppock Curve
+Correlation Coefficient
+Darvas Box
+Detrended Price Oscillator
+Disparity Index
+Donchian Channel
+Donchian Width
+Ease of Movement
+Ehler Fisher Transform
+Elder Force Index
+Elder Impulse System
+Elder Ray Index
+Fractal Chaos Bands
+Fractal Chaos Oscillator
+Gator Oscillator
+Gopalakrishnan Range Index
+High Low Bands
+High Minus Low
+Highest High Value
+Historical Volatility
+Ichimoku Clouds
+Intraday Momentum Index
+Keltner Channel
+Klinger Volume Oscillator
+Linear Reg Forecast
+Linear Reg R2
+Linear Reg Slope
+Lowest Low Value
+MACD
+Market Facilitation Index
+Mass Index
+Median Price
+Momentum Indicator
+Money Flow Index
+Moving Average
+Moving Average Deviation
+Moving Average Envelope
+Negative Volume Index
+On Balance Volume
+Parabolic SAR
+Performance Index
+Pivot Points
+Positive Volume Index
+Pretty Good Oscillator
+Price Momentum Oscillator
+Price Oscillator
+Price Rate of Change
+Price Volume Trend
+Prime Number Bands
+Prime Number Oscillator
+Pring's Know Sure Thing
+Pring's Special K
+Psychological Line
+QStick
+Rainbow Moving Average
+Rainbow Oscillator
+Random Walk Index
+RAVI
+Relative Vigor Index
+Relative Volatility
+RSI
+Schaff Trend Cycle
+Shares Short
+Shinohara Intensity Ratio
+Short % of Float
+Short % of Outstanding
+Standard Deviation
+STARC Bands
+Stochastic Momentum Index
+Stochastics
+Supertrend
+Swing Index
+Time Series Forecast
+Trade Volume Index
+Trend Intensity Index
+TRIX
+True Range
+Twiggs Money Flow
+Typical Price
+Ulcer Index
+Ultimate Oscillator
+Valuation Lines
+Vertical Horizontal Filter
+Volume Chart
+Volume Oscillator
+Volume Profile
+Volume Rate of Change
+Vortex Indicator
+VWAP
+Weighted Close
+Williams %R
+ZigZag
