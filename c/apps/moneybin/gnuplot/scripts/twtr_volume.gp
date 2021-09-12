@@ -23,4 +23,6 @@ set autoscale y
 set format y "%1.0f"
 set ytics 500
 
+set boxwidth 0.9 relative
+set style fill solid 1.0
 plot 'data/twtr_ema.dat' using 1:($7/10000) notitle with boxes lc rgbcolor "blue"
