@@ -11,6 +11,7 @@ int main(int argc, char **argv)
   ta_bars_t *bars;
   double *rsi;
   int period = 14;
+  int i;
 
   if (argc < 2) {
     fprintf(stderr, "usage: calcrsi <filename>\n");
@@ -37,6 +38,10 @@ int main(int argc, char **argv)
   }
 
   ind_rsi(bars->close, bars->numrows, period, rsi);
+
+  for (i = period; i < bars->numrows; i++) {
+    printf("%f\n", *(rsi + i));
+  }
 
   return 0;
 }
