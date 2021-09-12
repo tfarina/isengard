@@ -47,6 +47,14 @@ typedef struct ta_order_s {
   double price;
 } ta_order_t;
 
+typedef enum ta_signal_e {
+  TA_SIGNAL_BUY  = 0,
+  TA_SIGNAL_SELL = 1,
+  TA_SIGNAL_HOLD = 2
+} ta_signal_t;
+
 int read_csv(char const *filename, ta_bars_t **outbars);
+
+int ta_strat_rsi(double rsi, int oversold, int overbought);
 
 #endif  /* TA_H_ */
