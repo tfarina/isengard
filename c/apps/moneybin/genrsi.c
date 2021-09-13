@@ -24,7 +24,7 @@ static void print_rsi(ta_bars_t *b, double const *rsi, int period)
     printf("%9.3f ", b->close[i]);
     printf("%9.3f ", b->adjclose[i]);
     printf("%d ", b->volume[i]);
-    printf("%9.3f ", *(rsi + i));
+    printf("%9.3f", *(rsi + i));
     putc('\n', stdout);
   }
 }

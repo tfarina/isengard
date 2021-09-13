@@ -40,7 +40,7 @@ static void print_movavg(ta_bars_t *b, double *ma1, double *ma2)
     printf("%9.3f ", b->adjclose[i]);
     printf("%d ", b->volume[i]);
     printf("%9.3f ", *(ma1 + i));
-    printf("%9.3f ", *(ma2 + i));
+    printf("%9.3f", *(ma2 + i));
     putc('\n', stdout);
   }
 }
