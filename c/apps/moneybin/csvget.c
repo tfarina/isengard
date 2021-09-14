@@ -49,7 +49,7 @@ static int get_crumb(const char *response_text, char *crumb) {
   return 0;
 }
 
-static int download_quotes_from_yahoo(char *symbol, time_t start_date, time_t end_date, buffer_t *out_csv)
+static int download_history_from_yahoo(char *symbol, time_t start_date, time_t end_date, buffer_t *out_csv)
 {
   CURL *curl;
   CURLcode result;
@@ -161,7 +161,7 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  retval = download_quotes_from_yahoo(symbol, one_year_ago, now, &buf);
+  retval = download_history_from_yahoo(symbol, one_year_ago, now, &buf);
   if (retval < 0) {
     return 1;
   }
