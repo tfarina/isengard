@@ -119,5 +119,9 @@ int main(int argc, char **argv)
 
   printf("%d orders\n", ordercnt);
 
+  /* Free allocated memory. */
+  free(ma1);
+  free(ma2);
+
   return 0;
 }

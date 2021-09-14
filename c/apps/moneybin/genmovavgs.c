@@ -75,5 +75,9 @@ int main(int argc, char **argv)
 
   print_movavg(bars, ma1, ma2);
 
+  /* Free allocated memory. */
+  free(ma1);
+  free(ma2);
+
   return 0;
 }

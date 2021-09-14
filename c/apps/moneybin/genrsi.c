@@ -66,5 +66,8 @@ int main(int argc, char **argv)
 
   print_rsi(bars, rsi, period);
 
+  /* Free allocated memory. */
+  free(rsi);
+
   return 0;
 }
