@@ -28,6 +28,9 @@ typedef struct csv_state_s {
   ta_bars_t *bars;
 } csv_state_t;
 
+/**
+ * The columns in the yahoo CSV file.
+ */
 typedef enum csv_column_e {
   CSV_COLUMN_DATE,
   CSV_COLUMN_OPEN,
