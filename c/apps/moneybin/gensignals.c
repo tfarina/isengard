@@ -32,7 +32,7 @@ static void print_movavg(ta_bars_t *b, double *ma1, double *ma2)
 
     ta_getdate(timestamp, &year, &month, &day);
 
-    printf("%04d-%02d-%02d ", year, month, day);
+    printf("%.4d-%.2d-%.2d ", year, month, day);
     printf("%9.3f ", b->open[i]);
     printf("%9.3f ", b->high[i]);
     printf("%9.3f ", b->low[i]);
@@ -110,10 +110,10 @@ int main(int argc, char **argv)
 
     if (crossover == TA_UP) {
       ordercnt++;
-      printf("%04d-%02d-%02d BUY %9.2f %9.2f\n", year, month, day, *(bars->close + pos), *(ma1 + pos));
+      printf("%.4d-%.2d-%.2d BUY %9.2f %9.2f\n", year, month, day, *(bars->close + pos), *(ma1 + pos));
     } else if (crossover == TA_DOWN) {
       ordercnt++;
-      printf("%04d-%02d-%02d SELL %9.2f %9.2f\n", year, month, day, *(bars->close + pos), *(ma1 + pos));
+      printf("%.4d-%.2d-%.2d SELL %9.2f %9.2f\n", year, month, day, *(bars->close + pos), *(ma1 + pos));
     }
   }
 
