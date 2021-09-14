@@ -184,7 +184,7 @@ int read_csv(char const *filename, ta_bars_t **outbars) {
     return -1;
   }
 
- if (csv_init(&parser, CSV_STRICT | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
+ if (csv_init(&parser, CSV_STRICT | CSV_REPALL_NL | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
     fprintf(stderr, "Failed to initialize csv parser\n");
     return -1;
   }
