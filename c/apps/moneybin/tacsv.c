@@ -189,7 +189,9 @@ int read_csv(char const *filename, ta_bars_t **outbars) {
     return -1;
   }
 
-  /* First pass to count the total number of rows and fields. */
+  /* First we are going to read the whole csv file to gather the total
+   * number of rows and fields.
+   */
   while ((bytes_read = fread(buf, sizeof(char), sizeof(buf), fp)) > 0) {
     if (csv_parse(&parser, buf, bytes_read, csv_field_count_cb, csv_row_count_cb, &c) != bytes_read) {
       fprintf(stderr, "Error while parsing %s: %s\n", filename, csv_strerror(csv_error(&parser)));
