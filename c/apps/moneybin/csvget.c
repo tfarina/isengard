@@ -17,6 +17,8 @@
 
 static int verbose = 1;
 
+static char const *frequency[] = { "Daily", "Weekly", "Monthly" };
+
 /*https://github.com/jerryvig/cython-project1/blob/351aece6a910ecff8867708fa16155a6bc444217/compute_statistics.c#L53*/
 /**
  * In @a response_text we should see a text like this near CrumbStore:
@@ -150,7 +152,7 @@ int main(int argc, char *argv[])
 
     printf("Start Date: %s\n", start_date_str);
     printf("End Date: %s\n", end_date_str);
-    printf("Frequency: Daily\n\n");
+    printf("Frequency: %s\n\n", frequency[0]);
   }
 
   result = curl_global_init(CURL_GLOBAL_DEFAULT);
