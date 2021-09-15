@@ -57,6 +57,7 @@ int main(int argc, char **argv)
   timestamp_t *timestamp;
   size_t pos;
   int crossover;
+  int tradeno; /* number of trades */
   int ordercnt;
 
   if (argc < 2) {
@@ -96,9 +97,10 @@ int main(int argc, char **argv)
 
   print_movavg(bars, ma1, ma2);
 
+  tradeno = 0;
   ordercnt = 0;
 
-  printf("Date\tSignal\tClose\tSMA (5)\n");
+  printf("Trade\tDate\tSignal\tClose\tSMA (5)\n");
 
   for (pos = 0; pos < bars->numrows; pos++) {
     if (pos < period2) {
@@ -111,11 +113,13 @@ int main(int argc, char **argv)
     ta_getdate(timestamp, &year, &month, &day);
 
     if (crossover == TA_UP) {
+      tradeno++;
       ordercnt++;
-      printf("%.4d-%.2d-%.2d\tBUY\t%9.2f\t%9.2f\n", year, month, day, *(bars->close + pos), *(ma1 + pos));
+      printf("%d\t%.4d-%.2d-%.2d\tBUY\t%9.2f\t%9.2f\n", tradeno, year, month, day, *(bars->close + pos), *(ma1 + pos));
     } else if (crossover == TA_DOWN) {
+      tradeno++;
       ordercnt++;
-      printf("%.4d-%.2d-%.2d\tSELL\t%9.2f\t%9.2f\n", year, month, day, *(bars->close + pos), *(ma1 + pos));
+      printf("%d\t%.4d-%.2d-%.2d\tSELL\t%9.2f\t%9.2f\n", tradeno, year, month, day, *(bars->close + pos), *(ma1 + pos));
     }
   }
 
