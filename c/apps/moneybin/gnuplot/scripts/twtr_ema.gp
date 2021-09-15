@@ -2,7 +2,7 @@ reset
 
 set terminal png enhanced
 
-set title "Twitter (TWTR) (Daily) \n 03-Sep-2021      Close: $64.66"
+set title "Twitter (TWTR) (Daily) \n 15-Sep-2021      Close: $61.45"
 
 set key top left
 
