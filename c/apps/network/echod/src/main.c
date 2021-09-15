@@ -257,7 +257,7 @@ int main(int argc, char **argv) {
   ulog_open(progname);
 
   /*
-   * Check if it was run by the superuser.
+   * Make sure the program was run by root (aka SuperUser).
    */
   if (getuid() != ROOT_UID) {
     ulog_fatal("must be run as root user");
