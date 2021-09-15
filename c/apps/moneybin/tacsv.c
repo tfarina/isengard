@@ -201,7 +201,10 @@ int read_csv(char const *filename, ta_bars_t **outbars) {
     }
   }
 
-  csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, &c);
+  if (csv_fini(&parser, csv_field_count_cb, csv_row_count_cb, &c) != 0) {
+    fprintf(stderr, "Error finishing CSV processing.\n");
+    return -1;
+  }
 
 #if 0
   printf(" %lu rows", c.rows);
@@ -242,7 +245,11 @@ int read_csv(char const *filename, ta_bars_t **outbars) {
     }
   }
 
-  csv_fini(&parser, csv_read_field_cb, csv_read_row_cb, state);
+  if (csv_fini(&parser, csv_read_field_cb, csv_read_row_cb, state) != 0) {
+    fprintf(stderr, "Error finishing CSV processing.\n");
+    return -1;
+  }
+
   csv_free(&parser);
 
   if (ferror(fp)) {
