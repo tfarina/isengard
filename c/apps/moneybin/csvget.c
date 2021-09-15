@@ -90,6 +90,10 @@ static int download_history_from_yahoo(char const *symbol, time_t start_date, ti
 
   buffer_init(out_csv);
 
+  /*
+   * Valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
+   * Intraday data cannot extend last 60 days
+   */
   memset(downloadurl, 0, MAXURLLEN);
   snprintf(downloadurl, sizeof(downloadurl),
          "https://query1.finance.yahoo.com/v7/finance/download/%s?period1=%ld&period2=%ld&interval=1d&events=history&crumb=%s",
