@@ -68,7 +68,7 @@ void buffer_clear(buffer_t *self);
 void buffer_write(buffer_t *self, void const *data, size_t size);
 
 #ifdef __cplusplus
-}
+} /* extern "C" */
 #endif
 
 #endif  /* BUFFER_H_ */

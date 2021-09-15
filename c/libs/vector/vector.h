@@ -147,7 +147,7 @@ int vector_empty(vector_t const * const self);
 void vector_clear(vector_t *self);
 
 #ifdef __cplusplus
-}
+} /* extern "C" */
 #endif
 
 #endif  /* VECTOR_H_ */
