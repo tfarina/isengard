@@ -41,19 +41,6 @@ typedef enum csv_column_e {
   CSV_COLUMN_VOLUME
 } csv_column_t;
 
-static char *parse_str(char const *field, size_t length, int *rc) {
-  if (length > 0) {
-    char *str = malloc(sizeof(char) * (length + 1));
-    strncpy(str, field, length + 1);
-
-    *rc = TA_SUCCESS;
-    return str;
-  }
-
-  *rc = TA_FAILURE;
-  return NULL;
-}
-
 static void parse_iso8601_date(char const *field, timestamp_t *timestamp) {
   int year, month, day;
 
