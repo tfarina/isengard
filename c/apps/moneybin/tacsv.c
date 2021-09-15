@@ -43,7 +43,7 @@ typedef enum csv_column_e {
 
 static char *parse_str(char const *field, size_t length, int *rc) {
   if (length > 0) {
-    char *str = (char *)malloc((length + 1) * sizeof(char));
+    char *str = malloc(sizeof(char) * (length + 1));
     strncpy(str, field, length + 1);
 
     *rc = TA_SUCCESS;
@@ -113,7 +113,7 @@ static void csv_read_field_cb(void *field, size_t field_length, void *data) {
     return;
   }
 
-  buffer = (char *)malloc((field_length + 1) * sizeof(char));
+  buffer = malloc(sizeof(char) * (field_length + 1));
   strncpy(buffer, field, field_length);
   buffer[field_length] = '\0';
 
