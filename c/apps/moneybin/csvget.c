@@ -49,7 +49,7 @@ static int get_crumb(const char *response_text, char *crumb) {
   return 0;
 }
 
-static int download_history_from_yahoo(char *symbol, time_t start_date, time_t end_date, buffer_t *out_csv)
+static int download_history_from_yahoo(char const *symbol, time_t start_date, time_t end_date, buffer_t *out_csv)
 {
   CURL *curl;
   CURLcode result;
