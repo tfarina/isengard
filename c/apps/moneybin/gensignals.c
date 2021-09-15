@@ -75,13 +75,15 @@ int main(int argc, char **argv)
   /* Allocate memory for the moving average array. */
   ma1 = malloc(sizeof(double) * bars->numrows);
   if (ma1 == NULL) {
-    return -1;
+    fprintf(stderr, "Out of memory\n");
+    return 1;
   }
 
   /* Allocate memory for the moving average array. */
   ma2 = malloc(sizeof(double) * bars->numrows);
   if (ma2 == NULL) {
-    return -1;
+    fprintf(stderr, "Out of memory\n");
+    return 1;
   }
 
   /* Calculate the moving averages. */
