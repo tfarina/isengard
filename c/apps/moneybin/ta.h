@@ -1,6 +1,8 @@
 #ifndef TA_H_
 #define TA_H_
 
+#include <stddef.h>
+
 #include "timestamp.h"
 
 /**
@@ -52,6 +54,9 @@ typedef enum ta_signal_e {
   TA_SIGNAL_SELL = 1,
   TA_SIGNAL_HOLD = 2
 } ta_signal_t;
+
+ta_bars_t *ta_bars_create(size_t numrows);
+void ta_bars_destroy(ta_bars_t *bars);
 
 int read_csv(char const *filename, ta_bars_t **outbars);
 

@@ -205,17 +205,10 @@ int read_csv(char const *filename, ta_bars_t **outbars) {
   state->row = 0;
   state->column = 0;
 
-  bars = malloc(sizeof(*bars));
-
-  bars->numrows = c.rows - (state->ignore_first_line ? 1 : 0);
-
-  bars->timestamp = malloc(sizeof(timestamp_t) * bars->numrows);
-  bars->open = malloc(sizeof(double) * bars->numrows);
-  bars->high = malloc(sizeof(double) * bars->numrows);
-  bars->low = malloc(sizeof(double) * bars->numrows);
-  bars->close = malloc(sizeof(double) * bars->numrows);
-  bars->adjclose = malloc(sizeof(double) * bars->numrows);
-  bars->volume = malloc(sizeof(int) * bars->numrows);
+  bars = ta_bars_create(c.rows - (state->ignore_first_line ? 1 : 0));
+  if (bars == NULL) {
+    return -1;
+  }
 
   state->bars = bars;
 
