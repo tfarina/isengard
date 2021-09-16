@@ -91,11 +91,13 @@ int main(int argc, char **argv)
   sma(bars->close, bars->numrows, period1, ma1);
   sma(bars->close, bars->numrows, period2, ma2);
 
+#if 0
   print_array(bars->close, bars->numrows);
   print_array(ma1, bars->numrows);
   print_array(ma2, bars->numrows);
 
   print_movavg(bars, ma1, ma2);
+#endif
 
   tradeno = 0;
   ordercnt = 0;
