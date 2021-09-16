@@ -100,7 +100,7 @@ int main(int argc, char **argv)
   tradeno = 0;
   ordercnt = 0;
 
-  printf("Trade\tDate\tSignal\tClose\tSMA (5)\n");
+  printf("Trade\t%-10s\t%-7s\t%-6s\t%-8s\n", "Date", "Signal", "Close", "SMA (5)");
 
   for (pos = 0; pos < bars->numrows; pos++) {
     if (pos < period2) {
@@ -115,11 +115,11 @@ int main(int argc, char **argv)
     if (crossover == TA_UP) {
       tradeno++;
       ordercnt++;
-      printf("%d\t%.4d-%.2d-%.2d\tBUY\t%9.2f\t%9.2f\n", tradeno, year, month, day, *(bars->close + pos), *(ma1 + pos));
+      printf("%d\t%.4d-%.2d-%.2d\tBUY\t%-5.2f\t%-7.2f\n", tradeno, year, month, day, *(bars->close + pos), *(ma1 + pos));
     } else if (crossover == TA_DOWN) {
       tradeno++;
       ordercnt++;
-      printf("%d\t%.4d-%.2d-%.2d\tSELL\t%9.2f\t%9.2f\n", tradeno, year, month, day, *(bars->close + pos), *(ma1 + pos));
+      printf("%d\t%.4d-%.2d-%.2d\tSELL\t%-5.2f\t%-7.2f\n", tradeno, year, month, day, *(bars->close + pos), *(ma1 + pos));
     }
   }
 
