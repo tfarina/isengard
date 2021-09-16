@@ -100,6 +100,7 @@ int main(int argc, char **argv)
   tradeno = 0;
   ordercnt = 0;
 
+  printf("SMA Crossover System\n\n");
   printf("Trade\t%-10s\t%-7s\t%-6s\t%-8s\n", "Date", "Signal", "Close", "SMA (5)");
 
   for (pos = 0; pos < bars->numrows; pos++) {
