@@ -23,9 +23,7 @@ char *f_build_filename(char *dir, char *file)
   }
 
   strcpy(path, dir);
-
   strcat(path, "/");
-
   strcat(path, file);
 
   return path;
