@@ -18,6 +18,9 @@ char *f_build_filename(char *dir, char *file)
   len = strlen(dir) + strlen(file) + 2;
 
   path = malloc(sizeof(char) * len);
+  if (path == NULL) {
+    return NULL;
+  }
 
   strcpy(path, dir);
 
