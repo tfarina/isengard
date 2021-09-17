@@ -20,21 +20,21 @@ static void print_array(double const *arr, size_t const size)
 
 int main(void)
 {
-  double arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-  size_t size = ARRAY_SIZE(arr);
+  double input[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+  size_t input_size = ARRAY_SIZE(input);
   int period = 4;
   double *res;
 
-  res = malloc(sizeof(double) * size);
+  res = malloc(sizeof(double) * input_size);
   if (res == NULL) {
     fprintf(stderr, "Out of memory\n");
     return 1;
   }
 
-  ema(arr, size, period, res);
+  ema(input, input_size, period, res);
 
-  print_array(arr, size);
-  print_array(res, size);
+  print_array(input, input_size);
+  print_array(res, input_size);
 
   free(res);
 
