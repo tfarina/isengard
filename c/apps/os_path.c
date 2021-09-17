@@ -9,6 +9,7 @@ char const *os_path_basename(char const *path) {
 
   /* Search for the last slash in path. */
   last_slash = strrchr(path, DIR_SEP);
+  /* If there is no DIR_SEP in path, the basename is path. */
   if (last_slash == 0) {
     return path;
   }
