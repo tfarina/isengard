@@ -21,7 +21,7 @@ static void print_matrix(ta_bars_t *b) {
     printf("%9.3f ", b->low[i]);
     printf("%9.3f ", b->close[i]);
     printf("%9.3f ", b->adjclose[i]);
-    printf("%d ", b->volume[i]);
+    printf("%d", b->volume[i]);
     putc('\n', stdout);
   }
 }
