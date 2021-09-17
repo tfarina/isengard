@@ -68,6 +68,9 @@ target_link_libraries(moneybin iniparser libconfigini ini libcsv ${LIBS})
 add_executable(csvcat sfldate.c timestamp.c ta.c tacsv.c fstrutils.c csvcat.c)
 target_link_libraries(csvcat libcsv)
 
+add_executable(csvinfo fstrutils.c csvinfo.c)
+target_link_libraries(csvinfo libcsv)
+
 add_executable(csvstats sfldate.c timestamp.c fstrutils.c stats.c ta.c tacsv.c csvstats.c)
 target_link_libraries(csvstats libcsv -lm)
 
