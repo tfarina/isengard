@@ -8,6 +8,7 @@
 int print_contact_list(alpm_list_t *contact_list) {
   ft_table_t *table;
   alpm_list_t *cur;
+  char const *table_str;
 
   ft_set_default_border_style(FT_BASIC2_STYLE);
   table = ft_create_table();
@@ -26,7 +27,13 @@ int print_contact_list(alpm_list_t *contact_list) {
     free(idstr);
   }
 
-  printf("%s\n", ft_to_string(table));
+  table_str = ft_to_string(table);
+  if (table_str == NULL) {
+    ft_destroy_table(table);
+    return -1;
+  }
+
+  printf("%s\n", table_str);
   ft_destroy_table(table);
 
   return 0;
