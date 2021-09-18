@@ -92,11 +92,11 @@ void vector_push_back(vector_t *self, void *element);
 void *vector_at(vector_t const * const self, int unsigned const index);
 
 /**
- * Returns a pointer to the elements of `self`.
+ * Returns a pointer to the underlying array serving as element storage.
  *
  * @param[in] self A pointer to the `vector_t` instance.
  *
- * @return pointer to elements, `NULL` if empty.
+ * @return Pointer to the underlying element storage or `NULL` if it is empty.
  */
 void *vector_data(vector_t const * const self);
 
