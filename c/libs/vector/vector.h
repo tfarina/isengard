@@ -124,7 +124,7 @@ size_t vector_capacity(vector_t const * const self);
 void *vector_data(vector_t const * const self);
 
 /**
- * Tests whether vector is empty.
+ * Tests whether the vector is empty.
  *
  * @param[in,out] self A pointer to the `vector_t` instance.
  *
