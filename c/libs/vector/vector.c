@@ -79,6 +79,15 @@ void *vector_at(vector_t const * const self, int unsigned const index)
         return (void *) ((char *)self->data + (index * self->datasize));
 }
 
+void *vector_data(vector_t const * const self)
+{
+        if (self == NULL) {
+                return NULL;
+        }
+
+        return self->data;
+}
+
 size_t vector_size(vector_t const * const self)
 {
         if (self == NULL) {
@@ -95,15 +104,6 @@ size_t vector_capacity(vector_t const * const self)
 	}
 
         return self->capacity;
-}
-
-void *vector_data(vector_t const * const self)
-{
-        if (self == NULL) {
-                return NULL;
-        }
-
-        return self->data;
 }
 
 int vector_empty(vector_t const * const self)

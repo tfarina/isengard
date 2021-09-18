@@ -91,6 +91,15 @@ void vector_push_back(vector_t *self, void *element);
  */
 void *vector_at(vector_t const * const self, int unsigned const index);
 
+/**
+ * Returns a pointer to the elements of `self`.
+ *
+ * @param[in] self A pointer to the `vector_t` instance.
+ *
+ * @return pointer to elements, `NULL` if empty.
+ */
+void *vector_data(vector_t const * const self);
+
 /* ------------------------------------------------------------------------- */
 /* Information                                                               */
 /* ------------------------------------------------------------------------- */
@@ -113,15 +122,6 @@ size_t vector_size(vector_t const * const self);
  * @return The number of elements that can be stored before having to expand.
  */
 size_t vector_capacity(vector_t const * const self);
-
-/**
- * Returns a pointer to the elements of `self`.
- *
- * @param[in] self A pointer to the `vector_t` instance.
- *
- * @return pointer to elements, `NULL` if empty.
- */
-void *vector_data(vector_t const * const self);
 
 /**
  * Tests whether the vector is empty.
