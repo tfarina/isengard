@@ -16,7 +16,7 @@ UTEST(os_path_test, basename)
    *  ""             ""
    *  "./.."         ".."
    *
-   *  These results can be verified by running the unix commands basename(1).
+   *  These results can be verified by running the unix command basename(1).
    */
 
   char const *name;
