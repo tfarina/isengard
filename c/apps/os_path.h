@@ -3,6 +3,8 @@
 
 /**
  * Returns the last element of path.
+ *
+ * @param[in] path A path name.
  */
 char const *os_path_basename(char const *path);
 
