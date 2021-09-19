@@ -5,6 +5,8 @@
 #include <unistd.h>
 
 /**
+ * Determines whether the given file (or directory) exists.
+ *
  * [-e FILE] FILE exists?
  */
 int test_exists(char const *path)
@@ -18,6 +20,8 @@ int test_exists(char const *path)
 }
 
 /**
+ * Returns whether the given file is a directory.
+ *
  * [-d FILE ] FILE exists and is a directory?
  */
 int test_isdir(char const *path)
