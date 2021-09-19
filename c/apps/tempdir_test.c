@@ -8,7 +8,7 @@ main(void)
 {
   char *tempdir = NULL;
 
-  tempdir = f_get_tempdir();
+  tempdir = f_tempdir();
 
   if (tempdir != NULL) {
     printf("%s\n", tempdir);

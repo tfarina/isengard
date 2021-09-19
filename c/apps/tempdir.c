@@ -42,7 +42,7 @@ static const char *platform_dirs[] = {
  *  5. As a last resort, the current working directory.
  */
 char *
-f_get_tempdir(void)
+f_tempdir(void)
 {
   size_t i;
   char cwd[256];
