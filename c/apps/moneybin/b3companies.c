@@ -39,7 +39,7 @@ main(int argc, char **argv)
   char *filename;
 
   if (argc != 2) {
-    fprintf(stderr, "usage: getsymbols TITULOS_NEGOCIAVEIS.txt\n");
+    fprintf(stderr, "usage: b3companies TITULOS_NEGOCIAVEIS.txt\n");
     return 1;
   }
 
