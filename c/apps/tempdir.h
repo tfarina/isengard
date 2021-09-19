@@ -2,7 +2,7 @@
 #define TEMPDIR_H_INCLUDED_ 1
 
 /**
- * Gets the directory to create temporary files in.
+ * Returns the path to a directory to create temporary files in.
  */
 char *f_get_tempdir(void);
 

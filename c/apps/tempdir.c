@@ -29,6 +29,8 @@ static const char *platform_dirs[] = {
 };
 
 /**
+ * Searches through the following list of directories:
+ *
  *  1. The directory named by the TMPDIR environment variable.
  *  2. The directory named by the TEMP environment variable.
  *  3. The directory named by the TMP environment variable.
