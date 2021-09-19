@@ -24,7 +24,7 @@ dump_b3_symbols(char const *filename)
 
   /* Loops through the file reading line by line. */
   while (fgets(linebuf, sizeof(linebuf), fp)) {
-    strncpy(symbol, linebuf + 2, 14);
+    strncpy(symbol, linebuf + 2, 12);
     symbol[12] = 0;
     printf("%s\n", symbol);
   }
