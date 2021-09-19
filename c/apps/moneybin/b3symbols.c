@@ -7,13 +7,36 @@
 #include "fstrutils.h"
 #include "test.h"
 
-int
-main(int argc, char **argv)
+static int
+dump_b3_symbols(char const *filename)
 {
-  char *filename;
   FILE *fp;
   char linebuf[BUFSIZ];
   char symbol[12];
+
+  fp = fopen(filename, "r");
+  if (fp == NULL) {
+    fprintf(stderr, "%s: %s\n", filename, strerror(errno));
+    return -1;
+  }
+
+  memset(symbol, '\0', sizeof(symbol));
+
+  /* Loops through the file reading line by line. */
+  while (fgets(linebuf, sizeof(linebuf), fp)) {
+    strncpy(symbol, linebuf + 2, 14);
+    symbol[12] = 0;
+    printf("%s\n", symbol);
+  }
+
+  return 0;
+}
+
+int
+main(int argc, char **argv)
+{
+  int retval;
+  char *filename;
 
   if (argc != 2) {
     fprintf(stderr, "usage: getsymbols TITULOS_NEGOCIAVEIS.txt\n");
@@ -27,19 +50,9 @@ main(int argc, char **argv)
     return 1;
   }
 
-  fp = fopen(filename, "r");
-  if (fp == NULL) {
-    fprintf(stderr, "%s: %s\n", filename, strerror(errno));
+  retval = dump_b3_symbols(filename);
+  if (retval < 0) {
     return 1;
-  }
-
-  memset(symbol, '\0', sizeof(symbol));
-
-  /* Loops through the file reading line by line. */
-  while (fgets(linebuf, sizeof(linebuf), fp)) {
-    strncpy(symbol, linebuf + 2, 14);
-    symbol[12] = 0;
-    printf("%s\n", symbol);
   }
 
   return 0;
