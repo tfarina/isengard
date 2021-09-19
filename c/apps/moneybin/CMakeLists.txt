@@ -130,6 +130,9 @@ target_link_libraries(b3symbols)
 add_executable(b3companies test.c fstrutils.c b3companies.c)
 target_link_libraries(b3companies)
 
+add_executable(b3stocksymbols test.c fstrutils.c b3stocksymbols.c)
+target_link_libraries(b3stocksymbols)
+
 add_executable(dbinit dbinit.c)
 target_include_directories(dbinit PUBLIC ${CMAKE_SOURCE_DIR})
 target_link_libraries(dbinit sqlite3 moneybin)
