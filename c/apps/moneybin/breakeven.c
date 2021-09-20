@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "financial.h"
+#include "finance.h"
 
 int
 main(int argc, char **argv)
