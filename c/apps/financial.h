@@ -2,7 +2,7 @@
 #define FINANCIAL_H_
 
 /**
- * Computes the future value.
+ * Computes the future value of an investment.
  *
  * @param pv   the present value
  * @param i    the interest rate compounded once per period
@@ -13,7 +13,7 @@
 double future_value(double pv, double i, double n);
 
 /**
- * Computes the present value.
+ * Computes the present value of an investment.
  *
  * @param fv   the future value
  * @param i    the interest rate compounded once per period
@@ -27,7 +27,5 @@ double present_value(double fv, double i, double n);
  * @param n the number of periods (e.g., 10 years).
  */
 double growth_rate(double future_value, double present_value, double n);
-
-double break_even(double buy_price, double commission, int num_shares);
 
 #endif  /* FINANCIAL_H_ */
