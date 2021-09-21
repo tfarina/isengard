@@ -14,7 +14,7 @@ static int wait(double timeout) {
   int maxfd = -1;
   fd_set readfds;
   struct timeval tv;
-  ssize_t rv;
+  ssize_t nfds;
 
   FD_ZERO(&readfds);
   FD_SET(fd, &readfds);
@@ -29,16 +29,18 @@ static int wait(double timeout) {
   /*
    * Watch out read events.
    */
-  rv = select(maxfd + 1, &readfds, NULL, NULL, &tv);
-  if (rv == -1) {
+  nfds = select(maxfd + 1, &readfds, NULL, NULL, &tv);
+  if (nfds == -1) {
     /* TODO: Check errno for EAGAIN. */
     if (errno == EINTR) { /* ^C was pressed. */
       return -1;
     }
-  } else if (rv == 0) {
+  } else if (nfds == 0) {
     printf("Timed out.\n");
     return -1;
   }
+
+  printf("\nSuccessful select, descriptor count = %d\n", nfds);
 
   if (FD_ISSET(fd, &readfds)) {
     printf("A key was pressed.\n");
