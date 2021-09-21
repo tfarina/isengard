@@ -84,6 +84,7 @@ add_executable(pidfile pidfile.c)
 add_executable(buildpath ffileutils.c buildpath.c)
 add_executable(mkdirp_test strutils.c test.c mkdirp.c mkdirp_test.c)
 add_executable(os_path_test os_path.c os_path_test.c)
+add_executable(wiyname wiyname.c)
 
 set(LIBCSV_PARSER_SRCS
   csv_parser.c
