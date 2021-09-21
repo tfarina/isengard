@@ -22,6 +22,7 @@ static void send_udp_message(int sockfd) {
   char buf[BUFLEN];
   struct sockaddr_storage ss;
   socklen_t sslen = sizeof(ss);
+  ssize_t sentlen;
 
   recvlen = recvfrom(sockfd, buf, sizeof(buf), 0,
                      (struct sockaddr *)&ss, &sslen);
@@ -36,8 +37,9 @@ static void send_udp_message(int sockfd) {
 
   sprintf(buf, "ack %d", msgcnt++);
 
-  if (sendto(sockfd, buf, strlen(buf), 0,
-             (struct sockaddr *)&ss, sslen) == -1) {
+  sentlen = sendto(sockfd, buf, strlen(buf), 0,
+		   (struct sockaddr *)&ss, sslen);
+  if (sentlen < 0) {
     error("sendto failed: %s", strerror(errno));
   }
 
