@@ -26,6 +26,8 @@ static int wait(double timeout) {
   tv.tv_sec = (long)(timeout / 1000.0);
   tv.tv_usec = (long)(timeout * 1000.0) % 1000000;
 
+  printf("Listening on stdin. Press Ctrl-C to interrupt.\n");
+
   printf("active file descriptors (max %d): ", maxfd);
   for (nfds = 0; nfds <= maxfd; ++nfds) {
     if (FD_ISSET(nfds, &readfds)) {
