@@ -23,8 +23,9 @@ static void send_udp_message(int sockfd) {
   struct sockaddr_storage ss;
   socklen_t sslen = sizeof(ss);
 
-  if ((recvlen = recvfrom(sockfd, buf, sizeof(buf), 0,
-                          (struct sockaddr *)&ss, &sslen)) == -1) {
+  recvlen = recvfrom(sockfd, buf, sizeof(buf), 0,
+                     (struct sockaddr *)&ss, &sslen);
+  if (recvlen < 0) {
     error("recvfrom failed: %s", strerror(errno));
     return;
   }
