@@ -59,6 +59,7 @@ int main(int argc, char **argv)
   int crossover;
   int tradeno; /* number of trades */
   int ordercnt;
+  int intrade;
 
   if (argc < 2) {
     fprintf(stderr, "usage: gensignals <filename>\n");
@@ -115,14 +116,28 @@ int main(int argc, char **argv)
     timestamp = &bars->timestamp[pos];
     ta_getdate(timestamp, &year, &month, &day);
 
-    if (crossover == TA_UP) {
+    /*
+     * First we have to evaluate the buy or sell signal in order to open the
+     * trade.
+     */
+    if (crossover == TA_UP && !intrade) {
+      /*
+       * If it crossed up and the current position is not Long, we have to
+       * Buy to Open the trade.
+       */
       tradeno++;
       ordercnt++;
+
       printf("%d\t%.4d-%.2d-%.2d\tBUY\t%-5.2f\t%-7.2f\n", tradeno, year, month, day, *(bars->close + pos), *(ma1 + pos));
-    } else if (crossover == TA_DOWN) {
+
+      intrade = 1;
+    } else if (crossover == TA_DOWN && intrade) {
       tradeno++;
       ordercnt++;
+
       printf("%d\t%.4d-%.2d-%.2d\tSELL\t%-5.2f\t%-7.2f\n", tradeno, year, month, day, *(bars->close + pos), *(ma1 + pos));
+
+      intrade = 0;
     }
   }
 
