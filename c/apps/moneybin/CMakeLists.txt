@@ -95,6 +95,9 @@ add_executable(ema_test ema.c ema_test.c)
 add_executable(calcrsi sfldate.c timestamp.c ta.c tacsv.c rsi.c calcrsi.c)
 target_link_libraries(calcrsi libcsv)
 
+add_executable(calcstoch sfldate.c timestamp.c ta.c tacsv.c stochastic.c calcstoch.c)
+target_link_libraries(calcstoch libcsv)
+
 find_package(CURL REQUIRED)
 
 add_executable(csvget iso8601.c csvget.c)
