@@ -112,7 +112,7 @@ int main(int argc, char **argv)
   pctprofit = 0;
 
   printf("SMA Crossover System\n\n");
-  printf("Order\t%-10s\t%-7s\t%-6s\t%-8s%-8s\n", "Date", "Signal", "Close", "SMA (5)", "P/L");
+  printf("Order\t%-10s\t%-7s\t%-6s\t%-8s\n", "Date", "Signal", "Close", "P/L");
 
   for (pos = 0; pos < bars->numrows; pos++) {
     if (pos < period2) {
@@ -138,7 +138,7 @@ int main(int argc, char **argv)
 
       buyprice = *(bars->close + pos);
 
-      printf("%d\t%.4d-%.2d-%.2d\tBUY\t%-5.2f\t%-7.2f\n", ordercnt, year, month, day, buyprice, *(ma1 + pos));
+      printf("%d\t%.4d-%.2d-%.2d\tBUY\t%-5.2f\n", ordercnt, year, month, day, buyprice);
 
       intrade = 1;
     } else if (crossover == TA_DOWN && intrade) {
@@ -152,7 +152,7 @@ int main(int argc, char **argv)
         profitable++;
       }
 
-      printf("%d\t%.4d-%.2d-%.2d\tSELL\t%-5.2f\t%-7.2f\t%-7.2f\n", ordercnt, year, month, day, sellprice, *(ma1 + pos), pl);
+      printf("%d\t%.4d-%.2d-%.2d\tSELL\t%-5.2f\t%-7.2f\n", ordercnt, year, month, day, sellprice, pl);
 
       intrade = 0;
     }
