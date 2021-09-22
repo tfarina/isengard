@@ -63,7 +63,8 @@ int main(int argc, char **argv)
   double buyprice;
   double sellprice;
   double pl; /* profit or loss in the trade */
-  int profitable; /* number of profitable trades */
+  float profitable; /* number of profitable trades */
+  float pctprofit; /* percentage of profitable trades */
 
   if (argc < 2) {
     fprintf(stderr, "usage: gensignals <filename>\n");
@@ -108,6 +109,7 @@ int main(int argc, char **argv)
   ordercnt = 0;
   intrade = 0;
   profitable = 0;
+  pctprofit = 0;
 
   printf("SMA Crossover System\n\n");
   printf("Order\t%-10s\t%-7s\t%-6s\t%-8s%-8s\n", "Date", "Signal", "Close", "SMA (5)", "P/L");
@@ -156,8 +158,11 @@ int main(int argc, char **argv)
     }
   }
 
+  pctprofit = (profitable / tradeno) * 100;
+
   printf("total trades: %d\n", tradeno);
-  printf("profitable trades: %d\n", profitable);
+  printf("profitable trades: %0.f\n", profitable);
+  printf("percentage of profitable trades: %0.2f%%\n", pctprofit);
 
   /* Free allocated memory. */
   free(ma1);
