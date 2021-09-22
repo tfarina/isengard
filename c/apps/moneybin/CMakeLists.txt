@@ -87,6 +87,9 @@ target_link_libraries(genexpma libcsv)
 add_executable(genrsi sfldate.c timestamp.c rsi.c ta.c tacsv.c genrsi.c)
 target_link_libraries(genrsi libcsv)
 
+add_executable(genstoch sfldate.c timestamp.c stochastic.c ta.c tacsv.c genstoch.c)
+target_link_libraries(genstoch libcsv)
+
 add_executable(calcpivot sfldate.c timestamp.c ta.c tacsv.c pivot.c calcpivot.c)
 target_link_libraries(calcpivot libcsv)
 
