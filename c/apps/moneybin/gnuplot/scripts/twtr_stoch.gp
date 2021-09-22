@@ -17,7 +17,7 @@ set xtics nomirror
 set ytics nomirror
 
 set arrow from graph 0, first 70 to graph 1, first 70 nohead
-set arrow from graph 0, first 30 to graph 1, first 30 nohead
+set arrow from graph 0, first 20 to graph 1, first 20 nohead
 
 set timefmt "%Y-%m-%d"  # specify our time string format
 set xdata time          # tells gnuplot the x axis is time data
