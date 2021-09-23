@@ -1,9 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "crossover.h"
 #include "sma.h"
 #include "ta.h"
+
+#define ORDERCOLSTR "Order"
+static int ordercolw;
 
 static void print_array(double const *arr, size_t const size)
 {
@@ -111,8 +115,10 @@ int main(int argc, char **argv)
   profitable = 0;
   pctprofit = 0;
 
+  ordercolw = strlen(ORDERCOLSTR);
+
   printf("SMA Crossover System\n\n");
-  printf("%5s\t%-10s\t%-7s\t%-6s\t%-8s\n", "Order", "Date", "Signal", "Close", "P/L");
+  printf("%*s\t%-10s\t%-7s\t%-6s\t%-8s\n", ordercolw, "Order", "Date", "Signal", "Close", "P/L");
 
   for (pos = 0; pos < bars->numrows; pos++) {
     if (pos < period2) {
