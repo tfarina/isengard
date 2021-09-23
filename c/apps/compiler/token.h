@@ -5,7 +5,7 @@
  * Token types.
  */
 typedef enum token_kind_e {
-  TOK_EOF = 0,
+  TOK_EOF = 0, /* End-Of-File */
 
   TOK_PLUS     = '+',
   TOK_LBRACKET = '[',
