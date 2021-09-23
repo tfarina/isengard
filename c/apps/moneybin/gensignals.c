@@ -118,7 +118,7 @@ int main(int argc, char **argv)
   ordercolw = strlen(ORDERCOLSTR);
 
   printf("SMA Crossover System\n\n");
-  printf("%*s\t%-10s\t%-7s\t%-6s\t%-8s\n", ordercolw, "Order", "Date", "Signal", "Close", "P/L");
+  printf("%*s\t%-10s\t%-7s\t%-6s\t%-8s\n", ordercolw, ORDERCOLSTR, "Date", "Signal", "Close", "P/L");
 
   for (pos = 0; pos < bars->numrows; pos++) {
     if (pos < period2) {
