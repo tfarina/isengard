@@ -144,7 +144,7 @@ int main(int argc, char **argv)
 
       buyprice = *(bars->close + pos);
 
-      printf("%*d\t%.4d-%.2d-%.2d\tBUY\t%-5.2f\n", ordercolw, ordercnt, year, month, day, buyprice);
+      printf("%-*d\t%.4d-%.2d-%.2d\tBUY\t%-5.2f\n", ordercolw, ordercnt, year, month, day, buyprice);
 
       intrade = 1;
     } else if (crossover == TA_DOWN && intrade) {
@@ -158,7 +158,7 @@ int main(int argc, char **argv)
         profitable++;
       }
 
-      printf("%*d\t%.4d-%.2d-%.2d\tSELL\t%-5.2f\t%-7.2f\n", ordercolw, ordercnt, year, month, day, sellprice, pl);
+      printf("%-*d\t%.4d-%.2d-%.2d\tSELL\t%-5.2f\t%-7.2f\n", ordercolw, ordercnt, year, month, day, sellprice, pl);
 
       intrade = 0;
     }
