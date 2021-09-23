@@ -12,6 +12,8 @@ typedef enum token_kind_e {
   TOK_RBRACKET = ']',
   TOK_LBRACE   = '{',
   TOK_RBRACE   = '}',
+  TOK_LPAREN   = '(',
+  TOK_RPAREN   = ')',
 
   TOK_END
 } token_kind_t;

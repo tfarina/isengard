@@ -32,6 +32,14 @@ void lex(const char *input)
 	kind = TOK_RBRACE;
         printf("<'}', RIGHT_BRACE>\n");
         break;
+      case '(':
+	kind = TOK_LPAREN;
+        printf("<'(', LEFT_PAREN>\n");
+        break;
+      case ')':
+	kind = TOK_RPAREN;
+        printf("<')', RIGHT_PAREN>\n");
+        break;
     }
   }
 }
