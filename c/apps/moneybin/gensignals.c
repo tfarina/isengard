@@ -118,7 +118,7 @@ int main(int argc, char **argv)
   ordercolw = strlen(ORDERCOLSTR);
 
   printf("SMA Crossover System\n\n");
-  printf("%*s %10s %s %9s\t%s\n", ordercolw, ORDERCOLSTR, "Date", "Signal", "Close", "P/L");
+  printf("%*s %10s %s %9s %s\n", ordercolw, ORDERCOLSTR, "Date", "Signal", "Close", "P/L");
 
   for (pos = 0; pos < bars->numrows; pos++) {
     if (pos < period2) {
@@ -158,7 +158,7 @@ int main(int argc, char **argv)
         profitable++;
       }
 
-      printf("%-*d %.4d-%.2d-%.2d %6s %9.2f\t%-7.2f\n", ordercolw, ordercnt, year, month, day, "SELL", sellprice, pl);
+      printf("%-*d %.4d-%.2d-%.2d %6s %9.2f %-9.2f\n", ordercolw, ordercnt, year, month, day, "SELL", sellprice, pl);
 
       intrade = 0;
     }
