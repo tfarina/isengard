@@ -117,7 +117,8 @@ int main(int argc, char **argv)
 
   ordercolw = strlen(ORDERCOLSTR);
 
-  printf("SMA Crossover System\n\n");
+  printf("SMA Crossover System\n");
+  putc('\n', stdout);
   printf("%*s %10s %s %9s %s\n", ordercolw, ORDERCOLSTR, "Date", "Signal", "Close", "P/L");
 
   for (pos = 0; pos < bars->numrows; pos++) {
@@ -163,6 +164,8 @@ int main(int argc, char **argv)
       intrade = 0;
     }
   }
+
+  putc('\n', stdout);
 
   pctprofit = (profitable / tradeno) * 100;
 
