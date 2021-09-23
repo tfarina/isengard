@@ -112,7 +112,7 @@ int main(int argc, char **argv)
   pctprofit = 0;
 
   printf("SMA Crossover System\n\n");
-  printf("Order\t%-10s\t%-7s\t%-6s\t%-8s\n", "Date", "Signal", "Close", "P/L");
+  printf("%5s\t%-10s\t%-7s\t%-6s\t%-8s\n", "Order", "Date", "Signal", "Close", "P/L");
 
   for (pos = 0; pos < bars->numrows; pos++) {
     if (pos < period2) {
