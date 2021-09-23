@@ -22,5 +22,6 @@ size_t curl_write_memory_cb(void *data, size_t size, size_t nmemb, void *userdat
 
     buffer_append(buf, data, realsize);
 
+    /* Return the number of bytes appended. */
     return realsize;
 }
