@@ -118,7 +118,7 @@ int main(int argc, char **argv)
   ordercolw = strlen(ORDERCOLSTR);
 
   printf("SMA Crossover System\n\n");
-  printf("%*s %10s\t%s\t%s\t%s\n", ordercolw, ORDERCOLSTR, "Date", "Signal", "Close", "P/L");
+  printf("%*s %10s %s\t%s\t%s\n", ordercolw, ORDERCOLSTR, "Date", "Signal", "Close", "P/L");
 
   for (pos = 0; pos < bars->numrows; pos++) {
     if (pos < period2) {
@@ -144,7 +144,7 @@ int main(int argc, char **argv)
 
       buyprice = *(bars->close + pos);
 
-      printf("%-*d %.4d-%.2d-%.2d\tBUY\t%-5.2f\n", ordercolw, ordercnt, year, month, day, buyprice);
+      printf("%-*d %.4d-%.2d-%.2d %6s\t%-5.2f\n", ordercolw, ordercnt, year, month, day, "BUY", buyprice);
 
       intrade = 1;
     } else if (crossover == TA_DOWN && intrade) {
@@ -158,7 +158,7 @@ int main(int argc, char **argv)
         profitable++;
       }
 
-      printf("%-*d %.4d-%.2d-%.2d\tSELL\t%-5.2f\t%-7.2f\n", ordercolw, ordercnt, year, month, day, sellprice, pl);
+      printf("%-*d %.4d-%.2d-%.2d %6s\t%-5.2f\t%-7.2f\n", ordercolw, ordercnt, year, month, day, "SELL", sellprice, pl);
 
       intrade = 0;
     }
