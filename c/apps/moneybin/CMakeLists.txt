@@ -144,7 +144,6 @@ add_executable(frequency frequency.c)
 add_executable(interval interval.c)
 add_executable(events events.c)
 add_executable(showev showev.c)
-add_executable(yparams getopt1.c getopt.c yparams.c)
 add_executable(period period.c)
 
 add_executable(breakeven finance.c breakeven.c)
