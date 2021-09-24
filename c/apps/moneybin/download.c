@@ -8,9 +8,9 @@
 int
 download_file(char const *downloadurl, char const *destfile)
 {
-  CURL *curl;
   CURLcode result;
-  FILE* fp;
+  CURL *curl;
+  FILE *fp;
 
   result = curl_global_init(CURL_GLOBAL_DEFAULT);
   if (result != CURLE_OK) {
