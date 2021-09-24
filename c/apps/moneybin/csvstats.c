@@ -30,11 +30,11 @@ int main(int argc, char **argv) {
   stats_avg(bars->close, bars->numrows, &avg);
   stats_stdev(bars->close, bars->numrows, &stdev);
 
-  printf("      Min       Max      Mean       Stdev\n");
-
-  printf("%9.3f %9.3f %9.3f %9.3f", min, max, avg, stdev);
-
-  printf("\n");
+  printf("%15s\n", "Close");
+  printf("min   %9.3f\n", min);
+  printf("max   %9.3f\n", max);
+  printf("mean  %9.3f\n", avg);
+  printf("stdev %9.3f\n", stdev);
 
   return 0;
 }
