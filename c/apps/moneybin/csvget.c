@@ -17,7 +17,7 @@
 
 static int verbose = 1;
 
-static char const *frequency[] = { "Daily", "Weekly", "Monthly" };
+static char const *frequency[] = { "Daily", "Weekly", "Monthly", (char *) 0 };
 
 /*https://github.com/jerryvig/cython-project1/blob/351aece6a910ecff8867708fa16155a6bc444217/compute_statistics.c#L53*/
 /**
