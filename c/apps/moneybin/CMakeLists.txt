@@ -140,6 +140,7 @@ add_executable(b3stocksymbols test.c fstrutils.c b3stocksymbols.c)
 target_link_libraries(b3stocksymbols)
 
 add_executable(yparami yparamsi.c)
+add_executable(frequency frequency.c)
 
 add_executable(breakeven finance.c breakeven.c)
 target_link_libraries(breakeven ${M_LIBRARY})
