@@ -81,7 +81,7 @@ static int download_history_from_yahoo(char const *symbol, time_t start_date, ti
     return -1;
   }
 
-  crumb = (char*)malloc(BUFSIZE * sizeof(char));
+  crumb = malloc(sizeof(char) * BUFSIZE);
   memset(crumb, 0, BUFSIZE);
   retval = get_crumb(html.data, crumb);
   if (retval < 0) {
