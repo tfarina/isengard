@@ -46,7 +46,7 @@ static int stats_range_max(double const *a, int size, int start, int stop, doubl
   return 0;
 }
 
-int ind_stochastic(double const *high, double const *low, double const *close, size_t size, int period, double *outarr)
+int ind_stochastic(double const *high, double const *low, double const *close, size_t size, int period, double *output)
 {
   double minlow;
   double maxhigh;
@@ -76,7 +76,7 @@ int ind_stochastic(double const *high, double const *low, double const *close, s
     printf("%.2f\n", fastk);
 #endif
 
-    outarr[pos] = fastk;
+    output[pos] = fastk;
   }
 
   return 0;
