@@ -14,7 +14,7 @@
  *     //=>   │       └─(2+3+4+5)/4
  *     //=>   └─(1+2+3+4)/4
  */
-void sma(double const *input, size_t size, int period, double *output)
+void ind_sma(double const *input, size_t size, int period, double *output)
 {
   int i;
   double sum = 0;

@@ -70,8 +70,8 @@ int main(int argc, char **argv)
   }
 
   /* Calculate the moving averages. */
-  ema(bars->close, bars->numrows, period1, ma1);
-  ema(bars->close, bars->numrows, period2, ma2);
+  ind_ema(bars->close, bars->numrows, period1, ma1);
+  ind_ema(bars->close, bars->numrows, period2, ma2);
 
   print_movavg(bars, ma1, ma2);
 

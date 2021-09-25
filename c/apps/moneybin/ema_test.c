@@ -31,7 +31,7 @@ int main(void)
     return 1;
   }
 
-  ema(input, input_size, period, res);
+  ind_ema(input, input_size, period, res);
 
   print_array(input, input_size);
   print_array(res, input_size);

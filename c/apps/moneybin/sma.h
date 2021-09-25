@@ -13,6 +13,6 @@
  *
  * @return simple moving average
  */
-void sma(double const *input, size_t size, int period, double *output);
+void ind_sma(double const *input, size_t size, int period, double *output);
 
 #endif /* SMA_H_ */
