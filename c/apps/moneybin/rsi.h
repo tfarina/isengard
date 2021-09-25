@@ -11,7 +11,7 @@
  * @param[in]  period
  * @param[out] output
  *
- * @return exponential moving average
+ * @return relative strength index
  */
 void ind_rsi(double const *input, size_t size, int period, double *output);
 
