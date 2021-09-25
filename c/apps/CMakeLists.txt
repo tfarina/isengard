@@ -138,3 +138,4 @@ add_executable(backlog backlog.c)
 
 add_executable(tempdir_test strutils.c test.c tempdir.c tempdir_test.c)
 add_executable(getshell getshell.c)
+add_executable(goto_statement_01 goto_statement_01.c)
