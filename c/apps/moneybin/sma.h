@@ -6,13 +6,13 @@
 /**
  * Simple Moving Average
  *
- * @param[in] arr
+ * @param[in] input
  * @param[in] size
  * @param[in] period
- * @param[out] outarr
+ * @param[out] output
  *
  * @return simple moving average
  */
-void sma(double const *arr, size_t size, int period, double *outarr);
+void sma(double const *input, size_t size, int period, double *output);
 
 #endif /* SMA_H_ */

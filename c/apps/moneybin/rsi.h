@@ -6,13 +6,13 @@
 /**
  * Relative Strength Index
  *
- * @param[in]  close
+ * @param[in]  input
  * @param[in]  size
  * @param[in]  period
- * @param[out] rsi
+ * @param[out] output
  *
  * @return exponential moving average
  */
-void ind_rsi(double const *close, size_t size, int period, double *rsi);
+void ind_rsi(double const *input, size_t size, int period, double *output);
 
 #endif  /* !defined(_RSI_H_INCLUDED_) */

@@ -6,13 +6,13 @@
 /**
  * Exponential Moving Average
  *
- * @param[in]  arr
+ * @param[in]  input
  * @param[in]  size
  * @param[in]  period
- * @param[out] outarr
+ * @param[out] output
  *
  * @return exponential moving average
  */
-void ema(double const *arr, size_t size, int period, double *outarr);
+void ema(double const *input, size_t size, int period, double *output);
 
 #endif /* EMA_H_ */

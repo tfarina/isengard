@@ -4,7 +4,7 @@
  * Calculates a exponential moving average.
  *
  */
-void ema(double const *arr, size_t size, int period, double *outarr)
+void ema(double const *input, size_t size, int period, double *output)
 {
   float val;
   int i;
@@ -12,13 +12,13 @@ void ema(double const *arr, size_t size, int period, double *outarr)
 
   k = 2 / ((float)period + 1); /* 2 is the smoothing factor */
 
-  val = *arr;
-  *outarr++ = val;
+  val = *input;
+  *output++ = val;
 
   for (i = 1; i < size; i++) {
     /* EMA = (close - prev_day_ema) * k + prev_day_ema */
-    val = (*(arr + i) - val) * k + val;
+    val = (*(input + i) - val) * k + val;
 
-    *outarr++ = val;
+    *output++ = val;
   }
 }

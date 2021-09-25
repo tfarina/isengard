@@ -75,7 +75,7 @@ void down_average(double const *a1, size_t size, int period, double *a2)
 #endif
 }
 
-void ind_rsi(double const *close, size_t size, int period, double *rsi)
+void ind_rsi(double const *input, size_t size, int period, double *output)
 {
   double *gains;
   double *losses;
@@ -95,8 +95,8 @@ void ind_rsi(double const *close, size_t size, int period, double *rsi)
     return;
   }
 
-  up_average(close, size, period, gains);
-  down_average(close, size, period, losses);
+  up_average(input, size, period, gains);
+  down_average(input, size, period, losses);
 
   for (i = period; i < size; i++) {
     double rs = gains[i] / losses[i];
@@ -104,10 +104,10 @@ void ind_rsi(double const *close, size_t size, int period, double *rsi)
     printf("RS: %.2f\n", rs);
 #endif
 
-    rsi[i] = 100 - (100 / (1 + rs));
+    output[i] = 100 - (100 / (1 + rs));
 
 #if 0
-    printf("RSI: %.2f\n", rsi[i]);
+    printf("RSI: %.2f\n", output[i]);
 #endif
   }
 
