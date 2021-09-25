@@ -13,6 +13,6 @@
  *
  * @return relative strength index
  */
-void ind_rsi(double const *input, size_t size, int period, double *output);
+int ind_rsi(double const *input, size_t size, int period, double *output);
 
 #endif  /* !defined(_RSI_H_INCLUDED_) */

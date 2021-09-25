@@ -14,7 +14,7 @@
  *     //=>   │       └─(2+3+4+5)/4
  *     //=>   └─(1+2+3+4)/4
  */
-void ind_sma(double const *input, size_t size, int period, double *output)
+int ind_sma(double const *input, size_t size, int period, double *output)
 {
   int i;
   double sum = 0;
@@ -35,4 +35,6 @@ void ind_sma(double const *input, size_t size, int period, double *output)
     /* Calculate the average */
     *(output + i) = sum / period;
   }
+
+  return 0;
 }

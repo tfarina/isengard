@@ -75,7 +75,7 @@ void down_average(double const *a1, size_t size, int period, double *a2)
 #endif
 }
 
-void ind_rsi(double const *input, size_t size, int period, double *output)
+int ind_rsi(double const *input, size_t size, int period, double *output)
 {
   double *gains;
   double *losses;
@@ -85,14 +85,14 @@ void ind_rsi(double const *input, size_t size, int period, double *output)
   gains = malloc(sizeof(double) * size);
   if (gains == NULL) {
     fprintf(stderr, "Out of memory\n");
-    return;
+    return -1;
   }
 
   /* Allocate memory for Losses array. */
   losses = malloc(sizeof(double) * size);
   if (losses == NULL) {
     fprintf(stderr, "Out of memory\n");
-    return;
+    return -1;
   }
 
   up_average(input, size, period, gains);
@@ -113,4 +113,6 @@ void ind_rsi(double const *input, size_t size, int period, double *output)
 
   free(gains);
   free(losses);
+
+  return 0;
 }

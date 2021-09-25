@@ -13,6 +13,6 @@
  *
  * @return exponential moving average
  */
-void ind_ema(double const *input, size_t size, int period, double *output);
+int ind_ema(double const *input, size_t size, int period, double *output);
 
 #endif /* EMA_H_ */

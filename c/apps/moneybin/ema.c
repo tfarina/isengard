@@ -4,7 +4,7 @@
  * Calculates a exponential moving average.
  *
  */
-void ind_ema(double const *input, size_t size, int period, double *output)
+int ind_ema(double const *input, size_t size, int period, double *output)
 {
   float val;
   int i;
@@ -21,4 +21,6 @@ void ind_ema(double const *input, size_t size, int period, double *output)
 
     *output++ = val;
   }
+
+  return 0;
 }
