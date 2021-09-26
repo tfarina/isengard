@@ -2,7 +2,7 @@
 #define STATS_H_
 
 /**
- * Returns the minimum of the entries in the specified array, or NAN if the
+ * Calculates the minimum value in the specified array, or NAN if the
  * array is empty.
  *
  * @param a The array.
@@ -12,7 +12,7 @@
 int stats_min(double const *a, int size, double *res);
 
 /**
- * Returns the maximum of the entries in the specified array, or NAN if the
+ * Calculates the maximum value in the specified array, or NAN if the
  * array is empty.
  *
  * @param a The array.
@@ -22,7 +22,7 @@ int stats_min(double const *a, int size, double *res);
 int stats_max(double const *a, int size, double *res);
 
 /**
- * Returns the sum of the values in the specified array.
+ * Calculates the sum of all values in the specified array.
  *
  * @param a The array.
  * @param size The array size.
@@ -31,7 +31,7 @@ int stats_max(double const *a, int size, double *res);
 int stats_sum(double const *a, int size, double *res);
 
 /**
- * Returns the arithmetic mean of the entries in the specified array.
+ * Calculates the arithmetic mean of the values in the specified array.
  *
  * @param a The array.
  * @param size The array size.
@@ -40,7 +40,8 @@ int stats_sum(double const *a, int size, double *res);
 int stats_avg(double const *a, int size, double *res);
 
 /**
- * Returns the sample variance of the entries in the specified array.
+ * Calculates the variance based on a sample of the values in the
+ * specified array.
  *
  * @param a The array.
  * @param size The array size.
@@ -49,7 +50,8 @@ int stats_avg(double const *a, int size, double *res);
 int stats_var(double const *a, int size, double *res);
 
 /**
- * Returns the sample standard deviation of the entries in the specified array.
+ * Calculates the standard deviation based on a sample of the values in the
+ * in the specified array.
  *
  * @param a The array.
  * @param size The array size.
