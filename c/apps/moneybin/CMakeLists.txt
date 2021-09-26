@@ -62,6 +62,8 @@ set(SRCS
   vector.c
 )
 
+set(M_LIBRARY "-lm")
+
 add_library(moneybin ${SRCS})
 target_link_libraries(moneybin iniparser libconfigini ini libcsv ${LIBS})
 
