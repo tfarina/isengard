@@ -74,7 +74,7 @@ add_executable(csvinfo fstrutils.c csvinfo.c)
 target_link_libraries(csvinfo libcsv)
 
 add_executable(csvstats sfldate.c timestamp.c fstrutils.c stats.c ta.c tacsv.c csvstats.c)
-target_link_libraries(csvstats libcsv -lm)
+target_link_libraries(csvstats libcsv ${M_LIBRARY})
 
 add_executable(sma_test sma.c sma_test.c)
 add_executable(gensignals sfldate.c timestamp.c crossover.c sma.c ta.c tacsv.c gensignals.c)
