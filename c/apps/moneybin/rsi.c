@@ -1,4 +1,4 @@
-#include "rsi.h"
+#include "ta.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -75,6 +75,15 @@ void down_average(double const *a1, size_t size, int period, double *a2)
 #endif
 }
 
+/**
+ * Relative Strength Index
+ *
+ * @param[in]  input
+ * @param[in]  size
+ * @param[in]  period
+ * @param[out] output
+ *
+ */
 int ind_rsi(double const *input, size_t size, int period, double *output)
 {
   double *gains;

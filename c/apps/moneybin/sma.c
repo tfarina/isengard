@@ -1,4 +1,4 @@
-#include "sma.h"
+#include "ta.h"
 
 /**
  * Calculates a simple moving average.
@@ -13,6 +13,12 @@
  *     //=>   │       │       └─(3+4+5+6)/4
  *     //=>   │       └─(2+3+4+5)/4
  *     //=>   └─(1+2+3+4)/4
+ *
+ * @param[in] input
+ * @param[in] size
+ * @param[in] period
+ * @param[out] output
+ *
  */
 int ind_sma(double const *input, size_t size, int period, double *output)
 {

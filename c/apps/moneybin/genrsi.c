@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "rsi.h"
 #include "ta.h"
 
 static void print_rsi(ta_bars_t *b, double const *rsi, int period)

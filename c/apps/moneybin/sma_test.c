@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "arraysize.h"
-#include "sma.h"
+#include "ta.h"
 
 static void print_array(double const *arr, size_t const size)
 {

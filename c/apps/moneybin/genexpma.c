@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "ema.h"
 #include "ta.h"
 
 static void print_movavg(ta_bars_t *b, double *ma1, double *ma2) {

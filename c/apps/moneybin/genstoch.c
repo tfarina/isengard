@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "stochastic.h"
 #include "ta.h"
 
 static void print_stoch(ta_bars_t *b, double const *stoch, int period)

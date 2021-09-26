@@ -1,7 +1,12 @@
-#include "ema.h"
+#include "ta.h"
 
 /**
  * Calculates a exponential moving average.
+ *
+ * @param[in]  input
+ * @param[in]  size
+ * @param[in]  period
+ * @param[out] output
  *
  */
 int ind_ema(double const *input, size_t size, int period, double *output)

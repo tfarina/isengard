@@ -1,4 +1,4 @@
-#include "stochastic.h"
+#include "ta.h"
 
 #include <stdio.h>
 
@@ -46,6 +46,15 @@ static int stats_range_max(double const *a, int size, int start, int stop, doubl
   return 0;
 }
 
+/**
+ * Stochastic Oscillator
+ *
+ * @param[in]  arr
+ * @param[in]  size
+ * @param[in]  period
+ * @param[out] output
+ *
+ */
 int ind_stochastic(double const *high, double const *low, double const *close, size_t size, int period, double *output)
 {
   double minlow;

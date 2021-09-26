@@ -3,7 +3,6 @@
 #include <string.h>
 
 #include "crossover.h"
-#include "sma.h"
 #include "ta.h"
 
 #define ORDERCOLSTR "Order"

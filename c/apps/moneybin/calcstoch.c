@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "stochastic.h"
 #include "ta.h"
 
 int main(int argc, char **argv)
