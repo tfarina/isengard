@@ -44,13 +44,13 @@ int main(int argc, char **argv)
   printf("Close\tHigh\tLow\n");
   printf("%.2f\t%.2f\t%.2f\n\n", close, high, low);
 
-  printf("S3: %.2f\n", s3);
-  printf("S2: %.2f\n", s2);
-  printf("S1: %.2f\n", s2);
-  printf("PP: %.2f\n", pp);
-  printf("R1: %.2f\n", r1);
-  printf("R2: %.2f\n", r2);
-  printf("R3: %.2f\n", r3);
+  printf("S3: %4.2f\n", s3);
+  printf("S2: %4.2f\n", s2);
+  printf("S1: %4.2f\n", s2);
+  printf("PP: %4.2f\n", pp);
+  printf("R1: %4.2f\n", r1);
+  printf("R2: %4.2f\n", r2);
+  printf("R3: %4.2f\n", r3);
 
   return 0;
 }
