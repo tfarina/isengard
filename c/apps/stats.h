@@ -6,6 +6,8 @@
  * array is empty.
  *
  * @param a The array.
+ * @param size The array size.
+ * @param res  The output where the result is stored.
  */
 int stats_min(double const *a, int size, double *res);
 
@@ -14,6 +16,8 @@ int stats_min(double const *a, int size, double *res);
  * array is empty.
  *
  * @param a The array.
+ * @param size The array size.
+ * @param res  The output where the result is stored.
  */
 int stats_max(double const *a, int size, double *res);
 
@@ -21,6 +25,8 @@ int stats_max(double const *a, int size, double *res);
  * Returns the sum of the values in the specified array.
  *
  * @param a The array.
+ * @param size The array size.
+ * @param res  The output where the result is stored.
  */
 int stats_sum(double const *a, int size, double *res);
 
@@ -28,6 +34,8 @@ int stats_sum(double const *a, int size, double *res);
  * Returns the arithmetic mean of the entries in the specified array.
  *
  * @param a The array.
+ * @param size The array size.
+ * @param res  The output where the result is stored.
  */
 int stats_avg(double const *a, int size, double *res);
 
@@ -35,6 +43,8 @@ int stats_avg(double const *a, int size, double *res);
  * Returns the sample variance of the entries in the specified array.
  *
  * @param a The array.
+ * @param size The array size.
+ * @param res  The output where the result is stored.
  */
 int stats_var(double const *a, int size, double *res);
 
@@ -42,6 +52,8 @@ int stats_var(double const *a, int size, double *res);
  * Returns the sample standard deviation of the entries in the specified array.
  *
  * @param a The array.
+ * @param size The array size.
+ * @param res  The output where the result is stored.
  */
 int stats_stdev(double const *a, int size, double *res);
 
