@@ -44,6 +44,7 @@ int main(int argc, char **argv)
   printf("Close\tHigh\tLow\n");
   printf("%.2f\t%.2f\t%.2f\n\n", close, high, low);
 
+  printf("   %7s\n", "Classic");
   printf("S3: %4.2f\n", s3);
   printf("S2: %4.2f\n", s2);
   printf("S1: %4.2f\n", s2);
