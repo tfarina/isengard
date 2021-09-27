@@ -37,8 +37,8 @@
  *
  * index starts at 1.
  *
- * fmtarg is the index of the format argument it should check.
- * firstvararg is the index of the first variable argument (...) it should check.
+ * @param fmtarg      the index of the format argument it should check.
+ * @param firstvararg the index of the first variable argument (...) it should check.
  */
 
 #if defined(MK_PRINTFLIKE)
