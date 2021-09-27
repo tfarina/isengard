@@ -178,7 +178,8 @@ int main(int argc, char *argv[])
     printf("%s\n", buf.data);
   }
 
-  sprintf(filename, "%s.csv", symbol);
+  strcpy(filename, symbol);
+  strcat(filename, ".csv");
   f_write_file(filename, buf.data, buf.size);
 
   return 0;
