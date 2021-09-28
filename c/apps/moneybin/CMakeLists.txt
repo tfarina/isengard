@@ -77,8 +77,12 @@ add_executable(csvstats sfldate.c timestamp.c fstrutils.c stats.c ta.c tacsv.c c
 target_link_libraries(csvstats libcsv ${M_LIBRARY})
 
 add_executable(sma_test sma.c sma_test.c)
+
 add_executable(gensignals sfldate.c timestamp.c crossover.c sma.c ta.c tacsv.c gensignals.c)
 target_link_libraries(gensignals libcsv)
+
+add_executable(genrsisignals sfldate.c timestamp.c ta_strat_rsi.c rsi.c ta.c tacsv.c genrsisignals.c)
+target_link_libraries(genrsisignals libcsv)
 
 add_executable(genmovavgs sfldate.c timestamp.c crossover.c sma.c ta.c tacsv.c genmovavgs.c)
 target_link_libraries(genmovavgs libcsv)
