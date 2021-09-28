@@ -7,6 +7,9 @@
 #define ORDERCOLSTR "Order"
 static int ordercolw;
 
+#define OVERSOLD_LEVEL 30
+#define OVERBOUGHT_LEVEL 70
+
 static void print_array(double const *arr, size_t const size)
 {
   size_t i;
@@ -108,7 +111,7 @@ int main(int argc, char **argv)
   printf("%*s %10s %s %9s %s\n", ordercolw, ORDERCOLSTR, "Date", "Signal", "Close", "P/L");
 
   for (pos = 0; pos < bars->numrows; pos++) {
-    signal = ta_strat_rsi(rsi[pos], 30, 70);
+    signal = ta_strat_rsi(rsi[pos], OVERSOLD_LEVEL, OVERBOUGHT_LEVEL);
 
     timestamp = &bars->timestamp[pos];
     ta_getdate(timestamp, &year, &month, &day);
