@@ -84,6 +84,9 @@ target_link_libraries(gensignals libcsv)
 add_executable(genrsisignals sfldate.c timestamp.c ta_strat_rsi.c rsi.c ta.c tacsv.c genrsisignals.c)
 target_link_libraries(genrsisignals libcsv)
 
+add_executable(genstochsignals sfldate.c timestamp.c ta_strat_rsi.c stochastic.c ta.c tacsv.c genstochsignals.c)
+target_link_libraries(genstochsignals libcsv)
+
 add_executable(genmovavgs sfldate.c timestamp.c crossover.c sma.c ta.c tacsv.c genmovavgs.c)
 target_link_libraries(genmovavgs libcsv)
 
