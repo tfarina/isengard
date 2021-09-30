@@ -66,7 +66,8 @@ int main(int argc, char **argv)
   double buyprice;
   double sellprice;
   double pl; /* profit or loss in the trade */
-  float profitable; /* number of profitable trades */
+  float winner_trades; /* number of profitable trades */
+  float looser_trades; /* number of unprofitable trades */
   float pctprofit; /* percentage of profitable trades */
 
   if (argc < 2) {
@@ -111,7 +112,8 @@ int main(int argc, char **argv)
   tradeno = 0;
   ordercnt = 0;
   intrade = 0;
-  profitable = 0;
+  winner_trades = 0;
+  looser_trades = 0;
   pctprofit = 0;
 
   ordercolw = strlen(ORDERCOLSTR);
@@ -154,8 +156,11 @@ int main(int argc, char **argv)
 
       pl = sellprice - buyprice;
 
-      if (pl > 0) {
-        profitable++;
+      if (pl >= 0) {
+        winner_trades++;
+      }
+      if(pl < 0) {
+	looser_trades++;
       }
 
       printf("%-*d %.4d-%.2d-%.2d %6s %9.2f %-9.2f\n", ordercolw, ordercnt, year, month, day, "SELL", sellprice, pl);
@@ -166,10 +171,11 @@ int main(int argc, char **argv)
 
   putc('\n', stdout);
 
-  pctprofit = (profitable / tradeno) * 100;
+  pctprofit = (winner_trades / tradeno) * 100;
 
-  printf("total trades: %d\n", tradeno);
-  printf("profitable trades: %0.f\n", profitable);
+  printf("number of trades: %d\n", tradeno);
+  printf("winner trades: %0.f\n", winner_trades);
+  printf("looser trades: %0.f\n", winner_trades);
   printf("percentage of profitable trades: %0.2f%%\n", pctprofit);
 
   /* Free allocated memory. */
