@@ -29,7 +29,11 @@ int main(int argc, char **argv)
     return err;
   }
 
-  close = bars->close[bars->numrows - 1];
+  if (0 == bars->numrows) {
+    return 1;
+  }
+
+  close = bars->close[bars->numrows -1];
   high = bars->high[bars->numrows - 1];
   low = bars->low[bars->numrows - 1];
 
