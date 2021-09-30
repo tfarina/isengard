@@ -8,7 +8,7 @@
 static int ordercolw;
 
 #define OVERSOLD_LEVEL 20
-#define OVERBOUGHT_LEVEL 70
+#define OVERBOUGHT_LEVEL 80
 
 static void print_array(double const *arr, size_t const size)
 {
