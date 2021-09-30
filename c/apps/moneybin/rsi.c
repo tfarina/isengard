@@ -78,6 +78,11 @@ void down_average(double const *a1, size_t size, int period, double *a2)
 /**
  * Relative Strength Index
  *
+ * Developed by J. Welles Wilder, it is a momentum oscillator that measures the
+ * speed and change of price movements. RSI oscillates between zero and 100.
+ * According to Wilder, RSI is considered overbought when above 70 and oversold
+ * when below 30.
+ *
  * @param[in]  input
  * @param[in]  size
  * @param[in]  period
