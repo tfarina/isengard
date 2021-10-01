@@ -65,7 +65,7 @@ main(int argc, char **argv)
     } /* end switch (optchr) */
   } /* end for (;;) */
 
-  if (symbol != NULL) {
+  if (symbol != NULL && *symbol != '\0') {
     printf("%s\n", symbol);
   }
 
