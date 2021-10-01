@@ -49,6 +49,33 @@ static int get_crumb(const char *response_text, char *crumb) {
   return 0;
 }
 
+static int http_get(char const *url, buffer_t *outbuf)
+{
+  CURL *curl;
+  CURLcode result;
+
+  curl = curl_easy_init();
+  if (curl == NULL) {
+    fprintf(stderr, "curl_easy_init() failed\n");
+    return -1;
+  }
+
+  curl_easy_setopt(curl, CURLOPT_URL, url);
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_write_memory_cb);
+  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)outbuf);
+
+  result = curl_easy_perform(curl);
+  if (result != CURLE_OK) {
+    fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
+    curl_easy_cleanup(curl);
+    return -1;
+  }
+
+  curl_easy_cleanup(curl);
+
+  return 0;
+}
+
 static int download_history_from_yahoo(char const *symbol, time_t start_date, time_t end_date, buffer_t *out_csv)
 {
   CURL *curl;
@@ -64,22 +91,7 @@ static int download_history_from_yahoo(char const *symbol, time_t start_date, ti
   memset(histurl, 0, MAXURLLEN);
   snprintf(histurl, sizeof(histurl), "https://finance.yahoo.com/quote/%s/history", symbol);
 
-  curl = curl_easy_init();
-  if (curl == NULL) {
-    fprintf(stderr, "curl_easy_init() failed\n");
-    return -1;
-  }
-
-  curl_easy_setopt(curl, CURLOPT_URL, histurl);
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_write_memory_cb);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&html);
-
-  result = curl_easy_perform(curl);
-  if (result != CURLE_OK) {
-    fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
-    curl_easy_cleanup(curl);
-    return -1;
-  }
+  http_get(histurl, &html);
 
   crumb = malloc(sizeof(char) * BUFSIZE);
   memset(crumb, 0, BUFSIZE);
@@ -87,6 +99,10 @@ static int download_history_from_yahoo(char const *symbol, time_t start_date, ti
   if (retval < 0) {
     return -1;
   }
+
+#if 0
+  printf("crumb %s\n", crumb);
+#endif
 
   buffer_init(out_csv);
 
@@ -101,6 +117,12 @@ static int download_history_from_yahoo(char const *symbol, time_t start_date, ti
 
   if (verbose) {
     printf("Download URL: %s\n\n", downloadurl);
+  }
+
+  curl = curl_easy_init();
+  if (curl == NULL) {
+    fprintf(stderr, "curl_easy_init() failed\n");
+    return -1;
   }
 
   curl_easy_setopt(curl, CURLOPT_URL, downloadurl);
