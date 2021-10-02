@@ -69,6 +69,8 @@ int main(int argc, char **argv)
   float winner_trades; /* number of profitable trades */
   float looser_trades; /* number of unprofitable trades */
   float pctprofit; /* percentage of profitable trades */
+  double total_profit;
+  double total_loss;
 
   if (argc < 2) {
     fprintf(stderr, "usage: gensignals <filename>\n");
@@ -115,6 +117,8 @@ int main(int argc, char **argv)
   winner_trades = 0;
   looser_trades = 0;
   pctprofit = 0;
+  total_profit = 0;
+  total_loss = 0;
 
   ordercolw = strlen(ORDERCOLSTR);
 
@@ -163,6 +167,18 @@ int main(int argc, char **argv)
 	looser_trades++;
       }
 
+      if (pl > 0) {
+        total_profit += pl;
+      } else {
+	total_profit += 0;
+      }
+
+      if (pl < 0) {
+	total_loss += pl;
+      } else {
+	total_loss += 0;
+      }
+
       printf("%-*d %.4d-%.2d-%.2d %6s %9.2f %-9.2f\n", ordercolw, ordercnt, year, month, day, "SELL", sellprice, pl);
 
       intrade = 0;
@@ -177,6 +193,8 @@ int main(int argc, char **argv)
   printf("winner trades: %0.f\n", winner_trades);
   printf("looser trades: %0.f\n", winner_trades);
   printf("percentage of profitable trades: %0.2f%%\n", pctprofit);
+  printf("total of profitable trades: %0.2f\n", total_profit);
+  printf("total of unprofitable trades: %0.2f\n", total_loss);
 
   /* Free allocated memory. */
   free(ma1);
