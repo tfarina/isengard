@@ -71,7 +71,7 @@ int main(int argc, char **argv)
   float pctprofit; /* percentage of profitable trades */
 
   if (argc < 2) {
-    fprintf(stderr, "usage: gensignals <filename>\n");
+    fprintf(stderr, "usage: genrsisignals <filename>\n");
     return 1;
   }
 
