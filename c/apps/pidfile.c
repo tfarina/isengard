@@ -41,7 +41,9 @@ pidfile_read(char const *path, pid_t *pid_out)
   return 0;
 }
 
-int main(void) {
+int
+main(void)
+{
   pid_t pid;
 
   pidfile_read("/var/run/crond.pid", &pid);
