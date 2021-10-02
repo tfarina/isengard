@@ -191,7 +191,7 @@ int main(int argc, char **argv)
 
   printf("number of trades: %d\n", tradeno);
   printf("winner trades: %0.f\n", winner_trades);
-  printf("looser trades: %0.f\n", winner_trades);
+  printf("looser trades: %0.f\n", looser_trades);
   printf("percentage of profitable trades: %0.2f%%\n", pctprofit);
   printf("total of profitable trades: %0.2f\n", total_profit);
   printf("total of unprofitable trades: %0.2f\n", total_loss);
