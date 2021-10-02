@@ -60,7 +60,6 @@ int main(int argc, char **argv)
   int year, month, day;
   timestamp_t *timestamp;
   size_t pos;
-  int signal;
   int tradeno; /* number of trades */
   int ordercnt;
   int intrade;
@@ -111,8 +110,6 @@ int main(int argc, char **argv)
   printf("%*s %10s %s %9s %s\n", ordercolw, ORDERCOLSTR, "Date", "Signal", "Close", "P/L");
 
   for (pos = 0; pos < bars->numrows; pos++) {
-    signal = ta_strat_rsi(stoch[pos], OVERSOLD_LEVEL, OVERBOUGHT_LEVEL);
-
     timestamp = &bars->timestamp[pos];
     ta_getdate(timestamp, &year, &month, &day);
 
@@ -120,7 +117,7 @@ int main(int argc, char **argv)
      * First we have to evaluate the buy or sell signal in order to open the
      * trade.
      */
-    if (signal == TA_SIGNAL_BUY && !intrade) {
+    if ((int)stoch[pos] < OVERSOLD_LEVEL && !intrade) {
       /*
        * If it crossed up and the current position is not Long, we have to
        * Buy to Open the trade.
@@ -133,7 +130,7 @@ int main(int argc, char **argv)
       printf("%-*d %.4d-%.2d-%.2d %6s %9.2f\n", ordercolw, ordercnt, year, month, day, "BUY", buyprice);
 
       intrade = 1;
-    } else if (signal == TA_SIGNAL_SELL && intrade) {
+    } else if ((int)stoch[pos] > OVERBOUGHT_LEVEL && intrade) {
       ordercnt++;
 
       sellprice = *(bars->close + pos);
