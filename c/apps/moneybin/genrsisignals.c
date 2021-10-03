@@ -117,8 +117,7 @@ int main(int argc, char **argv)
     ta_getdate(timestamp, &year, &month, &day);
 
     /*
-     * First we have to evaluate the buy or sell signal in order to open the
-     * trade.
+     * First, evaluate the BUY or SELL signal.
      */
     if (signal == TA_SIGNAL_BUY && !intrade) {
       /*
