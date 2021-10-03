@@ -140,13 +140,13 @@ int main(int argc, char **argv)
      * First, evaluate the BUY or SELL signal.
      */
     if (crossover == TA_UP && !intrade) {
+      ordercnt++;
+
       /*
        * If it crossed up and the current position is not Long, we have to
        * Buy to Open the trade.
        */
       tradeno++;
-      ordercnt++;
-
       buyprice = *(bars->close + pos);
 
       printf("%-*d %.4d-%.2d-%.2d %6s %9.2f\n", ordercolw, ordercnt, year, month, day, "BUY", buyprice);
