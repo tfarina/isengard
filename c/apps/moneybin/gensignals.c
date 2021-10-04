@@ -143,8 +143,8 @@ int main(int argc, char **argv)
       ordercnt++;
 
       /*
-       * If it crossed up and the current position is not Long, we have to
-       * Buy to Open the trade.
+       * If it crossed up and the current position is not "long",
+       * buy to open the trade.
        */
       tradeno++;
       buyprice = *(bars->close + pos);
@@ -155,6 +155,10 @@ int main(int argc, char **argv)
     } else if (crossover == TA_DOWN && intrade) {
       ordercnt++;
 
+      /*
+       * If it crossed down and the current position is not "short",
+       * sell to open the trade.
+       */
       sellprice = *(bars->close + pos);
 
       pl = sellprice - buyprice;
