@@ -83,6 +83,14 @@ void down_average(double const *a1, size_t size, int period, double *a2)
  * According to Wilder, RSI is considered overbought when above 70 and oversold
  * when below 30.
  *
+ * Formula:
+ * 
+ * RS = Average gain / Average loss
+ *
+ * RSI = 100 -   100
+ *             -------
+ *              1 + RS
+ *
  * @param[in]  input
  * @param[in]  size
  * @param[in]  period
