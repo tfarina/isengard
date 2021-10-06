@@ -55,6 +55,8 @@ void buffer_destroy(buffer_t *self);
 
 /**
  * buffer_clear sets the length and its first byte to zero.
+ *
+ * @param[in,out] self A pointer to the `buffer_t` instance.
  */
 void buffer_clear(buffer_t *self);
 
@@ -64,6 +66,8 @@ void buffer_clear(buffer_t *self);
 
 /**
  * buffer_write writes |data| to the end of the buffer.
+ *
+ * @param[in,out] self A pointer to the `buffer_t` instance.
  */
 void buffer_write(buffer_t *self, void const *data, size_t size);
 
