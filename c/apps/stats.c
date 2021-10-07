@@ -48,7 +48,7 @@ int stats_max(double const *data, size_t size, double *res)
 
 int stats_sum(double const *data, size_t size, double *res)
 {
-  double sum = 0.0;
+  double sum = 0;
   size_t i;
 
   for (i = 0; i < size; i++) {
@@ -62,7 +62,7 @@ int stats_sum(double const *data, size_t size, double *res)
 
 int stats_avg(double const *data, size_t size, double *res)
 {
-  double sum = 0.0;
+  double sum = 0;
 
   stats_sum(data, size, &sum);
 
@@ -73,8 +73,8 @@ int stats_avg(double const *data, size_t size, double *res)
 
 int stats_var(double const *data, size_t size, double *res)
 {
-  double avg = 0.0;
-  double sum = 0.0;
+  double avg = 0;
+  double sum = 0;
   size_t i;
 
   stats_avg(data, size, &avg);
@@ -90,7 +90,7 @@ int stats_var(double const *data, size_t size, double *res)
 
 int stats_stdev(double const *data, size_t size, double *res)
 {
-  double var = 0.0;
+  double var = 0;
 
   stats_var(data, size, &var);
   *res = sqrt(var);
