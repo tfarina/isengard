@@ -11,6 +11,7 @@ build int: ada int.adb
 build chargender: ada chargender.adb
 build home: ada home.adb
 build arguments: ada arguments.adb
+build future_value: ada finance/future_value_example.adb
 
 build clean: cleanit hello int chargender home arguments
 
