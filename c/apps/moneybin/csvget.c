@@ -53,6 +53,7 @@ static int http_get(char const *url, buffer_t *outbuf)
 {
   CURL *curl;
   CURLcode result;
+  int response_code;
 
   curl = curl_easy_init();
   if (curl == NULL) {
@@ -67,6 +68,13 @@ static int http_get(char const *url, buffer_t *outbuf)
   result = curl_easy_perform(curl);
   if (result != CURLE_OK) {
     fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
+    curl_easy_cleanup(curl);
+    return -1;
+  }
+
+  curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+  if (response_code != 200) {
+    fprintf(stderr, "http_get: curl_easy_perform() returned code: %d", response_code);
     curl_easy_cleanup(curl);
     return -1;
   }
