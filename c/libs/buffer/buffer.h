@@ -13,7 +13,7 @@ extern "C" {
 typedef struct buffer_s
 {
         /**
-         * The data contained in the buffer.
+         * The pointer to the underlying data.
          */
 	char *data;
         /**
