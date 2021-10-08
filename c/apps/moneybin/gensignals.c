@@ -186,6 +186,11 @@ int main(int argc, char **argv)
 
       intrade = 0;
     }
+    /* Now, evaluate exit rules for the open trades.
+     *
+     * If the current position is "long", sell to close the trade.
+     * If the current position is "short", buy to close the trade.
+     */
   }
 
   putc('\n', stdout);
