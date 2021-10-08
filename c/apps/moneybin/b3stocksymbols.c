@@ -121,5 +121,7 @@ main(int argc, char **argv)
     return 1;
   }
 
+  free(filename);
+
   return 0;
 }
