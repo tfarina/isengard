@@ -15,7 +15,7 @@ int main(void) {
         buffer_write(b, message1, strlen(message1));
 
         printf("%s\n", b->data);
-        printf("%zu\n", b->size);
+        printf("%zu\n", buffer_size(b));
 
 	bp = buffer_create(512);
 
@@ -23,7 +23,7 @@ int main(void) {
         buffer_write(bp, message2, strlen(message2));
 
         printf("%s\n", bp->data);
-        printf("%zu\n", bp->size);
+        printf("%zu\n", buffer_size(bp));
 
 	buffer_destroy(b);
 	buffer_destroy(bp);

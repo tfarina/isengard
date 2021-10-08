@@ -71,6 +71,19 @@ void buffer_clear(buffer_t *self);
  */
 void buffer_write(buffer_t *self, void const *data, size_t size);
 
+/* ------------------------------------------------------------------------- */
+/* Information                                                               */
+/* ------------------------------------------------------------------------- */
+
+/**
+ * Returns the current number of characters (bytes) stored in the array.
+ *
+ * @param[in,out] self A pointer to the `buffer_t` instance (must not be NULL).
+ *
+ * @return The number of characters (bytes) in the array.
+ */
+size_t buffer_size(buffer_t const * const self);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
