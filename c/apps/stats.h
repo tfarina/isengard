@@ -8,36 +8,36 @@
  *
  * @param data The array.
  * @param size The array size.
- * @param res  The output where the result is stored.
+ *
  */
-int stats_min(double const *data, size_t size, double *res);
+double stats_min(double const *data, size_t size);
 
 /**
  * Calculates the maximum value in the specified array.
  *
  * @param data The array.
  * @param size The array size.
- * @param res  The output where the result is stored.
+ *
  */
-int stats_max(double const *data, size_t size, double *res);
+double stats_max(double const *data, size_t size);
 
 /**
  * Calculates the sum of all values in the specified array.
  *
  * @param data The array.
  * @param size The array size.
- * @param res  The output where the result is stored.
+ *
  */
-int stats_sum(double const *data, size_t size, double *res);
+double stats_sum(double const *data, size_t size);
 
 /**
  * Calculates the arithmetic mean of the values in the specified array.
  *
  * @param data The array.
  * @param size The array size.
- * @param res  The output where the result is stored.
+ *
  */
-int stats_avg(double const *data, size_t size, double *res);
+double stats_avg(double const *data, size_t size);
 
 /**
  * Calculates the variance based on a sample of the values in the
@@ -45,9 +45,9 @@ int stats_avg(double const *data, size_t size, double *res);
  *
  * @param data The array.
  * @param size The array size.
- * @param res  The output where the result is stored.
+ *
  */
-int stats_var(double const *data, size_t size, double *res);
+double stats_var(double const *data, size_t size);
 
 /**
  * Calculates the standard deviation based on a sample of the values in the
@@ -55,8 +55,8 @@ int stats_var(double const *data, size_t size, double *res);
  *
  * @param data The array.
  * @param size The array size.
- * @param res  The output where the result is stored.
+ *
  */
-int stats_stdev(double const *data, size_t size, double *res);
+double stats_stdev(double const *data, size_t size);
 
 #endif /* STATS_H_ */

@@ -32,12 +32,12 @@ int main(void)
   printf("Array: ");
   print_array(a, ARRAY_SIZE(a));
 
-  stats_min(a, ARRAY_SIZE(a), &min);
-  stats_max(a, ARRAY_SIZE(a), &max);
-  stats_sum(a, ARRAY_SIZE(a), &sum);
-  stats_avg(a, ARRAY_SIZE(a), &avg);
-  stats_var(a, ARRAY_SIZE(a), &variance);
-  stats_stdev(a, ARRAY_SIZE(a), &stdev);
+  min = stats_min(a, ARRAY_SIZE(a));
+  max = stats_max(a, ARRAY_SIZE(a));
+  sum = stats_sum(a, ARRAY_SIZE(a));
+  avg = stats_avg(a, ARRAY_SIZE(a));
+  variance = stats_var(a, ARRAY_SIZE(a));
+  stdev = stats_stdev(a, ARRAY_SIZE(a));
 
   printf("\n\n");
   printf("Statistics summary:\n");
