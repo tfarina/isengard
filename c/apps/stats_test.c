@@ -21,7 +21,7 @@ static void print_array(double const *arr, size_t const size)
 
 int main(void)
 {
-  double a[] = {1.6, 2.7, 3.8, 4.9};
+  double data[] = {1.6, 2.7, 3.8, 4.9};
   double min = 0.0;
   double max = 0.0;
   double sum = 0.0;
@@ -30,14 +30,14 @@ int main(void)
   double stdev = 0.0;
 
   printf("Array: ");
-  print_array(a, ARRAY_SIZE(a));
+  print_array(data, ARRAY_SIZE(data));
 
-  min = stats_min(a, ARRAY_SIZE(a));
-  max = stats_max(a, ARRAY_SIZE(a));
-  sum = stats_sum(a, ARRAY_SIZE(a));
-  avg = stats_avg(a, ARRAY_SIZE(a));
-  variance = stats_var(a, ARRAY_SIZE(a));
-  stdev = stats_stdev(a, ARRAY_SIZE(a));
+  min = stats_min(data, ARRAY_SIZE(data));
+  max = stats_max(data, ARRAY_SIZE(data));
+  sum = stats_sum(data, ARRAY_SIZE(data));
+  avg = stats_avg(data, ARRAY_SIZE(data));
+  variance = stats_var(data, ARRAY_SIZE(data));
+  stdev = stats_stdev(data, ARRAY_SIZE(data));
 
   printf("\n\n");
   printf("Statistics summary:\n");
