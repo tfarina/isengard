@@ -4,8 +4,7 @@
 #include <stddef.h>
 
 /**
- * Calculates the minimum value in the specified array, or NAN if the
- * array is empty.
+ * Calculates the minimum value in the specified array.
  *
  * @param data The array.
  * @param size The array size.
@@ -14,8 +13,7 @@
 int stats_min(double const *data, size_t size, double *res);
 
 /**
- * Calculates the maximum value in the specified array, or NAN if the
- * array is empty.
+ * Calculates the maximum value in the specified array.
  *
  * @param data The array.
  * @param size The array size.
