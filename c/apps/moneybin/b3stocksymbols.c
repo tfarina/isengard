@@ -8,8 +8,8 @@
 #include "test.h"
 
 /**
- * Descrição do Campo   | Conteúdo | Tipo e Tamanho | Posição Inicial | Posição Final
- * 09 - Codigo do Mercado |      |       N(3)       |       109       |       111
+ * Descrição do Campo     | Conteúdo | Tipo e Tamanho | Posição Inicial | Posição Final
+ * 09 - Codigo do Mercado |          |       N(3)     |       109       |       111
  */
 
 /**
