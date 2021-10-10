@@ -72,6 +72,15 @@ void buffer_write(buffer_t *self, void const *data, size_t size)
         self->data[self->size] = '\0'; /* always 0 terminate data. */
 }
 
+char *buffer_data(buffer_t const * const self)
+{
+        if (self == NULL) {
+	        return 0;
+	}
+
+        return self->data;
+}
+
 size_t buffer_size(buffer_t const * const self)
 {
         if (self == NULL) {

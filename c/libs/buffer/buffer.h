@@ -72,6 +72,19 @@ void buffer_clear(buffer_t *self);
 void buffer_write(buffer_t *self, void const *data, size_t size);
 
 /* ------------------------------------------------------------------------- */
+/* Element access                                                            */
+/* ------------------------------------------------------------------------- */
+
+/**
+ * Returns a pointer to the underlying data.
+ *
+ * @param[in] self A pointer to the `buffer_t` instance.
+ *
+ * @return Pointer to the underlying data or `NULL` if it is empty.
+ */
+char *buffer_data(buffer_t const * const self);
+
+/* ------------------------------------------------------------------------- */
 /* Information                                                               */
 /* ------------------------------------------------------------------------- */
 

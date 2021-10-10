@@ -14,7 +14,7 @@ int main(void) {
         message1 = "C is hard!";
         buffer_write(b, message1, strlen(message1));
 
-        printf("%s\n", b->data);
+        printf("%s\n", buffer_data(b));
         printf("%zu\n", buffer_size(b));
 
 	bp = buffer_create(512);
@@ -22,7 +22,7 @@ int main(void) {
         message2 = "C is very hard";
         buffer_write(bp, message2, strlen(message2));
 
-        printf("%s\n", bp->data);
+        printf("%s\n", buffer_data(bp));
         printf("%zu\n", buffer_size(bp));
 
 	buffer_destroy(b);
