@@ -117,8 +117,11 @@ dump_b3_stock_symbols(char const *filename)
     if (str_startswith(market_type, "010")) {
       symbol = str_substring(linebuf, 2, 14);
       printf("%s\n", symbol);
+
     }
   }
+
+  fclose(fp);
 
   return 0;
 }
