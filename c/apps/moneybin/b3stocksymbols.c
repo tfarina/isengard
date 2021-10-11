@@ -65,7 +65,7 @@ typedef enum market_type_e {
   MT_CALL = 70,
 
   /**
-   * 080 OPÇÕESDE VENDA
+   * 080 OPÇÕES DE VENDA
    */
   MT_PUT = 80
 } market_type_t;
@@ -117,7 +117,6 @@ dump_b3_stock_symbols(char const *filename)
     if (str_startswith(market_type, "010")) {
       symbol = str_substring(linebuf, 2, 14);
       printf("%s\n", symbol);
-
     }
   }
 
