@@ -14,6 +14,8 @@ set timefmt "%Y-%m-%d"  # specify our time string format
 set xdata time          # tells gnuplot the x axis is time data
 set format x "%b %d"
 
+set style fill solid
+
 set linetype 1 lc rgb 'red'
 set linetype 2 lc rgb 'green'
 
