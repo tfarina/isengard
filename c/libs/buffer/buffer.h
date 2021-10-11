@@ -17,13 +17,13 @@ typedef struct buffer_s
          */
 	char *data;
         /**
+	 * The number of bytes currently allocated.
+         */
+        size_t capacity;
+        /**
          * The current number of characters (bytes) in the buffer.
          */
 	size_t size;
-        /**
-	 * The number of bytes currently allocated.
-         */
-	size_t capacity;
 } buffer_t;
 
 /* ------------------------------------------------------------------------- */
