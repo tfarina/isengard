@@ -31,7 +31,7 @@ typedef struct buffer_s
 /* ------------------------------------------------------------------------- */
 
 /**
- * buffer_create creates a new buffer with the specified capacity.
+ * Creates a new instance of buffer_t with at least the specified capacity.
  *
  * @param[in] capacity the size (in) bytes to allocate for the buffer.
  *
