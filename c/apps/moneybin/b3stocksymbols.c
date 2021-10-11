@@ -67,12 +67,29 @@ typedef enum market_type_e {
   MT_PUT = 80
 } market_type_t;
 
+static char *
+str_substring(char const *str, int start, int end)
+{
+  int len;
+  char *result;
+
+  len = end - start;
+  result = malloc(sizeof(char) * len + 1);
+  if (result == NULL) {
+    return NULL;
+  }
+  memcpy(result, str + start, len);
+  result[len] = '\0';
+
+  return result;
+}
+
 static int
 dump_b3_stock_symbols(char const *filename)
 {
   FILE *fp;
   char linebuf[BUFSIZ];
-  char symbol[12];
+  char *symbol;
   char market_type[3];
 
   fp = fopen(filename, "r");
@@ -81,7 +98,7 @@ dump_b3_stock_symbols(char const *filename)
     return -1;
   }
 
-  memset(symbol, '\0', sizeof(symbol));
+  symbol = NULL;
 
   /* Loops through the file reading line by line. */
   while (fgets(linebuf, sizeof(linebuf), fp)) {
@@ -89,8 +106,7 @@ dump_b3_stock_symbols(char const *filename)
     market_type[3] = 0;
 
     if (strncmp(market_type, "010", 3) == 0) {
-      strncpy(symbol, linebuf + 2, 12);
-      symbol[12] = 0;
+      symbol = str_substring(linebuf, 2, 14);
       printf("%s\n", symbol);
     }
   }
