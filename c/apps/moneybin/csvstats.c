@@ -25,10 +25,10 @@ int main(int argc, char **argv) {
     return err;
   }
 
-  stats_min(bars->close, bars->numrows, &min);
-  stats_max(bars->close, bars->numrows, &max);
-  stats_avg(bars->close, bars->numrows, &avg);
-  stats_stdev(bars->close, bars->numrows, &stdev);
+  min = stats_min(bars->close, bars->numrows);
+  max = stats_max(bars->close, bars->numrows);
+  avg = stats_avg(bars->close, bars->numrows);
+  stdev = stats_stdev(bars->close, bars->numrows);
 
   printf("%15s\n", "Close");
   printf("min   %9.3f\n", min);

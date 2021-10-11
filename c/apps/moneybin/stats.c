@@ -2,14 +2,10 @@
 
 #include <math.h>
 
-int stats_min(double const *data, size_t size, double *res)
+double stats_min(double const *data, size_t size)
 {
   double min;
   size_t i;
-
-  if (size == 0) {
-    return -1;
-  }
 
   min = data[0];
 
@@ -19,19 +15,13 @@ int stats_min(double const *data, size_t size, double *res)
     }
   }
 
-  *res = min;
-
-  return 0;
+  return min;
 }
 
-int stats_max(double const *data, size_t size, double *res)
+double stats_max(double const *data, size_t size)
 {
   double max;
   size_t i;
-
-  if (size == 0) {
-    return -1;
-  }
 
   max = data[0];
 
@@ -41,12 +31,10 @@ int stats_max(double const *data, size_t size, double *res)
     }
   }
 
-  *res = max;
-
-  return 0;
+  return max;
 }
 
-int stats_sum(double const *data, size_t size, double *res)
+double stats_sum(double const *data, size_t size)
 {
   double sum = 0;
   size_t i;
@@ -55,45 +43,38 @@ int stats_sum(double const *data, size_t size, double *res)
     sum += data[i];
   }
 
-  *res = sum;
-
-  return 0;
+  return sum;
 }
 
-int stats_avg(double const *data, size_t size, double *res)
+double stats_avg(double const *data, size_t size)
 {
   double sum = 0;
 
-  stats_sum(data, size, &sum);
+  sum = stats_sum(data, size);
 
-  *res = sum / size;
-
-  return 0;
+  return sum / size;
 }
 
-int stats_var(double const *data, size_t size, double *res)
+double stats_var(double const *data, size_t size)
 {
   double avg = 0;
   double sum = 0;
   size_t i;
 
-  stats_avg(data, size, &avg);
+  avg = stats_avg(data, size);
 
   for (i = 0; i < size; i++) {
     sum += (data[i] - avg) * (data[i] - avg);
   }
 
-  *res = sum / (size - 1);
-
-  return 0;
+  return sum / (size - 1);
 }
 
-int stats_stdev(double const *data, size_t size, double *res)
+double stats_stdev(double const *data, size_t size)
 {
   double var = 0;
 
-  stats_var(data, size, &var);
-  *res = sqrt(var);
+  var = stats_var(data, size);
 
-  return 0;
+  return sqrt(var);
 }
