@@ -8,6 +8,8 @@
 #include "test.h"
 
 /**
+ * 3.3 - REGISTRO - 02 - DADOS DOS TÍTULOS NEGOCIÁVEIS
+ *
  * Descrição do Campo                 | Conteúdo | Tipo e Tamanho | Posição Inicial | Posição Final
  * 02 - Código de Negociação do Papel |          |     X(12)      |        03       |        14
  * 09 - Código do Mercado             |          |     N(03)      |       109       |       111
