@@ -96,7 +96,7 @@ dump_b3_stock_symbols(char const *filename)
   FILE *fp;
   char linebuf[BUFSIZ];
   char *symbol;
-  char market_type[3];
+  char *market_type;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
@@ -105,11 +105,11 @@ dump_b3_stock_symbols(char const *filename)
   }
 
   symbol = NULL;
+  market_type = NULL;
 
   /* Loops through the file reading line by line. */
   while (fgets(linebuf, sizeof(linebuf), fp)) {
-    strncpy(market_type, linebuf + 108, 3);
-    market_type[3] = 0;
+    market_type = str_substring(linebuf, 108, 111);
 
     if (str_startswith(market_type, "010")) {
       symbol = str_substring(linebuf, 2, 14);
