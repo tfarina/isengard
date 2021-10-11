@@ -67,6 +67,12 @@ typedef enum market_type_e {
   MT_PUT = 80
 } market_type_t;
 
+static int
+str_startswith(char const *str, char const *prefix)
+{
+  return strncmp(str, prefix, strlen(prefix)) == 0;
+}
+
 static char *
 str_substring(char const *str, int start, int end)
 {
@@ -105,7 +111,7 @@ dump_b3_stock_symbols(char const *filename)
     strncpy(market_type, linebuf + 108, 3);
     market_type[3] = 0;
 
-    if (strncmp(market_type, "010", 3) == 0) {
+    if (str_startswith(market_type, "010")) {
       symbol = str_substring(linebuf, 2, 14);
       printf("%s\n", symbol);
     }
