@@ -93,6 +93,79 @@ str_substring(char const *str, int start, int end)
   return result;
 }
 
+#undef IS_WHITESPACE
+#define IS_WHITESPACE(x) ((x) == ' ' || (x) == '\t')
+
+/**
+ * Returns a string whose value is this string, with all leading white
+ * space removed.
+ *
+ * NOTE: The string is changed in place.
+ */
+char *
+str_strip_leading(char *str)
+{
+  char *cur;
+
+  /*
+   * 1. Initialize cur to str. This makes cur point to the first character of
+   * str.
+   * 2. Check if the current character is whitespace.
+   * 3. While it is, keeping incrementing the pointer to the next character.
+   */
+  for (cur = str;
+       *cur && IS_WHITESPACE(*cur);
+       cur++)
+    ;
+
+  memmove(str, cur, strlen(cur) + 1);
+
+  return str;
+}
+
+/**
+ * Returns a string whose value is this string, with all trailing white space
+ * removed.
+ *
+ * NOTE: The string is changed in place.
+ */
+char *
+str_strip_trailing(char *str)
+{
+  char *cur;
+
+  /*
+   * 1. Make cur point to the last character of str.
+   * 2. Check if the current character is whitespace.
+   * 3. If current character is whitespace, zero it.
+   * 4. Decrement the current pointer to point the next character.
+   * After zeroing all the trailing whitespace characters, return the
+   * result string.
+   */
+  for (cur = str + strlen(str) - 1;
+       cur >= str && IS_WHITESPACE(*cur);
+       cur--) {
+    *cur = '\0';
+  }
+
+  return str;
+}
+
+/**
+ * Returns a string whose value is this string, with all leading and trailing
+ * white space removed.
+ *
+ * NOTE: The string is changed in place.
+ */
+char *
+str_strip(char *str)
+{
+  str_strip_leading(str);
+  str_strip_trailing(str);
+
+  return str;
+}
+
 static int
 dump_b3_stock_symbols(char const *filename)
 {
@@ -116,6 +189,7 @@ dump_b3_stock_symbols(char const *filename)
 
     if (str_startswith(market_type, "010")) {
       symbol = str_substring(linebuf, 2, 14);
+      symbol = str_strip(symbol);
       printf("%s\n", symbol);
     }
   }
