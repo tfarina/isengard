@@ -137,10 +137,6 @@ static int download_history_from_yahoo(char const *symbol, time_t start_date, ti
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_write_memory_cb);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)out_csv);
 
-  if (verbose) {
-    printf("Downloading file...\n\n");
-  }
-
   result = curl_easy_perform(curl);
   if (result != CURLE_OK) {
     fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
