@@ -22,6 +22,9 @@ char *f_strdup(char const *src) {
 
   len = strlen(src) + 1;
   dst = malloc(sizeof(char) * len);
+  if (dst == 0) {
+    return (char *) 0;
+  }
 
   return strcpy(dst, src);
 }
