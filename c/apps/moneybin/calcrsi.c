@@ -36,11 +36,16 @@ int main(int argc, char **argv)
     return 1;
   }
 
+  /* Calculate RSI. */
   ind_rsi(bars->close, bars->numrows, period, rsi);
 
+  /* Output values. */
   for (i = period; i < bars->numrows; i++) {
     printf("%f\n", *(rsi + i));
   }
+
+  /* Free memory allocated for RSI array. */
+  free(rsi);
 
   return 0;
 }
