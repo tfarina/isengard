@@ -18,6 +18,12 @@
  * 05 - Reserva                       | Em branco|     X(142)     |        79       |        220
  */
 
+typedef struct company_s {
+  char *code;
+  char *name;
+  char *short_name;
+} company_t;
+
 static int
 dump_b3_company(char const *filename)
 {
@@ -26,6 +32,11 @@ dump_b3_company(char const *filename)
   char *company_code;
   char *company_name;
   char *company_short_name;
+
+  company_t **companies; /* array of pointers to companies */
+  unsigned nb_companies; /* number of companies */
+
+  company_t *company;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
@@ -48,6 +59,27 @@ dump_b3_company(char const *filename)
       
       company_short_name = str_substring(linebuf, 66, 78);
       company_short_name = str_strip(company_short_name);
+
+      /* This is a small trick.
+       * In the first pass 'companies' will be NULL, then this realloc call
+       * will be equivalent to malloc(sizeof(company_t) * 1). */
+      companies = realloc(companies, sizeof(company_t) * nb_companies + 1);
+      if (companies == 0) {
+	fputs("Out of memory\n", stderr);
+        break;
+      }
+
+      company = malloc(sizeof(company_t));
+      if (company == 0) {
+        fputs("Out of memory\n", stderr);
+        break;
+      }
+
+      company->code = company_code;
+      company->name = company_name;
+      company->short_name = company_short_name;
+
+      companies[nb_companies++] = company;
 
       printf("%s %s %s\n", company_code, company_name, company_short_name);
     }
