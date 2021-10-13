@@ -5,12 +5,13 @@
 #include <string.h>
 
 /**
- * Duplicates a string.
+ * Duplicate a string.
  *
  * The returned string should be freed when no longer needed.
  *
- * @param[in] src (nullable): the string to duplicate
- * @return    allocated memory
+ * @param[in] src String to be duplicated
+ * @return Pointer to a newly-allocated string containing a copy of `src`
+ *         or `NULL` if the string cannot be allocated.
  */
 char *f_strdup(char const *src) {
   size_t len;
