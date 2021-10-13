@@ -37,11 +37,11 @@ int main(int argc, char **argv)
   int period = 14;
 
   if (argc < 2) {
-    fprintf(stderr, "usage: genrsi <filename>\n");
-    putchar('\n');
-    fputs("Example:\n", stdout);
-    putchar('\n');
-    fputs("   genrsi PETR4.SA.csv > gnuplot/data/petr4_rsi.dat\n", stdout);
+    fputs("usage: genrsi <filename>\n", stderr);
+    fputc('\n', stderr);
+    fputs("Example:\n", stderr);
+    fputc('\n', stderr);
+    fputs("   genrsi PETR4.SA.csv > gnuplot/data/petr4_rsi.dat\n", stderr);
     return 1;
   }
 
