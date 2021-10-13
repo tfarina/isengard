@@ -1,10 +1,10 @@
+#ifndef VECTOR_H_
+#define VECTOR_H_
+
 /**
  * @file
  * Implements the vector container class.
  */
-
-#ifndef VECTOR_H_
-#define VECTOR_H_
 
 #include <stddef.h>
 
