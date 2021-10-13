@@ -13,11 +13,11 @@ int main(int argc, char **argv)
   int i;
 
   if (argc < 2) {
-    fprintf(stderr, "usage: calcrsi <filename>\n");
-    putchar('\n');
-    fputs("Example:\n", stdout);
-    putchar('\n');
-    fputs("   calcrsi BANCOPAN.csv\n", stdout);
+    fputs("usage: calcrsi <filename>\n", stderr);
+    fputc('\n', stderr);
+    fputs("Example:\n", stderr);
+    fputc('\n', stderr);
+    fputs("   calcrsi BANCOPAN.csv\n", stderr);
     return 1;
   }
 
