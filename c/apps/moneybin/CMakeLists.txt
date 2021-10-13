@@ -151,6 +151,9 @@ target_link_libraries(b3companies)
 add_executable(b3stocksymbols test.c fstrutils.c b3stocksymbols.c)
 target_link_libraries(b3stocksymbols)
 
+add_executable(b3company test.c fstrutils.c b3company.c)
+target_link_libraries(b3company)
+
 add_executable(yparami yparamsi.c)
 add_executable(frequency frequency.c)
 add_executable(interval interval.c)
