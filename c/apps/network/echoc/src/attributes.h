@@ -1,6 +1,11 @@
 #ifndef _ATTRIBUTES_H_INCLUDED_
 #define _ATTRIBUTES_H_INCLUDED_ 1
 
+/**
+ * @file
+ * Macro definitions for various function/variable attributes.
+ */
+
 #include "compiler_tests.h"
 
 /**
