@@ -148,3 +148,5 @@ add_executable(example3 third_party/pbPlots/pbPlots.c third_party/pbPlots/suppor
 target_link_libraries(example3 ${M_LIBRARY})
 add_executable(example4 third_party/pbPlots/pbPlots.c third_party/pbPlots/supportLib.c third_party/pbPlots/example4.c)
 target_link_libraries(example4 ${M_LIBRARY})
+
+add_executable(structsize structsize.c)
