@@ -27,7 +27,9 @@ char *f_strdup(char const *src) {
     return (char *) 0;
   }
 
-  return strcpy(dst, src);
+  strcpy(dst, src);
+
+  return dst;
 }
 
 int
