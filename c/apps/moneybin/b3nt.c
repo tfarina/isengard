@@ -38,11 +38,11 @@ dump_b3_stock_symbols(char const *filename)
   char *bdi_description;
   char *isin; /* International Securities Identifying Number */
   char *isin_object;
-  char *distrib_number;
+  char *distribution_number;
   char *market_type;
   char *market_description;
-  char *serial;
-  char *type;
+  char *serial_number;
+  char *security_type;
   char *due_year;
   char *due_month;
   char *due_day;
@@ -64,11 +64,11 @@ dump_b3_stock_symbols(char const *filename)
   bdi_description = NULL;
   isin = NULL;
   isin_object = NULL;
-  distrib_number = NULL;
+  distribution_number = NULL;
   market_type = NULL;
   market_description = NULL;
-  serial = NULL;
-  type = NULL;
+  serial_number = NULL;
+  security_type = NULL;
   due_year = NULL;
   due_month = NULL;
   due_day = NULL;
@@ -105,8 +105,8 @@ dump_b3_stock_symbols(char const *filename)
       isin_object = str_substring(linebuf, 93, 105);
       isin_object = str_strip(isin_object);
 
-      distrib_number = str_substring(linebuf, 105, 108);
-      distrib_number = str_strip(distrib_number);
+      distribution_number = str_substring(linebuf, 105, 108);
+      distribution_number = str_strip(distribution_number);
 
       market_type = str_substring(linebuf, 108, 111);
       market_type = str_strip(market_type);
@@ -114,11 +114,11 @@ dump_b3_stock_symbols(char const *filename)
       market_description = str_substring(linebuf, 111, 126);
       market_description = str_strip(market_description);
 
-      serial = str_substring(linebuf, 126, 133);
-      serial = str_strip(serial);
+      serial_number = str_substring(linebuf, 126, 133);
+      serial_number = str_strip(serial_number);
 
-      type = str_substring(linebuf, 133, 143);
-      type = str_strip(type);
+      security_type = str_substring(linebuf, 133, 143);
+      security_type = str_strip(security_type);
 
       due_year = str_substring(linebuf, 143, 147);
       due_year = str_strip(due_year);
