@@ -9,6 +9,11 @@
 /**
  * @brief Computes the number of elements in a statically-allocated array.
  *
+ * Example:
+ *
+ *    int array[10];
+ *    size_t array_size = ARRAY_SIZE(array);
+ *
  * @note Ensure that 'array' is actually an array, not a pointer. Otherwise,
  *       ARRAY_SIZE will produce erroneous results if 'array' is a pointer.
  *       Pay attention to the fact that an array passed as a parameter to a
