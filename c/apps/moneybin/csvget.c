@@ -127,24 +127,7 @@ static int download_history_from_yahoo(char const *symbol, time_t start_date, ti
     printf("Download URL: %s\n\n", downloadurl);
   }
 
-  curl = curl_easy_init();
-  if (curl == NULL) {
-    fprintf(stderr, "curl_easy_init() failed\n");
-    return -1;
-  }
-
-  curl_easy_setopt(curl, CURLOPT_URL, downloadurl);
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_write_memory_cb);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)out_csv);
-
-  result = curl_easy_perform(curl);
-  if (result != CURLE_OK) {
-    fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
-    curl_easy_cleanup(curl);
-    return -1;
-  }
-
-  curl_easy_cleanup(curl);
+  http_get(downloadurl, out_csv);
 
   return 0;
 }
