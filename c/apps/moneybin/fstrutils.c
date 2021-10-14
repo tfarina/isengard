@@ -33,6 +33,16 @@ char *f_strdup(char const *src) {
 }
 
 int
+str_is_null_or_empty(char const *str)
+{
+  if (!str || *str == '\0') {
+    return 1;
+  }
+
+  return 0;
+}
+
+int
 str_startswith(char const *str, char const *prefix)
 {
   return strncmp(str, prefix, strlen(prefix)) == 0;

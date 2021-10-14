@@ -3,6 +3,7 @@
 
 char *f_strdup(char const *src);
 
+int str_is_null_or_empty(char const *str);
 int str_startswith(char const *str, char const *prefix);
 char *str_substring(char const *str, int start, int end);
 char *str_strip_leading(char *str);
