@@ -157,6 +157,9 @@ target_link_libraries(b3company)
 add_executable(b3security test.c fstrutils.c b3security.c)
 target_link_libraries(b3security)
 
+add_executable(b3nt test.c fstrutils.c b3nt.c)
+target_link_libraries(b3nt)
+
 add_executable(yparami yparamsi.c)
 add_executable(frequency frequency.c)
 add_executable(interval interval.c)
