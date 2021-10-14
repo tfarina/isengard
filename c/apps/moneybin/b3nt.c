@@ -28,7 +28,7 @@
  */
 
 static int
-dump_b3_stock_symbols(char const *filename)
+parse_b3_negotiable_securities(char const *filename)
 {
   FILE *fp;
   char linebuf[BUFSIZ];
@@ -171,7 +171,7 @@ main(int argc, char **argv)
     return 1;
   }
 
-  retval = dump_b3_stock_symbols(filename);
+  retval = parse_b3_negotiable_securities(filename);
   if (retval < 0) {
     return 1;
   }
