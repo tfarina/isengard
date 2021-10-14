@@ -161,8 +161,8 @@ int main(int argc, char *argv[])
 
   /* TODO: Write this into a log file instead. So it can be inspected after the program ends. */
   if (verbose) {
-    time_to_str(one_year_ago, start_date_str, sizeof(start_date_str));
-    time_to_str(now, end_date_str, sizeof(end_date_str));
+    iso8601_to_str(one_year_ago, start_date_str, sizeof(start_date_str));
+    iso8601_to_str(now, end_date_str, sizeof(end_date_str));
 
     printf("Start Date: %s\n", start_date_str);
     printf("End Date: %s\n", end_date_str);

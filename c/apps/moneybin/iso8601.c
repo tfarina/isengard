@@ -9,7 +9,7 @@
  *
  * https://www.iso.org/iso-8601-date-and-time-format.html
  */
-time_t str_to_time(char const *str)
+time_t str_to_iso8601(char const *str)
 {
   struct tm time_tm;
   time_t unixtime;
@@ -27,7 +27,7 @@ time_t str_to_time(char const *str)
   return unixtime;
 }
 
-void time_to_str(time_t t, char *dst, int len)
+void iso8601_to_str(time_t t, char *dst, int len)
 {
   struct tm *time_tm;
 

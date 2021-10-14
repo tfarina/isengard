@@ -15,9 +15,9 @@ int main(int argc, char **argv) {
 
   start = argv[1];
 
-  start_time = str_to_time(start);
+  start_time = str_to_iso8601(start);
 
-  time_to_str(start_time, samestart, sizeof(samestart));
+  iso8601_to_str(start_time, samestart, sizeof(samestart));
 
   printf("%s\n", samestart);
 
