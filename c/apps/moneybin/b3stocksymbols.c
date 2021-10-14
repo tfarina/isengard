@@ -12,6 +12,7 @@
  *
  * Descrição do Campo                 | Conteúdo | Tipo e Tamanho | Posição Inicial | Posição Final
  * 02 - Código de Negociação do Papel |          |     X(12)      |        03       |        14
+ * 03 - Código da Empresa             |          |     X(04)      |        15       |        18
  * 09 - Código do Mercado             |          |     N(03)      |       109       |       111
  */
 
@@ -75,8 +76,9 @@ dump_b3_stock_symbols(char const *filename)
 {
   FILE *fp;
   char linebuf[BUFSIZ];
-  char *symbol;
   char *market_type;
+  char *symbol;
+  char *company_code;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
@@ -84,8 +86,9 @@ dump_b3_stock_symbols(char const *filename)
     return -1;
   }
 
-  symbol = NULL;
   market_type = NULL;
+  symbol = NULL;
+  company_code = NULL;
 
   /* Loops through the file reading line by line. */
   while (fgets(linebuf, sizeof(linebuf), fp)) {
@@ -94,6 +97,10 @@ dump_b3_stock_symbols(char const *filename)
     if (str_startswith(market_type, "010")) {
       symbol = str_substring(linebuf, 2, 14);
       symbol = str_strip(symbol);
+
+      company_code = str_substring(linebuf, 14, 18);
+      company_code = str_strip(company_code);
+
       printf("%s\n", symbol);
     }
   }
