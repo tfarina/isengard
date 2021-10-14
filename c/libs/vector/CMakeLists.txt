@@ -56,3 +56,22 @@ install(FILES ${HDRS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(TARGETS vector
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+#
+# Summary
+#
+message(STATUS "=============================================================")
+message(STATUS "")
+message(STATUS "Configuration")
+message(STATUS "  Build type ............. ${CMAKE_BUILD_TYPE}")
+message(STATUS "  Shared libraries ....... ${BUILD_SHARED_LIBS}")
+message(STATUS "  Compiler flags")
+message(STATUS "    C .................... ${CMAKE_C_FLAGS}")
+message(STATUS "  Linker flags")
+message(STATUS "    Executable ........... ${CMAKE_EXE_LINKER_FLAGS}")
+message(STATUS "    Module ............... ${CMAKE_MODULE_LINKER_FLAGS}")
+message(STATUS "    Shared ............... ${CMAKE_SHARED_LINKER_FLAGS}")
+message(STATUS "  Paths")
+message(STATUS "    Prefix ............... ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "")
+message(STATUS "=============================================================")
