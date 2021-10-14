@@ -31,7 +31,7 @@ parse_txt_file(char const *filename)
   while (fgets(linebuf, sizeof(linebuf), fp)) {
     market_type = str_substring(linebuf, 108, 111);
 
-    if (str_startswith(market_type, "010")) {
+    if (str_equal(market_type, "010")) {
       symbol = str_substring(linebuf, 2, 14);
       symbol = str_strip(symbol);
 
