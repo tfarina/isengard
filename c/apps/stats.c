@@ -99,3 +99,15 @@ double stats_covar(double const *data1, size_t size1,
 
   return sum / size1;
 }
+
+double stats_corr(double const *data1, size_t size1,
+                  double const *data2, size_t size2)
+{
+  double cv, sd1, sd2;
+
+  cv = stats_covar(data1, size1, data2, size2);
+  sd1 = stats_stdev(data1, size1);
+  sd2 = stats_stdev(data2, size2);
+
+  return cv / (sd1 * sd2);
+}
