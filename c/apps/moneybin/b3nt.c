@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "b3company.h"
 #include "fstrutils.h"
 #include "test.h"
 
@@ -28,10 +29,40 @@
  */
 
 static int
+read_negotiable_company(char *linebuf, company_t *company)
+{
+  char *company_code;
+  char *company_name;
+  char *company_short_name;
+
+  company_code = NULL;
+  company_name = NULL;
+  company_short_name = NULL;
+
+  company_code = str_substring(linebuf, 2, 6);
+  company_code = str_strip(company_code);
+
+  company_name = str_substring(linebuf, 6, 66);
+  company_name = str_strip(company_name);
+
+  company_short_name = str_substring(linebuf, 66, 78);
+  company_short_name = str_strip(company_short_name);
+
+  company->code = company_code;
+  company->name = company_name;
+  company->short_name = company_short_name;
+
+  printf("%s %s %s\n", company_code, company_name, company_short_name);
+
+  return 0;
+}
+
+static int
 parse_b3_negotiable_securities(char const *filename)
 {
   FILE *fp;
   char linebuf[BUFSIZ];
+  company_t *company;
   char *symbol;
   char *company_code;
   char *bdi;
@@ -84,7 +115,13 @@ parse_b3_negotiable_securities(char const *filename)
       /* read negotiable header */
     }
     else if (str_startswith(linebuf, "01")) {
-      /* read negotiable company */
+      company = malloc(sizeof(company_t));
+      if (company == 0) {
+        fputs("Out of memory\n", stderr);
+        break;
+      }
+
+      read_negotiable_company(linebuf, company);
     }
     else if (str_startswith(linebuf, "02")) {
       symbol = str_substring(linebuf, 2, 14);
