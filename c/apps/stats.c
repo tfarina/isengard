@@ -78,3 +78,24 @@ double stats_stdev(double const *data, size_t size)
 
   return sqrt(var);
 }
+
+double stats_covar(double const *data1, size_t size1,
+                   double const *data2, size_t size2)
+{
+  double avg1, avg2;
+  double sum;
+  size_t i;
+
+  sum = 0;
+
+  if (size1 == size2) {
+    avg1 = stats_avg(data1, size1);
+    avg2 = stats_avg(data2, size2);
+
+    for (i = 0; i < size1; i++) {
+      sum += (data1[i] - avg1) * (data2[i] - avg2);
+    }
+  }
+
+  return sum / size1;
+}
