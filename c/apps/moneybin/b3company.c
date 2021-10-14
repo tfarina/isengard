@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "b3company.h"
 #include "fstrutils.h"
 #include "test.h"
 
@@ -17,12 +18,6 @@
  * 04 - Nome Resumido da Empresa      |          |     X(12)      |        67       |        78
  * 05 - Reserva                       | Em branco|     X(142)     |        79       |        220
  */
-
-typedef struct company_s {
-  char *code;
-  char *name;
-  char *short_name;
-} company_t;
 
 static int
 dump_b3_company(char const *filename)
