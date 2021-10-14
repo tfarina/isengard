@@ -51,7 +51,7 @@ dump_b3_company(char const *filename)
 
       company_name = str_substring(linebuf, 6, 66);
       company_name = str_strip(company_name);
-      
+
       company_short_name = str_substring(linebuf, 66, 78);
       company_short_name = str_strip(company_short_name);
 
