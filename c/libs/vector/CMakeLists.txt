@@ -34,7 +34,7 @@ set(HDRS
   vector.h
 )
 
-add_library(vector ${SRCS})
+add_library(vector ${HDRS} ${SRCS})
 
 if (ENABLE_EXAMPLES)
   add_subdirectory(examples)
