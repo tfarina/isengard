@@ -7,7 +7,7 @@ static void print_array(double const *arr, size_t const size)
 {
   size_t i;
 
-  putchar('[');
+  fputc('[', stdout);
 
   for (i = 0; i < size; i++) {
     if (i) {
@@ -16,7 +16,7 @@ static void print_array(double const *arr, size_t const size)
     printf("%.02f", *(arr + i));
   }
 
-  putchar(']');
+  fputc(']', stdout);
 }
 
 int main(void)
