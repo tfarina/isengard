@@ -36,8 +36,8 @@ parse_txt_file(char const *filename)
       symbol = str_strip(symbol);
 
       /* This is a small trick.
-       * In the first pass 'companies' will be NULL, then this realloc call
-       * will be equivalent to malloc(sizeof(company_t) * 1). */
+       * In the first pass 'symbols' will be NULL, then this realloc call
+       * will be equivalent to malloc(sizeof(char *) * 1). */
       symbols = realloc(symbols, sizeof(char *) * nb_symbols + 1);
       if (symbols == 0) {
 	fputs("Out of memory\n", stderr);
