@@ -36,6 +36,18 @@ read_negotiable_company(char *linebuf, company_t *company)
   char *company_name;
   char *company_short_name;
 
+  /**
+   * It is bigger than 220 because linebuf[220] is '\r', linebuf[221] is '\n'
+   * and linebuf[222]is '\000'.
+   */
+  if (strlen(linebuf) != 222) {
+    return -1;
+  }
+
+  if (!str_startswith(linebuf, "01")) {
+    return -1;
+  }
+
   company_code = NULL;
   company_name = NULL;
   company_short_name = NULL;
@@ -83,6 +95,18 @@ read_negotiable_security(char *linebuf, company_t *company)
   char *currency_type;
   char *currency_type_description;
   char *protection;
+
+  /**
+   * It is bigger than 220 because linebuf[220] is '\r', linebuf[221] is '\n'
+   * and linebuf[222]is '\000'.
+   */
+  if (strlen(linebuf) != 222) {
+    return -1;
+  }
+
+  if (!str_startswith(linebuf, "02")) {
+    return -1;
+  }
 
   symbol = NULL;
   company_code = NULL;
