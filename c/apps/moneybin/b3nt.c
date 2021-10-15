@@ -30,6 +30,37 @@
  */
 
 static int
+read_negotiable_header(char *linebuf)
+{
+  char *gen_year;
+  char *gen_month;
+  char *gen_day;
+
+  /**
+   * It is bigger than 220 because linebuf[220] is '\r', linebuf[221] is '\n'
+   * and linebuf[222]is '\000'.
+   */
+  if (strlen(linebuf) != 222) {
+    return -1;
+  }
+
+  if (!str_startswith(linebuf, "00TITULOS NEGOCIAVEIS")) {
+    return -1;
+  }
+
+  gen_year = NULL;
+  gen_month = NULL;
+  gen_day = NULL;
+
+  /* Data da geracao "AAAA-MM-DD" */
+  gen_year = str_substring(linebuf, 30, 34);
+  gen_month = str_substring(linebuf, 35, 37);
+  gen_day = str_substring(linebuf, 38, 40);
+
+  return 0;
+}
+
+static int
 read_negotiable_company(char *linebuf, company_t *company)
 {
   char *company_code;
@@ -221,6 +252,28 @@ read_negotiable_security(char *linebuf, company_t *company)
 }
 
 static int
+read_negotiable_trailer(char *linebuf)
+{
+  int nb_records;
+
+  /**
+   * It is bigger than 220 because linebuf[220] is '\r', linebuf[221] is '\n'
+   * and linebuf[222]is '\000'.
+   */
+  if (strlen(linebuf) != 222) {
+    return -1;
+  }
+
+  if (!str_startswith(linebuf, "09")) {
+    return -1;
+  }
+
+  nb_records = atoi(str_substring(linebuf, 2, 9));
+
+  return 0;
+}
+
+static int
 parse_b3_negotiable_file(char const *filename)
 {
   FILE *fp;
@@ -236,7 +289,7 @@ parse_b3_negotiable_file(char const *filename)
   /* Loops through the file reading line by line. */
   while (fgets(linebuf, sizeof(linebuf), fp)) {
     if (str_startswith(linebuf, "00")) {
-      /* read negotiable header */
+      read_negotiable_header(linebuf);
     }
     else if (str_startswith(linebuf, "01")) {
       company = malloc(sizeof(company_t));
@@ -249,6 +302,9 @@ parse_b3_negotiable_file(char const *filename)
     }
     else if (str_startswith(linebuf, "02")) {
       read_negotiable_security(linebuf, company);
+    }
+    else {
+      read_negotiable_trailer(linebuf);
     }
   }
 
