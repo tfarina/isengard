@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "finance.h"
 #include "sharpe.h"
 #include "stats.h"
 #include "ta.h"

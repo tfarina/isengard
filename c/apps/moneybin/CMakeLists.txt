@@ -113,8 +113,11 @@ target_link_libraries(calcrsi libcsv)
 add_executable(calcstoch sfldate.c timestamp.c ta.c tacsv.c stochastic.c calcstoch.c)
 target_link_libraries(calcstoch libcsv)
 
-add_executable(calcsharpe sfldate.c timestamp.c ta.c tacsv.c sharpe.c stats.c calcsharpe.c)
+add_executable(calcsharpe sfldate.c timestamp.c ta.c tacsv.c sharpe.c stats.c finance.c calcsharpe.c)
 target_link_libraries(calcsharpe libcsv ${M_LIBRARY})
+
+add_executable(calcbeta sfldate.c timestamp.c ta.c tacsv.c beta.c stats.c finance.c calcbeta.c)
+target_link_libraries(calcbeta libcsv ${M_LIBRARY})
 
 find_package(CURL REQUIRED)
 
