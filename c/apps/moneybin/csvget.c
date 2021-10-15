@@ -74,7 +74,7 @@ static int http_get(char const *url, buffer_t *outbuf)
 
   curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
   if (response_code != 200) {
-    fprintf(stderr, "http_get: curl_easy_perform() returned code: %d", response_code);
+    fprintf(stderr, "http_get: curl_easy_perform() returned code: %d\n", response_code);
     curl_easy_cleanup(curl);
     return -1;
   }
