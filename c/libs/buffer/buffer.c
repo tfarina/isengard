@@ -89,3 +89,12 @@ size_t buffer_size(buffer_t const * const self)
 
         return self->size;
 }
+
+size_t buffer_capacity(buffer_t const * const self)
+{
+        if (self == NULL) {
+	        return 0;
+	}
+
+        return self->capacity;
+}

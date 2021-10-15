@@ -97,6 +97,16 @@ char *buffer_data(buffer_t const * const self);
  */
 size_t buffer_size(buffer_t const * const self);
 
+/**
+ * Returns the number of elements the buffer can store without having
+ * to expand.
+ *
+ * @param[in,out] self A pointer to the `buffer_t` instance (must not be NULL).
+ *
+ * @return The number of elements that can be stored before having to expand.
+ */
+size_t buffer_capacity(buffer_t const * const self);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
