@@ -61,7 +61,7 @@ read_negotiable_company(char *linebuf, company_t *company)
 }
 
 static int
-parse_b3_negotiable_securities(char const *filename)
+parse_b3_negotiable_file(char const *filename)
 {
   FILE *fp;
   char linebuf[BUFSIZ];
@@ -242,7 +242,7 @@ main(int argc, char **argv)
     return 1;
   }
 
-  retval = parse_b3_negotiable_securities(filename);
+  retval = parse_b3_negotiable_file(filename);
   if (retval < 0) {
     return 1;
   }
