@@ -52,7 +52,9 @@ read_negotiable_company(char *linebuf, company_t *company)
   company->name = company_name;
   company->short_name = company_short_name;
 
+#if 0
   printf("%s %s %s\n", company_code, company_name, company_short_name);
+#endif
 
   return 0;
 }
@@ -181,7 +183,11 @@ parse_b3_negotiable_securities(char const *filename)
       protection = str_substring(linebuf, 190, 193);
       protection = str_strip(protection);
 
-      printf("%s\n", protection);
+      printf("%s %s %s %s %s %s %s %s %s %s %s %.4s-%.2s-%.2s %s %s %s %s %s\n",
+	     symbol, company_code, bdi, bdi_description,
+	     isin, isin_object, distribution_number, market_type, market_description,
+	     serial_number, security_type, due_year, due_month, due_day, price, option_style,
+	     currency_type, currency_type_description, protection);
     }
   }
 
