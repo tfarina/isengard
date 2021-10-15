@@ -61,11 +61,8 @@ read_negotiable_company(char *linebuf, company_t *company)
 }
 
 static int
-parse_b3_negotiable_file(char const *filename)
+read_negotiable_security(char *linebuf, company_t *company)
 {
-  FILE *fp;
-  char linebuf[BUFSIZ];
-  company_t *company;
   security_t *security;
   char *symbol;
   char *company_code;
@@ -87,12 +84,6 @@ parse_b3_negotiable_file(char const *filename)
   char *currency_type_description;
   char *protection;
 
-  fp = fopen(filename, "r");
-  if (fp == NULL) {
-    fprintf(stderr, "%s: %s\n", filename, strerror(errno));
-    return -1;
-  }
-
   symbol = NULL;
   company_code = NULL;
   bdi = NULL;
@@ -113,6 +104,111 @@ parse_b3_negotiable_file(char const *filename)
   currency_type_description = NULL;
   protection = NULL;
 
+  symbol = str_substring(linebuf, 2, 14);
+  symbol = str_strip(symbol);
+
+  company_code = str_substring(linebuf, 14, 18);
+  company_code = str_strip(company_code);
+
+  bdi = str_substring(linebuf, 18, 21);
+  bdi = str_strip(bdi);
+
+  bdi_description = str_substring(linebuf, 21, 81);
+  bdi_description = str_strip(bdi_description);
+
+  isin = str_substring(linebuf, 81, 93);
+  isin = str_strip(isin);
+
+  isin_object = str_substring(linebuf, 93, 105);
+  isin_object = str_strip(isin_object);
+
+  distribution_number = str_substring(linebuf, 105, 108);
+  distribution_number = str_strip(distribution_number);
+
+  market_type = str_substring(linebuf, 108, 111);
+  market_type = str_strip(market_type);
+
+  market_description = str_substring(linebuf, 111, 126);
+  market_description = str_strip(market_description);
+
+  serial_number = str_substring(linebuf, 126, 133);
+  serial_number = str_strip(serial_number);
+
+  security_type = str_substring(linebuf, 133, 143);
+  security_type = str_strip(security_type);
+
+  due_year = str_substring(linebuf, 143, 147);
+  due_year = str_strip(due_year);
+
+  due_month = str_substring(linebuf, 148, 150);
+  due_month = str_strip(due_month);
+
+  due_day = str_substring(linebuf, 151, 153);
+  due_day = str_strip(due_day);
+
+  price = str_substring(linebuf, 153, 171);
+  price = str_strip(price);
+
+  option_style = str_substring(linebuf, 171, 172);
+  option_style = str_strip(option_style);
+
+  currency_type = str_substring(linebuf, 172, 175);
+  currency_type = str_strip(currency_type);
+
+  currency_type_description = str_substring(linebuf, 175, 190);
+  currency_type_description = str_strip(currency_type_description);
+
+  protection = str_substring(linebuf, 190, 193);
+  protection = str_strip(protection);
+
+  security = malloc(sizeof(security_t));
+  if (security == 0) {
+    fputs("Out of memory\n", stderr);
+    return -1;
+  }
+
+  security->symbol = symbol;
+  security->company_code = company_code;
+  security->bdi = bdi;
+  security->bdi_description = bdi_description;
+  security->isin = isin;
+  security->isin_object = isin_object;
+  security->distribution_number = distribution_number;
+  security->market_type = market_type;
+  security->market_description = market_description;
+  security->serial_number = serial_number;
+  security->security_type = security_type;
+  security->due_year = due_year;
+  security->due_month = due_month;
+  security->due_day = due_day;
+  security->price = price;
+  security->option_style = option_style;
+  security->currency_type = currency_type;
+  security->currency_type_description = currency_type_description;
+  security->protection = protection;
+
+  printf("%s %s %s %s %s %s %s %s %s %s %s %.4s-%.2s-%.2s %s %s %s %s %s\n",
+	 symbol, company_code, bdi, bdi_description,
+	 isin, isin_object, distribution_number, market_type, market_description,
+	 serial_number, security_type, due_year, due_month, due_day, price, option_style,
+	 currency_type, currency_type_description, protection);
+
+  return 0;
+}
+
+static int
+parse_b3_negotiable_file(char const *filename)
+{
+  FILE *fp;
+  char linebuf[BUFSIZ];
+  company_t *company;
+
+  fp = fopen(filename, "r");
+  if (fp == NULL) {
+    fprintf(stderr, "%s: %s\n", filename, strerror(errno));
+    return -1;
+  }
+
   /* Loops through the file reading line by line. */
   while (fgets(linebuf, sizeof(linebuf), fp)) {
     if (str_startswith(linebuf, "00")) {
@@ -128,94 +224,7 @@ parse_b3_negotiable_file(char const *filename)
       read_negotiable_company(linebuf, company);
     }
     else if (str_startswith(linebuf, "02")) {
-      symbol = str_substring(linebuf, 2, 14);
-      symbol = str_strip(symbol);
-
-      company_code = str_substring(linebuf, 14, 18);
-      company_code = str_strip(company_code);
-
-      bdi = str_substring(linebuf, 18, 21);
-      bdi = str_strip(bdi);
-
-      bdi_description = str_substring(linebuf, 21, 81);
-      bdi_description = str_strip(bdi_description);
-
-      isin = str_substring(linebuf, 81, 93);
-      isin = str_strip(isin);
-
-      isin_object = str_substring(linebuf, 93, 105);
-      isin_object = str_strip(isin_object);
-
-      distribution_number = str_substring(linebuf, 105, 108);
-      distribution_number = str_strip(distribution_number);
-
-      market_type = str_substring(linebuf, 108, 111);
-      market_type = str_strip(market_type);
-
-      market_description = str_substring(linebuf, 111, 126);
-      market_description = str_strip(market_description);
-
-      serial_number = str_substring(linebuf, 126, 133);
-      serial_number = str_strip(serial_number);
-
-      security_type = str_substring(linebuf, 133, 143);
-      security_type = str_strip(security_type);
-
-      due_year = str_substring(linebuf, 143, 147);
-      due_year = str_strip(due_year);
-
-      due_month = str_substring(linebuf, 148, 150);
-      due_month = str_strip(due_month);
-
-      due_day = str_substring(linebuf, 151, 153);
-      due_day = str_strip(due_day);
-
-      price = str_substring(linebuf, 153, 171);
-      price = str_strip(price);
-
-      option_style = str_substring(linebuf, 171, 172);
-      option_style = str_strip(option_style);
-
-      currency_type = str_substring(linebuf, 172, 175);
-      currency_type = str_strip(currency_type);
-
-      currency_type_description = str_substring(linebuf, 175, 190);
-      currency_type_description = str_strip(currency_type_description);
-
-      protection = str_substring(linebuf, 190, 193);
-      protection = str_strip(protection);
-
-      security = malloc(sizeof(security_t));
-      if (security == 0) {
-        fputs("Out of memory\n", stderr);
-	break;
-      }
-
-      security->symbol = symbol;
-      security->company_code = company_code;
-      security->bdi = bdi;
-      security->bdi_description = bdi_description;
-      security->isin = isin;
-      security->isin_object = isin_object;
-      security->distribution_number = distribution_number;
-      security->market_type = market_type;
-      security->market_description = market_description;
-      security->serial_number = serial_number;
-      security->security_type = security_type;
-      security->due_year = due_year;
-      security->due_month = due_month;
-      security->due_day = due_day;
-      security->price = price;
-      security->option_style = option_style;
-      security->currency_type = currency_type;
-      security->currency_type_description = currency_type_description;
-      security->protection = protection;
-
-      printf("%s %s %s %s %s %s %s %s %s %s %s %.4s-%.2s-%.2s %s %s %s %s %s\n",
-	     symbol, company_code, bdi, bdi_description,
-	     isin, isin_object, distribution_number, market_type, market_description,
-	     serial_number, security_type, due_year, due_month, due_day, price, option_style,
-	     currency_type, currency_type_description, protection);
+      read_negotiable_security(linebuf, company);
     }
   }
 
