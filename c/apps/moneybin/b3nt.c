@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "b3company.h"
+#include "b3security.h"
 #include "fstrutils.h"
 #include "test.h"
 
@@ -65,6 +66,7 @@ parse_b3_negotiable_securities(char const *filename)
   FILE *fp;
   char linebuf[BUFSIZ];
   company_t *company;
+  security_t *security;
   char *symbol;
   char *company_code;
   char *bdi;
@@ -182,6 +184,32 @@ parse_b3_negotiable_securities(char const *filename)
 
       protection = str_substring(linebuf, 190, 193);
       protection = str_strip(protection);
+
+      security = malloc(sizeof(security_t));
+      if (security == 0) {
+        fputs("Out of memory\n", stderr);
+	break;
+      }
+
+      security->symbol = symbol;
+      security->company_code = company_code;
+      security->bdi = bdi;
+      security->bdi_description = bdi_description;
+      security->isin = isin;
+      security->isin_object = isin_object;
+      security->distribution_number = distribution_number;
+      security->market_type = market_type;
+      security->market_description = market_description;
+      security->serial_number = serial_number;
+      security->security_type = security_type;
+      security->due_year = due_year;
+      security->due_month = due_month;
+      security->due_day = due_day;
+      security->price = price;
+      security->option_style = option_style;
+      security->currency_type = currency_type;
+      security->currency_type_description = currency_type_description;
+      security->protection = protection;
 
       printf("%s %s %s %s %s %s %s %s %s %s %s %.4s-%.2s-%.2s %s %s %s %s %s\n",
 	     symbol, company_code, bdi, bdi_description,
