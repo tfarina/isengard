@@ -99,7 +99,10 @@ static int download_history_from_yahoo(char const *symbol, time_t start_date, ti
   memset(histurl, 0, MAXURLLEN);
   snprintf(histurl, sizeof(histurl), "https://finance.yahoo.com/quote/%s/history", symbol);
 
-  http_get(histurl, &html);
+  retval = http_get(histurl, &html);
+  if (retval < 0) {
+    return -1;
+  }
 
   crumb = malloc(sizeof(char) * BUFSIZE);
   memset(crumb, 0, BUFSIZE);
