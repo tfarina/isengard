@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "third_party/mxml/mxml.h"
 
@@ -10,7 +11,8 @@ main(int argc, char **argv)
   mxml_node_t *xml = NULL;
   mxml_node_t *node = NULL; /* MXML_ELEMENT */
   mxml_node_t *child = NULL; /* MXML_OPAQUE */
-  mxml_type_t type;
+  char const *str;
+  int total;
 
   filename = "ComposicaoCapitalSocialDemonstracaoFinanceiraNegocios.xml";
   fp = fopen(filename, "r");
@@ -34,8 +36,17 @@ main(int argc, char **argv)
     return 1;
   }
 
-  puts("Numero Acoes (mil):");
-  printf("Total: %s\n", mxmlGetOpaque(node));
+  str = mxmlGetOpaque(node);
+  if (!str || *str == '\0') {
+    fputs("mxmlGetOpaque failed\n", stderr);
+    mxmlDelete(xml);
+    return 1;
+  }
+
+  total = atoi(str);
+
+  fputs("Numero Acoes (mil):\n", stdout);
+  printf("Total: %d\n", total);
 
   mxmlDelete(xml);
 
