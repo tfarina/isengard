@@ -138,8 +138,8 @@ add_executable(enddate enddate.c)
 
 add_executable(strtotime iso8601.c strtotime.c)
 
-add_executable(dadosempresa dadosempresa.c)
-target_link_libraries(dadosempresa mxml)
+add_executable(capsocial capsocial.c)
+target_link_libraries(capsocial mxml)
 
 add_executable(fetchdfp download.c dounzip.c fetchdfp.c)
 target_link_libraries(fetchdfp zlib moneybin ${CURL_LIBRARIES})
