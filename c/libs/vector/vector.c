@@ -76,7 +76,7 @@ void *vector_at(vector_t const * const self, int unsigned const index)
         /**
          * A cast to char* is necessary as void* cannot deal with pointer arithmetic.
          */
-        return (void *) ((char *)self->data + (index * self->datasize));
+        return (char *)self->data + (index * self->datasize);
 }
 
 void *vector_data(vector_t const * const self)
