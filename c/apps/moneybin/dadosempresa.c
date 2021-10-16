@@ -10,7 +10,6 @@ main(int argc, char **argv)
   FILE *fp = NULL;
   mxml_node_t *xml = NULL;
   mxml_node_t *node = NULL; /* MXML_ELEMENT */
-  mxml_node_t *child = NULL; /* MXML_OPAQUE */
   char const *str;
   int total;
 
