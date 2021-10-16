@@ -34,12 +34,8 @@ main(int argc, char **argv)
     return 1;
   }
 
-  child = mxmlGetFirstChild(node);
-
-  if (child != NULL) {
-    puts("Numero Acoes (mil):");
-    printf("Total: %s\n", mxmlGetOpaque(child));
-  }
+  puts("Numero Acoes (mil):");
+  printf("Total: %s\n", mxmlGetOpaque(node));
 
   mxmlDelete(xml);
 
