@@ -23,6 +23,7 @@ read_csv(char const *filename)
   struct csv_parser parser;
   char buf[1024];
   size_t bytes_read;
+  int retval;
 
   fp = fopen(filename, "r");
   if (fp == NULL) {
@@ -30,7 +31,8 @@ read_csv(char const *filename)
     return -1;
   }
 
- if (csv_init(&parser, CSV_STRICT | CSV_REPALL_NL | CSV_APPEND_NULL | CSV_STRICT_FINI) != 0) {
+  retval = csv_init(&parser, CSV_STRICT | CSV_REPALL_NL | CSV_APPEND_NULL | CSV_STRICT_FINI);
+  if(retval != 0) {
     fprintf(stderr, "Failed to initialize csv parser\n");
     return -1;
   }
@@ -48,7 +50,8 @@ read_csv(char const *filename)
     }
   }
 
-  if (csv_fini(&parser, NULL, csv_row_count_cb, NULL) != 0) {
+  retval = csv_fini(&parser, NULL, csv_row_count_cb, NULL);
+  if (retval != 0) {
     fprintf(stderr, "Error finishing CSV processing.\n");
     return -1;
   }
