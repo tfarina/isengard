@@ -6,7 +6,7 @@
 #       Move to a custom directory, ideally out of source.
 #
 #   Example:
-#       For example, in the project directory, to build library
+#       For example, in the project directory, to build the library
 #       but not the unit tests in debug mode, type:
 #           mkdir build && cd build
 #           cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTS=NO ..
@@ -16,13 +16,19 @@
 #           Build unit tests (default true). To disable the unit tests,
 #           pass `-DENABLE_TESTS=NO` during configuration.
 #
+#       ENABLE_EXAMPLES
+#           Build example files (default true). To not build the example
+#           files, pass `-DENABLE_EXAMPLES=NO` during configuration.
+#
 
 cmake_minimum_required(VERSION 2.8)
 project(vector C)
 
 include(GNUInstallDirs)
 
-# Provide an option so the user can disable building tests.
+#
+# Options
+#
 option(ENABLE_TESTS "Build the unit tests (default is to build)" YES)
 option(ENABLE_EXAMPLES "Build the example programs (default is to build)" YES)
 
