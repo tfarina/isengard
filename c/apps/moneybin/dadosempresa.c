@@ -11,6 +11,7 @@ main(int argc, char **argv)
   mxml_node_t *xml = NULL;
   mxml_node_t *node = NULL; /* MXML_ELEMENT */
   char const *str;
+  int qtd_on, qtd_pn;
   int total;
 
   filename = "ComposicaoCapitalSocialDemonstracaoFinanceiraNegocios.xml";
@@ -28,6 +29,38 @@ main(int argc, char **argv)
     return 1;
   }
 
+  node = mxmlFindElement(xml, xml, "QuantidadeAcaoOrdinariaCapitalIntegralizado", NULL, NULL, MXML_DESCEND);
+  if (node == NULL) {
+    fputs("Unable to find QuantidadeAcaoOrdinariaCapitalIntegralizado in the XML file.\n", stderr);
+    mxmlDelete(xml);
+    return 1;
+  }
+
+  str = mxmlGetOpaque(node);
+  if (!str || *str == '\0') {
+    fputs("mxmlGetOpaque failed\n", stderr);
+    mxmlDelete(xml);
+    return 1;
+  }
+
+  qtd_on = atoi(str);
+
+  node = mxmlFindElement(xml, xml, "QuantidadeAcaoPreferencialCapitalIntegralizado", NULL, NULL, MXML_DESCEND);
+  if (node == NULL) {
+    fputs("Unable to find QuantidadeAcaoPreferencialCapitalIntegralizado in the XML file.\n", stderr);
+    mxmlDelete(xml);
+    return 1;
+  }
+
+  str = mxmlGetOpaque(node);
+  if (!str || *str == '\0') {
+    fputs("mxmlGetOpaque failed\n", stderr);
+    mxmlDelete(xml);
+    return 1;
+  }
+
+  qtd_pn = atoi(str);
+
   node = mxmlFindElement(xml, xml, "QuantidadeTotalAcaoCapitalIntegralizado", NULL, NULL, MXML_DESCEND);
   if (node == NULL) {
     fputs("Unable to find QuantidadeTotalAcaoCapitalIntegralizado in the XML file.\n", stderr);
@@ -44,7 +77,10 @@ main(int argc, char **argv)
 
   total = atoi(str);
 
-  fputs("Numero Acoes (mil):\n", stdout);
+  fputs("Composicao do Capital Social:\n", stdout);
+  fputs("Numero de acoes (mil):\n", stdout);
+  printf("Acoes ordinarias: %d\n", qtd_on);
+  printf("Acoes preferenciais: %d\n", qtd_pn);
   printf("Total: %d\n", total);
 
   mxmlDelete(xml);
