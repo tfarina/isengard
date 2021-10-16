@@ -29,7 +29,7 @@ main(int argc, char **argv)
 
   node = mxmlFindElement(xml, xml, "QuantidadeTotalAcaoCapitalIntegralizado", NULL, NULL, MXML_DESCEND);
   if (node == NULL) {
-    fputs("Unable to find this element in XML tree.\n", stderr);
+    fputs("Unable to find QuantidadeTotalAcaoCapitalIntegralizado in the XML file.\n", stderr);
     mxmlDelete(xml);
     return 1;
   }
