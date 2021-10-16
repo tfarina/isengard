@@ -14,12 +14,12 @@ main(int argc, char **argv)
   mxml_node_t *node;
   mxml_node_t *account_plan;
   mxml_node_t *account_version;
-  mxml_node_t *df_type;
+  mxml_node_t *fin_code_node;
   mxml_node_t *fi_type;
   mxml_node_t *account_num;
   mxml_node_t *account_description;
   mxml_node_t *account_value;
-  int fstype;
+  int fin_code;
   int fitype;
 
   xmlfile = "InfoFinaDFin.xml";
@@ -56,13 +56,14 @@ main(int argc, char **argv)
         fputs("VersaoPlanoConta not found!\n", stderr);
         break;
       } else {
-        df_type = mxmlFindElement(account_version, tree, "CodigoTipoDemonstracaoFinanceira", NULL, NULL, MXML_DESCEND);
-        if (df_type == NULL) {
+        fin_code_node = mxmlFindElement(account_version, tree, "CodigoTipoDemonstracaoFinanceira", NULL, NULL, MXML_DESCEND);
+        if (fin_code_node == NULL) {
           fputs("CodigoTipoDemonstracaoFinanceira not found!\n", stderr);
           break;
         } else {
-          fstype = atoi(mxmlGetOpaque(df_type));
-          printf("CodigoTipoDemonstracaoFinanceira: %d\n", fstype);
+          /* 2 = demonstracao financeira consolidada */
+          fin_code = atoi(mxmlGetOpaque(fin_code_node));
+          printf("CodigoTipoDemonstracaoFinanceira: %d\n", fin_code);
         }
 
         fi_type = mxmlFindElement(account_version, tree, "CodigoTipoInformacaoFinanceira", NULL, NULL, MXML_DESCEND);
