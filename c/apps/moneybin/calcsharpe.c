@@ -13,6 +13,7 @@ int main(int argc, char **argv)
   ta_bars_t *bars;
   double *daily_ret;
   double avg_ret, stdev_ret, sharpe;
+  double risk_free_rate = 0.00038;
   int i;
 
   if (argc < 2) {
@@ -43,7 +44,7 @@ int main(int argc, char **argv)
   avg_ret = stats_avg(daily_ret, bars->numrows);
   stdev_ret = stats_stdev(daily_ret, bars->numrows);
 
-  sharpe = sharpe_ratio(avg_ret, stdev_ret);
+  sharpe = sharpe_ratio(avg_ret, stdev_ret, risk_free_rate);
 
   printf("%6.2f\n", sharpe);
 
