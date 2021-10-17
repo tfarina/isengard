@@ -95,8 +95,14 @@ main(int argc, char **argv)
           fputs("CodigoTipoDemonstracaoFinanceira not found!\n", stderr);
           break;
         } else {
+          str = mxmlGetOpaque(fin_code_node);
+          if (!str || *str == '\0') {
+            fputs("mxmlGetOpaque failed\n", stderr);
+            break;
+          }
+
           /* 2 = demonstracao financeira consolidada */
-          fin_code = atoi(mxmlGetOpaque(fin_code_node));
+          fin_code = atoi(str);
           printf("CodigoTipoDemonstracaoFinanceira: %d\n", fin_code);
         }
 
@@ -105,7 +111,13 @@ main(int argc, char **argv)
           fputs("CodigoTipoInformacaoFinanceira not found!\n", stderr);
           break;
         } else {
-          inf_code = atoi(mxmlGetOpaque(inf_code_node));
+          str = mxmlGetOpaque(inf_code_node);
+          if (!str || *str == '\0') {
+            fputs("mxmlGetOpaque failed\n", stderr);
+            break;
+          }
+
+          inf_code = atoi(str);
           printf("CodigoTipoInformacaoFinanceira: %d\n", inf_code);
         }
       }
