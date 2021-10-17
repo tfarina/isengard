@@ -5,6 +5,12 @@
 
 #include "third_party/mxml/mxml.h"
 
+typedef struct account_s {
+  char *number;
+  char *description;
+  char *value;
+} account_t;
+
 int
 main(int argc, char **argv)
 {
@@ -21,6 +27,7 @@ main(int argc, char **argv)
   mxml_node_t *account_value;
   int fin_code;
   int inf_code;
+  account_t *account;
 
   xmlfile = "InfoFinaDFin.xml";
   fp = fopen(xmlfile, "r");
@@ -53,6 +60,12 @@ main(int argc, char **argv)
   node = mxmlFindElement(tree, tree, "InfoFinaDFin", NULL, NULL, MXML_DESCEND);
 
   while (node) {
+    account = malloc(sizeof(account_t));
+    if (account == NULL) {
+      fputs("out of memory!\n", stderr);
+      break;
+    }
+
     account_plan = mxmlFindElement(node, tree, "PlanoConta", NULL, NULL, MXML_DESCEND);
     if (account_plan == NULL) {
       fputs("PlanoConta not found!\n", stderr);
