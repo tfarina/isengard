@@ -15,12 +15,12 @@ main(int argc, char **argv)
   mxml_node_t *account_plan;
   mxml_node_t *account_version;
   mxml_node_t *fin_code_node;
-  mxml_node_t *fi_type;
+  mxml_node_t *inf_code_node;
   mxml_node_t *account_num;
   mxml_node_t *account_description;
   mxml_node_t *account_value;
   int fin_code;
-  int fitype;
+  int inf_code;
 
   xmlfile = "InfoFinaDFin.xml";
   fp = fopen(xmlfile, "r");
@@ -66,13 +66,13 @@ main(int argc, char **argv)
           printf("CodigoTipoDemonstracaoFinanceira: %d\n", fin_code);
         }
 
-        fi_type = mxmlFindElement(account_version, tree, "CodigoTipoInformacaoFinanceira", NULL, NULL, MXML_DESCEND);
-        if (fi_type == NULL) {
+        inf_code_node = mxmlFindElement(account_version, tree, "CodigoTipoInformacaoFinanceira", NULL, NULL, MXML_DESCEND);
+        if (inf_code_node == NULL) {
           fputs("CodigoTipoInformacaoFinanceira not found!\n", stderr);
           break;
         } else {
-          fitype = atoi(mxmlGetOpaque(fi_type));
-          printf("CodigoTipoInformacaoFinanceira: %d\n", fitype);
+          inf_code = atoi(mxmlGetOpaque(inf_code_node));
+          printf("CodigoTipoInformacaoFinanceira: %d\n", inf_code);
         }
       }
 
