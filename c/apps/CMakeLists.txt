@@ -16,6 +16,7 @@ add_subdirectory(third_party/cJSON)
 add_subdirectory(third_party/mxml)
 add_subdirectory(third_party/libuuid)
 add_subdirectory(third_party/clark)
+add_subdirectory(third_party/libxlsxwriter)
 
 add_executable(tst tst.c)
 target_link_libraries(tst libcsv)
@@ -150,3 +151,6 @@ add_executable(example4 third_party/pbPlots/pbPlots.c third_party/pbPlots/suppor
 target_link_libraries(example4 ${M_LIBRARY})
 
 add_executable(structsize structsize.c)
+
+add_executable(hello_excel hello_excel.c)
+target_link_libraries(hello_excel libxlsxwriter)
