@@ -28,8 +28,8 @@ dump_b3_company(char const *filename)
   char *company_name;
   char *company_short_name;
 
-  company_t **companies; /* array of pointers to companies */
-  unsigned nb_companies; /* number of companies */
+  company_t **companies = NULL; /* array of pointers to companies */
+  unsigned nb_companies = 0; /* number of companies */
 
   company_t *company;
 
