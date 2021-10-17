@@ -37,11 +37,18 @@ main(int argc, char **argv)
     return 1;
   }
 
-  /*ArrayOfInfoFinaDFin*/
-  /*  InfoFinaDFin*/
-  /*    PlanoConta*/
-  /*      NumeroConta*/
-  /*    DescricaoConta1*/
+  /* ArrayOfInfoFinaDFin
+   *   InfoFinaDFin
+   *     PlanoConta
+   *       NumeroConta
+   *     DescricaoConta1
+   *     ValorConta1
+   *   InfoFinaDFin
+   *     PlanoConta
+   *       NumeroConta
+   *     DescricaoConta1
+   *     ValorConta1
+   */
 
   node = mxmlFindElement(tree, tree, "InfoFinaDFin", NULL, NULL, MXML_DESCEND);
 
