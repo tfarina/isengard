@@ -98,4 +98,6 @@ typedef enum security_bdi_e {
   SB_TOTAL_GERAL = 99 /** Total geral */
 } security_bdi_t;
 
+security_bdi_t get_security_bdi(int bdi);
+
 #endif  /* !defined(_B3TYPES_H_INCLUDED_) */
