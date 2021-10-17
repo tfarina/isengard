@@ -22,9 +22,9 @@ main(int argc, char **argv)
   mxml_node_t *acc_version_node;
   mxml_node_t *fin_code_node;
   mxml_node_t *inf_code_node;
-  mxml_node_t *account_num;
-  mxml_node_t *account_description;
-  mxml_node_t *account_value;
+  mxml_node_t *acc_num_node;
+  mxml_node_t *acc_desc_node;
+  mxml_node_t *acc_value_node;
   int fin_code;
   int inf_code;
   account_t *account;
@@ -110,12 +110,12 @@ main(int argc, char **argv)
         }
       }
 
-      account_num = mxmlFindElement(acc_plan_node, tree, "NumeroConta", NULL, NULL, MXML_DESCEND);
-      if (account_num == NULL) {
+      acc_num_node = mxmlFindElement(acc_plan_node, tree, "NumeroConta", NULL, NULL, MXML_DESCEND);
+      if (acc_num_node == NULL) {
         fputs("NumeroConta not found!\n", stderr);
         break;
       } else {
-        str = mxmlGetOpaque(account_num);
+        str = mxmlGetOpaque(acc_num_node);
         if (!str || *str == '\0') {
           fputs("mxmlGetOpaque failed\n", stderr);
           break;
@@ -125,12 +125,12 @@ main(int argc, char **argv)
       }
     }
 
-    account_description = mxmlFindElement(node, tree, "DescricaoConta1", NULL, NULL, MXML_DESCEND);
-    if (account_description == NULL) {
+    acc_desc_node = mxmlFindElement(node, tree, "DescricaoConta1", NULL, NULL, MXML_DESCEND);
+    if (acc_desc_node == NULL) {
       fputs("DescricaoConta1 not found!\n", stderr);
       break;
     } else {
-      str = mxmlGetOpaque(account_description);
+      str = mxmlGetOpaque(acc_desc_node);
       if (!str || *str == '\0') {
         fputs("mxmlGetOpaque failed\n", stderr);
         break;
@@ -139,12 +139,12 @@ main(int argc, char **argv)
       printf("DescricaoConta1: %s\n", str);
     }
 
-    account_value = mxmlFindElement(node, tree, "ValorConta1", NULL, NULL, MXML_DESCEND);
-    if (account_value == NULL) {
+    acc_value_node = mxmlFindElement(node, tree, "ValorConta1", NULL, NULL, MXML_DESCEND);
+    if (acc_value_node == NULL) {
       fputs("ValorConta1 not found!\n", stderr);
       break;
     } else {
-      str = mxmlGetOpaque(account_value);
+      str = mxmlGetOpaque(acc_value_node);
       if (!str || *str == '\0') {
         fputs("mxmlGetOpaque failed\n", stderr);
         break;
