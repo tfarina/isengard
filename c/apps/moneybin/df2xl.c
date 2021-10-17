@@ -18,8 +18,8 @@ main(int argc, char **argv)
   FILE *fp;
   mxml_node_t *tree;
   mxml_node_t *node;
-  mxml_node_t *account_plan;
-  mxml_node_t *account_version;
+  mxml_node_t *acc_plan_node;
+  mxml_node_t *acc_version_node;
   mxml_node_t *fin_code_node;
   mxml_node_t *inf_code_node;
   mxml_node_t *account_num;
@@ -80,17 +80,17 @@ main(int argc, char **argv)
 
     accounts[nb_accounts++] = account;
 
-    account_plan = mxmlFindElement(node, tree, "PlanoConta", NULL, NULL, MXML_DESCEND);
-    if (account_plan == NULL) {
+    acc_plan_node = mxmlFindElement(node, tree, "PlanoConta", NULL, NULL, MXML_DESCEND);
+    if (acc_plan_node == NULL) {
       fputs("PlanoConta not found!\n", stderr);
       break;
     } else {
-      account_version = mxmlFindElement(account_plan, tree, "VersaoPlanoConta", NULL, NULL, MXML_DESCEND);
-      if (account_version == NULL) {
+      acc_version_node = mxmlFindElement(acc_plan_node, tree, "VersaoPlanoConta", NULL, NULL, MXML_DESCEND);
+      if (acc_version_node == NULL) {
         fputs("VersaoPlanoConta not found!\n", stderr);
         break;
       } else {
-        fin_code_node = mxmlFindElement(account_version, tree, "CodigoTipoDemonstracaoFinanceira", NULL, NULL, MXML_DESCEND);
+        fin_code_node = mxmlFindElement(acc_version_node, tree, "CodigoTipoDemonstracaoFinanceira", NULL, NULL, MXML_DESCEND);
         if (fin_code_node == NULL) {
           fputs("CodigoTipoDemonstracaoFinanceira not found!\n", stderr);
           break;
@@ -100,7 +100,7 @@ main(int argc, char **argv)
           printf("CodigoTipoDemonstracaoFinanceira: %d\n", fin_code);
         }
 
-        inf_code_node = mxmlFindElement(account_version, tree, "CodigoTipoInformacaoFinanceira", NULL, NULL, MXML_DESCEND);
+        inf_code_node = mxmlFindElement(acc_version_node, tree, "CodigoTipoInformacaoFinanceira", NULL, NULL, MXML_DESCEND);
         if (inf_code_node == NULL) {
           fputs("CodigoTipoInformacaoFinanceira not found!\n", stderr);
           break;
@@ -110,7 +110,7 @@ main(int argc, char **argv)
         }
       }
 
-      account_num = mxmlFindElement(account_plan, tree, "NumeroConta", NULL, NULL, MXML_DESCEND);
+      account_num = mxmlFindElement(acc_plan_node, tree, "NumeroConta", NULL, NULL, MXML_DESCEND);
       if (account_num == NULL) {
         fputs("NumeroConta not found!\n", stderr);
         break;
