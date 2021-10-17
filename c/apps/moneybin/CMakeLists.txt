@@ -27,6 +27,7 @@ add_subdirectory(third_party/ini)
 add_subdirectory(third_party/libcsv)
 add_subdirectory(third_party/mxml)
 add_subdirectory(third_party/zlib)
+add_subdirectory(third_party/libxlsxwriter)
 
 option(WITH_MYSQL "Use MySQL library" ON)
 
@@ -180,3 +181,6 @@ target_link_libraries(breakeven ${M_LIBRARY})
 add_executable(dbinit dbinit.c)
 target_include_directories(dbinit PUBLIC ${CMAKE_SOURCE_DIR})
 target_link_libraries(dbinit sqlite3 moneybin)
+
+add_executable(exportdfp exportdfp.c)
+target_link_libraries(exportdfp libxlsxwriter)

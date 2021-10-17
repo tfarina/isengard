@@ -1,0 +1,8 @@
+Name: libxlsxwriter
+URL: https://github.com/jmcnamara/libxlsxwriter
+Version: v1.1.4
+Security Critical: Yes
+License: FreeBSD
+
+Description:
+A C library for creating Excel XLSX files.
