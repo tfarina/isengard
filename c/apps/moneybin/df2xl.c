@@ -30,6 +30,7 @@ main(int argc, char **argv)
   account_t *account;
   account_t **accounts = NULL; /* array of pointers to accounts */
   unsigned nb_accounts = 0; /* number of accounts */
+  char const *str;
 
   xmlfile = "InfoFinaDFin.xml";
   fp = fopen(xmlfile, "r");
@@ -114,7 +115,13 @@ main(int argc, char **argv)
         fputs("NumeroConta not found!\n", stderr);
         break;
       } else {
-        printf("NumeroConta: %s\n", mxmlGetOpaque(account_num));
+        str = mxmlGetOpaque(account_num);
+        if (!str || *str == '\0') {
+          fputs("mxmlGetOpaque failed\n", stderr);
+          break;
+        }
+
+        printf("NumeroConta: %s\n", str);
       }
     }
 
@@ -123,7 +130,13 @@ main(int argc, char **argv)
       fputs("DescricaoConta1 not found!\n", stderr);
       break;
     } else {
-      printf("DescricaoConta1: %s\n", mxmlGetOpaque(account_description));
+      str = mxmlGetOpaque(account_description);
+      if (!str || *str == '\0') {
+        fputs("mxmlGetOpaque failed\n", stderr);
+        break;
+      }
+
+      printf("DescricaoConta1: %s\n", str);
     }
 
     account_value = mxmlFindElement(node, tree, "ValorConta1", NULL, NULL, MXML_DESCEND);
@@ -131,7 +144,13 @@ main(int argc, char **argv)
       fputs("ValorConta1 not found!\n", stderr);
       break;
     } else {
-      printf("ValorConta1: %s\n", mxmlGetOpaque(account_value));
+      str = mxmlGetOpaque(account_value);
+      if (!str || *str == '\0') {
+        fputs("mxmlGetOpaque failed\n", stderr);
+        break;
+      }
+
+      printf("ValorConta1: %s\n", str);
     }
 
     node = mxmlFindElement(node, tree, "InfoFinaDFin", NULL, NULL, MXML_DESCEND);
