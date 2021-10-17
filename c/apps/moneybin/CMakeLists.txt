@@ -146,7 +146,7 @@ add_executable(fetchdfp download.c dounzip.c fetchdfp.c)
 target_link_libraries(fetchdfp zlib moneybin ${CURL_LIBRARIES})
 target_include_directories(fetchdfp PRIVATE ${CURL_INCLUDE_DIRS})
 
-add_executable(df2xl df2xl.c)
+add_executable(df2xl fstrutils.c df2xl.c)
 target_link_libraries(df2xl mxml)
 
 add_executable(b3symbols test.c fstrutils.c b3symbols.c)

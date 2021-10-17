@@ -3,12 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "fstrutils.h"
 #include "third_party/mxml/mxml.h"
 
 typedef struct account_s {
-  char *number;
-  char *description;
-  char *value;
+  char const *number;
+  char const *description;
+  char const *value;
 } account_t;
 
 int
@@ -30,6 +31,7 @@ main(int argc, char **argv)
   account_t *account;
   account_t **accounts = NULL; /* array of pointers to accounts */
   unsigned nb_accounts = 0; /* number of accounts */
+  int i;
   char const *str;
 
   xmlfile = "InfoFinaDFin.xml";
@@ -77,6 +79,10 @@ main(int argc, char **argv)
       fputs("out of memory!\n", stderr);
       break;
     }
+
+    account->number = NULL;
+    account->description = NULL;
+    account->value = NULL;
 
     accounts[nb_accounts++] = account;
 
@@ -133,6 +139,8 @@ main(int argc, char **argv)
           break;
         }
 
+        account->number = f_strdup(str);
+
         printf("NumeroConta: %s\n", str);
       }
     }
@@ -148,6 +156,8 @@ main(int argc, char **argv)
         break;
       }
 
+      account->description = f_strdup(str);
+
       printf("DescricaoConta1: %s\n", str);
     }
 
@@ -162,11 +172,17 @@ main(int argc, char **argv)
         break;
       }
 
+      account->value = f_strdup(str);
+
       printf("ValorConta1: %s\n", str);
     }
   }
 
   mxmlDelete(tree);
+
+  for (i = 0; i < nb_accounts; i++) {
+    printf("%s %s %s\n", accounts[i]->number, accounts[i]->description, accounts[i]->value);
+  }
 
   return 0;
 }
