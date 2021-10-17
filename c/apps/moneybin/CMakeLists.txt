@@ -147,7 +147,7 @@ target_link_libraries(fetchdfp zlib moneybin ${CURL_LIBRARIES})
 target_include_directories(fetchdfp PRIVATE ${CURL_INCLUDE_DIRS})
 
 add_executable(df2xl fstrutils.c df2xl.c)
-target_link_libraries(df2xl mxml)
+target_link_libraries(df2xl mxml libxlsxwriter)
 
 add_executable(b3symbols test.c fstrutils.c b3symbols.c)
 target_link_libraries(b3symbols)

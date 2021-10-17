@@ -5,6 +5,7 @@
 
 #include "fstrutils.h"
 #include "third_party/mxml/mxml.h"
+#include "third_party/libxlsxwriter/include/xlsxwriter.h"
 
 typedef enum balance_type_e {
   DFP_BALANCE_TYPE_INVALID = 0,
@@ -202,6 +203,24 @@ main(int argc, char **argv)
   for (i = 0; i < nb_accounts; i++) {
     printf("%s %s %s\n", accounts[i]->number, accounts[i]->description, accounts[i]->value);
   }
+
+  lxw_workbook  *workbook;
+  lxw_worksheet *worksheet;
+
+  workbook = workbook_new("df2_export.xlsx");
+  worksheet = workbook_add_worksheet(workbook, NULL);
+
+  worksheet_write_string(worksheet, 0, 0, "CD_CONTA", NULL);
+  worksheet_write_string(worksheet, 0, 1, "DS_CONTA", NULL);
+  worksheet_write_string(worksheet, 0, 2, "VL_CONTA", NULL);
+
+  for (i = 0; i < nb_accounts; i++) {
+    worksheet_write_string(worksheet, i + 1, 0, accounts[i]->number, NULL);
+    worksheet_write_string(worksheet, i + 1, 1, accounts[i]->description, NULL);
+    worksheet_write_string(worksheet, i + 1, 2, accounts[i]->value, NULL);
+  }
+
+  workbook_close(workbook);
 
   return 0;
 }
