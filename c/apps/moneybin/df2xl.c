@@ -28,6 +28,8 @@ main(int argc, char **argv)
   int fin_code;
   int inf_code;
   account_t *account;
+  account_t **accounts = NULL; /* array of pointers to accounts */
+  unsigned nb_accounts = 0; /* number of accounts */
 
   xmlfile = "InfoFinaDFin.xml";
   fp = fopen(xmlfile, "r");
@@ -60,11 +62,22 @@ main(int argc, char **argv)
   node = mxmlFindElement(tree, tree, "InfoFinaDFin", NULL, NULL, MXML_DESCEND);
 
   while (node) {
+    /* This is a small trick.
+     * In the first pass 'accounts' will be NULL, then this realloc call
+     * will be equivalent to malloc(sizeof(account_t) * 1). */
+    accounts = realloc(accounts, sizeof(account_t) * nb_accounts + 1);
+    if (accounts == NULL) {
+      fputs("Out of memory\n", stderr);
+      break;
+    }
+
     account = malloc(sizeof(account_t));
     if (account == NULL) {
       fputs("out of memory!\n", stderr);
       break;
     }
+
+    accounts[nb_accounts++] = account;
 
     account_plan = mxmlFindElement(node, tree, "PlanoConta", NULL, NULL, MXML_DESCEND);
     if (account_plan == NULL) {
