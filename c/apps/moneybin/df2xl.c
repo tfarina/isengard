@@ -60,9 +60,9 @@ main(int argc, char **argv)
    *     ValorConta1
    */
 
-  node = mxmlFindElement(tree, tree, "InfoFinaDFin", NULL, NULL, MXML_DESCEND);
-
-  while (node) {
+  for (node = mxmlFindElement(tree, tree, "InfoFinaDFin", NULL, NULL, MXML_DESCEND);
+       node;
+       node = mxmlFindElement(node, tree, "InfoFinaDFin", NULL, NULL, MXML_DESCEND)) {
     /* This is a small trick.
      * In the first pass 'accounts' will be NULL, then this realloc call
      * will be equivalent to malloc(sizeof(account_t) * 1). */
@@ -164,8 +164,6 @@ main(int argc, char **argv)
 
       printf("ValorConta1: %s\n", str);
     }
-
-    node = mxmlFindElement(node, tree, "InfoFinaDFin", NULL, NULL, MXML_DESCEND);
   }
 
   mxmlDelete(tree);
