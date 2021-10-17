@@ -6,6 +6,24 @@
 #include "fstrutils.h"
 #include "third_party/mxml/mxml.h"
 
+typedef enum balance_type_e {
+  DFP_BALANCE_TYPE_INVALID = 0,
+  DFP_BALANCE_TYPE_IF = 1,
+  DFP_BALANCE_TYPE_BPA = 2,  /** Balanços Patrimoniais Activos */
+  DFP_BALANCE_TYPE_BPP = 3,  /** Balanços Patrimoniais Passivos */
+  DFP_BALANCE_TYPE_DRE = 4,  /** Demonstração do Resultado do Exercicio */
+  DFP_BALANCE_TYPE_DRA = 5,  /** Demonstraçao do Resultado Abrangente */
+  DFP_BALANCE_TYPE_DFC_MD = 6,  /** Demonstração do Fluxo de Caixa - Método Direto */
+  DFP_BALANCE_TYPE_DFC_MI = 7,  /** Demonstração do Fluxo de Caixa - Método Indireto */
+  DFP_BALANCE_TYPE_DMPL = 8,  /** Demonstração das Mutaçoes do Patrimônio Líquido */
+  DFP_BALANCE_TYPE_DVA = 9  /** Demonstração do Valor Adicionado */
+} balance_type_t;
+
+typedef enum financial_info_type_e {
+  DFP_FINANCIAL_INFO_TYPE_INDIVIDUAL = 1,
+  DFP_FINANCIAL_INFO_TYPE_CONSOLIDATED = 2
+} financial_info_type_t;
+
 typedef struct account_s {
   char const *number;
   char const *description;
@@ -26,8 +44,8 @@ main(int argc, char **argv)
   mxml_node_t *acc_num_node;
   mxml_node_t *acc_desc_node;
   mxml_node_t *acc_value_node;
-  int fin_code;
-  int inf_code;
+  int balance_type;
+  int financial_info_type;
   account_t *account;
   account_t **accounts = NULL; /* array of pointers to accounts */
   unsigned nb_accounts = 0; /* number of accounts */
@@ -107,9 +125,9 @@ main(int argc, char **argv)
             break;
           }
 
-          /* 2 = demonstracao financeira consolidada */
-          fin_code = atoi(str);
-          printf("CodigoTipoDemonstracaoFinanceira: %d\n", fin_code);
+          /* enum balance_type_e */
+          balance_type = atoi(str);
+          printf("CodigoTipoDemonstracaoFinanceira: %d\n", balance_type);
         }
 
         inf_code_node = mxmlFindElement(acc_version_node, tree, "CodigoTipoInformacaoFinanceira", NULL, NULL, MXML_DESCEND);
@@ -123,8 +141,9 @@ main(int argc, char **argv)
             break;
           }
 
-          inf_code = atoi(str);
-          printf("CodigoTipoInformacaoFinanceira: %d\n", inf_code);
+          /* enum financial_info_type_e */
+          financial_info_type = atoi(str);
+          printf("CodigoTipoInformacaoFinanceira: %d\n", financial_info_type);
         }
       }
 
