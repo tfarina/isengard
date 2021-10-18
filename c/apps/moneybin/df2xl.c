@@ -28,7 +28,7 @@ typedef enum financial_info_type_e {
 typedef struct account_s {
   char const *number;
   char const *description;
-  char const *value;
+  long long value;
   balance_type_t balance_type;
   financial_info_type_t financial_info_type;
 } account_t;
@@ -103,7 +103,7 @@ main(int argc, char **argv)
 
     account->number = NULL;
     account->description = NULL;
-    account->value = NULL;
+    account->value = 0;
 
     accounts[nb_accounts++] = account;
 
@@ -196,7 +196,7 @@ main(int argc, char **argv)
         break;
       }
 
-      account->value = f_strdup(str);
+      account->value = atoll(str);
 
       printf("ValorConta1: %s\n", str);
     }
@@ -205,7 +205,7 @@ main(int argc, char **argv)
   mxmlDelete(tree);
 
   for (i = 0; i < nb_accounts; i++) {
-    printf("%s %s %s\n", accounts[i]->number, accounts[i]->description, accounts[i]->value);
+    printf("%s %s %lld\n", accounts[i]->number, accounts[i]->description, accounts[i]->value);
   }
 
   lxw_workbook  *workbook;
@@ -240,19 +240,19 @@ main(int argc, char **argv)
       if (accounts[i]->balance_type == DFP_BALANCE_TYPE_BPA) {
         worksheet_write_string(worksheet_bpa, row_index_bpa, 0, accounts[i]->number, NULL);
         worksheet_write_string(worksheet_bpa, row_index_bpa, 1, accounts[i]->description, NULL);
-        worksheet_write_string(worksheet_bpa, row_index_bpa, 2, accounts[i]->value, NULL);
+        worksheet_write_number(worksheet_bpa, row_index_bpa, 2, accounts[i]->value, NULL);
         row_index_bpa++;
       }
       if (accounts[i]->balance_type == DFP_BALANCE_TYPE_BPP) {
         worksheet_write_string(worksheet_bpp, row_index_bpp, 0, accounts[i]->number, NULL);
         worksheet_write_string(worksheet_bpp, row_index_bpp, 1, accounts[i]->description, NULL);
-        worksheet_write_string(worksheet_bpp, row_index_bpp, 2, accounts[i]->value, NULL);
+        worksheet_write_number(worksheet_bpp, row_index_bpp, 2, accounts[i]->value, NULL);
         row_index_bpp++;
       }
       if (accounts[i]->balance_type == DFP_BALANCE_TYPE_DRE) {
         worksheet_write_string(worksheet_dre, row_index_dre, 0, accounts[i]->number, NULL);
         worksheet_write_string(worksheet_dre, row_index_dre, 1, accounts[i]->description, NULL);
-        worksheet_write_string(worksheet_dre, row_index_dre, 2, accounts[i]->value, NULL);
+        worksheet_write_number(worksheet_dre, row_index_dre, 2, accounts[i]->value, NULL);
         row_index_dre++;
       }
     }
