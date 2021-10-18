@@ -29,6 +29,8 @@ typedef struct account_s {
   char const *number;
   char const *description;
   char const *value;
+  balance_type_t balance_type;
+  financial_info_type_t financial_info_type;
 } account_t;
 
 int
@@ -128,6 +130,7 @@ main(int argc, char **argv)
 
           /* enum balance_type_e */
           balance_type = atoi(str);
+          account->balance_type = balance_type;
           printf("CodigoTipoDemonstracaoFinanceira: %d\n", balance_type);
         }
 
@@ -144,6 +147,7 @@ main(int argc, char **argv)
 
           /* enum financial_info_type_e */
           financial_info_type = atoi(str);
+          account->financial_info_type = financial_info_type;
           printf("CodigoTipoInformacaoFinanceira: %d\n", financial_info_type);
         }
       }
