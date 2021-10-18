@@ -1,0 +1,8 @@
+Name: zip
+URL: https://github.com/kuba--/zip/
+Version: v0.2.0
+Security Critical: Yes
+License: UNLICENSE
+
+Description:
+A portable, simple zip library written in C.

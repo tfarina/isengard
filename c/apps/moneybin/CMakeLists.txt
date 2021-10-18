@@ -28,6 +28,7 @@ add_subdirectory(third_party/libcsv)
 add_subdirectory(third_party/mxml)
 add_subdirectory(third_party/zlib)
 add_subdirectory(third_party/libxlsxwriter)
+add_subdirectory(third_party/zip)
 
 option(WITH_MYSQL "Use MySQL library" ON)
 
@@ -184,3 +185,6 @@ target_link_libraries(dbinit sqlite3 moneybin)
 
 add_executable(exportdfp exportdfp.c)
 target_link_libraries(exportdfp libxlsxwriter)
+
+add_executable(readdfp readdfp.c)
+target_link_libraries(readdfp zip)
