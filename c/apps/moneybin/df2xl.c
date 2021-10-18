@@ -260,5 +260,52 @@ main(int argc, char **argv)
 
   workbook_close(workbook);
 
+  workbook = workbook_new("consolidate_df_export.xlsx");
+  worksheet_bpa = workbook_add_worksheet(workbook, "BPA");
+
+  worksheet_write_string(worksheet_bpa, 0, 0, "CD_CONTA", NULL);
+  worksheet_write_string(worksheet_bpa, 0, 1, "DS_CONTA", NULL);
+  worksheet_write_string(worksheet_bpa, 0, 2, "VL_CONTA", NULL);
+
+  worksheet_bpp = workbook_add_worksheet(workbook, "BPP");
+
+  worksheet_write_string(worksheet_bpp, 0, 0, "CD_CONTA", NULL);
+  worksheet_write_string(worksheet_bpp, 0, 1, "DS_CONTA", NULL);
+  worksheet_write_string(worksheet_bpp, 0, 2, "VL_CONTA", NULL);
+
+  worksheet_dre = workbook_add_worksheet(workbook, "DRE");
+
+  worksheet_write_string(worksheet_dre, 0, 0, "CD_CONTA", NULL);
+  worksheet_write_string(worksheet_dre, 0, 1, "DS_CONTA", NULL);
+  worksheet_write_string(worksheet_dre, 0, 2, "VL_CONTA", NULL);
+
+  row_index_bpa = 1;
+  row_index_bpp = 1;
+  row_index_dre = 1;
+  for (i = 0; i < nb_accounts; i++) {
+    if (accounts[i]->financial_info_type == DFP_FINANCIAL_INFO_TYPE_CONSOLIDATED) {
+      if (accounts[i]->balance_type == DFP_BALANCE_TYPE_BPA) {
+        worksheet_write_string(worksheet_bpa, row_index_bpa, 0, accounts[i]->number, NULL);
+        worksheet_write_string(worksheet_bpa, row_index_bpa, 1, accounts[i]->description, NULL);
+        worksheet_write_number(worksheet_bpa, row_index_bpa, 2, accounts[i]->value, NULL);
+        row_index_bpa++;
+      }
+      if (accounts[i]->balance_type == DFP_BALANCE_TYPE_BPP) {
+        worksheet_write_string(worksheet_bpp, row_index_bpp, 0, accounts[i]->number, NULL);
+        worksheet_write_string(worksheet_bpp, row_index_bpp, 1, accounts[i]->description, NULL);
+        worksheet_write_number(worksheet_bpp, row_index_bpp, 2, accounts[i]->value, NULL);
+        row_index_bpp++;
+      }
+      if (accounts[i]->balance_type == DFP_BALANCE_TYPE_DRE) {
+        worksheet_write_string(worksheet_dre, row_index_dre, 0, accounts[i]->number, NULL);
+        worksheet_write_string(worksheet_dre, row_index_dre, 1, accounts[i]->description, NULL);
+        worksheet_write_number(worksheet_dre, row_index_dre, 2, accounts[i]->value, NULL);
+        row_index_dre++;
+      }
+    }
+  }
+
+  workbook_close(workbook);
+
   return 0;
 }
