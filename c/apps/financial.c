@@ -18,6 +18,14 @@ double present_value(double fv, double i, double n)
 
 double growth_rate(double future_value, double present_value, double n)
 {
-  return (pow(future_value / present_value, 1/n) - 1);
-}
+  double value_ratio = 0;
+  double time_ratio = 0;
+  double result = 0;
 
+  value_ratio = future_value / present_value;
+  time_ratio = 1 / n;
+
+  result = pow(value_ratio, time_ratio);
+
+  return result - 1;
+}
