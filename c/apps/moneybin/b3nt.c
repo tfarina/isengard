@@ -248,6 +248,17 @@ read_negotiable_security(char *linebuf, company_t *company)
 	 serial_number, security_type, due_year, due_month, due_day, price, option_style,
 	 currency_type, currency_type_description, protection);
 
+  /* This is a small trick.
+   * In the first pass 'companies' will be NULL, then this realloc call
+   * will be equivalent to malloc(sizeof(company_t) * 1). */
+  company->securities = realloc(company->securities, sizeof(security_t) * company->nb_securities + 1);
+  if (company->securities == 0) {
+    fputs("Out of memory\n", stderr);
+    return -1;
+  }
+
+  company->securities[company->nb_securities++] = security;
+
   return 0;
 }
 
@@ -297,6 +308,9 @@ parse_b3_negotiable_file(char const *filename)
         fputs("Out of memory\n", stderr);
         break;
       }
+
+      company->securities = NULL;
+      company->nb_securities = 0;
 
       read_negotiable_company(linebuf, company);
     }
