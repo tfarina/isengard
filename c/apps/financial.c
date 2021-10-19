@@ -29,3 +29,12 @@ double growth_rate(double future_value, double present_value, double n)
 
   return result - 1;
 }
+
+double current_ratio(double current_assets, double current_liabilities)
+{
+  double result = 0;
+
+  result = current_assets / current_liabilities;
+
+  return result;
+}

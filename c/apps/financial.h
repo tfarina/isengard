@@ -28,4 +28,9 @@ double present_value(double fv, double i, double n);
  */
 double growth_rate(double future_value, double present_value, double n);
 
+/**
+ * Returns the Current Ratio.
+ */
+double current_ratio(double current_assets, double current_liabilities);
+
 #endif  /* FINANCIAL_H_ */
