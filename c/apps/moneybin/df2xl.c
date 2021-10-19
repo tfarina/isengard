@@ -212,8 +212,14 @@ main(int argc, char **argv)
   lxw_worksheet *worksheet_bpa;
   lxw_worksheet *worksheet_bpp;
   lxw_worksheet *worksheet_dre;
+  lxw_worksheet *worksheet_dra;
+  lxw_worksheet *worksheet_dfc_md;
+  lxw_worksheet *worksheet_dfc_mi;
+  lxw_worksheet *worksheet_dmpl;
+  lxw_worksheet *worksheet_dva;
 
   workbook = workbook_new("ind_df_export.xlsx");
+
   worksheet_bpa = workbook_add_worksheet(workbook, "BPA");
 
   worksheet_write_string(worksheet_bpa, 0, 0, "CD_CONTA", NULL);
@@ -232,9 +238,44 @@ main(int argc, char **argv)
   worksheet_write_string(worksheet_dre, 0, 1, "DS_CONTA", NULL);
   worksheet_write_string(worksheet_dre, 0, 2, "VL_CONTA", NULL);
 
+  worksheet_dra = workbook_add_worksheet(workbook, "DRA");
+
+  worksheet_write_string(worksheet_dra, 0, 0, "CD_CONTA", NULL);
+  worksheet_write_string(worksheet_dra, 0, 1, "DS_CONTA", NULL);
+  worksheet_write_string(worksheet_dra, 0, 2, "VL_CONTA", NULL);
+
+  worksheet_dfc_md = workbook_add_worksheet(workbook, "DFC_MD");
+
+  worksheet_write_string(worksheet_dfc_md, 0, 0, "CD_CONTA", NULL);
+  worksheet_write_string(worksheet_dfc_md, 0, 1, "DS_CONTA", NULL);
+  worksheet_write_string(worksheet_dfc_md, 0, 2, "VL_CONTA", NULL);
+
+  worksheet_dfc_mi = workbook_add_worksheet(workbook, "DFC_MI");
+
+  worksheet_write_string(worksheet_dfc_mi, 0, 0, "CD_CONTA", NULL);
+  worksheet_write_string(worksheet_dfc_mi, 0, 1, "DS_CONTA", NULL);
+  worksheet_write_string(worksheet_dfc_mi, 0, 2, "VL_CONTA", NULL);
+
+  worksheet_dmpl = workbook_add_worksheet(workbook, "DMPL");
+
+  worksheet_write_string(worksheet_dmpl, 0, 0, "CD_CONTA", NULL);
+  worksheet_write_string(worksheet_dmpl, 0, 1, "DS_CONTA", NULL);
+  worksheet_write_string(worksheet_dmpl, 0, 2, "VL_CONTA", NULL);
+
+  worksheet_dva = workbook_add_worksheet(workbook, "DVA");
+
+  worksheet_write_string(worksheet_dva, 0, 0, "CD_CONTA", NULL);
+  worksheet_write_string(worksheet_dva, 0, 1, "DS_CONTA", NULL);
+  worksheet_write_string(worksheet_dva, 0, 2, "VL_CONTA", NULL);
+
   int row_index_bpa = 1;
   int row_index_bpp = 1;
   int row_index_dre = 1;
+  int row_index_dra = 1;
+  int row_index_dfc_md = 1;
+  int row_index_dfc_mi = 1;
+  int row_index_dmpl = 1;
+  int row_index_dva = 1;
   for (i = 0; i < nb_accounts; i++) {
     if (accounts[i]->financial_info_type == DFP_FINANCIAL_INFO_TYPE_INDIVIDUAL) {
       if (accounts[i]->balance_type == DFP_BALANCE_TYPE_BPA) {
@@ -254,6 +295,36 @@ main(int argc, char **argv)
         worksheet_write_string(worksheet_dre, row_index_dre, 1, accounts[i]->description, NULL);
         worksheet_write_number(worksheet_dre, row_index_dre, 2, accounts[i]->value, NULL);
         row_index_dre++;
+      }
+      if (accounts[i]->balance_type == DFP_BALANCE_TYPE_DRA) {
+        worksheet_write_string(worksheet_dra, row_index_dra, 0, accounts[i]->number, NULL);
+        worksheet_write_string(worksheet_dra, row_index_dra, 1, accounts[i]->description, NULL);
+        worksheet_write_number(worksheet_dra, row_index_dra, 2, accounts[i]->value, NULL);
+        row_index_dra++;
+      }
+      if (accounts[i]->balance_type == DFP_BALANCE_TYPE_DFC_MD) {
+        worksheet_write_string(worksheet_dfc_md, row_index_dfc_md, 0, accounts[i]->number, NULL);
+        worksheet_write_string(worksheet_dfc_md, row_index_dfc_md, 1, accounts[i]->description, NULL);
+        worksheet_write_number(worksheet_dfc_md, row_index_dfc_md, 2, accounts[i]->value, NULL);
+        row_index_dfc_md++;
+      }
+      if (accounts[i]->balance_type == DFP_BALANCE_TYPE_DFC_MI) {
+        worksheet_write_string(worksheet_dfc_mi, row_index_dfc_mi, 0, accounts[i]->number, NULL);
+        worksheet_write_string(worksheet_dfc_mi, row_index_dfc_mi, 1, accounts[i]->description, NULL);
+        worksheet_write_number(worksheet_dfc_mi, row_index_dfc_mi, 2, accounts[i]->value, NULL);
+        row_index_dfc_mi++;
+      }
+      if (accounts[i]->balance_type == DFP_BALANCE_TYPE_DMPL) {
+        worksheet_write_string(worksheet_dmpl, row_index_dmpl, 0, accounts[i]->number, NULL);
+        worksheet_write_string(worksheet_dmpl, row_index_dmpl, 1, accounts[i]->description, NULL);
+        worksheet_write_number(worksheet_dmpl, row_index_dmpl, 2, accounts[i]->value, NULL);
+        row_index_dmpl++;
+      }
+      if (accounts[i]->balance_type == DFP_BALANCE_TYPE_DVA) {
+        worksheet_write_string(worksheet_dva, row_index_dva, 0, accounts[i]->number, NULL);
+        worksheet_write_string(worksheet_dva, row_index_dva, 1, accounts[i]->description, NULL);
+        worksheet_write_number(worksheet_dva, row_index_dva, 2, accounts[i]->value, NULL);
+        row_index_dva++;
       }
     }
   }
