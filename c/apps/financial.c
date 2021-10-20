@@ -47,3 +47,12 @@ double eps_basic(double earnings, double shares_outstanding)
 
   return result;
 }
+
+double pe_ratio(double price, double earnings_per_share)
+{
+  double result = 0;
+
+  result = price / earnings_per_share;
+
+  return result;
+}

@@ -38,4 +38,9 @@ double current_ratio(double current_assets, double current_liabilities);
  */
 double eps_basic(double earnings, double shares_outstanding);
 
+/**
+ * Returns the P/E (Price to Earnings Per Share) Ratio.
+ */
+double pe_ratio(double price, double earnings_per_share);
+
 #endif  /* FINANCIAL_H_ */
