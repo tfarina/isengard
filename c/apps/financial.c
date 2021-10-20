@@ -38,3 +38,12 @@ double current_ratio(double current_assets, double current_liabilities)
 
   return result;
 }
+
+double eps_basic(double earnings, double shares_outstanding)
+{
+  double result = 0;
+
+  result = earnings / shares_outstanding;
+
+  return result;
+}

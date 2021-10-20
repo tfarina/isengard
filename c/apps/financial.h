@@ -33,4 +33,9 @@ double growth_rate(double future_value, double present_value, double n);
  */
 double current_ratio(double current_assets, double current_liabilities);
 
+/**
+ * Returns the Basic Earnings Per Share.
+ */
+double eps_basic(double earnings, double shares_outstanding);
+
 #endif  /* FINANCIAL_H_ */
