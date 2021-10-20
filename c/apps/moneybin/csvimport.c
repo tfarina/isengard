@@ -78,7 +78,7 @@ static double parse_price(char const *field, size_t length, return_code_t *rc) {
   char *endptr;
   double price;
 
-  price = (double)strtod(field, &endptr);
+  price = strtod(field, &endptr);
   if (length > 0 && (endptr == NULL || *endptr == '\0')) {
     *rc = RC_OK;
     return price;
