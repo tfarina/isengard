@@ -9,16 +9,16 @@
 #       For example, in the project directory, to build the library
 #       but not the unit tests in debug mode, type:
 #           mkdir build && cd build
-#           cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTS=NO ..
+#           cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTS=OFF ..
 #
 #   Flags:
 #       ENABLE_TESTS
 #           Build unit tests (default true). To disable the unit tests,
-#           pass `-DENABLE_TESTS=NO` during configuration.
+#           pass `-DENABLE_TESTS=OFF` during configuration.
 #
 #       ENABLE_EXAMPLES
 #           Build example files (default true). To not build the example
-#           files, pass `-DENABLE_EXAMPLES=NO` during configuration.
+#           files, pass `-DENABLE_EXAMPLES=OFF` during configuration.
 #
 
 cmake_minimum_required(VERSION 2.8)
@@ -29,8 +29,8 @@ include(GNUInstallDirs)
 #
 # Options
 #
-option(ENABLE_TESTS "Build the unit tests (default is to build)" YES)
-option(ENABLE_EXAMPLES "Build the example programs (default is to build)" YES)
+option(ENABLE_TESTS "Build the unit tests (default is to build)" ON)
+option(ENABLE_EXAMPLES "Build the example programs (default is to build)" ON)
 
 set(SRCS
   vector.c
