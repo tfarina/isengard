@@ -41,7 +41,8 @@ typedef enum ulog_level_e {
   ULOG_ERROR  = 1,  /* error conditions */
   ULOG_WARN   = 2,  /* warning conditions */
   ULOG_NOTICE = 3,  /* normal but significant condition */
-  ULOG_INFO   = 4   /* informational */
+  ULOG_INFO   = 4,  /* informational */
+  ULOG_DEBUG  = 5   /* debug-level messages */
 } ulog_level_t;
 
 void ulog_open(char const *);
