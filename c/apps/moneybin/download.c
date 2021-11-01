@@ -48,14 +48,14 @@ download_file(char const *downloadurl, char const *destfile)
   result = curl_easy_perform(curl);
   if (result != CURLE_OK) {
     fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(result));
-    curl_easy_cleanup(curl);
     fclose(fp);
+    curl_easy_cleanup(curl);
     return -1;
   }
 
-  curl_easy_cleanup(curl);
-
   fclose(fp);
+
+  curl_easy_cleanup(curl);
 
   curl_global_cleanup();
 
