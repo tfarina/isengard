@@ -44,7 +44,7 @@ char *f_read_file(const char *filename, size_t *out_file_size)
 
   fp = fopen(filename, "rb");
   if (fp == NULL) {
-    fprintf(stderr, "error opening %s file\n", filename);
+    fprintf(stderr, "error opening %s: %s\n", filename, strerror(errno));
     return NULL;
   }
 
