@@ -95,12 +95,14 @@ int f_read_file(const char *filename, char **out_contents, size_t *out_file_size
 
 int f_write_file(const char *filename, const char *data, size_t size)
 {
-  int fd = creat(filename, 0666);
+  int fd;
+  ssize_t bytes_written_total = 0;
+
+  fd = creat(filename, 0666);
   if (fd < 0) {
     return -1;
   }
 
-  ssize_t bytes_written_total = 0;
   for (ssize_t bytes_written_partial = 0; bytes_written_total < size;
        bytes_written_total += bytes_written_partial) {
     bytes_written_partial = write(fd, data + bytes_written_total,
