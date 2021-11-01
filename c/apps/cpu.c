@@ -1,4 +1,4 @@
-#include "cpuinfo.h"
+#include "cpu.h"
 
 #include <unistd.h>
 

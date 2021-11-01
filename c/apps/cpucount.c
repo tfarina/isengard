@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "cpuinfo.h"
+#include "cpu.h"
 
 int main(int argc, char **argv)
 {

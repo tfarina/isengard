@@ -1,5 +1,5 @@
-#ifndef CPUINFO_H_
-#define CPUINFO_H_
+#ifndef CPU_H_
+#define CPU_H_
 
 #if defined(__i686__) || defined(__i586__) || defined(__i486__) || defined(__i386__) || defined(__i386) || defined(_M_IX86) || defined(_X86_) || defined(__THW_INTEL__)
 #define CPU_ARCH_X86
@@ -15,4 +15,4 @@ int cpu_get_count(void);
  */
 int cpu_has_sse2(void);
 
-#endif  /* CPUINFO_H_ */
+#endif  /* CPU_H_ */

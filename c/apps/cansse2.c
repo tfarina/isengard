@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-#include "cpuinfo.h"
+#include "cpu.h"
 
 int main(void)
 {
