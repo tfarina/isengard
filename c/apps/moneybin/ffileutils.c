@@ -68,6 +68,7 @@ int f_read_file(const char *filename, char **out_contents, size_t *out_file_size
   contents = malloc(sizeof(char) * bufsize + 1);
   if (contents == NULL) {
     perror("malloc");
+    fclose(fp);
     return -1;
   }
 
