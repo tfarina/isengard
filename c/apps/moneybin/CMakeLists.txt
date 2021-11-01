@@ -10,9 +10,15 @@ include(UninstallTarget)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -std=c99 -pedantic")
 
+# You can choose one of the following build types:
+#   Debug          : Debug build
+#   Release        : Release build
+#   RelWithDebInfo : Release build with Debug Info
+#   MinSizeRel     : Release Min Size build
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
   set(CMAKE_BUILD_TYPE "Debug")
 endif()
+
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
   set(CMAKE_C_FLAGS "-g -O2")
 elseif("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
