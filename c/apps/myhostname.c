@@ -9,7 +9,6 @@ main(void)
 
   hostname = os_hostname();
   if (!hostname) {
-    perror("os_hostname");
     return 1;
   }
 
