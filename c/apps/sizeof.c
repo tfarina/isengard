@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main(void) {
-    printf("Data Type Sizes:\n\n");
+    printf("Size of Data Type:\n\n");
 
     printf("Remember: 1 byte = 8 bits\n");
     printf("With 8 bits (00000000, 00000001, etc) it's possible to "
