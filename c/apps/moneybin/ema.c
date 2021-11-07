@@ -7,7 +7,7 @@
  * @param[in]  size
  * @param[in]  period
  * @param[out] output
- *
+ * @return 0 on success, negative number (< 0) on error.
  */
 int ind_ema(double const *input, size_t size, int period, double *output)
 {

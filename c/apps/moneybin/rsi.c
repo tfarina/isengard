@@ -95,7 +95,7 @@ void down_average(double const *a1, size_t size, int period, double *a2)
  * @param[in]  size
  * @param[in]  period
  * @param[out] output
- *
+ * @return 0 on success, negative number (< 0) on error.
  */
 int ind_rsi(double const *input, size_t size, int period, double *output)
 {

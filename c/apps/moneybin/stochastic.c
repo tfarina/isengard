@@ -53,7 +53,7 @@ static int stats_range_max(double const *a, int size, int start, int stop, doubl
  * @param[in]  size
  * @param[in]  period
  * @param[out] output
- *
+ * @return 0 on success, negative number (< 0) on error.
  */
 int ind_stochastic(double const *high, double const *low, double const *close, size_t size, int period, double *output)
 {
