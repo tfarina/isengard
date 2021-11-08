@@ -4,7 +4,8 @@
 #include "util.h"
 #include "window.h"
 
-int main(int argc, char** argv)
+int
+main(int argc, char **argv)
 {
   dirs_init();
 
