@@ -633,9 +633,10 @@ void addrbook_window_new(void)
   statusbar = gtk_statusbar_new();
   gtk_box_pack_start(GTK_BOX(vbox), statusbar, FALSE, TRUE, 0);
 
-  gtk_widget_show_all(main_window);
-
   statusbar_cid = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "Address Book Window");
 
   _populate_list_view(list_store);
+
+  /* Show main window as late as possible. */
+  gtk_widget_show_all(main_window);
 }
