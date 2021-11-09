@@ -63,15 +63,15 @@ static GtkActionEntry menubar_entries[] =
   /*
    * File menu
    */
-  {"File/NewContact", NULL, "_New Contact", "<control>N", NULL, G_CALLBACK(_on_file_new_cb) },
+  {"File/NewContact", GTK_STOCK_NEW, "_New Contact", "<control>N", NULL, G_CALLBACK(_on_file_new_cb) },
   {"File/---", NULL, "---", NULL, NULL, NULL },
-  {"File/Quit", NULL, "_Quit", "<control>Q", NULL, G_CALLBACK(_on_file_quit_cb) },
+  {"File/Quit", GTK_STOCK_QUIT, "_Quit", "<control>Q", NULL, G_CALLBACK(_on_file_quit_cb) },
 
   /*
    * Edit menu
    */
-  {"Edit/Edit", NULL, "_Edit", "<control>Return", NULL, G_CALLBACK(_on_edit_edit_cb) },
-  {"Edit/Delete", NULL, "_Delete", "<control>D", NULL, G_CALLBACK(_on_edit_delete_cb) },
+  {"Edit/Edit", GTK_STOCK_EDIT, "_Edit", "<control>Return", NULL, G_CALLBACK(_on_edit_edit_cb) },
+  {"Edit/Delete", GTK_STOCK_DELETE, "_Delete", "<control>D", NULL, G_CALLBACK(_on_edit_delete_cb) },
 
   /*
    * View menu
