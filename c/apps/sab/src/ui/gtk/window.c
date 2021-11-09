@@ -80,7 +80,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * Help menu
    */
-  {"Help/About", NULL, "_About", NULL, NULL, G_CALLBACK(_on_help_about_cb) }
+  {"Help/About", GTK_STOCK_ABOUT, "_About", NULL, NULL, G_CALLBACK(_on_help_about_cb) }
 };
 
 static GtkToggleActionEntry menubar_toggle_entries[] =
