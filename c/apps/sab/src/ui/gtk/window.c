@@ -41,6 +41,7 @@ static guint statusbar_cid;
 
 static void _on_file_new_cb(GtkAction *action, gpointer data);
 static void _on_file_quit_cb(GtkAction *action, gpointer data);
+static void _on_edit_select_all_cb(GtkAction *action, gpointer data);
 static void _on_edit_edit_cb(GtkAction *action, gpointer data);
 static void _on_edit_delete_cb(GtkAction *action, gpointer data);
 static void _on_view_toolbar_cb(GtkAction *action, gpointer data);
@@ -70,6 +71,8 @@ static GtkActionEntry menubar_entries[] =
   /*
    * Edit menu
    */
+  {"Edit/SelectAll", NULL, "_Select All", "<control>A", NULL, G_CALLBACK(_on_edit_select_all_cb) },
+
   {"Edit/Edit", GTK_STOCK_EDIT, "_Edit", "<control>Return", NULL, G_CALLBACK(_on_edit_edit_cb) },
   {"Edit/Delete", GTK_STOCK_DELETE, "_Delete", "<control>D", NULL, G_CALLBACK(_on_edit_delete_cb) },
 
@@ -200,6 +203,15 @@ static void _on_file_quit_cb(GtkAction *action, gpointer data)
 /*
  * Edit menu
  */
+
+static void _on_edit_select_all_cb(GtkAction *action, gpointer data)
+{
+  GtkTreeSelection* selection;
+
+  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+
+  gtk_tree_selection_select_all(selection);
+}
 
 static void _on_edit_edit_cb(GtkAction *action, gpointer data)
 {
@@ -447,6 +459,8 @@ static GtkWidget *_menubar_create(void)
 			"/Menu/File", "Quit", "File/Quit", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* Edit menu */
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/Edit", "Select All", "Edit/SelectAll", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/Edit", "Edit", "Edit/Edit", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
