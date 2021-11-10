@@ -15,20 +15,22 @@ static GtkWidget *email_entry;
 
 static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
 {
-  char const *name;
+  char const *first_name;
+  char const *last_name;
+  char const *email;
 
   if (action_code == AC_ADD) {
     current_contact = ab_contact_alloc();
   }
 
-  name = g_strdup(gtk_entry_get_text(GTK_ENTRY(fname_entry)));
-  ab_contact_set_first_name(current_contact, name);
+  first_name = g_strdup(gtk_entry_get_text(GTK_ENTRY(fname_entry)));
+  ab_contact_set_first_name(current_contact, first_name);
 
-  name = g_strdup(gtk_entry_get_text(GTK_ENTRY(lname_entry)));
-  ab_contact_set_last_name(current_contact, name);
+  last_name = g_strdup(gtk_entry_get_text(GTK_ENTRY(lname_entry)));
+  ab_contact_set_last_name(current_contact, last_name);
 
-  name = g_strdup(gtk_entry_get_text(GTK_ENTRY(email_entry)));
-  ab_contact_set_email(current_contact, name);
+  email = g_strdup(gtk_entry_get_text(GTK_ENTRY(email_entry)));
+  ab_contact_set_email(current_contact, email);
 
   if (action_code == AC_ADD) {
     ab_add_contact(current_contact);
