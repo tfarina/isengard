@@ -635,6 +635,8 @@ void addrbook_window_new(void)
 
   statusbar_cid = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "Address Book Window");
 
+  gtk_widget_grab_focus(list_view);
+
   _populate_list_view(list_store);
 
   /* Show main window as late as possible. */
