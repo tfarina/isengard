@@ -304,6 +304,9 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 
     gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), TRUE);
   } else {
+    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Edit");
+    gtk_widget_set_sensitive(menuitem, FALSE);
+
     gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
   }
 
@@ -313,6 +316,9 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 
     gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), TRUE);
   } else {
+    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Delete");
+    gtk_widget_set_sensitive(menuitem, FALSE);
+
     gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
   }
 }
@@ -541,6 +547,7 @@ static GtkWidget *_list_view_create(void)
 
   /* Set selection properties. */
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+  gtk_tree_selection_set_mode(selection, GTK_SELECTION_MULTIPLE);
   g_signal_connect(selection, "changed",
 		   G_CALLBACK(_on_selection_changed_cb), NULL);
 
