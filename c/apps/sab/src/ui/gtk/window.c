@@ -113,6 +113,7 @@ static void _edit_selection(gpointer data)
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
 
+  /* BUG: Does not work if selection is #GTK_SELECTION_MULTIPLE. */
   gtk_tree_selection_get_selected(selection, NULL, &iter);
 
   gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
