@@ -129,6 +129,7 @@ static void _remove_selection(void)
   GtkTreeModel *model;
   GtkTreeSelection *selection;
   GList *paths;
+  GList *references = NULL;
   GList *row;
   GtkTreeIter iter;
   ab_contact_t *contact;
@@ -147,13 +148,17 @@ static void _remove_selection(void)
   /* Convert paths to references. */
   for (row = paths; row; row = g_list_next(row))
     {
-      GtkTreePath *path = row->data;
-      row->data = gtk_tree_row_reference_new(model, row->data);
-      gtk_tree_path_free(path);
+      GtkTreeRowReference *ref;
+
+      ref = gtk_tree_row_reference_new(model, row->data);
+      references = g_list_prepend(references, ref);
+      gtk_tree_path_free(row->data);
     }
 
+  g_list_free(paths);
+
   /* Remove rows from model. */
-  for (row = paths; row; row = g_list_next(row))
+  for (row = references; row; row = g_list_next(row))
     {
       GtkTreeRowReference *ref = row->data;
       GtkTreePath *path = gtk_tree_row_reference_get_path(ref);
@@ -169,6 +174,8 @@ static void _remove_selection(void)
       gtk_tree_path_free(path);
       gtk_tree_row_reference_free(ref);
     }
+
+  g_list_free(references);
 
   /* From claws-mail src/editaddress.c:edit_person_email_delete() */
   if (!has_row) {
