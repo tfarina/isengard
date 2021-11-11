@@ -128,22 +128,47 @@ static void _remove_selection(void)
 {
   GtkTreeModel *model;
   GtkTreeSelection *selection;
+  GList *paths;
+  GList *row;
   GtkTreeIter iter;
   ab_contact_t *contact;
   gboolean has_row = FALSE;
   gint n;
 
-  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
-
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
 
-  gtk_tree_selection_get_selected(selection, NULL, &iter);
+  paths = gtk_tree_selection_get_selected_rows(selection, &model);
 
-  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
+  /* The code below came mostly from:
+   * https://github.com/tristanheaven/gtkhash/blob/master/src/list.c
+   * https://github.com/raspberrypi-ui/pcmanfm-bullseye/blob/7393401d8d61d5c1cbd7f653b6549875055bc2e5/src/pref.c#L433
+   */
 
-  has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
+  /* Convert paths to references. */
+  for (row = paths; row; row = g_list_next(row))
+    {
+      GtkTreePath *path = row->data;
+      row->data = gtk_tree_row_reference_new(model, row->data);
+      gtk_tree_path_free(path);
+    }
 
-  ab_delete_contact(contact);
+  /* Remove rows from model. */
+  for (row = paths; row; row = g_list_next(row))
+    {
+      GtkTreeRowReference *ref = row->data;
+      GtkTreePath *path = gtk_tree_row_reference_get_path(ref);
+
+      if (gtk_tree_model_get_iter(model, &iter, path)) {
+        gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
+
+        has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
+
+        ab_delete_contact(contact);
+      }
+
+      gtk_tree_path_free(path);
+      gtk_tree_row_reference_free(ref);
+    }
 
   /* From claws-mail src/editaddress.c:edit_person_email_delete() */
   if (!has_row) {
