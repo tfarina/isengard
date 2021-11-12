@@ -433,21 +433,31 @@ static void _on_new_contact_cb(ab_contact_t *contact)
 
 static void _on_edit_contact_cb(ab_contact_t *contact)
 {
-  GtkTreeModel *model;
   GtkTreeSelection *selection;
+  GtkTreeModel *model;
   GtkTreeIter iter;
-
-  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
+  GList *paths;
+  GList *cur;
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
 
-  gtk_tree_selection_get_selected(selection, NULL, &iter);
+  paths = gtk_tree_selection_get_selected_rows(selection, &model);
 
-  gtk_list_store_set(GTK_LIST_STORE(model), &iter,
-                     LIST_COL_FIRST_NAME, ab_contact_get_first_name(contact),
-                     LIST_COL_LAST_NAME, ab_contact_get_last_name(contact),
-                     LIST_COL_EMAIL, ab_contact_get_email(contact),
-                     -1);
+  for (cur = paths; cur; cur = g_list_next(cur))
+    {
+      if (gtk_tree_model_get_iter(model, &iter, cur->data))
+	{
+	  gtk_list_store_set(GTK_LIST_STORE(model), &iter,
+			     LIST_COL_FIRST_NAME, ab_contact_get_first_name(contact),
+			     LIST_COL_LAST_NAME, ab_contact_get_last_name(contact),
+			     LIST_COL_EMAIL, ab_contact_get_email(contact),
+			     -1);
+	}
+
+      gtk_tree_path_free(cur->data);
+    }
+
+  g_list_free(paths);
 }
 
 /*
