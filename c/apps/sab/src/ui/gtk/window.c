@@ -72,7 +72,7 @@ static GtkActionEntry menubar_entries[] =
    * Edit menu
    */
   {"Edit/SelectAll", NULL, "_Select All", "<control>A", NULL, G_CALLBACK(_on_edit_select_all_cb) },
-
+  {"Edit/---", NULL, "---", NULL, NULL, NULL },
   {"Edit/Edit", GTK_STOCK_EDIT, "_Edit", "<control>Return", NULL, G_CALLBACK(_on_edit_edit_cb) },
   {"Edit/Delete", GTK_STOCK_DELETE, "_Delete", "<control>D", NULL, G_CALLBACK(_on_edit_delete_cb) },
 
@@ -517,6 +517,8 @@ static GtkWidget *_menubar_create(void)
   /* Edit menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/Edit", "Select All", "Edit/SelectAll", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/Edit", "Separator1", "Edit/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/Edit", "Edit", "Edit/Edit", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
