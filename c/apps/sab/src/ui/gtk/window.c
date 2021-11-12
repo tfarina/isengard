@@ -107,21 +107,35 @@ static void _on_edit_contact_cb(ab_contact_t *contact);
 
 static void _edit_selection(gpointer data)
 {
-  GtkTreeModel *model;
   GtkTreeSelection *selection;
+  GtkTreeModel *model;
   GtkTreeIter iter;
+  GList *paths;
+  GList *cur;
   ab_contact_t *contact;
-
-  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
 
-  /* BUG: Does not work if selection is #GTK_SELECTION_MULTIPLE. */
-  gtk_tree_selection_get_selected(selection, NULL, &iter);
+  paths = gtk_tree_selection_get_selected_rows(selection, &model);
 
-  gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
+  for (cur = paths; cur; cur = g_list_next(cur))
+    {
+      if (!gtk_tree_model_get_iter(model, &iter, cur->data))
+	{
+	  continue;
+	}
 
-  contact_editor_new(GTK_WINDOW(data), AC_EDIT, contact, _on_edit_contact_cb);
+      gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
+      if (!contact)
+	{
+	  continue;
+	}
+
+      contact_editor_new(GTK_WINDOW(data), AC_EDIT, contact, _on_edit_contact_cb);
+    }
+
+  g_list_foreach(paths, (GFunc)gtk_tree_path_free, NULL);
+  g_list_free(paths);
 }
 
 static void _remove_selection(void)
