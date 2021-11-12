@@ -91,7 +91,7 @@ static GtkToggleActionEntry menubar_toggle_entries[] =
   /*
    * View menu
    */
-  {"View/ToolBar", NULL, "Toolbar", NULL, NULL, G_CALLBACK(_on_view_toolbar_cb), FALSE },
+  {"View/ToolBar", NULL, "Toolbar", "<control>T", NULL, G_CALLBACK(_on_view_toolbar_cb), FALSE },
   {"View/StatusBar", NULL, "Statusbar", NULL, NULL, G_CALLBACK(_on_view_statusbar_cb), FALSE },
   {"View/---", NULL, "---", NULL, NULL, NULL, FALSE },
   {"View/FullScreen", NULL, "_Full Screen", "F11", NULL, G_CALLBACK(_on_view_fullscreen_cb), FALSE },
