@@ -637,14 +637,17 @@ static GtkWidget *_list_view_create(void)
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("First Name",
                                                     renderer, "text", LIST_COL_FIRST_NAME, NULL);
+  gtk_tree_view_column_set_resizable(column, TRUE);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   column = gtk_tree_view_column_new_with_attributes("Last Name",
                                                     renderer, "text", LIST_COL_LAST_NAME, NULL);
+  gtk_tree_view_column_set_resizable(column, TRUE);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   column = gtk_tree_view_column_new_with_attributes("Email",
                                                     renderer, "text", LIST_COL_EMAIL, NULL);
+  gtk_tree_view_column_set_resizable(column, TRUE);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   /* Attach list view the scrolled window. */
