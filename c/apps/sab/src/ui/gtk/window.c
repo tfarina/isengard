@@ -380,6 +380,11 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 
     gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
   }
+
+  if (statusbar != NULL) {
+    gtk_statusbar_pop(GTK_STATUSBAR(statusbar), statusbar_cid);
+    gtk_statusbar_push(GTK_STATUSBAR(statusbar), statusbar_cid, "Item selected");
+  }
 }
 
 static gboolean _on_list_button_pressed_cb(GtkTreeView *widget,
