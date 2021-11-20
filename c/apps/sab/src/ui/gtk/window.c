@@ -26,6 +26,46 @@ enum {
 #define LIST_COL_LAST  LIST_COL_PTR
 #define LIST_COL_COUNT (LIST_COL_LAST + 1)
 
+static gint
+contact_column_compare_func(GtkTreeModel* model,
+			    GtkTreeIter* a,
+			    GtkTreeIter* b,
+			    gpointer data)
+{
+
+  gint sortcol = GPOINTER_TO_INT(data);
+  gchar *sa, *sb;
+  gint ret = 0;
+
+  switch (sortcol) {
+  case LIST_COL_FIRST_NAME:
+    gtk_tree_model_get(model, a, LIST_COL_FIRST_NAME, &sa, -1);
+    gtk_tree_model_get(model, b, LIST_COL_FIRST_NAME, &sb, -1);
+    ret = g_utf8_collate(sa, sb);
+    g_free(sa);
+    g_free(sb);
+    break;
+  case LIST_COL_LAST_NAME:
+    gtk_tree_model_get(model, a, LIST_COL_LAST_NAME, &sa, -1);
+    gtk_tree_model_get(model, b, LIST_COL_LAST_NAME, &sb, -1);
+    ret = g_utf8_collate(sa, sb);
+    g_free(sa);
+    g_free(sb);
+    break;
+  case LIST_COL_EMAIL:
+    gtk_tree_model_get(model, a, LIST_COL_EMAIL, &sa, -1);
+    gtk_tree_model_get(model, b, LIST_COL_EMAIL, &sb, -1);
+    ret = g_utf8_collate(sa, sb);
+    g_free(sa);
+    g_free(sb);
+    break;
+  default:
+    g_return_val_if_reached(0);
+  }
+
+  return ret;
+}
+
 /*
  * Main window widgets.
  */
@@ -602,6 +642,7 @@ static GtkWidget *_toolbar_create(void)
 static GtkWidget *_list_view_create(void)
 {
   GtkWidget *scrolledwin;
+  GtkTreeSortable *sortable;
   GtkTreeSelection *selection;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
@@ -618,6 +659,17 @@ static GtkWidget *_list_view_create(void)
                                   G_TYPE_STRING,    /* Last name */
                                   G_TYPE_STRING,    /* Email */
                                   G_TYPE_POINTER);  /* Contact pointer */
+
+  sortable = GTK_TREE_SORTABLE(list_store);
+  gtk_tree_sortable_set_sort_func(sortable, LIST_COL_FIRST_NAME,
+				  contact_column_compare_func,
+				  GINT_TO_POINTER(LIST_COL_FIRST_NAME), NULL);
+  gtk_tree_sortable_set_sort_func(sortable, LIST_COL_LAST_NAME,
+				  contact_column_compare_func,
+				  GINT_TO_POINTER(LIST_COL_LAST_NAME), NULL);
+  gtk_tree_sortable_set_sort_func(sortable, LIST_COL_EMAIL,
+				  contact_column_compare_func,
+				  GINT_TO_POINTER(LIST_COL_EMAIL), NULL);
 
   /* Create the list view. */
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
@@ -638,16 +690,19 @@ static GtkWidget *_list_view_create(void)
   column = gtk_tree_view_column_new_with_attributes("First Name",
                                                     renderer, "text", LIST_COL_FIRST_NAME, NULL);
   gtk_tree_view_column_set_resizable(column, TRUE);
+  gtk_tree_view_column_set_sort_column_id(column, LIST_COL_FIRST_NAME);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   column = gtk_tree_view_column_new_with_attributes("Last Name",
                                                     renderer, "text", LIST_COL_LAST_NAME, NULL);
   gtk_tree_view_column_set_resizable(column, TRUE);
+  gtk_tree_view_column_set_sort_column_id(column, LIST_COL_LAST_NAME);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   column = gtk_tree_view_column_new_with_attributes("Email",
                                                     renderer, "text", LIST_COL_EMAIL, NULL);
   gtk_tree_view_column_set_resizable(column, TRUE);
+  gtk_tree_view_column_set_sort_column_id(column, LIST_COL_EMAIL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   /* Attach list view the scrolled window. */
