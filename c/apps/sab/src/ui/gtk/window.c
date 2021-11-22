@@ -319,16 +319,7 @@ static void _on_view_toolbar_cb(GtkAction *action, gpointer data)
 
   state = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
 
-  /*
-   * This check is necessary to fix the following error:
-   * (sab_gui:14142): Gtk-CRITICAL **: IA__gtk_widget_set_visible: assertion 'GTK_IS_WIDGET (widget)' failed
-   *
-   * That occurs because the toolbar is create after the menubar, but this callback is called
-   * before the toolbar is created.
-   */
-  if (toolbar != NULL) {
-    gtk_widget_set_visible(toolbar, state);
-  }
+  gtk_widget_set_visible(toolbar, state);
 }
 
 static void _on_view_statusbar_cb(GtkAction *action, gpointer data)
@@ -337,16 +328,7 @@ static void _on_view_statusbar_cb(GtkAction *action, gpointer data)
 
   state = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
 
-  /*
-   * This check is necessary to avoid the following error:
-   * (sab_gui:14142): Gtk-CRITICAL **: IA__gtk_widget_set_visible: assertion 'GTK_IS_WIDGET (widget)' failed
-   *
-   * That occurs because the menubar is created before the statusbar, and this callback gets called
-   * before the statusbar is created.
-   */
-  if (statusbar != NULL) {
-    gtk_widget_set_visible(statusbar, state);
-  }
+  gtk_widget_set_visible(statusbar, state);
 }
 
 static void _on_view_fullscreen_cb(GtkAction *action, gpointer data)
@@ -599,11 +581,6 @@ static GtkWidget *_menubar_create(void)
 
   menubar = gtk_ui_manager_get_widget(ui_manager, "/Menu");
 
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolBar");
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/StatusBar");
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
-
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Edit");
   gtk_widget_set_sensitive(menuitem, FALSE);
 
@@ -750,6 +727,7 @@ void addrbook_window_new(void)
 {
   GtkWidget *vbox;
   GtkWidget *menubar;
+  GtkWidget *menuitem;
   GtkWidget *scrolledwin;
 
   /*
@@ -794,6 +772,14 @@ void addrbook_window_new(void)
   gtk_box_pack_start(GTK_BOX(vbox), statusbar, FALSE, TRUE, 0);
 
   statusbar_cid = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "Address Book Window");
+
+  /*
+   * Set up menu items
+   */
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolBar");
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/StatusBar");
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
   gtk_widget_grab_focus(list_view);
 
