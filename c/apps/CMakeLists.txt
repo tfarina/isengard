@@ -155,3 +155,6 @@ add_executable(structsize structsize.c)
 
 add_executable(hello_excel hello_excel.c)
 target_link_libraries(hello_excel libxlsxwriter)
+
+add_executable(celtofah temperature.c celtofah.c)
+add_executable(fahtocel temperature.c fahtocel.c)
