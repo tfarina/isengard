@@ -463,6 +463,18 @@ static gboolean _on_list_button_pressed_cb(GtkTreeView *widget,
   return FALSE;
 }
 
+static gboolean
+_on_list_key_press_cb(GtkWidget *widget, GdkEventKey *event, gpointer data)
+{
+  if (event && event->keyval == GDK_KEY_Delete)
+    {
+      _remove_selection ();
+      return TRUE;
+    }
+
+  return FALSE;
+}
+
 /*
  * Contact editor callbacks
  */
@@ -684,6 +696,9 @@ static GtkWidget *_list_view_create(void)
   /* Handle double-clicking. */
   g_signal_connect(list_view, "button_press_event",
 		   G_CALLBACK(_on_list_button_pressed_cb), NULL);
+  /* Handle key press. */
+  g_signal_connect(list_view, "key_press_event",
+		   G_CALLBACK(_on_list_key_press_cb), NULL);
 
   /* Create the columns. */
   renderer = gtk_cell_renderer_text_new();
