@@ -376,6 +376,7 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 {
   gint num_selected;
   GtkWidget *menuitem;
+  char buf[256];
 
   num_selected = gtk_tree_selection_count_selected_rows(selection);
 
@@ -405,7 +406,12 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 
   if (statusbar != NULL) {
     gtk_statusbar_pop(GTK_STATUSBAR(statusbar), statusbar_cid);
-    gtk_statusbar_push(GTK_STATUSBAR(statusbar), statusbar_cid, "Item selected");
+    if (num_selected > 1) {
+      snprintf(buf, sizeof(buf), "%d items selected", num_selected);
+    } else {
+      snprintf(buf, sizeof(buf), "%d item selected", num_selected);
+    }
+    gtk_statusbar_push(GTK_STATUSBAR(statusbar), statusbar_cid, buf);
   }
 }
 
