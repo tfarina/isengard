@@ -113,7 +113,7 @@ static GtkActionEntry menubar_entries[] =
    */
   {"Edit/SelectAll", NULL, "_Select All", "<control>A", NULL, G_CALLBACK(_on_edit_select_all_cb) },
   {"Edit/---", NULL, "---", NULL, NULL, NULL },
-  {"Edit/Edit", GTK_STOCK_EDIT, "_Edit", "<control>Return", NULL, G_CALLBACK(_on_edit_edit_cb) },
+  {"Edit/Edit", GTK_STOCK_EDIT, "_Edit", "<alt>Return", NULL, G_CALLBACK(_on_edit_edit_cb) },
   {"Edit/Delete", GTK_STOCK_DELETE, "_Delete", "<control>D", NULL, G_CALLBACK(_on_edit_delete_cb) },
 
   /*
