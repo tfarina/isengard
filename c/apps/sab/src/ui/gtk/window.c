@@ -380,27 +380,21 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 
   num_selected = gtk_tree_selection_count_selected_rows(selection);
 
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Edit");
   if (num_selected == 1) {
-    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Edit");
     gtk_widget_set_sensitive(menuitem, TRUE);
-
     gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), TRUE);
   } else {
-    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Edit");
     gtk_widget_set_sensitive(menuitem, FALSE);
-
     gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
   }
 
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Delete");
   if (num_selected > 0) {
-    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Delete");
     gtk_widget_set_sensitive(menuitem, TRUE);
-
     gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), TRUE);
   } else {
-    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Delete");
     gtk_widget_set_sensitive(menuitem, FALSE);
-
     gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
   }
 
