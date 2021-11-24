@@ -7,6 +7,8 @@
 int
 main(int argc, char **argv)
 {
+  GtkWidget *window;
+
   dirs_init();
 
   if (!ensure_data_dir()) {
@@ -15,7 +17,10 @@ main(int argc, char **argv)
 
   gtk_init(&argc, &argv);
 
-  addrbook_window_new();
+  window = addrbook_window_new();
+
+  /* Show main window as late as possible. */
+  gtk_widget_show_all(window);
 
   gtk_main();
 

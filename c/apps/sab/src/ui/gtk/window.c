@@ -723,7 +723,7 @@ static void _populate_list_view(GtkListStore* list_store)
   }
 }
 
-void addrbook_window_new(void)
+GtkWidget *addrbook_window_new(void)
 {
   GtkWidget *vbox;
   GtkWidget *menubar;
@@ -785,6 +785,5 @@ void addrbook_window_new(void)
 
   _populate_list_view(list_store);
 
-  /* Show main window as late as possible. */
-  gtk_widget_show_all(main_window);
+  return main_window;
 }
