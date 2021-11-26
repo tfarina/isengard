@@ -409,9 +409,9 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
   }
 }
 
-static gboolean _on_list_button_pressed_cb(GtkTreeView *widget,
-                                           GdkEventButton *event,
-                                           gpointer data)
+static gboolean _on_list_button_press_cb(GtkTreeView *widget,
+                                         GdkEventButton *event,
+                                         gpointer data)
 {
   GtkTreePath *path;
   GtkTreeViewColumn *column;
@@ -672,7 +672,7 @@ static GtkWidget *_list_view_create(void)
 
   /* Handle double-clicking. */
   g_signal_connect(list_view, "button_press_event",
-		   G_CALLBACK(_on_list_button_pressed_cb), NULL);
+		   G_CALLBACK(_on_list_button_press_cb), NULL);
   /* Handle key press. */
   g_signal_connect(list_view, "key_press_event",
 		   G_CALLBACK(_on_list_key_press_cb), NULL);
