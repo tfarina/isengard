@@ -609,6 +609,8 @@ static GtkWidget *_toolbar_create(void)
   GtkToolItem *tb_new;
 
   toolbar = gtk_toolbar_new();
+
+  gtk_orientable_set_orientation(GTK_ORIENTABLE(toolbar), GTK_ORIENTATION_HORIZONTAL);
   gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH);
 
   /* New button */
