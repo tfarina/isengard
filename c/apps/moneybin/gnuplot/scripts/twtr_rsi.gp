@@ -2,7 +2,7 @@ reset
 
 set terminal png enhanced
 
-set title "Twitter (TWTR) (Daily) \n 09-Sep-2021      Close: $64.66"
+set title "Twitter (TWTR) (Daily) \n 01-Dec-2021      Close: $42.82"
 
 set key top left
 
@@ -25,4 +25,4 @@ set format x "%b\n%y"
 
 set output 'img/twtr_rsi.png'
 
-plot 'data/twtr_rsi.dat' using 1:8 title 'RSI(14) 48.16' with lines lc rgbcolor "blue"
+plot 'data/twtr_rsi.dat' using 1:8 title 'RSI(14) 18.32' with lines lc rgbcolor "blue"
