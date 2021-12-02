@@ -184,7 +184,6 @@ int main(int argc, char *argv[])
   }
 
   curl_global_cleanup();
-  free(symbol);
 
   /* TODO: do not print this by default. */
   if (verbose) {
@@ -194,6 +193,8 @@ int main(int argc, char *argv[])
   strcpy(filename, symbol);
   strcat(filename, ".csv");
   f_write_file(filename, buf.data, buf.size);
+
+  free(symbol);
 
   return 0;
 }
