@@ -448,6 +448,8 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
   gtk_tree_path_free(path);
   gtk_tree_model_get(GTK_TREE_MODEL(list_store), &iter, LIST_COL_PTR, &contact, -1);
 
+  /* This handles the event when a mouse button has been double-clicked.
+   * When this happens open the contact editor to edit the properties of the item selected. */
   if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
     if (contact != NULL) {
       contact_editor_new(GTK_WINDOW(main_window), AC_EDIT, contact, _on_edit_contact_cb);
