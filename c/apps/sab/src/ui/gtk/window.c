@@ -76,6 +76,7 @@ static GtkToolItem *tb_edit;
 static GtkToolItem *tb_delete;
 static GtkListStore *list_store;
 static GtkWidget *list_view;
+static GtkWidget *list_context_menu;
 static GtkWidget *statusbar;
 static guint statusbar_cid;
 
@@ -135,6 +136,15 @@ static GtkToggleActionEntry menubar_toggle_entries[] =
   {"View/StatusBar", NULL, "Statusbar", "<control>slash", NULL, G_CALLBACK(_on_view_statusbar_cb), FALSE },
   {"View/---", NULL, "---", NULL, NULL, NULL, FALSE },
   {"View/FullScreen", NULL, "_Full Screen", "F11", NULL, G_CALLBACK(_on_view_fullscreen_cb), FALSE },
+};
+
+static GtkActionEntry list_context_entries[] =
+{
+  {"ListContextMenu", NULL, "ListContextMenu", NULL, NULL, NULL },
+  {"ListContextMenu/SelectAll", NULL, "_Select All", NULL, NULL, G_CALLBACK(_on_edit_select_all_cb) },
+  {"ListContextMenu/---", NULL, "---", NULL, NULL, NULL },
+  {"ListContextMenu/Edit", NULL, "_Edit", NULL, NULL, G_CALLBACK(_on_edit_edit_cb) },
+  {"ListContextMenu/Delete", NULL, "_Delete", NULL, NULL, G_CALLBACK(_on_edit_delete_cb) },
 };
 
 /*
@@ -448,6 +458,10 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
   gtk_tree_path_free(path);
   gtk_tree_model_get(GTK_TREE_MODEL(list_store), &iter, LIST_COL_PTR, &contact, -1);
 
+  if (event->button == 3) {
+    gtk_menu_popup(GTK_MENU(list_context_menu), NULL, NULL, NULL, NULL, event->button, event->time);
+  }
+
   /* This handles the event when a mouse button has been double-clicked.
    * When this happens open the contact editor to edit the properties of the item selected. */
   if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
@@ -546,6 +560,8 @@ static GtkWidget *_menubar_create(void)
 			       G_N_ELEMENTS(menubar_entries), NULL);
   gtk_action_group_add_toggle_actions(action_group, menubar_toggle_entries,
 			              G_N_ELEMENTS(menubar_toggle_entries), NULL);
+  gtk_action_group_add_actions(action_group, list_context_entries,
+			       G_N_ELEMENTS(list_context_entries), NULL);
   gtk_ui_manager_insert_action_group(ui_manager, action_group, 0);
 
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
@@ -591,6 +607,23 @@ static GtkWidget *_menubar_create(void)
   /* Help menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/Help", "About", "Help/About", GTK_UI_MANAGER_MENUITEM, FALSE);
+
+  /* List context menu */
+
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/", "Popups", NULL, GTK_UI_MANAGER_MENUBAR, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Popups", "ListContextMenu", "ListContextMenu", GTK_UI_MANAGER_MENU, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Popups/ListContextMenu", "Select All", "ListContextMenu/SelectAll", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Popups/ListContextMenu", "Separator1", "ListContextMenu/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Popups/ListContextMenu", "Edit", "ListContextMenu/Edit", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Popups/ListContextMenu", "Delete", "ListContextMenu/Delete", GTK_UI_MANAGER_MENUITEM, FALSE);
+
+  list_context_menu = gtk_menu_item_get_submenu(GTK_MENU_ITEM(gtk_ui_manager_get_widget(ui_manager, "/Popups/ListContextMenu")));
 
   gtk_window_add_accel_group(GTK_WINDOW(main_window), gtk_ui_manager_get_accel_group(ui_manager));
 
