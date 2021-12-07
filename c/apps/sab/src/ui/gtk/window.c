@@ -646,12 +646,13 @@ static GtkWidget *_toolbar_create(void)
   toolbar = gtk_toolbar_new();
 
   gtk_orientable_set_orientation(GTK_ORIENTABLE(toolbar), GTK_ORIENTATION_HORIZONTAL);
-  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH);
+  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH_HORIZ);
 
   /* New button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_NEW, GTK_ICON_SIZE_BUTTON);
   tb_new = gtk_tool_button_new(icon, "New");
   gtk_tool_item_set_tooltip_text(tb_new, "New contact");
+  gtk_tool_item_set_is_important(tb_new, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_new, -1);
   g_signal_connect(G_OBJECT(tb_new), "clicked",
 		   G_CALLBACK(_on_new_cb), main_window);
@@ -660,6 +661,7 @@ static GtkWidget *_toolbar_create(void)
   icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT, GTK_ICON_SIZE_BUTTON);
   tb_edit = gtk_tool_button_new(icon, "Edit");
   gtk_tool_item_set_tooltip_text(tb_edit, "Edit contact");
+  gtk_tool_item_set_is_important(tb_edit, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_edit, -1);
   g_signal_connect(G_OBJECT(tb_edit), "clicked",
 		   G_CALLBACK(_on_edit_cb), main_window);
@@ -668,6 +670,7 @@ static GtkWidget *_toolbar_create(void)
   icon = gtk_image_new_from_icon_name(GTK_STOCK_DELETE, GTK_ICON_SIZE_BUTTON);
   tb_delete = gtk_tool_button_new(icon, "Delete");
   gtk_tool_item_set_tooltip_text(tb_delete, "Delete contact");
+  gtk_tool_item_set_is_important(tb_delete, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_delete, -1);
   g_signal_connect(G_OBJECT(tb_delete), "clicked",
 		   G_CALLBACK(_on_delete_cb), NULL);
