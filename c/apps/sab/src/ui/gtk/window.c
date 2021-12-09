@@ -90,7 +90,15 @@ static void _on_view_menubar_cb(GtkAction *action, gpointer data);
 static void _on_view_toolbar_cb(GtkAction *action, gpointer data);
 static void _on_view_statusbar_cb(GtkAction *action, gpointer data);
 static void _on_view_fullscreen_cb(GtkAction *action, gpointer data);
+static void _on_view_toolbar_style_cb(GtkAction *action, GtkRadioAction *current, gpointer data);
 static void _on_help_about_cb(GtkAction *action, gpointer data);
+
+enum {
+  TOOLBAR_STYLE_ICONS,
+  TOOLBAR_STYLE_TEXT,
+  TOOLBAR_STYLE_BOTH,
+  TOOLBAR_STYLE_BOTH_HORIZ
+};
 
 static GtkActionEntry menubar_entries[] =
 {
@@ -122,6 +130,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * View menu
    */
+  {"View/ToolbarStyle", NULL, "Toolbar style", NULL, NULL, NULL },
 
   /*
    * Help menu
@@ -139,6 +148,14 @@ static GtkToggleActionEntry menubar_toggle_entries[] =
   {"View/StatusBar", NULL, "Statusbar", "<control>slash", NULL, G_CALLBACK(_on_view_statusbar_cb), FALSE },
   {"View/---", NULL, "---", NULL, NULL, NULL, FALSE },
   {"View/FullScreen", NULL, "_Full Screen", "F11", NULL, G_CALLBACK(_on_view_fullscreen_cb), FALSE },
+};
+
+static GtkRadioActionEntry menubar_radio_entries[] =
+{
+  {"View/ToolbarStyle/TextBelowIcon", NULL, "Text _below icons", NULL, NULL, TOOLBAR_STYLE_BOTH },
+  {"View/ToolbarStyle/TextBesideIcon", NULL, "Text be_side icons", NULL, NULL, TOOLBAR_STYLE_BOTH_HORIZ },
+  {"View/ToolbarStyle/IconsOnly", NULL, "_Icons only", NULL, NULL, TOOLBAR_STYLE_ICONS },
+  {"View/ToolbarStyle/TextOnly", NULL, "_Text only", NULL, NULL, TOOLBAR_STYLE_TEXT },
 };
 
 static GtkActionEntry list_context_entries[] =
@@ -362,6 +379,28 @@ static void _on_view_fullscreen_cb(GtkAction *action, gpointer data)
   }
 }
 
+static void _on_view_toolbar_style_cb(GtkAction *action, GtkRadioAction *current, gpointer data)
+{
+  gint style;
+
+  style = gtk_radio_action_get_current_value(current);
+
+  switch (style) {
+  case TOOLBAR_STYLE_ICONS:
+    gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
+    break;
+  case TOOLBAR_STYLE_TEXT:
+    gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_TEXT);
+    break;
+  case TOOLBAR_STYLE_BOTH:
+    gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH);
+    break;
+  case TOOLBAR_STYLE_BOTH_HORIZ:
+    gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH_HORIZ);
+    break;
+  }
+}
+
 /*
  * Help menu
  */
@@ -572,6 +611,11 @@ static GtkWidget *_menubar_create(void)
 			       G_N_ELEMENTS(menubar_entries), NULL);
   gtk_action_group_add_toggle_actions(action_group, menubar_toggle_entries,
 			              G_N_ELEMENTS(menubar_toggle_entries), NULL);
+  gtk_action_group_add_radio_actions(action_group, menubar_radio_entries,
+				     G_N_ELEMENTS(menubar_radio_entries),
+				     1, G_CALLBACK(_on_view_toolbar_style_cb),
+				     NULL);
+
   gtk_action_group_add_actions(action_group, list_context_entries,
 			       G_N_ELEMENTS(list_context_entries), NULL);
   gtk_ui_manager_insert_action_group(ui_manager, action_group, 0);
@@ -617,6 +661,16 @@ static GtkWidget *_menubar_create(void)
 			"/Menu/View", "Separator1", "View/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View", "FullScreen", "View/FullScreen", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/View", "ToolbarStyle", "View/ToolbarStyle", GTK_UI_MANAGER_MENU, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/View/ToolbarStyle", "TextBelowIcon", "View/ToolbarStyle/TextBelowIcon", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/View/ToolbarStyle", "TextBesideIcon", "View/ToolbarStyle/TextBesideIcon", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/View/ToolbarStyle", "IconsOnly", "View/ToolbarStyle/IconsOnly", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/View/ToolbarStyle", "TextOnly", "View/ToolbarStyle/TextOnly", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* Help menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
@@ -847,6 +901,9 @@ GtkWidget *addrbook_window_new(void)
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolBar");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/StatusBar");
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
+
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolbarStyle/TextBesideIcon");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
   gtk_widget_grab_focus(list_view);
