@@ -714,7 +714,7 @@ static GtkWidget *_toolbar_create(void)
   toolbar = gtk_toolbar_new();
 
   gtk_orientable_set_orientation(GTK_ORIENTABLE(toolbar), GTK_ORIENTATION_HORIZONTAL);
-  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH_HORIZ);
+  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH);
 
   /* New button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_NEW, GTK_ICON_SIZE_BUTTON);
@@ -903,7 +903,7 @@ GtkWidget *addrbook_window_new(void)
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/StatusBar");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolbarStyle/TextBesideIcon");
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolbarStyle/TextBelowIcon");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
   gtk_widget_grab_focus(list_view);
