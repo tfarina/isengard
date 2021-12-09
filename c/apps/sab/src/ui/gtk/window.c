@@ -498,6 +498,7 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
 
   if (event->button == 3) {
     gtk_menu_popup(GTK_MENU(list_context_menu), NULL, NULL, NULL, NULL, event->button, event->time);
+    return TRUE;
   }
 
   /* This handles the event when a mouse button has been double-clicked.
