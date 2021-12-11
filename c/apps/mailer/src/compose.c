@@ -74,9 +74,7 @@ ComposeWindow *compose_window_new(void)
   GtkWidget *toolbar;
   GtkWidget *icon;
   GtkToolItem *send_button;
-  GtkWidget *from_hbox;
-  GtkWidget *to_hbox;
-  GtkWidget *subject_hbox;
+  GtkWidget *table;
   GtkWidget *label;
   GtkWidget *scrolledwin;
 
@@ -115,43 +113,52 @@ ComposeWindow *compose_window_new(void)
   gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, TRUE, 0);
 
   /*
-   * From
+   * Table
    */
-  from_hbox = gtk_hbox_new(FALSE, 0);
+  table = gtk_table_new(3, 2, FALSE);
+  gtk_container_set_border_width(GTK_CONTAINER(table), 4);
+  gtk_table_set_row_spacings(GTK_TABLE(table), 6);
+  gtk_table_set_col_spacings(GTK_TABLE(table), 12);
+  gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 0);
 
-  label = gtk_label_new("From: ");
-  gtk_box_pack_start(GTK_BOX(from_hbox), label, FALSE, FALSE, 0);
+  /*
+   * First row - From
+   */
+  label = gtk_label_new("From:");
+  gtk_table_attach(GTK_TABLE(table), label, 0, 1, 0, 1,
+		   GTK_FILL, 0, 0, 0);
+  gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
   compose->from_entry = gtk_entry_new();
-  gtk_box_pack_start(GTK_BOX(from_hbox), compose->from_entry, TRUE, TRUE, 0);
 
-  gtk_box_pack_start(GTK_BOX(vbox), from_hbox, FALSE, FALSE, 0);
+  gtk_table_attach(GTK_TABLE(table), compose->from_entry, 1, 2, 0, 1,
+		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
   /*
-   * To
+   * Second row - To
    */
-  to_hbox = gtk_hbox_new(FALSE, 0);
-
-  label = gtk_label_new("To: ");
-  gtk_box_pack_start(GTK_BOX(to_hbox), label, FALSE, FALSE, 0);
+  label = gtk_label_new("To:");
+  gtk_table_attach(GTK_TABLE(table), label, 0, 1, 1, 2,
+		   GTK_FILL, 0, 0, 0);
+  gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
   compose->to_entry = gtk_entry_new();
-  gtk_box_pack_start(GTK_BOX(to_hbox), compose->to_entry, TRUE, TRUE, 0);
 
-  gtk_box_pack_start(GTK_BOX(vbox), to_hbox, FALSE, FALSE, 0);
+  gtk_table_attach(GTK_TABLE(table), compose->to_entry, 1, 2, 1, 2,
+		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
   /*
-   * Subject
+   * Third row - Subject
    */
-  subject_hbox = gtk_hbox_new(FALSE, 0);
-
-  label = gtk_label_new("Subject: ");
-  gtk_box_pack_start(GTK_BOX(subject_hbox), label, FALSE, FALSE, 0);
+  label = gtk_label_new("Subject:");
+  gtk_table_attach(GTK_TABLE(table), label, 0, 1, 2, 3,
+		   GTK_FILL, 0, 0, 0);
+  gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
   compose->subject_entry = gtk_entry_new();
-  gtk_box_pack_start(GTK_BOX(subject_hbox), compose->subject_entry, TRUE, TRUE, 0);
 
-  gtk_box_pack_start(GTK_BOX(vbox), subject_hbox, FALSE, FALSE, 0);
+  gtk_table_attach(GTK_TABLE(table), compose->subject_entry, 1, 2, 2, 3,
+		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
   /*
    * Text view
