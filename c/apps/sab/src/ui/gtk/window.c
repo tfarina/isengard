@@ -497,6 +497,17 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
   }
 
   if (event->button == 3) {
+    gint num_selected = gtk_tree_selection_count_selected_rows(selection);
+    gboolean can_edit = num_selected == 1;
+    gboolean can_delete = num_selected > 0;
+    GtkWidget *menuitem;
+
+    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Popups/ListContextMenu/Edit");
+    gtk_widget_set_sensitive(menuitem, can_edit);
+
+    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Popups/ListContextMenu/Delete");
+    gtk_widget_set_sensitive(menuitem, can_delete);
+
     gtk_menu_popup(GTK_MENU(list_context_menu), NULL, NULL, NULL, NULL, event->button, event->time);
     return TRUE;
   }
