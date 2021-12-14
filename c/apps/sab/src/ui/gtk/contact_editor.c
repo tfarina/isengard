@@ -53,6 +53,7 @@ static void _contact_editor_cancel_cb(GtkWidget *widget, gboolean *cancelled)
 void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, void (*post_cb)(ab_contact_t *contact))
 {
   GtkWidget *vbox;
+  GtkWidget *notebook;
   GtkWidget *table;
   GtkWidget *label;
   GtkWidget *bbox;
@@ -81,11 +82,18 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   vbox = gtk_vbox_new(FALSE, 6);
   gtk_container_add(GTK_CONTAINER(contact_window), vbox);
 
+  notebook = gtk_notebook_new();
+
+  /* Add notebook to vbox. */
+  gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
+
+  /* Give notebook a border. */
+  gtk_container_set_border_width(GTK_CONTAINER(notebook), 6);
+
   table = gtk_table_new(3, 2, FALSE);
   gtk_container_set_border_width(GTK_CONTAINER(table), 4);
   gtk_table_set_row_spacings(GTK_TABLE(table), 6);
   gtk_table_set_col_spacings(GTK_TABLE(table), 12);
-  gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 0);
 
   /* First row. */
   label = gtk_label_new("First Name");
@@ -120,6 +128,9 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   gtk_table_attach(GTK_TABLE(table), email_entry, 1, 2, 2, 3,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
+  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), table,
+			   gtk_label_new("Name"));
+
   /*
    * Horizontal Button Box area
    */
@@ -148,6 +159,11 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
     gtk_entry_set_text(GTK_ENTRY(email_entry), ab_contact_get_email(current_contact));
   }
 
-  gtk_widget_grab_focus(fname_entry);
   gtk_widget_show_all(contact_window);
+
+  /*
+   * This should be called after showing the widgets, otherwise the focus
+   * won't go to the first name entry.
+   */
+  gtk_widget_grab_focus(fname_entry);
 }
