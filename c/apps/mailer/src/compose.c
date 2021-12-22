@@ -32,6 +32,23 @@ static gboolean _compose_delete_event_cb(gpointer data)
   return TRUE;
 }
 
+static void show_error(GtkWidget *window, gchar const *message)
+{
+  GtkWidget *dialog;
+
+  dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+				  GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL,
+				  GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+				  "%s", "Error");
+
+  gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
+					   "%s", message);
+
+  gtk_dialog_run(GTK_DIALOG(dialog));
+
+  gtk_widget_destroy(dialog);
+}
+
 static void _compose_send_cb(gpointer data)
 {
   ComposeWindow *compose = data;
@@ -57,6 +74,18 @@ static void _compose_send_cb(gpointer data)
   gtk_text_buffer_get_start_iter(buffer, &start);
   gtk_text_buffer_get_end_iter(buffer, &end);
   text = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
+
+  /*
+   * Check entries
+   */
+  if (!from || *from == '\0') {
+    show_error(compose->window, "Please, specify the return address (From).");
+    return;
+  }
+  if (!to || *to == '\0') {
+    show_error(compose->window, "The recipient is empty.");
+    return;
+  }
 
   printf("%s\n", from);
   printf("%s\n", to);
