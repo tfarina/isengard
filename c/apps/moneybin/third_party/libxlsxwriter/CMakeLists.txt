@@ -40,8 +40,13 @@ set(SRCS
 )
 
 add_library(libxlsxwriter STATIC ${SRCS} ${HDRS})
-target_include_directories(libxlsxwriter
 
-    PUBLIC include include/xlsxwriter    ${ZLIB_INCLUDE_DIRS}
+target_include_directories(libxlsxwriter PUBLIC
+  include
+  include/xlsxwriter
+  ${ZLIB_INCLUDE_DIRS}
 )
-target_link_libraries(libxlsxwriter LINK_PUBLIC ${ZLIB_LIBRARIES})
+
+target_link_libraries(libxlsxwriter LINK_PUBLIC
+  ${ZLIB_LIBRARIES}
+)
