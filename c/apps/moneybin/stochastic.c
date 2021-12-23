@@ -49,6 +49,18 @@ static int stats_range_max(double const *a, int size, int start, int stop, doubl
 /**
  * Stochastic Oscillator
  *
+ * Equation:
+ *
+ *      (C - L)
+ * %K = ------- x 100
+ *      (H - L)
+ *
+ * Where:
+ *
+ *  - C is the current closing price
+ *  - H is the highest high over the lookback period
+ *  - L is the lowest low over the lookback period
+ *
  * @param[in]  arr
  * @param[in]  size
  * @param[in]  period
