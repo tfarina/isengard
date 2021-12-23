@@ -49,6 +49,9 @@ static int stats_range_max(double const *a, int size, int start, int stop, doubl
 /**
  * Stochastic Oscillator
  *
+ * The stochastic oscillator is a momentum indicator. It was developed by
+ * George Lane in the late 1950s.
+ *
  * Equation:
  *
  *      (C - L)
