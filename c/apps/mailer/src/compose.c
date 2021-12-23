@@ -49,6 +49,26 @@ static void show_error(GtkWidget *window, gchar const *message)
   gtk_widget_destroy(dialog);
 }
 
+static gboolean dialog_confirm(GtkWidget *window, gchar const *primary_text, gchar const *message)
+{
+  GtkWidget *dialog;
+  gint response;
+
+  dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+				  GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL,
+				  GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
+				  "%s", primary_text);
+
+  gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
+					   "%s", message);
+
+  response = gtk_dialog_run(GTK_DIALOG(dialog));
+
+  gtk_widget_destroy(dialog);
+
+  return response == GTK_RESPONSE_YES;
+}
+
 static void _compose_send_cb(gpointer data)
 {
   ComposeWindow *compose = data;
@@ -85,6 +105,13 @@ static void _compose_send_cb(gpointer data)
   if (!to || *to == '\0') {
     show_error(compose->window, "The recipient is empty.");
     return;
+  }
+
+  if (!subject || *subject == '\0') {
+    if (!dialog_confirm(compose->window, "Send",
+			"Subject is empty. Send it anyway?")) {
+      return;
+    }
   }
 
   printf("%s\n", from);
