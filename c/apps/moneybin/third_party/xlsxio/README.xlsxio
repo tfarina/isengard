@@ -1,0 +1,9 @@
+Name: xlsxio
+URL: https://github.com/brechtsanders/xlsxio
+Version: v0.2.8
+Security Critical: Yes
+License: MIT
+
+Description:
+A cross-platform C library for reading values from and writing values to .xlsx files.
+

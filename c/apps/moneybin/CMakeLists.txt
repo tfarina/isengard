@@ -35,6 +35,7 @@ add_subdirectory(third_party/mxml)
 add_subdirectory(third_party/zlib)
 add_subdirectory(third_party/libxlsxwriter)
 add_subdirectory(third_party/zip)
+add_subdirectory(third_party/xlsxio)
 
 option(WITH_MYSQL "Use MySQL library" ON)
 
@@ -173,6 +174,9 @@ target_link_libraries(b3security)
 
 add_executable(b3nt b3types.c test.c fstrutils.c b3nt.c)
 target_link_libraries(b3nt)
+
+add_executable(b3sectors b3sectors.c)
+target_link_libraries(b3sectors xlsxio)
 
 add_executable(yparami yparamsi.c)
 add_executable(frequency frequency.c)
