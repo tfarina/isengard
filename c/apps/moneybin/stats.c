@@ -111,3 +111,47 @@ double stats_corr(double const *data1, size_t size1,
 
   return cv / (sd1 * sd2);
 }
+
+int stats_range_min(double const *data, size_t size, int start, int stop, double *res)
+{
+  double min;
+  int i;
+
+  if (size <= 0) {
+    return -1;
+  }
+
+  min = data[start];
+
+  for (i = start; i <= stop && i < size; i++) {
+    if (data[i] < min) {
+      min = data[i];
+    }
+  }
+
+  *res = min;
+
+  return 0;
+}
+
+int stats_range_max(double const *data, size_t size, int start, int stop, double *res)
+{
+  double max;
+  int i;
+
+  if (size <= 0) {
+    return -1;
+  }
+
+  max = data[start];
+
+  for (i = start; i <= stop && i < size; i++) {
+    if (data[i] > max) {
+      max = data[i];
+    }
+  }
+
+  *res = max;
+
+  return 0;
+}

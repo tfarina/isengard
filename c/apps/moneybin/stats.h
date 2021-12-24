@@ -84,4 +84,26 @@ double stats_covar(double const *data1, size_t size1,
 double stats_corr(double const *data1, size_t size1,
                   double const *data2, size_t size2);
 
+/**
+ * Calculates the minimum value in the specified array for the given interval.
+ *
+ * @param data The array.
+ * @param size The array size.
+ * @param start The index where it should start.
+ * @param stop The index where it should stop
+ * @param res The output result.
+ */
+int stats_range_min(double const *data, size_t size, int start, int stop, double *res);
+
+/**
+ * Calculates the maximum value in the specified array for the given interval.
+ *
+ * @param data The array.
+ * @param size The array size.
+ * @param start The index where it should start.
+ * @param stop The index where it should stop
+ * @param res The output result.
+ */
+int stats_range_max(double const *data, size_t size, int start, int stop, double *res);
+
 #endif /* STATS_H_ */

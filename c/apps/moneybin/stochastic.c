@@ -2,67 +2,7 @@
 
 #include <stdio.h>
 
-/**
- * Calculates the minimum value in the specified array for the given interval.
- *
- * @param data The array.
- * @param size The array size.
- * @param start The index where it should start.
- * @param stop The index where it should stop
- * @param res The output result.
- */
-static int stats_range_min(double const *data, size_t size, int start, int stop, double *res)
-{
-  double min;
-  int i;
-
-  if (size <= 0) {
-    return -1;
-  }
-
-  min = data[start];
-
-  for (i = start; i <= stop && i < size; i++) {
-    if (data[i] < min) {
-      min = data[i];
-    }
-  }
-
-  *res = min;
-
-  return 0;
-}
-
-/**
- * Calculates the maximum value in the specified array for the given interval.
- *
- * @param data The array.
- * @param size The array size.
- * @param start The index where it should start.
- * @param stop The index where it should stop
- * @param res The output result.
- */
-static int stats_range_max(double const *data, size_t size, int start, int stop, double *res)
-{
-  double max;
-  int i;
-
-  if (size <= 0) {
-    return -1;
-  }
-
-  max = data[start];
-
-  for (i = start; i <= stop && i < size; i++) {
-    if (data[i] > max) {
-      max = data[i];
-    }
-  }
-
-  *res = max;
-
-  return 0;
-}
+#include "stats.h"
 
 /**
  * Stochastic Oscillator

@@ -96,8 +96,8 @@ target_link_libraries(genemasignals libcsv)
 add_executable(genrsisignals sfldate.c timestamp.c ta_strat_rsi.c rsi.c ta.c tacsv.c genrsisignals.c)
 target_link_libraries(genrsisignals libcsv)
 
-add_executable(genstochsignals sfldate.c timestamp.c stochastic.c ta.c tacsv.c genstochsignals.c)
-target_link_libraries(genstochsignals libcsv)
+add_executable(genstochsignals sfldate.c timestamp.c tacsv.c ta.c stats.c stochastic.c genstochsignals.c)
+target_link_libraries(genstochsignals libcsv ${M_LIBRARY})
 
 add_executable(genmovavgs sfldate.c timestamp.c crossover.c sma.c ta.c tacsv.c genmovavgs.c)
 target_link_libraries(genmovavgs libcsv)
@@ -108,8 +108,8 @@ target_link_libraries(genexpma libcsv)
 add_executable(genrsi sfldate.c timestamp.c rsi.c ta.c tacsv.c genrsi.c)
 target_link_libraries(genrsi libcsv)
 
-add_executable(genstoch sfldate.c timestamp.c stochastic.c ta.c tacsv.c genstoch.c)
-target_link_libraries(genstoch libcsv)
+add_executable(genstoch sfldate.c timestamp.c tacsv.c ta.c stats.c stochastic.c genstoch.c)
+target_link_libraries(genstoch libcsv ${M_LIBRARY})
 
 add_executable(calcpivot sfldate.c timestamp.c ta.c tacsv.c pivot.c calcpivot.c)
 target_link_libraries(calcpivot libcsv)
@@ -119,8 +119,8 @@ add_executable(ema_test ema.c ema_test.c)
 add_executable(calcrsi sfldate.c timestamp.c ta.c tacsv.c rsi.c calcrsi.c)
 target_link_libraries(calcrsi libcsv)
 
-add_executable(calcstoch sfldate.c timestamp.c ta.c tacsv.c stochastic.c calcstoch.c)
-target_link_libraries(calcstoch libcsv)
+add_executable(calcstoch sfldate.c timestamp.c tacsv.c ta.c stats.c stochastic.c calcstoch.c)
+target_link_libraries(calcstoch libcsv ${M_LIBRARY})
 
 add_executable(calcsharpe sfldate.c timestamp.c ta.c tacsv.c sharpe.c stats.c finance.c calcsharpe.c)
 target_link_libraries(calcsharpe libcsv ${M_LIBRARY})
