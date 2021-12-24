@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-static int stats_range_min(double const *a, size_t size, int start, int stop, double *res)
+static int stats_range_min(double const *data, size_t size, int start, int stop, double *res)
 {
   double min;
   int i;
@@ -11,11 +11,11 @@ static int stats_range_min(double const *a, size_t size, int start, int stop, do
     return -1;
   }
 
-  min = a[start];
+  min = data[start];
 
   for (i = start; i <= stop && i < size; i++) {
-    if (a[i] < min) {
-      min = a[i];
+    if (data[i] < min) {
+      min = data[i];
     }
   }
 
@@ -24,7 +24,7 @@ static int stats_range_min(double const *a, size_t size, int start, int stop, do
   return 0;
 }
 
-static int stats_range_max(double const *a, size_t size, int start, int stop, double *res)
+static int stats_range_max(double const *data, size_t size, int start, int stop, double *res)
 {
   double max;
   int i;
@@ -33,11 +33,11 @@ static int stats_range_max(double const *a, size_t size, int start, int stop, do
     return -1;
   }
 
-  max = a[start];
+  max = data[start];
 
   for (i = start; i <= stop && i < size; i++) {
-    if (a[i] > max) {
-      max = a[i];
+    if (data[i] > max) {
+      max = data[i];
     }
   }
 
