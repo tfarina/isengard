@@ -132,6 +132,9 @@ target_link_libraries(genuuid uuid)
 add_executable(writexml3 writexml3.c)
 target_link_libraries(writexml3 mxml uuid -pthread)
 
+add_executable(writexml4 writexml4.c)
+target_link_libraries(writexml4 mxml uuid -pthread)
+
 add_executable(hashtable_test hashtable_test.c)
 target_link_libraries(hashtable_test chashtable uuid ${M_LIBRARY})
 
