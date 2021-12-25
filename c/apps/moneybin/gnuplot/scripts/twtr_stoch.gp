@@ -2,7 +2,7 @@ reset
 
 set terminal png enhanced
 
-set title "Twitter (TWTR) (Daily) \n 15-Sep-2021      Close: $61.40"
+set title "Twitter (TWTR) (Daily) \n 01-Dec-2021      Close: $42.80"
 
 set key top left
 
@@ -25,4 +25,4 @@ set format x "%b\n%y"
 
 set output 'img/twtr_stoch.png'
 
-plot 'data/twtr_stoch.dat' using 1:8 title 'STOCH(14) 21.04' with lines lc rgbcolor "blue"
+plot 'data/twtr_stoch.dat' using 1:8 title 'STOCH(14) 10.19' with lines lc rgbcolor "blue"
