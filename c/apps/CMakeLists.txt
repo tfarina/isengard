@@ -123,6 +123,9 @@ target_link_libraries(writexml mxml -pthread)
 add_executable(readxml readxml.c)
 target_link_libraries(readxml mxml -pthread)
 
+add_executable(readxml4 readxml4.c)
+target_link_libraries(readxml4 mxml -pthread)
+
 add_executable(writexml2 writexml2.c)
 target_link_libraries(writexml2 mxml -pthread)
 
