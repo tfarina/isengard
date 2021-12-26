@@ -67,6 +67,7 @@ int ind_sma(double const *input, size_t size, int period, double *output);
 int ind_ema(double const *input, size_t size, int period, double *output);
 int ind_rsi(double const *input, size_t size, int period, double *output);
 int ind_stochastic(double const *high, double const *low, double const *close, size_t size, int period, double *output);
+int ind_williamsr(double const *high, double const *low, double const *close, size_t size, int period, double *output);
 
 int ta_strat_rsi(double rsi, int oversold, int overbought);
 

@@ -122,6 +122,9 @@ target_link_libraries(calcrsi libcsv)
 add_executable(calcstoch sfldate.c timestamp.c tacsv.c ta.c stats.c stochastic.c calcstoch.c)
 target_link_libraries(calcstoch libcsv ${M_LIBRARY})
 
+add_executable(calcwilliamsr sfldate.c timestamp.c tacsv.c ta.c stats.c williamsr.c calcwilliamsr.c)
+target_link_libraries(calcwilliamsr libcsv ${M_LIBRARY})
+
 add_executable(calcsharpe sfldate.c timestamp.c ta.c tacsv.c sharpe.c stats.c finance.c calcsharpe.c)
 target_link_libraries(calcsharpe libcsv ${M_LIBRARY})
 
