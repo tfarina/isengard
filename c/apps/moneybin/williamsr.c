@@ -36,12 +36,12 @@ int ind_williamsr(double const *high, double const *low, double const *close, si
 
   for (pos = period; pos < size; pos++) {
     stats_range_min(low, size, pos - period, pos /* stop index */, &minlow);
-#if 1
+#if 0
     printf("%.2f\n", minlow);
 #endif
 
     stats_range_max(high, size, pos - period, pos /* stop index */, &maxhigh);
-#if 2
+#if 0
     printf("%.2f\n", maxhigh);
 
     printf("%.2f\n", close[pos - 1]);
@@ -51,7 +51,7 @@ int ind_williamsr(double const *high, double const *low, double const *close, si
     diff2 = maxhigh - minlow;
 
     fastk = (diff1 / diff2) * 100;
-#if 2
+#if 0
     printf("%.2f\n", fastk);
 #endif
 

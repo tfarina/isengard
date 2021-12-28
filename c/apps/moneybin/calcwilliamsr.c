@@ -36,7 +36,16 @@ int main(int argc, char **argv)
     return 1;
   }
 
+  /* Calculate William's %R. */
   ind_williamsr(bars->high, bars->low, bars->close, bars->numrows, period, williamsr);
+
+  /* Output values. */
+  for (i = period; i < bars->numrows; i++) {
+    printf("%f\n", *(williamsr + i));
+  }
+
+  /* Free memory allocated for William's %R array. */
+  free(williamsr);
 
   return 0;
 }
