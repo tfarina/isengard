@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "strutils.h"
+#include "fstrdup.h"
 
 int main(int argc, char **argv) {
   const char *src = "hello, world";

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "strutils.h"
+#include "fstrdup.h"
 
 /**
  * Creates a directory if it doesn't already exist and its intermediate

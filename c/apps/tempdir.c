@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "strutils.h"
+#include "fstrdup.h"
 #include "test.h"
 
 /*
