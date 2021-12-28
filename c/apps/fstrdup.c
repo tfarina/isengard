@@ -1,6 +1,5 @@
 #include "fstrdup.h"
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -10,8 +9,8 @@
  * The returned string should be freed when no longer needed.
  *
  * @param[in] src String to be duplicated
- * @return Pointer to a newly-allocated string containing a copy of `src`
- *         or `NULL` if the string cannot be allocated.
+ * @return A pointer to the duplicated string or `NULL` if no memory was
+ * available.
  */
 char *f_strdup(char const *src) {
   size_t len;
