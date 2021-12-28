@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "b3company.h"
+#include "fstrdup.h"
 #include "fstrutils.h"
 #include "test.h"
 

@@ -5,7 +5,7 @@
 
 #include "third_party/libcsv/csv.h"
 
-#include "fstrutils.h"
+#include "fstrdup.h"
 
 /* The number of rows encountered for the current file. */
 static long unsigned rows;

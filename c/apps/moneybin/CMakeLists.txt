@@ -65,6 +65,7 @@ set(SRCS
   config.c
   dba.c
   ffileutils.c
+  fstrdup.c
   fstrutils.c
   futils.c
   stats.c
@@ -76,13 +77,13 @@ set(M_LIBRARY "-lm")
 add_library(moneybin ${SRCS})
 target_link_libraries(moneybin iniparser libconfigini ini libcsv ${LIBS})
 
-add_executable(csvcat sfldate.c timestamp.c ta.c tacsv.c fstrutils.c csvcat.c)
+add_executable(csvcat sfldate.c timestamp.c ta.c tacsv.c fstrdup.c csvcat.c)
 target_link_libraries(csvcat libcsv)
 
-add_executable(csvinfo fstrutils.c csvinfo.c)
+add_executable(csvinfo fstrdup.c csvinfo.c)
 target_link_libraries(csvinfo libcsv)
 
-add_executable(csvstats sfldate.c timestamp.c fstrutils.c stats.c ta.c tacsv.c csvstats.c)
+add_executable(csvstats sfldate.c timestamp.c fstrdup.c stats.c ta.c tacsv.c csvstats.c)
 target_link_libraries(csvstats libcsv ${M_LIBRARY})
 
 add_executable(sma_test sma.c sma_test.c)
@@ -157,25 +158,25 @@ add_executable(fetchdfp download.c dounzip.c fetchdfp.c)
 target_link_libraries(fetchdfp zlib moneybin ${CURL_LIBRARIES})
 target_include_directories(fetchdfp PRIVATE ${CURL_INCLUDE_DIRS})
 
-add_executable(df2xl fstrutils.c df2xl.c)
+add_executable(df2xl fstrdup.c df2xl.c)
 target_link_libraries(df2xl mxml libxlsxwriter)
 
-add_executable(b3symbols test.c fstrutils.c b3symbols.c)
+add_executable(b3symbols test.c fstrdup.c b3symbols.c)
 target_link_libraries(b3symbols)
 
-add_executable(b3companies test.c fstrutils.c b3companies.c)
+add_executable(b3companies test.c fstrdup.c fstrutils.c b3companies.c)
 target_link_libraries(b3companies)
 
-add_executable(b3stocksymbols test.c fstrutils.c b3stocksymbols.c)
+add_executable(b3stocksymbols test.c fstrdup.c fstrutils.c b3stocksymbols.c)
 target_link_libraries(b3stocksymbols)
 
-add_executable(b3company test.c fstrutils.c b3company.c)
+add_executable(b3company test.c fstrdup.c fstrutils.c b3company.c)
 target_link_libraries(b3company)
 
-add_executable(b3security test.c fstrutils.c b3security.c)
+add_executable(b3security test.c fstrdup.c fstrutils.c b3security.c)
 target_link_libraries(b3security)
 
-add_executable(b3nt b3types.c test.c fstrutils.c b3nt.c)
+add_executable(b3nt b3types.c test.c fstrdup.c fstrutils.c b3nt.c)
 target_link_libraries(b3nt)
 
 add_executable(b3sectors b3sectors.c)

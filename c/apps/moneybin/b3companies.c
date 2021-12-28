@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "fstrutils.h"
+#include "fstrdup.h"
 #include "test.h"
 
 static int

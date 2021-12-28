@@ -6,7 +6,7 @@
 #include "config.h"
 #include "dba.h"
 #include "ffileutils.h"
-#include "fstrutils.h"
+#include "fstrdup.h"
 #include "futils.h"
 #include "vector.h"
 #include "third_party/libcsv/csv.h"

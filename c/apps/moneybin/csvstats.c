@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "fstrutils.h"
+#include "fstrdup.h"
 #include "stats.h"
 #include "ta.h"
 

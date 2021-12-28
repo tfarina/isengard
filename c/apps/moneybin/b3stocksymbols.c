@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "fstrdup.h"
 #include "fstrutils.h"
 #include "test.h"
 

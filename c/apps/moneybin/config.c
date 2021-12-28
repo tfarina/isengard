@@ -1,6 +1,6 @@
 #include "config.h"
 
-#include "fstrutils.h"
+#include "fstrdup.h"
 #include "third_party/iniparser/iniparser.h"
 #include "third_party/libconfigini/configini.h"
 #include "third_party/ini/ini.h"

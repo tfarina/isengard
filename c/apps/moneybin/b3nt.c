@@ -6,6 +6,7 @@
 
 #include "b3company.h"
 #include "b3security.h"
+#include "fstrdup.h"
 #include "fstrutils.h"
 #include "test.h"
 

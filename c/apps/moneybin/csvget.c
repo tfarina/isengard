@@ -9,7 +9,7 @@
 #include "buffer.h"
 #include "curl_write_callbacks.h"
 #include "ffileutils.h"
-#include "fstrutils.h"
+#include "fstrdup.h"
 #include "iso8601.h"
 
 #define BUFSIZE 128

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "fstrutils.h"
+#include "fstrdup.h"
 #include "third_party/mxml/mxml.h"
 #include "third_party/libxlsxwriter/include/xlsxwriter.h"
 

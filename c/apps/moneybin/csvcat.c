@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "fstrutils.h"
+#include "fstrdup.h"
 #include "ta.h"
 
 static void print_matrix(ta_bars_t *b) {
