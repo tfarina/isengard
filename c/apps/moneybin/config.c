@@ -44,6 +44,11 @@ int config_load(config_t *config, char const *cfgfile) {
     return -1;
   }
 
+  /* NOTE: after iniparser_freedict is called the memory used
+   * for the values will be freed and the pointers will point to garbage.
+   * Hence, we need to duplicate the strings into other regions of memory,
+   * so they are globally available during the execution of the program.
+   */
   config->database = f_strdup(iniparser_getstring(ini, "sql:database", "mysql"));
   config->host = f_strdup(iniparser_getstring(ini, "sql:host", NULL));
   config->user = f_strdup(iniparser_getstring(ini, "sql:user", NULL));
