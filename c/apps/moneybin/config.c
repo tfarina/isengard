@@ -102,6 +102,7 @@ int config_load_r(config_t *config, char const *cfgfile) {
 
 int config_load_r2(config_t *config, char const *cfgfile) {
   ini_t *handle;
+  char *value = NULL;
 
   handle = ini_load(cfgfile);
   if (handle == NULL) {
@@ -109,11 +110,21 @@ int config_load_r2(config_t *config, char const *cfgfile) {
     return -1;
   }
 
-  ini_read_str(handle, "sql", "database", &config->database, "mysql");
-  ini_read_str(handle, "sql", "host", &config->host, "");
-  ini_read_str(handle, "sql", "user", &config->user, "");
-  ini_read_str(handle, "sql", "password", &config->password, "");
-  ini_read_str(handle, "sql", "dbname", &config->dbname, "");
+  ini_read_str(handle, "sql", "database", &value, "mysql");
+  config->database = value;
+
+  ini_read_str(handle, "sql", "host", &value, "");
+  config->host = value;
+
+  ini_read_str(handle, "sql", "user", &value, "");
+  config->user = value;
+
+  ini_read_str(handle, "sql", "password", &value, "");
+  config->password = value;
+
+  ini_read_str(handle, "sql", "dbname", &value, "");
+  config->dbname = value;
+
   ini_read_unsigned(handle, "sql", "port", &config->port, 3306);
 
   ini_free(handle);
