@@ -92,12 +92,12 @@ static void usage(int status) {
      * Hebrew.
      */
     printf(_("Usage: %s [OPTIONS]...\n"), progname);
-    putc('\n', stdout);
+    fputc('\n', stdout);
 
     fputs(_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
 "), stdout);
-    putc('\n', stdout);
+    fputc('\n', stdout);
 
     fputs(_("\
 Options:\n\
