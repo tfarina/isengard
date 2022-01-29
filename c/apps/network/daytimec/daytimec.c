@@ -6,7 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "log.h"
+#include "msg.h"
 
 #define DEFAULT_PORT 13
 #define MAX_LINE 1024
