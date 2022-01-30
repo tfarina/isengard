@@ -29,9 +29,9 @@ static void usage(int status) {
         size_t i;
 
         fprintf(stderr, "usage: %s [--version] <command> [<args>]\n", progname);
-        putchar('\n');
+        fputc('\n', stderr);
         fputs("The available commands are as follows:\n", stderr);
-        putchar('\n');
+        fputc('\n', stderr);
 
         for (i = 0; i < ARRAY_SIZE(cmds); i++) {
 	        command_t *cmd = cmds + i;
