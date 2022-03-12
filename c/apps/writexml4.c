@@ -23,6 +23,13 @@ int main(int argc, char **argv)
   mxmlElementSetAttr(folder_node, "uid", uuid_str);
   mxmlElementSetAttr(folder_node, "name", "NewFolder");
 
+  uuid_generate(uuid);
+  uuid_unparse(uuid, uuid_str);
+
+  folder_node = mxmlNewElement(abook, "folder");
+  mxmlElementSetAttr(folder_node, "uid", uuid_str);
+  mxmlElementSetAttr(folder_node, "name", "subfolder");
+
   fp = fopen("addrbook-02.xml", "w");
   if (fp == NULL) {
     return -1;
