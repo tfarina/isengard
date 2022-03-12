@@ -3,6 +3,10 @@
 #include "third_party/mxml/mxml.h"
 #include "third_party/libuuid/uuid.h"
 
+#define ELEM_FOLDER "folder"
+#define ATTR_UID "uid"
+#define ATTR_NAME "name"
+
 int main(int argc, char **argv)
 {
   mxml_node_t *xml = NULL;
@@ -19,16 +23,16 @@ int main(int argc, char **argv)
 
   abook = mxmlNewElement(xml, "addrbook");
 
-  folder_node = mxmlNewElement(abook, "folder");
-  mxmlElementSetAttr(folder_node, "uid", uuid_str);
-  mxmlElementSetAttr(folder_node, "name", "NewFolder");
+  folder_node = mxmlNewElement(abook, ELEM_FOLDER);
+  mxmlElementSetAttr(folder_node, ATTR_UID, uuid_str);
+  mxmlElementSetAttr(folder_node, ATTR_NAME, "NewFolder");
 
   uuid_generate(uuid);
   uuid_unparse(uuid, uuid_str);
 
-  folder_node = mxmlNewElement(abook, "folder");
-  mxmlElementSetAttr(folder_node, "uid", uuid_str);
-  mxmlElementSetAttr(folder_node, "name", "subfolder");
+  folder_node = mxmlNewElement(abook, ELEM_FOLDER);
+  mxmlElementSetAttr(folder_node, ATTR_UID, uuid_str);
+  mxmlElementSetAttr(folder_node, ATTR_NAME, "subfolder");
 
   fp = fopen("addrbook-02.xml", "w");
   if (fp == NULL) {
