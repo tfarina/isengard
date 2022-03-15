@@ -9,6 +9,7 @@
 #define ATTR_UID "uid"
 #define ATTR_NAME "name"
 #define ATTR_TYPE "type"
+#define ATTR_TYPE_VAL_FOLDER "folder"
 
 int main(int argc, char **argv)
 {
@@ -42,7 +43,7 @@ int main(int argc, char **argv)
 
   item_list_node = mxmlNewElement(folder_node, ELEM_ITEM_LIST);
   item_node = mxmlNewElement(item_list_node, ELEM_ITEM);
-  mxmlElementSetAttr(item_node, ATTR_TYPE, "folder");
+  mxmlElementSetAttr(item_node, ATTR_TYPE, ATTR_TYPE_VAL_FOLDER);
   mxmlElementSetAttr(item_node, ATTR_UID, uuid_str);
 
   fp = fopen("addrbook-02.xml", "w");
@@ -54,6 +55,9 @@ int main(int argc, char **argv)
 
   fclose(fp);
 
+  mxmlDelete(item_node);
+  mxmlDelete(item_list_node);
+  mxmlDelete(child_node);
   mxmlDelete(folder_node);
   mxmlDelete(xml);
 
