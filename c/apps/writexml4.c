@@ -74,7 +74,7 @@ int main(int argc, char **argv)
   uuid_t uuid;
   char uuid_str[37];
   FILE *fp = NULL;
-  ABFolder *folder;
+  ABFolder *folder, *subfolder;
 
   uuid_generate(uuid);
   uuid_unparse(uuid, uuid_str);
@@ -97,9 +97,16 @@ int main(int argc, char **argv)
   uuid_generate(uuid);
   uuid_unparse(uuid, uuid_str);
 
+  subfolder = addrbook_folder_create();
+  if (subfolder == NULL) {
+    return 1;
+  }
+  ABITEM_UID(subfolder) = f_strdup(uuid_str);
+  ABITEM_NAME(subfolder) = f_strdup("subfolder1");
+
   child_node = mxmlNewElement(abook, ELEM_FOLDER);
-  mxmlElementSetAttr(child_node, ATTR_UID, uuid_str);
-  mxmlElementSetAttr(child_node, ATTR_NAME, "subfolder");
+  mxmlElementSetAttr(child_node, ATTR_UID, ABITEM_UID(subfolder));
+  mxmlElementSetAttr(child_node, ATTR_NAME, ABITEM_NAME(subfolder));
 
   item_list_node = mxmlNewElement(folder_node, ELEM_ITEM_LIST);
   item_node = mxmlNewElement(item_list_node, ELEM_ITEM);
