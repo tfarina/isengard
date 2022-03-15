@@ -24,6 +24,10 @@ struct _ABFolder {
   int is_root;
 };
 
+#define ABITEM(item) ((ABItem *)item)
+#define ABITEM_UID(item) (ABITEM(item)->uid)
+#define ABITEM_NAME(item) (ABITEM(item)->name)
+
 static ABFolder *
 addrbook_folder_create(void)
 {
@@ -34,8 +38,8 @@ addrbook_folder_create(void)
     return NULL;
   }
 
-  ((ABItem *)folder)->uid = NULL;
-  ((ABItem *)folder)->name = NULL;
+  ABITEM_UID(folder) = NULL;
+  ABITEM_NAME(folder) = NULL;
   folder->is_root = 0;
 
   return folder;
@@ -48,8 +52,8 @@ addrbook_folder_destroy(ABFolder *folder)
     return;
   }
 
-  ((ABItem *)folder)->uid = NULL;
-  ((ABItem *)folder)->name = NULL;
+  ABITEM_UID(folder) = NULL;
+  ABITEM_NAME(folder) = NULL;
   folder->is_root = 0;
 
   free(folder);
@@ -75,16 +79,16 @@ int main(int argc, char **argv)
   if (folder == NULL) {
     return 1;
   }
-  ((ABItem *)folder)->uid = uuid_str;
-  ((ABItem *)folder)->name = "NewFolder01";
+  ABITEM_UID(folder) = uuid_str;
+  ABITEM_NAME(folder) = "NewFolder02";
 
   xml = mxmlNewXML("1.0");
 
   abook = mxmlNewElement(xml, "addrbook");
 
   folder_node = mxmlNewElement(abook, ELEM_FOLDER);
-  mxmlElementSetAttr(folder_node, ATTR_UID, ((ABItem *)folder)->uid);
-  mxmlElementSetAttr(folder_node, ATTR_NAME, ((ABItem *)folder)->name);
+  mxmlElementSetAttr(folder_node, ATTR_UID, ABITEM_UID(folder));
+  mxmlElementSetAttr(folder_node, ATTR_NAME, ABITEM_NAME(folder));
 
   uuid_generate(uuid);
   uuid_unparse(uuid, uuid_str);
