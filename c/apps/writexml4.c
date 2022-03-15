@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "fstrdup.h"
 #include "third_party/mxml/mxml.h"
 #include "third_party/libuuid/uuid.h"
 
@@ -52,6 +53,8 @@ addrbook_folder_destroy(ABFolder *folder)
     return;
   }
 
+  free(ABITEM_UID(folder));
+
   ABITEM_UID(folder) = NULL;
   ABITEM_NAME(folder) = NULL;
   folder->is_root = 0;
@@ -79,8 +82,8 @@ int main(int argc, char **argv)
   if (folder == NULL) {
     return 1;
   }
-  ABITEM_UID(folder) = uuid_str;
-  ABITEM_NAME(folder) = "NewFolder02";
+  ABITEM_UID(folder) = f_strdup(uuid_str);
+  ABITEM_NAME(folder) = "NewFolder03";
 
   xml = mxmlNewXML("1.0");
 
