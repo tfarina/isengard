@@ -54,6 +54,7 @@ addrbook_folder_destroy(ABFolder *folder)
   }
 
   free(ABITEM_UID(folder));
+  free(ABITEM_NAME(folder));
 
   ABITEM_UID(folder) = NULL;
   ABITEM_NAME(folder) = NULL;
@@ -83,7 +84,7 @@ int main(int argc, char **argv)
     return 1;
   }
   ABITEM_UID(folder) = f_strdup(uuid_str);
-  ABITEM_NAME(folder) = "NewFolder03";
+  ABITEM_NAME(folder) = f_strdup("NewFolder04");
 
   xml = mxmlNewXML("1.0");
 
