@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "alpm_list.h"
 #include "fstrdup.h"
 #include "third_party/mxml/mxml.h"
 #include "third_party/libuuid/uuid.h"
@@ -23,11 +24,13 @@ typedef struct _ABFolder ABFolder;
 struct _ABFolder {
   ABItem base;
   int is_root;
+  alpm_list_t *list_folder;
 };
 
 #define ABITEM(item) ((ABItem *)item)
 #define ABITEM_UID(item) (ABITEM(item)->uid)
 #define ABITEM_NAME(item) (ABITEM(item)->name)
+#define ABITEM_PARENT(item) (ABITEM(item)->parent)
 
 static ABFolder *
 addrbook_folder_create(void)
@@ -41,7 +44,9 @@ addrbook_folder_create(void)
 
   ABITEM_UID(folder) = NULL;
   ABITEM_NAME(folder) = NULL;
+  ABITEM_PARENT(folder) = NULL;
   folder->is_root = 0;
+  folder->list_folder = NULL;
 
   return folder;
 }
@@ -58,9 +63,24 @@ addrbook_folder_destroy(ABFolder *folder)
 
   ABITEM_UID(folder) = NULL;
   ABITEM_NAME(folder) = NULL;
+  ABITEM_PARENT(folder) = NULL;
   folder->is_root = 0;
+  folder->list_folder = NULL;
 
   free(folder);
+}
+
+static int
+addrbook_add_folder(ABFolder *folder, ABFolder *child)
+{
+  if (folder == NULL || child == NULL) {
+    return 0;
+  }
+
+  folder->list_folder = alpm_list_add(folder->list_folder, child);
+  ABITEM_PARENT(child) = ABITEM(folder);
+
+  return 1;
 }
 
 int main(int argc, char **argv)
@@ -103,6 +123,8 @@ int main(int argc, char **argv)
   }
   ABITEM_UID(subfolder) = f_strdup(uuid_str);
   ABITEM_NAME(subfolder) = f_strdup("subfolder1");
+
+  addrbook_add_folder(folder, subfolder);
 
   child_node = mxmlNewElement(abook, ELEM_FOLDER);
   mxmlElementSetAttr(child_node, ATTR_UID, ABITEM_UID(subfolder));
