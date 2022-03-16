@@ -108,14 +108,6 @@ int main(int argc, char **argv)
   ABITEM_PARENT(root_folder) = NULL;
   root_folder->is_root = 1;
 
-  xml = mxmlNewXML("1.0");
-
-  abook = mxmlNewElement(xml, "addrbook");
-
-  folder_node = mxmlNewElement(abook, ELEM_FOLDER);
-  mxmlElementSetAttr(folder_node, ATTR_UID, ABITEM_UID(root_folder));
-  mxmlElementSetAttr(folder_node, ATTR_NAME, ABITEM_NAME(root_folder));
-
   uuid_generate(uuid);
   uuid_unparse(uuid, uuid_str);
 
@@ -124,9 +116,17 @@ int main(int argc, char **argv)
     return 1;
   }
   ABITEM_UID(subfolder) = f_strdup(uuid_str);
-  ABITEM_NAME(subfolder) = f_strdup("subfolder1");
+  ABITEM_NAME(subfolder) = f_strdup("subfolder2");
 
   addrbook_add_folder(root_folder, subfolder);
+
+  xml = mxmlNewXML("1.0");
+
+  abook = mxmlNewElement(xml, "addrbook");
+
+  folder_node = mxmlNewElement(abook, ELEM_FOLDER);
+  mxmlElementSetAttr(folder_node, ATTR_UID, ABITEM_UID(root_folder));
+  mxmlElementSetAttr(folder_node, ATTR_NAME, ABITEM_NAME(root_folder));
 
   child_node = mxmlNewElement(abook, ELEM_FOLDER);
   mxmlElementSetAttr(child_node, ATTR_UID, ABITEM_UID(subfolder));
