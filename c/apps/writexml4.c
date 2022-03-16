@@ -133,7 +133,7 @@ int main(int argc, char **argv)
   item_list_node = mxmlNewElement(folder_node, ELEM_ITEM_LIST);
   item_node = mxmlNewElement(item_list_node, ELEM_ITEM);
   mxmlElementSetAttr(item_node, ATTR_TYPE, ATTR_TYPE_VAL_FOLDER);
-  mxmlElementSetAttr(item_node, ATTR_UID, uuid_str);
+  mxmlElementSetAttr(item_node, ATTR_UID, ABITEM_UID(subfolder));
 
   fp = fopen("addrbook-02.xml", "w");
   if (fp == NULL) {
