@@ -94,25 +94,27 @@ int main(int argc, char **argv)
   uuid_t uuid;
   char uuid_str[37];
   FILE *fp = NULL;
-  ABFolder *folder, *subfolder;
+  ABFolder *root_folder, *subfolder;
 
   uuid_generate(uuid);
   uuid_unparse(uuid, uuid_str);
 
-  folder = addrbook_folder_create();
-  if (folder == NULL) {
+  root_folder = addrbook_folder_create();
+  if (root_folder == NULL) {
     return 1;
   }
-  ABITEM_UID(folder) = f_strdup(uuid_str);
-  ABITEM_NAME(folder) = f_strdup("NewFolder04");
+  ABITEM_UID(root_folder) = f_strdup(uuid_str);
+  ABITEM_NAME(root_folder) = f_strdup("RootFolder04");
+  ABITEM_PARENT(root_folder) = NULL;
+  root_folder->is_root = 1;
 
   xml = mxmlNewXML("1.0");
 
   abook = mxmlNewElement(xml, "addrbook");
 
   folder_node = mxmlNewElement(abook, ELEM_FOLDER);
-  mxmlElementSetAttr(folder_node, ATTR_UID, ABITEM_UID(folder));
-  mxmlElementSetAttr(folder_node, ATTR_NAME, ABITEM_NAME(folder));
+  mxmlElementSetAttr(folder_node, ATTR_UID, ABITEM_UID(root_folder));
+  mxmlElementSetAttr(folder_node, ATTR_NAME, ABITEM_NAME(root_folder));
 
   uuid_generate(uuid);
   uuid_unparse(uuid, uuid_str);
@@ -124,7 +126,7 @@ int main(int argc, char **argv)
   ABITEM_UID(subfolder) = f_strdup(uuid_str);
   ABITEM_NAME(subfolder) = f_strdup("subfolder1");
 
-  addrbook_add_folder(folder, subfolder);
+  addrbook_add_folder(root_folder, subfolder);
 
   child_node = mxmlNewElement(abook, ELEM_FOLDER);
   mxmlElementSetAttr(child_node, ATTR_UID, ABITEM_UID(subfolder));
@@ -144,7 +146,7 @@ int main(int argc, char **argv)
 
   fclose(fp);
 
-  addrbook_folder_destroy(folder);
+  addrbook_folder_destroy(root_folder);
 
   mxmlDelete(item_node);
   mxmlDelete(item_list_node);
