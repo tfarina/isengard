@@ -95,6 +95,7 @@ int main(int argc, char **argv)
   char uuid_str[37];
   FILE *fp = NULL;
   ABFolder *root_folder, *subfolder;
+  alpm_list_t *node;
 
   uuid_generate(uuid);
   uuid_unparse(uuid, uuid_str);
@@ -116,7 +117,7 @@ int main(int argc, char **argv)
     return 1;
   }
   ABITEM_UID(subfolder) = f_strdup(uuid_str);
-  ABITEM_NAME(subfolder) = f_strdup("subfolder2");
+  ABITEM_NAME(subfolder) = f_strdup("subfolder3");
 
   addrbook_add_folder(root_folder, subfolder);
 
@@ -133,9 +134,15 @@ int main(int argc, char **argv)
   mxmlElementSetAttr(child_node, ATTR_NAME, ABITEM_NAME(subfolder));
 
   item_list_node = mxmlNewElement(folder_node, ELEM_ITEM_LIST);
-  item_node = mxmlNewElement(item_list_node, ELEM_ITEM);
-  mxmlElementSetAttr(item_node, ATTR_TYPE, ATTR_TYPE_VAL_FOLDER);
-  mxmlElementSetAttr(item_node, ATTR_UID, ABITEM_UID(subfolder));
+
+  for (node = root_folder->list_folder;
+       node;
+       node = alpm_list_next(node)) {
+    ABFolder *folder_item = node->data;
+    item_node = mxmlNewElement(item_list_node, ELEM_ITEM);
+    mxmlElementSetAttr(item_node, ATTR_TYPE, ATTR_TYPE_VAL_FOLDER);
+    mxmlElementSetAttr(item_node, ATTR_UID, ABITEM_UID(folder_item));
+  }
 
   fp = fopen("addrbook-02.xml", "w");
   if (fp == NULL) {
