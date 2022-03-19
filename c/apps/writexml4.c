@@ -13,10 +13,18 @@
 #define ATTR_TYPE "type"
 #define ATTR_TYPE_VAL_FOLDER "folder"
 
+typedef enum {
+  AB_ITEM_TYPE_NONE,
+  AB_ITEM_TYPE_CONTACT,
+  AB_ITEM_TYPE_GROUP,
+  AB_ITEM_TYPE_FOLDER,
+} ABItemType;
+
 typedef struct _ABItem ABItem;
 struct _ABItem {
   char *uid;
   char *name;
+  ABItemType type;
   ABItem *parent;
 };
 
@@ -30,6 +38,7 @@ struct _ABFolder {
 #define ABITEM(item) ((ABItem *)item)
 #define ABITEM_UID(item) (ABITEM(item)->uid)
 #define ABITEM_NAME(item) (ABITEM(item)->name)
+#define ABITEM_TYPE(item) (ABITEM(item)->type)
 #define ABITEM_PARENT(item) (ABITEM(item)->parent)
 
 static ABFolder *
@@ -44,6 +53,7 @@ addrbook_folder_create(void)
 
   ABITEM_UID(folder) = NULL;
   ABITEM_NAME(folder) = NULL;
+  ABITEM_TYPE(folder) = AB_ITEM_TYPE_FOLDER;
   ABITEM_PARENT(folder) = NULL;
   folder->is_root = 0;
   folder->list_folder = NULL;
@@ -63,6 +73,7 @@ addrbook_folder_destroy(ABFolder *folder)
 
   ABITEM_UID(folder) = NULL;
   ABITEM_NAME(folder) = NULL;
+  ABITEM_TYPE(folder) = AB_ITEM_TYPE_NONE;
   ABITEM_PARENT(folder) = NULL;
   folder->is_root = 0;
   folder->list_folder = NULL;
