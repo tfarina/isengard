@@ -99,7 +99,6 @@ int main(int argc, char **argv)
   mxml_node_t *xml = NULL;
   mxml_node_t *abook = NULL;
   mxml_node_t *folder_node = NULL;
-  mxml_node_t *child_node = NULL;
   mxml_node_t *item_list_node = NULL;
   mxml_node_t *item_node = NULL;
   uuid_t uuid;
@@ -159,7 +158,6 @@ int main(int argc, char **argv)
 
   mxmlDelete(item_node);
   mxmlDelete(item_list_node);
-  mxmlDelete(child_node);
   mxmlDelete(folder_node);
   mxmlDelete(xml);
 
