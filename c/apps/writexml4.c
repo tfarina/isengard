@@ -42,7 +42,7 @@ struct _ABFolder {
 #define ABITEM_PARENT(item) (ABITEM(item)->parent)
 
 static ABFolder *
-addrbook_folder_create(void)
+abitem_folder_create(void)
 {
   ABFolder *folder;
 
@@ -62,7 +62,7 @@ addrbook_folder_create(void)
 }
 
 static void
-addrbook_folder_destroy(ABFolder *folder)
+abitem_folder_destroy(ABFolder *folder)
 {
   if (folder == NULL) {
     return;
@@ -82,7 +82,7 @@ addrbook_folder_destroy(ABFolder *folder)
 }
 
 static int
-addrbook_add_folder(ABFolder *folder, ABFolder *child)
+abitem_add_folder(ABFolder *folder, ABFolder *child)
 {
   if (folder == NULL || child == NULL) {
     return 0;
@@ -108,7 +108,7 @@ int main(int argc, char **argv)
   ABFolder *root_folder, *subfolder;
   alpm_list_t *node;
 
-  root_folder = addrbook_folder_create();
+  root_folder = abitem_folder_create();
   if (root_folder == NULL) {
     return 1;
   }
@@ -118,14 +118,14 @@ int main(int argc, char **argv)
   uuid_generate(uuid);
   uuid_unparse(uuid, uuid_str);
 
-  subfolder = addrbook_folder_create();
+  subfolder = abitem_folder_create();
   if (subfolder == NULL) {
     return 1;
   }
   ABITEM_UID(subfolder) = f_strdup(uuid_str);
   ABITEM_NAME(subfolder) = f_strdup("SubFolder");
 
-  addrbook_add_folder(root_folder, subfolder);
+  abitem_add_folder(root_folder, subfolder);
 
   xml = mxmlNewXML("1.0");
 
@@ -155,7 +155,7 @@ int main(int argc, char **argv)
 
   fclose(fp);
 
-  addrbook_folder_destroy(root_folder);
+  abitem_folder_destroy(root_folder);
 
   mxmlDelete(item_node);
   mxmlDelete(item_list_node);
