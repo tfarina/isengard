@@ -295,6 +295,13 @@ static gboolean _on_delete_event_cb(GtkWidget *widget,
   return TRUE;
 }
 
+static void _on_size_allocate_event_cb(GtkWidget *widget,
+				       GtkAllocation *allocation)
+{
+  printf("%d\n", allocation->width);
+  printf("%d\n", allocation->height);
+}
+
 /*
  * Menubar callbacks
  */
@@ -872,6 +879,8 @@ GtkWidget *addrbook_window_new(void)
 
   g_signal_connect(G_OBJECT(main_window), "delete_event",
                    G_CALLBACK(_on_delete_event_cb), NULL);
+  g_signal_connect(G_OBJECT(main_window), "size_allocate",
+                   G_CALLBACK(_on_size_allocate_event_cb), NULL);
 
   /*
    * Vertical box
