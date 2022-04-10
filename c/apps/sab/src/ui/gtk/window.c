@@ -11,8 +11,8 @@
 #include "contact_editor.h"
 #include "dirs.h"
 
-#define MIN_WINDOW_WIDTH 610
-#define MIN_WINDOW_HEIGHT 377
+#define MIN_WINDOW_WIDTH (gdk_screen_width() * 3 / 4)
+#define MIN_WINDOW_HEIGHT (gdk_screen_height() * 3 / 4)
 
 /*
  * Constants for accessing columns in a GtkListStore.
