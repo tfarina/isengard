@@ -298,8 +298,10 @@ static gboolean _on_delete_event_cb(GtkWidget *widget,
 static void _on_size_allocate_event_cb(GtkWidget *widget,
 				       GtkAllocation *allocation)
 {
+#if 0
   printf("%d\n", allocation->width);
   printf("%d\n", allocation->height);
+#endif
 }
 
 /*
