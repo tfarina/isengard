@@ -2,6 +2,8 @@
 
 #include "window.h"
 
+#include <string.h>
+
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
@@ -470,10 +472,12 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 
   if (statusbar != NULL) {
     gtk_statusbar_pop(GTK_STATUSBAR(statusbar), statusbar_cid);
-    if (num_selected > 1) {
+    if (num_selected == 1) {
+      snprintf(buf, sizeof(buf), "%d item selected", num_selected);
+    } else if (num_selected > 1) {
       snprintf(buf, sizeof(buf), "%d items selected", num_selected);
     } else {
-      snprintf(buf, sizeof(buf), "%d item selected", num_selected);
+      memset(buf, 0, sizeof(buf));
     }
     gtk_statusbar_push(GTK_STATUSBAR(statusbar), statusbar_cid, buf);
   }
