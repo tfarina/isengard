@@ -154,12 +154,12 @@ int main(int argc, char **argv)
 
   fclose(fp);
 
-  abitem_folder_destroy(root_folder);
-
   mxmlDelete(item_node);
   mxmlDelete(item_list_node);
   mxmlDelete(folder_node);
   mxmlDelete(xml);
+
+  abitem_folder_destroy(root_folder);
 
   return 0;
 }
