@@ -447,26 +447,26 @@ static void _on_delete_cb(GtkWidget *widget, gpointer data)
 static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 {
   gint num_selected;
-  GtkWidget *menuitem;
+  GtkAction *action;
   char buf[256];
 
   num_selected = gtk_tree_selection_count_selected_rows(selection);
 
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Edit");
+  action = gtk_ui_manager_get_action(ui_manager, "/Menu/Edit/Edit");
   if (num_selected == 1) {
-    gtk_widget_set_sensitive(menuitem, TRUE);
+    gtk_action_set_sensitive(action, TRUE);
     gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), TRUE);
   } else {
-    gtk_widget_set_sensitive(menuitem, FALSE);
+    gtk_action_set_sensitive(action, FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
   }
 
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Delete");
+  action = gtk_ui_manager_get_action(ui_manager, "/Menu/Edit/Delete");
   if (num_selected > 0) {
-    gtk_widget_set_sensitive(menuitem, TRUE);
+    gtk_action_set_sensitive(action, TRUE);
     gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), TRUE);
   } else {
-    gtk_widget_set_sensitive(menuitem, FALSE);
+    gtk_action_set_sensitive(action, FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
   }
 
@@ -513,13 +513,13 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
     gint num_selected = gtk_tree_selection_count_selected_rows(selection);
     gboolean can_edit = num_selected == 1;
     gboolean can_delete = num_selected > 0;
-    GtkWidget *menuitem;
+    GtkAction *action;
 
-    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Popups/ListContextMenu/Edit");
-    gtk_widget_set_sensitive(menuitem, can_edit);
+    action = gtk_ui_manager_get_action(ui_manager, "/Popups/ListContextMenu/Edit");
+    gtk_action_set_sensitive(action, can_edit);
 
-    menuitem = gtk_ui_manager_get_widget(ui_manager, "/Popups/ListContextMenu/Delete");
-    gtk_widget_set_sensitive(menuitem, can_delete);
+    action = gtk_ui_manager_get_action(ui_manager, "/Popups/ListContextMenu/Delete");
+    gtk_action_set_sensitive(action, can_delete);
 
     gtk_menu_popup(GTK_MENU(list_context_menu), NULL, NULL, NULL, NULL, event->button, event->time);
     return TRUE;
@@ -624,9 +624,8 @@ static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *cont
 static GtkWidget *_menubar_create(void)
 {
   GtkActionGroup *action_group;
-
+  GtkAction *action;
   GtkWidget *menubar;
-  GtkWidget *menuitem;
 
   ui_manager = gtk_ui_manager_new();
 
@@ -720,14 +719,13 @@ static GtkWidget *_menubar_create(void)
 
   gtk_window_add_accel_group(GTK_WINDOW(main_window), gtk_ui_manager_get_accel_group(ui_manager));
 
+  action = gtk_ui_manager_get_action(ui_manager, "/Menu/Edit/Edit");
+  gtk_action_set_sensitive(action, FALSE);
+
+  action = gtk_ui_manager_get_action(ui_manager, "/Menu/Edit/Delete");
+  gtk_action_set_sensitive(action, FALSE);
+
   menubar = gtk_ui_manager_get_widget(ui_manager, "/Menu");
-
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Edit");
-  gtk_widget_set_sensitive(menuitem, FALSE);
-
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/Edit/Delete");
-  gtk_widget_set_sensitive(menuitem, FALSE);
-
   return menubar;
 }
 
