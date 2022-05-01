@@ -686,8 +686,6 @@ static GtkWidget *_menubar_create(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View", "Separator1", "View/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View", "FullScreen", "View/FullScreen", GTK_UI_MANAGER_MENUITEM, FALSE);
-  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View", "ToolbarStyle", "View/ToolbarStyle", GTK_UI_MANAGER_MENU, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View/ToolbarStyle", "TextBelowIcon", "View/ToolbarStyle/TextBelowIcon", GTK_UI_MANAGER_MENUITEM, FALSE);
@@ -697,6 +695,8 @@ static GtkWidget *_menubar_create(void)
 			"/Menu/View/ToolbarStyle", "IconsOnly", "View/ToolbarStyle/IconsOnly", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View/ToolbarStyle", "TextOnly", "View/ToolbarStyle/TextOnly", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/View", "FullScreen", "View/FullScreen", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* Help menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
