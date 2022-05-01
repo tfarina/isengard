@@ -608,7 +608,8 @@ static void _on_edit_contact_cb(ab_contact_t *contact)
  * Helper functions
  */
 
-static void _list_store_append_item(GtkListStore *list_store, ab_contact_t *contact)
+static void _list_store_append_item(GtkListStore *list_store,
+				    ab_contact_t *contact)
 {
   GtkTreeIter iter;
 
@@ -634,7 +635,8 @@ static GtkWidget *_menubar_create(void)
   gtk_action_group_add_actions(action_group, menubar_entries,
 			       G_N_ELEMENTS(menubar_entries), NULL);
   gtk_action_group_add_toggle_actions(action_group, menubar_toggle_entries,
-			              G_N_ELEMENTS(menubar_toggle_entries), NULL);
+			              G_N_ELEMENTS(menubar_toggle_entries),
+				      NULL);
   gtk_action_group_add_radio_actions(action_group, menubar_radio_entries,
 				     G_N_ELEMENTS(menubar_radio_entries),
 				     1, G_CALLBACK(_on_view_toolbar_style_cb),
@@ -824,21 +826,24 @@ static GtkWidget *_list_view_create(void)
   /* Create the columns. */
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("First Name",
-                                                    renderer, "text", LIST_COL_FIRST_NAME, NULL);
+                                                    renderer, "text",
+						    LIST_COL_FIRST_NAME, NULL);
   gtk_tree_view_column_set_resizable(column, TRUE);
   gtk_tree_view_column_set_sort_column_id(column, LIST_COL_FIRST_NAME);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("Last Name",
-                                                    renderer, "text", LIST_COL_LAST_NAME, NULL);
+                                                    renderer, "text",
+						    LIST_COL_LAST_NAME, NULL);
   gtk_tree_view_column_set_resizable(column, TRUE);
   gtk_tree_view_column_set_sort_column_id(column, LIST_COL_LAST_NAME);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("Email",
-                                                    renderer, "text", LIST_COL_EMAIL, NULL);
+                                                    renderer, "text",
+						    LIST_COL_EMAIL, NULL);
   gtk_tree_view_column_set_resizable(column, TRUE);
   gtk_tree_view_column_set_sort_column_id(column, LIST_COL_EMAIL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
@@ -879,7 +884,9 @@ GtkWidget *addrbook_window_new(void)
   main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(main_window), "Address Book");
   gtk_window_set_position(GTK_WINDOW(main_window), GTK_WIN_POS_CENTER);
-  gtk_window_set_default_size(GTK_WINDOW(main_window), MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT);
+  gtk_window_set_default_size(GTK_WINDOW(main_window),
+			      MIN_WINDOW_WIDTH,
+			      MIN_WINDOW_HEIGHT);
 
   g_signal_connect(G_OBJECT(main_window), "delete_event",
                    G_CALLBACK(_on_delete_event_cb), NULL);
@@ -916,7 +923,8 @@ GtkWidget *addrbook_window_new(void)
   statusbar = gtk_statusbar_new();
   gtk_box_pack_start(GTK_BOX(vbox), statusbar, FALSE, TRUE, 0);
 
-  statusbar_cid = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), "Address Book Window");
+  statusbar_cid = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar),
+					       "Address Book Window");
 
   /*
    * Set up menu items
