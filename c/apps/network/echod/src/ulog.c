@@ -132,7 +132,7 @@ static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
     localtm = localtime(&now);
     strftime(timebuf, sizeof(timebuf), DATETIMEFORMAT, localtm);
 
-    len = snprintf(buf, sizeof(buf), "[%.*s] %s", strlen(timebuf), timebuf, __ulog_level_to_str(level));
+    len = snprintf(buf, sizeof(buf), "[%s] %s", timebuf, __ulog_level_to_str(level));
     len += vsnprintf(buf + len, sizeof(buf) - len, fmt, ap);
     buf[len++] = '\n';
     buf[sizeof(buf) - 1] = '\0'; /* Ensure the buffer is NUL-terminated. */
