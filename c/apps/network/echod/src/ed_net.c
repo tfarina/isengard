@@ -47,7 +47,7 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
 
     rv = setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
     if (rv < 0) {
-      ulog_error("setsockopt SO_REUSEADDR failed: %s", strerror(errno));
+      ulog_error("setsockopt(SOL_SOCKET, SO_REUSEADDR) failed: %s", strerror(errno));
       close(sockfd);
       continue;
     }
