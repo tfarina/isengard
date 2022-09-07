@@ -6,6 +6,8 @@
  *
  * Turns the macro @x into a string.
  *
+ * See https://c-faq.com/ansi/stringize.html for an explanation.
+ *
  * @param   x   A macro.
  */
 #define M_STRINGIZE_(x) #x
