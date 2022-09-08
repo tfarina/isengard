@@ -3,6 +3,10 @@
 
 #include "attributes.h"
 
+/**
+ * Message reporting
+ */
+
 MK_NORETURN void fatal(char const *, ...) MK_PRINTFLIKE(1, 2);
 void error(char const *, ...) MK_PRINTFLIKE(1, 2);
 void warn(char const *, ...)  MK_PRINTFLIKE(1, 2);
