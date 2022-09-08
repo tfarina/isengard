@@ -1,6 +1,10 @@
 #ifndef STRUTILS_H_
 #define STRUTILS_H_
 
+/**
+ * String handling
+ */
+
 #define str_equal(a, b) (strcmp((a), (b)) == 0)
 
 int str_is_null_or_empty(char const *str);
