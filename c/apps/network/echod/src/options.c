@@ -17,11 +17,9 @@
 #include <stdlib.h>
 
 #include "echod.h"
+#include "i18n.h"
 #include "pathnames.h"
 #include "valid.h"
-
-/* For now, no gettext support. */
-#define _(STRING) STRING
 
 options_t opt;
 
