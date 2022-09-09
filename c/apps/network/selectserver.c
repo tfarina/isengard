@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
   fd_set work_read_fd_set; /* temp file descriptor list for select. */
   int maxfd; /* maximum file descriptor number. */
 
-  int listener; /* listening socket descriptor. */
+  int fd; /* descriptor referencing the newly created socket. */
   int newfd; /* newly accepted socket descriptor. */
   struct sockaddr_storage remoteaddr; /* client address. */
   socklen_t addrlen;
@@ -55,15 +55,15 @@ int main(int argc, char **argv) {
 
   /* Loop through all the results and bind to the first we can. */
   for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
-    listener = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
-    if (listener == -1) {
+    fd = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
+    if (fd == -1) {
       continue;
     }
 
-    setsockopt(listener, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));
+    setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));
 
-    if (bind(listener, cur->ai_addr, cur->ai_addrlen) == -1) {
-      close(listener);
+    if (bind(fd, cur->ai_addr, cur->ai_addrlen) == -1) {
+      close(fd);
       continue;
     }
 
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
 
   freeaddrinfo(addrlist); /* All done with this. */
 
-  if (listen(listener, 10) == -1) {
+  if (listen(fd, 10) == -1) {
     perror("listen");
     exit(EXIT_FAILURE);
   }
@@ -87,11 +87,11 @@ int main(int argc, char **argv) {
   FD_ZERO(&master_read_fd_set);
   FD_ZERO(&work_read_fd_set);
 
-  /* Add the listener to the master set. */
-  FD_SET(listener, &master_read_fd_set);
+  /* Add the new fd to the master set. */
+  FD_SET(fd, &master_read_fd_set);
 
   /* Keep track of the biggest file descriptor. */
-  maxfd = listener; /* So far, it's this one. */
+  maxfd = fd; /* So far, it's this one. */
 
   for (;;) {
     /* We need to make a copy of the 'master read fd set' because it's not safe to reuse FD sets
@@ -106,10 +106,10 @@ int main(int argc, char **argv) {
     /* Run through the existing connections looking for data to read. */
     for (i = 0; i <= maxfd; i++) {
       if (FD_ISSET(i, &work_read_fd_set)) { /* We got one. */
-        if (i == listener) {
+        if (i == fd) {
           /* Handle new connections. */
           addrlen = sizeof(remoteaddr);
-          if ((newfd = accept(listener, (struct sockaddr *)&remoteaddr, &addrlen)) == -1) {
+          if ((newfd = accept(fd, (struct sockaddr *)&remoteaddr, &addrlen)) == -1) {
             perror("accept");
           }
         } else {
@@ -138,8 +138,8 @@ int main(int argc, char **argv) {
           for (j = 0; j <= maxfd; j++) {
             /* Send to everyone. */
             if (FD_ISSET(j, &master_read_fd_set)) {
-              /* Except the listener and ourselves. */
-              if (j != listener && j != i) {
+              /* Except the current fd and ourselves. */
+              if (j != fd && j != i) {
                 if (send(j, buf, nbytes, 0) == -1) {
                   perror("send");
                 }
