@@ -24,7 +24,7 @@ static void *get_in_addr(struct sockaddr *sa) {
 
 int main(int argc, char **argv) {
   fd_set master_read_fd_set; /* master file descriptor list. */
-  fd_set read_fds; /* temp file descriptor list for select. */
+  fd_set work_read_fd_set; /* temp file descriptor list for select. */
   int fdmax; /* maximum file descriptor number. */
 
   int listener; /* listening socket descriptor. */
@@ -42,8 +42,8 @@ int main(int argc, char **argv) {
 
   struct addrinfo hints, *ai, *p;
 
-  FD_ZERO(&master_read_fd_set); /* clear the master and temp sets.*/
-  FD_ZERO(&read_fds);
+  FD_ZERO(&master_read_fd_set); /* clear the master and temp sets. */
+  FD_ZERO(&work_read_fd_set);
 
   /* Get us a socket and bind it. */
   memset(&hints, 0, sizeof(hints));
@@ -93,15 +93,16 @@ int main(int argc, char **argv) {
   fdmax = listener; /* So far, it's this one. */
 
   for (;;) {
-    read_fds = master_read_fd_set; /* Copy it. */
-    if (select(fdmax + 1, &read_fds, NULL, NULL, NULL) == -1) {
+    work_read_fd_set = master_read_fd_set; /* Make a copy. */
+
+    if (select(fdmax + 1, &work_read_fd_set, NULL, NULL, NULL) == -1) {
       perror("select");
       exit(EXIT_FAILURE);
     }
 
     /* Run through the existing connections looking for data to read. */
     for (i = 0; i <= fdmax; i++) {
-      if (FD_ISSET(i, &read_fds)) { /* We got one. */
+      if (FD_ISSET(i, &work_read_fd_set)) { /* We got one. */
         if (i == listener) {
           /* Handle new connections. */
           addrlen = sizeof(remoteaddr);
