@@ -93,7 +93,9 @@ int main(int argc, char **argv) {
   maxfd = listener; /* So far, it's this one. */
 
   for (;;) {
-    work_read_fd_set = master_read_fd_set; /* Make a copy. */
+    /* We need to make a copy of the 'master read fd set' because it's not safe to reuse FD sets
+     * after select(). */
+    work_read_fd_set = master_read_fd_set;
 
     if (select(maxfd + 1, &work_read_fd_set, NULL, NULL, NULL) == -1) {
       perror("select");
