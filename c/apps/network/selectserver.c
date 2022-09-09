@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
   hints.ai_flags = AI_PASSIVE;
 
   if ((rv = getaddrinfo(NULL, PORT, &hints, &ai)) != 0) {
-    fprintf(stderr, "selectserver: %s\n", gai_strerror(rv));
+    fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
 
