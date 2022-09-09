@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
   int yes = 1; /* for setsockopt() SO_REUSEADDR below. */
   int i, j, rv;
 
-  struct addrinfo hints, *ai, *p;
+  struct addrinfo hints, *addrlist, *cur;
 
   /* Get us a socket and bind it. */
   memset(&hints, 0, sizeof(hints));
@@ -48,21 +48,21 @@ int main(int argc, char **argv) {
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE;
 
-  if ((rv = getaddrinfo(NULL, PORT, &hints, &ai)) != 0) {
+  if ((rv = getaddrinfo(NULL, PORT, &hints, &addrlist)) != 0) {
     fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(rv));
     exit(EXIT_FAILURE);
   }
 
   /* Loop through all the results and bind to the first we can. */
-  for (p = ai; p != NULL; p = p->ai_next) {
-    listener = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+  for (cur = addrlist; cur != NULL; cur = cur->ai_next) {
+    listener = socket(cur->ai_family, cur->ai_socktype, cur->ai_protocol);
     if (listener == -1) {
       continue;
     }
 
     setsockopt(listener, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));
 
-    if (bind(listener, p->ai_addr, p->ai_addrlen) == -1) {
+    if (bind(listener, cur->ai_addr, cur->ai_addrlen) == -1) {
       close(listener);
       continue;
     }
@@ -71,12 +71,12 @@ int main(int argc, char **argv) {
   }
 
   /* If we got here, it means we didn't get bound. */
-  if (p == NULL) {
+  if (cur == NULL) {
     fprintf(stderr, "selectserver: failed to bind. \n");
     exit(EXIT_FAILURE);
   }
 
-  freeaddrinfo(ai); /* All done with this. */
+  freeaddrinfo(addrlist); /* All done with this. */
 
   if (listen(listener, 10) == -1) {
     perror("listen");
