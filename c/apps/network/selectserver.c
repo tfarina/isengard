@@ -42,9 +42,6 @@ int main(int argc, char **argv) {
 
   struct addrinfo hints, *ai, *p;
 
-  FD_ZERO(&master_read_fd_set); /* clear the master and temp sets. */
-  FD_ZERO(&work_read_fd_set);
-
   /* Get us a socket and bind it. */
   memset(&hints, 0, sizeof(hints));
   hints.ai_family = AF_UNSPEC;
@@ -85,6 +82,10 @@ int main(int argc, char **argv) {
     perror("listen");
     exit(EXIT_FAILURE);
   }
+
+  /* Init the master and temp fd sets. */
+  FD_ZERO(&master_read_fd_set);
+  FD_ZERO(&work_read_fd_set);
 
   /* Add the listener to the master set. */
   FD_SET(listener, &master_read_fd_set);
