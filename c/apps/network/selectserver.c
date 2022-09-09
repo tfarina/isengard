@@ -25,7 +25,7 @@ static void *get_in_addr(struct sockaddr *sa) {
 int main(int argc, char **argv) {
   fd_set master_read_fd_set; /* master file descriptor list. */
   fd_set work_read_fd_set; /* temp file descriptor list for select. */
-  int fdmax; /* maximum file descriptor number. */
+  int maxfd; /* maximum file descriptor number. */
 
   int listener; /* listening socket descriptor. */
   int newfd; /* newly accepted socket descriptor. */
@@ -90,18 +90,18 @@ int main(int argc, char **argv) {
   FD_SET(listener, &master_read_fd_set);
 
   /* Keep track of the biggest file descriptor. */
-  fdmax = listener; /* So far, it's this one. */
+  maxfd = listener; /* So far, it's this one. */
 
   for (;;) {
     work_read_fd_set = master_read_fd_set; /* Make a copy. */
 
-    if (select(fdmax + 1, &work_read_fd_set, NULL, NULL, NULL) == -1) {
+    if (select(maxfd + 1, &work_read_fd_set, NULL, NULL, NULL) == -1) {
       perror("select");
       exit(EXIT_FAILURE);
     }
 
     /* Run through the existing connections looking for data to read. */
-    for (i = 0; i <= fdmax; i++) {
+    for (i = 0; i <= maxfd; i++) {
       if (FD_ISSET(i, &work_read_fd_set)) { /* We got one. */
         if (i == listener) {
           /* Handle new connections. */
@@ -111,8 +111,8 @@ int main(int argc, char **argv) {
           }
         } else {
           FD_SET(newfd, &master_read_fd_set); /* Add to master set. */
-          if (newfd > fdmax) { /* Keep track of the max. */
-            fdmax = newfd;
+          if (newfd > maxfd) { /* Keep track of the max. */
+            maxfd = newfd;
           }
           printf("selectserver: new connection from %s on "
                  "socket %d\n", inet_ntop(remoteaddr.ss_family,
@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
           FD_CLR(i, &master_read_fd_set); /* Remove from master set. */
         } else {
           /* We got some data from a client. */
-          for (j = 0; j <= fdmax; j++) {
+          for (j = 0; j <= maxfd; j++) {
             /* Send to everyone. */
             if (FD_ISSET(j, &master_read_fd_set)) {
               /* Except the listener and ourselves. */
