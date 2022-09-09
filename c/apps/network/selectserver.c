@@ -23,7 +23,7 @@ static void *get_in_addr(struct sockaddr *sa) {
 }
 
 int main(int argc, char **argv) {
-  fd_set master; /* master file descriptor list. */
+  fd_set master_read_fd_set; /* master file descriptor list. */
   fd_set read_fds; /* temp file descriptor list for select. */
   int fdmax; /* maximum file descriptor number. */
 
@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
 
   struct addrinfo hints, *ai, *p;
 
-  FD_ZERO(&master); /* clear the master and temp sets.*/
+  FD_ZERO(&master_read_fd_set); /* clear the master and temp sets.*/
   FD_ZERO(&read_fds);
 
   /* Get us a socket and bind it. */
@@ -87,13 +87,13 @@ int main(int argc, char **argv) {
   }
 
   /* Add the listener to the master set. */
-  FD_SET(listener, &master);
+  FD_SET(listener, &master_read_fd_set);
 
   /* Keep track of the biggest file descriptor. */
   fdmax = listener; /* So far, it's this one. */
 
   for (;;) {
-    read_fds = master; /* Copy it. */
+    read_fds = master_read_fd_set; /* Copy it. */
     if (select(fdmax + 1, &read_fds, NULL, NULL, NULL) == -1) {
       perror("select");
       exit(EXIT_FAILURE);
@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
             perror("accept");
           }
         } else {
-          FD_SET(newfd, &master); /* Add to master set. */
+          FD_SET(newfd, &master_read_fd_set); /* Add to master set. */
           if (newfd > fdmax) { /* Keep track of the max. */
             fdmax = newfd;
           }
@@ -128,12 +128,12 @@ int main(int argc, char **argv) {
             perror("recv");
           }
           close(i);
-          FD_CLR(i, &master); /* Remove from master set. */
+          FD_CLR(i, &master_read_fd_set); /* Remove from master set. */
         } else {
           /* We got some data from a client. */
           for (j = 0; j <= fdmax; j++) {
             /* Send to everyone. */
-            if (FD_ISSET(j, &master)) {
+            if (FD_ISSET(j, &master_read_fd_set)) {
               /* Except the listener and ourselves. */
               if (j != listener && j != i) {
                 if (send(j, buf, nbytes, 0) == -1) {
