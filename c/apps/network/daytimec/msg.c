@@ -12,7 +12,7 @@ static void vmsg(char const *prefix, char const *fmt, va_list ap) {
 }
 
 /**
- * Report an error message and terminate.
+ * Prints an error message on stderr, then terminates with EXIT_FAILURE.
  */
 MK_NORETURN void fatal(char const *fmt, ...) {
     va_list ap;
@@ -25,7 +25,7 @@ MK_NORETURN void fatal(char const *fmt, ...) {
 }
 
 /**
- * Report an error message.
+ * Prints an error message on stderr.
  */
 void error(char const *fmt, ...) {
     va_list ap;
@@ -36,7 +36,7 @@ void error(char const *fmt, ...) {
 }
 
 /**
- * Report an warning message.
+ * Prints a warning message on stderr.
  */
 void warn(char const *fmt, ...) {
     va_list ap;
@@ -47,7 +47,7 @@ void warn(char const *fmt, ...) {
 }
 
 /**
- * Report an informative message.
+ * Prints an informative message on stderr.
  */
 void info(char const *fmt, ...) {
     va_list ap;
