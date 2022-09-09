@@ -83,6 +83,8 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
+  maxfd = -1;
+
   /* Init the master and temp fd sets. */
   FD_ZERO(&master_read_fd_set);
   FD_ZERO(&work_read_fd_set);
@@ -91,7 +93,9 @@ int main(int argc, char **argv) {
   FD_SET(fd, &master_read_fd_set);
 
   /* Keep track of the biggest file descriptor. */
-  maxfd = fd; /* So far, it's this one. */
+  if (maxfd < fd) {
+    maxfd = fd; /* So far, it's this one. */
+  }
 
   for (;;) {
     /* We need to make a copy of the 'master read fd set' because it's not safe to reuse FD sets
