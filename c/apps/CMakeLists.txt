@@ -147,6 +147,7 @@ add_executable(backlog backlog.c)
 add_executable(tempdir_test fstrdup.c test.c tempdir.c tempdir_test.c)
 add_executable(getshell getshell.c)
 add_executable(goto_statement_01 goto_statement_01.c)
+add_executable(goto_statement_02 goto_statement_02.c)
 
 add_executable(example1 third_party/pbPlots/pbPlots.c third_party/pbPlots/supportLib.c third_party/pbPlots/example1.c)
 target_link_libraries(example1 ${M_LIBRARY})
