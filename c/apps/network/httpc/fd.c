@@ -17,10 +17,10 @@ ssize_t fd_write(int fd, const char *buf, size_t len)
 
 ssize_t fd_write_all(int fd, const char *buf, size_t len)
 {
-  ssize_t total_written = 0; /* Number of total bytes written (sent). */
+  ssize_t total_written = 0; /* Total number of bytes which were written (sent). */
 
   while (len > 0) {
-    ssize_t num_written; /* On success, the number of bytes written (sent). */
+    ssize_t num_written; /* On success, the number of bytes which were written (sent). */
 
     num_written = fd_write(fd, buf, len);
 
