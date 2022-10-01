@@ -1,3 +1,6 @@
+/*
+ * pathnames.h - define default paths for echod
+ */
 #ifndef _PATHNAMES_H_INCLUDED_
 #define _PATHNAMES_H_INCLUDED_ 1
 
