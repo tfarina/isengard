@@ -36,11 +36,11 @@ int main(int argc, char **argv) {
 
   parse_args(argc, argv);
 
-  host = argv[0];
+  host = argv[1];
 
   /* Looks like we have a port argument, otherwise let's just keep going with the default port (7). */
   if (argc > 1) {
-    tmp_port = atoi(argv[1]);
+    tmp_port = atoi(argv[2]);
     if (tmp_port <= 0) {
       fprintf(stderr, "%s: port requires a non zero number\n", progname);
       return EXIT_FAILURE;
