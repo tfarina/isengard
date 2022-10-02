@@ -101,7 +101,8 @@ static void reap_kids(void) {
 }
 
 /**
- * Catch SIGTERM signal and SIGINT signal (del/^C).
+ * Catch SIGTERM signal and SIGINT signal (del/^C) so that we can exit
+ * gracefully.
  */
 static void sigterm(int sig) {
   quit = 1;
