@@ -5,6 +5,8 @@
 
 #include <gtk/gtk.h>
 
+#include "password_dialog.h"
+
 #define WINDOW_WIDTH 610
 #define WINDOW_HEIGHT 377
 
@@ -72,6 +74,7 @@ static gboolean dialog_confirm(GtkWidget *window, gchar const *primary_text, gch
 static void _compose_send_cb(gpointer data)
 {
   ComposeWindow *compose = data;
+  gchar *pass;
   gchar *from;
   gchar *to;
   gchar const *subject;
@@ -114,6 +117,9 @@ static void _compose_send_cb(gpointer data)
     }
   }
 
+  pass = password_dialog_get("", from);
+
+  printf("%s\n", pass);
   printf("%s\n", from);
   printf("%s\n", to);
   printf("%s\n", subject);

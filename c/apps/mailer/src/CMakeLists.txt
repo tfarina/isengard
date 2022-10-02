@@ -7,6 +7,7 @@ find_package(GTK2 2.6 REQUIRED gtk)
 set(SOURCES
   compose.c
   main.c
+  password_dialog.c
 )
 
 add_executable(mailer
