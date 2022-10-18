@@ -101,7 +101,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
 Options:\n\
 "), stdout);
     fputs(_("\
-  -f, --foreground           run in the foreground\n\
+  -f, --foreground           run in the foreground (useful for debugging)\n\
 "), stdout);
     fprintf(stdout, _("\
   -u, --user=<username>      run %s as this user after init\n\
