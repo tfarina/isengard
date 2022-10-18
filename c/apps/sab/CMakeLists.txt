@@ -20,11 +20,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${EXECUTABLE_OUTPUT_PATH})
 add_subdirectory(third_party/sqlite)
 add_subdirectory(src)
 
-add_compile_options(-std=c99)
-add_compile_options(-Wall)
-add_compile_options(-Wextra)
-add_compile_options(-Werror)
-add_compile_options(-Wno-unused-parameter)
+add_compile_options(
+    -std=c99
+    -Wall
+    -Wextra
+    -Werror
+    -Wno-unused-parameter)
 
 # This is a hack to allow the inclusion of "config.h".
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
