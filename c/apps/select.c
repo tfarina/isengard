@@ -9,6 +9,9 @@
 #include <sys/select.h>
 #include <sys/time.h>
 
+/**
+ * @param timeout The amount of time in milliseconds to wait.
+ */
 static int wait(double timeout) {
   int fd = 0; /* File descriptor for standard input (STDIN). */
   int maxfd = -1;
