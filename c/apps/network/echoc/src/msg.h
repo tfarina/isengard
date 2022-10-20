@@ -1,11 +1,12 @@
 #ifndef MSG_H_
 #define MSG_H_
 
-#include "attributes.h"
-
 /**
- * Message reporting
+ * @file msg.h
+ * @brief Message reporting
  */
+
+#include "attributes.h"
 
 MK_NORETURN void fatal(char const *, ...) MK_PRINTFLIKE(1, 2);
 void error(char const *, ...) MK_PRINTFLIKE(1, 2);
