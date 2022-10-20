@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "futils.h"
+#include "fuserinfo.h"
 
 int main(int argc, char **argv) {
   char *username;
