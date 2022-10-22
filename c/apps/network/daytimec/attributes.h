@@ -25,6 +25,8 @@
  *
  * Tells the compiler to perform `printf` format string checking if the
  * compiler supports it.
+ *
+ * See 'format' in https://gcc.gnu.org/onlinedocs/gcc-4.7.0/gcc/Function-Attributes.html.
  */
 
 #if defined(MK_PRINTFLIKE)
