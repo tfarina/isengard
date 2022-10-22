@@ -22,15 +22,20 @@ int drop_privileges(char const *username) {
   gid = pw->pw_gid;
   uid = pw->pw_uid;
 
-  rc = setgid(gid);
-  if (rc < 0) {
-    ulog_error("unable to setgid() to %ld: %s", (long) gid, strerror(errno));
-    return -1;
-  }
-
+  /**
+   * Be sure to pare down the ancillary groups for the process before doing
+   * anything else because the setgroups() system call requires root privileges.
+   * https://www.oreilly.com/library/view/secure-programming-cookbook/0596003943/ch01s03.html
+   */
   rc = setgroups(1, &gid);
   if (rc < 0) {
     ulog_error("setgroups(1, %ld) failed: %s", (long) gid, strerror(errno));
+    return -1;
+  }
+
+  rc = setgid(gid);
+  if (rc < 0) {
+    ulog_error("unable to setgid() to %ld: %s", (long) gid, strerror(errno));
     return -1;
   }
 
