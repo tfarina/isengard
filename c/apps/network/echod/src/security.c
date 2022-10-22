@@ -15,6 +15,10 @@ int drop_privileges(char const *username) {
   int rc;
 
   pw = getpwnam(username);
+  if (pw == 0) {
+    ulog_error("unable to get user id for %s", username);
+    return -1;
+  }
   gid = pw->pw_gid;
   uid = pw->pw_uid;
 
