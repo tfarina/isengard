@@ -5,6 +5,16 @@
 #include <unistd.h>
 #include <sys/types.h>
 
+#define ROOT_UID 0
+
+int is_root(void) {
+  if (getuid() == ROOT_UID) {
+    return 1;
+  }
+
+  return 0;
+}
+
 char const *get_username(void) {
   uid_t uid;
   struct passwd *pw;

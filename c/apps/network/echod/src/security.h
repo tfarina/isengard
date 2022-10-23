@@ -1,8 +1,6 @@
 #ifndef _SECURITY_H_INCLUDED_
 #define _SECURITY_H_INCLUDED_ 1
 
-#define ROOT_UID 0
-
 /**
  * Drop root privileges.
  */
