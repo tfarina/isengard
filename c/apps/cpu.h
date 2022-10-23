@@ -6,7 +6,7 @@
 #endif
 
 /**
- * Returns the number of CPU cores available.
+ * Returns the number of CPUs currently online in the system.
  */
 int cpu_get_count(void);
 
