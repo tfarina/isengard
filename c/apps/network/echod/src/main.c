@@ -278,7 +278,7 @@ int main(int argc, char **argv) {
   /*
    * Load configuration file.
    *
-   * Configuration file settings override builtin defaults.
+   * Configuration file settings override built-in defaults.
    *
    * If the user did not specify a config, read the system echod.conf.
    */
