@@ -59,6 +59,7 @@
 /* https://www.coranac.com/documents/working-with-bits-and-bitfields/ */
 /* http://git.savannah.gnu.org/cgit/m4.git/tree/m4/m4private.h#n42 */
 /* https://github.com/zerotao/libzt/blob/develop/src/libzt/zt_macros.h#L153*/
+/* https://github.com/neutrinolabs/xrdp/blob/master/common/xrdp_constants.h*/
 
 int flags = 0;
 
