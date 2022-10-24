@@ -9,6 +9,8 @@
 /* Define to 1 if you have the `getopt_long' function. */
 #cmakedefine HAVE_GETOPT_LONG 1
 
+#cmakedefine ENABLE_NLS @ENABLE_NLS@
+
 /* Name of package */
 #define PACKAGE "@PACKAGE@"
 

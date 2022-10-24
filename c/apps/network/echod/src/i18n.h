@@ -5,6 +5,8 @@
  * Internationalization support
  */
 
+/* Native Language Support */
+
 /* For now, no gettext support. */
 #define _(STRING) STRING
 

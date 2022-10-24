@@ -25,6 +25,13 @@ set(PACKAGE_STRING    "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 list(APPEND CMAKE_MODULE_PATH
   ${PROJECT_SOURCE_DIR}/cmake/modules)
 
+# User configurable options
+option(ENABLE_NLS "Enable native language support" ON)
+
+if (ENABLE_NLS)
+  find_package(Intl REQUIRED)
+endif()
+
 include(UninstallTarget)
 
 #=======================================================================================
