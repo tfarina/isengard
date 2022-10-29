@@ -109,8 +109,7 @@ add_definitions("-DSYSCONFDIR=\"${SYSCONFDIR}\"")
 add_definitions("-DLOCALSTATEDIR=\"${LOCALSTATEDIR}\"")
 
 add_subdirectory(src)
-
-install(FILES doc/man/man8/echod.8 DESTINATION "${CMAKE_INSTALL_MANDIR}/man8" COMPONENT doc)
+add_subdirectory(doc)
 
 ## ==============================================================================
 ##
