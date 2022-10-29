@@ -13,6 +13,7 @@
 ## Start as a daemon.
 ##
 ## By default Echod does run as a daemon. Set to 'no' to disable.
+## Default: yes
 #Daemonize no
 
 ## Pid file.
