@@ -1,4 +1,4 @@
-#include "ed_net.h"
+#include "fnet.h"
 
 #include <arpa/inet.h>
 #include <errno.h>
@@ -10,10 +10,10 @@
 
 #include "ulog.h"
 
-#define ED_NET_OK 0
-#define ED_NET_ERR -1
+#define FNET_OK 0
+#define FNET_ERR -1
 
-int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
+int fnet_tcp_socket_listen(char *host, int port, int backlog) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
   int rv;
@@ -22,7 +22,7 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
 
   rv = snprintf(portstr, sizeof(portstr), "%d", port);
   if (rv < 0 || (size_t) rv > sizeof(portstr)) {
-    return ED_NET_ERR;
+    return FNET_ERR;
   }
 
   memset(&hints, 0, sizeof(hints));
@@ -34,7 +34,7 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   rv = getaddrinfo(host, portstr, &hints, &addrlist);
   if (rv != 0) {
     ulog_error("getaddrinfo failed: %s", gai_strerror(rv));
-    return ED_NET_ERR;
+    return FNET_ERR;
   }
 
   /* Loop through all the results and bind to the first we can. */
@@ -72,13 +72,13 @@ int ed_net_tcp_socket_listen(char *host, int port, int backlog) {
   freeaddrinfo(addrlist);
 
   if (cur == NULL) {
-    return ED_NET_ERR;
+    return FNET_ERR;
   }
 
   return sockfd;
 }
 
-static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen) {
+static int fnet_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *salen) {
   int fd;
 
   for (;;) {
@@ -88,7 +88,7 @@ static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *sal
         continue;
       } else {
         ulog_error("accept() failed: %s", strerror(errno));
-        return ED_NET_ERR;
+        return FNET_ERR;
       }
     }
     break;
@@ -97,14 +97,14 @@ static int ed_net_generic_accept(int sockfd, struct sockaddr *sa, socklen_t *sal
   return fd;
 }
 
-int ed_net_tcp_socket_accept(int sockfd, char *ipbuf, size_t ipbuf_len, short unsigned *port) {
+int fnet_tcp_socket_accept(int sockfd, char *ipbuf, size_t ipbuf_len, short unsigned *port) {
   struct sockaddr_storage ss;
   socklen_t sslen = sizeof(ss);
   int fd;
 
-  fd = ed_net_generic_accept(sockfd, (struct sockaddr *) &ss, &sslen);
-  if (fd == ED_NET_ERR) {
-    return ED_NET_ERR;
+  fd = fnet_generic_accept(sockfd, (struct sockaddr *) &ss, &sslen);
+  if (fd == FNET_ERR) {
+    return FNET_ERR;
   }
 
   if (ss.ss_family == AF_INET) {

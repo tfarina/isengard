@@ -42,7 +42,7 @@
 #include "cfgfile.h"
 #include "daemonize.h"
 #include "echod.h"
-#include "ed_net.h"
+#include "fnet.h"
 #include "id.h"
 #include "options.h"
 #include "os_path.h"
@@ -181,7 +181,7 @@ static int main_loop(int fd) {
 
     if (retval > 0) {
       if (FD_ISSET(fd, &rfds_out)) {
-	clientfd = ed_net_tcp_socket_accept(fd, clientip, sizeof(clientip), &clientport);
+	clientfd = fnet_tcp_socket_accept(fd, clientip, sizeof(clientip), &clientport);
 	if (clientfd < 0) {
 	  return -1;
 	}
@@ -305,7 +305,7 @@ int main(int argc, char **argv) {
   /*
    * Bind to tcp socket as soon as possible.
    */
-  tcpfd = ed_net_tcp_socket_listen(opt.address, opt.port, opt.backlog);
+  tcpfd = fnet_tcp_socket_listen(opt.address, opt.port, opt.backlog);
   if (tcpfd < 0) {
     return 1;
   }

@@ -17,7 +17,7 @@ set(SRCS
   daemonize.h
   debug.h
   echod.h
-  ed_net.c
+  fnet.c
   getopt.c
   getopt.h
   getopt1.c
