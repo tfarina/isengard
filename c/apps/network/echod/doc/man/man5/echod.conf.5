@@ -1,0 +1,26 @@
+.TH ECHODD.CONF 5
+.SH NAME
+\fBechod.conf\fR \- Configuration file for Echod
+.SH DESCRIPTION
+.LP
+echod.conf may be used to control various aspects of echod's behaviour. By
+default, echod looks for this file at the location
+.BR /etc/echod.conf .
+.SH "FILE FORMAT"
+The file consists of comments and options with arguments. Each line which 
+starts with a hash (\fB#\fR) symbol is ignored by the parser. Options and 
+arguments are of the form \fBOption Argument\fR. The arguments are of the 
+following types:
+.TP
+\fBBOOL\fR 
+Boolean value (yes/no).
+.TP 
+\fBSTRING\fR
+String without blank characters.
+.TP
+\fbNUMBER\fR
+Unsigned integer.
+.SH FILES
+/etc/echod.conf
+.SH "SEE ALSO"
+.IR echod (8)
