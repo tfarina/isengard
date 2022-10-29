@@ -34,6 +34,8 @@ endif()
 
 include(UninstallTarget)
 
+configure_file(target.h.cmake.in target.h)
+
 #=======================================================================================
 # Provides GNU standard installation directories as defined by the GNU Coding Standards:
 #=======================================================================================
