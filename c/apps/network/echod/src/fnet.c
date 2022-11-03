@@ -10,9 +10,6 @@
 
 #include "ulog.h"
 
-#define FNET_OK 0
-#define FNET_ERR -1
-
 int fnet_tcp_socket_listen(char *host, int port, int backlog) {
   char portstr[6];  /* strlen("65535") + 1; */
   struct addrinfo hints, *addrlist, *cur;
