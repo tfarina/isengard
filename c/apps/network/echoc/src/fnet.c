@@ -27,7 +27,7 @@ int fnet_tcp_socket_connect(char const *host, int port, int *out_fd) {
   rv = getaddrinfo(host, portstr, &hints, &addrlist);
   if (rv != 0) {
     error("getaddrinfo failed: %s", gai_strerror(rv));
-    return -1;
+    return FNET_ERR;
   }
 
   /* Loop through all the results and connect to the first we can. */
@@ -53,9 +53,9 @@ int fnet_tcp_socket_connect(char const *host, int port, int *out_fd) {
 
   /* Oops, we couldn't connect to any address. */
   if (sockfd == -1 && cur == NULL) {
-    return -1;
+    return FNET_ERR;
   }
 
   *out_fd = sockfd;
-  return 0;
+  return FNET_OK;
 }
