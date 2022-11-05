@@ -4,7 +4,7 @@
 #include <string.h>
 #include <sys/socket.h>
 
-#include "log.h"
+#include "msg.h"
 
 int
 fnet_set_reuseaddr(int fd)
