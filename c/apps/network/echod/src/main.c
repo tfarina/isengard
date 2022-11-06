@@ -73,7 +73,7 @@ static void sigchld(int sig _GL_UNUSED_PARAMETER) {
   got_sigchld = 1;
 }
 
-static void reap_kids(void) {
+static void reap_child(void) {
   pid_t pid;
   int status;
 
@@ -220,7 +220,7 @@ static int main_loop(int fd) {
 
     if (got_sigchld) {
       got_sigchld = 0;
-      reap_kids();
+      reap_child();
     }
   }
 
