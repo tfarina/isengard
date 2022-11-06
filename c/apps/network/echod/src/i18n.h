@@ -2,7 +2,8 @@
 #define _I18N_H_INCLUDED_ 1
 
 /**
- * Internationalization support
+ * @file i18n.h
+ * @brief Internationalization support
  */
 
 /* Native Language Support */
