@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "fuserinfo.h"
+#include "os.h"
 
 int main(int argc, char **argv) {
   char *username;
 
-  username = f_get_user_name();
+  username = os_username();
 
   printf("%s\n", username);
 
