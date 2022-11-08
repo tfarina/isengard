@@ -51,6 +51,8 @@ if (HAVE_GETOPT_H)
   message("-- Found header getopt.h")
 endif()
 
+check_include_file(locale.h HAVE_LOCALE_H)
+
 set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-ansi -std=c89 -pedantic -Wall -Wextra -Werror -Wmissing-declarations -Wstrict-prototypes -Wmissing-prototypes -Wdeclaration-after-statement")
 
 #

@@ -9,6 +9,9 @@
 /* Define to 1 if you have the `getopt_long' function. */
 #cmakedefine HAVE_GETOPT_LONG 1
 
+/* Define to 1 if you have the <locale.h> header file. */
+#cmakedefine HAVE_LOCALE_H 1
+
 #cmakedefine ENABLE_NLS @ENABLE_NLS@
 
 /* Name of package */
