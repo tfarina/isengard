@@ -36,6 +36,9 @@
 #ifndef _ULOG_H_INCLUDED_
 #define _ULOG_H_INCLUDED_ 1
 
+/**
+ * Log levels.
+ */
 typedef enum ulog_level_e {
   ULOG_FATAL   = 0,  /* critical conditions */
   ULOG_ERR     = 1,  /* error conditions */
