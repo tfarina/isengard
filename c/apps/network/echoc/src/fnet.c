@@ -22,7 +22,6 @@ int fnet_tcp_socket_connect(char const *host, int port, int *out_fd) {
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_protocol = IPPROTO_TCP;
-  hints.ai_flags = AI_PASSIVE;
 
   rv = getaddrinfo(host, portstr, &hints, &addrlist);
   if (rv != 0) {
