@@ -35,3 +35,11 @@ cmake -G Ninja ..
 
 For more information about generators, refer to the
 [CMake documentation](https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html)
+
+### CMake Build Types
+
+CMake provides four build types. These are:
+- `Release`: Optimized for speed, with no debugging info or asserts.
+- `Debug`: No optimization, asserts enabled, debugging info included.
+- `RelWithDebInfo`: Like `Release`, but *with* debug info, but no asserts.
+- `MinSizeRel`: Like `Release` but optimizing for size rather than speed.
