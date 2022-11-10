@@ -133,7 +133,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * View menu
    */
-  {"View/StatusBar", NULL, "_Hide Status Bar", "<control>slash", NULL, G_CALLBACK(_on_view_statusbar_cb) },
+  {"View/StatusBar", NULL, "Hide _Status Bar", "<control>slash", NULL, G_CALLBACK(_on_view_statusbar_cb) },
   {"View/ToolbarStyle", NULL, "Toolbar style", NULL, NULL, NULL },
 
   /*
@@ -380,13 +380,13 @@ static void _on_view_statusbar_cb(GtkAction *action, gpointer data)
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/StatusBar");
   if (statusbar_showing)
     {
-      gtk_menu_item_set_label(GTK_MENU_ITEM(menuitem), "_Show Status Bar");
+      gtk_menu_item_set_label(GTK_MENU_ITEM(menuitem), "Show _Status Bar");
       gtk_widget_hide(statusbar);
       statusbar_showing = FALSE;
     }
   else
     {
-      gtk_menu_item_set_label(GTK_MENU_ITEM(menuitem), "_Hide Status Bar");
+      gtk_menu_item_set_label(GTK_MENU_ITEM(menuitem), "Hide _Status Bar");
       gtk_widget_show(statusbar);
       statusbar_showing = TRUE;
     }
