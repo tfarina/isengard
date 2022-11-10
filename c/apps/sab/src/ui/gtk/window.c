@@ -118,7 +118,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * File menu
    */
-  {"File/NewContact", GTK_STOCK_NEW, "_New Contact", "<control>N", NULL, G_CALLBACK(_on_file_new_cb) },
+  {"File/NewContact", GTK_STOCK_NEW, "New _Contact", "<control>N", NULL, G_CALLBACK(_on_file_new_cb) },
   {"File/---", NULL, "---", NULL, NULL, NULL },
   {"File/Quit", GTK_STOCK_QUIT, "_Quit", "<control>Q", NULL, G_CALLBACK(_on_file_quit_cb) },
 
