@@ -40,17 +40,22 @@ configure_file(target.h.cmake.in target.h)
 # Provides install directory variables as defined by the GNU Coding Standards:
 include(GNUInstallDirs)
 
+###############################################################################
 include(CheckIncludeFile)
 include(CheckFunctionExists)
 include(CheckSymbolExists)
 
+###############################################################################
+# Check headers
 check_include_file(getopt.h HAVE_GETOPT_H)
+check_include_file(locale.h HAVE_LOCALE_H)
+
+###############################################################################
+# Check functions
 check_function_exists(getopt_long HAVE_GETOPT_LONG)
 if (HAVE_GETOPT_H)
   message("-- Found header getopt.h")
 endif()
-
-check_include_file(locale.h HAVE_LOCALE_H)
 
 set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-ansi -std=c89 -pedantic -Wall -Wextra -Werror -Wmissing-declarations -Wstrict-prototypes -Wmissing-prototypes -Wdeclaration-after-statement")
 
