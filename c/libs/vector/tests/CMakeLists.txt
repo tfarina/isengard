@@ -14,3 +14,8 @@ target_include_directories(unittests PUBLIC
 )
 
 target_link_libraries(unittests vector)
+
+add_test(
+    NAME unittests
+    COMMAND $<TARGET_FILE:unittests>
+)
