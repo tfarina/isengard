@@ -1,14 +1,14 @@
 [Unit]
 Description=Echo daemon
+Documentation=man:echod(8) man:echod.conf(5)
 Wants=network.target
 After=network.target
 
 [Service]
 Type=forking
-ExecStart=@sbindir@/echod $ECHOD_OPTIONS
+ExecStart=/usr/sbin/echod
 ExecReload=/bin/kill -HUP $MAINPID
-Restart=on-success
-RestartSec=60
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
