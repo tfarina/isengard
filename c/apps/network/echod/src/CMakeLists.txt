@@ -52,3 +52,4 @@ install(TARGETS ${PROGRAM}
 
 add_executable(verbosity getopt.c getopt1.c verbosity.c)
 add_executable(quiet getopt.c getopt1.c quiet.c)
+add_executable(verbose getopt.c getopt1.c verbose.c)
