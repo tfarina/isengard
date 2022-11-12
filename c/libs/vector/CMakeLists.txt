@@ -22,7 +22,13 @@
 #
 
 cmake_minimum_required(VERSION 2.8)
+
 project(vector C)
+
+set(VECTORLIB_MAJOR 0)
+set(VECTORLIB_MINOR 1)
+set(VECTORLIB_PATCH 0)
+set(VECTORLIB_VERSION ${VECTORLIB_MAJOR}.${VECTORLIB_MINOR}.${VECTORLIB_PATCH})
 
 include(GNUInstallDirs)
 
