@@ -48,7 +48,6 @@ typedef struct vector_s
  *
  * @param[in] datasize  The size of each element (in bytes).
  * @param[in] capacity  The initial capacity (number of elements).
- *
  * @return A pointer to a new vector_t or `NULL` on failure.
  */
 vector_t *vector_create(size_t datasize, size_t capacity);
@@ -82,10 +81,8 @@ void vector_push_back(vector_t *self, void *element);
 /**
  * Returns the pointer to the element at specified location index.
  *
- * @param[in,out] self   A pointer to the `vector_t` instance (must not be
- *                       NULL).
+ * @param[in,out] self   A pointer to the `vector_t` instance (must not be NULL).
  * @param[in]     index  The element index.
- *
  * @return Pointer to the element at specified index or `NULL` if it doesn't
  *         exists.
  */
@@ -95,7 +92,6 @@ void *vector_at(vector_t const * const self, int unsigned const index);
  * Returns a pointer to the underlying array serving as element storage.
  *
  * @param[in] self A pointer to the `vector_t` instance.
- *
  * @return Pointer to the underlying element storage or `NULL` if it is empty.
  */
 void *vector_data(vector_t const * const self);
@@ -108,7 +104,6 @@ void *vector_data(vector_t const * const self);
  * Returns the current number of elements stored in the array.
  *
  * @param[in,out] self A pointer to the `vector_t` instance (must not be NULL).
- *
  * @return The number of elements in the array.
  */
 size_t vector_size(vector_t const * const self);
@@ -118,7 +113,6 @@ size_t vector_size(vector_t const * const self);
  * to expand.
  *
  * @param[in,out] self A pointer to the `vector_t` instance (must not be NULL).
- *
  * @return The number of elements that can be stored before having to expand.
  */
 size_t vector_capacity(vector_t const * const self);
@@ -127,7 +121,6 @@ size_t vector_capacity(vector_t const * const self);
  * Tests whether the vector is empty.
  *
  * @param[in,out] self A pointer to the `vector_t` instance.
- *
  * @return non-zero if the vector size is 0, zero otherwise.
  */
 int vector_empty(vector_t const * const self);
