@@ -6,12 +6,15 @@ if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
 endif()
 
 cmake_minimum_required(VERSION 3.0)
-project(echod LANGUAGES C VERSION 0.1.0)
 
 set(VERSION_MAJOR "0")
 set(VERSION_MINOR "1")
 set(VERSION_PATCH "0")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+
+project(echod
+        VERSION "${VERSION}"
+        LANGUAGES C)
 
 set(PACKAGE           "${PROJECT_NAME}")
 set(PACKAGE_NAME      "${PACKAGE}")
