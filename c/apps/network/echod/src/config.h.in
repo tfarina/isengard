@@ -14,7 +14,7 @@
 
 #cmakedefine ENABLE_NLS @ENABLE_NLS@
 
-/* Name of package */
+/* Name of this package */
 #define PACKAGE "@PACKAGE@"
 
 /* Define to the address where bug reports for this package should be sent. */
@@ -35,7 +35,7 @@
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "@PACKAGE_VERSION@"
 
-/* Version number of package */
+/* Version number of this package */
 #define VERSION "@VERSION@"
 
 #endif  /* !defined(_CONFIG_H_INCLUDED_) */
