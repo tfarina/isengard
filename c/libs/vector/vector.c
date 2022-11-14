@@ -73,7 +73,7 @@ void *vector_at(vector_t const * const self, int unsigned const index)
                 return NULL;
         }
 
-        /**
+        /*
          * A cast to char* is necessary as void* cannot deal with pointer arithmetic.
          */
         return (char *)self->data + (index * self->datasize);
