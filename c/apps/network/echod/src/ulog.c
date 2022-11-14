@@ -81,6 +81,11 @@ static ulog_level_t current_loglevel = ULOG_INFO;
 static int log_dst = ULOG_DST_TERM;
 static int log_fd = -1;
 
+/**
+ * Converts a #ulog_level_t to a string.
+ *
+ * @return identifier string
+ */
 static char const *__ulog_level_to_str(ulog_level_t level) {
   switch (level) {
   case ULOG_FATAL: return "fatal: ";
