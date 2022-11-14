@@ -85,10 +85,10 @@ static guint statusbar_cid;
 static int statusbar_showing = TRUE;
 
 static void _on_file_new_cb(GtkAction *action, gpointer data);
+static void _on_file_edit_cb(GtkAction *action, gpointer data);
 static void _on_file_delete_cb(GtkAction *action, gpointer data);
 static void _on_file_quit_cb(GtkAction *action, gpointer data);
 static void _on_edit_select_all_cb(GtkAction *action, gpointer data);
-static void _on_edit_edit_cb(GtkAction *action, gpointer data);
 static void _on_view_menubar_cb(GtkAction *action, gpointer data);
 static void _on_view_toolbar_cb(GtkAction *action, gpointer data);
 static void _on_view_statusbar_cb(GtkAction *action, gpointer data);
@@ -120,6 +120,7 @@ static GtkActionEntry menubar_entries[] =
    */
   {"File/NewContact", GTK_STOCK_NEW, "New _Contact", "<control>N", NULL, G_CALLBACK(_on_file_new_cb) },
   {"File/---", NULL, "---", NULL, NULL, NULL },
+  {"File/Edit", GTK_STOCK_EDIT, "_Edit", "<alt>Return", NULL, G_CALLBACK(_on_file_edit_cb) },
   {"File/Delete", GTK_STOCK_DELETE, "_Delete", "<control>D", NULL, G_CALLBACK(_on_file_delete_cb) },
   /* {"File/---", NULL, "---", NULL, NULL, NULL } */
   {"File/Quit", GTK_STOCK_QUIT, "_Quit", "<control>Q", NULL, G_CALLBACK(_on_file_quit_cb) },
@@ -128,8 +129,6 @@ static GtkActionEntry menubar_entries[] =
    * Edit menu
    */
   {"Edit/SelectAll", GTK_STOCK_SELECT_ALL, "Select _All", "<control>A", NULL, G_CALLBACK(_on_edit_select_all_cb) },
-  {"Edit/---", NULL, "---", NULL, NULL, NULL },
-  {"Edit/Edit", GTK_STOCK_EDIT, "_Edit", "<alt>Return", NULL, G_CALLBACK(_on_edit_edit_cb) },
 
   /*
    * View menu
@@ -167,7 +166,7 @@ static GtkActionEntry list_context_entries[] =
   {"ListContextMenu", NULL, "ListContextMenu", NULL, NULL, NULL },
   {"ListContextMenu/SelectAll", NULL, "_Select All", NULL, NULL, G_CALLBACK(_on_edit_select_all_cb) },
   {"ListContextMenu/---", NULL, "---", NULL, NULL, NULL },
-  {"ListContextMenu/Edit", NULL, "_Edit", NULL, NULL, G_CALLBACK(_on_edit_edit_cb) },
+  {"ListContextMenu/Edit", NULL, "_Edit", NULL, NULL, G_CALLBACK(_on_file_edit_cb) },
   {"ListContextMenu/Delete", NULL, "_Delete", NULL, NULL, G_CALLBACK(_on_file_delete_cb) },
 };
 
@@ -342,7 +341,7 @@ static void _on_edit_select_all_cb(GtkAction *action, gpointer data)
   gtk_tree_selection_select_all(selection);
 }
 
-static void _on_edit_edit_cb(GtkAction *action, gpointer data)
+static void _on_file_edit_cb(GtkAction *action, gpointer data)
 {
   _edit_selection(data);
 }
@@ -464,7 +463,7 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 
   num_selected = gtk_tree_selection_count_selected_rows(selection);
 
-  action = gtk_ui_manager_get_action(ui_manager, "/Menu/Edit/Edit");
+  action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Edit");
   if (num_selected == 1) {
     gtk_action_set_sensitive(action, TRUE);
     gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), TRUE);
@@ -676,6 +675,8 @@ static GtkWidget *_menubar_create(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/File", "Separator1", "File/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/File", "Edit", "File/Edit", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/File", "Delete", "File/Delete", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/File", "Separator2", "File/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
@@ -685,10 +686,6 @@ static GtkWidget *_menubar_create(void)
   /* Edit menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/Edit", "Select All", "Edit/SelectAll", GTK_UI_MANAGER_MENUITEM, FALSE);
-  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/Edit", "Separator1", "Edit/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
-  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/Edit", "Edit", "Edit/Edit", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* View menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
@@ -735,7 +732,7 @@ static GtkWidget *_menubar_create(void)
 
   gtk_window_add_accel_group(GTK_WINDOW(main_window), gtk_ui_manager_get_accel_group(ui_manager));
 
-  action = gtk_ui_manager_get_action(ui_manager, "/Menu/Edit/Edit");
+  action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Edit");
   gtk_action_set_sensitive(action, FALSE);
 
   action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Delete");
