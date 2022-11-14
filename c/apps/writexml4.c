@@ -32,7 +32,7 @@ typedef struct _ABFolder ABFolder;
 struct _ABFolder {
   ABItem base;
   int is_root;
-  alpm_list_t *list_folder;
+  alpm_list_t *list_folder; /* List of subfolders (child folders) */
 };
 
 #define ABITEM(item) ((ABItem *)item)
