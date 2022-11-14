@@ -123,7 +123,8 @@ add_subdirectory(doc)
 set(ARCHIVE_NAME ${PACKAGE_TARNAME}-${PACKAGE_VERSION})
 add_custom_target(dist
                   COMMAND git archive --prefix=${ARCHIVE_NAME}/ HEAD | gzip > ${CMAKE_BINARY_DIR}/${ARCHIVE_NAME}.tar.gz
-                  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+                  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+                  COMMENT "Generating tar.gz tarball...")
 
 ## ==============================================================================
 ##
