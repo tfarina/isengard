@@ -1,3 +1,5 @@
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
+
 set(HDRS
   greatest.h
 )
@@ -19,3 +21,5 @@ add_test(
     NAME unittests
     COMMAND $<TARGET_FILE:unittests>
 )
+
+add_dependencies(check unittests)
