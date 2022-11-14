@@ -57,6 +57,12 @@ if (ENABLE_TESTS)
   add_subdirectory(tests)
 endif()
 
+find_package(Doxygen)
+
+if (DOXYGEN_FOUND)
+  configure_file(Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+endif()
+
 # libvector.pc (pkg-config file).
 set(libdir     "${CMAKE_INSTALL_FULL_LIBDIR}")
 set(includedir "${CMAKE_INSTALL_FULL_INCLUDEDIR}")
