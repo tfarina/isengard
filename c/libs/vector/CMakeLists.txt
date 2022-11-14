@@ -61,6 +61,12 @@ find_package(Doxygen)
 
 if (DOXYGEN_FOUND)
   configure_file(Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+
+  add_custom_target(doc-doxygen ALL
+                    COMMAND ${DOXYGEN_EXECUTABLE} Doxyfile
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+                    COMMENT "Generation API documentation with Doxygen"
+                    VERBATIM)
 endif()
 
 # libvector.pc (pkg-config file).
