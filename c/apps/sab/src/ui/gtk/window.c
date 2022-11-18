@@ -164,7 +164,7 @@ static GtkRadioActionEntry menubar_radio_entries[] =
 static GtkActionEntry list_context_entries[] =
 {
   {"ListContextMenu", NULL, "ListContextMenu", NULL, NULL, NULL },
-  {"ListContextMenu/SelectAll", NULL, "_Select All", NULL, NULL, G_CALLBACK(_on_edit_select_all_cb) },
+  {"ListContextMenu/SelectAll", NULL, "Select _All", NULL, NULL, G_CALLBACK(_on_edit_select_all_cb) },
   {"ListContextMenu/---", NULL, "---", NULL, NULL, NULL },
   {"ListContextMenu/Edit", NULL, "_Edit", NULL, NULL, G_CALLBACK(_on_file_edit_cb) },
   {"ListContextMenu/Delete", NULL, "_Delete", NULL, NULL, G_CALLBACK(_on_file_delete_cb) },
