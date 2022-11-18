@@ -14,6 +14,13 @@ str_is_null_or_empty(char const *str)
   return 0;
 }
 
+/**
+ * Tests if this string starts with the specified prefix.
+ *
+ * @param[in] str The string.
+ * @param[in] prefix The prefix to compare.
+ * @return true if prefix matches the beginning of this string; false otherwise.
+ */
 int
 str_startswith(char const *str, char const *prefix)
 {
