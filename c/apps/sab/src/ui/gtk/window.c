@@ -118,7 +118,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * File menu
    */
-  {"File/NewContact", GTK_STOCK_NEW, "New _Contact", "<control>N", NULL, G_CALLBACK(_on_file_new_contact_cb) },
+  {"File/NewContact", GTK_STOCK_NEW, "New _Contact...", "<control>N", NULL, G_CALLBACK(_on_file_new_contact_cb) },
   {"File/---", NULL, "---", NULL, NULL, NULL },
   {"File/Properties", GTK_STOCK_EDIT, "P_roperties", "<alt>Return", NULL, G_CALLBACK(_on_file_properties_cb) },
   {"File/Delete", GTK_STOCK_DELETE, "_Delete", "<control>D", NULL, G_CALLBACK(_on_file_delete_cb) },
