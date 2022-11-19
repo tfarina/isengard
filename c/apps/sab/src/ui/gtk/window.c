@@ -773,7 +773,7 @@ static GtkWidget *_toolbar_create(void)
   /* Delete button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_DELETE, GTK_ICON_SIZE_BUTTON);
   tb_delete = gtk_tool_button_new(icon, "Delete");
-  gtk_tool_item_set_tooltip_text(tb_delete, "Delete contact");
+  gtk_tool_item_set_tooltip_text(tb_delete, "Deletes the selected item.");
   gtk_tool_item_set_is_important(tb_delete, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_delete, -1);
   g_signal_connect(G_OBJECT(tb_delete), "clicked",
