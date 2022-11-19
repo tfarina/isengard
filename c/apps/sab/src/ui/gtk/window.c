@@ -755,7 +755,7 @@ static GtkWidget *_toolbar_create(void)
   /* New button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_NEW, GTK_ICON_SIZE_BUTTON);
   tb_new = gtk_tool_button_new(icon, "New");
-  gtk_tool_item_set_tooltip_text(tb_new, "New contact");
+  gtk_tool_item_set_tooltip_text(tb_new, "Creates a new contact.");
   gtk_tool_item_set_is_important(tb_new, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_new, -1);
   g_signal_connect(G_OBJECT(tb_new), "clicked",
