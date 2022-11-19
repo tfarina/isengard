@@ -85,7 +85,7 @@ static guint statusbar_cid;
 static int statusbar_showing = TRUE;
 
 static void _on_file_new_cb(GtkAction *action, gpointer data);
-static void _on_file_edit_cb(GtkAction *action, gpointer data);
+static void _on_file_properties_cb(GtkAction *action, gpointer data);
 static void _on_file_delete_cb(GtkAction *action, gpointer data);
 static void _on_file_quit_cb(GtkAction *action, gpointer data);
 static void _on_edit_select_all_cb(GtkAction *action, gpointer data);
@@ -120,7 +120,7 @@ static GtkActionEntry menubar_entries[] =
    */
   {"File/NewContact", GTK_STOCK_NEW, "New _Contact", "<control>N", NULL, G_CALLBACK(_on_file_new_cb) },
   {"File/---", NULL, "---", NULL, NULL, NULL },
-  {"File/Edit", GTK_STOCK_EDIT, "_Edit", "<alt>Return", NULL, G_CALLBACK(_on_file_edit_cb) },
+  {"File/Properties", GTK_STOCK_EDIT, "P_roperties", "<alt>Return", NULL, G_CALLBACK(_on_file_properties_cb) },
   {"File/Delete", GTK_STOCK_DELETE, "_Delete", "<control>D", NULL, G_CALLBACK(_on_file_delete_cb) },
   /* {"File/---", NULL, "---", NULL, NULL, NULL } */
   {"File/Quit", GTK_STOCK_QUIT, "_Quit", "<control>Q", NULL, G_CALLBACK(_on_file_quit_cb) },
@@ -166,7 +166,7 @@ static GtkActionEntry list_context_entries[] =
   {"ListContextMenu", NULL, "ListContextMenu", NULL, NULL, NULL },
   {"ListContextMenu/SelectAll", NULL, "Select _All", NULL, NULL, G_CALLBACK(_on_edit_select_all_cb) },
   {"ListContextMenu/---", NULL, "---", NULL, NULL, NULL },
-  {"ListContextMenu/Edit", NULL, "_Edit", NULL, NULL, G_CALLBACK(_on_file_edit_cb) },
+  {"ListContextMenu/Properties", NULL, "P_roperties", NULL, NULL, G_CALLBACK(_on_file_properties_cb) },
   {"ListContextMenu/Delete", NULL, "_Delete", NULL, NULL, G_CALLBACK(_on_file_delete_cb) },
 };
 
@@ -341,7 +341,7 @@ static void _on_edit_select_all_cb(GtkAction *action, gpointer data)
   gtk_tree_selection_select_all(selection);
 }
 
-static void _on_file_edit_cb(GtkAction *action, gpointer data)
+static void _on_file_properties_cb(GtkAction *action, gpointer data)
 {
   _edit_selection(data);
 }
@@ -463,7 +463,7 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 
   num_selected = gtk_tree_selection_count_selected_rows(selection);
 
-  action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Edit");
+  action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Properties");
   if (num_selected == 1) {
     gtk_action_set_sensitive(action, TRUE);
     gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), TRUE);
@@ -526,7 +526,7 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
     gboolean can_delete = num_selected > 0;
     GtkAction *action;
 
-    action = gtk_ui_manager_get_action(ui_manager, "/Popups/ListContextMenu/Edit");
+    action = gtk_ui_manager_get_action(ui_manager, "/Popups/ListContextMenu/Properties");
     gtk_action_set_sensitive(action, can_edit);
 
     action = gtk_ui_manager_get_action(ui_manager, "/Popups/ListContextMenu/Delete");
@@ -675,7 +675,7 @@ static GtkWidget *_menubar_create(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/File", "Separator1", "File/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/File", "Edit", "File/Edit", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/Menu/File", "Properties", "File/Properties", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/File", "Delete", "File/Delete", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
@@ -724,7 +724,7 @@ static GtkWidget *_menubar_create(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Popups/ListContextMenu", "Separator1", "ListContextMenu/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Popups/ListContextMenu", "Edit", "ListContextMenu/Edit", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/Popups/ListContextMenu", "Properties", "ListContextMenu/Properties", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Popups/ListContextMenu", "Delete", "ListContextMenu/Delete", GTK_UI_MANAGER_MENUITEM, FALSE);
 
@@ -732,7 +732,7 @@ static GtkWidget *_menubar_create(void)
 
   gtk_window_add_accel_group(GTK_WINDOW(main_window), gtk_ui_manager_get_accel_group(ui_manager));
 
-  action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Edit");
+  action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Properties");
   gtk_action_set_sensitive(action, FALSE);
 
   action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Delete");
@@ -761,10 +761,10 @@ static GtkWidget *_toolbar_create(void)
   g_signal_connect(G_OBJECT(tb_new), "clicked",
 		   G_CALLBACK(_on_new_cb), main_window);
 
-  /* Edit button */
+  /* Properties button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT, GTK_ICON_SIZE_BUTTON);
-  tb_edit = gtk_tool_button_new(icon, "Edit");
-  gtk_tool_item_set_tooltip_text(tb_edit, "Edit contact");
+  tb_edit = gtk_tool_button_new(icon, "Properties");
+  gtk_tool_item_set_tooltip_text(tb_edit, "Edit contact properties");
   gtk_tool_item_set_is_important(tb_edit, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_edit, -1);
   g_signal_connect(G_OBJECT(tb_edit), "clicked",
