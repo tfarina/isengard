@@ -764,7 +764,7 @@ static GtkWidget *_toolbar_create(void)
   /* Properties button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT, GTK_ICON_SIZE_BUTTON);
   tb_edit = gtk_tool_button_new(icon, "Properties");
-  gtk_tool_item_set_tooltip_text(tb_edit, "Edit contact properties");
+  gtk_tool_item_set_tooltip_text(tb_edit, "Edit properties for the selected item.");
   gtk_tool_item_set_is_important(tb_edit, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_edit, -1);
   g_signal_connect(G_OBJECT(tb_edit), "clicked",
