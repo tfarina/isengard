@@ -84,7 +84,7 @@ static GtkWidget *statusbar;
 static guint statusbar_cid;
 static int statusbar_showing = TRUE;
 
-static void _on_file_new_cb(GtkAction *action, gpointer data);
+static void _on_file_new_contact_cb(GtkAction *action, gpointer data);
 static void _on_file_properties_cb(GtkAction *action, gpointer data);
 static void _on_file_delete_cb(GtkAction *action, gpointer data);
 static void _on_file_quit_cb(GtkAction *action, gpointer data);
@@ -118,7 +118,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * File menu
    */
-  {"File/NewContact", GTK_STOCK_NEW, "New _Contact", "<control>N", NULL, G_CALLBACK(_on_file_new_cb) },
+  {"File/NewContact", GTK_STOCK_NEW, "New _Contact", "<control>N", NULL, G_CALLBACK(_on_file_new_contact_cb) },
   {"File/---", NULL, "---", NULL, NULL, NULL },
   {"File/Properties", GTK_STOCK_EDIT, "P_roperties", "<alt>Return", NULL, G_CALLBACK(_on_file_properties_cb) },
   {"File/Delete", GTK_STOCK_DELETE, "_Delete", "<control>D", NULL, G_CALLBACK(_on_file_delete_cb) },
@@ -315,7 +315,7 @@ static void _on_size_allocate_event_cb(GtkWidget *widget,
  * File menu
  */
 
-static void _on_file_new_cb(GtkAction *action, gpointer data)
+static void _on_file_new_contact_cb(GtkAction *action, gpointer data)
 {
   contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, _on_new_contact_cb);
 }
