@@ -139,11 +139,11 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   gtk_box_set_spacing(GTK_BOX(bbox), 5);
   gtk_container_set_border_width(GTK_CONTAINER(bbox), 4);
 
-  cancel_btn = gtk_button_new_with_label("Cancel");
-  gtk_box_pack_start(GTK_BOX(bbox), cancel_btn, TRUE, TRUE, 0);
-
   ok_btn = gtk_button_new_with_label("OK");
   gtk_box_pack_start(GTK_BOX(bbox), ok_btn, TRUE, TRUE, 0);
+
+  cancel_btn = gtk_button_new_with_label("Cancel");
+  gtk_box_pack_start(GTK_BOX(bbox), cancel_btn, TRUE, TRUE, 0);
 
   gtk_box_pack_end(GTK_BOX(vbox), bbox, FALSE, FALSE, 0);
 
