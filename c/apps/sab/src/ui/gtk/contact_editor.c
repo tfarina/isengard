@@ -140,6 +140,7 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   gtk_container_set_border_width(GTK_CONTAINER(bbox), 4);
 
   ok_btn = gtk_button_new_with_label("OK");
+  gtk_widget_set_can_default(ok_btn, TRUE);
   gtk_box_pack_start(GTK_BOX(bbox), ok_btn, TRUE, TRUE, 0);
 
   cancel_btn = gtk_button_new_with_label("Cancel");
@@ -166,4 +167,9 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
    * won't go to the first name entry.
    */
   gtk_widget_grab_focus(fname_entry);
+
+  /*
+   * This should make sure the OK button is the default button for this dialog.
+   */
+  gtk_window_set_default(GTK_WINDOW(contact_window), ok_btn);
 }
