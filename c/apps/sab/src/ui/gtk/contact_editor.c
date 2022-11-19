@@ -1,5 +1,8 @@
 #include "contact_editor.h"
 
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
+
 static action_code_t action_code;
 static ab_contact_t *current_contact;
 typedef void (*editor_post_cb_t)(ab_contact_t *contact);
@@ -50,6 +53,17 @@ static void _contact_editor_cancel_cb(GtkWidget *widget, gboolean *cancelled)
   gtk_widget_destroy(contact_window);
 }
 
+static gboolean _on_contact_window_key_press_cb(GtkWidget *widget,
+						GdkEventKey *event,
+						gpointer data)
+{
+  if (event && event->keyval == GDK_KEY_Escape)
+    {
+      gtk_widget_destroy(contact_window);
+    }
+  return FALSE;
+}
+
 void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, void (*post_cb)(ab_contact_t *contact))
 {
   GtkWidget *vbox;
@@ -78,6 +92,9 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   gtk_window_set_position(GTK_WINDOW(contact_window), GTK_WIN_POS_CENTER_ON_PARENT);
   gtk_window_set_modal(GTK_WINDOW(contact_window), TRUE);
   gtk_container_set_border_width(GTK_CONTAINER(contact_window), 6);
+  g_signal_connect(G_OBJECT(contact_window), "key_press_event",
+		   G_CALLBACK(_on_contact_window_key_press_cb),
+		   NULL);
 
   vbox = gtk_vbox_new(FALSE, 6);
   gtk_container_add(GTK_CONTAINER(contact_window), vbox);
