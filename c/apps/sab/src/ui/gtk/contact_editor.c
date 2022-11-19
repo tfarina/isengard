@@ -96,7 +96,7 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 
   /* First row. */
-  label = gtk_label_new("First Name:");
+  label = gtk_label_new("First:");
   gtk_table_attach(GTK_TABLE(table), label, 0, 1, 0, 1,
 		   GTK_FILL, 0, 0, 0);
   gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
@@ -107,7 +107,7 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
   /* Second row. */
-  label = gtk_label_new("Last Name:");
+  label = gtk_label_new("Last:");
   gtk_table_attach(GTK_TABLE(table), label, 0, 1, 1, 2,
 		   GTK_FILL, 0, 0, 0);
   gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
