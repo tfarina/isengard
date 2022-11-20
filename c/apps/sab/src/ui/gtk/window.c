@@ -441,7 +441,7 @@ static void _on_new_cb(GtkWidget *widget, gpointer data)
   contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, _on_new_contact_cb);
 }
 
-static void _on_edit_cb(GtkWidget *widget, gpointer data)
+static void _on_toolbar_properties_cb(GtkWidget *widget, gpointer data)
 {
   _edit_selection(data);
 }
@@ -768,7 +768,7 @@ static GtkWidget *_toolbar_create(void)
   gtk_tool_item_set_is_important(tb_edit, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_edit, -1);
   g_signal_connect(G_OBJECT(tb_edit), "clicked",
-		   G_CALLBACK(_on_edit_cb), main_window);
+		   G_CALLBACK(_on_toolbar_properties_cb), main_window);
 
   /* Delete button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_DELETE, GTK_ICON_SIZE_BUTTON);
