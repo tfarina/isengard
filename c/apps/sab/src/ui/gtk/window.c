@@ -446,7 +446,7 @@ static void _on_toolbar_properties_cb(GtkWidget *widget, gpointer data)
   _edit_selection(data);
 }
 
-static void _on_delete_cb(GtkWidget *widget, gpointer data)
+static void _on_toolbar_delete_cb(GtkWidget *widget, gpointer data)
 {
   _remove_selection();
 }
@@ -777,7 +777,7 @@ static GtkWidget *_toolbar_create(void)
   gtk_tool_item_set_is_important(tb_delete, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_delete, -1);
   g_signal_connect(G_OBJECT(tb_delete), "clicked",
-		   G_CALLBACK(_on_delete_cb), NULL);
+		   G_CALLBACK(_on_toolbar_delete_cb), NULL);
 
   gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
   gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
