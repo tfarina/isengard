@@ -754,12 +754,19 @@ static GtkWidget *_toolbar_create(void)
 
   /* New button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_NEW, GTK_ICON_SIZE_BUTTON);
-  tb_new = gtk_tool_button_new(icon, "New");
-  gtk_tool_item_set_tooltip_text(tb_new, "Creates a new contact.");
+  tb_new = gtk_menu_tool_button_new(icon, "New");
   gtk_tool_item_set_is_important(tb_new, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_new, -1);
-  g_signal_connect(G_OBJECT(tb_new), "clicked",
+
+  GtkWidget *menu = gtk_menu_new();
+  GtkWidget *menuitem = gtk_menu_item_new_with_mnemonic("New _Contact...");
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+  gtk_widget_set_tooltip_text(menuitem, "Creates a new contact.");
+  gtk_widget_show(menuitem);
+
+  g_signal_connect(G_OBJECT(menuitem), "activate",
 		   G_CALLBACK(_on_toolbar_new_cb), main_window);
+  gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(tb_new), menu);
 
   /* Properties button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT, GTK_ICON_SIZE_BUTTON);
