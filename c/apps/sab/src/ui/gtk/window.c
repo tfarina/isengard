@@ -87,7 +87,7 @@ static int statusbar_showing = TRUE;
 static void _on_file_new_contact_cb(GtkAction *action, gpointer data);
 static void _on_file_properties_cb(GtkAction *action, gpointer data);
 static void _on_file_delete_cb(GtkAction *action, gpointer data);
-static void _on_file_quit_cb(GtkAction *action, gpointer data);
+static void _on_file_exit_cb(GtkAction *action, gpointer data);
 static void _on_edit_select_all_cb(GtkAction *action, gpointer data);
 static void _on_view_menubar_cb(GtkAction *action, gpointer data);
 static void _on_view_toolbar_cb(GtkAction *action, gpointer data);
@@ -123,7 +123,7 @@ static GtkActionEntry menubar_entries[] =
   {"File/Properties", GTK_STOCK_EDIT, "P_roperties", "<alt>Return", NULL, G_CALLBACK(_on_file_properties_cb) },
   {"File/Delete", GTK_STOCK_DELETE, "_Delete", "<control>D", NULL, G_CALLBACK(_on_file_delete_cb) },
   /* {"File/---", NULL, "---", NULL, NULL, NULL } */
-  {"File/Quit", GTK_STOCK_QUIT, "_Quit", "<control>Q", NULL, G_CALLBACK(_on_file_quit_cb) },
+  {"File/Exit", NULL, "E_xit", NULL, NULL, G_CALLBACK(_on_file_exit_cb) },
 
   /*
    * Edit menu
@@ -320,7 +320,7 @@ static void _on_file_new_contact_cb(GtkAction *action, gpointer data)
   contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, _on_new_contact_cb);
 }
 
-static void _on_file_quit_cb(GtkAction *action, gpointer data)
+static void _on_file_exit_cb(GtkAction *action, gpointer data)
 {
   (void)action;
   (void)data;
@@ -681,7 +681,7 @@ static GtkWidget *_menubar_create(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/File", "Separator2", "File/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/File", "Quit", "File/Quit", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/Menu/File", "Exit", "File/Exit", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* Edit menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
