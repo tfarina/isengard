@@ -135,6 +135,7 @@ static GtkActionEntry menubar_entries[] =
    */
   {"View/StatusBar", NULL, "Hide _Status Bar", "<control>slash", NULL, G_CALLBACK(_on_view_statusbar_cb) },
   {"View/ToolbarStyle", NULL, "Toolbar style", NULL, NULL, NULL },
+  /* {"View/---", NULL, "---", NULL, NULL, NULL } */
 
   /*
    * Help menu
@@ -706,6 +707,8 @@ static GtkWidget *_menubar_create(void)
 			"/Menu/View/ToolbarStyle", "IconsOnly", "View/ToolbarStyle/IconsOnly", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View/ToolbarStyle", "TextOnly", "View/ToolbarStyle/TextOnly", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/View", "Separator2", "View/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View", "FullScreen", "View/FullScreen", GTK_UI_MANAGER_MENUITEM, FALSE);
 
