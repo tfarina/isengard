@@ -436,7 +436,7 @@ static void _on_help_about_cb(GtkAction *action, gpointer data)
  * Toolbar callbacks
  */
 
-static void _on_new_cb(GtkWidget *widget, gpointer data)
+static void _on_toolbar_new_cb(GtkWidget *widget, gpointer data)
 {
   contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, _on_new_contact_cb);
 }
@@ -759,7 +759,7 @@ static GtkWidget *_toolbar_create(void)
   gtk_tool_item_set_is_important(tb_new, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_new, -1);
   g_signal_connect(G_OBJECT(tb_new), "clicked",
-		   G_CALLBACK(_on_new_cb), main_window);
+		   G_CALLBACK(_on_toolbar_new_cb), main_window);
 
   /* Properties button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT, GTK_ICON_SIZE_BUTTON);
