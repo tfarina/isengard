@@ -884,7 +884,7 @@ static GtkWidget *_create_list_view(void)
 static void _populate_list_view(GtkListStore* list_store)
 {
   char *dbdir;
-  alpm_list_t *list, *cur;
+  alpm_list_t *list, *item;
 
   dbdir = dirs_get_user_data_dir();
 
@@ -894,8 +894,8 @@ static void _populate_list_view(GtkListStore* list_store)
 
   list = ab_get_contact_list();
 
-  for (cur = list; cur; cur = alpm_list_next(cur)) {
-    _list_store_append_item(list_store, (ab_contact_t *)cur->data);
+  for (item = list; item; item = alpm_list_next(item)) {
+    _list_store_append_item(list_store, (ab_contact_t *)item->data);
   }
 }
 
