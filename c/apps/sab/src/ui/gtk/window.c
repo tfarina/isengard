@@ -521,7 +521,10 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
     gtk_tree_selection_unselect_all(selection);
   }
 
-  if (event->button == 3) {
+  /*
+   * Handles the Right Click button.
+   */
+  if (event->button == 3 /* 3 means right button */) {
     gint num_selected = gtk_tree_selection_count_selected_rows(selection);
     gboolean can_edit = num_selected == 1;
     gboolean can_delete = num_selected > 0;
