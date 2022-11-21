@@ -540,8 +540,11 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
     return TRUE;
   }
 
-  /* This handles the event when a mouse button has been double-clicked.
-   * When this happens open the contact editor to edit the properties of the item selected. */
+  /*
+   * Handles the Double-Click event.
+   *
+   * Opens the object properties dialog for the selected item.
+   */
   if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
     /* Figure out which node was clicked. */
     if (!gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(list_view), event->x, event->y, &path, &column, NULL, NULL)) {
