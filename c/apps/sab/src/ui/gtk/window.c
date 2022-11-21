@@ -640,7 +640,7 @@ static void _list_store_append_item(GtkListStore *list_store,
                      -1);
 }
 
-static GtkWidget *_menubar_create(void)
+static GtkWidget *_create_menubar(void)
 {
   GtkActionGroup *action_group;
   GtkAction *action;
@@ -751,7 +751,7 @@ static GtkWidget *_menubar_create(void)
   return menubar;
 }
 
-static GtkWidget *_toolbar_create(void)
+static GtkWidget *_create_toolbar(void)
 {
   GtkWidget* icon;
   GtkToolItem *tb_new;
@@ -801,7 +801,7 @@ static GtkWidget *_toolbar_create(void)
   return toolbar;
 }
 
-static GtkWidget *_list_view_create(void)
+static GtkWidget *_create_list_view(void)
 {
   GtkWidget *scrolledwin;
   GtkTreeSortable *sortable;
@@ -929,19 +929,19 @@ GtkWidget *addrbook_window_new(void)
   /*
    * Menubar
    */
-  menubar = _menubar_create();
+  menubar = _create_menubar();
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, TRUE, 0);
 
   /*
    * Toolbar
    */
-  toolbar = _toolbar_create();
+  toolbar = _create_toolbar();
   gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, TRUE, 0);
 
   /*
    * List view
    */
-  scrolledwin = _list_view_create();
+  scrolledwin = _create_list_view();
   gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
 
   /*
