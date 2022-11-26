@@ -82,7 +82,6 @@ static GtkWidget *list_view;
 static GtkWidget *list_context_menu;
 static GtkWidget *statusbar;
 static guint statusbar_cid;
-static int statusbar_showing = TRUE;
 
 static void _on_file_new_contact_cb(GtkAction *action, gpointer data);
 static void _on_file_properties_cb(GtkAction *action, gpointer data);
@@ -133,7 +132,6 @@ static GtkActionEntry menubar_entries[] =
   /*
    * View menu
    */
-  {"View/StatusBar", NULL, "Hide _Status Bar", "<control>slash", NULL, G_CALLBACK(_on_view_statusbar_cb) },
   {"View/ToolbarStyle", NULL, "Toolbar style", NULL, NULL, NULL },
   /* {"View/---", NULL, "---", NULL, NULL, NULL } */
 
@@ -150,6 +148,7 @@ static GtkToggleActionEntry menubar_toggle_entries[] =
    */
   {"View/MenuBar", NULL, "Menubar", "<control>M", NULL, G_CALLBACK(_on_view_menubar_cb), FALSE },
   {"View/ToolBar", NULL, "_Toolbar", "<control><alt>T", NULL, G_CALLBACK(_on_view_toolbar_cb), FALSE },
+  {"View/StatusBar", NULL, "_Status Bar", "", NULL, G_CALLBACK(_on_view_statusbar_cb), FALSE },
   {"View/---", NULL, "---", NULL, NULL, NULL, FALSE },
   {"View/FullScreen", NULL, "_Full Screen", "F11", NULL, G_CALLBACK(_on_view_fullscreen_cb), FALSE },
 };
@@ -376,21 +375,11 @@ static void _on_view_toolbar_cb(GtkAction *action, gpointer data)
 
 static void _on_view_statusbar_cb(GtkAction *action, gpointer data)
 {
-  GtkWidget *menuitem;
+  gboolean state;
 
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/StatusBar");
-  if (statusbar_showing)
-    {
-      gtk_menu_item_set_label(GTK_MENU_ITEM(menuitem), "Show _Status Bar");
-      gtk_widget_hide(statusbar);
-      statusbar_showing = FALSE;
-    }
-  else
-    {
-      gtk_menu_item_set_label(GTK_MENU_ITEM(menuitem), "Hide _Status Bar");
-      gtk_widget_show(statusbar);
-      statusbar_showing = TRUE;
-    }
+  state = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
+
+  gtk_widget_set_visible(statusbar, state);
 }
 
 static void _on_view_fullscreen_cb(GtkAction *action, gpointer data)
@@ -959,6 +948,8 @@ GtkWidget *addrbook_window_new(void)
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/MenuBar");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolBar");
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/StatusBar");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolbarStyle/TextBelowIcon");
