@@ -74,20 +74,12 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   GtkWidget *cancel_btn;
   GtkWidget *ok_btn;
 
-  char const *title;
-
   action_code = ac;
   current_contact = contact;
   add_edit_post_cb = post_cb;
 
-  if (current_contact) {
-    title = "Edit Person";
-  } else {
-    title = "Create New Person";
-  }
-
   contact_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(contact_window), title);
+  gtk_window_set_title(GTK_WINDOW(contact_window), "Properties");
   gtk_window_set_transient_for(GTK_WINDOW(contact_window), parent);
   gtk_window_set_position(GTK_WINDOW(contact_window), GTK_WIN_POS_CENTER_ON_PARENT);
   gtk_window_set_modal(GTK_WINDOW(contact_window), TRUE);
