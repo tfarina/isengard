@@ -88,7 +88,6 @@ static void _on_file_properties_cb(GtkAction *action, gpointer data);
 static void _on_file_delete_cb(GtkAction *action, gpointer data);
 static void _on_file_exit_cb(GtkAction *action, gpointer data);
 static void _on_edit_select_all_cb(GtkAction *action, gpointer data);
-static void _on_view_menubar_cb(GtkAction *action, gpointer data);
 static void _on_view_toolbar_cb(GtkAction *action, gpointer data);
 static void _on_view_statusbar_cb(GtkAction *action, gpointer data);
 static void _on_view_fullscreen_cb(GtkAction *action, gpointer data);
@@ -146,7 +145,6 @@ static GtkToggleActionEntry menubar_toggle_entries[] =
   /*
    * View menu
    */
-  {"View/MenuBar", NULL, "Menubar", "<control>M", NULL, G_CALLBACK(_on_view_menubar_cb), FALSE },
   {"View/ToolBar", NULL, "_Toolbar", "<control><alt>T", NULL, G_CALLBACK(_on_view_toolbar_cb), FALSE },
   {"View/StatusBar", NULL, "_Status Bar", "", NULL, G_CALLBACK(_on_view_statusbar_cb), FALSE },
   {"View/---", NULL, "---", NULL, NULL, NULL, FALSE },
@@ -354,15 +352,6 @@ static void _on_file_delete_cb(GtkAction *action, gpointer data)
 /*
  * View menu
  */
-
-static void _on_view_menubar_cb(GtkAction *action, gpointer data)
-{
-  gboolean state;
-
-  state = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
-
-  gtk_widget_set_visible(menubar, state);
-}
 
 static void _on_view_toolbar_cb(GtkAction *action, gpointer data)
 {
@@ -685,8 +674,6 @@ static GtkWidget *_create_menubar(void)
 
   /* View menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View", "MenuBar", "View/MenuBar", GTK_UI_MANAGER_MENUITEM, FALSE);
-  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View", "ToolBar", "View/ToolBar", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View", "StatusBar", "View/StatusBar", GTK_UI_MANAGER_MENUITEM, FALSE);
@@ -945,8 +932,6 @@ GtkWidget *addrbook_window_new(void)
   /*
    * Set up menu items
    */
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/MenuBar");
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolBar");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/StatusBar");
