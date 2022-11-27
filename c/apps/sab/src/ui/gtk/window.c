@@ -116,17 +116,17 @@ static GtkActionEntry menubar_entries[] =
   /*
    * File menu
    */
-  {"File/NewContact", GTK_STOCK_NEW, "New _Contact...", "<control>N", NULL, G_CALLBACK(_on_file_new_contact_cb) },
+  {"File/NewContact", NULL, "New _Contact...", "<control>N", NULL, G_CALLBACK(_on_file_new_contact_cb) },
   {"File/---", NULL, "---", NULL, NULL, NULL },
-  {"File/Properties", GTK_STOCK_EDIT, "P_roperties", "<alt>Return", NULL, G_CALLBACK(_on_file_properties_cb) },
-  {"File/Delete", GTK_STOCK_DELETE, "_Delete", "<control>D", NULL, G_CALLBACK(_on_file_delete_cb) },
+  {"File/Properties", NULL, "P_roperties", "<alt>Return", NULL, G_CALLBACK(_on_file_properties_cb) },
+  {"File/Delete", NULL, "_Delete", "<control>D", NULL, G_CALLBACK(_on_file_delete_cb) },
   /* {"File/---", NULL, "---", NULL, NULL, NULL } */
   {"File/Exit", NULL, "E_xit", NULL, NULL, G_CALLBACK(_on_file_exit_cb) },
 
   /*
    * Edit menu
    */
-  {"Edit/SelectAll", GTK_STOCK_SELECT_ALL, "Select _All", "<control>A", NULL, G_CALLBACK(_on_edit_select_all_cb) },
+  {"Edit/SelectAll", NULL, "Select _All", "<control>A", NULL, G_CALLBACK(_on_edit_select_all_cb) },
 
   /*
    * View menu
@@ -137,7 +137,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * Help menu
    */
-  {"Help/About", GTK_STOCK_ABOUT, "_About", NULL, NULL, G_CALLBACK(_on_help_about_cb) }
+  {"Help/About", NULL, "_About", NULL, NULL, G_CALLBACK(_on_help_about_cb) }
 };
 
 static GtkToggleActionEntry menubar_toggle_entries[] =
