@@ -8,7 +8,7 @@
 #include "strutils.h"
 
 static char dbname[] = "abdb.sqlite3";
-static sqlite3 *conn = NULL;
+static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
 static sqlite3_stmt *insert_stmt;
 static const char insert_sql[] =
@@ -30,11 +30,11 @@ static alpm_list_t *contact_list;
 static void _close_db(void) {
   int rc;
 
-  rc = sqlite3_close(conn);
+  rc = sqlite3_close(hdb);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errmsg(conn));
+    fprintf(stderr, "error closing SQLite database: %s\n", sqlite3_errmsg(hdb));
   } else {
-    conn = NULL;
+    hdb = NULL;
     /*if (debug) {
       printf("Database closed\n");
     }*/
@@ -45,9 +45,9 @@ static int _execute_sql(char const *sql) {
   int rc;
   sqlite3_stmt *sql_stmt;
 
-  rc = sqlite3_prepare_v2(conn, sql, -1, &sql_stmt, NULL);
+  rc = sqlite3_prepare_v2(hdb, sql, -1, &sql_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "error: preparing statement failed: %s\n", sqlite3_errmsg(conn));
+    fprintf(stderr, "error: preparing statement failed: %s\n", sqlite3_errmsg(hdb));
     _close_db();
     return -1;
   }
@@ -58,7 +58,7 @@ static int _execute_sql(char const *sql) {
   sql_stmt = NULL;
 
   if (rc != SQLITE_DONE) {
-    fprintf(stderr, "error: step failed: %s\n", sqlite3_errmsg(conn));
+    fprintf(stderr, "error: step failed: %s\n", sqlite3_errmsg(hdb));
     _close_db();
     return -1;
   }
@@ -87,20 +87,20 @@ static int _create_tables(void) {
 }
 
 int ab_init(char *dbpath) {
-  char *dbfile;
+  char *dbfile;  /* Database filename */
   int rc;
 
   /* Do nothing if the database handle has been set. */
-  if (conn) {
+  if (hdb) {
     return 0;
   }
 
   dbfile = f_build_filename(dbpath, dbname);
 
-  rc = sqlite3_open(dbfile, &conn);
+  rc = sqlite3_open(dbfile, &hdb);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "error opening SQLite database %s: %s\n", dbfile, sqlite3_errmsg(conn));
-    sqlite3_close(conn);
+    fprintf(stderr, "error opening SQLite database %s: %s\n", dbfile, sqlite3_errmsg(hdb));
+    sqlite3_close(hdb);
     return -1;
   }
 
@@ -112,32 +112,32 @@ int ab_init(char *dbpath) {
     return -1;
   }
 
-  rc = sqlite3_prepare_v2(conn, insert_sql, -1, &insert_stmt, NULL);
+  rc = sqlite3_prepare_v2(hdb, insert_sql, -1, &insert_stmt, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error preparing insert statement: %s\n",
-            sqlite3_errmsg(conn));
+            sqlite3_errmsg(hdb));
     _close_db();
     return -1;
   }
 
-  rc = sqlite3_prepare_v2(conn, update_sql, -1, &update_stmt, NULL);
+  rc = sqlite3_prepare_v2(hdb, update_sql, -1, &update_stmt, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error preparing update statement: %s\n",
-            sqlite3_errmsg(conn));
+            sqlite3_errmsg(hdb));
     return -1;
   }
 
-  rc = sqlite3_prepare_v2(conn, delete_sql, -1, &delete_stmt, NULL);
+  rc = sqlite3_prepare_v2(hdb, delete_sql, -1, &delete_stmt, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error preparing delete statement: %s\n",
-            sqlite3_errmsg(conn));
+            sqlite3_errmsg(hdb));
     return -1;
   }
 
-  rc = sqlite3_prepare_v2(conn, select_sql, -1, &select_stmt, NULL);
+  rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error preparing select statement: %s\n",
-            sqlite3_errmsg(conn));
+            sqlite3_errmsg(hdb));
     return -1;
   }
 
@@ -158,7 +158,7 @@ int ab_fini(void) {
   select_stmt = NULL;
 
   _close_db();
-  conn = NULL;
+  hdb = NULL;
 
   return 0;
 }
@@ -190,7 +190,7 @@ int ab_add_contact(ab_contact_t *contact) {
 
   if (sqlite3_step(insert_stmt) != SQLITE_DONE) {
     fprintf(stderr, "error inserting into contacts table: %s\n",
-            sqlite3_errmsg(conn));
+            sqlite3_errmsg(hdb));
     return -1;
   }
 
@@ -209,7 +209,7 @@ int ab_change_contact(ab_contact_t *contact) {
   }
 
   if (sqlite3_step(update_stmt) != SQLITE_DONE) {
-    fprintf(stderr, "error updating contacts table: %s\n", sqlite3_errmsg(conn));
+    fprintf(stderr, "error updating contacts table: %s\n", sqlite3_errmsg(hdb));
     return -1;
   }
 
@@ -236,7 +236,7 @@ int ab_delete_contact(ab_contact_t *contact) {
 
   if (sqlite3_step(delete_stmt) != SQLITE_DONE) {
     fprintf(stderr, "error deleting contacts from table: %s\n",
-            sqlite3_errmsg(conn));
+            sqlite3_errmsg(hdb));
     return -1;
   }
 
