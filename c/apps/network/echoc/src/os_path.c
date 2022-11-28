@@ -13,5 +13,5 @@ char const *os_path_basename(char const *path) {
     return path;
   }
 
-  return last_slash + 1; /* move pointer to char after '/' */
+  return last_slash + 1; /* move pointer past the '/' character */
 }
