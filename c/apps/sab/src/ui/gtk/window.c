@@ -813,6 +813,9 @@ static GtkWidget *_create_list_view(void)
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
   g_object_unref(list_store);
 
+  /* Disable interactive search. */
+  gtk_tree_view_set_enable_search(GTK_TREE_VIEW(list_view), FALSE);
+
   /* Set selection properties. */
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
   gtk_tree_selection_set_mode(selection, GTK_SELECTION_MULTIPLE);
