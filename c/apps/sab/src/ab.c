@@ -104,6 +104,8 @@ int ab_init(char *dbpath) {
     return -1;
   }
 
+  free(dbfile);
+
   rc = _create_tables();
   if (rc < 0) {
     _close_db();
