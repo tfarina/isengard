@@ -779,17 +779,10 @@ static GtkWidget *_create_toolbar(void)
 
 static GtkWidget *_create_list_view(void)
 {
-  GtkWidget *scrolledwin;
   GtkTreeSortable *sortable;
   GtkTreeSelection *selection;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
-
-  /* Setup the scrolled window. */
-  scrolledwin = gtk_scrolled_window_new(NULL, NULL);
-  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwin),
-                                 GTK_POLICY_AUTOMATIC,
-                                 GTK_POLICY_AUTOMATIC);
 
   /* Create the list store. */
   list_store = gtk_list_store_new(LIST_COL_COUNT,
@@ -854,10 +847,7 @@ static GtkWidget *_create_list_view(void)
   gtk_tree_view_column_set_sort_column_id(column, LIST_COL_EMAIL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
-  /* Attach the list view to the scrolled window. */
-  gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
-
-  return scrolledwin;
+  return list_view;
 }
 
 static void _populate_list_view(GtkListStore* list_store)
@@ -920,7 +910,20 @@ GtkWidget *addrbook_window_new(void)
   /*
    * List view
    */
-  scrolledwin = _create_list_view();
+  list_view = _create_list_view();
+
+  /*
+   * Scrolled window
+   */
+
+  /* Setup the scrolled window. */
+  scrolledwin = gtk_scrolled_window_new(NULL, NULL);
+  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwin),
+                                 GTK_POLICY_AUTOMATIC,
+                                 GTK_POLICY_AUTOMATIC);
+
+  /* Attach the list view to the scrolled window. */
+  gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
   gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
 
   /*
