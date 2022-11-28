@@ -248,10 +248,10 @@ alpm_list_t *ab_get_contact_list(void) {
 }
 
 ab_contact_t *ab_get_contact_by_id(int id) {
-  alpm_list_t *lp;
+  alpm_list_t *item;
 
-  for (lp = contact_list; lp; lp = alpm_list_next(lp)) {
-    ab_contact_t *contact = (ab_contact_t *)lp->data;
+  for (item = contact_list; item; item = alpm_list_next(item)) {
+    ab_contact_t *contact = (ab_contact_t *)item->data;
     if (contact->id == id) {
       return contact;
     }
