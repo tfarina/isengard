@@ -47,7 +47,7 @@ static int _execute_sql(char const *sql) {
 
   rc = sqlite3_prepare_v2(hdb, sql, -1, &sql_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "error: preparing statement failed: %s\n", sqlite3_errmsg(hdb));
+    fprintf(stderr, "error preparing SQL statement: %s\n", sqlite3_errmsg(hdb));
     _close_db();
     return -1;
   }
