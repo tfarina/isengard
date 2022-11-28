@@ -854,7 +854,7 @@ static GtkWidget *_create_list_view(void)
   gtk_tree_view_column_set_sort_column_id(column, LIST_COL_EMAIL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
-  /* Attach list view the scrolled window. */
+  /* Attach the list view to the scrolled window. */
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
 
   return scrolledwin;
