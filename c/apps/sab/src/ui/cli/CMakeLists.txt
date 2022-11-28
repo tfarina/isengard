@@ -57,6 +57,7 @@ target_link_libraries(${EXENAME}-change
 )
 
 set(SOURCES
+  os_path.c
   sab-delete.c
 )
 

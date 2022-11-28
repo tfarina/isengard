@@ -3,15 +3,20 @@
 
 #include "ab.h"
 #include "dirs.h"
+#include "os_path.h"
 #include "util.h"
+
+static char const *progname;
 
 int main(int argc, char **argv) {
   char *dbdir;
   int id;
   ab_contact_t *contact = NULL;
 
+  progname = os_path_basename(*argv);
+
   if (argc != 2) {
-    fprintf(stderr, "usage: %s <id>\n", argv[0]);
+    fprintf(stderr, "usage: %s <id>\n", progname);
     return 1;
   }
 
@@ -32,7 +37,7 @@ int main(int argc, char **argv) {
   contact = ab_get_contact_by_id(id);
   if (!contact) {
     fprintf(stderr, "%s: contact (%s) does not exist in our database.\n",
-            argv[0], argv[1]);
+            progname, argv[1]);
     return 1;
   }
 
