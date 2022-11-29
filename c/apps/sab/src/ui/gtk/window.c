@@ -83,15 +83,30 @@ static GtkWidget *list_context_menu;
 static GtkWidget *statusbar;
 static guint statusbar_cid;
 
+/*
+ * Menubar callbacks
+ */
+
+/* File menu */
+
 static void _on_file_new_contact_cb(GtkAction *action, gpointer data);
 static void _on_file_properties_cb(GtkAction *action, gpointer data);
 static void _on_file_delete_cb(GtkAction *action, gpointer data);
 static void _on_file_exit_cb(GtkAction *action, gpointer data);
+
+/* Edit menu */
+
 static void _on_edit_select_all_cb(GtkAction *action, gpointer data);
+
+/* View menu */
+
 static void _on_view_toolbar_cb(GtkAction *action, gpointer data);
 static void _on_view_statusbar_cb(GtkAction *action, gpointer data);
 static void _on_view_fullscreen_cb(GtkAction *action, gpointer data);
 static void _on_view_toolbar_style_cb(GtkAction *action, GtkRadioAction *current, gpointer data);
+
+/* Help menu */
+
 static void _on_help_about_cb(GtkAction *action, gpointer data);
 
 enum {
