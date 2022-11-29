@@ -226,16 +226,20 @@ static int _ab_contact_cmp(void const *p1, void const *p2) {
 
 int ab_delete_contact(ab_contact_t *contact) {
   void *vc;
+  int rc;
 
   contact_list = alpm_list_remove(contact_list, contact, _ab_contact_cmp, &vc);
 
-  if (sqlite3_bind_int(delete_stmt, 1, contact->id) != SQLITE_OK) {
-    fprintf(stderr, "error binding arguments");
+  rc = sqlite3_bind_int(delete_stmt, 1, contact->id);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to bind id to statement: %s\n",
+	    sqlite3_errmsg(hdb));
     return -1;
   }
 
-  if (sqlite3_step(delete_stmt) != SQLITE_DONE) {
-    fprintf(stderr, "error deleting contacts from table: %s\n",
+  rc = sqlite3_step(delete_stmt);
+  if (rc != SQLITE_DONE) {
+    fprintf(stderr, "Failed to execute delete statement: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
