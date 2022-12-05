@@ -13,8 +13,9 @@
 #include "contact_editor.h"
 #include "dirs.h"
 
-#define MIN_WINDOW_WIDTH (gdk_screen_width() * 3 / 4)
-#define MIN_WINDOW_HEIGHT (gdk_screen_height() * 3 / 4)
+/* Initial window size. */
+#define INIT_WINDOW_WIDTH (gdk_screen_width() * 3 / 4)
+#define INIT_WINDOW_HEIGHT (gdk_screen_height() * 3 / 4)
 
 /*
  * Constants for accessing columns in a GtkListStore.
@@ -896,8 +897,8 @@ GtkWidget *addrbook_window_new(void)
   gtk_window_set_title(GTK_WINDOW(main_window), "Address Book");
   gtk_window_set_position(GTK_WINDOW(main_window), GTK_WIN_POS_CENTER);
   gtk_window_set_default_size(GTK_WINDOW(main_window),
-			      MIN_WINDOW_WIDTH,
-			      MIN_WINDOW_HEIGHT);
+			      INIT_WINDOW_WIDTH,
+			      INIT_WINDOW_HEIGHT);
 
   g_signal_connect(G_OBJECT(main_window), "delete_event",
                    G_CALLBACK(_on_delete_event_cb), NULL);
