@@ -100,10 +100,10 @@ int ab_init(char *dbpath) {
   rc = sqlite3_open(dbfile, &hdb);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "error opening SQLite database %s: %s\n", dbfile, sqlite3_errmsg(hdb));
+    free(dbfile);
     sqlite3_close(hdb);
     return -1;
   }
-
   free(dbfile);
 
   rc = _create_tables();
