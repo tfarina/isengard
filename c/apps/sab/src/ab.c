@@ -224,13 +224,10 @@ static int _ab_contact_cmp(void const *p1, void const *p2) {
   return c1->id == c2->id;
 }
 
-int ab_delete_contact(ab_contact_t *contact) {
-  void *vc;
+static int _db_delete_contact(int id) {
   int rc;
 
-  contact_list = alpm_list_remove(contact_list, contact, _ab_contact_cmp, &vc);
-
-  rc = sqlite3_bind_int(delete_stmt, 1, contact->id);
+  rc = sqlite3_bind_int(delete_stmt, 1, id);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to bind id to statement: %s\n",
 	    sqlite3_errmsg(hdb));
@@ -247,6 +244,17 @@ int ab_delete_contact(ab_contact_t *contact) {
   sqlite3_reset(delete_stmt);
 
   return 0;
+}
+
+int ab_delete_contact(ab_contact_t *contact) {
+  void *vc;
+  int rc;
+
+  contact_list = alpm_list_remove(contact_list, contact, _ab_contact_cmp, &vc);
+
+  rc = _db_delete_contact(contact->id);
+
+  return rc;
 }
 
 alpm_list_t *ab_get_contact_list(void) {
