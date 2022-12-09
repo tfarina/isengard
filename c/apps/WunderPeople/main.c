@@ -243,8 +243,8 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			switch (wmId)
 			{
 				case IDM_EXIT:
-				   DestroyWindow(hWnd);
-				   break;
+					SendMessage(hWnd, WM_CLOSE, 0, 0L);
+					break;
 
 				case IDM_STATUSBAR:
 					if (IsWindowVisible(g_hwndStatusBar))
@@ -293,6 +293,11 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					   rc.right - rc.left,
 					   rc.bottom - rc.top,
 					   TRUE);
+			break;
+
+
+		case WM_CLOSE:
+			DestroyWindow(hWnd);
 			break;
 
 
