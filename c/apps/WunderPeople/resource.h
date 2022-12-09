@@ -2,27 +2,23 @@
 // Microsoft Developer Studio generated include file.
 // Used by ui.rc
 //
+#define IDC_MYICON                      2
 #define IDS_APP_TITLE                   100
-
 #define IDI_APP_ICON                    101
-
 #define IDD_ABOUTBOX                    102
-
 #define IDR_MENUBAR                     103
-
 #define IDM_EXIT                        104
 #define IDM_STATUSBAR                   105
 #define IDM_ABOUT                       106
-
 #define MainAccel                       2007
-
 #define IDC_STATIC                      -1
-#define IDC_MYICON                      2
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NO_MFC                     1
+#define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        131
 #define _APS_NEXT_COMMAND_VALUE         32772
 #define _APS_NEXT_CONTROL_VALUE         1000
