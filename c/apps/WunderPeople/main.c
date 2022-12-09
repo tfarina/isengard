@@ -31,6 +31,7 @@ BOOL				InitWindowClass(HINSTANCE);
 BOOL				CreateMainWindow(HINSTANCE, int);
 void				CreateChildrenControls(HWND);
 void				CreateListView(HWND);
+void				AdjustChildrenControls(HWND);
 LRESULT CALLBACK	MainWndProc(HWND, UINT, WPARAM, LPARAM);
 LRESULT CALLBACK	AboutDlgProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -213,6 +214,29 @@ void CreateChildrenControls(HWND hWndParent)
 	CreateListView(hWndParent);
 }
 
+
+void AdjustChildrenControls(HWND hWndParent)
+{
+	RECT rc;
+
+	GetClientRect(hWndParent, &rc);
+
+	MoveWindow(g_hwndStatusBar,
+		       0,
+		       rc.bottom - 14,
+		       rc.right - rc.left,
+		       14,
+		       TRUE);
+
+	MoveWindow(g_hwndListView,
+		       rc.left,
+			   rc.top,
+			   rc.right - rc.left,
+			   rc.bottom - rc.top,
+			   TRUE);
+}
+
+
 /*
  *  FUNCTION: MainWndProc(HWND, unsigned, WORD, LONG)
  *
@@ -228,7 +252,6 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 	RECT rt;
-	RECT rc;
 
 	switch (uMsg) 
 	{
@@ -278,21 +301,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 
 		case WM_SIZE:
-			GetClientRect(hWnd, &rc);
-
-			MoveWindow(g_hwndStatusBar,
-				       0,
-				       rc.bottom - 14,
-				       rc.right - rc.left,
-				       14,
-				       TRUE);
-
-			MoveWindow(g_hwndListView,
-				       rc.left,
-					   rc.top,
-					   rc.right - rc.left,
-					   rc.bottom - rc.top,
-					   TRUE);
+			AdjustChildrenControls(hWnd);
 			break;
 
 
