@@ -25,6 +25,7 @@ HWND g_hwndListView;
 
 LPTSTR g_szClassName = TEXT("WuPAB");  /* Window class name */
 
+LONG g_hStatus;
 
 /* Foward declarations of functions included in this code module: */
 BOOL				InitWindowClass(HINSTANCE);
@@ -197,6 +198,8 @@ void CreateListView(HWND hWndParent)
 
 void CreateChildrenControls(HWND hWndParent)
 {
+    RECT rcStatus;
+
 	/* Create Status Bar */
 	g_hwndStatusBar = CreateWindowEx(0,                /* ex style */
 			                         STATUSCLASSNAME,  /* class name - defined in commctrl.h */
@@ -211,6 +214,11 @@ void CreateChildrenControls(HWND hWndParent)
 	                                 g_hInst,          /* instance */
 	                                 NULL);            /* no extra data */
 
+	GetClientRect(g_hwndStatusBar, (LPRECT)&rcStatus);
+
+	/* Calculate the height of statusbar. */
+	g_hStatus = rcStatus.bottom - rcStatus.top;
+
 	CreateListView(hWndParent);
 }
 
@@ -223,9 +231,9 @@ void AdjustChildrenControls(HWND hWndParent)
 
 	MoveWindow(g_hwndStatusBar,
 		       0,
-		       rc.bottom - 14,
+		       rc.bottom - g_hStatus,
 		       rc.right - rc.left,
-		       14,
+		       g_hStatus,
 		       TRUE);
 
 	MoveWindow(g_hwndListView,
