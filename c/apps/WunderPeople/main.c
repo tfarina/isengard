@@ -179,7 +179,7 @@ void CreateListView(HWND hWndParent)
 									0,
 									0,
 		                            hWndParent,
-		                            NULL,
+		                            (HMENU) IDC_LISTVIEW,
 		                            g_hInst,
 			                        NULL);
 
