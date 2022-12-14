@@ -309,6 +309,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 						CheckMenuItem(GetMenu(hWnd), IDM_STATUSBAR, MF_BYCOMMAND | MF_CHECKED);
 						ShowWindow(g_hwndStatusBar, SW_NORMAL);
 					}
+					AdjustChildrenControls(hWnd);
 					break;
 
 				case IDM_ABOUT:
