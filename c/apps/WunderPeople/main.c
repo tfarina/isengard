@@ -227,13 +227,19 @@ void AdjustChildrenControls(HWND hWndParent)
 {
 	RECT rc;
     int statusX, statusY, statusW, statusH;
+	int lvX, lvY, lvW, lvH;
 
-	GetClientRect(hWndParent, &rc);
+    GetClientRect(hWndParent, &rc);
 
 	statusX = 0;
 	statusY = rc.bottom - g_hStatus;
 	statusW = rc.right - rc.left;
 	statusH = g_hStatus;
+
+	lvX = rc.left;
+    lvY = rc.top;
+	lvW = rc.right - rc.left;
+	lvH = rc.bottom - rc.top;
 
 	MoveWindow(g_hwndStatusBar,
 		       statusX,
@@ -243,10 +249,10 @@ void AdjustChildrenControls(HWND hWndParent)
 		       TRUE);
 
 	MoveWindow(g_hwndListView,
-		       rc.left,
-			   rc.top,
-			   rc.right - rc.left,
-			   rc.bottom - rc.top,
+		       lvX,
+			   lvY,
+			   lvW,
+			   lvH,
 			   TRUE);
 }
 
