@@ -2,7 +2,6 @@
 // Microsoft Developer Studio generated include file.
 // Used by ui.rc
 //
-#define IDC_MYICON                      2
 #define IDS_APP_TITLE                   100
 #define IDI_APP_ICON                    101
 #define IDD_ABOUTBOX                    102
