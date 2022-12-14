@@ -241,6 +241,15 @@ void AdjustChildrenControls(HWND hWndParent)
 	lvW = rc.right - rc.left;
 	lvH = rc.bottom - rc.top;
 
+	/*
+	 * If statusbar is visible, reduce the height of listview,
+	 * otherwise it will take the whole are.
+	 */
+	if (IsWindowVisible(g_hwndStatusBar))
+	{
+		lvH = lvH - statusH;
+	}
+
 	MoveWindow(g_hwndStatusBar,
 		       statusX,
 		       statusY,
