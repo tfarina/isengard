@@ -78,8 +78,9 @@ CAPTION "About WunderPeople"
 FONT 8, "MS Shell Dlg"
 BEGIN
     ICON            IDI_APP_ICON,IDC_STATIC,14,9,20,20
-    LTEXT           "WunderPeople Version 1.0",IDC_STATIC,39,9,131,8
-    LTEXT           "Copyright (C) 2022",IDC_STATIC,39,20,119,8
+    LTEXT           "WunderPeople",IDC_STATIC,39,9,131,8
+    LTEXT           "Version 1.0",IDC_STATIC,39,21,131,8
+    LTEXT           "Copyright (C) 2022",IDC_STATIC,39,32,119,8
     DEFPUSHBUTTON   "OK",IDOK,174,7,50,14
 END
 
