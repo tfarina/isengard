@@ -186,6 +186,8 @@ void CreateListView(HWND hWndParent)
 		                            g_hInst,
 			                        NULL);
 
+	ListView_SetExtendedListViewStyle(g_hwndListView, LVS_EX_FULLROWSELECT);
+
 	/* Init List View (images, columns, etc...) */
 	lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 	lvc.fmt = LVCFMT_LEFT;
