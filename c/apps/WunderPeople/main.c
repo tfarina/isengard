@@ -168,6 +168,9 @@ void CreateListView(HWND hWndParent)
 	int iCol;
 	TCHAR szText[3][100] = {TEXT("First Name"), TEXT("Last Name"), TEXT("Email")};
 
+	LVITEM lvI = {0};
+    int index = 0;
+
 	/* Create List View */
 	g_hwndListView = CreateWindowEx(WS_EX_CLIENTEDGE,
 		                            WC_LISTVIEW,
@@ -194,6 +197,23 @@ void CreateListView(HWND hWndParent)
 		lvc.pszText = szText[iCol];
 		ListView_InsertColumn(g_hwndListView, iCol, &lvc);
 	}
+
+	/* Populate List View */
+
+	lvI.mask = LVIF_TEXT | LVIF_STATE | LVIF_PARAM;
+	lvI.iItem = 0;
+
+	lvI.iSubItem = 0; /* COL_FIRST_NAME */
+	lvI.lParam = NULL;
+	lvI.pszText = "John";
+
+	index = ListView_InsertItem(g_hwndListView, &lvI);
+	if (index != -1)
+	{
+		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, "Doe");
+		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, "john_doe@mail.com");
+	}
+	lvI.iItem++;
 }
 
 void CreateChildrenControls(HWND hWndParent)
