@@ -11,6 +11,7 @@
 #define MainAccel                       8
 #define IDS_APP_TITLE                   100
 #define IDC_LISTVIEW                    2001
+#define IDC_STATUSBAR                   2002
 #define IDM_SELECTALL                   32772
 #define IDC_STATIC                      -1
 

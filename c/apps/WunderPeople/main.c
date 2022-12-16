@@ -257,7 +257,7 @@ void CreateChildrenControls(HWND hWndParent)
 						             0,                /* width */
 						             0,                /* height */
 	                                 hWndParent,       /* parent */
-	                                 NULL,             /* ID */
+	                                 (HMENU) IDC_STATUSBAR, /* ID */
 	                                 g_hInst,          /* instance */
 	                                 NULL);            /* no extra data */
 
