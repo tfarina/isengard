@@ -64,11 +64,11 @@ END
 // Accelerator
 //
 
-MainAccel ACCELERATORS
+MainAccel ACCELERATORS MOVEABLE PURE 
 BEGIN
     "/",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
     "?",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
-    "A",            IDM_SELECTALL,          CONTROL,VIRTKEY
+    "A",            IDM_SELECTALL,          VIRTKEY, CONTROL
 END
 
 
@@ -142,14 +142,18 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
+            VALUE "Comments", "\0"
             VALUE "CompanyName", " \0"
             VALUE "FileDescription", "WunderPeople\0"
             VALUE "FileVersion", "1, 0, 0, 1\0"
             VALUE "InternalName", "WunderPeople\0"
             VALUE "LegalCopyright", "Copyright © 2022\0"
-            VALUE "OriginalFilename", "WunderPeople.exe\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "wup.exe\0"
+            VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "WunderPeople\0"
             VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
         END
     END
     BLOCK "VarFileInfo"
