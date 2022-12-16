@@ -219,7 +219,7 @@ void CreateListView(HWND hWndParent)
 	lvI.iItem = 0;
 
 	lvI.iSubItem = 0; /* COL_FIRST_NAME */
-	lvI.lParam = NULL;
+	lvI.lParam = (LPARAM) NULL;
 	lvI.pszText = "John";
 
 	index = ListView_InsertItem(g_hwndListView, &lvI);
@@ -231,7 +231,7 @@ void CreateListView(HWND hWndParent)
 	lvI.iItem++;
 
 	lvI.iSubItem = 0; /* COL_FIRST_NAME */
-	lvI.lParam = NULL;
+	lvI.lParam = (LPARAM) NULL;
 	lvI.pszText = "Jane";
 
 	index = ListView_InsertItem(g_hwndListView, &lvI);
@@ -243,7 +243,7 @@ void CreateListView(HWND hWndParent)
 	lvI.iItem++;
 
 	lvI.iSubItem = 0; /* COL_FIRST_NAME */
-	lvI.lParam = NULL;
+	lvI.lParam = (LPARAM) NULL;
 	lvI.pszText = "John";
 
 	index = ListView_InsertItem(g_hwndListView, &lvI);
