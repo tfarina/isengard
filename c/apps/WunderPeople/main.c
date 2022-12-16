@@ -45,10 +45,22 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 {
 	MSG msg;
 	HACCEL hAccelTable;
+    INITCOMMONCONTROLSEX iccex;
 
 	g_hInst = hInstance;
 
-	InitCommonControls();
+	iccex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+	iccex.dwICC = ICC_ANIMATE_CLASS |
+				  ICC_BAR_CLASSES |
+				  ICC_COOL_CLASSES |
+				  ICC_DATE_CLASSES |
+				  ICC_LISTVIEW_CLASSES |
+				  ICC_NATIVEFNTCTL_CLASS |
+				  ICC_PROGRESS_CLASS |
+				  ICC_TAB_CLASSES |
+				  ICC_WIN95_CLASSES;
+
+	InitCommonControlsEx(&iccex);
 
 	if (!InitWindowClass(hInstance))
 	{
