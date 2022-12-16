@@ -351,7 +351,6 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	int wmId, wmEvent;
 	PAINTSTRUCT ps;
 	HDC hdc;
-	RECT rt;
 
 	switch (uMsg) 
 	{
@@ -399,8 +398,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		case WM_PAINT:
 			hdc = BeginPaint(hWnd, &ps);
-			/* TODO: Add any drawing code here...*/
-			GetClientRect(hWnd, &rt);
+			/* TODO: figure out why this is needed to repaint the listview */
 			EndPaint(hWnd, &ps);
 			break;
 
