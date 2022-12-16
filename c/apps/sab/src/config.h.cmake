@@ -16,7 +16,7 @@
 #define PACKAGE_BUGREPORT ""
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL "https://sab.com"
+#define PACKAGE_URL ""
 
 /* Name of package */
 #define PACKAGE "${PROJECT_NAME}"
