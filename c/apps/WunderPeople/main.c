@@ -216,6 +216,30 @@ void CreateListView(HWND hWndParent)
 		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, "john_doe@mail.com");
 	}
 	lvI.iItem++;
+
+	lvI.iSubItem = 0; /* COL_FIRST_NAME */
+	lvI.lParam = NULL;
+	lvI.pszText = "Jane";
+
+	index = ListView_InsertItem(g_hwndListView, &lvI);
+	if (index != -1)
+	{
+		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, "Doe");
+		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, "jane_doe@mail.com");
+	}
+	lvI.iItem++;
+
+	lvI.iSubItem = 0; /* COL_FIRST_NAME */
+	lvI.lParam = NULL;
+	lvI.pszText = "John";
+
+	index = ListView_InsertItem(g_hwndListView, &lvI);
+	if (index != -1)
+	{
+		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, "Smith");
+		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, "john_smith@mail.com");
+	}
+	lvI.iItem++;
 }
 
 void CreateChildrenControls(HWND hWndParent)
