@@ -33,6 +33,7 @@ BOOL				CreateMainWindow(HINSTANCE, int);
 void				CreateChildrenControls(HWND);
 void				CreateListView(HWND);
 void				AdjustChildrenControls(HWND);
+void				SelectAllItems(void);
 LRESULT CALLBACK	MainWndProc(HWND, UINT, WPARAM, LPARAM);
 LRESULT CALLBACK	AboutDlgProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -312,6 +313,18 @@ void AdjustChildrenControls(HWND hWndParent)
 }
 
 
+VOID SelectAllItems(VOID)
+{
+	int i;
+	int iCount = ListView_GetItemCount(g_hwndListView);
+
+	for (i = 0; i < iCount; i++)
+	{
+		ListView_SetItemState(g_hwndListView, i, LVIS_SELECTED, LVIS_SELECTED);
+	}
+}
+
+
 /*
  *  FUNCTION: MainWndProc(HWND, unsigned, WORD, LONG)
  *
@@ -342,6 +355,10 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			{
 				case IDM_EXIT:
 					SendMessage(hWnd, WM_CLOSE, 0, 0L);
+					break;
+
+				case IDM_SELECTALL:
+					SelectAllItems();
 					break;
 
 				case IDM_STATUSBAR:

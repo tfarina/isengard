@@ -44,6 +44,10 @@ BEGIN
     BEGIN
         MENUITEM "E&xit",                       IDM_EXIT
     END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "Select &All\tCtrl+A",         IDM_SELECTALL
+    END
     POPUP "&View"
     BEGIN
         MENUITEM "&Status Bar",                 IDM_STATUSBAR, CHECKED
@@ -60,10 +64,11 @@ END
 // Accelerator
 //
 
-MainAccel ACCELERATORS MOVEABLE PURE 
+MainAccel ACCELERATORS
 BEGIN
     "/",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
     "?",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
+    "A",            IDM_SELECTALL,          CONTROL,VIRTKEY
 END
 
 
