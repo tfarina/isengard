@@ -16,6 +16,13 @@
 #define INIT_WINDOW_WIDTH  500
 #define INIT_WINDOW_HEIGHT 350
 
+typedef struct _CONTACT
+{
+	TCHAR szFirstName[MAX_LOADSTRING];
+	TCHAR szLastName[MAX_LOADSTRING];
+	TCHAR szEmail[MAX_LOADSTRING];
+} CONTACT, *LPCONTACT;
+
 /* Global Variables */
 HINSTANCE g_hInst;     /* Handle to module instance */
 
@@ -181,6 +188,8 @@ void CreateListView(HWND hWndParent)
 	int iCol;
 	TCHAR szText[3][100] = {TEXT("First Name"), TEXT("Last Name"), TEXT("Email")};
 
+	LPCONTACT contact;
+
 	LVITEM lvI = {0};
     int index = 0;
 
@@ -213,44 +222,73 @@ void CreateListView(HWND hWndParent)
 		ListView_InsertColumn(g_hwndListView, iCol, &lvc);
 	}
 
+	contact = LocalAlloc(LMEM_ZEROINIT, sizeof(CONTACT));
+	if (!contact)
+	{
+		/* Out of memory. */
+	}
+	lstrcpy(contact->szFirstName, "John");
+	lstrcpy(contact->szLastName, "Doe");
+	lstrcpy(contact->szEmail, "john_doe@mail.com");
+
 	/* Populate List View */
 
 	lvI.mask = LVIF_TEXT | LVIF_STATE | LVIF_PARAM;
 	lvI.iItem = 0;
 
 	lvI.iSubItem = 0; /* COL_FIRST_NAME */
-	lvI.lParam = (LPARAM) NULL;
-	lvI.pszText = "John";
+	lvI.lParam = (LPARAM) contact;
+	lvI.pszText = contact->szFirstName;
 
 	index = ListView_InsertItem(g_hwndListView, &lvI);
 	if (index != -1)
 	{
-		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, "Doe");
-		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, "john_doe@mail.com");
+		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, contact->szLastName);
+		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, contact->szEmail);
 	}
 	lvI.iItem++;
 
+	contact = NULL;
+	contact = LocalAlloc(LMEM_ZEROINIT, sizeof(CONTACT));
+	if (!contact)
+	{
+		/* Out of memory. */
+	}
+	lstrcpy(contact->szFirstName, "Jane");
+	lstrcpy(contact->szLastName, "Doe");
+	lstrcpy(contact->szEmail, "jane_doe@mail.com");
+
 	lvI.iSubItem = 0; /* COL_FIRST_NAME */
-	lvI.lParam = (LPARAM) NULL;
-	lvI.pszText = "Jane";
+	lvI.lParam = (LPARAM) contact;
+	lvI.pszText = contact->szFirstName;
 
 	index = ListView_InsertItem(g_hwndListView, &lvI);
 	if (index != -1)
 	{
-		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, "Doe");
-		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, "jane_doe@mail.com");
+		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, contact->szLastName);
+		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, contact->szEmail);
 	}
 	lvI.iItem++;
 
+	contact = NULL;
+	contact = LocalAlloc(LMEM_ZEROINIT, sizeof(CONTACT));
+	if (!contact)
+	{
+		/* Out of memory. */
+	}
+	lstrcpy(contact->szFirstName, "John");
+	lstrcpy(contact->szLastName, "Smith");
+	lstrcpy(contact->szEmail, "john_smith@mail.com");
+
 	lvI.iSubItem = 0; /* COL_FIRST_NAME */
-	lvI.lParam = (LPARAM) NULL;
-	lvI.pszText = "John";
+	lvI.lParam = (LPARAM) contact;
+	lvI.pszText = contact->szFirstName;
 
 	index = ListView_InsertItem(g_hwndListView, &lvI);
 	if (index != -1)
 	{
-		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, "Smith");
-		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, "john_smith@mail.com");
+		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, contact->szLastName);
+		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, contact->szEmail);
 	}
 	lvI.iItem++;
 }
