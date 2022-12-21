@@ -178,9 +178,7 @@ void ab_load_contacts(void) {
   }
 }
 
-int ab_add_contact(ab_contact_t *contact) {
-  contact_list = alpm_list_add(contact_list, contact);
-
+int _db_insert_contact(ab_contact_t *contact) {
   if (sqlite3_bind_text(insert_stmt, 1, contact->fname, -1, SQLITE_STATIC) != SQLITE_OK ||
       sqlite3_bind_text(insert_stmt, 2, contact->lname, -1, SQLITE_STATIC) != SQLITE_OK ||
       sqlite3_bind_text(insert_stmt, 3, contact->email, -1, SQLITE_STATIC) != SQLITE_OK) {
@@ -197,6 +195,12 @@ int ab_add_contact(ab_contact_t *contact) {
   sqlite3_reset(insert_stmt);
 
   return 0;
+}
+
+int ab_add_contact(ab_contact_t *contact) {
+  contact_list = alpm_list_add(contact_list, contact);
+
+  return _db_insert_contact(contact);
 }
 
 int _db_update_contact(ab_contact_t* contact) {
