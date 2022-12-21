@@ -9,6 +9,7 @@
 #include <tchar.h>
 
 #include "resource.h"
+#include "alpm_list.h"
 
 #define MAX_LOADSTRING 100
 
@@ -189,6 +190,8 @@ void CreateListView(HWND hWndParent)
 	TCHAR szText[3][100] = {TEXT("First Name"), TEXT("Last Name"), TEXT("Email")};
 
 	LPCONTACT contact;
+	alpm_list_t *contactList = NULL;
+	alpm_list_t *item;
 
 	LVITEM lvI = {0};
     int index = 0;
@@ -231,22 +234,7 @@ void CreateListView(HWND hWndParent)
 	lstrcpy(contact->szLastName, "Doe");
 	lstrcpy(contact->szEmail, "john_doe@mail.com");
 
-	/* Populate List View */
-
-	lvI.mask = LVIF_TEXT | LVIF_STATE | LVIF_PARAM;
-	lvI.iItem = 0;
-
-	lvI.iSubItem = 0; /* COL_FIRST_NAME */
-	lvI.lParam = (LPARAM) contact;
-	lvI.pszText = contact->szFirstName;
-
-	index = ListView_InsertItem(g_hwndListView, &lvI);
-	if (index != -1)
-	{
-		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, contact->szLastName);
-		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, contact->szEmail);
-	}
-	lvI.iItem++;
+	contactList = alpm_list_add(contactList, contact);
 
 	contact = NULL;
 	contact = LocalAlloc(LMEM_ZEROINIT, sizeof(CONTACT));
@@ -258,17 +246,7 @@ void CreateListView(HWND hWndParent)
 	lstrcpy(contact->szLastName, "Doe");
 	lstrcpy(contact->szEmail, "jane_doe@mail.com");
 
-	lvI.iSubItem = 0; /* COL_FIRST_NAME */
-	lvI.lParam = (LPARAM) contact;
-	lvI.pszText = contact->szFirstName;
-
-	index = ListView_InsertItem(g_hwndListView, &lvI);
-	if (index != -1)
-	{
-		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, contact->szLastName);
-		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, contact->szEmail);
-	}
-	lvI.iItem++;
+	contactList = alpm_list_add(contactList, contact);
 
 	contact = NULL;
 	contact = LocalAlloc(LMEM_ZEROINIT, sizeof(CONTACT));
@@ -280,17 +258,28 @@ void CreateListView(HWND hWndParent)
 	lstrcpy(contact->szLastName, "Smith");
 	lstrcpy(contact->szEmail, "john_smith@mail.com");
 
-	lvI.iSubItem = 0; /* COL_FIRST_NAME */
-	lvI.lParam = (LPARAM) contact;
-	lvI.pszText = contact->szFirstName;
+	contactList = alpm_list_add(contactList, contact);
 
-	index = ListView_InsertItem(g_hwndListView, &lvI);
-	if (index != -1)
+	/* Populate List View */
+
+	lvI.mask = LVIF_TEXT | LVIF_STATE | LVIF_PARAM;
+	lvI.iItem = 0;
+
+	for (item = contactList; item; item = alpm_list_next(item))
 	{
-		ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, contact->szLastName);
-		ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, contact->szEmail);
+		contact = (LPCONTACT) item->data;
+		lvI.iSubItem = 0; /* COL_FIRST_NAME */
+		lvI.lParam = (LPARAM) contact;
+		lvI.pszText = contact->szFirstName;
+
+		index = ListView_InsertItem(g_hwndListView, &lvI);
+		if (index != -1)
+		{
+			ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, contact->szLastName);
+			ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, contact->szEmail);
+		}
+		lvI.iItem++;
 	}
-	lvI.iItem++;
 }
 
 void CreateChildrenControls(HWND hWndParent)
