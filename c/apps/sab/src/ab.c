@@ -199,7 +199,7 @@ int ab_add_contact(ab_contact_t *contact) {
   return 0;
 }
 
-int ab_change_contact(ab_contact_t *contact) {
+int _db_update_contact(ab_contact_t* contact) {
   if (sqlite3_bind_int(update_stmt, 1, contact->id) != SQLITE_OK ||
       sqlite3_bind_text(update_stmt, 2, contact->fname, -1, SQLITE_STATIC) != SQLITE_OK ||
       sqlite3_bind_text(update_stmt, 3, contact->lname, -1, SQLITE_STATIC) != SQLITE_OK ||
@@ -216,6 +216,10 @@ int ab_change_contact(ab_contact_t *contact) {
   sqlite3_reset(update_stmt);
 
   return 0;
+}
+
+int ab_change_contact(ab_contact_t *contact) {
+  return _db_update_contact(contact);
 }
 
 static int _ab_contact_cmp(void const *p1, void const *p2) {
