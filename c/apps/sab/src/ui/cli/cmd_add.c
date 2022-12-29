@@ -11,7 +11,7 @@ int cmd_add(int argc, char **argv) {
   ab_contact_t *contact;
 
   if (argc != 4) {
-    printf("usage: add 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n");
+    fprintf(stderr, "usage: %s 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
     return 1;
   }
 
