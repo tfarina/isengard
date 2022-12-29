@@ -43,6 +43,8 @@ int main(int argc, char **argv) {
     return 1;
   }
 
+  ab_contact_free(contact);
+
   ab_fini();
 
   return 0;
