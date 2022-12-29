@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
   ab_contact_set_last_name(contact, argv[3]);
   ab_contact_set_email(contact, argv[4]);
 
-  if (ab_change_contact(contact)) {
+  if (ab_update_contact(contact)) {
     return 1;
   }
 

@@ -38,7 +38,7 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
   if (action_code == AC_ADD) {
     ab_add_contact(current_contact);
   } else {
-    ab_change_contact(current_contact);
+    ab_update_contact(current_contact);
   }
 
   gtk_widget_destroy(contact_window);

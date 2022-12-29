@@ -11,7 +11,7 @@ void ab_load_contacts(void);
 
 int ab_add_contact(ab_contact_t *contact);
 
-int ab_change_contact(ab_contact_t *contact);
+int ab_update_contact(ab_contact_t *contact);
 
 int ab_delete_contact(ab_contact_t *contact);
 

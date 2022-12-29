@@ -222,7 +222,7 @@ int _db_update_contact(ab_contact_t* contact) {
   return 0;
 }
 
-int ab_change_contact(ab_contact_t *contact) {
+int ab_update_contact(ab_contact_t *contact) {
   return _db_update_contact(contact);
 }
 
