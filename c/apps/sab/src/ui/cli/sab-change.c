@@ -5,16 +5,6 @@
 #include "dirs.h"
 #include "util.h"
 
-// static int callback(void* data, int argc, char** argv, char** column_name) {
-//   int i;
-//   //fprintf(stdout, "%s: \n", (const char*)data);
-//   for (i = 0; i < argc; ++i) {
-//     printf("%-12s %s\n", column_name[i], argv[i] ? argv[i] : "NULL");
-//   }
-//   printf("\n");
-//   return 0;
-// }
-
 int main(int argc, char **argv) {
   char *dbdir;
   int id;
