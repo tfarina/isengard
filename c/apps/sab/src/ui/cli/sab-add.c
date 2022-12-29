@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
   ab_contact_t *contact = NULL;
 
   if (argc != 4) {
-    printf("usage: %s 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
+    fprintf(stderr, "usage: %s 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
     return 1;
   }
 
