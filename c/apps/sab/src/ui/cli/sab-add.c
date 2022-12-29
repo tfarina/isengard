@@ -5,8 +5,6 @@
 #include "dirs.h"
 #include "util.h"
 
-// http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
-
 int main(int argc, char **argv) {
   char *dbdir;
   ab_contact_t *contact = NULL;

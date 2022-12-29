@@ -5,8 +5,6 @@
 #include "dirs.h"
 #include "util.h"
 
-// http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
-
 // static int callback(void* data, int argc, char** argv, char** column_name) {
 //   int i;
 //   //fprintf(stdout, "%s: \n", (const char*)data);
