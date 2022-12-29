@@ -3,15 +3,20 @@
 
 #include "ab.h"
 #include "dirs.h"
+#include "os_path.h"
 #include "util.h"
+
+static char const *progname;
 
 int main(int argc, char **argv) {
   char *dbdir;
   int id;
   ab_contact_t *contact = NULL;
 
+  progname = os_path_basename(*argv);
+
   if (argc != 5) {
-    fprintf(stderr, "usage: %s 'ID' 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", argv[0]);
+    fprintf(stderr, "usage: %s 'ID' 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", progname);
     return 1;
   }
 

@@ -33,6 +33,7 @@ target_link_libraries(${EXENAME}
 )
 
 set(SOURCES
+  os_path.c
   sab-add.c
 )
 
@@ -45,6 +46,7 @@ target_link_libraries(${EXENAME}-add
 )
 
 set(SOURCES
+  os_path.c
   sab-change.c
 )
 
