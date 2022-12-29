@@ -10,13 +10,12 @@ temperature_celcius_to_fahrenheit(int celcius)
   return result;
 }
 
-int
-temperature_fahrenheit_to_celcius(int fahrenheit)
+float
+temperature_fahrenheit_to_celcius(float fahrenheit)
 {
-  int result;
+  float result;
 
-  result = (fahrenheit - 32) * 5;
-  result = result / 9;
+  result = (fahrenheit - 32) * (5.0f / 9.0f);
 
   return result;
 }
