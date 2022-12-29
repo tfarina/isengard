@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
   progname = os_path_basename(*argv);
 
   if (argc != 4) {
-    fprintf(stderr, "usage: %s 'FIRST NAME' 'LAST NAME' 'E-MAIL'\n", progname);
+    fprintf(stderr, "usage: %s <first-name> <last-name> <e-mail>\n", progname);
     return 1;
   }
 
