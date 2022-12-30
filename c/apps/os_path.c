@@ -24,7 +24,8 @@ os_path_join(char *dir, char *file)
   char *path;
   size_t len;
 
-  /* Add 2 bytes to the resulting length to have enough memory available
+  /*
+   * Add 2 bytes to the resulting length to have enough memory available
    * for the directory separator ('/') and the null byte ('\0').
    */
   len = strlen(dir) + strlen(file) + 2;
