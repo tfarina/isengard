@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "futils.h"
+#include "os.h"
 
-int main(int argc, char **argv) {
+int
+main(void)
+{
   char *homedir;
 
-  homedir = f_get_home_dir();
+  homedir = os_homedir();
 
   printf("%s\n", homedir);
 

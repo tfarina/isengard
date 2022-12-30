@@ -2,7 +2,9 @@
 
 #include "os.h"
 
-int main(int argc, char **argv) {
+int
+main(void)
+{
   char *username;
 
   username = os_username();
