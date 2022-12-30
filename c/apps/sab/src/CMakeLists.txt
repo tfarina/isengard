@@ -15,6 +15,7 @@ set(SOURCES
   ffileutils.c
   futils.c
   mkdirp.c
+  os_path.c
   strutils.c
   test.c
   util.c
@@ -28,6 +29,7 @@ set(HEADERS
   ffileutils.h
   futils.h
   mkdirp.h
+  os_path.h
   strutils.h
   test.h
   util.h

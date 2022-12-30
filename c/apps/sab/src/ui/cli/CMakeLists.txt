@@ -13,7 +13,6 @@ set(SOURCES
   common.c
   fort.c
   main.c
-  os_path.c
 )
 
 add_executable(${EXENAME}
@@ -33,7 +32,6 @@ target_link_libraries(${EXENAME}
 )
 
 set(SOURCES
-  os_path.c
   sab-add.c
 )
 
@@ -46,7 +44,6 @@ target_link_libraries(${EXENAME}-add
 )
 
 set(SOURCES
-  os_path.c
   sab-change.c
 )
 
@@ -59,7 +56,6 @@ target_link_libraries(${EXENAME}-change
 )
 
 set(SOURCES
-  os_path.c
   sab-delete.c
 )
 
