@@ -34,7 +34,11 @@ int cmd_add(int argc, char **argv) {
   ab_contact_set_last_name(contact, argv[2]);
   ab_contact_set_email(contact, argv[3]);
 
-  ab_add_contact(contact);
+  if (ab_add_contact(contact)) {
+    fputs("Failed to create a new contact.\n", stderr);
+    ab_contact_free(contact);
+    return 1;
+  }
 
   ab_contact_free(contact);
 
