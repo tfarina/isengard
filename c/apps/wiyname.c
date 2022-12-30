@@ -10,7 +10,7 @@ main(void)
 
   printf("What's your name? ");
 
-  if (fgets(name, 40, stdin) == NULL) {
+  if (fgets(name, sizeof(name), stdin) == NULL) {
     return 1;
   }
 
