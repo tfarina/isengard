@@ -15,14 +15,15 @@ static const char *progname;
 typedef struct command_s {
         int (*run)(int argc, char **argv);
         const char *name;
+        const char *alt;
         const char *description;
 } command_t;
 
 static command_t cmds[] = {
-        { cmd_add,    "add",    "Creates a new contact" },
-        { cmd_change, "change", "Modifies an existing contact" },
-        { cmd_delete, "delete", "Deletes the specified contact" },
-        { cmd_list,   "list",   "Lists all contacts" },
+        { cmd_add,    "add",    NULL, "Creates a new contact" },
+        { cmd_change, "change", NULL, "Modifies an existing contact" },
+        { cmd_delete, "delete", "del", "Deletes the specified contact" },
+        { cmd_list,   "list",   "ls", "Lists all contacts" },
 };
 
 static void usage(int status) {
@@ -50,7 +51,8 @@ static command_t *_find_cmd(const char *name) {
 
         for (i = 0; i < ARRAY_SIZE(cmds); i++) {
                 command_t *cmd = &cmds[i];
-                if (strcmp(name, cmd->name) == 0) {
+                if (strcmp(name, cmd->name) == 0 ||
+                    (cmd->alt && strcmp(name, cmd->alt) == 0)) {
                         return cmd;
                 }
         }
