@@ -2,7 +2,7 @@
 #define _OS_PATH_H_INCLUDED_ 1
 
 /**
- * Returns the last element of path.
+ * Returns a pointer to the last element of the path.
  *
  * @param path The path to get the last element of
  * @return The last element of the path
