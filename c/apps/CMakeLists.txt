@@ -87,6 +87,7 @@ add_executable(buildpath os_path.c buildpath.c)
 add_executable(mkdirp_test fstrdup.c test.c mkdirp.c mkdirp_test.c)
 add_executable(os_path_test os_path.c os_path_test.c)
 add_executable(wiyname wiyname.c)
+add_executable(yesno yesno.c)
 
 set(LIBCSV_PARSER_SRCS
   csv_parser.c
