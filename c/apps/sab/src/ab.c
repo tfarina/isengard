@@ -180,11 +180,28 @@ void ab_load_contacts(void) {
 }
 
 int _db_insert_contact(ab_contact_t *contact) {
-  if (sqlite3_bind_text(insert_stmt, 1, contact->fname, -1, SQLITE_STATIC) != SQLITE_OK ||
-      sqlite3_bind_text(insert_stmt, 2, contact->lname, -1, SQLITE_STATIC) != SQLITE_OK ||
-      sqlite3_bind_text(insert_stmt, 3, contact->email, -1, SQLITE_STATIC) != SQLITE_OK) {
-    fprintf(stderr, "error binding arguments");
-    return -1;
+  int rc;
+  int errcode = 0;
+
+  rc = sqlite3_bind_text(insert_stmt, 1, contact->fname, -1, SQLITE_STATIC);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to bind fname parameter for insert statement\n");
+    errcode = -1;
+    goto out;
+  }
+
+  rc = sqlite3_bind_text(insert_stmt, 2, contact->lname, -1, SQLITE_STATIC);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to bind lname parameter for insert statement\n");
+    errcode = -1;
+    goto out;
+  }
+
+  rc = sqlite3_bind_text(insert_stmt, 3, contact->email, -1, SQLITE_STATIC);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to bind email parameter for insert statement\n");
+    errcode = -1;
+    goto out;
   }
 
   if (sqlite3_step(insert_stmt) != SQLITE_DONE) {
@@ -195,7 +212,8 @@ int _db_insert_contact(ab_contact_t *contact) {
 
   sqlite3_reset(insert_stmt);
 
-  return 0;
+out:
+  return errcode;
 }
 
 int ab_add_contact(ab_contact_t *contact) {
