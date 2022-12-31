@@ -102,6 +102,7 @@ int ab_init(char *dbpath) {
     fprintf(stderr, "error opening SQLite database %s: %s\n", dbfile, sqlite3_errmsg(hdb));
     free(dbfile);
     sqlite3_close(hdb);
+    hdb = NULL;
     return -1;
   }
   free(dbfile);
