@@ -58,7 +58,7 @@ static int _execute_sql(char const *sql) {
   sql_stmt = NULL;
 
   if (rc != SQLITE_DONE) {
-    fprintf(stderr, "error: step failed: %s\n", sqlite3_errmsg(hdb));
+    fprintf(stderr, "Failed to execute SQL statement: %s\n", sqlite3_errmsg(hdb));
     _close_db();
     return -1;
   }
@@ -205,7 +205,7 @@ int _db_insert_contact(ab_contact_t *contact) {
   }
 
   if (sqlite3_step(insert_stmt) != SQLITE_DONE) {
-    fprintf(stderr, "error inserting into contacts table: %s\n",
+    fprintf(stderr, "Failed to insert: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
@@ -255,7 +255,7 @@ int _db_update_contact(ab_contact_t* contact) {
   }
 
   if (sqlite3_step(update_stmt) != SQLITE_DONE) {
-    fprintf(stderr, "error updating contacts table: %s\n", sqlite3_errmsg(hdb));
+    fprintf(stderr, "Failed to update: %s\n", sqlite3_errmsg(hdb));
     return -1;
   }
 
