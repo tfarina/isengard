@@ -223,12 +223,35 @@ int ab_add_contact(ab_contact_t *contact) {
 }
 
 int _db_update_contact(ab_contact_t* contact) {
-  if (sqlite3_bind_int(update_stmt, 1, contact->id) != SQLITE_OK ||
-      sqlite3_bind_text(update_stmt, 2, contact->fname, -1, SQLITE_STATIC) != SQLITE_OK ||
-      sqlite3_bind_text(update_stmt, 3, contact->lname, -1, SQLITE_STATIC) != SQLITE_OK ||
-      sqlite3_bind_text(update_stmt, 4, contact->email, -1, SQLITE_STATIC) != SQLITE_OK) {
-    fprintf(stderr, "error binding arguments");
-    return -1;
+  int rc;
+  int errcode = 0;
+
+  rc = sqlite3_bind_int(update_stmt, 1, contact->id);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to bind id parameter for update statement\n");
+    errcode = -1;
+    goto out;
+  }
+
+  rc = sqlite3_bind_text(update_stmt, 2, contact->fname, -1, SQLITE_STATIC);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to bind fname parameter for update statement\n");
+    errcode = -1;
+    goto out;
+  }
+
+  rc = sqlite3_bind_text(update_stmt, 3, contact->lname, -1, SQLITE_STATIC);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to bind lname parameter for update statement\n");
+    errcode = -1;
+    goto out;
+  }
+
+  rc = sqlite3_bind_text(update_stmt, 4, contact->email, -1, SQLITE_STATIC);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to bind email parameter for update statement\n");
+    errcode = -1;
+    goto out;
   }
 
   if (sqlite3_step(update_stmt) != SQLITE_DONE) {
@@ -238,7 +261,8 @@ int _db_update_contact(ab_contact_t* contact) {
 
   sqlite3_reset(update_stmt);
 
-  return 0;
+out:
+  return errcode;
 }
 
 int ab_update_contact(ab_contact_t *contact) {
