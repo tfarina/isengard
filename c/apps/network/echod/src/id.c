@@ -7,7 +7,7 @@
 
 #define ROOT_UID 0
 
-int is_root(void) {
+int id_is_root(void) {
   if (getuid() == ROOT_UID) {
     return 1;
   }
@@ -15,7 +15,7 @@ int is_root(void) {
   return 0;
 }
 
-char const *get_username(void) {
+char const *id_get_username(void) {
   uid_t uid;
   struct passwd *pw;
 
@@ -29,7 +29,7 @@ char const *get_username(void) {
   return pw->pw_name;
 }
 
-char const *get_groupname(void) {
+char const *id_get_groupname(void) {
   gid_t gid;
   struct group *gr;
 

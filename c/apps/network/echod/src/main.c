@@ -260,7 +260,7 @@ int main(int argc, char **argv) {
   /*
    * Make sure the program was run by root (aka SuperUser).
    */
-  if (!is_root()) {
+  if (!id_is_root()) {
     ulog_fatal("you should run this program as super-user (root).");
   }
 
@@ -372,8 +372,8 @@ int main(int argc, char **argv) {
   }
 
   ulog_notice("running as user '%s' (%ld) and group '%s' (%ld)",
-              get_username(), (long)getuid(),
-              get_groupname(), (long)getgid());
+              id_get_username(), (long)getuid(),
+              id_get_groupname(), (long)getgid());
 
   init_signals();
 
