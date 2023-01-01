@@ -204,7 +204,8 @@ int _db_insert_contact(ab_contact_t *contact) {
     goto out;
   }
 
-  if (sqlite3_step(insert_stmt) != SQLITE_DONE) {
+  rc = sqlite3_step(insert_stmt);
+  if (rc != SQLITE_DONE) {
     fprintf(stderr, "Failed to insert: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
@@ -254,7 +255,8 @@ int _db_update_contact(ab_contact_t* contact) {
     goto out;
   }
 
-  if (sqlite3_step(update_stmt) != SQLITE_DONE) {
+  rc = sqlite3_step(update_stmt);
+  if (rc != SQLITE_DONE) {
     fprintf(stderr, "Failed to update: %s\n", sqlite3_errmsg(hdb));
     return -1;
   }
