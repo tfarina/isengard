@@ -146,16 +146,34 @@ int ab_init(char *dbpath) {
 }
 
 int ab_fini(void) {
-  sqlite3_finalize(insert_stmt);
+  int rc;
+
+  rc = sqlite3_finalize(insert_stmt);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to finalize the prepared statement for inserting: %s\n",
+            sqlite3_errmsg(hdb));
+  }
   insert_stmt = NULL;
 
-  sqlite3_finalize(update_stmt);
+  rc = sqlite3_finalize(update_stmt);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to finalize the prepared statement for updating: %s\n",
+            sqlite3_errmsg(hdb));
+  }
   update_stmt = NULL;
 
-  sqlite3_finalize(delete_stmt);
+  rc = sqlite3_finalize(delete_stmt);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to finalize the prepared statement for deleting: %s\n",
+            sqlite3_errmsg(hdb));
+  }
   delete_stmt = NULL;
 
-  sqlite3_finalize(select_stmt);
+  rc = sqlite3_finalize(select_stmt);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to finalize the prepared statement for selecting: %s\n",
+            sqlite3_errmsg(hdb));
+  }
   select_stmt = NULL;
 
   _close_db();
