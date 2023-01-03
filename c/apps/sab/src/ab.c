@@ -228,7 +228,7 @@ int _db_insert_contact(ab_contact_t *contact) {
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "Failed to insert: %s\n",
             sqlite3_errmsg(hdb));
-    return -1;
+    errcode = -1;
   }
 
   sqlite3_reset(insert_stmt);
@@ -278,7 +278,7 @@ int _db_update_contact(ab_contact_t* contact) {
   rc = sqlite3_step(update_stmt);
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "Failed to update: %s\n", sqlite3_errmsg(hdb));
-    return -1;
+    errcode = -1;
   }
 
   sqlite3_reset(update_stmt);
@@ -311,7 +311,6 @@ static int _db_delete_contact(int id) {
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "Failed to execute delete statement: %s\n",
             sqlite3_errmsg(hdb));
-    return -1;
   }
 
   sqlite3_reset(delete_stmt);
