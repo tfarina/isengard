@@ -135,13 +135,6 @@ int ab_init(char *dbpath) {
     return -1;
   }
 
-  rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare select statement: %s\n",
-            sqlite3_errmsg(hdb));
-    return -1;
-  }
-
   return 0;
 }
 
@@ -169,13 +162,6 @@ int ab_fini(void) {
   }
   delete_stmt = NULL;
 
-  rc = sqlite3_finalize(select_stmt);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the prepared statement for selecting: %s\n",
-            sqlite3_errmsg(hdb));
-  }
-  select_stmt = NULL;
-
   _close_db();
   hdb = NULL;
 
@@ -183,6 +169,15 @@ int ab_fini(void) {
 }
 
 void ab_load_contacts(void) {
+  int rc;
+
+  rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to prepare select statement: %s\n",
+            sqlite3_errmsg(hdb));
+    return;
+  }
+
   while (sqlite3_step(select_stmt) == SQLITE_ROW) {
     ab_contact_t *contact = ab_contact_alloc();
     if (contact == NULL) {
@@ -195,6 +190,13 @@ void ab_load_contacts(void) {
     contact->email = f_strdup((const char *)sqlite3_column_text(select_stmt, 3));
     contact_list = alpm_list_add(contact_list, contact);
   }
+
+  rc = sqlite3_finalize(select_stmt);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to finalize the prepared statement for selecting: %s\n",
+            sqlite3_errmsg(hdb));
+  }
+  select_stmt = NULL;
 }
 
 int _db_insert_contact(ab_contact_t *contact) {
