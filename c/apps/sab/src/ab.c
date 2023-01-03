@@ -302,7 +302,7 @@ static int _db_delete_contact(int id) {
 
   rc = sqlite3_bind_int(delete_stmt, 1, id);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to bind id to statement: %s\n",
+    fprintf(stderr, "Failed to bind id to delete contact: %s\n",
 	    sqlite3_errmsg(hdb));
     return -1;
   }
