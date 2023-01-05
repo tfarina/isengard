@@ -4,6 +4,13 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+/**
+ * Determines whether the given path (such as a file or directory) exists.
+ *
+ * [-e FILE] FILE exists?
+ *
+ * @return Returns true if the path exists; otherwise, false.
+ */
 int test_exists(char const *path)
 {
   struct stat sb;
@@ -14,6 +21,13 @@ int test_exists(char const *path)
   return rv == 0;
 }
 
+/**
+ * Verifies that the given path is a directory.
+ *
+ * [-d FILE ] FILE exists and is a directory?
+ *
+ * @return Returns true if path is a directory; otherwise, false.
+ */
 int test_isdir(char const *path)
 {
   struct stat sb;
