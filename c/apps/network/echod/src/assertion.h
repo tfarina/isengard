@@ -1,6 +1,11 @@
 #ifndef _ASSERTION_H_INCLUDED_
 #define _ASSERTION_H_INCLUDED_ 1
 
+/**
+ * @file assertion.h
+ * @brief Assert type macro
+ */
+
 #undef  M_ASSERT
 
 #ifdef  NDEBUG
