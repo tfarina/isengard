@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 
 /**
- * Returne the size, in bytes, of path.
+ * Retrieves the size, in bytes, of the specified path.
  */
 int f_file_size(char const *path)
 {
