@@ -5,9 +5,11 @@
 #include <unistd.h>
 
 /**
- * Determines whether the given file (or directory) exists.
+ * Determines whether the given path (such as a file or directory) exists.
  *
  * [-e FILE] FILE exists?
+ *
+ * @return Returns true if the path exists; otherwise, false.
  */
 int test_exists(char const *path)
 {
@@ -20,9 +22,11 @@ int test_exists(char const *path)
 }
 
 /**
- * Returns whether the given file is a directory.
+ * Verifies that the given path is a directory.
  *
  * [-d FILE ] FILE exists and is a directory?
+ *
+ * @return Returns true if path is a directory; otherwise, false.
  */
 int test_isdir(char const *path)
 {
