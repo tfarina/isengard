@@ -6,11 +6,12 @@
 /**
  * Duplicate a string.
  *
- * The returned string should be freed when no longer needed.
- *
  * @param[in] src String to be duplicated
  * @return A pointer to the duplicated string or `NULL` if no memory was
  * available.
+ *
+ * @remark
+ *    The returned string should be freed when no longer needed.
  */
 char *f_strdup(char const *src) {
   size_t len;
