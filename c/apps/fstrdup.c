@@ -4,7 +4,7 @@
 #include <string.h>
 
 /**
- * Duplicate a string.
+ * Duplicates a string.
  *
  * @param[in] src String to be duplicated
  * @return A pointer to the duplicated string or `NULL` if no memory was
