@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "os.h"
+#include "id.h"
 
 int
 main(void)
 {
   char *username;
 
-  username = os_username();
+  username = id_username();
 
   printf("%s\n", username);
 
