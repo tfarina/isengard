@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "fstrdup.h"
+#include "xstring.h"
 
 /**
  * Creates a directory if it doesn't already exist and its intermediate
@@ -28,7 +28,7 @@ int f_mkdirp(char const *pathname, mode_t mode)
     return -1;
   }
 
-  path = f_strdup(pathname);
+  path = xstrdup(pathname);
   if (path == NULL) {
     return -1;
   }

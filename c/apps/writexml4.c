@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "alpm_list.h"
-#include "fstrdup.h"
+#include "xstring.h"
 #include "third_party/mxml/mxml.h"
 #include "third_party/libuuid/uuid.h"
 
@@ -121,8 +121,8 @@ int main(int argc, char **argv)
   if (folder == NULL) {
     return 1;
   }
-  ABITEM_UID(folder) = f_strdup(uuid_str);
-  ABITEM_NAME(folder) = f_strdup("NewFolder001");
+  ABITEM_UID(folder) = xstrdup(uuid_str);
+  ABITEM_NAME(folder) = xstrdup("NewFolder001");
 
   abitem_add_folder(root_folder, folder);
 

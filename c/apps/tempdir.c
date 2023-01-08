@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "fstrdup.h"
+#include "xstring.h"
 #include "test.h"
 
 /*
@@ -51,7 +51,7 @@ f_tempdir(void)
     char const *dir = getenv(*(env_vars + i));
 
     if (dir != NULL && test_isdir(dir)) {
-      return f_strdup(dir);
+      return xstrdup(dir);
     }
   }
 
@@ -59,13 +59,13 @@ f_tempdir(void)
     char const *dir = *(platform_dirs + i);
 
     if (test_isdir(dir)) {
-      return f_strdup(dir);
+      return xstrdup(dir);
     }
   }
 
   /* As a last resort, fallback to cwd. */
   if (getcwd(cwd, sizeof(cwd)) != NULL) {
-    return f_strdup(cwd);
+    return xstrdup(cwd);
   }
 
   return NULL;
