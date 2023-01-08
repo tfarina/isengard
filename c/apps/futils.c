@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "ffileutils.h"
-
 /**
  * Gets the current user's home directory.
  */
