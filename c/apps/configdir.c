@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "fuserdirs.h"
+#include "user.h"
 
 int main(int argc, char **argv) {
   char *configdir;
 
-  configdir = f_get_user_config_dir();
+  configdir = user_config_dir();
 
   printf("%s\n", configdir);
 
