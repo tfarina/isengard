@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "os.h"
+#include "third_party/xgethostname/xgethostname.h"
 
 int
 main(void)
 {
   char *hostname;
 
-  hostname = os_hostname();
+  hostname = xgethostname();
   if (!hostname) {
     return 1;
   }
