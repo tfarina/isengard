@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "os.h"
+#include "user.h"
 
 int
 main(void)
 {
   char *homedir;
 
-  homedir = os_homedir();
+  homedir = user_home_dir();
 
   printf("%s\n", homedir);
 
