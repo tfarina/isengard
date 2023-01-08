@@ -16,9 +16,9 @@ set(SOURCES
   futils.c
   mkdirp.c
   os_path.c
-  strutils.c
   test.c
   util.c
+  xstring.c
 )
 
 set(HEADERS
@@ -30,9 +30,9 @@ set(HEADERS
   futils.h
   mkdirp.h
   os_path.h
-  strutils.h
   test.h
   util.h
+  xstring.h
 )
 
 add_library(ab

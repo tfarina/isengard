@@ -5,7 +5,7 @@
 #include "third_party/sqlite/amalgamation/sqlite3.h"
 
 #include "ffileutils.h"
-#include "strutils.h"
+#include "xstring.h"
 
 static char dbname[] = "abdb.sqlite3";
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
@@ -185,9 +185,9 @@ void ab_load_contacts(void) {
     }
 
     contact->id = sqlite3_column_int(select_stmt, 0);
-    contact->fname = f_strdup((const char *)sqlite3_column_text(select_stmt, 1));
-    contact->lname = f_strdup((const char *)sqlite3_column_text(select_stmt, 2));
-    contact->email = f_strdup((const char *)sqlite3_column_text(select_stmt, 3));
+    contact->fname = xstrdup((const char *)sqlite3_column_text(select_stmt, 1));
+    contact->lname = xstrdup((const char *)sqlite3_column_text(select_stmt, 2));
+    contact->email = xstrdup((const char *)sqlite3_column_text(select_stmt, 3));
     contact_list = alpm_list_add(contact_list, contact);
   }
 
