@@ -1,24 +1,24 @@
-#ifndef _ASSERTION_H_INCLUDED_
-#define _ASSERTION_H_INCLUDED_ 1
+#ifndef _XASSERT_H_INCLUDED_
+#define _XASSERT_H_INCLUDED_ 1
 
 /**
- * @file assertion.h
+ * @file xassert.h
  * @brief Assert type macro
  */
 
-#undef  M_ASSERT
+#undef  xassert
 
 #ifdef  NDEBUG
 
-#define M_ASSERT(cond) ((void) 0)
+#define xassert(cond) ((void) 0)
 
 #else
 
 void __assertion_failed(char const *, char const *, int);
 
-#define M_ASSERT(cond) \
+#define xassert(cond) \
   ((void) ((cond) || (__assertion_failed(#cond, __FILE__, __LINE__), 0)))
 
 #endif  /* NDEBUG */
 
-#endif  /* !defined(_ASSERTION_H_INCLUDED_) */
+#endif  /* !defined(_XASSERT_H_INCLUDED_) */

@@ -9,8 +9,6 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 set(PROGRAM "echod")
 
 set(SRCS
-  assertion.c
-  assertion.h
   cfgfile.c
   cfgfile.h
   daemonize.c
@@ -41,6 +39,8 @@ set(SRCS
   ulog.h
   valid.c
   valid.h
+  xassert.c
+  xassert.h
 )
 
 add_executable(${PROGRAM} ${SRCS})
