@@ -5,14 +5,17 @@
 #include "xstring.h"
 
 int main(int argc, char **argv) {
-  const char *src = "hello, world";
-  char *dst;
+  char buffer[] = "This is the buffer text.";
+  char *newstr;
 
-  dst = xstrdup(src);
+  printf("Original: %s\n", buffer);
 
-  printf("%s\n", dst);
-
-  free(dst);
+  newstr = xstrdup(buffer);
+  if (newstr)
+  {
+    printf("Copy: %s\n", newstr);
+    free(newstr);
+  }
 
   return 0;
 }
