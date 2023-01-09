@@ -74,7 +74,7 @@ static void errx(int const code, char const *format, ...) {
   va_start(ap, format);
   fprintf(stderr, "error: ");
   vfprintf(stderr, format, ap);
-  fprintf(stderr, "\n");
+  fputc('\n', stderr);
   va_end(ap);
 
   exit(code);
