@@ -7,6 +7,8 @@
 /**
  * Determines whether the given path (such as a file or directory) exists.
  *
+ * @param[in] path A pointer to a string that contains the path to verify.
+ *
  * [-e FILE] FILE exists?
  *
  * @return Returns true if the path exists; otherwise, false.
@@ -23,6 +25,8 @@ int test_exists(char const *path)
 
 /**
  * Verifies that the given path is a directory.
+ *
+ * @param[in] path A pointer to a string that contains the path to verify.
  *
  * [-d FILE ] FILE exists and is a directory?
  *
