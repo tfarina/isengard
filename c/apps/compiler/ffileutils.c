@@ -8,6 +8,8 @@
 
 /**
  * Retrieves the size, in bytes, of the specified path.
+ *
+ * @param[in] path A pointer to a string that contains the path.
  */
 int f_file_size(char const *path)
 {
