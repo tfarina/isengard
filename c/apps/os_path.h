@@ -4,8 +4,8 @@
 /**
  * Returns a pointer to the last element of the path.
  *
- * @param path The path to get the last element of
- * @return The last element of the path
+ * @param[in] path A pointer to a string that contains the path to search.
+ * @return Returns a pointer to the last element of the path if successful.
  */
 char const *os_path_basename(char const *path);
 
