@@ -4,7 +4,7 @@
 
 #include "third_party/sqlite/amalgamation/sqlite3.h"
 
-#include "ffileutils.h"
+#include "os_path.h"
 #include "xstring.h"
 
 static char dbname[] = "abdb.sqlite3";
@@ -95,7 +95,7 @@ int ab_init(char *dbpath) {
     return 0;
   }
 
-  dbfile = f_build_filename(dbpath, dbname);
+  dbfile = os_path_join(dbpath, dbname);
 
   rc = sqlite3_open(dbfile, &hdb);
   if (rc != SQLITE_OK) {
