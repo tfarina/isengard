@@ -8,9 +8,11 @@ int main(int argc, char **argv) {
 
   configdir = user_config_dir();
 
-  printf("%s\n", configdir);
-
-  free(configdir);
+  if (configdir)
+  {
+    printf("%s\n", configdir);
+    free(configdir);
+  }
 
   return 0;
 }
