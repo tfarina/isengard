@@ -34,6 +34,21 @@ user_home_dir(void)
 }
 
 /**
+ * Returns the base directory for user-specific data files.
+ */
+char *
+user_data_dir(void)
+{
+  char *homedir;
+  char *datadir;
+
+  homedir = user_home_dir();
+  datadir = os_path_join(homedir, ".local/share");
+
+  return datadir;
+}
+
+/**
  * Returns the base directory for user-specific configuration files.
  */
 char *
