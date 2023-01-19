@@ -17,6 +17,7 @@ set(SOURCES
   mkdirp.c
   os_path.c
   test.c
+  user.c
   util.c
   xstring.c
 )
@@ -31,6 +32,7 @@ set(HEADERS
   mkdirp.h
   os_path.h
   test.h
+  user.h
   util.h
   xstring.h
 )
