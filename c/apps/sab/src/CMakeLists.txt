@@ -12,8 +12,6 @@ set(SOURCES
   ab_contact.c
   alpm_list.c
   dirs.c
-  ffileutils.c
-  futils.c
   mkdirp.c
   os_path.c
   test.c
@@ -27,8 +25,6 @@ set(HEADERS
   ab_contact.h
   alpm_list.h
   arraysize.h
-  ffileutils.h
-  futils.h
   mkdirp.h
   os_path.h
   test.h

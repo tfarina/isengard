@@ -1,6 +1,6 @@
 #include "dirs.h"
 
-#include "ffileutils.h"
+#include "os_path.h"
 #include "user.h"
 
 static char *g_user_data_dir;
@@ -8,7 +8,7 @@ static char *g_user_data_dir;
 void
 dirs_init(void)
 {
-  g_user_data_dir = f_build_filename(user_data_dir(), "sab");
+  g_user_data_dir = os_path_join(user_data_dir(), "sab");
 }
 
 char *
