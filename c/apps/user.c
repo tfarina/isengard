@@ -34,8 +34,7 @@ user_home_dir(void)
 }
 
 /**
- * Returns the user's configuration directory, where information like
- * user preferences and settings can be stored.
+ * Returns the base directory for user-specific configuration files.
  */
 char *
 user_config_dir(void)
