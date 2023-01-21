@@ -58,7 +58,7 @@
 char const *progname;
 
 static int volatile signo = 0;
-static sig_atomic_t volatile quit;
+static sig_atomic_t volatile gotsigterm;
 static sig_atomic_t volatile gotsigchld;
 static int unsigned connected_clients = 0; /* Number of child processes. */
 
@@ -105,7 +105,7 @@ static void reap_child(void) {
  * gracefully.
  */
 static void sigterm(int sig) {
-  quit = 1;
+  gotsigterm = 1;
   signo = sig;
 }
 
@@ -168,7 +168,7 @@ static int main_loop(int fd) {
   }
 
   for (;;) {
-    if (quit == 1) {
+    if (gotsigterm == 1) {
       sig2str(signo, sigstr);
       ulog_info("received signal %d %s", signo, sigstr);
 
