@@ -2,7 +2,7 @@
 #define _ATTRIBUTES_H_INCLUDED_ 1
 
 /**
- * @file
+ * @file attributes.h
  * Macro definitions for various function/variable attributes.
  */
 
