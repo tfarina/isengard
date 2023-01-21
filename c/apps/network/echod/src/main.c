@@ -59,7 +59,7 @@ char const *progname;
 
 static int volatile signo = 0;
 static sig_atomic_t volatile quit;
-static sig_atomic_t volatile got_sigchld;
+static sig_atomic_t volatile gotsigchld;
 static int unsigned connected_clients = 0; /* Number of child processes. */
 
 static void print_stats(void) {
@@ -70,7 +70,7 @@ static void print_stats(void) {
  * Catch SIGCHLD signal.
  */
 static void sigchld(int sig _GL_UNUSED_PARAMETER) {
-  got_sigchld = 1;
+  gotsigchld = 1;
 }
 
 static void reap_child(void) {
@@ -218,8 +218,8 @@ static int main_loop(int fd) {
       }
     }
 
-    if (got_sigchld) {
-      got_sigchld = 0;
+    if (gotsigchld) {
+      gotsigchld = 0;
       reap_child();
     }
   }
