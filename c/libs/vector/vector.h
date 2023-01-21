@@ -3,7 +3,7 @@
 
 /**
  * @file vector.h
- * Implements the vector container class.
+ * @brief Implements the vector container class.
  */
 
 #include <stddef.h>
