@@ -3,7 +3,7 @@
 
 /**
  * @file attributes.h
- * Macro definitions for various function/variable attributes.
+ * @brief Macro definitions for various function/variable attributes.
  */
 
 #include "compiler_tests.h"
