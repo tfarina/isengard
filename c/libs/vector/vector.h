@@ -2,7 +2,7 @@
 #define VECTOR_H_
 
 /**
- * @file
+ * @file vector.h
  * Implements the vector container class.
  */
 
