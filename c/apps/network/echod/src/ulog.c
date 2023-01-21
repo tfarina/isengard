@@ -101,7 +101,7 @@ static char const *__ulog_level_to_str(ulog_level_t level) {
  * Generates a log message using 'fmt' string, followed by the variable
  * arguments in 'ap'.
  */
-static void __vlogmsg(ulog_level_t level, char const *fmt, va_list ap) {
+static void __ulog_vmsg(ulog_level_t level, char const *fmt, va_list ap) {
   int fd;
   int len;
   char buf[MAXLINELEN];
@@ -190,7 +190,7 @@ void ulog_fatal(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ULOG_FATAL, fmt, ap);
+  __ulog_vmsg(ULOG_FATAL, fmt, ap);
   va_end(ap);
 
   sleep(1);
@@ -201,7 +201,7 @@ void ulog_error(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ULOG_ERROR, fmt, ap);
+  __ulog_vmsg(ULOG_ERROR, fmt, ap);
   va_end(ap);
 }
 
@@ -209,7 +209,7 @@ void ulog_warn(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ULOG_WARN, fmt, ap);
+  __ulog_vmsg(ULOG_WARN, fmt, ap);
   va_end(ap);
 }
 
@@ -217,7 +217,7 @@ void ulog_notice(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ULOG_NOTICE, fmt, ap);
+  __ulog_vmsg(ULOG_NOTICE, fmt, ap);
   va_end(ap);
 }
 
@@ -225,6 +225,6 @@ void ulog_info(char const *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  __vlogmsg(ULOG_INFO, fmt, ap);
+  __ulog_vmsg(ULOG_INFO, fmt, ap);
   va_end(ap);
 }
