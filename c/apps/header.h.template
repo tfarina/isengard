@@ -1,4 +1,12 @@
+/*
+ * License
+ */
+
 #ifndef _HEADER_H_INCLUDED_
 #define _HEADER_H_INCLUDED_ 1
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 #endif /* !defined(_HEADER_H_INCLUDED_) */
