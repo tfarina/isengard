@@ -30,6 +30,8 @@ set(SRCS
   pathnames.h
   pidfile.c
   pidfile.h
+  report.c
+  report.h
   security.c
   security.h
   sig2str.c

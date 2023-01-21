@@ -19,6 +19,7 @@
 #include "echod.h"
 #include "i18n.h"
 #include "pathnames.h"
+#include "report.h"
 #include "valid.h"
 
 options_t opt;
@@ -67,18 +68,6 @@ static struct option const long_options[] = {
   { "user",         required_argument, (int *) 0, 'u' },
   { (char *) 0,     no_argument,       (int *) 0,  0  }
 };
-
-static void errx(int const code, char const *format, ...) {
-  va_list ap;
-
-  va_start(ap, format);
-  fprintf(stderr, "error: ");
-  vfprintf(stderr, format, ap);
-  fputc('\n', stderr);
-  va_end(ap);
-
-  exit(code);
-}
 
 static void usage(int status) {
   if (status) {
