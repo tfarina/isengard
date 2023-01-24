@@ -216,7 +216,7 @@ void parse_args(int argc, char **argv) {
     case 'p':  /* --port */
       value = atoi(optarg);
       if (!valid_port(value)) {
-        errx(1, "port number must be between 1 and 65535");
+        fatal_exit(1, "port number must be between 1 and 65535");
       }
       opt.port = value;
       break;
@@ -224,7 +224,7 @@ void parse_args(int argc, char **argv) {
     case 'b':  /* --backlog */
       value = atoi(optarg);
       if (value <= 0) {
-	errx(1, "option -b requires a non zero number");
+	fatal_exit(1, "option -b requires a non zero number");
       }
 
       opt.backlog = value;

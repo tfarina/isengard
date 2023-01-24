@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void errx(int const code, char const *format, ...) {
+void fatal_exit(int const code, char const *format, ...) {
   va_list ap;
 
   va_start(ap, format);
