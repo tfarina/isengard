@@ -2,6 +2,9 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #define DIR_SEP '/'
 
@@ -40,4 +43,24 @@ os_path_join(char *dir, char *file)
   strcat(path, file);
 
   return path;
+}
+
+int os_path_exists(char const *path)
+{
+  struct stat sb;
+  int rv;
+
+  rv = stat(path, &sb);
+
+  return rv == 0;
+}
+
+int os_path_isdir(char const *path)
+{
+  struct stat sb;
+  int rc;
+
+  rc = stat(path, &sb);
+
+  return rc == 0 && S_ISDIR(sb.st_mode);
 }
