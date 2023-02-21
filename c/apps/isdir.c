@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-#include "test.h"
+#include "os_path.h"
 
 int main(int argc, char **argv)
 {
-  if (test_isdir("notadirectory.txt")) {
+  if (os_path_isdir("notadirectory.txt")) {
     fputs("notadirectory.txt is directory\n", stdout);
   }
 
-  if (test_isdir("/usr/bin")) {
+  if (os_path_isdir("/usr/bin")) {
     fputs("/usr/bin is a directory\n", stdout);
   }
 

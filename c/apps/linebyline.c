@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "test.h"
+#include "os_path.h"
 
 int main(int argc, char **argv) {
   char *filename;
@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
 
   filename = argv[1];
 
-  if (!test_exists(filename)) {
+  if (!os_path_exists(filename)) {
     fprintf(stderr, "%s: %s\n", filename, strerror(errno));
     return 1;
   }

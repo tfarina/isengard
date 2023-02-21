@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 #include "xstring.h"
-#include "test.h"
+#include "os_path.h"
 
 /*
  * Code borrowed from:
@@ -50,7 +50,7 @@ f_tempdir(void)
   for (i = 0; *(env_vars + i); i++) {
     char const *dir = getenv(*(env_vars + i));
 
-    if (dir != NULL && test_isdir(dir)) {
+    if (dir != NULL && os_path_isdir(dir)) {
       return xstrdup(dir);
     }
   }
@@ -58,7 +58,7 @@ f_tempdir(void)
   for (i = 0; *(platform_dirs + i); i++) {
     char const *dir = *(platform_dirs + i);
 
-    if (test_isdir(dir)) {
+    if (os_path_isdir(dir)) {
       return xstrdup(dir);
     }
   }
