@@ -8,7 +8,7 @@ main(void)
 {
   char name[40];
 
-  printf("What's your name? ");
+  fputs("What's your name? ", stdout);
 
   if (fgets(name, sizeof(name), stdin) == NULL) {
     return 1;
