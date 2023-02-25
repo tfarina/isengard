@@ -14,7 +14,6 @@ set(SOURCES
   dirs.c
   mkdirp.c
   os_path.c
-  test.c
   user.c
   util.c
   xstring.c
@@ -27,7 +26,6 @@ set(HEADERS
   arraysize.h
   mkdirp.h
   os_path.h
-  test.h
   user.h
   util.h
   xstring.h

@@ -18,4 +18,21 @@ char const *os_path_basename(char const *path);
  */
 char *os_path_join(char *dir, char *file);
 
+/**
+ * Determines whether the given path (such as a file or directory) exists.
+ *
+ * @param[in] path A pointer to a string that contains the path to verify.
+ * @return Returns true if the path exists; otherwise, false.
+ */
+int os_path_exists(char const *path);
+
+/**
+ * Verifies that the given path is a directory.
+ *
+ * @param[in] path A pointer to a string that contains the path to verify.
+ * @return Returns true if path is a directory; otherwise, false.
+ */
+
+int os_path_isdir(char const *path);
+
 #endif  /* !defined(_OS_PATH_H_INCLUDED_) */
