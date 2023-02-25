@@ -166,3 +166,5 @@ target_link_libraries(hello_excel libxlsxwriter)
 
 add_executable(celtofah temperature.c celtofah.c)
 add_executable(fahtocel temperature.c fahtocel.c)
+add_executable(bhaskara bhaskara.c)
+target_link_libraries(bhaskara ${M_LIBRARY})
