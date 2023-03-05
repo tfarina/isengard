@@ -26,11 +26,11 @@ typedef struct vector_s
          */
         size_t datasize;
         /**
-         * The current number of elements allocated (nalloc), and
+         * The current number of allocated elements (nalloc), and
          */
 	size_t capacity;
         /**
-         * The current number of elements in use (nused) in the array.
+         * The current number of used elements (nused) in the array.
          */
 	size_t size;
 } vector_t;
