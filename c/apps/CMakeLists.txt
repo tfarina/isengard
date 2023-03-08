@@ -170,3 +170,4 @@ add_executable(bhaskara bhaskara.c)
 target_link_libraries(bhaskara ${M_LIBRARY})
 
 add_executable(year year.c)
+add_executable(mday mday.c)
