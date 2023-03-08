@@ -7,10 +7,25 @@ main(void)
   time_t now;
   struct tm *curtime;
 
+  char *months[] = {
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  };
+
   now = time(NULL);
   curtime = localtime(&now);
 
-  printf("%d\n", curtime->tm_mon + 1);
+  printf("%s\n", months[curtime->tm_mon]);
 
   return 0;
 }
