@@ -168,3 +168,5 @@ add_executable(celtofah temperature.c celtofah.c)
 add_executable(fahtocel temperature.c fahtocel.c)
 add_executable(bhaskara bhaskara.c)
 target_link_libraries(bhaskara ${M_LIBRARY})
+
+add_executable(year year.c)
