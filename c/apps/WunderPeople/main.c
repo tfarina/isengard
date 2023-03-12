@@ -30,6 +30,7 @@ HINSTANCE g_hInst;     /* Handle to module instance */
 HWND g_hwndWP;         /* Handle to main window */
 HWND g_hwndStatusBar;  
 HWND g_hwndListView;
+HWND g_hwndToolbar;
 
 LPTSTR g_szClassName = TEXT("WuPAB");  /* Window class name */
 
@@ -40,6 +41,7 @@ BOOL				InitWindowClass(HINSTANCE);
 BOOL				CreateMainWindow(HINSTANCE, int);
 void				CreateChildrenControls(HWND);
 void				CreateListView(HWND);
+void				CreateToolbar(HWND);
 void				AdjustChildrenControls(HWND);
 void				SelectAllItems(void);
 LRESULT CALLBACK	MainWndProc(HWND, UINT, WPARAM, LPARAM);
@@ -282,9 +284,63 @@ void CreateListView(HWND hWndParent)
 	}
 }
 
+
+void CreateToolbar(HWND hWndParent)
+{
+	HIMAGELIST hImageList = NULL;
+	int numButtons = 3;
+	int bitmapSize = 16;
+
+	TBBUTTON tbButtons[] =
+	{
+		{ MAKELONG(STD_FILENEW, 0), IDC_TB_NEW, TBSTATE_ENABLED, TBSTYLE_BUTTON, {0}, 0, 0 },
+		{ MAKELONG(STD_PROPERTIES, 0), IDC_TB_PROPERTIES, 0, TBSTYLE_BUTTON, {0}, 0, 1 },
+		{ MAKELONG(STD_DELETE, 0), IDC_TB_DELETE, 0, TBSTYLE_BUTTON, {0}, 0, 2 },
+	};
+
+	g_hwndToolbar = CreateWindowEx(0,                /* ex style */
+		                           TOOLBARCLASSNAME, /* class name - defined in commctrl.h */
+		                           (LPTSTR)NULL,     /* dummy text */
+		                           WS_CHILD | TBSTYLE_FLAT,  /* style */
+		                           0,                /* x position */
+                                   0,                /* y position */
+		                           0,                /* width */
+		                           0,                /* height */
+		                           hWndParent,
+		                           NULL,
+		                           g_hInst,
+		                           NULL);
+
+	if (!g_hwndToolbar)
+		return;
+
+	hImageList = ImageList_Create(bitmapSize, bitmapSize,
+								  ILC_COLOR16 | ILC_MASK,
+								  numButtons, 0);
+
+	SendMessage(g_hwndToolbar, TB_BUTTONSTRUCTSIZE, (WPARAM) sizeof(TBBUTTON), 0);
+
+	SendMessage(g_hwndToolbar, TB_SETIMAGELIST, (WPARAM) 0, (LPARAM) hImageList);
+	SendMessage(g_hwndToolbar, TB_LOADIMAGES, (WPARAM) IDB_STD_SMALL_COLOR, (LPARAM) HINST_COMMCTRL);
+
+	SendMessage(g_hwndToolbar, TB_ADDBUTTONS, (WPARAM) numButtons, (LPARAM) &tbButtons);
+
+	/* TODO: The ListView is covering the Toolbar.
+	 *  We have to adjust its size, so the Toolbar appears.
+	 *  Also the size of the buttons are not right. They are showing
+	 *  only one letter.
+	 */
+	/*SendMessage(g_hwndToolbar, TB_AUTOSIZE, 0, 0);*/
+	SendMessage(g_hwndToolbar, TB_SETBUTTONWIDTH, 0, 60);
+	ShowWindow(g_hwndToolbar, TRUE);
+}
+
+
 void CreateChildrenControls(HWND hWndParent)
 {
     RECT rcStatus;
+
+	CreateToolbar(hWndParent);
 
 	/* Create Status Bar */
 	g_hwndStatusBar = CreateWindowEx(0,                /* ex style */
@@ -312,10 +368,16 @@ void CreateChildrenControls(HWND hWndParent)
 void AdjustChildrenControls(HWND hWndParent)
 {
 	RECT rc;
+	int tbX, tbY, tbW, tbH;
     int statusX, statusY, statusW, statusH;
 	int lvX, lvY, lvW, lvH;
 
     GetClientRect(hWndParent, &rc);
+
+	tbX = 0;
+	tbY = rc.top;
+	tbW = rc.right - rc.left;
+	tbH = 24;
 
 	statusX = 0;
 	statusY = rc.bottom - g_hStatus;
@@ -335,6 +397,19 @@ void AdjustChildrenControls(HWND hWndParent)
 	{
 		lvH = lvH - statusH;
 	}
+
+	if (IsWindowVisible(g_hwndToolbar))
+	{
+		lvY = lvY + tbH;
+		lvH = lvH - tbH;
+	}
+
+	MoveWindow(g_hwndToolbar,
+		       tbX,
+		       tbY,
+		       tbW,
+		       tbH,
+		       TRUE);
 
 	MoveWindow(g_hwndStatusBar,
 		       statusX,
