@@ -13,6 +13,9 @@ if (GTK2_FOUND)
   add_executable(empty_window empty_window.c)
   target_link_libraries(empty_window ${GTK2_LIBRARIES})
 
+  add_executable(label label.c)
+  target_link_libraries(label ${GTK2_LIBRARIES})
+
   add_executable(entry entry.c)
   target_link_libraries(entry ${GTK2_LIBRARIES})
 
