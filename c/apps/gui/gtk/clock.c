@@ -1,7 +1,7 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
 
-#define TIMEFORMAT "%I:%M %p"
+#define TIMEFORMAT "%I:%M:%S %p"
 
 int main(int argc, char **argv)
 {
