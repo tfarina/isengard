@@ -37,6 +37,9 @@ if (GTK2_FOUND)
   add_executable(window_icon window_icon.c)
   target_link_libraries(window_icon ${GTK2_LIBRARIES})
 
+  add_executable(frames frames.c)
+  target_link_libraries(frames ${GTK2_LIBRARIES})
+
   add_subdirectory(third_party/sqlite)
   add_executable(ui ui.c)
   add_dependencies(ui sqlite3)
