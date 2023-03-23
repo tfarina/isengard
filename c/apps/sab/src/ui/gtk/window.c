@@ -891,7 +891,7 @@ GtkWidget *addrbook_window_new(void)
   GtkWidget *scrolledwin;
 
   /*
-   * Window
+   * Main window
    */
   main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(main_window), "Address Book");
