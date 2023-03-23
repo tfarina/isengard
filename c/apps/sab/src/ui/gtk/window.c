@@ -192,6 +192,11 @@ static void _append_item_to_list_store(GtkListStore *list_store, ab_contact_t *c
 static void _on_new_contact_cb(ab_contact_t *contact);
 static void _on_edit_contact_cb(ab_contact_t *contact);
 
+static void _application_quit(void)
+{
+  gtk_main_quit();
+}
+
 static void _edit_selection(gpointer data)
 {
   GtkTreeSelection *selection;
@@ -307,7 +312,7 @@ static gboolean _on_delete_event_cb(GtkWidget *widget,
   (void)event;
   (void)data;
 
-  gtk_main_quit();
+  _application_quit();
 
   return TRUE;
 }
@@ -339,7 +344,7 @@ static void _on_file_exit_cb(GtkAction *action, gpointer data)
   (void)action;
   (void)data;
 
-  gtk_main_quit();
+  _application_quit();
 }
 
 /*
