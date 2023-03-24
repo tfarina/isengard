@@ -147,7 +147,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * View menu
    */
-  {"View/ToolbarStyle", NULL, "Toolbar style", NULL, NULL, NULL },
+  {"View/ToolbarStyle", NULL, "Toolbar Style", NULL, NULL, NULL },
   /* {"View/---", NULL, "---", NULL, NULL, NULL } */
 
   /*
