@@ -521,7 +521,9 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
   }
 
   /*
-   * Handles the Right Click button.
+   * Handles the Right Click notification.
+   *
+   * NOTE: It happens when the user clicks an item with the right button.
    */
   if (event->button == 3 /* 3 means right button */) {
     gint num_selected = gtk_tree_selection_count_selected_rows(selection);
@@ -540,7 +542,9 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
   }
 
   /*
-   * Handles the Double-Click event.
+   * Handles the Double-Click notification.
+   *
+   * NOTE: It happens when the user double-clicks an item with the left button.
    *
    * Opens the object properties dialog for the selected item.
    */
