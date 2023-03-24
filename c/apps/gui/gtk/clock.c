@@ -28,6 +28,7 @@ int main(int argc, char **argv)
 
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(window), "Clock");
+  gtk_window_set_default_size(GTK_WINDOW(window), 150, 150);
 
   gtk_container_set_border_width(GTK_CONTAINER(window), 15);
 
