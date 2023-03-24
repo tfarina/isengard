@@ -841,10 +841,10 @@ static GtkWidget *_create_list_view(void)
 		   G_CALLBACK(_on_selection_changed_cb), NULL);
 
   /* Handle double-clicking. */
-  g_signal_connect(list_view, "button_press_event",
+  g_signal_connect(list_view, "button-press-event",
 		   G_CALLBACK(_on_list_button_press_cb), NULL);
   /* Handle key press. */
-  g_signal_connect(list_view, "key_press_event",
+  g_signal_connect(list_view, "key-press-event",
 		   G_CALLBACK(_on_list_key_press_cb), NULL);
 
   /* Create the columns. */
@@ -909,9 +909,9 @@ GtkWidget *addrbook_window_new(void)
 			      INIT_WINDOW_WIDTH,
 			      INIT_WINDOW_HEIGHT);
 
-  g_signal_connect(G_OBJECT(main_window), "delete_event",
+  g_signal_connect(G_OBJECT(main_window), "delete-event",
                    G_CALLBACK(_on_delete_event_cb), NULL);
-  g_signal_connect(G_OBJECT(main_window), "size_allocate",
+  g_signal_connect(G_OBJECT(main_window), "size-allocate",
                    G_CALLBACK(_on_size_allocate_cb), NULL);
 
   /*
