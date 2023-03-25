@@ -232,6 +232,8 @@ static void _edit_selection(gpointer data)
 
 static void _remove_selection(void)
 {
+  GtkWidget *dialog;
+  gint response;
   GtkTreeModel *model;
   GtkTreeSelection *selection;
   GList *paths;
@@ -241,6 +243,18 @@ static void _remove_selection(void)
   ab_contact_t *contact;
   gboolean has_row = FALSE;
   gint n;
+
+  dialog = gtk_message_dialog_new(GTK_WINDOW(main_window),
+				  GTK_DIALOG_DESTROY_WITH_PARENT,
+				  GTK_MESSAGE_QUESTION,
+				  GTK_BUTTONS_YES_NO,
+				  "Are you sure you want to delete the selected item(s)?");
+  gtk_window_set_title(GTK_WINDOW(dialog), "Confirm Item Delete");
+  response = gtk_dialog_run(GTK_DIALOG(dialog));
+  gtk_widget_destroy(dialog);
+
+  if (GTK_RESPONSE_YES == response)
+    {
 
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
 
@@ -298,6 +312,8 @@ static void _remove_selection(void)
   if (has_row) {
     gtk_tree_selection_select_iter(selection, &iter);
   }
+
+    }
 }
 
 /*
