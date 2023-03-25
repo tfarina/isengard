@@ -85,7 +85,6 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   gtk_window_set_modal(GTK_WINDOW(contact_window), TRUE);
   gtk_window_set_type_hint(GTK_WINDOW(contact_window),
 			   GDK_WINDOW_TYPE_HINT_DIALOG);
-  gtk_container_set_border_width(GTK_CONTAINER(contact_window), 6);
   g_signal_connect(G_OBJECT(contact_window), "key_press_event",
 		   G_CALLBACK(_on_contact_window_key_press_cb),
 		   NULL);
@@ -98,7 +97,7 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   /* Add notebook to vbox. */
   gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
 
-  /* Give notebook a border. */
+  /* Setup the amount of space to leave around the outside of the notebook. */
   gtk_container_set_border_width(GTK_CONTAINER(notebook), 6);
 
   /* Create the table to host the text entry widgets. */
