@@ -83,6 +83,8 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   gtk_window_set_transient_for(GTK_WINDOW(contact_window), parent);
   gtk_window_set_position(GTK_WINDOW(contact_window), GTK_WIN_POS_CENTER_ON_PARENT);
   gtk_window_set_modal(GTK_WINDOW(contact_window), TRUE);
+  gtk_window_set_type_hint(GTK_WINDOW(contact_window),
+			   GDK_WINDOW_TYPE_HINT_DIALOG);
   gtk_container_set_border_width(GTK_CONTAINER(contact_window), 6);
   g_signal_connect(G_OBJECT(contact_window), "key_press_event",
 		   G_CALLBACK(_on_contact_window_key_press_cb),
