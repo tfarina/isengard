@@ -85,6 +85,7 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   gtk_window_set_modal(GTK_WINDOW(contact_window), TRUE);
   gtk_window_set_type_hint(GTK_WINDOW(contact_window),
 			   GDK_WINDOW_TYPE_HINT_DIALOG);
+  gtk_window_set_default_size(GTK_WINDOW(contact_window), 400, 450);
   g_signal_connect(G_OBJECT(contact_window), "key_press_event",
 		   G_CALLBACK(_on_contact_window_key_press_cb),
 		   NULL);
