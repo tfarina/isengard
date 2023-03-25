@@ -458,28 +458,23 @@ static void _on_toolbar_delete_cb(GtkWidget *widget, gpointer data)
 static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 {
   gint num_selected;
+  gboolean can_edit;
+  gboolean can_delete;
   GtkAction *action;
   char buf[256];
 
   num_selected = gtk_tree_selection_count_selected_rows(selection);
 
+  can_edit = num_selected == 1;
+  can_delete = num_selected > 0;
+
   action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Properties");
-  if (num_selected == 1) {
-    gtk_action_set_sensitive(action, TRUE);
-    gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), TRUE);
-  } else {
-    gtk_action_set_sensitive(action, FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
-  }
+  gtk_action_set_sensitive(action, can_edit);
+  gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), can_edit);
 
   action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Delete");
-  if (num_selected > 0) {
-    gtk_action_set_sensitive(action, TRUE);
-    gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), TRUE);
-  } else {
-    gtk_action_set_sensitive(action, FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
-  }
+  gtk_action_set_sensitive(action, can_delete);
+  gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), can_delete);
 
   if (statusbar != NULL) {
     gtk_statusbar_pop(GTK_STATUSBAR(statusbar), statusbar_cid);
