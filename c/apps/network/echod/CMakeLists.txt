@@ -35,6 +35,7 @@ if (ENABLE_NLS)
   find_package(Intl REQUIRED)
 endif()
 
+include(DistTargets)
 include(UninstallTarget)
 
 configure_file(target.h.cmake.in target.h)
@@ -119,13 +120,6 @@ add_definitions("-DLOCALSTATEDIR=\"${LOCALSTATEDIR}\"")
 
 add_subdirectory(src)
 add_subdirectory(doc)
-
-set(ARCHIVE_NAME ${PACKAGE_TARNAME}-${PACKAGE_VERSION})
-add_custom_target(dist
-                  COMMAND ${CMAKE_COMMAND} -E echo "Creating '${ARCHIVE_NAME}.tar.gz'..."
-                  COMMAND git archive --prefix=${ARCHIVE_NAME}/ HEAD | gzip > ${CMAKE_BINARY_DIR}/${ARCHIVE_NAME}.tar.gz
-                  COMMAND ${CMAKE_COMMAND} -E echo "Distribution tarball '${ARCHIVE_NAME}.tar.gz' created at ${CMAKE_BINARY_DIR}"
-                  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 ## ==============================================================================
 ##
