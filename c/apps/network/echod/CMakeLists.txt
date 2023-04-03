@@ -24,7 +24,7 @@ set(PACKAGE_STRING    "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 set(PACKAGE_BUGREPORT "")
 set(PACKAGE_URL       "")
 
-# Add local cmake modules
+# Load local modules
 list(APPEND CMAKE_MODULE_PATH
   ${PROJECT_SOURCE_DIR}/cmake/modules)
 
