@@ -1,7 +1,7 @@
 # DistTarget.cmake
 #
 # Defines custom targets related to distributing source code.
-# It requires to have populated 'PACKAGE_TARNAME' and 'PACKAGE_VERSION'
+# It requires to have populated 'PACKAGE' and 'VERSION'
 # variables. It also uses 'PROJECT_DISTCONFIGURE_PARAMS' variable when
 # configuring the unpacked distribution.
 #
@@ -15,7 +15,7 @@
 # NOTE: disttest, and distcheck are not implemented/imported yet from evolution
 
 # Filenames for tarball
-set(ARCHIVE_NAME ${PACKAGE_TARNAME}-${PACKAGE_VERSION})
+set(ARCHIVE_NAME ${PACKAGE}-${VERSION})
 
 add_custom_target(dist
                   COMMAND ${CMAKE_COMMAND} -E echo "Creating '${ARCHIVE_NAME}.tar.gz'..."
