@@ -61,7 +61,23 @@ if (HAVE_GETOPT_H)
   message("-- Found header getopt.h")
 endif()
 
-set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-ansi -std=c89 -pedantic -Wall -Wextra -Werror -Wmissing-declarations -Wstrict-prototypes -Wmissing-prototypes -Wdeclaration-after-statement")
+# Setup compiler flags
+list(APPEND proposed_flags
+  -ansi
+  -std=c89
+  -pedantic
+  -Wall
+  -Wextra
+  -Werror
+  -Wmissing-declarations
+  -Wstrict-prototypes
+  -Wmissing-prototypes
+  -Wdeclaration-after-statement
+)
+
+foreach(flag IN LISTS proposed_flags)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${flag}")
+endforeach()
 
 #
 # Output directories for a build tree
