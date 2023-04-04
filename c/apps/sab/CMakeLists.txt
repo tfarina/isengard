@@ -6,7 +6,15 @@ set(VERSION_MINOR "0")
 set(VERSION_PATCH "1")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
+set(PACKAGE           "${PROJECT_NAME}")
+
+# Load local modules
+list(APPEND CMAKE_MODULE_PATH
+  ${PROJECT_SOURCE_DIR}/cmake/modules)
+
 option(WITH_GTK "Build GTK+ front end" OFF)
+
+include(DistTargets)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
