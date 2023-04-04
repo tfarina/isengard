@@ -32,3 +32,7 @@ target_link_libraries(${EXENAME}
   ${DEPENDENCIES}
   ${GTK2_LIBRARIES}
 )
+
+install(TARGETS ${EXENAME}
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+)
