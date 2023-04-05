@@ -15,6 +15,7 @@ list(APPEND CMAKE_MODULE_PATH
 option(WITH_GTK "Build GTK+ front end" OFF)
 
 include(DistTargets)
+include(UninstallTarget)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
