@@ -45,4 +45,6 @@ if (WITH_GTK)
   add_subdirectory(src/ui/gtk)
 endif()
 
+add_subdirectory(help)
+
 message("BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}")
