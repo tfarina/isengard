@@ -108,6 +108,7 @@ static void _on_view_toolbar_style_cb(GtkAction *action, GtkRadioAction *current
 
 /* Help menu */
 
+static void _on_help_contents_cb(GtkAction *action, gpointer data);
 static void _on_help_about_cb(GtkAction *action, gpointer data);
 
 enum {
@@ -153,6 +154,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * Help menu
    */
+  {"Help/Contents", NULL, "_Contents", "F1", NULL, G_CALLBACK(_on_help_contents_cb) },
   {"Help/About", NULL, "_About", NULL, NULL, G_CALLBACK(_on_help_about_cb) }
 };
 
@@ -443,6 +445,18 @@ static void _on_view_toolbar_style_cb(GtkAction *action, GtkRadioAction *current
  * Help menu
  */
 
+static void _on_help_contents_cb(GtkAction *action, gpointer data)
+{
+  GdkScreen *screen = NULL;
+  guint32 timestamp;
+  GError *error = NULL;
+
+  screen = gtk_widget_get_screen(main_window);
+  timestamp = gtk_get_current_event_time();
+
+  gtk_show_uri(screen, "help:ubuntu-help", timestamp, &error);
+}
+
 static void _on_help_about_cb(GtkAction *action, gpointer data)
 {
   show_about_dialog(GTK_WINDOW(main_window));
@@ -731,6 +745,8 @@ static GtkWidget *_create_menubar(void)
 			"/Menu/View", "FullScreen", "View/FullScreen", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* Help menu */
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/Help", "Contents", "Help/Contents", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/Help", "About", "Help/About", GTK_UI_MANAGER_MENUITEM, FALSE);
 
