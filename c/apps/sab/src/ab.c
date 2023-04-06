@@ -237,6 +237,9 @@ out:
   return errcode;
 }
 
+/*
+ * Adds the specified contact to the address book database.
+ */
 int ab_add_contact(ab_contact_t *contact) {
   contact_list = alpm_list_add(contact_list, contact);
 
@@ -287,6 +290,9 @@ out:
   return errcode;
 }
 
+/*
+ * Updates an existing contact in the address book database.
+ */
 int ab_update_contact(ab_contact_t *contact) {
   return _db_update_contact(contact);
 }
@@ -318,6 +324,9 @@ static int _db_delete_contact(int id) {
   return 0;
 }
 
+/*
+ * Deletes a contact from the address book database.
+ */
 int ab_delete_contact(ab_contact_t *contact) {
   void *vc;
   int rc;
