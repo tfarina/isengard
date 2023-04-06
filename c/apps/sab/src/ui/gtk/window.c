@@ -574,6 +574,9 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
    * Opens the object properties dialog for the selected item.
    */
   if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
+    GtkTreeModel *model;
+    GList *selected_rows;
+
     /* Figure out which node was clicked. */
     if (!gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(list_view), event->x, event->y, &path, &column, NULL, NULL)) {
       return FALSE;
@@ -583,7 +586,8 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
       return FALSE;
     }
 
-    gtk_tree_model_get_iter(GTK_TREE_MODEL(list_store), &iter, path);
+    selected_rows = gtk_tree_selection_get_selected_rows(selection, &model);
+    gtk_tree_model_get_iter(GTK_TREE_MODEL(list_store), &iter, selected_rows->data);
     gtk_tree_path_free(path);
     gtk_tree_model_get(GTK_TREE_MODEL(list_store), &iter, LIST_COL_PTR, &contact, -1);
 
