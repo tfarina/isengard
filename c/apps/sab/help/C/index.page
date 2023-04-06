@@ -4,7 +4,7 @@
   <info>
     <desc>Manage your contacts</desc>
     <title type="link" role="trail"><app>Sab</app> Address Book</title>
-    <title type='text'><app>Sab</app> Address Book</title>
+    <title type='text'><app>Sab</app> Address Book Help</title>
     <revision pkgversion="3.8.2" version="0.7" date="2013-06-22" status="final"/>
   </info>
 
