@@ -589,8 +589,9 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
 
     if (contact != NULL) {
       contact_editor_new(GTK_WINDOW(main_window), AC_EDIT, contact, _on_edit_contact_cb);
-      return TRUE;
     }
+
+    return TRUE;
   }
 
   return FALSE;
