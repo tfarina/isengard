@@ -310,18 +310,26 @@ static int _db_delete_contact(int id) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to bind id to delete contact: %s\n",
 	    sqlite3_errmsg(hdb));
-    return -1;
+    goto out;
   }
 
   rc = sqlite3_step(delete_stmt);
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "Failed to execute delete statement: %s\n",
             sqlite3_errmsg(hdb));
+    goto out;
   }
 
   sqlite3_reset(delete_stmt);
 
   return 0;
+
+out:
+  if (delete_stmt) {
+    sqlite3_reset(delete_stmt);
+  }
+
+  return -1;
 }
 
 /*
