@@ -400,8 +400,8 @@ void AdjustChildrenControls(HWND hWndParent)
 
 	if (IsWindowVisible(g_hwndToolbar))
 	{
-		lvY = lvY + tbH;
-		lvH = lvH - tbH;
+		lvY = lvY + tbH + 5;
+		lvH = lvH - tbH - 10;
 	}
 
 	MoveWindow(g_hwndToolbar,
