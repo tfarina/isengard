@@ -586,9 +586,10 @@ static gboolean _on_list_button_press_cb(GtkTreeView *widget,
       return FALSE;
     }
 
+    gtk_tree_path_free(path);
+
     selected_rows = gtk_tree_selection_get_selected_rows(selection, &model);
     gtk_tree_model_get_iter(GTK_TREE_MODEL(list_store), &iter, selected_rows->data);
-    gtk_tree_path_free(path);
     gtk_tree_model_get(GTK_TREE_MODEL(list_store), &iter, LIST_COL_PTR, &contact, -1);
 
     if (contact != NULL) {
