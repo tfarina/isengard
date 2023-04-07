@@ -141,21 +141,21 @@ int ab_fini(void) {
 
   rc = sqlite3_finalize(insert_stmt);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the prepared statement for inserting: %s\n",
+    fprintf(stderr, "Failed to finalize the insert statement: %s\n",
             sqlite3_errmsg(hdb));
   }
   insert_stmt = NULL;
 
   rc = sqlite3_finalize(update_stmt);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the prepared statement for updating: %s\n",
+    fprintf(stderr, "Failed to finalize the update statement: %s\n",
             sqlite3_errmsg(hdb));
   }
   update_stmt = NULL;
 
   rc = sqlite3_finalize(delete_stmt);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the prepared statement for deleting: %s\n",
+    fprintf(stderr, "Failed to finalize the delete statement: %s\n",
             sqlite3_errmsg(hdb));
   }
   delete_stmt = NULL;
