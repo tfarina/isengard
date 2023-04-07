@@ -44,6 +44,9 @@ configure_file(target.h.cmake.in target.h)
 # Provides install directory variables as defined by the GNU Coding Standards:
 include(GNUInstallDirs)
 
+set(prefix ${CMAKE_INSTALL_PREFIX})
+set(localedir ${CMAKE_INSTALL_FULL_LOCALEDIR})
+
 ###############################################################################
 include(CheckIncludeFile)
 include(CheckFunctionExists)
@@ -155,8 +158,8 @@ message(STATUS "Generator:         ${CMAKE_GENERATOR}")
 message(STATUS "Build type:        ${CMAKE_BUILD_TYPE}")
 message(STATUS "")
 message(STATUS "Installation directories:")
-message(STATUS "  prefix:           ${CMAKE_INSTALL_PREFIX}")
-message(STATUS "  localedir:        ${CMAKE_INSTALL_FULL_LOCALEDIR}")
+message(STATUS "  prefix:           ${prefix}")
+message(STATUS "  localedir:        ${localedir}")
 message(STATUS "  sysconfdir:       ${SYSCONFDIR}")
 message(STATUS "  localstatedir:    ${LOCALSTATEDIR}")
 message(STATUS "")
