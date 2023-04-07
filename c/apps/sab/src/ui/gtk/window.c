@@ -199,7 +199,7 @@ static void _application_quit(void)
   gtk_main_quit();
 }
 
-static void _edit_selection(gpointer data)
+static void _edit_selection(void)
 {
   GtkTreeSelection *selection;
   GtkTreeModel *model;
@@ -225,7 +225,7 @@ static void _edit_selection(gpointer data)
 	  continue;
 	}
 
-      contact_editor_new(GTK_WINDOW(data), AC_EDIT, contact, _on_edit_contact_cb);
+      contact_editor_new(GTK_WINDOW(main_window), AC_EDIT, contact, _on_edit_contact_cb);
     }
 
   g_list_foreach(paths, (GFunc)gtk_tree_path_free, NULL);
@@ -380,7 +380,7 @@ static void _on_edit_select_all_cb(GtkAction *action, gpointer data)
 
 static void _on_file_properties_cb(GtkAction *action, gpointer data)
 {
-  _edit_selection(data);
+  _edit_selection();
 }
 
 static void _on_file_delete_cb(GtkAction *action, gpointer data)
@@ -473,7 +473,7 @@ static void _on_toolbar_new_cb(GtkWidget *widget, gpointer data)
 
 static void _on_toolbar_properties_cb(GtkWidget *widget, gpointer data)
 {
-  _edit_selection(data);
+  _edit_selection();
 }
 
 static void _on_toolbar_delete_cb(GtkWidget *widget, gpointer data)
