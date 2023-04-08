@@ -870,13 +870,12 @@ static GtkWidget *_create_list_view(void)
   /* Set selection properties. */
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
   gtk_tree_selection_set_mode(selection, GTK_SELECTION_MULTIPLE);
+
+  /* Set up notification callbacks. */
   g_signal_connect(selection, "changed",
 		   G_CALLBACK(_on_selection_changed_cb), NULL);
-
-  /* Handle double-clicking. */
   g_signal_connect(list_view, "button-press-event",
 		   G_CALLBACK(_on_list_button_press_cb), NULL);
-  /* Handle key press. */
   g_signal_connect(list_view, "key-press-event",
 		   G_CALLBACK(_on_list_key_press_cb), NULL);
 
