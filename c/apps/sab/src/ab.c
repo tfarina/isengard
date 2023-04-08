@@ -43,21 +43,12 @@ static void _close_db(void) {
 
 static int _execute_sql(char const *sql) {
   int rc;
-  sqlite3_stmt *sql_stmt;
+  char *err_msg = NULL;
 
-  rc = sqlite3_prepare_v2(hdb, sql, -1, &sql_stmt, NULL);
+  rc = sqlite3_exec(hdb, sql, 0, 0, &err_msg);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare the SQL statement: %s\n", sqlite3_errmsg(hdb));
-    return -1;
-  }
-
-  rc = sqlite3_step(sql_stmt);
-
-  sqlite3_finalize(sql_stmt);
-  sql_stmt = NULL;
-
-  if (rc != SQLITE_DONE) {
-    fprintf(stderr, "Failed to execute the SQL statement: %s\n", sqlite3_errmsg(hdb));
+    fprintf(stderr, "sqlite3_exec failed: %s\n", err_msg);
+    sqlite3_free(err_msg);
     return -1;
   }
 
