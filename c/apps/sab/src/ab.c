@@ -152,7 +152,6 @@ int ab_fini(void) {
   delete_stmt = NULL;
 
   _close_db();
-  hdb = NULL;
 
   return 0;
 }
