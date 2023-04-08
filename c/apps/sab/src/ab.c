@@ -47,7 +47,7 @@ static int _execute_sql(char const *sql) {
 
   rc = sqlite3_prepare_v2(hdb, sql, -1, &sql_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare SQL statement: %s\n", sqlite3_errmsg(hdb));
+    fprintf(stderr, "Failed to prepare the SQL statement: %s\n", sqlite3_errmsg(hdb));
     return -1;
   }
 
@@ -57,7 +57,7 @@ static int _execute_sql(char const *sql) {
   sql_stmt = NULL;
 
   if (rc != SQLITE_DONE) {
-    fprintf(stderr, "Failed to execute SQL statement: %s\n", sqlite3_errmsg(hdb));
+    fprintf(stderr, "Failed to execute the SQL statement: %s\n", sqlite3_errmsg(hdb));
     return -1;
   }
 
@@ -113,7 +113,7 @@ int ab_init(char *dbpath) {
 
   rc = sqlite3_prepare_v2(hdb, insert_sql, -1, &insert_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare insert statement: %s\n",
+    fprintf(stderr, "Failed to prepare the insert statement: %s\n",
             sqlite3_errmsg(hdb));
     _close_db();
     return -1;
@@ -121,14 +121,14 @@ int ab_init(char *dbpath) {
 
   rc = sqlite3_prepare_v2(hdb, update_sql, -1, &update_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare update statement: %s\n",
+    fprintf(stderr, "Failed to prepare the update statement: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
 
   rc = sqlite3_prepare_v2(hdb, delete_sql, -1, &delete_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare delete statement: %s\n",
+    fprintf(stderr, "Failed to prepare the delete statement: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
@@ -171,7 +171,7 @@ void ab_load_contacts(void) {
 
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare select statement: %s\n",
+    fprintf(stderr, "Failed to prepare the select statement: %s\n",
             sqlite3_errmsg(hdb));
     return;
   }
@@ -191,7 +191,7 @@ void ab_load_contacts(void) {
 
   rc = sqlite3_finalize(select_stmt);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the prepared statement for selecting: %s\n",
+    fprintf(stderr, "Failed to finalize the select statement: %s\n",
             sqlite3_errmsg(hdb));
   }
   select_stmt = NULL;
