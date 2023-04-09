@@ -12,15 +12,15 @@ static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
 static sqlite3_stmt *insert_stmt;
 static const char insert_sql[] =
-  "INSERT INTO contacts (fname, lname, email) VALUES (?, ?, ?);";
+  "INSERT INTO contacts (fname, lname, email) VALUES (?, ?, ?)";
 
 static sqlite3_stmt *update_stmt;
 static const char update_sql[] =
-  "UPDATE contacts SET fname=?2, lname=?3, email=?4 WHERE id=?1;";
+  "UPDATE contacts SET fname=?2, lname=?3, email=?4 WHERE id=?1";
 
 static sqlite3_stmt *delete_stmt;
 static const char delete_sql[] =
-  "DELETE FROM contacts WHERE id=?;";
+  "DELETE FROM contacts WHERE id=?";
 
 static sqlite3_stmt *select_stmt;
 static const char select_sql[] = "SELECT * FROM contacts";
