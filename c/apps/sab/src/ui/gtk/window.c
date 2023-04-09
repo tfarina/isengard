@@ -554,15 +554,14 @@ _on_list_button_press_cb(GtkTreeView *widget,
     return FALSE;
   }
 
-  /* Get the current selection. */
-  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
-
   /* Borrowed from https://github.com/xfce-mirror/thunar/blob/b9ed5c29b38fcb80b1bcc6c842ccdccfe0703db2/thunar/thunar-details-view.c#L665
    * Unselect all selected items if the user clicks on an empty area
    * of the list view and no modifier key is active.
    */
   if ((event->state & gtk_accelerator_get_default_mod_mask()) == 0
       && !gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(list_view), event->x, event->y, &path, &column, NULL, NULL)) {
+    /* Get the current selection. */
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
     gtk_tree_selection_unselect_all(selection);
   }
 
@@ -572,6 +571,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
    * NOTE: It happens when the user clicks an item with the right button.
    */
   if (event->button == 3 /* 3 means right button */) {
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
     gint num_selected = gtk_tree_selection_count_selected_rows(selection);
     gboolean can_edit = num_selected == 1;
     gboolean can_delete = num_selected > 0;
@@ -609,6 +609,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
 
     gtk_tree_path_free(path);
 
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
     selected_rows = gtk_tree_selection_get_selected_rows(selection, &model);
     gtk_tree_model_get_iter(GTK_TREE_MODEL(list_store), &iter, selected_rows->data);
     gtk_tree_model_get(GTK_TREE_MODEL(list_store), &iter, LIST_COL_PTR, &contact, -1);
