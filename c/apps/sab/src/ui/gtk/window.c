@@ -30,9 +30,9 @@ enum {
 #define LIST_COL_COUNT (LIST_COL_LAST + 1)
 
 static gint
-contact_column_compare_func(GtkTreeModel* model,
-			    GtkTreeIter* a,
-			    GtkTreeIter* b,
+contact_column_compare_func(GtkTreeModel *model,
+			    GtkTreeIter *a,
+			    GtkTreeIter *b,
 			    gpointer data)
 {
 
@@ -907,7 +907,7 @@ static GtkWidget *_create_list_view(void)
   return list_view;
 }
 
-static void _populate_list_view(GtkListStore* list_store)
+static void _populate_list_view(GtkListStore *list_store)
 {
   char *dbdir;
   alpm_list_t *list, *item;
