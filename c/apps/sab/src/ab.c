@@ -12,7 +12,7 @@ static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
 static sqlite3_stmt *insert_stmt;
 static const char insert_sql[] =
-  "INSERT INTO contacts (fname, lname, email) VALUES (?1, ?2, ?3);";
+  "INSERT INTO contacts (fname, lname, email) VALUES (?, ?, ?);";
 
 static sqlite3_stmt *update_stmt;
 static const char update_sql[] =
