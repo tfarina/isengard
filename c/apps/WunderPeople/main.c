@@ -37,6 +37,8 @@ LPTSTR g_szClassName = TEXT("WuPAB");  /* Window class name */
 
 LONG g_hStatus;
 
+static alpm_list_t *contactList = NULL;
+
 /* Foward declarations of functions included in this code module: */
 BOOL				InitWindowClass(HINSTANCE);
 BOOL				CreateMainWindow(HINSTANCE, int);
@@ -205,47 +207,9 @@ int db_init(void)
 }
 
 
-void CreateListView(HWND hWndParent)
+void load_contacts(void)
 {
-	LVCOLUMN lvc;
-	int iCol;
-	TCHAR szText[3][100] = {TEXT("First Name"), TEXT("Last Name"), TEXT("Email")};
-
 	LPCONTACT contact;
-        alpm_list_t *contactList = NULL;
-	alpm_list_t *item;
-
-	LVITEM lvI = {0};
-    int index = 0;
-
-	/* Create List View */
-	g_hwndListView = CreateWindowEx(WS_EX_CLIENTEDGE,
-		                            WC_LISTVIEW,
-		                            (LPTSTR) NULL,
-		                            WS_TABSTOP | WS_HSCROLL | WS_VSCROLL | WS_VISIBLE |
-		                            WS_CHILD | LVS_REPORT | LVS_SHOWSELALWAYS | WS_EX_CLIENTEDGE,
-		                            0,
-									0,
-									0,
-									0,
-		                            hWndParent,
-		                            (HMENU) IDC_LISTVIEW,
-		                            g_hInst,
-			                        NULL);
-
-	ListView_SetExtendedListViewStyle(g_hwndListView, LVS_EX_FULLROWSELECT);
-
-	/* Init List View (images, columns, etc...) */
-	lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
-	lvc.fmt = LVCFMT_LEFT;
-	lvc.cx = 100;
-
-	for (iCol = 0; iCol < 3; iCol++)
-	{
-		lvc.iSubItem = iCol;
-		lvc.pszText = szText[iCol];
-		ListView_InsertColumn(g_hwndListView, iCol, &lvc);
-	}
 
 	contact = LocalAlloc(LMEM_ZEROINIT, sizeof(CONTACT));
 	if (!contact)
@@ -281,8 +245,53 @@ void CreateListView(HWND hWndParent)
 	lstrcpy(contact->szEmail, "john_smith@mail.com");
 
 	contactList = alpm_list_add(contactList, contact);
+}
+
+
+void CreateListView(HWND hWndParent)
+{
+	LVCOLUMN lvc;
+	int iCol;
+	TCHAR szText[3][100] = {TEXT("First Name"), TEXT("Last Name"), TEXT("Email")};
+
+	LVITEM lvI = {0};
+    int index = 0;
+
+	alpm_list_t *item;
+	LPCONTACT contact;
+
+	/* Create List View */
+	g_hwndListView = CreateWindowEx(WS_EX_CLIENTEDGE,
+		                            WC_LISTVIEW,
+		                            (LPTSTR) NULL,
+		                            WS_TABSTOP | WS_HSCROLL | WS_VSCROLL | WS_VISIBLE |
+		                            WS_CHILD | LVS_REPORT | LVS_SHOWSELALWAYS | WS_EX_CLIENTEDGE,
+		                            0,
+									0,
+									0,
+									0,
+		                            hWndParent,
+		                            (HMENU) IDC_LISTVIEW,
+		                            g_hInst,
+			                        NULL);
+
+	ListView_SetExtendedListViewStyle(g_hwndListView, LVS_EX_FULLROWSELECT);
+
+	/* Init List View (images, columns, etc...) */
+	lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
+	lvc.fmt = LVCFMT_LEFT;
+	lvc.cx = 100;
+
+	for (iCol = 0; iCol < 3; iCol++)
+	{
+		lvc.iSubItem = iCol;
+		lvc.pszText = szText[iCol];
+		ListView_InsertColumn(g_hwndListView, iCol, &lvc);
+	}
 
 	/* Populate List View */
+
+	load_contacts();
 
 	lvI.mask = LVIF_TEXT | LVIF_STATE | LVIF_PARAM;
 	lvI.iItem = 0;
