@@ -10,6 +10,7 @@
 
 #include "resource.h"
 #include "alpm_list.h"
+#include "sqlite3.h"
 
 #define MAX_LOADSTRING 100
 
@@ -185,6 +186,25 @@ BOOL CreateMainWindow(HINSTANCE hInstance, int nCmdShow)
 }
 
 
+int db_init(void)
+{
+	sqlite3 *hdb = NULL;
+	static char const create_sql[] =
+		"CREATE TABLE IF NOT EXISTS contacts ("
+		"  id INTEGER PRIMARY KEY,"
+		"  fname TEXT,"
+		"  lname TEXT,"
+		"  email TEXT"
+		");";
+
+	sqlite3_open("abdb.sqlite3", &hdb);
+
+    sqlite3_exec(hdb, create_sql, 0, 0, 0);
+
+	return 0;
+}
+
+
 void CreateListView(HWND hWndParent)
 {
 	LVCOLUMN lvc;
@@ -192,7 +212,7 @@ void CreateListView(HWND hWndParent)
 	TCHAR szText[3][100] = {TEXT("First Name"), TEXT("Last Name"), TEXT("Email")};
 
 	LPCONTACT contact;
-	alpm_list_t *contactList = NULL;
+        alpm_list_t *contactList = NULL;
 	alpm_list_t *item;
 
 	LVITEM lvI = {0};
@@ -301,7 +321,7 @@ void CreateToolbar(HWND hWndParent)
 	g_hwndToolbar = CreateWindowEx(0,                /* ex style */
 		                           TOOLBARCLASSNAME, /* class name - defined in commctrl.h */
 		                           (LPTSTR)NULL,     /* dummy text */
-		                           WS_CHILD | TBSTYLE_FLAT,  /* style */
+								   WS_CHILD | TBSTYLE_FLAT,  /* style */
 		                           0,                /* x position */
                                    0,                /* y position */
 		                           0,                /* width */
@@ -457,6 +477,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	switch (uMsg) 
 	{
 		case WM_CREATE:
+			db_init();
 			CreateChildrenControls(hWnd);
 			break;
 
