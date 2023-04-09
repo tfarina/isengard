@@ -194,12 +194,14 @@ static void _append_item_to_list_store(GtkListStore *list_store, ab_contact_t *c
 static void _on_new_contact_cb(ab_contact_t *contact);
 static void _on_edit_contact_cb(ab_contact_t *contact);
 
-static void _application_quit(void)
+static void
+_application_quit(void)
 {
   gtk_main_quit();
 }
 
-static void _edit_selection(void)
+static void
+_edit_selection(void)
 {
   GtkTreeSelection *selection;
   GtkTreeModel *model;
@@ -232,7 +234,8 @@ static void _edit_selection(void)
   g_list_free(paths);
 }
 
-static void _remove_selection(void)
+static void
+_remove_selection(void)
 {
   GtkWidget *dialog;
   gint response;
@@ -322,9 +325,10 @@ static void _remove_selection(void)
  * Window callbacks
  */
 
-static gboolean _on_delete_event_cb(GtkWidget *widget,
-				    GdkEvent  *event,
-				    gpointer   data)
+static gboolean
+_on_delete_event_cb(GtkWidget	*widget,
+                    GdkEvent	*event,
+                    gpointer	 data)
 {
   (void)widget;
   (void)event;
@@ -335,8 +339,9 @@ static gboolean _on_delete_event_cb(GtkWidget *widget,
   return TRUE;
 }
 
-static void _on_size_allocate_cb(GtkWidget     *widget,
-			         GtkAllocation *allocation)
+static void
+_on_size_allocate_cb(GtkWidget		*widget,
+                     GtkAllocation	*allocation)
 {
 #if 0
   printf("%d\n", allocation->width);
@@ -352,12 +357,14 @@ static void _on_size_allocate_cb(GtkWidget     *widget,
  * File menu
  */
 
-static void _on_file_new_contact_cb(GtkAction *action, gpointer data)
+static void
+_on_file_new_contact_cb(GtkAction *action, gpointer data)
 {
   contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, _on_new_contact_cb);
 }
 
-static void _on_file_exit_cb(GtkAction *action, gpointer data)
+static void
+_on_file_exit_cb(GtkAction *action, gpointer data)
 {
   (void)action;
   (void)data;
@@ -369,7 +376,8 @@ static void _on_file_exit_cb(GtkAction *action, gpointer data)
  * Edit menu
  */
 
-static void _on_edit_select_all_cb(GtkAction *action, gpointer data)
+static void
+_on_edit_select_all_cb(GtkAction *action, gpointer data)
 {
   GtkTreeSelection* selection;
 
@@ -378,12 +386,14 @@ static void _on_edit_select_all_cb(GtkAction *action, gpointer data)
   gtk_tree_selection_select_all(selection);
 }
 
-static void _on_file_properties_cb(GtkAction *action, gpointer data)
+static void
+_on_file_properties_cb(GtkAction *action, gpointer data)
 {
   _edit_selection();
 }
 
-static void _on_file_delete_cb(GtkAction *action, gpointer data)
+static void
+_on_file_delete_cb(GtkAction *action, gpointer data)
 {
   _remove_selection();
 }
@@ -392,7 +402,8 @@ static void _on_file_delete_cb(GtkAction *action, gpointer data)
  * View menu
  */
 
-static void _on_view_toolbar_cb(GtkAction *action, gpointer data)
+static void
+_on_view_toolbar_cb(GtkAction *action, gpointer data)
 {
   gboolean state;
 
@@ -401,7 +412,8 @@ static void _on_view_toolbar_cb(GtkAction *action, gpointer data)
   gtk_widget_set_visible(toolbar, state);
 }
 
-static void _on_view_statusbar_cb(GtkAction *action, gpointer data)
+static void
+_on_view_statusbar_cb(GtkAction *action, gpointer data)
 {
   gboolean state;
 
@@ -410,7 +422,8 @@ static void _on_view_statusbar_cb(GtkAction *action, gpointer data)
   gtk_widget_set_visible(statusbar, state);
 }
 
-static void _on_view_fullscreen_cb(GtkAction *action, gpointer data)
+static void
+_on_view_fullscreen_cb(GtkAction *action, gpointer data)
 {
   if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
     gtk_window_unfullscreen(GTK_WINDOW(main_window));
@@ -419,7 +432,8 @@ static void _on_view_fullscreen_cb(GtkAction *action, gpointer data)
   }
 }
 
-static void _on_view_toolbar_style_cb(GtkAction *action, GtkRadioAction *current, gpointer data)
+static void
+_on_view_toolbar_style_cb(GtkAction *action, GtkRadioAction *current, gpointer data)
 {
   gint style;
 
@@ -445,7 +459,8 @@ static void _on_view_toolbar_style_cb(GtkAction *action, GtkRadioAction *current
  * Help menu
  */
 
-static void _on_help_contents_cb(GtkAction *action, gpointer data)
+static void
+_on_help_contents_cb(GtkAction *action, gpointer data)
 {
   GdkScreen *screen = NULL;
   guint32 timestamp;
@@ -457,7 +472,8 @@ static void _on_help_contents_cb(GtkAction *action, gpointer data)
   gtk_show_uri(screen, "help:sab", timestamp, &error);
 }
 
-static void _on_help_about_cb(GtkAction *action, gpointer data)
+static void
+_on_help_about_cb(GtkAction *action, gpointer data)
 {
   show_about_dialog(GTK_WINDOW(main_window));
 }
@@ -466,17 +482,20 @@ static void _on_help_about_cb(GtkAction *action, gpointer data)
  * Toolbar callbacks
  */
 
-static void _on_toolbar_new_cb(GtkWidget *widget, gpointer data)
+static void
+_on_toolbar_new_cb(GtkWidget *widget, gpointer data)
 {
   contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, _on_new_contact_cb);
 }
 
-static void _on_toolbar_properties_cb(GtkWidget *widget, gpointer data)
+static void
+_on_toolbar_properties_cb(GtkWidget *widget, gpointer data)
 {
   _edit_selection();
 }
 
-static void _on_toolbar_delete_cb(GtkWidget *widget, gpointer data)
+static void
+_on_toolbar_delete_cb(GtkWidget *widget, gpointer data)
 {
   _remove_selection();
 }
@@ -485,7 +504,8 @@ static void _on_toolbar_delete_cb(GtkWidget *widget, gpointer data)
  * List view callbacks
  */
 
-static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
+static void
+_on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 {
   gint num_selected;
   gboolean can_edit;
@@ -519,9 +539,10 @@ static void _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
   }
 }
 
-static gboolean _on_list_button_press_cb(GtkTreeView *widget,
-                                         GdkEventButton *event,
-                                         gpointer data)
+static gboolean
+_on_list_button_press_cb(GtkTreeView *widget,
+                         GdkEventButton *event,
+                         gpointer data)
 {
   GtkTreeSelection *selection;
   GtkTreePath *path;
@@ -618,7 +639,8 @@ _on_list_key_press_cb(GtkWidget *widget, GdkEventKey *event, gpointer data)
  * Contact editor callbacks
  */
 
-static void _on_new_contact_cb(ab_contact_t *contact)
+static void
+_on_new_contact_cb(ab_contact_t *contact)
 {
   GtkListStore *store;
 
@@ -627,7 +649,8 @@ static void _on_new_contact_cb(ab_contact_t *contact)
   _append_item_to_list_store(store, contact);
 }
 
-static void _on_edit_contact_cb(ab_contact_t *contact)
+static void
+_on_edit_contact_cb(ab_contact_t *contact)
 {
   GtkTreeSelection *selection;
   GtkTreeModel *model;
@@ -660,8 +683,9 @@ static void _on_edit_contact_cb(ab_contact_t *contact)
  * Helper functions
  */
 
-static void _append_item_to_list_store(GtkListStore *list_store,
-				       ab_contact_t *contact)
+static void
+_append_item_to_list_store(GtkListStore *list_store,
+                           ab_contact_t *contact)
 {
   GtkTreeIter iter;
 
@@ -674,7 +698,8 @@ static void _append_item_to_list_store(GtkListStore *list_store,
                      -1);
 }
 
-static GtkWidget *_create_menubar(void)
+static GtkWidget *
+_create_menubar(void)
 {
   GtkActionGroup *action_group;
   GtkAction *action;
@@ -785,7 +810,8 @@ static GtkWidget *_create_menubar(void)
   return menubar;
 }
 
-static GtkWidget *_create_toolbar(void)
+static GtkWidget *
+_create_toolbar(void)
 {
   GtkWidget* icon;
   GtkToolItem *tb_new;
@@ -835,7 +861,8 @@ static GtkWidget *_create_toolbar(void)
   return toolbar;
 }
 
-static GtkWidget *_create_list_view(void)
+static GtkWidget *
+_create_list_view(void)
 {
   GtkTreeSortable *sortable;
   GtkTreeSelection *selection;
@@ -907,7 +934,8 @@ static GtkWidget *_create_list_view(void)
   return list_view;
 }
 
-static void _populate_list_view(GtkListStore *list_store)
+static void
+_populate_list_view(GtkListStore *list_store)
 {
   char *dbdir;
   alpm_list_t *list, *item;
@@ -925,7 +953,8 @@ static void _populate_list_view(GtkListStore *list_store)
   }
 }
 
-GtkWidget *addrbook_window_new(void)
+GtkWidget *
+addrbook_window_new(void)
 {
   GtkWidget *vbox;
   GtkWidget *menuitem;
