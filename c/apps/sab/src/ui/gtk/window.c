@@ -948,9 +948,10 @@ _populate_list_view(GtkListStore *list_store)
 
   list = ab_get_contact_list();
 
-  for (item = list; item; item = alpm_list_next(item)) {
-    _append_item_to_list_store(list_store, (ab_contact_t *)item->data);
-  }
+  for (item = list; item; item = alpm_list_next(item))
+    {
+      _append_item_to_list_store(list_store, (ab_contact_t *)item->data);
+    }
 }
 
 GtkWidget *
