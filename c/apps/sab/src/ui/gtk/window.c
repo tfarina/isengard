@@ -571,11 +571,16 @@ _on_list_button_press_cb(GtkTreeView *widget,
    * NOTE: It happens when the user clicks an item with the right button.
    */
   if (event->button == 3 /* 3 means right button */) {
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
-    gint num_selected = gtk_tree_selection_count_selected_rows(selection);
-    gboolean can_edit = num_selected == 1;
-    gboolean can_delete = num_selected > 0;
+    gint num_selected;
+    gboolean can_edit;
+    gboolean can_delete;
     GtkAction *action;
+
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+    num_selected = gtk_tree_selection_count_selected_rows(selection);
+
+    can_edit = num_selected == 1;
+    can_delete = num_selected > 0;
 
     action = gtk_ui_manager_get_action(ui_manager, "/Popups/ListContextMenu/Properties");
     gtk_action_set_sensitive(action, can_edit);
