@@ -75,12 +75,13 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	InitCommonControlsEx(&iccex);
 
+	/* Initialize the window */
 	if (!InitWindowClass(hInstance))
 	{
 		return FALSE;
 	}
 
-	/* Perform application initialization */
+	/* Create the main window */
 	if (!CreateMainWindow(hInstance, nCmdShow)) 
 	{
 		return FALSE;
