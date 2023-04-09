@@ -3,6 +3,7 @@
 #include <commctrl.h>
 
 /* C RunTime Header Files */
+#include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
@@ -191,6 +192,7 @@ BOOL CreateMainWindow(HINSTANCE hInstance, int nCmdShow)
 
 int db_init(void)
 {
+	char dbname[] = "abdb.sqlite3";
 	sqlite3 *hdb = NULL;
 	static char const create_sql[] =
 		"CREATE TABLE IF NOT EXISTS contacts ("
@@ -199,8 +201,15 @@ int db_init(void)
 		"  lname TEXT,"
 		"  email TEXT"
 		");";
+	int rc;
 
-	sqlite3_open("abdb.sqlite3", &hdb);
+	rc = sqlite3_open(dbname, &hdb);
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "Failed to open SQLite database %s: %s\n", dbname,
+			sqlite3_errmsg(hdb));
+		return -1;
+	}
 
     sqlite3_exec(hdb, create_sql, 0, 0, 0);
 
