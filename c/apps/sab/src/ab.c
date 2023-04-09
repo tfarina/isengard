@@ -20,7 +20,7 @@ static const char update_sql[] =
 
 static sqlite3_stmt *delete_stmt;
 static const char delete_sql[] =
-  "DELETE FROM contacts WHERE id=?1;";
+  "DELETE FROM contacts WHERE id=?;";
 
 static sqlite3_stmt *select_stmt;
 static const char select_sql[] = "SELECT * FROM contacts";
