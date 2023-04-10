@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -31,17 +31,19 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_APP_ICON            ICON    DISCARDABLE     "app.ico"
+IDI_APP_ICON            ICON                    "app.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Menu
 //
 
-IDR_MENUBAR MENU DISCARDABLE 
+IDR_MENUBAR MENU 
 BEGIN
     POPUP "&File"
     BEGIN
+        MENUITEM "New &Contact...\tCtrl+N",     IDM_NEW_CONTACT
+        MENUITEM SEPARATOR
         MENUITEM "E&xit",                       IDM_EXIT
     END
     POPUP "&Edit"
@@ -64,7 +66,7 @@ END
 // Accelerator
 //
 
-MainAccel ACCELERATORS MOVEABLE PURE 
+MainAccel ACCELERATORS 
 BEGIN
     "/",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
     "?",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
@@ -77,8 +79,8 @@ END
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 238, 93
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ABOUTBOX DIALOG  0, 0, 238, 93
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About WunderPeople"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -96,7 +98,7 @@ END
 // TEXTINCLUDE
 //
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE 
 BEGIN
     "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
     "#include ""windows.h""\r\n"
@@ -105,13 +107,13 @@ BEGIN
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE 
 BEGIN
     "\r\n"
     "\0"
 END
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
@@ -119,7 +121,6 @@ END
 #endif    // APSTUDIO_INVOKED
 
 
-#ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -142,18 +143,14 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "Comments", "\0"
-            VALUE "CompanyName", " \0"
-            VALUE "FileDescription", "WunderPeople\0"
-            VALUE "FileVersion", "1, 0, 0, 1\0"
-            VALUE "InternalName", "WunderPeople\0"
-            VALUE "LegalCopyright", "Copyright © 2022\0"
-            VALUE "LegalTrademarks", "\0"
-            VALUE "OriginalFilename", "wup.exe\0"
-            VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "WunderPeople\0"
-            VALUE "ProductVersion", "1, 0, 0, 1\0"
-            VALUE "SpecialBuild", "\0"
+            VALUE "CompanyName", " "
+            VALUE "FileDescription", "WunderPeople"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "WunderPeople"
+            VALUE "LegalCopyright", "Copyright © 2022"
+            VALUE "OriginalFilename", "wup.exe"
+            VALUE "ProductName", "WunderPeople"
+            VALUE "ProductVersion", "1, 0, 0, 1"
         END
     END
     BLOCK "VarFileInfo"
@@ -162,15 +159,13 @@ BEGIN
     END
 END
 
-#endif    // !_MAC
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // String Table
 //
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_APP_TITLE           "WunderPeople - Address Book"
 END
