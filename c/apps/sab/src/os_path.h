@@ -15,6 +15,7 @@ char const *os_path_basename(char const *path);
  *
  * @param[in] dir A pointer to a string that contains the directory path.
  * @param[in] file A pointer to a string that contains the file name.
+ * @return A pointer to a buffer that receives the combined path.
  */
 char *os_path_join(char const *dir, char const *file);
 
