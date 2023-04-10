@@ -102,13 +102,6 @@ int ab_init(char *dbpath) {
     return -1;
   }
 
-  rc = sqlite3_prepare_v2(hdb, insert_sql, -1, &insert_stmt, NULL);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare the insert statement: %s\n",
-            sqlite3_errmsg(hdb));
-    return -1;
-  }
-
   rc = sqlite3_prepare_v2(hdb, update_sql, -1, &update_stmt, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to prepare the update statement: %s\n",
@@ -121,13 +114,6 @@ int ab_init(char *dbpath) {
 
 int ab_fini(void) {
   int rc;
-
-  rc = sqlite3_finalize(insert_stmt);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the insert statement: %s\n",
-            sqlite3_errmsg(hdb));
-  }
-  insert_stmt = NULL;
 
   rc = sqlite3_finalize(update_stmt);
   if (rc != SQLITE_OK) {
@@ -176,6 +162,13 @@ int _db_insert_contact(ab_contact_t *contact) {
   int rc;
   int errcode = 0;
 
+  rc = sqlite3_prepare_v2(hdb, insert_sql, -1, &insert_stmt, NULL);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to prepare the insert statement: %s\n",
+            sqlite3_errmsg(hdb));
+    return -1;
+  }
+
   rc = sqlite3_bind_text(insert_stmt, 1, contact->fname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to bind fname parameter for insert statement: %s\n",
@@ -209,7 +202,19 @@ int _db_insert_contact(ab_contact_t *contact) {
 
   sqlite3_reset(insert_stmt);
 
+  rc = sqlite3_finalize(insert_stmt);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to finalize the insert statement: %s\n",
+            sqlite3_errmsg(hdb));
+  }
+  insert_stmt = NULL;
+
 out:
+  if (insert_stmt) {
+    sqlite3_reset(insert_stmt);
+    sqlite3_finalize(insert_stmt);
+  }
+
   return errcode;
 }
 
