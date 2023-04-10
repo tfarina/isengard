@@ -116,13 +116,6 @@ int ab_init(char *dbpath) {
     return -1;
   }
 
-  rc = sqlite3_prepare_v2(hdb, delete_sql, -1, &delete_stmt, NULL);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare the delete statement: %s\n",
-            sqlite3_errmsg(hdb));
-    return -1;
-  }
-
   return 0;
 }
 
@@ -142,13 +135,6 @@ int ab_fini(void) {
             sqlite3_errmsg(hdb));
   }
   update_stmt = NULL;
-
-  rc = sqlite3_finalize(delete_stmt);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the delete statement: %s\n",
-            sqlite3_errmsg(hdb));
-  }
-  delete_stmt = NULL;
 
   _close_db();
 
@@ -301,6 +287,13 @@ static int _ab_contact_cmp(void const *p1, void const *p2) {
 static int _db_delete_contact(int id) {
   int rc;
 
+  rc = sqlite3_prepare_v2(hdb, delete_sql, -1, &delete_stmt, NULL);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to prepare the delete statement: %s\n",
+            sqlite3_errmsg(hdb));
+    return -1;
+  }
+
   rc = sqlite3_bind_int(delete_stmt, 1, id);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to bind id parameter for delete statement: %s\n",
@@ -317,11 +310,19 @@ static int _db_delete_contact(int id) {
 
   sqlite3_reset(delete_stmt);
 
+  rc = sqlite3_finalize(delete_stmt);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to finalize the delete statement: %s\n",
+            sqlite3_errmsg(hdb));
+  }
+  delete_stmt = NULL;
+
   return 0;
 
 out:
   if (delete_stmt) {
     sqlite3_reset(delete_stmt);
+    sqlite3_finalize(delete_stmt);
   }
 
   return -1;
