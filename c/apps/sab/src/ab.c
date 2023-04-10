@@ -16,7 +16,7 @@ static const char insert_sql[] =
 
 static sqlite3_stmt *update_stmt;
 static const char update_sql[] =
-  "UPDATE contacts SET fname=?2, lname=?3, email=?4 WHERE id=?1";
+  "UPDATE contacts SET fname=?, lname=?, email=? WHERE id=?";
 
 static sqlite3_stmt *delete_stmt;
 static const char delete_sql[] =
@@ -238,30 +238,30 @@ int _db_update_contact(ab_contact_t* contact) {
   int rc;
   int errcode = 0;
 
-  rc = sqlite3_bind_int(update_stmt, 1, contact->id);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to bind id parameter for update statement\n");
-    errcode = -1;
-    goto out;
-  }
-
-  rc = sqlite3_bind_text(update_stmt, 2, contact->fname, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(update_stmt, 1, contact->fname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to bind fname parameter for update statement\n");
     errcode = -1;
     goto out;
   }
 
-  rc = sqlite3_bind_text(update_stmt, 3, contact->lname, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(update_stmt, 2, contact->lname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to bind lname parameter for update statement\n");
     errcode = -1;
     goto out;
   }
 
-  rc = sqlite3_bind_text(update_stmt, 4, contact->email, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(update_stmt, 3, contact->email, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to bind email parameter for update statement\n");
+    errcode = -1;
+    goto out;
+  }
+
+  rc = sqlite3_bind_int(update_stmt, 4, contact->id);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to bind id parameter for update statement\n");
     errcode = -1;
     goto out;
   }
