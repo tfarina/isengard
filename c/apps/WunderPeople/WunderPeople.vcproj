@@ -234,6 +234,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\db.c"
+				>
+			</File>
+			<File
 				RelativePath="main.c"
 				>
 				<FileConfiguration
@@ -300,6 +304,10 @@
 			>
 			<File
 				RelativePath="alpm_list.h"
+				>
+			</File>
+			<File
+				RelativePath=".\db.h"
 				>
 			</File>
 			<File
