@@ -16,7 +16,7 @@ char const *os_path_basename(char const *path);
  * @param[in] dir A pointer to a string that contains the directory path.
  * @param[in] file A pointer to a string that contains the file name.
  */
-char *os_path_join(char *dir, char *file);
+char *os_path_join(char const *dir, char const *file);
 
 /**
  * Determines whether the given path (such as a file or directory) exists.

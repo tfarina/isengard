@@ -7,7 +7,7 @@
 #include "os_path.h"
 #include "xstring.h"
 
-static char dbname[] = "abdb.sqlite3";
+static char const dbname[] = "abdb.sqlite3";
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
 static sqlite3_stmt *insert_stmt;

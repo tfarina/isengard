@@ -22,7 +22,7 @@ char const *os_path_basename(char const *path) {
 }
 
 char *
-os_path_join(char *dir, char *file)
+os_path_join(char const *dir, char const *file)
 {
   char *path;
   size_t len;
