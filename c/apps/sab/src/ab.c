@@ -106,7 +106,6 @@ int ab_init(char *dbpath) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to prepare the insert statement: %s\n",
             sqlite3_errmsg(hdb));
-    _close_db();
     return -1;
   }
 
