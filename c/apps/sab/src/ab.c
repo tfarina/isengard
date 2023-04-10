@@ -102,25 +102,11 @@ int ab_init(char *dbpath) {
     return -1;
   }
 
-  rc = sqlite3_prepare_v2(hdb, update_sql, -1, &update_stmt, NULL);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare the update statement: %s\n",
-            sqlite3_errmsg(hdb));
-    return -1;
-  }
-
   return 0;
 }
 
 int ab_fini(void) {
   int rc;
-
-  rc = sqlite3_finalize(update_stmt);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the update statement: %s\n",
-            sqlite3_errmsg(hdb));
-  }
-  update_stmt = NULL;
 
   _close_db();
 
@@ -231,6 +217,13 @@ int _db_update_contact(ab_contact_t* contact) {
   int rc;
   int errcode = 0;
 
+  rc = sqlite3_prepare_v2(hdb, update_sql, -1, &update_stmt, NULL);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to prepare the update statement: %s\n",
+            sqlite3_errmsg(hdb));
+    return -1;
+  }
+
   rc = sqlite3_bind_text(update_stmt, 1, contact->fname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to bind fname parameter for update statement: %s\n",
@@ -272,7 +265,19 @@ int _db_update_contact(ab_contact_t* contact) {
 
   sqlite3_reset(update_stmt);
 
+  rc = sqlite3_finalize(update_stmt);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to finalize the update statement: %s\n",
+            sqlite3_errmsg(hdb));
+  }
+  update_stmt = NULL;
+
 out:
+  if (update_stmt) {
+    sqlite3_reset(update_stmt);
+    sqlite3_finalize(update_stmt);
+  }
+
   return errcode;
 }
 
