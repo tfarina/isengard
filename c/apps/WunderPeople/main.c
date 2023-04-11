@@ -451,12 +451,63 @@ VOID SelectAllItems(VOID)
 }
 
 
-static VOID ShowContactPropertiesDialog(HWND hWnd)
+INT_PTR CALLBACK fnNamePageProc(
+	HWND hWndDlg,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam
+	)
 {
 	TCHAR szBuf[] = TEXT("Not implemented yet!");
 	TCHAR szCaption[] = TEXT("Address Book");
 
-	MessageBox(hWnd, szBuf, szCaption, MB_ICONWARNING | MB_OK);
+	switch (uMsg)
+	{
+	case WM_NOTIFY:
+		switch (((LPNMHDR)lParam)->code)
+		{
+		case PSN_APPLY: /* OK */
+			MessageBox(hWndDlg, szBuf, szCaption, MB_ICONWARNING | MB_OK);
+			break;
+		case PSN_RESET: /* Cancel */
+			break;
+		}
+		break; /* WM_NOTIFY */
+
+	default:
+		break;
+	} /* switch */
+
+	return FALSE;
+}
+
+
+static VOID ShowContactPropertiesDialog(HWND hWnd)
+{
+	PROPSHEETPAGE propSheetPage[1];
+	PROPSHEETHEADER propSheetHeader;
+
+	propSheetPage[0].dwSize = sizeof(PROPSHEETPAGE);
+	propSheetPage[0].dwFlags = PSP_USETITLE;
+	propSheetPage[0].hInstance = g_hInst;
+	propSheetPage[0].pszTemplate = MAKEINTRESOURCE(IDD_PROPPAGE_NAME);
+	propSheetPage[0].pszIcon = NULL;
+	propSheetPage[0].pszTitle = TEXT("Name");
+	propSheetPage[0].pfnDlgProc = fnNamePageProc;
+	propSheetPage[0].lParam = 0;
+
+	propSheetHeader.dwSize = sizeof(PROPSHEETHEADER);
+	propSheetHeader.dwFlags = PSH_PROPSHEETPAGE | PSH_NOAPPLYNOW;
+	propSheetHeader.hwndParent = hWnd;
+	propSheetHeader.hInstance = g_hInst;
+	propSheetHeader.pszIcon = NULL;
+	propSheetHeader.pszCaption = TEXT("Properties");
+	propSheetHeader.nPages = sizeof(propSheetPage) / sizeof(PROPSHEETPAGE);
+	propSheetHeader.nStartPage = 0;
+	propSheetHeader.ppsp = (LPCPROPSHEETPAGE) &propSheetPage;
+	propSheetHeader.pfnCallback = NULL;
+
+	PropertySheet(&propSheetHeader);
 }
 
 

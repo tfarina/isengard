@@ -91,6 +91,19 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,174,7,50,14
 END
 
+IDD_PROPPAGE_NAME DIALOGEX 0, 0, 235, 156
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Property Page"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LTEXT           "&First:",IDC_PROPPAGE_NAME_STATIC_FIRSTNAME,13,18,18,8
+    EDITTEXT        IDC_PROPPAGE_NAME_EDIT_FIRSTNAME,32,16,192,14,ES_AUTOHSCROLL
+    LTEXT           "&Last:",IDC_PROPPAGE_NAME_STATIC_LASTNAME,14,36,17,8
+    EDITTEXT        IDC_PROPPAGE_NAME_EDIT_LASTNAME,32,34,192,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PROPPAGE_NAME_EDIT_EMAIL,32,51,192,14,ES_AUTOHSCROLL
+    LTEXT           "&E&mail:",IDC_PROPPAGE_NAME_STATIC_EMAIL,11,53,20,8
+END
+
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -158,6 +171,25 @@ BEGIN
         VALUE "Translation", 0x409, 1200
     END
 END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_PROPPAGE_NAME, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 149
+    END
+END
+#endif    // APSTUDIO_INVOKED
 
 
 /////////////////////////////////////////////////////////////////////////////
