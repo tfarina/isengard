@@ -451,6 +451,15 @@ VOID SelectAllItems(VOID)
 }
 
 
+static VOID ShowContactPropertiesDialog(HWND hWnd)
+{
+	TCHAR szBuf[] = TEXT("Not implemented yet!");
+	TCHAR szCaption[] = TEXT("Address Book");
+
+	MessageBox(hWnd, szBuf, szCaption, MB_ICONWARNING | MB_OK);
+}
+
+
 /*
  *  FUNCTION: MainWndProc(HWND, unsigned, WORD, LONG)
  *
@@ -465,8 +474,6 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	int wmId, wmEvent;
 	PAINTSTRUCT ps;
 	HDC hdc;
-	TCHAR szBuf[] = TEXT("Not implemented yet!");
-	TCHAR szCaption[] = TEXT("Address Book");
 
 	switch (uMsg) 
 	{
@@ -482,8 +489,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			switch (wmId)
 			{
 				case IDM_NEW_CONTACT:
-
-					MessageBox(hWnd, szBuf, szCaption, MB_ICONWARNING | MB_OK);
+					ShowContactPropertiesDialog(hWnd);
 					break;
 
 				case IDM_EXIT:
