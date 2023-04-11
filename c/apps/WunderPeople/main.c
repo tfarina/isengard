@@ -465,6 +465,8 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	int wmId, wmEvent;
 	PAINTSTRUCT ps;
 	HDC hdc;
+	TCHAR szBuf[] = TEXT("Not implemented yet!");
+	TCHAR szCaption[] = TEXT("Address Book");
 
 	switch (uMsg) 
 	{
@@ -479,6 +481,11 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			/* Parse the menu selections: */
 			switch (wmId)
 			{
+				case IDM_NEW_CONTACT:
+
+					MessageBox(hWnd, szBuf, szCaption, MB_ICONWARNING | MB_OK);
+					break;
+
 				case IDM_EXIT:
 					SendMessage(hWnd, WM_CLOSE, 0, 0L);
 					break;
