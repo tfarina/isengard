@@ -488,6 +488,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			/* Parse the menu selections: */
 			switch (wmId)
 			{
+				case IDC_TB_NEW:
 				case IDM_NEW_CONTACT:
 					ShowContactPropertiesDialog(hWnd);
 					break;
