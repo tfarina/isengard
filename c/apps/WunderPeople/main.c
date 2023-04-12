@@ -62,6 +62,7 @@ int WINAPI WinMain(
 	MSG msg;
 	HACCEL hAccelTable;
     INITCOMMONCONTROLSEX iccex;
+    int rc;
 
 	g_hInst = hInstance;
 
@@ -87,6 +88,13 @@ int WINAPI WinMain(
 	/* Create the main window */
 	if (!CreateMainWindow(hInstance, nCmdShow)) 
 	{
+		return FALSE;
+	}
+
+	rc = db_init();
+	if (rc < 0)
+	{
+		/* We should show a Message Box with an error message here. */
 		return FALSE;
 	}
 
@@ -531,7 +539,6 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	switch (uMsg)
 	{
 		case WM_CREATE:
-			db_init();
 			CreateChildrenControls(hWnd);
 			break;
 
