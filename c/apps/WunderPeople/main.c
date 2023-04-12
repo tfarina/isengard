@@ -60,7 +60,7 @@ int WINAPI WinMain(
 	)
 {
 	MSG msg;
-	HACCEL hAccelTable;
+	HACCEL hAccelTable;  /* Handle to accelerator table */
     INITCOMMONCONTROLSEX iccex;
     int rc;
 
@@ -103,7 +103,7 @@ int WINAPI WinMain(
 	/* Main Message Loop */
 	while (GetMessage(&msg, NULL, 0, 0)) 
 	{
-		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) 
+		if (!TranslateAccelerator(g_hwndWP, hAccelTable, &msg)) 
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
