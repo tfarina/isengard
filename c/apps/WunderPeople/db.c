@@ -4,11 +4,12 @@
 
 #include "sqlite3.h"
 
+sqlite3 *hdb = NULL;  /* SQLite db handle */
+
 int
 db_init(void)
 {
 	char dbname[] = "abdb.sqlite3";
-	sqlite3 *hdb = NULL;
 	static char const create_sql[] =
 		"CREATE TABLE IF NOT EXISTS contacts ("
 		"  id INTEGER PRIMARY KEY,"
