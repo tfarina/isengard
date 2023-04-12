@@ -526,7 +526,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 
-	switch (uMsg) 
+	switch (uMsg)
 	{
 		case WM_CREATE:
 			db_init();
@@ -569,9 +569,6 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				case IDM_ABOUT:
 				   DialogBox(g_hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)AboutDlgProc);
 				   break;
-
-				default:
-				   return DefWindowProc(hWnd, uMsg, wParam, lParam);
 			}
 			break;
 
