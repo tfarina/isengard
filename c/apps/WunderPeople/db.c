@@ -18,6 +18,7 @@ db_init(void)
 		"  email TEXT"
 		");";
 	int rc;
+	char *err_msg = NULL;
 
 	rc = sqlite3_open(dbname, &hdb);
 	if (rc != SQLITE_OK)
@@ -27,7 +28,13 @@ db_init(void)
 		return -1;
 	}
 
-    sqlite3_exec(hdb, create_sql, 0, 0, 0);
+    rc = sqlite3_exec(hdb, create_sql, 0, 0, 0);
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "sqlite3_exec failed: \n", err_msg);
+		sqlite3_free(err_msg);
+		return -1;
+	}
 
 	return 0;
 }
