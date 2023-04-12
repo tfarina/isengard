@@ -4,7 +4,7 @@
 
 #include "sqlite3.h"
 
-sqlite3 *hdb = NULL;  /* SQLite db handle */
+static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
 int
 db_init(void)
