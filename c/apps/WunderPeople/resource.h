@@ -8,7 +8,7 @@
 #define IDM_EXIT                        5
 #define IDM_STATUSBAR                   6
 #define IDM_ABOUT                       7
-#define MainAccel                       8
+#define IDR_MAINWND_ACCEL               8
 #define IDS_APP_TITLE                   100
 #define IDD_DIALOG1                     106
 #define IDD_PROPPAGE_NAME               107

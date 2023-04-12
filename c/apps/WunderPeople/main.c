@@ -88,7 +88,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		return FALSE;
 	}
 
-	hAccelTable = LoadAccelerators(hInstance, (LPCTSTR)MainAccel);
+	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDR_MAINWND_ACCEL));
 
 	/* Main Message Loop */
 	while (GetMessage(&msg, NULL, 0, 0)) 
