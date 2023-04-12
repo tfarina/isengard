@@ -52,10 +52,12 @@ LRESULT CALLBACK	MainWndProc(HWND, UINT, WPARAM, LPARAM);
 LRESULT CALLBACK	AboutDlgProc(HWND, UINT, WPARAM, LPARAM);
 
 
-int APIENTRY WinMain(HINSTANCE hInstance,
-                     HINSTANCE hPrevInstance,
-                     LPSTR     lpCmdLine,
-                     int       nCmdShow)
+int WINAPI WinMain(
+	HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPSTR lpCmdLine,
+    int nCmdShow
+	)
 {
 	MSG msg;
 	HACCEL hAccelTable;
