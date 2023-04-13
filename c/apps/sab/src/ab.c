@@ -47,7 +47,7 @@ static int _execute_sql(char const *sql) {
  */
 static int _create_tables(void) {
   int rc;
-  static const char create_sql[] =
+  char const create_sql[] =
     "CREATE TABLE IF NOT EXISTS contacts ("
     "  id INTEGER PRIMARY KEY,"     /* id */
     "  fname TEXT,"                 /* first name */
