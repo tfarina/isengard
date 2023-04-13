@@ -10,21 +10,6 @@
 static char const dbname[] = "abdb.sqlite3";
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
-static sqlite3_stmt *insert_stmt;
-static const char insert_sql[] =
-  "INSERT INTO contacts (fname, lname, email) VALUES (?, ?, ?)";
-
-static sqlite3_stmt *update_stmt;
-static const char update_sql[] =
-  "UPDATE contacts SET fname=?, lname=?, email=? WHERE id=?";
-
-static sqlite3_stmt *delete_stmt;
-static const char delete_sql[] =
-  "DELETE FROM contacts WHERE id=?";
-
-static sqlite3_stmt *select_stmt;
-static const char select_sql[] = "SELECT * FROM contacts";
-
 static alpm_list_t *contact_list;
 
 static void _close_db(void) {
@@ -115,6 +100,8 @@ int ab_fini(void) {
 
 void ab_load_contacts(void) {
   int rc;
+  char const select_sql[] = "SELECT * FROM contacts";
+  sqlite3_stmt *select_stmt;
 
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -147,6 +134,9 @@ void ab_load_contacts(void) {
 int _db_insert_contact(ab_contact_t *contact) {
   int rc;
   int errcode = 0;
+  char const insert_sql[] =
+      "INSERT INTO contacts (fname, lname, email) VALUES (?, ?, ?)";
+  sqlite3_stmt *insert_stmt;
 
   rc = sqlite3_prepare_v2(hdb, insert_sql, -1, &insert_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -216,6 +206,9 @@ int ab_add_contact(ab_contact_t *contact) {
 int _db_update_contact(ab_contact_t* contact) {
   int rc;
   int errcode = 0;
+  char const update_sql[] =
+      "UPDATE contacts SET fname=?, lname=?, email=? WHERE id=?";
+  sqlite3_stmt *update_stmt;
 
   rc = sqlite3_prepare_v2(hdb, update_sql, -1, &update_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -296,6 +289,8 @@ static int _ab_contact_cmp(void const *p1, void const *p2) {
 
 static int _db_delete_contact(int id) {
   int rc;
+  char const delete_sql[] = "DELETE FROM contacts WHERE id=?";
+  sqlite3_stmt *delete_stmt;
 
   rc = sqlite3_prepare_v2(hdb, delete_sql, -1, &delete_stmt, NULL);
   if (rc != SQLITE_OK) {
