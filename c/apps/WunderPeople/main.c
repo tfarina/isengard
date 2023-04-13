@@ -1,5 +1,6 @@
 /* Windows Header Files */
 #include <windows.h>
+#include <windowsx.h>
 #include <commctrl.h>
 
 /* C RunTime Header Files */
@@ -542,7 +543,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			break;
 
 		case WM_COMMAND:
-			switch (LOWORD(wParam))
+			switch (GET_WM_COMMAND_ID(wParam, lParam))
 			{
 				case IDC_TB_NEW:
 				case IDM_NEW_CONTACT:
