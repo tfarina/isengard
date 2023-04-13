@@ -532,7 +532,6 @@ static VOID ShowContactPropertiesDialog(HWND hWnd)
  */
 LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	int wmId, wmEvent;
 	PAINTSTRUCT ps;
 	HDC hdc;
 
@@ -543,10 +542,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			break;
 
 		case WM_COMMAND:
-			wmId    = LOWORD(wParam); 
-			wmEvent = HIWORD(wParam); 
-			/* Parse the menu selections: */
-			switch (wmId)
+			switch (LOWORD(wParam))
 			{
 				case IDC_TB_NEW:
 				case IDM_NEW_CONTACT:
