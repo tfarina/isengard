@@ -5,11 +5,11 @@ main(void)
 {
   int n = 1;
 
-label:
+loop_restart:
   printf("%d ", n);
   n++;
   if (n <= 10) {
-    goto label;
+    goto loop_restart;
   }
 
   putc('\n', stdout);
