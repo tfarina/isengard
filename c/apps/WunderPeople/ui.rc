@@ -70,7 +70,8 @@ IDR_MAINWND_ACCEL ACCELERATORS
 BEGIN
     "/",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
     "?",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
-    "A",            IDM_SELECTALL,          VIRTKEY, CONTROL
+    "A",            IDM_SELECTALL,          VIRTKEY, CONTROL, NOINVERT
+    "N",            IDM_NEW_CONTACT,        VIRTKEY, CONTROL, NOINVERT
 END
 
 
