@@ -317,9 +317,9 @@ void CreateToolbar(HWND hWndParent)
 
 	TBBUTTON tbButtons[] =
 	{
-		{ MAKELONG(STD_FILENEW, 0), IDC_TB_NEW, TBSTATE_ENABLED, TBSTYLE_BUTTON, {0}, 0, 0 },
-		{ MAKELONG(STD_PROPERTIES, 0), IDC_TB_PROPERTIES, 0, TBSTYLE_BUTTON, {0}, 0, 1 },
-		{ MAKELONG(STD_DELETE, 0), IDC_TB_DELETE, 0, TBSTYLE_BUTTON, {0}, 0, 2 },
+		{ MAKELONG(STD_FILENEW, 0), IDC_TB_NEW, TBSTATE_ENABLED, BTNS_AUTOSIZE, {0}, 0, 0 },
+		{ MAKELONG(STD_PROPERTIES, 0), IDC_TB_PROPERTIES, 0, BTNS_AUTOSIZE, {0}, 0, 1 },
+		{ MAKELONG(STD_DELETE, 0), IDC_TB_DELETE, 0, BTNS_AUTOSIZE, {0}, 0, 2 },
 	};
 
 	g_hwndToolbar = CreateWindowEx(
@@ -356,12 +356,8 @@ void CreateToolbar(HWND hWndParent)
 	SendMessage(g_hwndToolbar, TB_BUTTONSTRUCTSIZE, (WPARAM) sizeof(TBBUTTON), 0);
 	SendMessage(g_hwndToolbar, TB_ADDBUTTONS, (WPARAM) numButtons, (LPARAM) &tbButtons);
 
-	/* TODO: The ListView is covering the Toolbar.
-	 *  We have to adjust its size, so the Toolbar appears.
-	 *  Also the size of the buttons are not right. They are showing
-	 *  only one letter.
-	 */
-	/*SendMessage(g_hwndToolbar, TB_AUTOSIZE, 0, 0);*/
+	/* Resize the toolbar, and then show it */
+	SendMessage(g_hwndToolbar, TB_AUTOSIZE, 0, 0);
 	ShowWindow(g_hwndToolbar, TRUE);
 }
 
