@@ -48,6 +48,7 @@ void				CreateChildrenControls(HWND);
 void				CreateListView(HWND);
 void				CreateToolbar(HWND);
 void				CreateStatusBar(HWND);
+void				PopulateListView(void);
 void				AdjustChildrenControls(HWND);
 void				SelectAllItems(void);
 LRESULT CALLBACK	MainWndProc(HWND, UINT, WPARAM, LPARAM);
@@ -243,19 +244,45 @@ void load_contacts(void)
 }
 
 
+void
+PopulateListView(
+	void
+	)
+{
+	alpm_list_t *item;
+	LPCONTACT contact;
+	LVITEM lvI = {0};
+    int index = 0;
+
+	load_contacts();
+
+	lvI.mask = LVIF_TEXT | LVIF_STATE | LVIF_PARAM;
+	lvI.iItem = 0;
+
+	for (item = contactList; item; item = alpm_list_next(item))
+	{
+		contact = (LPCONTACT) item->data;
+		lvI.iSubItem = 0; /* COL_FIRST_NAME */
+		lvI.lParam = (LPARAM) contact;
+		lvI.pszText = contact->szFirstName;
+
+		index = ListView_InsertItem(g_hwndListView, &lvI);
+		if (index != -1)
+		{
+			ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, contact->szLastName);
+			ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, contact->szEmail);
+		}
+		lvI.iItem++;
+	}
+}
+
+
 void CreateListView(HWND hWndParent)
 {
 	LVCOLUMN lvc;
 	int iCol;
 	TCHAR szText[3][100] = {TEXT("First Name"), TEXT("Last Name"), TEXT("Email")};
 
-	LVITEM lvI = {0};
-    int index = 0;
-
-	alpm_list_t *item;
-	LPCONTACT contact;
-
-	/* Create List View */
 	g_hwndListView = CreateWindowEx(WS_EX_CLIENTEDGE,
 		                            WC_LISTVIEW,
 		                            (LPTSTR) NULL,
@@ -282,29 +309,6 @@ void CreateListView(HWND hWndParent)
 		lvc.iSubItem = iCol;
 		lvc.pszText = szText[iCol];
 		ListView_InsertColumn(g_hwndListView, iCol, &lvc);
-	}
-
-	/* Populate List View */
-
-	load_contacts();
-
-	lvI.mask = LVIF_TEXT | LVIF_STATE | LVIF_PARAM;
-	lvI.iItem = 0;
-
-	for (item = contactList; item; item = alpm_list_next(item))
-	{
-		contact = (LPCONTACT) item->data;
-		lvI.iSubItem = 0; /* COL_FIRST_NAME */
-		lvI.lParam = (LPARAM) contact;
-		lvI.pszText = contact->szFirstName;
-
-		index = ListView_InsertItem(g_hwndListView, &lvI);
-		if (index != -1)
-		{
-			ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, contact->szLastName);
-			ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, contact->szEmail);
-		}
-		lvI.iItem++;
 	}
 }
 
@@ -398,6 +402,8 @@ void CreateChildrenControls(HWND hWndParent)
 	CreateStatusBar(hWndParent);
 
 	CreateListView(hWndParent);
+
+	PopulateListView();
 }
 
 
