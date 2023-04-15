@@ -311,8 +311,9 @@ void CreateListView(HWND hWndParent)
 void CreateToolbar(HWND hWndParent)
 {
 	HIMAGELIST hImageList = NULL;
-	int numButtons = 3;
-	int bitmapSize = 16;
+	int const imageListID = 0;
+	int const numButtons = 3;
+	int const bitmapSize = 16;
 
 	TBBUTTON tbButtons[] =
 	{
@@ -321,31 +322,38 @@ void CreateToolbar(HWND hWndParent)
 		{ MAKELONG(STD_DELETE, 0), IDC_TB_DELETE, 0, TBSTYLE_BUTTON, {0}, 0, 2 },
 	};
 
-	g_hwndToolbar = CreateWindowEx(0,                /* ex style */
-		                           TOOLBARCLASSNAME, /* class name - defined in commctrl.h */
-		                           (LPTSTR)NULL,     /* dummy text */
-								   WS_CHILD | TBSTYLE_FLAT,  /* style */
-		                           0,                /* x position */
-                                   0,                /* y position */
-		                           0,                /* width */
-		                           0,                /* height */
-		                           hWndParent,
-		                           NULL,
-		                           g_hInst,
-		                           NULL);
+	g_hwndToolbar = CreateWindowEx(
+		0,                /* ex style */
+		TOOLBARCLASSNAME, /* class name - defined in commctrl.h */
+		(LPTSTR)NULL,     /* dummy text */
+		WS_CHILD | TBSTYLE_FLAT,  /* style */
+		0,                /* x position */
+        0,                /* y position */
+		0,                /* width */
+		0,                /* height */
+		hWndParent,
+		NULL,
+		g_hInst,
+		NULL);
 
 	if (!g_hwndToolbar)
 		return;
 
-	hImageList = ImageList_Create(bitmapSize, bitmapSize,
-								  ILC_COLOR16 | ILC_MASK,
-								  numButtons, 0);
+	hImageList = ImageList_Create(
+		bitmapSize,
+		bitmapSize,
+		ILC_COLOR16 | ILC_MASK,
+		numButtons,
+		0);
 
-	SendMessage(g_hwndToolbar, TB_BUTTONSTRUCTSIZE, (WPARAM) sizeof(TBBUTTON), 0);
+	/* Set the image list */
+	SendMessage(g_hwndToolbar, TB_SETIMAGELIST, (WPARAM) imageListID, (LPARAM) hImageList);
 
-	SendMessage(g_hwndToolbar, TB_SETIMAGELIST, (WPARAM) 0, (LPARAM) hImageList);
+	/* Load the button images */
 	SendMessage(g_hwndToolbar, TB_LOADIMAGES, (WPARAM) IDB_STD_SMALL_COLOR, (LPARAM) HINST_COMMCTRL);
 
+	/* Add buttons */
+	SendMessage(g_hwndToolbar, TB_BUTTONSTRUCTSIZE, (WPARAM) sizeof(TBBUTTON), 0);
 	SendMessage(g_hwndToolbar, TB_ADDBUTTONS, (WPARAM) numButtons, (LPARAM) &tbButtons);
 
 	/* TODO: The ListView is covering the Toolbar.
@@ -354,7 +362,6 @@ void CreateToolbar(HWND hWndParent)
 	 *  only one letter.
 	 */
 	/*SendMessage(g_hwndToolbar, TB_AUTOSIZE, 0, 0);*/
-	SendMessage(g_hwndToolbar, TB_SETBUTTONWIDTH, 0, 60);
 	ShowWindow(g_hwndToolbar, TRUE);
 }
 
