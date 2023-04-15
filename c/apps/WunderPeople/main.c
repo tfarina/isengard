@@ -317,16 +317,16 @@ void CreateToolbar(HWND hWndParent)
 
 	TBBUTTON tbButtons[] =
 	{
-		{ MAKELONG(STD_FILENEW, 0), IDC_TB_NEW, TBSTATE_ENABLED, BTNS_AUTOSIZE, {0}, 0, 0 },
-		{ MAKELONG(STD_PROPERTIES, 0), IDC_TB_PROPERTIES, 0, BTNS_AUTOSIZE, {0}, 0, 1 },
-		{ MAKELONG(STD_DELETE, 0), IDC_TB_DELETE, 0, BTNS_AUTOSIZE, {0}, 0, 2 },
+		{ MAKELONG(STD_FILENEW, imageListID), IDC_TB_NEW, TBSTATE_ENABLED, BTNS_AUTOSIZE, {0}, 0, (INT_PTR) TEXT("New") },
+		{ MAKELONG(STD_PROPERTIES, imageListID), IDC_TB_PROPERTIES, 0, BTNS_AUTOSIZE, {0}, 0, (INT_PTR) TEXT("Properties") },
+		{ MAKELONG(STD_DELETE, imageListID), IDC_TB_DELETE, 0, BTNS_AUTOSIZE, {0}, 0, (INT_PTR) TEXT("Delete") },
 	};
 
 	g_hwndToolbar = CreateWindowEx(
 		0,                /* ex style */
 		TOOLBARCLASSNAME, /* class name - defined in commctrl.h */
 		(LPTSTR)NULL,     /* dummy text */
-		WS_CHILD | TBSTYLE_FLAT,  /* style */
+		WS_CHILD | WS_VISIBLE | TBSTYLE_WRAPABLE,  /* style */
 		0,                /* x position */
         0,                /* y position */
 		0,                /* width */
