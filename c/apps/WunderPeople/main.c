@@ -318,7 +318,7 @@ void CreateToolbar(HWND hWndParent)
 	HIMAGELIST hImageList = NULL;
 	int const imageListID = 0;
 	int const numButtons = 3;
-	int const bitmapSize = 16;
+	int const bitmapSize = 24;
 
 	TBBUTTON tbButtons[] =
 	{
@@ -347,7 +347,7 @@ void CreateToolbar(HWND hWndParent)
 	hImageList = ImageList_Create(
 		bitmapSize,
 		bitmapSize,
-		ILC_COLOR16 | ILC_MASK,
+		ILC_COLOR32 | ILC_MASK,
 		numButtons,
 		0);
 
@@ -355,7 +355,7 @@ void CreateToolbar(HWND hWndParent)
 	SendMessage(g_hwndToolbar, TB_SETIMAGELIST, (WPARAM) imageListID, (LPARAM) hImageList);
 
 	/* Load the button images */
-	SendMessage(g_hwndToolbar, TB_LOADIMAGES, (WPARAM) IDB_STD_SMALL_COLOR, (LPARAM) HINST_COMMCTRL);
+	SendMessage(g_hwndToolbar, TB_LOADIMAGES, (WPARAM) IDB_STD_LARGE_COLOR, (LPARAM) HINST_COMMCTRL);
 
 	/* Add buttons */
 	SendMessage(g_hwndToolbar, TB_BUTTONSTRUCTSIZE, (WPARAM) sizeof(TBBUTTON), 0);
