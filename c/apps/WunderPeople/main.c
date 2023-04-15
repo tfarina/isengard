@@ -394,16 +394,18 @@ void CreateChildrenControls(HWND hWndParent)
 void AdjustChildrenControls(HWND hWndParent)
 {
 	RECT rc;
+	RECT toolbarRect;
 	int tbX, tbY, tbW, tbH;
     int statusX, statusY, statusW, statusH;
 	int lvX, lvY, lvW, lvH;
 
     GetClientRect(hWndParent, &rc);
+	GetClientRect(g_hwndToolbar, &toolbarRect);
 
 	tbX = 0;
 	tbY = rc.top;
 	tbW = rc.right - rc.left;
-	tbH = 24;
+	tbH = toolbarRect.bottom - toolbarRect.top;
 
 	statusX = 0;
 	statusY = rc.bottom - g_hStatus;
@@ -426,8 +428,8 @@ void AdjustChildrenControls(HWND hWndParent)
 
 	if (IsWindowVisible(g_hwndToolbar))
 	{
-		lvY = lvY + tbH + 5;
-		lvH = lvH - tbH - 10;
+		lvY = lvY + tbH;
+		lvH = lvH - tbH - 5;
 	}
 
 	MoveWindow(g_hwndToolbar,
