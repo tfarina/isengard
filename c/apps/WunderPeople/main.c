@@ -47,6 +47,7 @@ BOOL				CreateMainWindow(HINSTANCE, int);
 void				CreateChildrenControls(HWND);
 void				CreateListView(HWND);
 void				CreateToolbar(HWND);
+void				CreateStatusBar(HWND);
 void				AdjustChildrenControls(HWND);
 void				SelectAllItems(void);
 LRESULT CALLBACK	MainWndProc(HWND, UINT, WPARAM, LPARAM);
@@ -362,30 +363,39 @@ void CreateToolbar(HWND hWndParent)
 }
 
 
-void CreateChildrenControls(HWND hWndParent)
+void
+CreateStatusBar(
+	HWND hWndParent
+	)
 {
-    RECT rcStatus;
+    RECT statusBarRect;
 
-	CreateToolbar(hWndParent);
+	g_hwndStatusBar = CreateWindowEx(
+		0,                /* ex style */
+		STATUSCLASSNAME,  /* class name - defined in commctrl.h */
+		(LPTSTR) NULL,    /* dummy text */
+		WS_CHILD | WS_VISIBLE | SBS_SIZEGRIP,  /* style */
+		0,                /* x position */
+		0,                /* y position */
+		0,                /* width */
+		0,                /* height */
+		hWndParent,       /* parent */
+		(HMENU) IDC_STATUSBAR, /* ID */
+		g_hInst,          /* instance */
+		NULL);            /* no extra data */
 
-	/* Create Status Bar */
-	g_hwndStatusBar = CreateWindowEx(0,                /* ex style */
-			                         STATUSCLASSNAME,  /* class name - defined in commctrl.h */
-	                                 (LPTSTR)NULL,     /* dummy text */
-	                                 WS_CHILD | WS_VISIBLE | SBS_SIZEGRIP,  /* style */
-	                                 0,                /* x position */
-						             0,                /* y position */
-						             0,                /* width */
-						             0,                /* height */
-	                                 hWndParent,       /* parent */
-	                                 (HMENU) IDC_STATUSBAR, /* ID */
-	                                 g_hInst,          /* instance */
-	                                 NULL);            /* no extra data */
-
-	GetClientRect(g_hwndStatusBar, (LPRECT)&rcStatus);
+	GetClientRect(g_hwndStatusBar, &statusBarRect);
 
 	/* Calculate the height of statusbar. */
-	g_hStatus = rcStatus.bottom - rcStatus.top;
+	g_hStatus = statusBarRect.bottom - statusBarRect.top;
+}
+
+
+void CreateChildrenControls(HWND hWndParent)
+{
+	CreateToolbar(hWndParent);
+
+	CreateStatusBar(hWndParent);
 
 	CreateListView(hWndParent);
 }
