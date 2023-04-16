@@ -26,6 +26,9 @@
 #define IDM_SELECTALL                   32772
 #define ID_Menu                         32773
 #define IDM_NEW_CONTACT                 32774
+#define ID_FILE_PROPERTIES              32777
+#define IDM_PROPERTIES                  32778
+#define IDM_DELETE                      32779
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -35,7 +38,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        107
-#define _APS_NEXT_COMMAND_VALUE         32775
+#define _APS_NEXT_COMMAND_VALUE         32780
 #define _APS_NEXT_CONTROL_VALUE         2006
 #define _APS_NEXT_SYMED_VALUE           2103
 #endif

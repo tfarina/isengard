@@ -44,6 +44,9 @@ BEGIN
     BEGIN
         MENUITEM "New &Contact...\tCtrl+N",     IDM_NEW_CONTACT
         MENUITEM SEPARATOR
+        MENUITEM "P&roperties\tAlt+Enter",      IDM_PROPERTIES, GRAYED
+        MENUITEM "&Delete",                     32779, GRAYED
+        MENUITEM SEPARATOR
         MENUITEM "E&xit",                       IDM_EXIT
     END
     POPUP "&Edit"
