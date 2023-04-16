@@ -11,10 +11,12 @@ BEGIN TRANSACTION;
 /* Contacts table ----------------------------------------------------------- */
 
 CREATE TABLE contacts (
-  id INTEGER PRIMARY KEY,
-  fname TEXT,
-  lname TEXT,
-  email TEXT
+  id       INTEGER PRIMARY KEY,
+  fname    TEXT,
+  lname    TEXT,
+  mname    TEXT,
+  nickname TEXT,
+  email    TEXT
 );
 
 /* Initial Data ------------------------------------------------------------- */
