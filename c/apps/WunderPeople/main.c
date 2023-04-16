@@ -178,18 +178,19 @@ BOOL CreateMainWindow(HINSTANCE hInstance, int nCmdShow)
 	hMenu = LoadMenu(hInstance, MAKEINTRESOURCE(IDR_MENUBAR));
 
 	/* Create the main window for this application instance. */
-	g_hwndWP = CreateWindowEx(0,
-		                      g_szClassName,
-	                          szTitle,
-		                      WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
-                              CW_USEDEFAULT,
-					          CW_USEDEFAULT,
-					          INIT_WINDOW_WIDTH,
-					          INIT_WINDOW_HEIGHT,
-					          NULL,
-					          hMenu,
-					          hInstance,
-					          NULL);
+	g_hwndWP = CreateWindowEx(
+		0,
+		g_szClassName,
+		szTitle,
+		WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		INIT_WINDOW_WIDTH,
+		INIT_WINDOW_HEIGHT,
+		NULL,
+		hMenu,
+		hInstance,
+		NULL);
 
 	if (!g_hwndWP)
 	{
@@ -283,19 +284,20 @@ void CreateListView(HWND hWndParent)
 	int iCol;
 	TCHAR szText[3][100] = {TEXT("First Name"), TEXT("Last Name"), TEXT("Email")};
 
-	g_hwndListView = CreateWindowEx(WS_EX_CLIENTEDGE,
-		                            WC_LISTVIEW,
-		                            (LPTSTR) NULL,
-		                            WS_TABSTOP | WS_HSCROLL | WS_VSCROLL | WS_VISIBLE |
-		                            WS_CHILD | LVS_REPORT | LVS_SHOWSELALWAYS | WS_EX_CLIENTEDGE,
-		                            0,
-									0,
-									0,
-									0,
-		                            hWndParent,
-		                            (HMENU) IDC_LISTVIEW,
-		                            g_hInst,
-			                        NULL);
+	g_hwndListView = CreateWindowEx(
+		WS_EX_CLIENTEDGE,
+		WC_LISTVIEW,
+		(LPTSTR) NULL,
+		WS_TABSTOP | WS_HSCROLL | WS_VSCROLL | WS_VISIBLE |
+		WS_CHILD | LVS_REPORT | LVS_SHOWSELALWAYS | WS_EX_CLIENTEDGE,
+		0,
+		0,
+		0,
+		0,
+		hWndParent,
+		(HMENU) IDC_LISTVIEW,
+		g_hInst,
+		NULL);
 
 	ListView_SetExtendedListViewStyle(g_hwndListView, LVS_EX_FULLROWSELECT);
 
