@@ -545,6 +545,32 @@ static VOID ShowContactPropertiesDialog(HWND hWnd)
 }
 
 
+static void
+UpdateMenuStates(
+	void
+	)
+{
+	/* TODO: implement me */
+}
+
+
+static void
+HandleListViewNotifications(
+	HWND hWnd,
+	LPARAM lParam
+	)
+{
+	NMLISTVIEW *nmListView = (NMLISTVIEW *) lParam;
+
+	switch (nmListView->hdr.code)
+	{
+	case NM_CLICK:
+		UpdateMenuStates();
+		break;
+	}
+}
+
+
 /*
  *  FUNCTION: MainWndProc(HWND, unsigned, WORD, LONG)
  *
@@ -621,6 +647,16 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		case WM_DESTROY:
 			PostQuitMessage(0);
+			break;
+
+
+		case WM_NOTIFY:
+			switch (wParam)
+			{
+			case IDC_LISTVIEW:
+				HandleListViewNotifications(hWnd, lParam);
+				break;
+			}
 			break;
 
 
