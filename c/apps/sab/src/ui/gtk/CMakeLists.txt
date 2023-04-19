@@ -2,7 +2,7 @@
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK2 REQUIRED gtk+-2.0)
 
-set(EXENAME "${PROJECT_NAME}_gui")
+set(EXENAME "${PROJECT_NAME}")
 
 set(DEPENDENCIES
   ab

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Sab
-Exec=sab_gui
+Exec=sab
 Terminal=false
 Type=Application
 Categories=GTK;GNOME;Application;Utility;
