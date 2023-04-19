@@ -1,4 +1,4 @@
-set(EXENAME "${PROJECT_NAME}")
+set(EXENAME "${PROJECT_NAME}cmd")
 
 set(DEPENDENCIES
   ab
