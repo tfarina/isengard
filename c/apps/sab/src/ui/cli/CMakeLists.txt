@@ -32,7 +32,7 @@ target_link_libraries(${EXENAME}
 )
 
 set(SOURCES
-  sab-add.c
+  sabcmd-add.c
 )
 
 add_executable(${EXENAME}-add
@@ -44,7 +44,7 @@ target_link_libraries(${EXENAME}-add
 )
 
 set(SOURCES
-  sab-change.c
+  sabcmd-change.c
 )
 
 add_executable(${EXENAME}-change
@@ -56,7 +56,7 @@ target_link_libraries(${EXENAME}-change
 )
 
 set(SOURCES
-  sab-delete.c
+  sabcmd-delete.c
 )
 
 add_executable(${EXENAME}-delete
@@ -70,7 +70,7 @@ target_link_libraries(${EXENAME}-delete
 set(SOURCES
   fort.c
   common.c
-  sab-ls.c
+  sabcmd-ls.c
 )
 
 add_executable(${EXENAME}-ls
