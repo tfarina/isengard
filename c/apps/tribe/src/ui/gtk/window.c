@@ -469,7 +469,7 @@ _on_help_contents_cb(GtkAction *action, gpointer data)
   screen = gtk_widget_get_screen(main_window);
   timestamp = gtk_get_current_event_time();
 
-  gtk_show_uri(screen, "help:sab", timestamp, &error);
+  gtk_show_uri(screen, "help:tribe", timestamp, &error);
 }
 
 static void

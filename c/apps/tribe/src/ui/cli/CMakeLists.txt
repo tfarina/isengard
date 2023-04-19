@@ -32,7 +32,7 @@ target_link_libraries(${EXENAME}
 )
 
 set(SOURCES
-  sabcmd-add.c
+  tribecmd-add.c
 )
 
 add_executable(${EXENAME}-add
@@ -44,7 +44,7 @@ target_link_libraries(${EXENAME}-add
 )
 
 set(SOURCES
-  sabcmd-change.c
+  tribecmd-change.c
 )
 
 add_executable(${EXENAME}-change
@@ -56,7 +56,7 @@ target_link_libraries(${EXENAME}-change
 )
 
 set(SOURCES
-  sabcmd-delete.c
+  tribecmd-delete.c
 )
 
 add_executable(${EXENAME}-delete
@@ -70,7 +70,7 @@ target_link_libraries(${EXENAME}-delete
 set(SOURCES
   fort.c
   common.c
-  sabcmd-ls.c
+  tribecmd-ls.c
 )
 
 add_executable(${EXENAME}-ls
