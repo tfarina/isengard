@@ -149,7 +149,7 @@ ComposeWindow *compose_window_new(void)
    * Window
    */
   compose->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(compose->window), "Compose");
+  gtk_window_set_title(GTK_WINDOW(compose->window), "Write New Message - Mailer");
   gtk_window_set_position(GTK_WINDOW(compose->window), GTK_WIN_POS_CENTER);
   gtk_window_set_default_size(GTK_WINDOW(compose->window), WINDOW_WIDTH, WINDOW_HEIGHT);
 
