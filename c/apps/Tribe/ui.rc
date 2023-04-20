@@ -59,7 +59,7 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
-        MENUITEM "&About WunderPeople",         IDM_ABOUT
+        MENUITEM "&About Tribe",         IDM_ABOUT
     END
 END
 
@@ -85,11 +85,11 @@ END
 
 IDD_ABOUTBOX DIALOG  0, 0, 238, 93
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "About WunderPeople"
+CAPTION "About Tribe"
 FONT 8, "MS Shell Dlg"
 BEGIN
     ICON            IDI_APP_ICON,IDC_STATIC,14,9,20,20
-    LTEXT           "WunderPeople",IDC_STATIC,39,9,131,8
+    LTEXT           "Tribe",IDC_STATIC,39,9,131,8
     LTEXT           "Version 1.0",IDC_STATIC,39,21,131,8
     LTEXT           "Copyright (C) 2022",IDC_STATIC,39,32,119,8
     DEFPUSHBUTTON   "OK",IDOK,174,7,50,14
@@ -161,12 +161,12 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "CompanyName", " "
-            VALUE "FileDescription", "WunderPeople"
+            VALUE "FileDescription", "Tribe"
             VALUE "FileVersion", "1, 0, 0, 1"
-            VALUE "InternalName", "WunderPeople"
+            VALUE "InternalName", "Tribe"
             VALUE "LegalCopyright", "Copyright © 2022"
             VALUE "OriginalFilename", "wup.exe"
-            VALUE "ProductName", "WunderPeople"
+            VALUE "ProductName", "Tribe"
             VALUE "ProductVersion", "1, 0, 0, 1"
         END
     END
@@ -203,7 +203,7 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_APP_TITLE           "WunderPeople - Address Book"
+    IDS_APP_TITLE           "Tribe - Address Book"
 END
 
 #endif    // English (U.S.) resources

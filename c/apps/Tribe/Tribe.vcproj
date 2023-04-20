@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="WunderPeople"
+	Name="Tribe"
 	ProjectGUID="{F9472281-A5E4-4666-9E87-81B7CD1A8FA7}"
-	RootNamespace="WunderPeople"
+	RootNamespace="Tribe"
 	>
 	<Platforms>
 		<Platform
@@ -42,7 +42,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Release/WunderPeople.tlb"
+				TypeLibraryName=".\Release/Tribe.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -55,7 +55,7 @@
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
-				PrecompiledHeaderFile=".\Release/WunderPeople.pch"
+				PrecompiledHeaderFile=".\Release/Tribe.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
 				ProgramDataBaseFileName=".\Release/"
@@ -75,10 +75,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\Release/WunderPeople.exe"
+				OutputFile=".\Release/Tribe.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				ProgramDatabaseFile=".\Release/WunderPeople.pdb"
+				ProgramDatabaseFile=".\Release/Tribe.pdb"
 				SubSystem="2"
 				TargetMachine="1"
 			/>
@@ -94,7 +94,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Release/WunderPeople.bsc"
+				OutputFile=".\Release/Tribe.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -137,7 +137,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/WunderPeople.tlb"
+				TypeLibraryName=".\Debug/Tribe.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -147,7 +147,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				PrecompiledHeaderFile=".\Debug/WunderPeople.pch"
+				PrecompiledHeaderFile=".\Debug/Tribe.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
@@ -190,7 +190,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug/WunderPeople.bsc"
+				OutputFile=".\Debug/Tribe.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
