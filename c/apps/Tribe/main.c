@@ -35,7 +35,7 @@ HWND g_hwndStatusBar;
 HWND g_hwndListView;
 HWND g_hwndToolbar;
 
-LPTSTR g_szClassName = TEXT("WuPAB");  /* Window class name */
+LPTSTR g_szClassName = TEXT("TribeAB");  /* Window class name */
 
 LONG g_hStatus;
 
