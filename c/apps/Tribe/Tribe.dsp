@@ -139,10 +139,6 @@ SOURCE=.\sqlite3.h
 
 SOURCE=.\app.ico
 # End Source File
-# Begin Source File
-
-SOURCE=.\wup.ico
-# End Source File
 # End Group
 # End Target
 # End Project

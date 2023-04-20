@@ -327,10 +327,6 @@
 				RelativePath="app.ico"
 				>
 			</File>
-			<File
-				RelativePath="wup.ico"
-				>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>
