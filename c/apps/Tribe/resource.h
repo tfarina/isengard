@@ -2,6 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by ui.rc
 //
+#define IDR_RT_MANIFEST                 1
 #define IDI_APP_ICON                    2
 #define IDD_ABOUTBOX                    3
 #define IDR_MENUBAR                     4
@@ -37,7 +38,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        107
+#define _APS_NEXT_RESOURCE_VALUE        108
 #define _APS_NEXT_COMMAND_VALUE         32780
 #define _APS_NEXT_CONTROL_VALUE         2006
 #define _APS_NEXT_SYMED_VALUE           2103

@@ -173,6 +173,7 @@
 				OutputFile="Debug/tribe.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
+				GenerateManifest="false"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/tribe.pdb"
 				SubSystem="2"
@@ -183,6 +184,7 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
+				EmbedManifest="false"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -328,6 +330,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\tribe.manifest"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

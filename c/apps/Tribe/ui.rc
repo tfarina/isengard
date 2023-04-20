@@ -59,7 +59,7 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
-        MENUITEM "&About Tribe",         IDM_ABOUT
+        MENUITEM "&About Tribe",                IDM_ABOUT
     END
 END
 
@@ -195,6 +195,13 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RT_MANIFEST
+//
+
+IDR_RT_MANIFEST         RT_MANIFEST             "tribe.manifest"
 
 /////////////////////////////////////////////////////////////////////////////
 //
