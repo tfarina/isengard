@@ -204,7 +204,10 @@ BOOL CreateMainWindow(HINSTANCE hInstance, int nCmdShow)
 }
 
 
-void load_contacts(void)
+int
+load_contacts(
+	void
+	)
 {
 	LPCONTACT contact;
 
@@ -212,6 +215,7 @@ void load_contacts(void)
 	if (!contact)
 	{
 		/* Out of memory. */
+		goto exit;
 	}
 	lstrcpy(contact->szFirstName, "John");
 	lstrcpy(contact->szLastName, "Doe");
@@ -224,6 +228,7 @@ void load_contacts(void)
 	if (!contact)
 	{
 		/* Out of memory. */
+		goto exit;
 	}
 	lstrcpy(contact->szFirstName, "Jane");
 	lstrcpy(contact->szLastName, "Doe");
@@ -236,12 +241,18 @@ void load_contacts(void)
 	if (!contact)
 	{
 		/* Out of memory. */
+		goto exit;
 	}
 	lstrcpy(contact->szFirstName, "John");
 	lstrcpy(contact->szLastName, "Smith");
 	lstrcpy(contact->szEmail, "john_smith@mail.com");
 
 	contactList = alpm_list_add(contactList, contact);
+
+	return 0;
+
+exit:
+	return -1;
 }
 
 
