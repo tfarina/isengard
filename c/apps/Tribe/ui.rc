@@ -165,7 +165,7 @@ BEGIN
             VALUE "FileVersion", "1, 0, 0, 1"
             VALUE "InternalName", "Tribe"
             VALUE "LegalCopyright", "Copyright © 2022"
-            VALUE "OriginalFilename", "wup.exe"
+            VALUE "OriginalFilename", "tribe.exe"
             VALUE "ProductName", "Tribe"
             VALUE "ProductVersion", "1, 0, 0, 1"
         END
