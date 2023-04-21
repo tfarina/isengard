@@ -41,21 +41,62 @@ LONG g_hStatus;
 
 static alpm_list_t *contactList = NULL;
 
-/* Foward declarations of functions included in this code module: */
-BOOL				InitWindowClass(HINSTANCE);
-BOOL				CreateMainWindow(HINSTANCE, int);
-void				CreateChildrenControls(HWND);
-void				CreateListView(HWND);
-void				CreateToolbar(HWND);
-void				CreateStatusBar(HWND);
-void				PopulateListView(void);
-void				AdjustChildrenControls(HWND);
-void				SelectAllItems(void);
-LRESULT CALLBACK	MainWndProc(HWND, UINT, WPARAM, LPARAM);
-LRESULT CALLBACK	AboutDlgProc(HWND, UINT, WPARAM, LPARAM);
+/* Function prototypes */
+BOOL
+InitWindowClass(
+	HINSTANCE
+	);
+BOOL
+CreateMainWindow(
+	HINSTANCE,
+	int
+	);
+void
+CreateChildrenControls(
+	HWND
+	);
+void
+CreateListView(
+	HWND
+	);
+void
+CreateToolbar(
+	HWND
+	);
+void
+CreateStatusBar(
+	HWND
+	);
+void
+PopulateListView(
+	void
+	);
+void
+AdjustChildrenControls(
+	HWND
+	);
+void
+SelectAllItems(
+	void
+	);
+LRESULT CALLBACK
+MainWndProc(
+	HWND,
+	UINT,
+	WPARAM,
+	LPARAM
+	);
+LRESULT CALLBACK
+AboutDlgProc(
+	HWND,
+	UINT,
+	WPARAM,
+	LPARAM
+	);
 
 
-int WINAPI WinMain(
+int WINAPI
+WinMain(
 	HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine,
@@ -130,7 +171,10 @@ int WINAPI WinMain(
  *    so that the application will get 'well formed' small icons associated
  *    with it.
  */
-BOOL InitWindowClass(HINSTANCE hInstance)
+BOOL
+InitWindowClass(
+	HINSTANCE hInstance
+	)
 {
 	WNDCLASSEX wcex;
 
@@ -168,7 +212,11 @@ BOOL InitWindowClass(HINSTANCE hInstance)
  *
  *        In this function, we create and display the main program window.
  */
-BOOL CreateMainWindow(HINSTANCE hInstance, int nCmdShow)
+BOOL
+CreateMainWindow(
+	HINSTANCE hInstance,
+	int nCmdShow
+	)
 {
 	TCHAR szTitle[MAX_LOADSTRING];  /* Title bar text */
 	HMENU hMenu;
@@ -289,7 +337,10 @@ PopulateListView(
 }
 
 
-void CreateListView(HWND hWndParent)
+void
+CreateListView(
+	HWND hWndParent
+	)
 {
 	LVCOLUMN lvc;
 	int iCol;
@@ -326,7 +377,10 @@ void CreateListView(HWND hWndParent)
 }
 
 
-void CreateToolbar(HWND hWndParent)
+void
+CreateToolbar(
+	HWND hWndParent
+	)
 {
 	HIMAGELIST hImageList = NULL;
 	int const imageListID = 0;
@@ -408,7 +462,10 @@ CreateStatusBar(
 }
 
 
-void CreateChildrenControls(HWND hWndParent)
+void
+CreateChildrenControls(
+	HWND hWndParent
+	)
 {
 	CreateToolbar(hWndParent);
 
@@ -420,7 +477,10 @@ void CreateChildrenControls(HWND hWndParent)
 }
 
 
-void AdjustChildrenControls(HWND hWndParent)
+void
+AdjustChildrenControls(
+	HWND hWndParent
+	)
 {
 	RECT rc;
 	RECT toolbarRect;
@@ -484,7 +544,10 @@ void AdjustChildrenControls(HWND hWndParent)
 }
 
 
-VOID SelectAllItems(VOID)
+VOID
+SelectAllItems(
+	VOID
+	)
 {
 	int i;
 	int iCount = ListView_GetItemCount(g_hwndListView);
@@ -496,7 +559,8 @@ VOID SelectAllItems(VOID)
 }
 
 
-INT_PTR CALLBACK fnNamePageProc(
+INT_PTR CALLBACK
+fnNamePageProc(
 	HWND hWndDlg,
 	UINT uMsg,
 	WPARAM wParam,
@@ -527,7 +591,10 @@ INT_PTR CALLBACK fnNamePageProc(
 }
 
 
-static VOID ShowContactPropertiesDialog(HWND hWnd)
+static VOID
+ShowContactPropertiesDialog(
+	HWND hWnd
+	)
 {
 	PROPSHEETPAGE propSheetPage[1];
 	PROPSHEETHEADER propSheetHeader;
@@ -591,7 +658,13 @@ HandleListViewNotifications(
  *  WM_PAINT	- Paint the main window
  *  WM_DESTROY	- post a quit message and return
  */
-LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK
+MainWndProc(
+	HWND hWnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam
+	)
 {
 	PAINTSTRUCT ps;
 	HDC hdc;
@@ -682,7 +755,13 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 /*
  * Mesage handler for about box.
  */
-LRESULT CALLBACK AboutDlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK
+AboutDlgProc(
+	HWND hDlg,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam
+	)
 {
 	switch (uMsg)
 	{
