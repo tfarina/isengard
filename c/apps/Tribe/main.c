@@ -628,7 +628,16 @@ UpdateMenuStates(
 	void
 	)
 {
-	/* TODO: implement me */
+	int numSelected = ListView_GetSelectedCount(g_hwndListView);
+	HMENU hMenu = GetSubMenu(GetMenu(g_hwndWP), 0);
+	BOOL canDelete = numSelected > 0 ? TRUE : FALSE;
+	UINT uFlag = canDelete ? MF_ENABLED : MF_GRAYED;
+
+	SendMessage(g_hwndToolbar, TB_ENABLEBUTTON, (WPARAM) IDC_TB_DELETE, (LPARAM) MAKELONG(canDelete, 0));
+
+	EnableMenuItem(hMenu, IDM_DELETE, MF_BYCOMMAND | uFlag);
+
+	/* TODO: implement for Properties menu and toolbar button */
 }
 
 
