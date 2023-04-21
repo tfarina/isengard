@@ -544,9 +544,9 @@ AdjustChildrenControls(
 }
 
 
-VOID
+void
 SelectAllItems(
-	VOID
+	void
 	)
 {
 	int i;
@@ -591,7 +591,7 @@ fnNamePageProc(
 }
 
 
-static VOID
+static void
 ShowContactPropertiesDialog(
 	HWND hWnd
 	)
