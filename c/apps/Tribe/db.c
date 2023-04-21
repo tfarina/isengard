@@ -10,7 +10,7 @@ int
 db_init(void)
 {
 	char dbname[] = "abdb.sqlite3";
-	static char const create_sql[] =
+	char const create_sql[] =
 		"CREATE TABLE IF NOT EXISTS contacts ("
 		"  id INTEGER PRIMARY KEY,"
 		"  fname TEXT,"
