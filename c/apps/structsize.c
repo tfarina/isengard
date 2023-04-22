@@ -13,8 +13,8 @@ main(void)
 {
   struct vector v1;
 
-  printf("The size of vec structure is %d\n", sizeof(struct vector));
-  printf("The size of vec structure is %d\n", sizeof(v1));
+  printf("size of structure in BYTES: %d\n", sizeof(struct vector));
+  printf("size of structure in BYTES: %d\n", sizeof(v1));
 
   return 0;
 }
