@@ -18,10 +18,6 @@ extern "C" {
 typedef struct vector_s
 {
         /**
-	 * The pointer to the underlying array data.
-         */
-        void *data;
-        /**
          * The size of each element (in bytes).
          */
         size_t datasize;
@@ -33,6 +29,10 @@ typedef struct vector_s
          * The current number of used elements (nused) in the array.
          */
 	size_t size;
+        /**
+	 * The pointer to the underlying array data.
+         */
+        void *data;
 } vector_t;
 
 /* ========================================================================= */
