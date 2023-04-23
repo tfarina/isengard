@@ -9,6 +9,7 @@ int main(int argc, char **argv) {
   printf("The memory address of 'ch' is -> %p\n", (void *)&ch);
   printf("The value of the pointer 'cptr' is -> %p\n", (void *)cptr);
   printf("The memory address of the pointer 'cptr' is -> %p\n", (void *)&cptr);
+  printf("The value of 'ch' variable is -> %c\n", *cptr);
 
   return 0;
 }
