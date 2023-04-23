@@ -7,7 +7,7 @@
 int ab_init(char *dbpath);
 int ab_fini(void);
 
-void ab_load_contacts(void);
+int ab_load_contacts(void);
 
 int ab_add_contact(ab_contact_t *contact);
 

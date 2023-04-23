@@ -98,8 +98,9 @@ int ab_fini(void) {
   return 0;
 }
 
-void ab_load_contacts(void) {
+int ab_load_contacts(void) {
   int rc;
+  int errcode = 0;
   char const select_sql[] = "SELECT * FROM contacts";
   sqlite3_stmt *select_stmt;
 
@@ -107,7 +108,7 @@ void ab_load_contacts(void) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to prepare the select statement: %s\n",
             sqlite3_errmsg(hdb));
-    return;
+    return -1;
   }
 
   while (sqlite3_step(select_stmt) == SQLITE_ROW) {
@@ -127,8 +128,11 @@ void ab_load_contacts(void) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to finalize the select statement: %s\n",
             sqlite3_errmsg(hdb));
+    errcode = -1;
   }
   select_stmt = NULL;
+
+  return errcode;
 }
 
 int _db_insert_contact(ab_contact_t *contact) {
