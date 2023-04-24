@@ -101,10 +101,10 @@ void *vector_data(vector_t const * const self);
 /* ------------------------------------------------------------------------- */
 
 /**
- * Returns the current number of elements stored in the array.
+ * Returns the number of elements contained in the array.
  *
  * @param[in,out] self A pointer to the `vector_t` instance (must not be NULL).
- * @return The number of elements in the array.
+ * @return The number of elements contained in the array.
  */
 size_t vector_size(vector_t const * const self);
 
