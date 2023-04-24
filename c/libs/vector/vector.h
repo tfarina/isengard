@@ -67,10 +67,10 @@ void vector_destroy(vector_t *self);
 /* ------------------------------------------------------------------------- */
 
 /**
- * Inserts the specified element at the end of the array.
+ * Adds the given element to the end of the array.
  *
  * @param[in,out] self    A pointer to the `vector_t` instance (must not be NULL).
- * @param[in]     element The element to be inserted.
+ * @param[in]     element The element to be added to the end of the array.
  */
 void vector_push_back(vector_t *self, void *element);
 
