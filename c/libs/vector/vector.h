@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 /**
- * vector_t is a container that encapsulates a dynamic size array.
+ * vector_t is a container that encapsulates a contiguous resizable array.
  */
 typedef struct vector_s
 {
