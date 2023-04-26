@@ -24,6 +24,7 @@ add_dependencies(${EXENAME}
 )
 
 target_include_directories(${EXENAME} PUBLIC
+  ${CMAKE_BINARY_DIR}/src
   ${CMAKE_SOURCE_DIR}
 )
 

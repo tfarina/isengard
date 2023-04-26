@@ -36,9 +36,6 @@ add_compile_options(
     -Werror
     -Wno-unused-parameter)
 
-# This is a hack to allow the inclusion of "config.h".
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
-
 add_subdirectory(src/ui/cli)
 
 if (WITH_GTK)
