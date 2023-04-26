@@ -3,6 +3,8 @@ configure_file(
   "${CMAKE_CURRENT_BINARY_DIR}/config.h"
 )
 
+add_subdirectory(third_party/sqlite)
+
 set(DEPENDENCIES
   sqlite3
 )
@@ -40,7 +42,6 @@ add_dependencies(ab
 )
 
 target_include_directories(ab PUBLIC
-  ${CMAKE_SOURCE_DIR}
   ${CMAKE_SOURCE_DIR}/src
 )
 
