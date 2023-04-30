@@ -120,7 +120,7 @@ size_t vector_capacity(vector_t const * const self);
  * Determines whether the vector is empty.
  *
  * @param[in,out] self A pointer to the `vector_t` instance.
- * @return non-zero if the vector size is 0, zero otherwise.
+ * @return Nonzero if the vector size is 0, zero otherwise.
  */
 int vector_empty(vector_t const * const self);
 
