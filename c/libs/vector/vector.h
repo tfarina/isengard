@@ -129,7 +129,7 @@ int vector_empty(vector_t const * const self);
 /* ------------------------------------------------------------------------- */
 
 /**
- * Erases all elements from the container.
+ * Erases all elements from the vector.
  *
  * After this call, size() returns zero. Leaves the capacity() of the vector
  * unchanged.
