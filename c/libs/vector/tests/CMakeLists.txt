@@ -7,7 +7,7 @@ set(HDRS
 )
 
 set(SRCS
-  unittests.c
+  run_all_unittests.c
   vector_test.c
 )
 
