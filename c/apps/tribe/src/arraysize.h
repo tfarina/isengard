@@ -7,7 +7,7 @@
 #undef ARRAY_SIZE
 
 /**
- * @brief Computes the number of elements in a statically-allocated array.
+ * @brief Computes the number of elements in a statically allocated array.
  *
  * Example:
  *
