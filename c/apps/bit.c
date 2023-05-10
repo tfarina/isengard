@@ -21,15 +21,15 @@ int main(void) {
    */
 
   /* Powers of 2 in binary */
-  const uint8_t zero                  = 0b00000000;
-  const uint8_t one                   = 0b00000001;
-  const uint8_t two                   = 0b00000010;
-  const uint8_t four                  = 0b00000100;
-  const uint8_t eight                 = 0b00001000;
-  const uint8_t sixteen               = 0b00010000;
-  const uint8_t thirtytwo             = 0b00100000;
-  const uint8_t sixtyfour             = 0b01000000;
-  const uint8_t onehundredtwentyeight = 0b10000000;
+  const uint8_t zero                  = 0x00; /* 0b0000 0000 */
+  const uint8_t one                   = 0x01; /* 0b0000 0001 */
+  const uint8_t two                   = 0x02; /* 0b0000 0010 */
+  const uint8_t four                  = 0x04; /* 0b0000 0100 */
+  const uint8_t eight                 = 0x08; /* 0b0000 1000 */
+  const uint8_t sixteen               = 0x10; /* 0b0001 0000 */
+  const uint8_t thirtytwo             = 0x20; /* 0b0010 0000 */
+  const uint8_t sixtyfour             = 0x40; /* 0b0100 0000 */
+  const uint8_t onehundredtwentyeight = 0x80; /* 0b1000 0000 */
 
   printf("%d\n", zero);
   printf("%d\n", one);
