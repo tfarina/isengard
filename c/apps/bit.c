@@ -5,7 +5,6 @@
 
 int main(void) {
   /* Power of two values */
-  const uint8_t zero                  = 0x00; /* 0b0000 0000 */
   const uint8_t one                   = 0x01; /* 0b0000 0001 */
   const uint8_t two                   = 0x02; /* 0b0000 0010 */
   const uint8_t four                  = 0x04; /* 0b0000 0100 */
@@ -15,7 +14,6 @@ int main(void) {
   const uint8_t sixtyfour             = 0x40; /* 0b0100 0000 */
   const uint8_t onehundredtwentyeight = 0x80; /* 0b1000 0000 */
 
-  printf("%d\n", zero);
   printf("%d\n", one);
   printf("%d\n", two);
   printf("%d\n", four);
