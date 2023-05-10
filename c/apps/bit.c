@@ -41,11 +41,16 @@ int main(void) {
   printf("%d\n", sixtyfour);
   printf("%d\n", onehundredtwentyeight);
 
-  /* Powers of 2 showing the use of left shift (<<) operator.
+  /*
+   * left-shift operator (<<)
    *
-   * What does it do? It telss the compiler to shift (deslocate) the bit on the most right
-   * to the left by n positions. Since it starts with 0000 0001, it creates the power of 2
-   * effect.
+   * What does it do? It tells the compiler to move the bit on the most right
+   * to the left by n positions.
+   *
+   * If you start with 0000 0001, it creates a 'power of 2' effect.
+   *
+   * In other words, left shifting (<<) an integer "x" with an integer "y"
+   * (x << y) is equivalent to multiplying x by 2^y (2 raise to power y).
    */
   printf("%d\n", BITMASK(0)); /* 0000 0001 | 0x01 | 1   */
   printf("%d\n", BITMASK(1)); /* 0000 0010 | 0x02 | 2   */
@@ -55,11 +60,6 @@ int main(void) {
   printf("%d\n", BITMASK(5)); /* 0010 0000 | 0x20 | 32  */
   printf("%d\n", BITMASK(6)); /* 0100 0000 | 0x40 | 64  */
   printf("%d\n", BITMASK(7)); /* 1000 0000 | 0x80 | 128 */
-
-  /*
-   * In other words, left shifting (<<) an integer "x" with an integer "y"
-   * (x << y) is equivalent to multiplying x by 2^y (2 raise to power y).
-   */
 
   return 0;
 }
