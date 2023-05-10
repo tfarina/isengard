@@ -4,7 +4,7 @@
 #define BITMASK(index) (1 << (index))
 
 int main(void) {
-  /* Powers of 2 in binary */
+  /* Power of two values */
   const uint8_t zero                  = 0x00; /* 0b0000 0000 */
   const uint8_t one                   = 0x01; /* 0b0000 0001 */
   const uint8_t two                   = 0x02; /* 0b0000 0010 */
