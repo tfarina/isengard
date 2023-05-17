@@ -350,11 +350,13 @@ int ab_delete_contact(ab_contact_t *contact) {
   void *vc;
   int rc;
 
+  rc = _db_delete_contact(contact->id);
+  if (rc < 0)
+    return -1;
+
   contact_list = alpm_list_remove(contact_list, contact, _ab_contact_cmp, &vc);
 
-  rc = _db_delete_contact(contact->id);
-
-  return rc;
+  return 0;
 }
 
 alpm_list_t *ab_get_contact_list(void) {
