@@ -202,9 +202,15 @@ out:
  * Adds the specified contact to the address book database.
  */
 int ab_add_contact(ab_contact_t *contact) {
+  int rc;
+
+  rc = _db_insert_contact(contact);
+  if (rc < 0)
+    return -1;
+
   contact_list = alpm_list_add(contact_list, contact);
 
-  return _db_insert_contact(contact);
+  return 0;
 }
 
 int _db_update_contact(ab_contact_t* contact) {
