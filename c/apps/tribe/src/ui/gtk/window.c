@@ -155,6 +155,7 @@ static GtkActionEntry menubar_entries[] =
    * Help menu
    */
   {"Help/Contents", NULL, "_Contents", "F1", NULL, G_CALLBACK(_on_help_contents_cb) },
+  /* {"Help/---", NULL, "---", NULL, NULL, NULL } */
   {"Help/About", NULL, "_About", NULL, NULL, G_CALLBACK(_on_help_about_cb) }
 };
 
@@ -784,6 +785,8 @@ _create_menubar(void)
   /* Help menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/Help", "Contents", "Help/Contents", GTK_UI_MANAGER_MENUITEM, FALSE);
+  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
+			"/Menu/Help", "Separator1", "Help/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/Help", "About", "Help/About", GTK_UI_MANAGER_MENUITEM, FALSE);
 
