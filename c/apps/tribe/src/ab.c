@@ -60,9 +60,26 @@ static int _create_tables(void) {
   return rc;
 }
 
+static int sqlite_version_cb(void *data, int argc, char **argv, char **column) {
+  int *id = data;
+
+  /*UNUSED(argc);*/
+  /*UNUSED(column);*/
+
+  if (argv[0]) {
+    *id = atoi(argv[0]);
+  } else {
+    *id = 0;
+  }
+
+  return 0;
+}
+
 int ab_init(char *dbpath) {
   char *dbfile;  /* Database filename */
   int rc;
+  int user_version = 0;
+  char *err_msg = NULL;
 
   /* Do nothing if the database handle has been set. */
   if (hdb) {
@@ -80,6 +97,13 @@ int ab_init(char *dbpath) {
     return -1;
   }
   free(dbfile);
+
+  rc = sqlite3_exec(hdb, "PRAGMA user_version;", sqlite_version_cb, &user_version, &err_msg);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "sqlite3_exec failed: %s\n", err_msg);
+    sqlite3_free(err_msg);
+    return -1;
+  }
 
   rc = _create_tables();
   if (rc < 0) {
