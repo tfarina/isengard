@@ -45,7 +45,7 @@ static int _execute_sql(char const *sql) {
  *
  * @return return 0 on success, -1 otherwise.
  */
-static int _create_tables(void) {
+static int _init_db_schema(void) {
   int rc;
   char const create_sql[] =
     "CREATE TABLE IF NOT EXISTS contacts ("
@@ -105,7 +105,7 @@ int ab_init(char *dbpath) {
     return -1;
   }
 
-  rc = _create_tables();
+  rc = _init_db_schema();
   if (rc < 0) {
     _close_db();
     return -1;
