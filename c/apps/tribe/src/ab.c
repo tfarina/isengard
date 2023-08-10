@@ -17,7 +17,7 @@ static void _close_db(void) {
 
   rc = sqlite3_close(hdb);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to close SQLite database: %s\n", sqlite3_errmsg(hdb));
+    fprintf(stderr, "Failed to close the SQLite database: %s\n", sqlite3_errmsg(hdb));
   } else {
     hdb = NULL;
     /*if (debug) {
@@ -90,7 +90,7 @@ int ab_init(char *dbpath) {
 
   rc = sqlite3_open(dbfile, &hdb);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to open SQLite database %s: %s\n", dbfile, sqlite3_errmsg(hdb));
+    fprintf(stderr, "Failed to open the SQLite database at %s: %s\n", dbfile, sqlite3_errmsg(hdb));
     free(dbfile);
     sqlite3_close(hdb);
     hdb = NULL;
