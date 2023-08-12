@@ -26,20 +26,6 @@ static void _close_db(void) {
   }
 }
 
-static int _execute_sql(char const *sql) {
-  int rc;
-  char *err_msg = NULL;
-
-  rc = sqlite3_exec(hdb, sql, 0, 0, &err_msg);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_exec failed: %s\n", err_msg);
-    sqlite3_free(err_msg);
-    return -1;
-  }
-
-  return 0;
-}
-
 /**
  * Makes sure the 'contacts' table is created if it does not exist yet.
  *
@@ -54,8 +40,14 @@ static int _init_db_schema(void) {
     "  lname TEXT,"                 /* last name */
     "  email TEXT"                  /* email */
     ");";
+  char *err_msg = NULL;
 
-  rc = _execute_sql(create_sql);
+  rc = sqlite3_exec(hdb, create_sql, 0, 0, &err_msg);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "sqlite3_exec failed: %s\n", err_msg);
+    sqlite3_free(err_msg);
+    return -1;
+  }
 
   return rc;
 }
