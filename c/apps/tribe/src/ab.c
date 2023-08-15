@@ -12,7 +12,7 @@ static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
 static alpm_list_t *contact_list;
 
-static int _close_db(void) {
+static int _db_close(void) {
   int rc;
 
   rc = sqlite3_close(hdb);
@@ -34,7 +34,7 @@ static int _close_db(void) {
  *
  * @return return 0 on success, -1 otherwise.
  */
-static int _init_db_schema(void) {
+static int _db_init_schema(void) {
   int rc;
   char const create_sql[] =
     "CREATE TABLE IF NOT EXISTS contacts ("
@@ -100,9 +100,9 @@ int ab_init(char *dbpath) {
     return -1;
   }
 
-  rc = _init_db_schema();
+  rc = _db_init_schema();
   if (rc < 0) {
-    _close_db();
+    _db_close();
     return -1;
   }
 
@@ -112,7 +112,7 @@ int ab_init(char *dbpath) {
 int ab_fini(void) {
   int rc;
 
-  _close_db();
+  _db_close();
 
   return 0;
 }
