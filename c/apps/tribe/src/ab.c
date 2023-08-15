@@ -12,18 +12,21 @@ static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
 static alpm_list_t *contact_list;
 
-static void _close_db(void) {
+static int _close_db(void) {
   int rc;
 
   rc = sqlite3_close(hdb);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to close the SQLite database: %s\n", sqlite3_errmsg(hdb));
+    return -1;
   } else {
     hdb = NULL;
     /*if (debug) {
       printf("Database closed\n");
     }*/
   }
+
+  return 0;
 }
 
 /**
