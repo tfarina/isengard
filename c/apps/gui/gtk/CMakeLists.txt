@@ -16,9 +16,6 @@ if (GTK2_FOUND)
   add_executable(clock clock.c)
   target_link_libraries(clock ${GTK2_LIBRARIES})
 
-  add_executable(entry entry.c)
-  target_link_libraries(entry ${GTK2_LIBRARIES})
-
   add_executable(window_icon window_icon.c)
   target_link_libraries(window_icon ${GTK2_LIBRARIES})
 
