@@ -19,9 +19,6 @@ if (GTK2_FOUND)
   add_executable(window_icon window_icon.c)
   target_link_libraries(window_icon ${GTK2_LIBRARIES})
 
-  add_executable(frames frames.c)
-  target_link_libraries(frames ${GTK2_LIBRARIES})
-
   add_executable(timeframe timeframe.c)
   target_link_libraries(timeframe ${GTK2_LIBRARIES})
 
