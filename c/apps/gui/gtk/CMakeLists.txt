@@ -22,12 +22,6 @@ if (GTK2_FOUND)
   add_executable(entry entry.c)
   target_link_libraries(entry ${GTK2_LIBRARIES})
 
-  add_executable(toolbar toolbar.c)
-  target_link_libraries(toolbar ${GTK2_LIBRARIES})
-
-  add_executable(treeview treeview.c)
-  target_link_libraries(treeview ${GTK2_LIBRARIES})
-
   add_executable(window_icon window_icon.c)
   target_link_libraries(window_icon ${GTK2_LIBRARIES})
 
