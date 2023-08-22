@@ -10,9 +10,6 @@ find_package(GTK2 2.6 REQUIRED gtk)
 if (GTK2_FOUND)
   include_directories(${GTK2_INCLUDE_DIRS})
 
-  add_executable(empty_window empty_window.c)
-  target_link_libraries(empty_window ${GTK2_LIBRARIES})
-
   add_executable(clock clock.c)
   target_link_libraries(clock ${GTK2_LIBRARIES})
 
