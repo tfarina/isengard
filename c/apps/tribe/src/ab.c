@@ -112,7 +112,10 @@ int ab_init(char *dbpath) {
 int ab_fini(void) {
   int rc;
 
-  _db_close();
+  rc = _db_close();
+  if (rc < 0) {
+    return -1;
+  }
 
   return 0;
 }
