@@ -30,7 +30,7 @@ int main(int argc, char **argv)
   gtk_window_set_default_size(GTK_WINDOW(window), 230, 150);
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 
-  icon = create_pixbuf("web.png");
+  icon = create_pixbuf("color_lens.png");
   gtk_window_set_icon(GTK_WINDOW(window), icon);
 
   gtk_widget_show(window);
