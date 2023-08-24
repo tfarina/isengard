@@ -7,6 +7,10 @@
 #include "os_path.h"
 #include "xstring.h"
 
+/* NOTE: Always increment this when you make incompatible db structure
+ * changes */
+#define DB_VERSION 0
+
 static char const dbname[] = "abdb.sqlite3";
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
