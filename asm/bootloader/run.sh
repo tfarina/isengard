@@ -3,5 +3,5 @@
 # Die if any command dies.
 set -e
 
-qemu-system-i386 boot0.bin
+qemu-system-i386 boot.bin
 

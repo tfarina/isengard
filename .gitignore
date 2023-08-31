@@ -12,8 +12,8 @@ asm/add_att_release
 asm/add_intel_debug
 asm/add_intel_release
 asm/add_main
-asm/bootloader/boot0.bin
-asm/bootloader/boot0.o
+asm/bootloader/boot.bin
+asm/bootloader/boot.o
 asm/bootloader/floppy.img
 asm/hello/baremetal/boot0
 asm/hello/baremetal/hello
