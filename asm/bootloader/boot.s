@@ -10,6 +10,7 @@
 
 _start: 			# code entry point
 	jmp _start
+
 	.fill 510-(.-_start), 1, 0
-        .byte 0x55		# append boot signature
-        .byte 0xaa 		# append boot signature
+	.byte 0x55		# append boot signature
+	.byte 0xaa 		# append boot signature
