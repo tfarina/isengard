@@ -4,6 +4,7 @@
 .text   # executable code location
         .globl _start;
 _start: # code entry point
-        . = _start + 510 # move to 510th byte from 0 pos
+	jmp _start
+	.fill 510-(.-_start), 1, 0
         .byte 0x55 # append boot signature
         .byte 0xaa # append boot signature

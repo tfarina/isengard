@@ -4,4 +4,4 @@
 set -e
 
 as -o boot0.o boot0.s
-ld -Ttext 0x7c00 -oformat=binary -o boot0.bin boot0.o
+ld -o boot0.bin --oformat binary -e _start -Ttext 0x7c00 boot0.o
