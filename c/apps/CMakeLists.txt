@@ -172,6 +172,7 @@ target_link_libraries(bhaskara ${M_LIBRARY})
 add_executable(year year.c)
 add_executable(mday mday.c)
 add_executable(mon mon.c)
+add_executable(weekday weekday.c)
 add_executable(longdate longdate.c)
 add_executable(time time.c)
 
