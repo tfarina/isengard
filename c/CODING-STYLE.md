@@ -22,6 +22,8 @@
 
 * Use `SCREAMING_SNAKE_CASE` for macros.
 
+* Function names are named in form of `verb + noun`.
+
 ## The rest:
 
 * Avoid long functions.
