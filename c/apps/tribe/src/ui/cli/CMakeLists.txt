@@ -45,26 +45,26 @@ target_link_libraries(${EXENAME}-add
 )
 
 set(SOURCES
-  tribecmd-modify.c
+  tribecmd-mod.c
 )
 
-add_executable(${EXENAME}-modify
+add_executable(${EXENAME}-mod
   ${SOURCES}
 )
 
-target_link_libraries(${EXENAME}-modify
+target_link_libraries(${EXENAME}-mod
   ${DEPENDENCIES}
 )
 
 set(SOURCES
-  tribecmd-delete.c
+  tribecmd-del.c
 )
 
-add_executable(${EXENAME}-delete
+add_executable(${EXENAME}-del
   ${SOURCES}
 )
 
-target_link_libraries(${EXENAME}-delete
+target_link_libraries(${EXENAME}-del
   ${DEPENDENCIES}
 )
 
