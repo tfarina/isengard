@@ -21,7 +21,7 @@ typedef struct command_s {
 
 static command_t cmds[] = {
         { cmd_add,    "add",    NULL, "Creates a new contact" },
-        { cmd_change, "change", NULL, "Modifies an existing contact" },
+        { cmd_modify, "modify", NULL, "Modifies an existing contact" },
         { cmd_delete, "delete", "del", "Deletes the specified contact" },
         { cmd_list,   "list",   "ls", "Lists all contacts" },
 };

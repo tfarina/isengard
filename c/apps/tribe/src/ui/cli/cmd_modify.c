@@ -7,7 +7,7 @@
 #include "os_path.h"
 #include "util.h"
 
-int cmd_change(int argc, char **argv) {
+int cmd_modify(int argc, char **argv) {
   char *dbdir;
   int id;
   ab_contact_t *contact = NULL;

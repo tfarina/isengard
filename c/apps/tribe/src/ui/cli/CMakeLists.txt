@@ -6,7 +6,7 @@ set(DEPENDENCIES
 
 set(SOURCES
   cmd_add.c
-  cmd_change.c
+  cmd_modify.c
   cmd_delete.c
   cmd_list.c
   commands.h
@@ -45,14 +45,14 @@ target_link_libraries(${EXENAME}-add
 )
 
 set(SOURCES
-  tribecmd-change.c
+  tribecmd-modify.c
 )
 
-add_executable(${EXENAME}-change
+add_executable(${EXENAME}-modify
   ${SOURCES}
 )
 
-target_link_libraries(${EXENAME}-change
+target_link_libraries(${EXENAME}-modify
   ${DEPENDENCIES}
 )
 

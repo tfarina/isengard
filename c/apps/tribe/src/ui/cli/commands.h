@@ -2,7 +2,7 @@
 #define COMMANDS_H_
 
 int cmd_add(int, char **);
-int cmd_change(int, char **);
+int cmd_modify(int, char **);
 int cmd_delete(int, char **);
 int cmd_list(int, char **);
 
