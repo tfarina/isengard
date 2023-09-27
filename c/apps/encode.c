@@ -22,7 +22,7 @@ main(int argc, char **argv)
   b64len = BASE64_LENGTH(userlen);
   b64 = malloc(b64len + 1);
 
-  base64_encode(user, strlen(user), b64, b64len);
+  base64_encode(user, userlen, b64, b64len);
 
   printf("%s\n", b64);
 
