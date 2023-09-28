@@ -3,3 +3,4 @@ project(learn-c C)
 
 add_executable(pointers pointers.c)
 add_executable(pointers2 pointers2.c)
+add_executable(arrays_n_pointers arrays_n_pointers.c)
