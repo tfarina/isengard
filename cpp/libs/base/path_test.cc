@@ -1,4 +1,4 @@
-#include "third_party/gtest/gtest.h"
+#include "third_party/gtest/include/gtest/gtest.h"
 
 TEST(PathTest, MakeAbsolute) {
 

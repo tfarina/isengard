@@ -11,3 +11,7 @@ set(BASE_SOURCES
     )
 
 add_library(base ${BASE_SOURCES})
+
+add_executable(base_unittests path_test.cc)
+target_include_directories(base_unittests PUBLIC ..)
+target_link_libraries(base_unittests googletest googletest-main)
