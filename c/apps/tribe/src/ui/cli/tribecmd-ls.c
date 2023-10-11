@@ -6,6 +6,7 @@
 int main(int argc, char **argv) {
   int rc;
   char *dbdir;
+  alpm_list_t *list;
 
   dirs_init();
 
@@ -25,7 +26,9 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  rc = print_contact_list(ab_get_contact_list());
+  list = ab_get_contact_list();
+
+  rc = print_contact_list(list);
 
   ab_fini();
 
