@@ -17,7 +17,10 @@ int cmd_list(int argc, char **argv) {
 
   dbdir = dirs_get_user_data_dir();
 
-  ab_init(dbdir);
+  rc = ab_init(dbdir);
+  if (rc < 0) {
+    return 1;
+  }
 
   ab_load_contacts();
 
