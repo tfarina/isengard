@@ -20,7 +20,10 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  ab_load_contacts();
+  rc = ab_load_contacts();
+  if (rc < 0) {
+    return 1;
+  }
 
   rc = print_contact_list(ab_get_contact_list());
 
