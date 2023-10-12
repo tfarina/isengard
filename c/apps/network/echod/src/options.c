@@ -110,9 +110,9 @@ Options:\n\
     fprintf(stdout, _("\
   -p, --port=<number>        specify the port to listen on [default: %d]\n\
 "), DEF_ECHO_PORT);
-    fputs(_("\
-  -b, --backlog=<number>     set the backlog queue limit for listen(2)\n\
-"), stdout);
+    fprintf(stdout, _("\
+  -b, --backlog=<number>     set the backlog queue limit for listen(2) [default: %d]\n\
+"), DEF_BACKLOG);
     fputs(_("\
   -h, --help                 display this help and exit\n\
 "), stdout);
