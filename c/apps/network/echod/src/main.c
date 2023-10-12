@@ -86,9 +86,9 @@ static void reap_child(void) {
     if (WIFEXITED(status)) {
       ulog_warn("pid %lu exited with status %d", (unsigned long) pid, WEXITSTATUS(status));
     } else if (WIFSIGNALED(status)) {
-      ulog_warn("pid %lu killed with signal %d", (unsigned long) pid, WTERMSIG(status));
+      ulog_warn("pid %lu terminated by signal %d", (unsigned long) pid, WTERMSIG(status));
     } else if (WIFSTOPPED(status)) {
-      ulog_warn("pid %lu stopped with signal %d", (unsigned long) pid, WSTOPSIG(status));
+      ulog_warn("pid %lu stopped by signal %d", (unsigned long) pid, WSTOPSIG(status));
     } else {
       ulog_warn("pid %lu died for unknown reason", (unsigned long) pid);
     }
