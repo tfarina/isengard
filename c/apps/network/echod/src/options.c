@@ -111,7 +111,7 @@ Options:\n\
   -p, --port=<number>        specify the port to listen on [default: %d]\n\
 "), DEF_ECHO_PORT);
     fputs(_("\
-  -b, --backlog=<number>     set the backlog queue limit\n\
+  -b, --backlog=<number>     set the backlog queue limit for listen(2)\n\
 "), stdout);
     fputs(_("\
   -h, --help                 display this help and exit\n\
