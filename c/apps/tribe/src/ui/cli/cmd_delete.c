@@ -32,8 +32,8 @@ int cmd_delete(int argc, char **argv) {
 
   contact = ab_get_contact_by_id(id);
   if (!contact) {
-    fprintf(stderr, "%s: contact (%s) does not exist in our database.\n",
-            argv[0], argv[1]);
+    fprintf(stderr, "Error: contact (%s) does not exist in our database.\n",
+            argv[1]);
     return 1;
   }
 
