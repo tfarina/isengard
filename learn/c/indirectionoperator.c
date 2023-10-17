@@ -38,4 +38,6 @@ int main(void)
    */
   printf("The address of x: %p\n", p);
   printf("The address of x via indirection: %p\n", *pp);
+
+  return 0;
 }
