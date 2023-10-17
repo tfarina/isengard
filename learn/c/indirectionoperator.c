@@ -28,6 +28,14 @@ int main(void)
   printf("The indirect value of x: %d\n", *p);
 
   /*
+   * This example shows that the unary indirection operator (*) may be used
+   * cumulatively to dereference pointers to pointers. And by doing that on
+   * a pointer to pointer it gets the value of the POD (Plain Old Data) rather
+   * than the address.
+   */
+  printf("The doubly indirect value of x: %d\n", **pp);
+
+  /*
    * If we use the unary indirection operator (*) on a pointer to pointer
    * variable, that is it, if we dereference a pointer to pointer or a double
    * pointer, what do we get? We get the VALUE of the pointer we are pointing
