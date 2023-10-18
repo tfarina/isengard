@@ -26,13 +26,13 @@ int main(int argc, char **argv) {
   int *ptr3 = numbers + 0;
   int val3 = *(numbers + 0);
 
-  printf("address of ptr1 -> %p\n", (void *)ptr1);
-  printf("address of ptr2 -> %p\n", (void *)ptr2);
-  printf("address of ptr3 -> %p\n", (void *)ptr3);
+  printf("The address of numbers[0] via ptr1: %p\n", ptr1);
+  printf("The address of numbers[0] via ptr2: %p\n", ptr2);
+  printf("The address of numbers[0] via ptr3: %p\n", ptr3);
 
-  printf("%d\n", val1);
-  printf("%d\n", val2);
-  printf("%d\n", val3);
+  printf("The value of numbers[0]: %d\n", val1);
+  printf("The value of numbers[0]: %d\n", val2);
+  printf("The value of numbers[0]: %d\n", val3);
 
   return 0;
 }
