@@ -59,7 +59,7 @@ static int _db_init_schema(void) {
   return rc;
 }
 
-static int sqlite_version_cb(void *data, int argc, char **argv, char **column) {
+static int _db_pragma_user_version_cb(void *data, int argc, char **argv, char **column) {
   int *id = data;
 
   /*UNUSED(argc);*/
@@ -97,7 +97,7 @@ int ab_init(char *dbpath) {
   }
   free(dbfile);
 
-  rc = sqlite3_exec(hdb, "PRAGMA user_version;", sqlite_version_cb, &user_version, &err_msg);
+  rc = sqlite3_exec(hdb, "PRAGMA user_version;", _db_pragma_user_version_cb, &user_version, &err_msg);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_exec failed: %s\n", err_msg);
     sqlite3_free(err_msg);
