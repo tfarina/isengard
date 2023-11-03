@@ -127,8 +127,42 @@ int ab_fini(void) {
 int ab_load_contacts(void) {
   int rc;
   int errcode = 0;
+  char const count_sql[] = "SELECT COUNT(*) FROM contacts";
+  sqlite3_stmt *count_stmt;
+  int row_count = 0;
   char const select_sql[] = "SELECT * FROM contacts";
   sqlite3_stmt *select_stmt;
+  ab_contact_t *contacts;
+  int i;
+
+  rc = sqlite3_prepare_v2(hdb, count_sql, -1, &count_stmt, NULL);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to prepare the select count(*) statement: %s\n",
+            sqlite3_errmsg(hdb));
+    return -1;
+  }
+
+  rc = sqlite3_column_count(count_stmt);
+  if (rc != 1) {
+    return -1;
+  }
+
+  rc = sqlite3_step(count_stmt);
+  if (rc == SQLITE_ROW) {
+    row_count = sqlite3_column_int(count_stmt, 0);
+  }
+
+  rc = sqlite3_finalize(count_stmt);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to finalize the select count(*) statement: %s\n",
+            sqlite3_errmsg(hdb));
+    return -1;
+  }
+
+  contacts = malloc(row_count * sizeof(ab_contact_t));
+  if (contacts == NULL) {
+    return -1;
+  }
 
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -137,17 +171,16 @@ int ab_load_contacts(void) {
     return -1;
   }
 
-  while (sqlite3_step(select_stmt) == SQLITE_ROW) {
-    ab_contact_t *contact = ab_contact_alloc();
-    if (contact == NULL) {
-      continue;
-    }
+  for (i = 0; i < row_count; i++) {
+    if (sqlite3_step(select_stmt) == SQLITE_ROW) {
+      contacts[i].id = sqlite3_column_int(select_stmt, 0);
 
-    contact->id = sqlite3_column_int(select_stmt, 0);
-    contact->fname = xstrdup((const char *)sqlite3_column_text(select_stmt, 1));
-    contact->lname = xstrdup((const char *)sqlite3_column_text(select_stmt, 2));
-    contact->email = xstrdup((const char *)sqlite3_column_text(select_stmt, 3));
-    contact_list = alpm_list_add(contact_list, contact);
+      contacts[i].fname = xstrdup((const char *)sqlite3_column_text(select_stmt, 1));
+      contacts[i].lname = xstrdup((const char *)sqlite3_column_text(select_stmt, 2));
+      contacts[i].email = xstrdup((const char *)sqlite3_column_text(select_stmt, 3));
+
+      contact_list = alpm_list_add(contact_list, &contacts[i]);
+    }
   }
 
   rc = sqlite3_finalize(select_stmt);
