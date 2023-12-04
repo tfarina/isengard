@@ -14,5 +14,5 @@ _start: 			# code entry point
 	int $0x10		# call the function in AH from interrupt 0x10
 	hlt			# stop executing
 
-	.fill 510-(.-_start), 1, 0
+	.fill 510-(.-_start), 1, 0	# add zeroes to make it 510 bytes long
 	.word 0xaa55		# append bootloader signature
