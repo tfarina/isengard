@@ -3,5 +3,5 @@
 # Die if any command dies.
 set -e
 
-as -o boot.o boot.s
+as -o boot.o boot.S
 ld -o boot.bin --oformat binary -e _start -Ttext 0x7c00 boot.o
