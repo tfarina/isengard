@@ -172,5 +172,5 @@ add_executable(time time.c)
 add_executable(numbers os_path.c xstring.c numbers.c)
 target_link_libraries(numbers)
 
-add_executable(degrees degrees.c)
-add_executable(radians radians.c)
+add_executable(degrees angle.c degrees.c)
+add_executable(radians angle.c radians.c)
