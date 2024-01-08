@@ -1,9 +1,9 @@
 #include "temperature.h"
 
-int
-temperature_celcius_to_fahrenheit(int celcius)
+float
+temperature_celcius_to_fahrenheit(float celcius)
 {
-  int result;
+  float result;
 
   result = ((celcius * 9) / 5) + 32;
 

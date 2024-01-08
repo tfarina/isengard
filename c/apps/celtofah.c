@@ -6,8 +6,8 @@
 int
 main(int argc, char **argv)
 {
-  int celcius = 0;
-  int fahrenheit = 0;
+  float celcius = 0;
+  float fahrenheit = 0;
 
   if (argc < 2)
     {
@@ -15,10 +15,10 @@ main(int argc, char **argv)
       return 1;
     }
 
-  celcius = atoi(argv[1]);
+  celcius = atof(argv[1]);
 
   fahrenheit = temperature_celcius_to_fahrenheit(celcius);
-  printf("%d\n", fahrenheit);
+  printf("%.1f\n", fahrenheit);
 
   return 0;
 }
