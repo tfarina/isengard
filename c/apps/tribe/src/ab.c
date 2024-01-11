@@ -1,6 +1,7 @@
 #include "ab.h"
 
 #include <stdio.h>
+#include <string.h>
 
 #include "third_party/sqlite/amalgamation/sqlite3.h"
 
@@ -59,6 +60,21 @@ static int _db_init_schema(void) {
   return rc;
 }
 
+static int _db_pragma_integrity_check_cb(void *data, int argc, char **argv, char **column_names) {
+  int *errflag = data;
+
+  if (argc == 1) {
+    if (0 == strcmp(column_names[0], "integrity_check")) {
+      if (0 != strcmp(argv[0], "ok")) {
+        /* Error! */
+        *errflag = 1;
+      }
+    }
+  }
+
+  return 0;
+}
+
 static int _db_pragma_user_version_cb(void *data, int argc, char **argv, char **column) {
   int *id = data;
 
@@ -77,6 +93,7 @@ static int _db_pragma_user_version_cb(void *data, int argc, char **argv, char **
 int ab_init(char *dbpath) {
   char *dbfile;  /* Database filename */
   int rc;
+  int corrupted = 0;
   int user_version = 0;
   char *err_msg = NULL;
 
@@ -96,6 +113,19 @@ int ab_init(char *dbpath) {
     return -1;
   }
   free(dbfile);
+
+
+  rc = sqlite3_exec(hdb, "PRAGMA integrity_check;", _db_pragma_integrity_check_cb, &corrupted, &err_msg);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "sqlite3_exec failed: %s\n", err_msg);
+    sqlite3_free(err_msg);
+    return -1;
+  }
+
+  if (1 == corrupted) {
+    fprintf(stderr, "Error: The SQLite database integrity check failed. It may be corrupted.\n");
+    return -1;
+  }
 
   rc = sqlite3_exec(hdb, "PRAGMA user_version;", _db_pragma_user_version_cb, &user_version, &err_msg);
   if (rc != SQLITE_OK) {
