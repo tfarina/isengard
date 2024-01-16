@@ -169,6 +169,8 @@ add_executable(weekday weekday.c)
 add_executable(longdate longdate.c)
 add_executable(time time.c)
 
+add_executable(countlines xstring.c countlines.c)
+
 add_executable(numbers os_path.c xstring.c numbers.c)
 target_link_libraries(numbers)
 
