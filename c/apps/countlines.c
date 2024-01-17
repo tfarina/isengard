@@ -34,6 +34,8 @@ int main(int argc, char **argv)
     ch = fgetc(fp);
   }
 
+  fclose(fp);
+
   printf("There are %d lines in %s file.\n", numLines, filename);
 
   return 0;
