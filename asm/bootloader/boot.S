@@ -17,9 +17,13 @@
         .globl _start;
 
 _start: 			# code entry point
-	mov $0x0e41, %ax	# set AH to 0x0e (function Teletype) and AL to 0x41 (ASCII for "A")
+	mov $0x0e, %ah		# set AH to 0x0e (function Teletype)
+	mov $hello_string, %bx	# set BX to the address of the first byte of our string
+	mov (%bx), %al		# set AL to the first byte of our message
 	int $0x10		# call the function in AH from interrupt 0x10
 	hlt			# stop executing
+
+hello_string:	.asciz "Hello, world!"
 
 	.fill 510-(.-_start), 1, 0	# add zeroes to make it 510 bytes long
 	.word 0xaa55		# append bootloader signature
