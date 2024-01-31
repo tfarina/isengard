@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(learn-c C)
 
-add_executable(pointers pointers.c)
+add_executable(complexpointersyntax complexpointersyntax.c)
 add_executable(arrays_n_pointers arrays_n_pointers.c)
 add_executable(postfixincrementoperator postfixincrementoperator.c)
 add_executable(goto1 goto1.c)
