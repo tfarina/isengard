@@ -18,9 +18,16 @@
 
 _start: 			# code entry point
 	mov $0x0e, %ah		# set AH to 0x0e (function Teletype)
-	mov $hello_string, %bx	# set BX to the address of the first byte of our string
-	mov (%bx), %al		# set AL to the first byte of our message
-	int $0x10		# call the function in AH from interrupt 0x10
+	mov $hello_string, %si	# set SI to the address of the first byte of our string
+
+print_char:
+	lodsb			# load the memory byte from the address in SI into the AL register and increments SI
+	cmp $0, %al		# compare the constant 0, with the content of the AL register
+	je done			# if al == 0, jump to "done"
+	int $0x10		# call function in AH register to write character in the screen
+	jmp print_char		# jump to "print_char", effectively looping to the next char
+
+done:
 	hlt			# stop executing
 
 hello_string:	.asciz "Hello, world!"
