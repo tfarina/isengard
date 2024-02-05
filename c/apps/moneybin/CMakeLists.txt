@@ -30,6 +30,7 @@ add_definitions(-D_GNU_SOURCE)
 add_subdirectory(third_party/iniparser)
 add_subdirectory(third_party/libconfigini)
 add_subdirectory(third_party/ini)
+add_subdirectory(third_party/inih)
 add_subdirectory(third_party/libcsv)
 add_subdirectory(third_party/mxml)
 add_subdirectory(third_party/zlib)
@@ -75,7 +76,7 @@ set(SRCS
 set(M_LIBRARY "-lm")
 
 add_library(moneybin ${SRCS})
-target_link_libraries(moneybin iniparser libconfigini ini libcsv ${LIBS})
+target_link_libraries(moneybin iniparser libconfigini ini inih libcsv ${LIBS})
 
 add_executable(csvcat sfldate.c timestamp.c ta.c tacsv.c fstrdup.c csvcat.c)
 target_link_libraries(csvcat libcsv)

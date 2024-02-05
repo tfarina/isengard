@@ -16,5 +16,6 @@ int	config_init(config_t *config);
 int	config_load(config_t *config, char const *cfgfile);
 int	config_load_r(config_t *config, char const *cfgfile);
 int	config_load_r2(config_t *config, char const *cfgfile);
+int	config_load_r3(config_t *config, char const *cfgfile);
 
 #endif  /* CONFIG_H_ */

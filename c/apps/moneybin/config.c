@@ -1,9 +1,12 @@
 #include "config.h"
 
+#include <errno.h>
+
 #include "fstrdup.h"
 #include "third_party/iniparser/iniparser.h"
 #include "third_party/libconfigini/configini.h"
 #include "third_party/ini/ini.h"
+#include "third_party/inih/ini.h"
 
 int config_alloc(config_t **config) {
   config_t *cfg;
@@ -128,6 +131,51 @@ int config_load_r2(config_t *config, char const *cfgfile) {
   ini_read_unsigned(handle, "sql", "port", &config->port, 3306);
 
   ini_free(handle);
+
+  return 0;
+}
+
+static int value_to_int(char const *val, int *result) {
+  long res = strtol(val, NULL, 10);
+  if (res == 0 && errno == EINVAL) {
+    return 0;
+  }
+  *result = res;
+  return 1;
+}
+
+static int config_cb(void *user, char const *section, char const *name, char const *value) {
+  config_t *config = (config_t *)user;
+
+  #define MATCH(s, n) (strcmp(section, s) == 0 && strcmp(name, n) == 0)
+
+  if (MATCH("sql", "database")) {
+    config->database = f_strdup(value);
+  } else if (MATCH("sql", "host")) {
+    config->host = f_strdup(value);
+  } else if (MATCH("sql", "user")) {
+    config->user = f_strdup(value);
+  } else if (MATCH("sql", "password")) {
+    config->password = f_strdup(value);
+  } else if (MATCH("sql", "dbname")) {
+    config->dbname = f_strdup(value);
+  } else if (MATCH("sql", "port")) {
+    return value_to_int(value, &config->port);
+  } else {
+    return 0; /* Unknown section/name? */
+  }
+
+  return 1;  /* Success */
+}
+
+int config_load_r3(config_t *config, char const *cfgfile) {
+  int rc;
+
+  rc = ini_parse(cfgfile, config_cb, config);
+  if (rc < 0) {
+    fprintf(stderr, "Cannot read configuration file '%s'\n", cfgfile);
+    return -1;
+  }
 
   return 0;
 }

@@ -1,0 +1,7 @@
+[sql]
+database = mysql
+host = localhost
+user = john
+password = 123456
+dbname = dummy
+port = 3306
