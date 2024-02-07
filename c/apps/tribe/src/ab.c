@@ -154,7 +154,7 @@ int ab_fini(void) {
   return 0;
 }
 
-int ab_load_contacts(void) {
+int _db_get_contact_list(int *pCount, ab_contact_t **ppContacts) {
   int rc;
   int errcode = 0;
   char const count_sql[] = "SELECT COUNT(*) FROM contacts";
@@ -164,6 +164,10 @@ int ab_load_contacts(void) {
   sqlite3_stmt *select_stmt;
   ab_contact_t *contacts;
   int i;
+
+  if (NULL == pCount || NULL == ppContacts) {
+    return -1;  /* Invalid args */
+  }
 
   rc = sqlite3_prepare_v2(hdb, count_sql, -1, &count_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -190,7 +194,7 @@ int ab_load_contacts(void) {
   }
 
   contacts = malloc(row_count * sizeof(ab_contact_t));
-  if (contacts == NULL) {
+  if (NULL == contacts) {
     return -1;
   }
 
@@ -208,10 +212,11 @@ int ab_load_contacts(void) {
       contacts[i].fname = xstrdup((const char *)sqlite3_column_text(select_stmt, 1));
       contacts[i].lname = xstrdup((const char *)sqlite3_column_text(select_stmt, 2));
       contacts[i].email = xstrdup((const char *)sqlite3_column_text(select_stmt, 3));
-
-      contact_list = alpm_list_add(contact_list, &contacts[i]);
     }
   }
+
+  *pCount = row_count;
+  *ppContacts = contacts;
 
   rc = sqlite3_finalize(select_stmt);
   if (rc != SQLITE_OK) {
@@ -222,6 +227,21 @@ int ab_load_contacts(void) {
   select_stmt = NULL;
 
   return errcode;
+}
+
+int ab_load_contacts(void) {
+  int rc;
+  int num_contacts = 0;
+  ab_contact_t *contacts = NULL;
+  int i;
+
+  rc = _db_get_contact_list(&num_contacts, &contacts);
+
+  for (i = 0; i < num_contacts; i++) {
+    contact_list = alpm_list_add(contact_list, &contacts[i]);
+  }
+
+  return rc;
 }
 
 int _db_insert_contact(ab_contact_t *contact) {
