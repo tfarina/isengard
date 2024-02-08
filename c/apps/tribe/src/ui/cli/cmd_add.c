@@ -7,6 +7,7 @@
 #include "util.h"
 
 int cmd_add(int argc, char **argv) {
+  int rc;
   char *dbdir;
   ab_contact_t *contact;
 
@@ -23,7 +24,10 @@ int cmd_add(int argc, char **argv) {
 
   dbdir = dirs_get_user_data_dir();
 
-  ab_init(dbdir);
+  rc = ab_init(dbdir);
+  if (rc < 0) {
+    return 1;
+  }
 
   contact = ab_contact_alloc();
   if (!contact) {
