@@ -30,7 +30,10 @@ int cmd_delete(int argc, char **argv) {
     return 1;
   }
 
-  ab_load_contacts();
+  rc = ab_load_contacts();
+  if (rc < 0) {
+    return 1;
+  }
 
   id = atoi(argv[1]);
 
