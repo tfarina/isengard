@@ -23,10 +23,17 @@
 * Use `SCREAMING_SNAKE_CASE` for macros, enums, structs, unions and typedefs.
 
 ```
-enum _ENUM_NAME
+typedef enum _ENUM_NAME
 {
     ...
-};
+} ENUM_NAME;
+```
+
+```
+typedef struct _STRUCT_NAME
+{
+    ...
+} STRUCT_NAME;
 ```
 
 * Function names are named in form of `verb + noun`.
