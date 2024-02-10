@@ -20,7 +20,14 @@
 
 * Use `snake_case` for functions, variables, and types.
 
-* Use `SCREAMING_SNAKE_CASE` for macros.
+* Use `SCREAMING_SNAKE_CASE` for macros, enums, structs, unions and typedefs.
+
+```
+enum _ENUM_NAME
+{
+    ...
+};
+```
 
 * Function names are named in form of `verb + noun`.
 
