@@ -5,7 +5,7 @@ temperature_celcius_to_fahrenheit(float celcius)
 {
   float result;
 
-  result = ((celcius * 9) / 5) + 32;
+  result = (celcius * 9) / 5 + 32;
 
   return result;
 }
