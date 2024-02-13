@@ -10,6 +10,7 @@
 int cmd_modify(int argc, char **argv) {
   int rc;
   char *dbdir;
+  alpm_list_t *list;
   int id;
   ab_contact_t *contact = NULL;
 
@@ -31,7 +32,7 @@ int cmd_modify(int argc, char **argv) {
     return 1;
   }
 
-  rc = ab_load_contacts();
+  rc = ab_load_contacts(&list);
   if (rc < 0) {
     return 1;
   }

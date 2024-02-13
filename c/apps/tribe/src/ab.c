@@ -229,7 +229,7 @@ int _db_get_contact_list(int *pCount, ab_contact_t **ppContacts) {
   return errcode;
 }
 
-int ab_load_contacts(void) {
+int ab_load_contacts(alpm_list_t **pp_contact_list) {
   int rc;
   int num_contacts = 0;
   ab_contact_t *contacts = NULL;
@@ -240,6 +240,8 @@ int ab_load_contacts(void) {
   for (i = 0; i < num_contacts; i++) {
     contact_list = alpm_list_add(contact_list, &contacts[i]);
   }
+
+  *pp_contact_list = contact_list;
 
   return rc;
 }
@@ -466,10 +468,6 @@ int ab_delete_contact(ab_contact_t *contact) {
   contact_list = alpm_list_remove(contact_list, contact, _ab_contact_cmp, &vc);
 
   return 0;
-}
-
-alpm_list_t *ab_get_contact_list(void) {
-  return contact_list;
 }
 
 ab_contact_t *ab_get_contact_by_id(int id) {

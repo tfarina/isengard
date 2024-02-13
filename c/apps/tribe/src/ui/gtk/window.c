@@ -953,9 +953,7 @@ _populate_list_view(GtkListStore *list_store)
 
   ab_init(dbdir);
 
-  ab_load_contacts();
-
-  list = ab_get_contact_list();
+  ab_load_contacts(&list);
 
   for (item = list; item; item = alpm_list_next(item))
     {

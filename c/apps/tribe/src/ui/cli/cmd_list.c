@@ -23,12 +23,10 @@ int cmd_list(int argc, char **argv) {
     return 1;
   }
 
-  rc = ab_load_contacts();
+  rc = ab_load_contacts(&list);
   if (rc < 0) {
     return 1;
   }
-
-  list = ab_get_contact_list();
 
   rc = print_contact_list(list);
 
