@@ -18,9 +18,30 @@
 
 ## Naming:
 
-* Use `snake_case` for functions, variables, and types.
+### Macro Names
 
-* Use `SCREAMING_SNAKE_CASE` for macros, enums, structs, unions and typedefs.
+Should be all upper case (SCREAMING_SNAKE_CASE) with words separated by
+underscores (“_”).
+
+```
+#define BUFFER_SIZE 1024
+```
+
+### Variable Names
+
+Should be in mixed case (camelCase) with the first word in lower case and
+every other word starts with a capital letter.
+
+```
+int numEntries;
+char firstName[64];
+```
+
+### Type Names
+
+The names of all types (enums, structs, unions and typedefs) should follow
+the same naming convention. Should be all upper case (SCREAMING_SNAKE_CASE)
+with words separated by underscores (“_”).
 
 ```
 typedef enum _ENUM_NAME
@@ -36,7 +57,27 @@ typedef struct _STRUCT_NAME
 } STRUCT_NAME;
 ```
 
-* Function names are named in form of `verb + noun`.
+```
+typedef struct _UNION_NAME
+{
+    ...
+} UNION_NAME;
+```
+
+### Function Names
+
+Function names should typically be in the form of verb + noun.
+
+Should be in mixed case (CamelCase or PascalCase) with the first letter
+of each word capitalized.
+
+```
+void
+FunctionName(void)
+{
+    ...
+}
+```
 
 ## The rest:
 
