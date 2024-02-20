@@ -946,12 +946,7 @@ _create_list_view(void)
 static void
 _populate_list_view(GtkListStore *list_store)
 {
-  char *dbdir;
   alpm_list_t *list, *item;
-
-  dbdir = dirs_get_user_data_dir();
-
-  ab_init(dbdir);
 
   ab_load_contacts(&list);
 
