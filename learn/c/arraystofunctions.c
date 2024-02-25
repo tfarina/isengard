@@ -20,9 +20,10 @@
  * Note: The important part above is the: "array of type" is converted to an
  * expression with type "pointer to type" that points to the initial element of
  * the array object.
- * In simple language, it is clearly saying that arrays are converted to
- * pointers when passed to functions.
-
+ *
+ * In simple terms, it is saying that arrays are converted to pointers when
+ * passed to functions.
+ *
  * Refs:
  * https://learn.microsoft.com/en-us/cpp/cpp/arrays-cpp?view=msvc-170
  * https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2310.pdf
