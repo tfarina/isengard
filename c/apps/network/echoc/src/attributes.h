@@ -9,7 +9,7 @@
 #include "compiler_tests.h"
 
 /**
- * MK_NORETURN:
+ * ATTRIBUTE_NORETURN:
  *
  * Indicates to the compiler that a given function never returns.
  *
@@ -18,23 +18,23 @@
  *
  * Example:
  *
- * extern MK_NORETURN func(...);
+ * extern ATTRIBUTE_NORETURN func(...);
  *
  */
 
-#if defined(MK_NORETURN)
-#undef MK_NORETURN
+#if defined(ATTRIBUTE_NORETURN)
+#undef ATTRIBUTE_NORETURN
 #endif
 #if __GNUC_PREREQ__(2,8)
-#define MK_NORETURN __attribute__((__noreturn__))
+#define ATTRIBUTE_NORETURN __attribute__((__noreturn__))
 #elif defined(_MSC_VER)
-#define MK_NORETURN __declspec(noreturn)
+#define ATTRIBUTE_NORETURN __declspec(noreturn)
 #else
-#define MK_NORETURN
+#define ATTRIBUTE_NORETURN
 #endif
 
 /**
- * MK_PRINTFLIKE:
+ * ATTRIBUTE_PRINTFLIKE:
  *
  * Tells the compiler to check the arguments in calls to the function for
  * consistency with the `printf` style format string argument (if the
@@ -46,13 +46,13 @@
  * @param firstvararg the index of the first variable argument (...) it should check.
  */
 
-#if defined(MK_PRINTFLIKE)
-#undef MK_PRINTFLIKE
+#if defined(ATTRIBUTE_PRINTFLIKE)
+#undef ATTRIBUTE_PRINTFLIKE
 #endif
 #if defined(__GNUC__)
-#define MK_PRINTFLIKE(fmtarg, firstvararg) __attribute__ ((__format__ (__printf__, fmtarg, firstvararg)))
+#define ATTRIBUTE_PRINTFLIKE(fmtarg, firstvararg) __attribute__ ((__format__ (__printf__, fmtarg, firstvararg)))
 #else
-#define MK_PRINTFLIKE(fmtarg, firstvararg)
+#define ATTRIBUTE_PRINTFLIKE(fmtarg, firstvararg)
 #endif
 
 #endif  /* !defined(_ATTRIBUTES_H_INCLUDED_) */

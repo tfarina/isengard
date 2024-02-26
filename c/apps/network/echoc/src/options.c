@@ -24,7 +24,7 @@ static struct option const long_options[] = {
   { (char *) 0,    no_argument,       (int *) 0,  0  }
 };
 
-static MK_NORETURN void usage(int status) {
+static ATTRIBUTE_NORETURN void usage(int status) {
   if (status) {
     fprintf(stderr, _("Try '%s --help' for more information.\n"), progname);
   } else {

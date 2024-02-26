@@ -14,7 +14,7 @@ static void vmsg(char const *prefix, char const *fmt, va_list ap) {
 /**
  * Prints an error message on stderr, then terminates with EXIT_FAILURE.
  */
-MK_NORETURN void fatal(char const *fmt, ...) {
+ATTRIBUTE_NORETURN void fatal(char const *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
