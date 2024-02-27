@@ -31,6 +31,33 @@ main(void)
 
   int_ptr = numbers;
   printf("%d\n", int_ptr[0]);
-
+  /*
+   * Subscript expressions are often used to refer to array elements, but you
+   * can apply a subscript operator [] to any pointer. As we did in int_ptr[0]
+   * above.
+   *
+   * It works, because the subscript expression is evaluated by adding the
+   * integral value to the pointer value, then applying the indirection
+   * operator (*) to the result.
+   *
+   * As in:
+   * numbers[0] is equivalent to *(numbers + 0)
+   * int_ptr[0] is equivalent to *(int_ptr + 0)
+   *
+   * For what is worth, for a one-dimensional array, the following four
+   * expressions are equivalent, assuming that a is a pointer and b is an
+   * integer:
+   *
+   * a[b]
+   * *(a + b)
+   * *(b + a)
+   * b[a]
+   *
+   * The conversion rules for the addition operator are given in
+   * Additive Operators.
+   *
+   * Refs:
+   * https://learn.microsoft.com/en-us/cpp/c-language/one-dimensional-arrays?view=msvc-170
+   */
   return 0;
 }
