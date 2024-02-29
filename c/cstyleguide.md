@@ -1,5 +1,10 @@
 # C Coding Style Guide
 
+## Literals
+
+* Hexadecimal prefix should be 0x.
+* Hexadecimal literals should use upper case letters A-F.
+
 ## Idioms:
 
 * Use `for (;;) ...` for infinite loops.
