@@ -33,4 +33,4 @@ done:
 hello_string:	.asciz "Hello, world!"
 
 	.fill 510-(.-_start), 1, 0	# add zeroes to make it 510 bytes long
-	.word 0xaa55		# append bootloader signature
+	.word 0xAA55		# append bootloader signature
