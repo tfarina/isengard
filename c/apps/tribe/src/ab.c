@@ -412,6 +412,7 @@ static int _db_delete_contact(int id) {
   int rc;
   char const delete_sql[] = "DELETE FROM contacts WHERE id=?";
   sqlite3_stmt *delete_stmt;
+  int rows_deleted;
 
   rc = sqlite3_prepare_v2(hdb, delete_sql, -1, &delete_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -442,6 +443,8 @@ static int _db_delete_contact(int id) {
             sqlite3_errmsg(hdb));
   }
   delete_stmt = NULL;
+
+  rows_deleted = sqlite3_changes(hdb);
 
   return 0;
 
