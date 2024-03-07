@@ -6,7 +6,7 @@
  * @brief Macro definitions for various function/variable attributes.
  */
 
-#include "compiler_tests.h"
+#include "compiler_compat.h"
 
 /**
  * ATTRIBUTE_NORETURN:

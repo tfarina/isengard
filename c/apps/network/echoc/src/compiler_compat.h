@@ -1,9 +1,9 @@
 /**
- * compiler_tests.h
+ * compiler_compat.h
  */
 
-#ifndef _COMPILER_TESTS_H_INCLUDED_
-#define _COMPILER_TESTS_H_INCLUDED_
+#ifndef _COMPILER_COMPAT_H_INCLUDED_
+#define _COMPILER_COMPAT_H_INCLUDED_
 
 /*
  * Macro to test if we're using a specific version of gcc or later.
@@ -23,4 +23,4 @@
 #define __GNUC_PREREQ__(major, minor) 0
 #endif
 
-#endif  /* !defined(COMPILER_TESTS_H_INCLUDED_) */
+#endif  /* !defined(COMPILER_COMPAT_H_INCLUDED_) */
