@@ -45,7 +45,8 @@ int cmd_delete(int argc, char **argv) {
     return 1;
   }
 
-  if (ab_delete_contact(contact)) {
+  rc = ab_delete_contact(contact);
+  if (rc < 0) {
     return 1;
   }
 
