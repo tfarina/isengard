@@ -3,7 +3,7 @@
 
 /**
  * @file msg.h
- * @brief Message reporting
+ * @brief Output diagnose messages
  */
 
 #include "attributes.h"
