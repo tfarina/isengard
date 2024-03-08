@@ -18,7 +18,7 @@ ATTRIBUTE_NORETURN void fatal(char const *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
-    vmsg("Fatal error: ", fmt, ap);
+    vmsg("fatal: ", fmt, ap);
     va_end(ap);
 
     exit(1);
