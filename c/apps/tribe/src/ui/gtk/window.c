@@ -944,11 +944,9 @@ _create_list_view(void)
 }
 
 static void
-_populate_list_view(GtkListStore *list_store)
+_populate_list_view(GtkListStore *list_store, alpm_list_t *list)
 {
-  alpm_list_t *list, *item;
-
-  ab_load_contacts(&list);
+  alpm_list_t *item;
 
   for (item = list; item; item = alpm_list_next(item))
     {
@@ -962,6 +960,7 @@ addrbook_window_new(void)
   GtkWidget *vbox;
   GtkWidget *menuitem;
   GtkWidget *scrolledwin;
+  alpm_list_t *list;
 
   /*
    * Main window
@@ -1037,7 +1036,9 @@ addrbook_window_new(void)
 
   gtk_widget_grab_focus(list_view);
 
-  _populate_list_view(list_store);
+  ab_load_contacts(&list);
+
+  _populate_list_view(list_store, list);
 
   return main_window;
 }
