@@ -41,8 +41,8 @@ int cmd_modify(int argc, char **argv) {
 
   contact = ab_get_contact_by_id(id);
   if (!contact) {
-    fprintf(stderr, "Error: contact (%s) does not exist in our database.\n",
-            argv[1]);
+    fprintf(stderr, "Error: contact (%d) does not exist in our database.\n",
+            id);
     return 1;
   }
 
