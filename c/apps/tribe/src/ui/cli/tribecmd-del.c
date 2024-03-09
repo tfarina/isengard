@@ -11,9 +11,8 @@ static char const *progname;
 int main(int argc, char **argv) {
   int rc;
   char *dbdir;
-  alpm_list_t *list;
   int id;
-  ab_contact_t *contact = NULL;
+  int deleted = 0;
 
   progname = os_path_basename(*argv);
 
@@ -35,22 +34,16 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  rc = ab_load_contacts(&list);
-  if (rc < 0) {
-    return 1;
-  }
-
   id = atoi(argv[1]);
 
-  contact = ab_get_contact_by_id(id);
-  if (!contact) {
-    fprintf(stderr, "Error: no contact with id %d was found in our database.\n",
-            id);
+  rc = ab_delete_contact_v2(id, &deleted);
+  if (rc < 0) {
     return 1;
   }
 
-  rc = ab_delete_contact(contact);
-  if (rc < 0) {
+  if (!deleted) {
+    fprintf(stderr, "Error: no contact with id %d was found in our database.\n",
+            id);
     return 1;
   }
 

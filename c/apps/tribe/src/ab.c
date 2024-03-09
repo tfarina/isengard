@@ -473,6 +473,34 @@ int ab_delete_contact(ab_contact_t *contact) {
   return 0;
 }
 
+/*
+ * Deletes a contact with the given id from the address book database.
+ */
+int ab_delete_contact_v2(int id, int *pb_deleted) {
+  int rc;
+  char *query;
+  char *err_msg;
+  int rows_deleted;
+
+  query = sqlite3_mprintf("DELETE FROM contacts WHERE id=%d;", id);
+  rc = sqlite3_exec(hdb, query, NULL, 0, &err_msg);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "sqlite3_exec failed: %s\n", err_msg);
+    sqlite3_free(err_msg);
+    sqlite3_free(query);
+
+    return -1;
+  }
+
+  rows_deleted = sqlite3_changes(hdb);
+  if (rows_deleted > 0)
+    *pb_deleted = 1;
+
+  sqlite3_free(query);
+
+  return 0;
+}
+
 ab_contact_t *ab_get_contact_by_id(int id) {
   alpm_list_t *item;
 
