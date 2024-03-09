@@ -34,6 +34,8 @@ underscores (“_”).
 
 ### Variable Names
 
+Variable names should typically be nouns.
+
 Should be in mixed case (camelCase) with the first word in lower case and
 every other word starts with a capital letter.
 
@@ -43,6 +45,8 @@ char firstName[64];
 ```
 
 ### Type Names
+
+Type names should typically be nouns.
 
 The names of all types (enums, structs, unions and typedefs) should follow
 the same naming convention. Should be all upper case (SCREAMING_SNAKE_CASE)
