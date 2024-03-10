@@ -8,7 +8,7 @@ void fatal_exit(int const code, char const *format, ...) {
   va_list ap;
 
   va_start(ap, format);
-  fprintf(stderr, "error: ");
+  fputs("error: ", stderr);
   vfprintf(stderr, format, ap);
   fputc('\n', stderr);
   va_end(ap);
