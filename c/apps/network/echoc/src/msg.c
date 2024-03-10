@@ -8,7 +8,7 @@ static void vmsg(char const *prefix, char const *fmt, va_list ap) {
     fflush(stderr);
     fputs(prefix, stderr);
     vfprintf(stderr, fmt, ap);
-    putc('\n', stderr);
+    fputc('\n', stderr);
 }
 
 /**
