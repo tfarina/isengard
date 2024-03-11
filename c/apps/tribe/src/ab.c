@@ -501,15 +501,25 @@ int ab_delete_contact_v2(int id, int *pb_deleted) {
   return 0;
 }
 
-ab_contact_t *ab_get_contact_by_id(int id) {
+
+/*
+ * Retrieves a contact for the given id.
+ *
+ * [in] id The index of the contact in the table.
+ * [out] pp_contact A pointer to a pointer to the retrieved contact.
+ *
+ * @return 0 if successful, -1 if it was not found.
+ */
+int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
   alpm_list_t *item;
 
   for (item = contact_list; item; item = alpm_list_next(item)) {
     ab_contact_t *contact = (ab_contact_t *)item->data;
     if (contact->id == id) {
-      return contact;
+      *pp_contact = contact;
+      return 0;
     }
   }
 
-  return NULL;
+  return -1;
 }

@@ -39,7 +39,7 @@ int cmd_modify(int argc, char **argv) {
 
   id = atoi(argv[1]);
 
-  contact = ab_get_contact_by_id(id);
+  rc = ab_get_contact_by_id(id, &contact);
   if (!contact) {
     fprintf(stderr, "Error: no contact with id %d was found in our database.\n",
             id);
