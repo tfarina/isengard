@@ -511,15 +511,59 @@ int ab_delete_contact_v2(int id, int *pb_deleted) {
  * @return 0 if successful, -1 if it was not found.
  */
 int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
-  alpm_list_t *item;
+  int rc;
+  char const query[] = "SELECT * FROM contacts WHERE id=?";
+  sqlite3_stmt *stmt;
+  ab_contact_t *contact;
+  int errcode = 0;
 
-  for (item = contact_list; item; item = alpm_list_next(item)) {
-    ab_contact_t *contact = (ab_contact_t *)item->data;
-    if (contact->id == id) {
-      *pp_contact = contact;
-      return 0;
-    }
+  rc = sqlite3_prepare_v2(hdb, query, -1, &stmt, NULL);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to prepare the select statement: %s\n",
+            sqlite3_errmsg(hdb));
+    return -1;
   }
 
-  return -1;
+  rc = sqlite3_bind_int(stmt, 1, id);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to bind id parameter for select statement: %s\n",
+	    sqlite3_errmsg(hdb));
+    errcode = -1;
+    goto out;
+  }
+
+  rc = sqlite3_step(stmt);
+  if (rc != SQLITE_ROW && rc != SQLITE_DONE) {
+    fprintf(stderr, "sqlite3_step failed: %s\n",
+            sqlite3_errmsg(hdb));
+    errcode = -1;
+    goto out;
+  }
+
+  /* If rc is equal to SQLITE_ROW then a contact with the given id was found! */
+  if (rc == SQLITE_ROW) {
+    contact = malloc(sizeof(ab_contact_t));
+    if (NULL == contact) {
+      errcode = -1;
+      goto out;
+    }
+
+    contact->id = sqlite3_column_int(stmt, 0);
+    contact->fname = xstrdup(sqlite3_column_text(stmt, 1));
+    contact->lname = xstrdup(sqlite3_column_text(stmt, 2));
+    contact->email = xstrdup(sqlite3_column_text(stmt, 3));
+
+    *pp_contact = contact;
+  }
+  /* If rc is equal to SQLITE_DONE then NO contact with the given id was found */
+
+  rc = sqlite3_finalize(stmt);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "Failed to finalize the select statement: %s\n",
+            sqlite3_errmsg(hdb));
+    errcode = -1;
+  }
+
+out:
+  return errcode;
 }

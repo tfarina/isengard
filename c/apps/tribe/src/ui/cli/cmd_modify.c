@@ -10,7 +10,6 @@
 int cmd_modify(int argc, char **argv) {
   int rc;
   char *dbdir;
-  alpm_list_t *list;
   int id;
   ab_contact_t *contact = NULL;
 
@@ -28,11 +27,6 @@ int cmd_modify(int argc, char **argv) {
   dbdir = dirs_get_user_data_dir();
 
   rc = ab_init(dbdir);
-  if (rc < 0) {
-    return 1;
-  }
-
-  rc = ab_load_contacts(&list);
   if (rc < 0) {
     return 1;
   }
