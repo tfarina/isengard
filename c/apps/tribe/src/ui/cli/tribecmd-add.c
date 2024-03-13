@@ -46,6 +46,7 @@ int main(int argc, char **argv) {
   rc = ab_add_contact(contact);
   if (rc < 0) {
     fputs("Failed to create a new contact.\n", stderr);
+    ab_contact_free(contact);
     return 1;
   }
 
