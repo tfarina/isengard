@@ -43,7 +43,8 @@ int main(int argc, char **argv) {
   ab_contact_set_email(contact, argv[3]);
 
   /* It's okay to add duplicate records. */
-  if (ab_add_contact(contact)) {
+  rc = ab_add_contact(contact);
+  if (rc < 0) {
     return 1;
   }
 
