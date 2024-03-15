@@ -10,6 +10,7 @@ int ab_fini(void);
 int ab_load_contacts(alpm_list_t **pp_contact_list);
 
 int ab_add_contact(ab_contact_t *contact);
+int ab_add_contact_v2(ab_contact_t *contact);
 
 int ab_update_contact(ab_contact_t *contact);
 
