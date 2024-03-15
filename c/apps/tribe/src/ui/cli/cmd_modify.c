@@ -44,7 +44,8 @@ int cmd_modify(int argc, char **argv) {
   ab_contact_set_last_name(contact, argv[3]);
   ab_contact_set_email(contact, argv[4]);
 
-  if (ab_update_contact(contact)) {
+  rc = ab_update_contact(contact);
+  if (rc < 0) {
     return 1;
   }
 
