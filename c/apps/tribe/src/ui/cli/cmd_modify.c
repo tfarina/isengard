@@ -46,8 +46,11 @@ int cmd_modify(int argc, char **argv) {
 
   rc = ab_update_contact(contact);
   if (rc < 0) {
+    ab_contact_free(contact);
     return 1;
   }
+
+  ab_contact_free(contact);
 
   ab_fini();
 
