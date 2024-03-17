@@ -173,6 +173,8 @@ add_executable(countlines xstring.c countlines.c)
 
 add_executable(numbers os_path.c xstring.c numbers.c)
 target_link_libraries(numbers)
+add_executable(numbersv2 os_path.c xstring.c numbersv2.c)
+target_link_libraries(numbersv2)
 
 add_executable(degrees angle.c degrees.c)
 add_executable(radians angle.c radians.c)
