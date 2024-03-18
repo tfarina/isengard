@@ -246,6 +246,10 @@ int ab_load_contacts(alpm_list_t **pp_contact_list) {
   return rc;
 }
 
+int ab_load_contacts_v2(int *p_count, ab_contact_t **pp_contacts) {
+  return _db_get_contact_list(p_count, pp_contacts);
+}
+
 int _db_insert_contact(ab_contact_t *contact) {
   int rc;
   int errcode = 0;
