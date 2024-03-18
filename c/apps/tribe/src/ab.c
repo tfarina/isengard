@@ -209,9 +209,9 @@ int _db_get_contact_list(int *pCount, ab_contact_t **ppContacts) {
     if (sqlite3_step(select_stmt) == SQLITE_ROW) {
       contacts[i].id = sqlite3_column_int(select_stmt, 0);
 
-      contacts[i].fname = xstrdup((const char *)sqlite3_column_text(select_stmt, 1));
-      contacts[i].lname = xstrdup((const char *)sqlite3_column_text(select_stmt, 2));
-      contacts[i].email = xstrdup((const char *)sqlite3_column_text(select_stmt, 3));
+      contacts[i].fname = xstrdup(sqlite3_column_text(select_stmt, 1));
+      contacts[i].lname = xstrdup(sqlite3_column_text(select_stmt, 2));
+      contacts[i].email = xstrdup(sqlite3_column_text(select_stmt, 3));
     }
   }
 
