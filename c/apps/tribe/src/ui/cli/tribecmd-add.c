@@ -10,6 +10,7 @@ static char const *progname;
 
 int main(int argc, char **argv) {
   int rc;
+  int status = 0;
   char *dbdir;
   ab_contact_t *contact = NULL;
 
@@ -30,12 +31,14 @@ int main(int argc, char **argv) {
 
   rc = ab_init(dbdir);
   if (rc < 0) {
-    return 1;
+    status = 1;
+    goto done;
   }
 
   contact = ab_contact_alloc();
   if (!contact) {
-    return 1;
+    status = 1;
+    goto done;
   }
 
   ab_contact_set_first_name(contact, argv[1]);
@@ -46,13 +49,15 @@ int main(int argc, char **argv) {
   rc = ab_add_contact_v2(contact);
   if (rc < 0) {
     fputs("Failed to create a new contact.\n", stderr);
-    ab_contact_free(contact);
-    return 1;
+    status = 1;
+    goto done;
   }
 
-  ab_contact_free(contact);
+done:
+  if (contact)
+    ab_contact_free(contact);
 
   ab_fini();
 
-  return 0;
+  return status;
 }
