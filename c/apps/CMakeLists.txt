@@ -178,3 +178,5 @@ target_link_libraries(numbersv2)
 
 add_executable(degrees angle.c degrees.c)
 add_executable(radians angle.c radians.c)
+
+add_executable(acceptanddisplay acceptanddisplay.c)
