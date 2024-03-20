@@ -31,6 +31,11 @@ int cmd_list(int argc, char **argv) {
 
   rc = print_contact_list_v2(count, list);
 
+  if (list) {
+    free(list);
+    list = NULL;
+  }
+
   ab_fini();
 
   return rc;
