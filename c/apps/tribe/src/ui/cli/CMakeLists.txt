@@ -33,50 +33,50 @@ target_link_libraries(${EXENAME}
 )
 
 set(SOURCES
-  tribecmd-add.c
+  add.c
 )
 
-add_executable(${EXENAME}-add
+add_executable(${PROJECT_NAME}add
   ${SOURCES}
 )
 
-target_link_libraries(${EXENAME}-add
+target_link_libraries(${PROJECT_NAME}add
   ${DEPENDENCIES}
 )
 
 set(SOURCES
-  tribecmd-mod.c
+  mod.c
 )
 
-add_executable(${EXENAME}-mod
+add_executable(${PROJECT_NAME}mod
   ${SOURCES}
 )
 
-target_link_libraries(${EXENAME}-mod
+target_link_libraries(${PROJECT_NAME}mod
   ${DEPENDENCIES}
 )
 
 set(SOURCES
-  tribecmd-del.c
+  del.c
 )
 
-add_executable(${EXENAME}-del
+add_executable(${PROJECT_NAME}del
   ${SOURCES}
 )
 
-target_link_libraries(${EXENAME}-del
+target_link_libraries(${PROJECT_NAME}del
   ${DEPENDENCIES}
 )
 
 set(SOURCES
   fort.c
   common.c
-  tribecmd-ls.c
+  ls.c
 )
 
-add_executable(${EXENAME}-ls
+add_executable(${PROJECT_NAME}ls
   ${SOURCES})
 
-target_link_libraries(${EXENAME}-ls
+target_link_libraries(${PROJECT_NAME}ls
   ${DEPENDENCIES}
 )
