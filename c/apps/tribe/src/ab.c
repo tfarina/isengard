@@ -154,7 +154,7 @@ int ab_fini(void) {
   return 0;
 }
 
-int _db_get_contact_list(int *pCount, ab_contact_t **ppContacts) {
+int _db_get_contacts(int *pCount, ab_contact_t **ppContacts) {
   int rc;
   int errcode = 0;
   char const count_sql[] = "SELECT COUNT(*) FROM contacts";
@@ -235,7 +235,7 @@ int ab_load_contacts(alpm_list_t **pp_contact_list) {
   ab_contact_t *contacts = NULL;
   int i;
 
-  rc = _db_get_contact_list(&num_contacts, &contacts);
+  rc = _db_get_contacts(&num_contacts, &contacts);
 
   for (i = 0; i < num_contacts; i++) {
     contact_list = alpm_list_add(contact_list, &contacts[i]);
@@ -247,7 +247,7 @@ int ab_load_contacts(alpm_list_t **pp_contact_list) {
 }
 
 int ab_load_contacts_v2(int *p_count, ab_contact_t **pp_contacts) {
-  return _db_get_contact_list(p_count, pp_contacts);
+  return _db_get_contacts(p_count, pp_contacts);
 }
 
 int _db_insert_contact(ab_contact_t *contact) {
