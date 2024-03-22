@@ -229,7 +229,7 @@ int _db_get_contacts(int *pCount, ab_contact_t **ppContacts) {
   return errcode;
 }
 
-int ab_load_contacts(alpm_list_t **pp_contact_list) {
+int ab_get_contacts(alpm_list_t **pp_contact_list) {
   int rc;
   int num_contacts = 0;
   ab_contact_t *contacts = NULL;
@@ -246,7 +246,7 @@ int ab_load_contacts(alpm_list_t **pp_contact_list) {
   return rc;
 }
 
-int ab_load_contacts_v2(int *p_count, ab_contact_t **pp_contacts) {
+int ab_get_contacts_v2(int *p_count, ab_contact_t **pp_contacts) {
   return _db_get_contacts(p_count, pp_contacts);
 }
 

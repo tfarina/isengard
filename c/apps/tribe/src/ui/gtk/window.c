@@ -1036,7 +1036,7 @@ addrbook_window_new(void)
 
   gtk_widget_grab_focus(list_view);
 
-  ab_load_contacts(&list);
+  ab_get_contacts(&list);
 
   _populate_list_view(list_store, list);
 
