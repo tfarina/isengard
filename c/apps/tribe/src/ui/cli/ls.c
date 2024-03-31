@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  rc = ab_get_contacts_v2(&count, &list);
+  rc = ab_enum_contacts_v2(&count, &list);
   if (rc < 0) {
     return 1;
   }
