@@ -9,7 +9,7 @@ typedef struct ab_contact_s
   char const *email;
 } ab_contact_t;
 
-ab_contact_t *ab_contact_alloc(void);
+int ab_contact_alloc(ab_contact_t **pp_contact);
 void ab_contact_free(ab_contact_t *contact);
 
 void ab_contact_set_first_name(ab_contact_t *contact, char const *fname);

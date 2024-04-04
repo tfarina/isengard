@@ -2,19 +2,21 @@
 
 #include <stdlib.h>
 
-ab_contact_t *ab_contact_alloc(void) {
-  ab_contact_t *contact;
+int ab_contact_alloc(ab_contact_t **pp_contact) {
+  ab_contact_t *contact = NULL;
 
-  contact = (ab_contact_t *) malloc(sizeof(*contact));
-  if (contact == NULL) {
-    return NULL;
+  contact = malloc(sizeof(ab_contact_t));
+  if (NULL == contact) {
+    return -1;
   }
 
   contact->fname = NULL;
   contact->lname = NULL;
   contact->email = NULL;
 
-  return contact;
+  *pp_contact = contact;
+
+  return 0;
 }
 
 void ab_contact_free(ab_contact_t *contact) {

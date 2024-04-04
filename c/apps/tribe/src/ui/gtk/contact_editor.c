@@ -23,7 +23,7 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
   char const *email;
 
   if (action_code == AC_ADD) {
-    current_contact = ab_contact_alloc();
+    ab_contact_alloc(&current_contact);
   }
 
   first_name = g_strdup(gtk_entry_get_text(GTK_ENTRY(fname_entry)));

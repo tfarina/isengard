@@ -35,8 +35,8 @@ int main(int argc, char **argv) {
     goto done;
   }
 
-  contact = ab_contact_alloc();
-  if (!contact) {
+  rc = ab_contact_alloc(&contact);
+  if (rc < 0 || !contact) {
     status = 1;
     goto done;
   }
