@@ -49,11 +49,11 @@ int main(int argc, char **argv) {
 
   rc = ab_update_contact(contact);
   if (rc < 0) {
-    ab_contact_free(contact);
+    ab_contact_destroy(contact);
     return 1;
   }
 
-  ab_contact_free(contact);
+  ab_contact_destroy(contact);
 
   ab_fini();
 

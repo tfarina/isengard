@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 
-int ab_contact_alloc(ab_contact_t **pp_contact) {
+int ab_contact_create(ab_contact_t **pp_contact) {
   ab_contact_t *contact = NULL;
 
   contact = malloc(sizeof(ab_contact_t));
@@ -19,7 +19,7 @@ int ab_contact_alloc(ab_contact_t **pp_contact) {
   return 0;
 }
 
-void ab_contact_free(ab_contact_t *contact) {
+void ab_contact_destroy(ab_contact_t *contact) {
   if (contact == NULL) {
     return;
   }

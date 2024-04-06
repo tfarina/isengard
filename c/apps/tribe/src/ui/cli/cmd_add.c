@@ -31,7 +31,7 @@ int cmd_add(int argc, char **argv) {
     goto done;
   }
 
-  rc = ab_contact_alloc(&contact);
+  rc = ab_contact_create(&contact);
   if (rc < 0 || !contact) {
     status = 1;
     goto done;
@@ -51,7 +51,7 @@ int cmd_add(int argc, char **argv) {
 
 done:
   if (contact)
-    ab_contact_free(contact);
+    ab_contact_destroy(contact);
 
   ab_fini();
 
