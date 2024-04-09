@@ -198,6 +198,7 @@ static void _on_edit_contact_cb(ab_contact_t *contact);
 static void
 _application_quit(void)
 {
+  ab_fini();
   gtk_main_quit();
 }
 
