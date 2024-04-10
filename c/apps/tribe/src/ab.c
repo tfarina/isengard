@@ -256,6 +256,11 @@ int ab_enum_contacts(alpm_list_t **pp_contact_list) {
   *pp_contact_list = contact_list;
 
 exit:
+  if (contacts) {
+    free(contacts);
+    contacts = NULL;
+  }
+
   return rc;
 }
 
