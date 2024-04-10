@@ -234,15 +234,28 @@ int ab_enum_contacts(alpm_list_t **pp_contact_list) {
   int num_contacts = 0;
   ab_contact_t *contacts = NULL;
   int i;
+  ab_contact_t *p_contact = NULL;
 
   rc = _db_enum_contacts(&num_contacts, &contacts);
 
   for (i = 0; i < num_contacts; i++) {
-    contact_list = alpm_list_add(contact_list, &contacts[i]);
+    rc = ab_contact_create(&p_contact);
+    if (rc < 0 || !p_contact) {
+      rc = -1;
+      goto exit;
+    }
+
+    p_contact->id = contacts[i].id;
+    p_contact->fname = xstrdup(contacts[i].fname);
+    p_contact->lname = xstrdup(contacts[i].lname);
+    p_contact->email = xstrdup(contacts[i].email);
+
+    contact_list = alpm_list_add(contact_list, p_contact);
   }
 
   *pp_contact_list = contact_list;
 
+exit:
   return rc;
 }
 
