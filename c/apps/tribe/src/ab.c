@@ -146,6 +146,8 @@ int ab_init(char *dbpath) {
 int ab_fini(void) {
   int rc;
 
+  FREELIST(contact_list);
+
   rc = _db_close();
   if (rc < 0) {
     return -1;
