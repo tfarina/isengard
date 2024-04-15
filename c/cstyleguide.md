@@ -34,7 +34,7 @@ underscores (“_”).
 
 ### Variable Names
 
-Variable names should typically be nouns.
+Name variables using a noun, noun phrase, or adjective.
 
 Should be in mixed case (camelCase) with the first word in lower case and
 every other word starts with a capital letter.
@@ -46,7 +46,7 @@ char firstName[64];
 
 ### Type Names
 
-Type names should typically be nouns.
+Name types with nouns or noun phrases.
 
 The names of all types (enums, structs, unions and typedefs) should follow
 the same naming convention. Should be all upper case (SCREAMING_SNAKE_CASE)
@@ -75,7 +75,7 @@ typedef union _UNION_NAME
 
 ### Function Names
 
-Function names should typically be in the form of verb + noun.
+Function names should be verbs or verb phrases, because they are a way of doing an action.
 
 Should be in mixed case (CamelCase or PascalCase) with the first letter
 of each word capitalized.
