@@ -67,7 +67,7 @@ typedef struct _STRUCT_NAME
 ```
 
 ```
-typedef struct _UNION_NAME
+typedef union _UNION_NAME
 {
     ...
 } UNION_NAME;
