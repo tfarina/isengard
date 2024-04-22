@@ -3,13 +3,12 @@
 int
 main(void)
 {
-  char yes_or_no;
+  char answer;
 
   fputs("Are you sure you want to exit? (y, n) ", stdout);
+  scanf("%c", &answer);
 
-  scanf("%c", &yes_or_no);
-
-  fprintf(stdout, "%c\n", yes_or_no);
+  fprintf(stdout, "%c\n", answer);
 
   return 0;
 }
