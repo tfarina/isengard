@@ -156,18 +156,13 @@ int ab_fini(void) {
   return 0;
 }
 
-int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
+static int _db_get_row_count(int *p_row_count) {
   int rc;
-  int errcode = 0;
   char const count_sql[] = "SELECT COUNT(*) FROM contacts";
   sqlite3_stmt *count_stmt;
   int row_count = 0;
-  char const select_sql[] = "SELECT * FROM contacts";
-  sqlite3_stmt *select_stmt;
-  ab_contact_t *contacts;
-  int i;
 
-  if (NULL == pCount || NULL == ppContacts) {
+  if (NULL == p_row_count) {
     return -1;  /* Invalid args */
   }
 
@@ -192,6 +187,29 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "Failed to finalize the select count(*) statement: %s\n",
             sqlite3_errmsg(hdb));
+    return -1;
+  }
+
+  *p_row_count = row_count;
+
+  return 0;
+}
+
+int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
+  int rc;
+  int errcode = 0;
+  int row_count = 0;
+  char const select_sql[] = "SELECT * FROM contacts";
+  sqlite3_stmt *select_stmt;
+  ab_contact_t *contacts;
+  int i;
+
+  if (NULL == pCount || NULL == ppContacts) {
+    return -1;  /* Invalid args */
+  }
+
+  rc = _db_get_row_count(&row_count);
+  if (rc < 0) {
     return -1;
   }
 
