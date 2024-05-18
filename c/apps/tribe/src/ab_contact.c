@@ -5,10 +5,12 @@
 
 int ab_contact_create(ab_contact_t **pp_contact) {
   ab_contact_t *contact = NULL;
+  int rc = 0; /* success */
 
   contact = malloc(sizeof(ab_contact_t));
   if (NULL == contact) {
-    return -1;
+    rc = -1;
+    goto err;
   }
 
   memset(contact, 0, sizeof(ab_contact_t));
@@ -20,6 +22,12 @@ int ab_contact_create(ab_contact_t **pp_contact) {
   *pp_contact = contact;
 
   return 0;
+
+err:
+  free(contact);
+  contact = NULL;
+
+  return rc;
 }
 
 void ab_contact_destroy(ab_contact_t *contact) {
