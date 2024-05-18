@@ -591,8 +591,8 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
 
   /* If rc is equal to SQLITE_ROW then a contact with the given id was found! */
   if (rc == SQLITE_ROW) {
-    contact = malloc(sizeof(ab_contact_t));
-    if (NULL == contact) {
+    rc = ab_contact_create(&contact);
+    if (rc < 0 || NULL == contact) {
       errcode = -1;
       goto out;
     }
