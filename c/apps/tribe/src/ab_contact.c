@@ -1,6 +1,7 @@
 #include "ab_contact.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 int ab_contact_create(ab_contact_t **pp_contact) {
   ab_contact_t *contact = NULL;
@@ -9,6 +10,8 @@ int ab_contact_create(ab_contact_t **pp_contact) {
   if (NULL == contact) {
     return -1;
   }
+
+  memset(contact, 0, sizeof(ab_contact_t));
 
   contact->fname = NULL;
   contact->lname = NULL;
