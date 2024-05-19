@@ -3,6 +3,8 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
 
+#include <string.h>
+
 static action_code_t action_code;
 static ab_contact_t *current_contact;
 typedef void (*editor_post_cb_t)(ab_contact_t *contact);
@@ -18,6 +20,7 @@ static GtkWidget *email_entry;
 
 static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
 {
+  char const *entry_text;
   char const *first_name;
   char const *last_name;
   char const *email;
@@ -26,14 +29,23 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
     ab_contact_create(&current_contact);
   }
 
-  first_name = g_strdup(gtk_entry_get_text(GTK_ENTRY(fname_entry)));
-  ab_contact_set_first_name(current_contact, first_name);
+  entry_text = gtk_entry_get_text(GTK_ENTRY(fname_entry));
+  if (strlen(entry_text)) {
+    first_name = g_strdup(entry_text);
+    ab_contact_set_first_name(current_contact, first_name);
+  }
 
-  last_name = g_strdup(gtk_entry_get_text(GTK_ENTRY(lname_entry)));
-  ab_contact_set_last_name(current_contact, last_name);
+  entry_text = gtk_entry_get_text(GTK_ENTRY(lname_entry));
+  if (strlen(entry_text)) {
+    last_name = g_strdup(entry_text);
+    ab_contact_set_last_name(current_contact, last_name);
+  }
 
-  email = g_strdup(gtk_entry_get_text(GTK_ENTRY(email_entry)));
-  ab_contact_set_email(current_contact, email);
+  entry_text = gtk_entry_get_text(GTK_ENTRY(email_entry));
+  if (strlen(entry_text)) {
+    email = g_strdup(entry_text);
+    ab_contact_set_email(current_contact, email);
+  }
 
   if (action_code == AC_ADD) {
     ab_add_contact(current_contact);
