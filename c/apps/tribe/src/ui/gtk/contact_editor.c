@@ -30,19 +30,28 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
   }
 
   entry_text = gtk_entry_get_text(GTK_ENTRY(fname_entry));
-  if (strlen(entry_text)) {
+  if (0 == strlen(entry_text)) {
+    first_name = "";
+    ab_contact_set_first_name(current_contact, first_name);
+  } else {
     first_name = g_strdup(entry_text);
     ab_contact_set_first_name(current_contact, first_name);
   }
 
   entry_text = gtk_entry_get_text(GTK_ENTRY(lname_entry));
-  if (strlen(entry_text)) {
+  if (0 == strlen(entry_text)) {
+    last_name = "";
+    ab_contact_set_last_name(current_contact, last_name);
+  } else {
     last_name = g_strdup(entry_text);
     ab_contact_set_last_name(current_contact, last_name);
   }
 
   entry_text = gtk_entry_get_text(GTK_ENTRY(email_entry));
-  if (strlen(entry_text)) {
+  if (0 == strlen(entry_text)) {
+    email = "";
+    ab_contact_set_email(current_contact, email);
+  } else {
     email = g_strdup(entry_text);
     ab_contact_set_email(current_contact, email);
   }
