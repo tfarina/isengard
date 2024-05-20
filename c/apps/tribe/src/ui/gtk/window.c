@@ -362,7 +362,11 @@ _on_size_allocate_cb(GtkWidget		*widget,
 static void
 _on_file_new_contact_cb(GtkAction *action, gpointer data)
 {
-  contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, _on_new_contact_cb);
+  ab_contact_t *contact;
+
+  ab_contact_create(&contact);
+
+  contact_editor_new(GTK_WINDOW(data), AC_ADD, contact, _on_new_contact_cb);
 }
 
 static void
@@ -487,7 +491,11 @@ _on_help_about_cb(GtkAction *action, gpointer data)
 static void
 _on_toolbar_new_cb(GtkWidget *widget, gpointer data)
 {
-  contact_editor_new(GTK_WINDOW(data), AC_ADD, NULL /*contact*/, _on_new_contact_cb);
+  ab_contact_t *contact;
+
+  ab_contact_create(&contact);
+
+  contact_editor_new(GTK_WINDOW(data), AC_ADD, contact, _on_new_contact_cb);
 }
 
 static void

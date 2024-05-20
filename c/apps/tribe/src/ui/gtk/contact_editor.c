@@ -25,10 +25,6 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
   char const *last_name;
   char const *email;
 
-  if (action_code == AC_ADD) {
-    ab_contact_create(&current_contact);
-  }
-
   entry_text = gtk_entry_get_text(GTK_ENTRY(fname_entry));
   if (0 == strlen(entry_text)) {
     first_name = "";
