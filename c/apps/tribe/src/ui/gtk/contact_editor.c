@@ -94,6 +94,7 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   GtkWidget *bbox;
   GtkWidget *cancel_btn;
   GtkWidget *ok_btn;
+  char const* entry_text;
 
   action_code = ac;
   current_contact = contact;
@@ -189,9 +190,20 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
 			   G_CALLBACK(_contact_editor_cancel_cb), NULL);
 
   if (current_contact) {
-    gtk_entry_set_text(GTK_ENTRY(fname_entry), ab_contact_get_first_name(current_contact));
-    gtk_entry_set_text(GTK_ENTRY(lname_entry), ab_contact_get_last_name(current_contact));
-    gtk_entry_set_text(GTK_ENTRY(email_entry), ab_contact_get_email(current_contact));
+    entry_text = ab_contact_get_first_name(current_contact);
+    if (entry_text) {
+      gtk_entry_set_text(GTK_ENTRY(fname_entry), entry_text);
+    }
+
+    entry_text = ab_contact_get_last_name(current_contact);
+    if (entry_text) {
+      gtk_entry_set_text(GTK_ENTRY(lname_entry), entry_text);
+    }
+
+    entry_text = ab_contact_get_email(current_contact);
+    if (entry_text) {
+      gtk_entry_set_text(GTK_ENTRY(email_entry), entry_text);
+    }
   }
 
   gtk_widget_show_all(contact_window);
