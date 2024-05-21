@@ -67,6 +67,12 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
 
 static void _contact_editor_cancel_cb(GtkWidget *widget, gboolean *cancelled)
 {
+  if (action_code == AC_ADD) {
+    if (current_contact) {
+      ab_contact_destroy(current_contact);
+    }
+  }
+
   gtk_widget_destroy(contact_window);
 }
 
