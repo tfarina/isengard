@@ -40,6 +40,7 @@ void ab_contact_destroy(ab_contact_t *contact) {
   contact->email = NULL;
 
   free(contact);
+  contact = NULL;
 }
 
 void ab_contact_set_first_name(ab_contact_t *contact, char const *fname) {
