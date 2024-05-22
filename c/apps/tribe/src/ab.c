@@ -213,6 +213,8 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
     return -1;
   }
 
+  /* Allocate the contacts array
+   */
   contacts = malloc(row_count * sizeof(ab_contact_t));
   if (NULL == contacts) {
     return -1;
