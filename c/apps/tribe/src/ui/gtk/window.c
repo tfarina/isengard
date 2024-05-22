@@ -256,7 +256,7 @@ _remove_selection(void)
 				  GTK_MESSAGE_QUESTION,
 				  GTK_BUTTONS_YES_NO,
 				  "Are you sure you want to delete the selected item(s)?");
-  gtk_window_set_title(GTK_WINDOW(dialog), "Confirm Item Delete");
+  gtk_window_set_title(GTK_WINDOW(dialog), "Tribe");
   response = gtk_dialog_run(GTK_DIALOG(dialog));
   gtk_widget_destroy(dialog);
 
