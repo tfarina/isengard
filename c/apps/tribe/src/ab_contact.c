@@ -44,15 +44,39 @@ void ab_contact_destroy(ab_contact_t *contact) {
 }
 
 void ab_contact_set_first_name(ab_contact_t *contact, char const *fname) {
-  contact->fname = fname;
+  size_t len = strlen(fname) + 1;
+  contact->fname = malloc(len * sizeof(char));
+  if (!contact->fname) {
+    goto out;
+  }
+  memcpy(contact->fname, fname, len);
+
+out:
+  ;
 }
 
 void ab_contact_set_last_name(ab_contact_t *contact, char const *lname) {
-  contact->lname = lname;
+  size_t len = strlen(lname) + 1;
+  contact->lname = malloc(len * sizeof(char));
+  if (!contact->lname) {
+    goto out;
+  }
+  memcpy(contact->lname, lname, len);
+
+out:
+  ;
 }
 
 void ab_contact_set_email(ab_contact_t *contact, char const *email) {
-  contact->email = email;
+  size_t len = strlen(email) + 1;
+  contact->email = malloc(len * sizeof(char));
+  if (!contact->email) {
+    goto out;
+  }
+  memcpy(contact->email, email, len);
+
+out:
+  ;
 }
 
 char const *ab_contact_get_first_name(ab_contact_t *contact) {

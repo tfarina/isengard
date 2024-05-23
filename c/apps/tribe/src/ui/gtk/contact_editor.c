@@ -30,8 +30,7 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
     first_name = "";
     ab_contact_set_first_name(current_contact, first_name);
   } else {
-    first_name = g_strdup(entry_text);
-    ab_contact_set_first_name(current_contact, first_name);
+    ab_contact_set_first_name(current_contact, entry_text);
   }
 
   entry_text = gtk_entry_get_text(GTK_ENTRY(lname_entry));
@@ -39,8 +38,7 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
     last_name = "";
     ab_contact_set_last_name(current_contact, last_name);
   } else {
-    last_name = g_strdup(entry_text);
-    ab_contact_set_last_name(current_contact, last_name);
+    ab_contact_set_last_name(current_contact, entry_text);
   }
 
   entry_text = gtk_entry_get_text(GTK_ENTRY(email_entry));
@@ -48,8 +46,7 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
     email = "";
     ab_contact_set_email(current_contact, email);
   } else {
-    email = g_strdup(entry_text);
-    ab_contact_set_email(current_contact, email);
+    ab_contact_set_email(current_contact, entry_text);
   }
 
   if (action_code == AC_ADD) {
