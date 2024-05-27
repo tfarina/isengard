@@ -1,5 +1,6 @@
 #include "ab_contact.h"
 
+#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -9,7 +10,7 @@ int ab_contact_create(ab_contact_t **pp_contact) {
 
   contact = malloc(sizeof(ab_contact_t));
   if (NULL == contact) {
-    rc = -1;
+    rc = -ENOMEM;
     goto err;
   }
 
@@ -50,7 +51,7 @@ int ab_contact_set_first_name(ab_contact_t *contact, char const *fname) {
   len = strlen(fname) + 1;
   contact->fname = malloc(len * sizeof(char));
   if (!contact->fname) {
-    rc = -1;
+    rc = -ENOMEM;
     goto out;
   }
   memcpy(contact->fname, fname, len);
@@ -66,7 +67,7 @@ int ab_contact_set_last_name(ab_contact_t *contact, char const *lname) {
   len = strlen(lname) + 1;
   contact->lname = malloc(len * sizeof(char));
   if (!contact->lname) {
-    rc = -1;
+    rc = -ENOMEM;
     goto out;
   }
   memcpy(contact->lname, lname, len);
@@ -82,7 +83,7 @@ int ab_contact_set_email(ab_contact_t *contact, char const *email) {
   len = strlen(email) + 1;
   contact->email = malloc(len * sizeof(char));
   if (!contact->email) {
-    rc = -1;
+    rc = -ENOMEM;
     goto out;
   }
   memcpy(contact->email, email, len);
