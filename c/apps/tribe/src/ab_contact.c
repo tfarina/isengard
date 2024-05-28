@@ -36,8 +36,11 @@ void ab_contact_destroy(ab_contact_t *contact) {
     return;
   }
 
+  free(contact->fname);
   contact->fname = NULL;
+  free(contact->lname);
   contact->lname = NULL;
+  free(contact->email);
   contact->email = NULL;
 
   free(contact);
