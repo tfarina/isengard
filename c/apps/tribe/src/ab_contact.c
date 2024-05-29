@@ -8,12 +8,16 @@ int ab_contact_create(ab_contact_t **pp_contact) {
   ab_contact_t *contact = NULL;
   int rc = 0; /* success */
 
+  /* Allocate space for the ab_contact structure
+   */
   contact = malloc(sizeof(ab_contact_t));
   if (NULL == contact) {
     rc = -ENOMEM;
     goto err;
   }
 
+  /* Zero init the object
+   */
   memset(contact, 0, sizeof(ab_contact_t));
 
   contact->fname = NULL;
