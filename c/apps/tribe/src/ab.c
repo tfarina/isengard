@@ -299,14 +299,14 @@ int _db_insert_contact(ab_contact_t *contact) {
 
   rc = sqlite3_prepare_v2(hdb, insert_sql, -1, &insert_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare the insert statement: %s\n",
+    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
 
   rc = sqlite3_bind_text(insert_stmt, 1, contact->fname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to bind fname parameter for insert statement: %s\n",
+    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -314,7 +314,7 @@ int _db_insert_contact(ab_contact_t *contact) {
 
   rc = sqlite3_bind_text(insert_stmt, 2, contact->lname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to bind lname parameter for insert statement: %s\n",
+    fprintf(stderr, "sqlite3_bind_text: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -322,7 +322,7 @@ int _db_insert_contact(ab_contact_t *contact) {
 
   rc = sqlite3_bind_text(insert_stmt, 3, contact->email, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to bind email parameter for insert statement: %s\n",
+    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -339,7 +339,7 @@ int _db_insert_contact(ab_contact_t *contact) {
 
   rc = sqlite3_finalize(insert_stmt);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the insert statement: %s\n",
+    fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
   }
   insert_stmt = NULL;
