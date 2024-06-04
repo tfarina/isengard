@@ -168,7 +168,7 @@ static int _db_get_row_count(int *p_row_count) {
 
   rc = sqlite3_prepare_v2(hdb, count_sql, -1, &count_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare the select count(*) statement: %s\n",
+    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
@@ -185,7 +185,7 @@ static int _db_get_row_count(int *p_row_count) {
 
   rc = sqlite3_finalize(count_stmt);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the select count(*) statement: %s\n",
+    fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
@@ -222,7 +222,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
 
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare the select statement: %s\n",
+    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
@@ -242,7 +242,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
 
   rc = sqlite3_finalize(select_stmt);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the select statement: %s\n",
+    fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
   }
@@ -314,7 +314,7 @@ int _db_insert_contact(ab_contact_t *contact) {
 
   rc = sqlite3_bind_text(insert_stmt, 2, contact->lname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_bind_text: %s\n",
+    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -384,14 +384,14 @@ int _db_update_contact(ab_contact_t* contact) {
 
   rc = sqlite3_prepare_v2(hdb, update_sql, -1, &update_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare the update statement: %s\n",
+    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
 
   rc = sqlite3_bind_text(update_stmt, 1, contact->fname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to bind fname parameter for update statement: %s\n",
+    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -399,7 +399,7 @@ int _db_update_contact(ab_contact_t* contact) {
 
   rc = sqlite3_bind_text(update_stmt, 2, contact->lname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to bind lname parameter for update statement: %s\n",
+    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -407,7 +407,7 @@ int _db_update_contact(ab_contact_t* contact) {
 
   rc = sqlite3_bind_text(update_stmt, 3, contact->email, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to bind email parameter for update statement: %s\n",
+    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -415,7 +415,7 @@ int _db_update_contact(ab_contact_t* contact) {
 
   rc = sqlite3_bind_int(update_stmt, 4, contact->id);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to bind id parameter for update statement: %s\n",
+    fprintf(stderr, "sqlite3_bind_int failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -432,7 +432,7 @@ int _db_update_contact(ab_contact_t* contact) {
 
   rc = sqlite3_finalize(update_stmt);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the update statement: %s\n",
+    fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
   }
   update_stmt = NULL;
@@ -467,14 +467,14 @@ static int _db_delete_contact(int id) {
 
   rc = sqlite3_prepare_v2(hdb, delete_sql, -1, &delete_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare the delete statement: %s\n",
+    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
 
   rc = sqlite3_bind_int(delete_stmt, 1, id);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to bind id parameter for delete statement: %s\n",
+    fprintf(stderr, "sqlite3_bind_int failed: %s\n",
 	    sqlite3_errmsg(hdb));
     goto out;
   }
@@ -490,7 +490,7 @@ static int _db_delete_contact(int id) {
 
   rc = sqlite3_finalize(delete_stmt);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the delete statement: %s\n",
+    fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
   }
   delete_stmt = NULL;
@@ -570,14 +570,14 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
 
   rc = sqlite3_prepare_v2(hdb, query, -1, &stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to prepare the select statement: %s\n",
+    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
 
   rc = sqlite3_bind_int(stmt, 1, id);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to bind id parameter for select statement: %s\n",
+    fprintf(stderr, "sqlite3_bind_int failed: %s\n",
 	    sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -610,7 +610,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
 
   rc = sqlite3_finalize(stmt);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to finalize the select statement: %s\n",
+    fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
   }
