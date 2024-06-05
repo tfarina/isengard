@@ -1,5 +1,6 @@
 #include "ab.h"
 
+#include <errno.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -205,7 +206,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   int i;
 
   if (NULL == pCount || NULL == ppContacts) {
-    return -1;  /* Invalid args */
+    return -EINVAL;  /* Invalid args */
   }
 
   rc = _db_get_row_count(&row_count);
