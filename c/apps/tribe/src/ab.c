@@ -221,6 +221,10 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
     return -1;
   }
 
+  /* Zero init it
+   */
+  memset(contacts, 0, row_count * sizeof(ab_contact_t));
+
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
