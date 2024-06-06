@@ -218,7 +218,8 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
    */
   contacts = malloc(row_count * sizeof(ab_contact_t));
   if (NULL == contacts) {
-    return -1;
+    errcode = -ENOMEM;
+    goto err;
   }
 
   /* Zero init it
@@ -253,6 +254,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   }
   select_stmt = NULL;
 
+err:
   return errcode;
 }
 
