@@ -17,7 +17,7 @@ get_hostname(void)
 
   if (gethostname(buf, sizeof(buf)) < 0) {
     fprintf(stderr, "gethostname() failed: %s\n", strerror(errno));
-    return (char *) 0;
+    return NULL;
   }
 
   buf[MAXHOSTNAMELEN] = '\0'; /* Null terminate, just to be safe. */

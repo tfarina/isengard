@@ -15,8 +15,8 @@ id_username(void)
 
   uid = getuid();
   pw = getpwuid(uid);
-  if (pw == 0) {
-    return 0;
+  if (NULL == pw) {
+    return NULL;
   }
 
   return pw->pw_name;
