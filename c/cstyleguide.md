@@ -36,6 +36,7 @@ underscores (“_”).
 
 ```
 #define BUFFER_SIZE 1024
+#define PRINTER_PAUSED 0x00000001
 ```
 
 ### Variable Names
