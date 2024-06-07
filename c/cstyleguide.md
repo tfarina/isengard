@@ -53,11 +53,11 @@ char firstName[64];
 
 ### Type Names
 
-Name types with nouns or noun phrases.
+Name types with nouns or noun phrases, with all characters upper case
+(SCREAMING_SNAKE_CASE) and words separated by underscores (“_”).
 
 The names of all types (enums, structs, unions and typedefs) should follow
-the same naming convention. Should be all upper case (SCREAMING_SNAKE_CASE)
-with words separated by underscores (“_”).
+the same naming convention.
 
 ```
 typedef enum _ENUM_NAME
