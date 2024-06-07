@@ -9,5 +9,14 @@ arguments: arguments.adb
 int: int.adb
 	gnat make -o out/int $(ADAFLAGS) $<
 
+chargender: chargender.adb
+	gnat make -o out/chargender $(ADAFLAGS) $<
+
+home: home.adb
+	gnat make -o out/home $(ADAFLAGS) $<
+
+future_value: finance/future_value_example.adb
+	gnat make -o out/future_value $(ADAFLAGS) $<
+
 clean:
-	gnat clean hello.adb arguments.adb int.adb
+	gnat clean hello.adb arguments.adb int.adb chargender.adb home.adb finance/future_value_example.adb
