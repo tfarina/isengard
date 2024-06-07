@@ -1,8 +1,10 @@
+ADAFLAGS := -gnat05 -D out
+
 hello: hello.adb
-	gnat make -gnat05 -o out/hello -D out $<
+	gnat make -o out/hello $(ADAFLAGS) $<
 
 arguments: arguments.adb
-	gnat make -gnat05 -o out/arguments -D out $<
+	gnat make -o out/arguments $(ADAFLAGS) $<
 
 clean:
 	gnat clean hello.adb arguments.adb
