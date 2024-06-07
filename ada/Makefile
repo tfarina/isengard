@@ -6,5 +6,8 @@ hello: hello.adb
 arguments: arguments.adb
 	gnat make -o out/arguments $(ADAFLAGS) $<
 
+int: int.adb
+	gnat make -o out/int $(ADAFLAGS) $<
+
 clean:
-	gnat clean hello.adb arguments.adb
+	gnat clean hello.adb arguments.adb int.adb
