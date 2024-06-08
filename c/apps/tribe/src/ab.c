@@ -342,16 +342,13 @@ int _db_insert_contact(ab_contact_t *contact) {
     errcode = -1;
   }
 
+out:
   rc = sqlite3_finalize(insert_stmt);
+  insert_stmt = NULL;
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
-  }
-  insert_stmt = NULL;
-
-out:
-  if (insert_stmt) {
-    sqlite3_finalize(insert_stmt);
+    errcode = -1;
   }
 
   return errcode;
