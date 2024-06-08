@@ -39,6 +39,22 @@ underscores (“_”).
 #define PRINTER_PAUSED 0x00000001
 ```
 
+### Naming Enumerations
+
+Name enumeration (enum) types with nouns or noun phrases. All characters
+in upper case (SCREAMING_SNAKE_CASE) with words separated by underscores (“_”).
+
+Use singlar name unless its values are bit fields.
+
+Use plural if the enumeration has bit fields as values, also called flags enum.
+
+```
+typedef enum _ENUM_NAME
+{
+    ...
+} ENUM_NAME;
+```
+
 ### Variable Names
 
 Name variables using a noun, noun phrase, or adjective.
@@ -53,18 +69,8 @@ char firstName[64];
 
 ### Type Names
 
-Name types with nouns or noun phrases, with all characters upper case
-(SCREAMING_SNAKE_CASE) and words separated by underscores (“_”).
-
-The names of all types (enums, structs, unions and typedefs) should follow
-the same naming convention.
-
-```
-typedef enum _ENUM_NAME
-{
-    ...
-} ENUM_NAME;
-```
+Name types (struct or union) with nouns or noun phrases, with all characters
+upper case (SCREAMING_SNAKE_CASE) and words separated by underscores (“_”).
 
 ```
 typedef struct _STRUCT_NAME
