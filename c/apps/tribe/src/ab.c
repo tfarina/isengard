@@ -342,8 +342,6 @@ int _db_insert_contact(ab_contact_t *contact) {
     errcode = -1;
   }
 
-  sqlite3_reset(insert_stmt);
-
   rc = sqlite3_finalize(insert_stmt);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_finalize failed: %s\n",
@@ -353,7 +351,6 @@ int _db_insert_contact(ab_contact_t *contact) {
 
 out:
   if (insert_stmt) {
-    sqlite3_reset(insert_stmt);
     sqlite3_finalize(insert_stmt);
   }
 
@@ -435,8 +432,6 @@ int _db_update_contact(ab_contact_t* contact) {
     errcode = -1;
   }
 
-  sqlite3_reset(update_stmt);
-
   rc = sqlite3_finalize(update_stmt);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_finalize failed: %s\n",
@@ -446,7 +441,6 @@ int _db_update_contact(ab_contact_t* contact) {
 
 out:
   if (update_stmt) {
-    sqlite3_reset(update_stmt);
     sqlite3_finalize(update_stmt);
   }
 
@@ -493,8 +487,6 @@ static int _db_delete_contact(int id) {
     goto out;
   }
 
-  sqlite3_reset(delete_stmt);
-
   rc = sqlite3_finalize(delete_stmt);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_finalize failed: %s\n",
@@ -508,7 +500,6 @@ static int _db_delete_contact(int id) {
 
 out:
   if (delete_stmt) {
-    sqlite3_reset(delete_stmt);
     sqlite3_finalize(delete_stmt);
   }
 
