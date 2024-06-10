@@ -298,11 +298,11 @@ int ab_enum_contacts_v2(int *p_count, ab_contact_t **pp_contacts) {
 }
 
 int _db_insert_contact(ab_contact_t *contact) {
-  int rc;
+  int rc = 0;
   int errcode = 0;
   char const insert_sql[] =
       "INSERT INTO contacts (fname, lname, email) VALUES (?, ?, ?)";
-  sqlite3_stmt *insert_stmt;
+  sqlite3_stmt *insert_stmt = NULL;
 
   rc = sqlite3_prepare_v2(hdb, insert_sql, -1, &insert_stmt, NULL);
   if (rc != SQLITE_OK) {
