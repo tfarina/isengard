@@ -19,4 +19,4 @@ future_value: finance/future_value_example.adb
 	gnat make -o out/future_value $(ADAFLAGS) $<
 
 clean:
-	gnat clean -Dout hello.adb arguments.adb int.adb chargender.adb home.adb finance/future_value_example.adb
+	cd out && gnat clean hello.adb arguments.adb int.adb chargender.adb home.adb future_value.adb
