@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+typedef unsigned char BYTE;
+typedef unsigned short WORD;
+typedef unsigned long DWORD;
+
 int main(void) {
     fputs("Size of Data Type:\n\n", stdout);
 
@@ -14,6 +18,11 @@ int main(void) {
     printf("%18s | %4zu bytes\n", "long", sizeof(long));
     printf("%18s | %4zu bytes\n", "float", sizeof(float));
     printf("%18s | %4zu bytes\n", "double", sizeof(double));
+
+    printf("\n");
+    printf("%18s | %4zu byte\n", "BYTE", sizeof(BYTE));
+    printf("%18s | %4zu bytes\n", "WORD", sizeof(WORD));
+    printf("%18s | %4zu bytes\n", "DWORD", sizeof(DWORD));
 
     printf("\n");
 
