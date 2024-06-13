@@ -1,4 +1,4 @@
-# Hexadecimal
+# Power of 2
 
 | Decimal | Binary | Hexadecimal | Hex Literal in C |
 | ------- | ------: | -----------: | ---------------- |
