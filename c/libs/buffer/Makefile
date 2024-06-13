@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -g
 
 buffer.o: buffer.c
-	$(CC) $(CFLAGS) -c buffer.c -o buffer.o
+	$(CC) $(CFLAGS) -c $< -o $@
 
 libbuffer: buffer.o
 	rm -rf libbuffer.a && ar rcs libbuffer.a buffer.o
