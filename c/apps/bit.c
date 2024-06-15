@@ -14,14 +14,14 @@ int main(void) {
   const uint8_t flag7       = 0x40; /* 0b0100 0000 | 64      */
   const uint8_t flag8       = 0x80; /* 0b1000 0000 | 128     */
 
-  printf("%d\n", flag1);
-  printf("%d\n", flag2);
-  printf("%d\n", flag3);
-  printf("%d\n", flag4);
-  printf("%d\n", flag5);
-  printf("%d\n", flag6);
-  printf("%d\n", flag7);
-  printf("%d\n", flag8);
+  printf("%u\n", flag1);
+  printf("%u\n", flag2);
+  printf("%u\n", flag3);
+  printf("%u\n", flag4);
+  printf("%u\n", flag5);
+  printf("%u\n", flag6);
+  printf("%u\n", flag7);
+  printf("%u\n", flag8);
 
   /*
    * left-shift operator (<<)
