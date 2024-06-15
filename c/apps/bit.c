@@ -1,27 +1,31 @@
-#include <stdint.h>
 #include <stdio.h>
+
+/*                  Power of 2 values      */
+
+/*             Hex     Binary    | Decimal */
+#define FLAG01 0x01 /*         1 | 1       */
+#define FLAG02 0x02 /*        10 | 2       */
+#define FLAG03 0x04 /*       100 | 4       */
+#define FLAG04 0x08 /*      1000 | 8       */
+#define FLAG05 0x10 /*    1 0000 | 16      */
+#define FLAG06 0x20 /*   10 0000 | 32      */
+#define FLAG07 0x40 /*  100 0000 | 64      */
+#define FLAG08 0x80 /* 1000 0000 | 128     */
 
 #define BITMASK(index) (1 << (index))
 
 int main(void) {
-  /* Power of two values                 Binary    | Decimal */
-  const uint8_t flag1       = 0x01; /* 0b0000 0001 | 1       */
-  const uint8_t flag2       = 0x02; /* 0b0000 0010 | 2       */
-  const uint8_t flag3       = 0x04; /* 0b0000 0100 | 4       */
-  const uint8_t flag4       = 0x08; /* 0b0000 1000 | 8       */
-  const uint8_t flag5       = 0x10; /* 0b0001 0000 | 16      */
-  const uint8_t flag6       = 0x20; /* 0b0010 0000 | 32      */
-  const uint8_t flag7       = 0x40; /* 0b0100 0000 | 64      */
-  const uint8_t flag8       = 0x80; /* 0b1000 0000 | 128     */
 
-  printf("%u\n", flag1);
-  printf("%u\n", flag2);
-  printf("%u\n", flag3);
-  printf("%u\n", flag4);
-  printf("%u\n", flag5);
-  printf("%u\n", flag6);
-  printf("%u\n", flag7);
-  printf("%u\n", flag8);
+  /* This will print the decimal values from the hexadecimal constants
+   */
+  printf("%u\n", FLAG01);
+  printf("%u\n", FLAG02);
+  printf("%u\n", FLAG03);
+  printf("%u\n", FLAG04);
+  printf("%u\n", FLAG05);
+  printf("%u\n", FLAG06);
+  printf("%u\n", FLAG07);
+  printf("%u\n", FLAG08);
 
   /*
    * left-shift operator (<<)
