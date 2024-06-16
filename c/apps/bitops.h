@@ -14,7 +14,7 @@
 /**
  * Creates a bitmask with bit n set.
  */
-#define BIT_MASK(n) (1U << (n))
+#define BITMASK(n) (1U << (n))
 
 /**
  * Set bit on flags.
