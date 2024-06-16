@@ -1,4 +1,3 @@
-
 # Description
 # ===========
 #
@@ -20,9 +19,7 @@
 #           Build example files (default true). To not build the example
 #           files, pass `-DENABLE_EXAMPLES=OFF` during configuration.
 #
-
 cmake_minimum_required(VERSION 2.8)
-
 project(vector C)
 
 set(VECTORLIB_MAJOR 0)
