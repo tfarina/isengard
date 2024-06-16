@@ -86,14 +86,14 @@ int main(void) {
    * In other words, left shifting (<<) an integer "x" with an integer "y"
    * (x << y) is equivalent to multiplying x by 2^y (2 raise to power y).
    */
-  printf("%d\n", BITMASK(0)); /* 0000 0001 | 0x01 | 1   */
-  printf("%d\n", BITMASK(1)); /* 0000 0010 | 0x02 | 2   */
-  printf("%d\n", BITMASK(2)); /* 0000 0100 | 0x04 | 4   */
-  printf("%d\n", BITMASK(3)); /* 0000 1000 | 0x08 | 8   */
-  printf("%d\n", BITMASK(4)); /* 0001 0000 | 0x10 | 16  */
-  printf("%d\n", BITMASK(5)); /* 0010 0000 | 0x20 | 32  */
-  printf("%d\n", BITMASK(6)); /* 0100 0000 | 0x40 | 64  */
-  printf("%d\n", BITMASK(7)); /* 1000 0000 | 0x80 | 128 */
+  printf("%u\n", BITMASK(0)); /* 0000 0001 | 0x01 | 1   */
+  printf("%u\n", BITMASK(1)); /* 0000 0010 | 0x02 | 2   */
+  printf("%u\n", BITMASK(2)); /* 0000 0100 | 0x04 | 4   */
+  printf("%u\n", BITMASK(3)); /* 0000 1000 | 0x08 | 8   */
+  printf("%u\n", BITMASK(4)); /* 0001 0000 | 0x10 | 16  */
+  printf("%u\n", BITMASK(5)); /* 0010 0000 | 0x20 | 32  */
+  printf("%u\n", BITMASK(6)); /* 0100 0000 | 0x40 | 64  */
+  printf("%u\n", BITMASK(7)); /* 1000 0000 | 0x80 | 128 */
 
   return 0;
 }
