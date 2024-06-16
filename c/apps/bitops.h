@@ -12,9 +12,9 @@
  */
 
 /**
- * Helper macro for bit manipulation.
+ * Creates a bitmask with bit n set.
  */
-#define BIT_MASK(bit) (1U << (bit))
+#define BIT_MASK(n) (1U << (n))
 
 /**
  * Set bit on flags.
