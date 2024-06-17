@@ -1,4 +1,5 @@
 AR := ar
+ARFLAGS := rcs
 CC = gcc
 CFLAGS = -g
 
@@ -12,7 +13,7 @@ buffer_test.o: buffer_test.c
 
 libbuffer.a: buffer.o
 	$(RM) libbuffer.a
-	$(AR) rcs libbuffer.a buffer.o
+	$(AR) $(ARFLAGS) libbuffer.a buffer.o
 
 buffer_test: buffer_test.o libbuffer.a
 	$(CC) buffer_test.o -L. -lbuffer -o buffer_test
