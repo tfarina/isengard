@@ -1,5 +1,5 @@
 AR := ar
-ARFLAGS := cr
+ARFLAGS := cru
 CC = gcc
 CFLAGS = -g
 RANLIB := ranlib
