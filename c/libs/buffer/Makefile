@@ -1,8 +1,8 @@
 AR := ar
-ARFLAGS := rcs
+ARFLAGS := rc
 CC = gcc
 CFLAGS = -g
-
+RANLIB := ranlib
 RM := rm -f
 
 buffer.o: buffer.c
@@ -14,6 +14,7 @@ buffer_test.o: buffer_test.c
 libbuffer.a: buffer.o
 	$(RM) libbuffer.a
 	$(AR) $(ARFLAGS) libbuffer.a buffer.o
+	$(RANLIB) libbuffer.a
 
 buffer_test: buffer_test.o libbuffer.a
 	$(CC) buffer_test.o -L. -lbuffer -o buffer_test
