@@ -2,6 +2,7 @@ AR := ar
 ARFLAGS := cru
 CC = gcc
 CFLAGS = -g
+LDFLAGS := -L.
 RANLIB := ranlib
 RM := rm -f
 
@@ -17,7 +18,7 @@ libbuffer.a: buffer.o
 	$(RANLIB) libbuffer.a
 
 buffer_test: buffer_test.o libbuffer.a
-	$(CC) -L. buffer_test.o -lbuffer -o buffer_test
+	$(CC) $(LDFLAGS) buffer_test.o -lbuffer -o buffer_test
 
 clean:
 	$(RM) *.o libbuffer.a buffer_test
