@@ -19,7 +19,7 @@ libbuffer.a: buffer.o
 	$(RANLIB) libbuffer.a
 
 buffer_test: buffer_test.o libbuffer.a
-	$(CC) $(LDFLAGS) -o buffer_test buffer_test.o $(LIBS)
+	$(CC) $(LDFLAGS) -o $@ buffer_test.o $(LIBS)
 
 clean:
 	$(RM) *.o libbuffer.a buffer_test
