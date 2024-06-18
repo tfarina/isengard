@@ -23,3 +23,5 @@ buffer_test: buffer_test.o libbuffer.a
 
 clean:
 	$(RM) *.o libbuffer.a buffer_test
+
+.PHONY: clean
