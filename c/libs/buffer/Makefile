@@ -7,8 +7,9 @@ LIBS := -lbuffer
 RANLIB := ranlib
 RM := rm -f
 LIBRARIES := libbuffer.a
+PROGRAMS := buffer_test
 
-all: $(LIBRARIES) buffer_test
+all: $(LIBRARIES) $(PROGRAMS)
 
 libbuffer.a: buffer.o
 	$(RM) libbuffer.a
