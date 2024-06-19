@@ -7,6 +7,8 @@ LIBS := -lbuffer
 RANLIB := ranlib
 RM := rm -f
 
+all: libbuffer.a buffer_test
+
 libbuffer.a: buffer.o
 	$(RM) libbuffer.a
 	$(AR) $(ARFLAGS) libbuffer.a buffer.o
@@ -24,4 +26,4 @@ buffer_test.o: buffer_test.c
 clean:
 	$(RM) *.o libbuffer.a buffer_test
 
-.PHONY: clean
+.PHONY: all clean
