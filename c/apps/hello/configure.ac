@@ -1,3 +1,5 @@
+# Process this file with autoconf to produce a configure script.
+
 AC_INIT([hello], [0.1], [bug-report@address])
 AM_INIT_AUTOMAKE
 
