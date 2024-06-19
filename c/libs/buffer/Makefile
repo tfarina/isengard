@@ -6,8 +6,9 @@ LDFLAGS := -L.
 LIBS := -lbuffer
 RANLIB := ranlib
 RM := rm -f
+LIBRARIES := libbuffer.a
 
-all: libbuffer.a buffer_test
+all: $(LIBRARIES) buffer_test
 
 libbuffer.a: buffer.o
 	$(RM) libbuffer.a
