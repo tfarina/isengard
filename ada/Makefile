@@ -6,18 +6,23 @@ hello: hello.adb
 	gnat make -o out/hello $(ADAFLAGS) $<
 
 arguments: arguments.adb
+	$(MKDIR_P) out
 	gnat make -o out/arguments $(ADAFLAGS) $<
 
 int: int.adb
+	$(MKDIR_P) out
 	gnat make -o out/int $(ADAFLAGS) $<
 
 chargender: chargender.adb
+	$(MKDIR_P) out
 	gnat make -o out/chargender $(ADAFLAGS) $<
 
 home: home.adb
+	$(MKDIR_P) out
 	gnat make -o out/home $(ADAFLAGS) $<
 
 future_value: finance/future_value_example.adb
+	$(MKDIR_P) out
 	gnat make -o out/future_value $(ADAFLAGS) $<
 
 clean:
