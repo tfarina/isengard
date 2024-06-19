@@ -1,18 +1,18 @@
-;   Program: exit
-;
-;   Executes the exit system call
-;
-;   No input
-;
-;   Output: only the exit status ($? in the shell)
-;   echo $?
-;
+#   Program: exit
+#
+#   Executes the exit system call
+#
+#   No input
+#
+#   Output: only the exit status ($? in the shell)
+#   echo $?
+#
 
-segment .text
+.text
 
-global  _start
+.global  _start
 
 _start:
-    mov  eax, 1       ; 1 is the exit syscall number
-    mov  ebx, 5       ; the status value to return
-    int  0x80         ; execute a system call
+    mov  $1, %eax       # 1 is the exit syscall number
+    mov  $5, %ebx       # the status value to return
+    int  $0x80          # execute a system call
