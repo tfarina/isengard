@@ -3,6 +3,8 @@
 Makefile
 Makefile.in
 
+/src/hello
+
 /aclocal.m4
 /autom4te.cache
 /compile
