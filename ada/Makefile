@@ -1,6 +1,8 @@
 ADAFLAGS := -gnat05 -D out
+MKDIR_P := mkdir -p
 
 hello: hello.adb
+	$(MKDIR_P) out
 	gnat make -o out/hello $(ADAFLAGS) $<
 
 arguments: arguments.adb
