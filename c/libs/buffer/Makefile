@@ -26,6 +26,6 @@ buffer_test.o: buffer_test.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) *.o libbuffer.a buffer_test
+	$(RM) *.o $(LIBRARIES) $(PROGRAMS)
 
 .PHONY: all clean
