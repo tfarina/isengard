@@ -17,7 +17,7 @@ all: $(LIBRARIES) $(PROGRAMS)
 exit_example: exit.o
 	$(LD) $(LDFLAGS) -o $@ exit.o $(LIBS)
 
-exit.o: exit.asm
+exit.o: exit.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
 clean:
