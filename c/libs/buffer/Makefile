@@ -19,10 +19,7 @@ libbuffer.a: buffer.o
 buffer_test: buffer_test.o libbuffer.a
 	$(CC) $(LDFLAGS) -o $@ buffer_test.o $(LIBS)
 
-buffer.o: buffer.c
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-buffer_test.o: buffer_test.c
+.c.o:
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
