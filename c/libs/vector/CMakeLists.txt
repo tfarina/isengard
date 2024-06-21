@@ -6,18 +6,9 @@
 #
 #   Example:
 #       For example, in the project directory, to build the library
-#       but not the unit tests in debug mode, type:
-#           mkdir build && cd build
-#           cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTS=OFF ..
-#
-#   Flags:
-#       ENABLE_TESTS
-#           Build unit tests (default true). To disable the unit tests,
-#           pass `-DENABLE_TESTS=OFF` during configuration.
-#
-#       ENABLE_EXAMPLES
-#           Build example files (default true). To not build the example
-#           files, pass `-DENABLE_EXAMPLES=OFF` during configuration.
+#       with debug configuration, type the following:
+#           mkdir -p out/debug && cd out/debug
+#           cmake -GNinja -DCMAKE_BUILD_TYPE=Debug ../..
 #
 cmake_minimum_required(VERSION 2.8)
 project(vector C)
@@ -29,12 +20,6 @@ set(VECTORLIB_VERSION ${VECTORLIB_MAJOR}.${VECTORLIB_MINOR}.${VECTORLIB_PATCH})
 
 include(GNUInstallDirs)
 
-#
-# Options
-#
-option(ENABLE_TESTS "Build the unit tests (default is to build)" ON)
-option(ENABLE_EXAMPLES "Build the example programs (default is to build)" ON)
-
 set(SRCS
   vector.c
 )
@@ -45,14 +30,10 @@ set(HDRS
 
 add_library(vector ${HDRS} ${SRCS})
 
-if (ENABLE_EXAMPLES)
-  add_subdirectory(examples)
-endif()
+add_subdirectory(examples)
 
-if (ENABLE_TESTS)
-  enable_testing()
-  add_subdirectory(tests)
-endif()
+enable_testing()
+add_subdirectory(tests)
 
 find_package(Doxygen)
 
