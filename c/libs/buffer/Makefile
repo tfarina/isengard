@@ -7,7 +7,7 @@ LIBS := -lbuffer
 RANLIB := ranlib
 RM := rm -f
 LIBRARIES := libbuffer.a
-PROGRAMS := buffer_test
+PROGRAMS := buffer_example
 
 all: $(LIBRARIES) $(PROGRAMS)
 
@@ -16,8 +16,8 @@ libbuffer.a: buffer.o
 	$(AR) $(ARFLAGS) libbuffer.a buffer.o
 	$(RANLIB) libbuffer.a
 
-buffer_test: buffer_test.o libbuffer.a
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ buffer_test.o $(LIBS)
+buffer_example: buffer_example.o libbuffer.a
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ buffer_example.o $(LIBS)
 
 .c.o:
 	$(CC) $(CFLAGS) -c -o $@ $<

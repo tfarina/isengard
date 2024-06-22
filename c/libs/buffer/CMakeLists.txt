@@ -7,5 +7,5 @@ set(SRCS
 
 add_library(buffer ${SRCS})
 
-add_executable(buffer_test buffer_test.c)
-target_link_libraries(buffer_test buffer)
+add_executable(buffer_example buffer_example.c)
+target_link_libraries(buffer_example buffer)
