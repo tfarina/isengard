@@ -30,10 +30,19 @@ set(HDRS
 
 add_library(vector ${HDRS} ${SRCS})
 
-add_subdirectory(examples)
+add_executable(vector_example vector_example.c)
+target_link_libraries(vector_example vector)
 
 enable_testing()
-add_subdirectory(tests)
+add_executable(vector_unittests greatest.h vector_test.c run_all_unittests.c)
+target_link_libraries(vector_unittests vector)
+
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
+add_test(
+  NAME vector_unittests
+  COMMAND $<TARGET_FILE:vector_unittests>
+)
+add_dependencies(check vector_unittests)
 
 find_package(Doxygen)
 
