@@ -29,6 +29,12 @@ Should be all lower case and can include underscores ("_") or dashes ("-").
 
 Name files using a noun or noun phrase, but NOT verbs.
 
+The following are acceptable forms of file names (in order of preference):
+
+* modulename.c
+* module_name.c
+* module-name.c
+
 ### Macro Names
 
 Should be all upper case (SCREAMING_SNAKE_CASE) with words separated by
