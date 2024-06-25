@@ -9,7 +9,7 @@ Tribe depends on the following packages:
 * [GLib](https://gitlab.gnome.org/GNOME/glib/) >= 2.48.2
 * [GTK](https://www.gtk.org) >= 2.24.30
 
-## Manual installation
+## Installation
 
 1. Install all the needed dependencies.
 2. Clone and install with the following commands:
