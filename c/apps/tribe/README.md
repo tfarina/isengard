@@ -1,6 +1,6 @@
 # Tribe
 
-Tribe is an address book manager utility for the GNOME and XFCE desktop environments.
+Tribe is an address book manager utility for the GNOME and Xfce desktop environments.
 
 ## Dependencies
 
