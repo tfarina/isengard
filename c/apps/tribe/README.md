@@ -12,13 +12,11 @@ Tribe depends on the following packages:
 ## Installation
 
 1. Install all the needed dependencies.
-2. Clone and install with the following commands:
+2. Build and install with the following commands:
 
 ```
-git clone https://github.com/tfarina/maple3.git
-cd maple3/c/apps/tribe
-mkdir build && cd build
-cmake -GNinja ..
-ninja
-sudo ninja install
+$ mkdir build && cd build
+$ cmake -GNinja ..
+$ ninja
+$ sudo ninja install
 ```
