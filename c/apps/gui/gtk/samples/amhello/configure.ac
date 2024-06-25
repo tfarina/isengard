@@ -8,6 +8,8 @@ AM_INIT_AUTOMAKE
 dnl Checks for programs.
 AC_PROG_CC
 
+PKG_PROG_PKG_CONFIG([0.29.1])
+
 PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.10.0])
 
 AC_CONFIG_FILES([
