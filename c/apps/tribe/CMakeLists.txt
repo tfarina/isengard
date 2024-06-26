@@ -17,6 +17,7 @@ option(WITH_GTK "Build GTK+ front end" OFF)
 include(DistTargets)
 include(UninstallTarget)
 
+set(BINDIR "${CMAKE_INSTALL_PREFIX}/bin")
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
 # Place binaries for all build types in the same directory,

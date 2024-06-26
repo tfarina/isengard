@@ -35,5 +35,5 @@ target_link_libraries(${EXENAME}
 )
 
 install(TARGETS ${EXENAME}
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+  DESTINATION ${BINDIR}
 )
