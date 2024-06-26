@@ -12,8 +12,6 @@ set(PACKAGE           "${PROJECT_NAME}")
 list(APPEND CMAKE_MODULE_PATH
   ${PROJECT_SOURCE_DIR}/cmake/modules)
 
-option(WITH_GTK "Build GTK+ front end" OFF)
-
 include(DistTargets)
 include(UninstallTarget)
 
@@ -38,11 +36,7 @@ add_compile_options(
     -Wno-unused-parameter)
 
 add_subdirectory(src/ui/cli)
-
-if (WITH_GTK)
-  add_subdirectory(src/ui/gtk)
-endif()
-
+add_subdirectory(src/ui/gtk)
 add_subdirectory(help)
 
 message("BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}")
