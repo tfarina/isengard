@@ -38,5 +38,3 @@ add_compile_options(
 add_subdirectory(src/ui/cli)
 add_subdirectory(src/ui/gtk)
 add_subdirectory(help)
-
-message("BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}")
