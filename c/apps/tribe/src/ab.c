@@ -457,6 +457,7 @@ static int _ab_contact_cmp(void const *p1, void const *p2) {
 
 static int _db_delete_contact(int id) {
   int rc;
+  int errcode = 0;
   char const delete_sql[] = "DELETE FROM contacts WHERE id=?";
   sqlite3_stmt *delete_stmt;
   int rows_deleted;
@@ -472,6 +473,7 @@ static int _db_delete_contact(int id) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_bind_int failed: %s\n",
 	    sqlite3_errmsg(hdb));
+    errcode = -1;
     goto out;
   }
 
@@ -479,6 +481,7 @@ static int _db_delete_contact(int id) {
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "sqlite3_step failed: %s\n",
             sqlite3_errmsg(hdb));
+    errcode = -1;
     goto out;
   }
 
@@ -487,18 +490,17 @@ static int _db_delete_contact(int id) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
+    errcode = -1;
   }
 
   rows_deleted = sqlite3_changes(hdb);
-
-  return 0;
 
 out:
   if (delete_stmt) {
     sqlite3_finalize(delete_stmt);
   }
 
-  return -1;
+  return errcode;
 }
 
 /*
