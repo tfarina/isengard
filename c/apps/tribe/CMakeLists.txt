@@ -30,12 +30,16 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${EXECUTABLE_OUTPUT_PATH})
 add_subdirectory(data)
 add_subdirectory(src)
 
-add_compile_options(
+list(APPEND c_flags
     -std=c99
     -Wall
     -Wextra
     -Werror
-    -Wno-unused-parameter)
+    -Wno-unused-parameter
+)
+foreach(flag IN LISTS c_flags)
+    set(CMAKE_C_FLAGS "${flag} ${CMAKE_C_FLAGS}")
+endforeach()
 
 add_subdirectory(src/ui/cli)
 add_subdirectory(src/ui/gtk)
