@@ -185,6 +185,7 @@ static int _db_get_row_count(int *p_row_count) {
   }
 
   rc = sqlite3_finalize(count_stmt);
+  count_stmt = NULL;
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
@@ -247,12 +248,12 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   *ppContacts = contacts;
 
   rc = sqlite3_finalize(select_stmt);
+  select_stmt = NULL;
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
   }
-  select_stmt = NULL;
 
 err:
   return errcode;
@@ -430,11 +431,11 @@ int _db_update_contact(ab_contact_t* contact) {
   }
 
   rc = sqlite3_finalize(update_stmt);
+  update_stmt = NULL;
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
   }
-  update_stmt = NULL;
 
 out:
   if (update_stmt) {
@@ -485,11 +486,11 @@ static int _db_delete_contact(int id) {
   }
 
   rc = sqlite3_finalize(delete_stmt);
+  delete_stmt = NULL;
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
   }
-  delete_stmt = NULL;
 
   rows_deleted = sqlite3_changes(hdb);
 
@@ -604,6 +605,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
   /* If rc is equal to SQLITE_DONE then NO contact with the given id was found */
 
   rc = sqlite3_finalize(stmt);
+  stmt = NULL;
   if (rc != SQLITE_OK) {
     fprintf(stderr, "sqlite3_finalize failed: %s\n",
             sqlite3_errmsg(hdb));
