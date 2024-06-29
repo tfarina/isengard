@@ -15,6 +15,8 @@ list(APPEND CMAKE_MODULE_PATH
 include(DistTargets)
 include(UninstallTarget)
 
+find_package(PkgConfig REQUIRED)
+
 set(BINDIR "${CMAKE_INSTALL_PREFIX}/bin")
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
