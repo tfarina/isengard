@@ -485,6 +485,7 @@ static int _db_delete_contact(int id) {
     goto out;
   }
 
+out:
   rc = sqlite3_finalize(delete_stmt);
   delete_stmt = NULL;
   if (rc != SQLITE_OK) {
@@ -494,11 +495,6 @@ static int _db_delete_contact(int id) {
   }
 
   rows_deleted = sqlite3_changes(hdb);
-
-out:
-  if (delete_stmt) {
-    sqlite3_finalize(delete_stmt);
-  }
 
   return errcode;
 }
