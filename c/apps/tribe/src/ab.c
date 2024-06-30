@@ -494,7 +494,12 @@ out:
     errcode = -1;
   }
 
+  /* Check the operation result
+   */
   rows_deleted = sqlite3_changes(hdb);
+  if (!rows_deleted) {
+    errcode = -ENOENT;  /* No such contact exists */
+  }
 
   return errcode;
 }
