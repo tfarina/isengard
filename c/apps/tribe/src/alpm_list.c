@@ -28,6 +28,8 @@
 /* libalpm */
 #include "alpm_list.h"
 
+#include "xstring.h"
+
 /* check exported library symbols with: nm -C -D <lib> */
 #define SYMEXPORT __attribute__((visibility("default")))
 #define SYMHIDDEN __attribute__((visibility("internal")))
@@ -143,7 +145,7 @@ alpm_list_t SYMEXPORT *alpm_list_append_strdup(alpm_list_t **list, const char *d
 {
 	alpm_list_t *ret;
 	char *dup;
-	if((dup = strdup(data)) && (ret = alpm_list_append(list, dup))) {
+	if((dup = xstrdup(data)) && (ret = alpm_list_append(list, dup))) {
 		return ret;
 	} else {
 		free(dup);
