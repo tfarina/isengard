@@ -599,6 +599,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
   }
   /* If rc is equal to SQLITE_DONE then NO contact with the given id was found */
 
+out:
   rc = sqlite3_finalize(stmt);
   stmt = NULL;
   if (rc != SQLITE_OK) {
@@ -607,6 +608,5 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
     errcode = -1;
   }
 
-out:
   return errcode;
 }
