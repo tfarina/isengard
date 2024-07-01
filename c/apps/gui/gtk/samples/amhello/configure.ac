@@ -5,7 +5,7 @@ AC_PREREQ([2.69])
 AC_INIT([amhello], [0.1], [bug-report@address])
 AM_INIT_AUTOMAKE
 
-dnl Checks for programs.
+dnl Check for basic programs
 AC_PROG_CC
 
 PKG_PROG_PKG_CONFIG([0.29.1])
