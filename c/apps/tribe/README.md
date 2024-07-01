@@ -9,14 +9,20 @@ Tribe depends on the following packages:
 * [GLib](https://gitlab.gnome.org/GNOME/glib/) >= 2.48.2
 * [GTK](https://www.gtk.org) >= 2.24.30
 
-## Installation
+## Configure your build
 
-1. Install all the needed dependencies.
-2. Build and install with the following commands:
+To configure your build, run the following:
 
 ```
 $ mkdir build && cd build
 $ cmake -GNinja ..
+```
+
+## Build and install
+
+After it is properly configured, run:
+
+```
 $ ninja
 $ sudo ninja install
 ```
