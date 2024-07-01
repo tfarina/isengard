@@ -236,11 +236,18 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
 
   for (i = 0; i < row_count; i++) {
     if (sqlite3_step(select_stmt) == SQLITE_ROW) {
+      unsigned char const *psz = NULL;
+
       contacts[i].id = sqlite3_column_int(select_stmt, 0);
 
-      contacts[i].fname = xstrdup(sqlite3_column_text(select_stmt, 1));
-      contacts[i].lname = xstrdup(sqlite3_column_text(select_stmt, 2));
-      contacts[i].email = xstrdup(sqlite3_column_text(select_stmt, 3));
+      psz = sqlite3_column_text(select_stmt, 1);
+      contacts[i].fname = xstrdup((char const *)psz);
+
+      psz = sqlite3_column_text(select_stmt, 2);
+      contacts[i].lname = xstrdup((char const *)psz);
+
+      psz = sqlite3_column_text(select_stmt, 3);
+      contacts[i].email = xstrdup((char const *)psz);
     }
   }
 
@@ -589,6 +596,8 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
 
   /* If rc is equal to SQLITE_ROW then a contact with the given id was found! */
   if (rc == SQLITE_ROW) {
+    unsigned char const *psz = NULL;
+
     rc = ab_contact_create(&contact);
     if (rc < 0 || NULL == contact) {
       errcode = -1;
@@ -596,9 +605,15 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
     }
 
     contact->id = sqlite3_column_int(stmt, 0);
-    contact->fname = xstrdup(sqlite3_column_text(stmt, 1));
-    contact->lname = xstrdup(sqlite3_column_text(stmt, 2));
-    contact->email = xstrdup(sqlite3_column_text(stmt, 3));
+
+    psz = sqlite3_column_text(stmt, 1);
+    contact->fname = xstrdup((char const *)psz);
+
+    psz = sqlite3_column_text(stmt, 2);
+    contact->lname = xstrdup((char const *)psz);
+
+    psz = sqlite3_column_text(stmt, 3);
+    contact->email = xstrdup((char const *)psz);
 
     *pp_contact = contact;
   }
