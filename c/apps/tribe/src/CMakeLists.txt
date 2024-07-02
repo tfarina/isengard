@@ -5,6 +5,8 @@ configure_file(
 
 add_subdirectory(third_party/sqlite)
 
+set(TARGETNAME ab)
+
 set(DEPENDENCIES
   sqlite3
 )
@@ -33,18 +35,18 @@ set(HEADERS
   xstring.h
 )
 
-add_library(ab
+add_library(${TARGETNAME}
   ${SOURCES}
 )
 
-add_dependencies(ab
+add_dependencies(${TARGETNAME}
   ${DEPENDENCIES}
 )
 
-target_include_directories(ab PUBLIC
+target_include_directories(${TARGETNAME} PUBLIC
   ${CMAKE_SOURCE_DIR}/src
 )
 
-target_link_libraries(ab
+target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
 )
