@@ -1,4 +1,4 @@
-set(EXENAME "${PROJECT_NAME}cli")
+set(TARGETNAME "${PROJECT_NAME}cli")
 
 set(DEPENDENCIES
   ab
@@ -15,20 +15,20 @@ set(SOURCES
   main.c
 )
 
-add_executable(${EXENAME}
+add_executable(${TARGETNAME}
   ${SOURCES}
 )
 
-add_dependencies(${EXENAME}
+add_dependencies(${TARGETNAME}
   ${DEPENDENCIES}
 )
 
-target_include_directories(${EXENAME} PUBLIC
+target_include_directories(${TARGETNAME} PUBLIC
   ${CMAKE_BINARY_DIR}/src
   ${CMAKE_SOURCE_DIR}
 )
 
-target_link_libraries(${EXENAME}
+target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
 )
 
