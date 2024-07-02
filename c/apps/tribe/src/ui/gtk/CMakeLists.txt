@@ -1,7 +1,7 @@
 # Use PkgConfig to detect GTK+
 pkg_check_modules(GTK2 REQUIRED gtk+-2.0)
 
-set(EXENAME "${PROJECT_NAME}")
+set(TARGETNAME "${PROJECT_NAME}")
 
 set(DEPENDENCIES
   ab
@@ -15,24 +15,24 @@ set(SOURCES
   window.c
 )
 
-add_executable(${EXENAME}
+add_executable(${TARGETNAME}
   ${SOURCES}
 )
 
-add_dependencies(${EXENAME}
+add_dependencies(${TARGETNAME}
   ${DEPENDENCIES}
 )
 
-target_include_directories(${EXENAME} PUBLIC
+target_include_directories(${TARGETNAME} PUBLIC
   ${CMAKE_BINARY_DIR}/src
   ${GTK2_INCLUDE_DIRS}
 )
 
-target_link_libraries(${EXENAME}
+target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
   ${GTK2_LIBRARIES}
 )
 
-install(TARGETS ${EXENAME}
+install(TARGETS ${TARGETNAME}
   DESTINATION ${BINDIR}
 )
