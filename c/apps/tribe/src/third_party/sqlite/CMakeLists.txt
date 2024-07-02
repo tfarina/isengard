@@ -7,7 +7,9 @@ add_compile_options(-std=c99)
 add_compile_options(-pedantic)
 add_compile_options(-pthread)
 
-set(SRCS amalgamation/sqlite3.c)
+set(SOURCES
+  amalgamation/sqlite3.c
+)
 
-add_library(${TARGETNAME} ${SRCS})
+add_library(${TARGETNAME} ${SOURCES})
 target_link_libraries(${TARGETNAME} -pthread ${CMAKE_DL_LIBS})
