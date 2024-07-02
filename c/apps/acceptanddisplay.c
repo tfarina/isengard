@@ -6,7 +6,7 @@ main(void)
   char first_name[1024];
 
   fputs("First Name: ", stdout);
-  fgets(first_name, 1024, stdin);
+  fgets(first_name, sizeof(first_name), stdin);
 
   fprintf(stdout, "Name is: %s", first_name);
 
