@@ -10,7 +10,7 @@
 #include "commands.h"
 #include "os_path.h"
 
-static const char *progname;
+static const char *g_progname;
 
 typedef struct command_s {
         int (*run)(int argc, char **argv);
@@ -29,7 +29,7 @@ static command_t cmds[] = {
 static void usage(int status) {
         size_t i;
 
-        fprintf(stderr, "usage: %s [--version] <command> [<args>]\n", progname);
+        fprintf(stderr, "usage: %s [--version] <command> [<args>]\n", g_progname);
         fputc('\n', stderr);
         fputs("The available commands are as follows:\n", stderr);
         fputc('\n', stderr);
@@ -43,7 +43,7 @@ static void usage(int status) {
 }
 
 static void version(void) {
-        printf("%s %s\n", progname, VERSION);
+        printf("%s %s\n", g_progname, VERSION);
 }
 
 static command_t *_find_cmd(const char *name) {
@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
         command_t *cmd;
         int rc;
 
-        progname = os_path_basename(argv[0]);
+        g_progname = os_path_basename(argv[0]);
 
         if (argc < 2) {
                 usage(EXIT_FAILURE);
