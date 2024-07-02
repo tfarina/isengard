@@ -4,3 +4,9 @@ Version: 3.10.2
 Included In Release: Yes
 Security Critical: Yes
 License: Public domain
+
+How to import a new version of sqlite?
+
+1. Download the file sqlite-amalgamation-*.zip from https://sqlite.org/download.html.
+2. Unpack the files sqlite3.h, sqlite3.c into the amalgamantion directory.
+3. Rebuild.
