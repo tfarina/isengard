@@ -3,10 +3,6 @@ project(sqlite3 C)
 
 set(TARGETNAME sqlite3)
 
-add_compile_options(-std=c99)
-add_compile_options(-pedantic)
-add_compile_options(-pthread)
-
 set(SOURCES
   amalgamation/sqlite3.c
 )
