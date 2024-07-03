@@ -41,6 +41,4 @@ endforeach()
 
 add_subdirectory(data)
 add_subdirectory(src)
-add_subdirectory(src/ui/cli)
-add_subdirectory(src/ui/gtk)
 add_subdirectory(help)

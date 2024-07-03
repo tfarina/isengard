@@ -50,3 +50,5 @@ target_include_directories(${TARGETNAME} PUBLIC
 target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
 )
+
+add_subdirectory(ui)
