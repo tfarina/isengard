@@ -1,0 +1,16 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="guide"
+      id="introduction">
+
+  <info>
+    <link type="guide" xref="index"/>
+
+    <desc>Introduction to <app>Tribe</app> Address Book.</desc>
+  </info>
+
+  <title>Introduction</title>
+
+  <p><app>Tribe</app> is an application for managing your contacts.</p>
+
+</page>
