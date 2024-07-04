@@ -13,6 +13,8 @@
 #include "contact_editor.h"
 #include "dirs.h"
 
+#define APPTITLE "Tribe"
+
 /* Initial window size. */
 #define INIT_WINDOW_WIDTH (gdk_screen_width() * 3 / 4)
 #define INIT_WINDOW_HEIGHT (gdk_screen_height() * 3 / 4)
@@ -256,7 +258,7 @@ _remove_selection(void)
 				  GTK_MESSAGE_QUESTION,
 				  GTK_BUTTONS_YES_NO,
 				  "Are you sure you want to delete the selected item(s)?");
-  gtk_window_set_title(GTK_WINDOW(dialog), "Tribe");
+  gtk_window_set_title(GTK_WINDOW(dialog), APPTITLE);
   response = gtk_dialog_run(GTK_DIALOG(dialog));
   gtk_widget_destroy(dialog);
 
@@ -968,7 +970,7 @@ addrbook_window_new(void)
    * Main window
    */
   main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(main_window), "Tribe");
+  gtk_window_set_title(GTK_WINDOW(main_window), APPTITLE);
   gtk_window_set_position(GTK_WINDOW(main_window), GTK_WIN_POS_CENTER);
   gtk_window_set_default_size(GTK_WINDOW(main_window),
 			      INIT_WINDOW_WIDTH,
