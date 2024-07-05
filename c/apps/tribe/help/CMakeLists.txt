@@ -7,6 +7,7 @@ set(HELP_MEDIA
 
 set(HELP_FILES
   index.page
+  introduction.page
 )
 
 set(cinstalled)
