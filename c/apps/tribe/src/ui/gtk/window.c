@@ -2,6 +2,8 @@
 
 #include "window.h"
 
+#include "config.h"
+
 #include <string.h>
 
 #include <gtk/gtk.h>
@@ -477,7 +479,7 @@ _on_help_contents_cb(GtkAction *action, gpointer data)
   screen = gtk_widget_get_screen(main_window);
   timestamp = gtk_get_current_event_time();
 
-  gtk_show_uri(screen, "help:tribe", timestamp, &error);
+  gtk_show_uri(screen, "help:" PACKAGE, timestamp, &error);
 }
 
 static void
