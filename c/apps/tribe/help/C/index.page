@@ -12,4 +12,7 @@
     <app>Tribe</app> Address Book Help
   </title>
 
+  <section id="managing-contacts" style="2column">
+    <title>Managing contacts</title>
+  </section>
 </page>
