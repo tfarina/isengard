@@ -32,41 +32,49 @@ target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
 )
 
+set(TARGETNAME "${PROJECT_NAME}add")
+
 set(SOURCES
   add.c
 )
 
-add_executable(${PROJECT_NAME}add
+add_executable(${TARGETNAME}
   ${SOURCES}
 )
 
-target_link_libraries(${PROJECT_NAME}add
+target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
 )
+
+set(TARGETNAME "${PROJECT_NAME}mod")
 
 set(SOURCES
   mod.c
 )
 
-add_executable(${PROJECT_NAME}mod
+add_executable(${TARGETNAME}
   ${SOURCES}
 )
 
-target_link_libraries(${PROJECT_NAME}mod
+target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
 )
+
+set(TARGETNAME "${PROJECT_NAME}del")
 
 set(SOURCES
   del.c
 )
 
-add_executable(${PROJECT_NAME}del
+add_executable(${TARGETNAME}
   ${SOURCES}
 )
 
-target_link_libraries(${PROJECT_NAME}del
+target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
 )
+
+set(TARGETNAME "${PROJECT_NAME}ls")
 
 set(SOURCES
   fort.c
@@ -74,9 +82,9 @@ set(SOURCES
   ls.c
 )
 
-add_executable(${PROJECT_NAME}ls
+add_executable(${TARGETNAME}
   ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME}ls
+target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
 )
