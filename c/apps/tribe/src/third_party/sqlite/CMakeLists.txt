@@ -1,6 +1,3 @@
-cmake_minimum_required(VERSION 2.6)
-project(sqlite3 C)
-
 set(TARGETNAME sqlite)
 
 set(SOURCES
