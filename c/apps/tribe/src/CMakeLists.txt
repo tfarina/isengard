@@ -8,7 +8,7 @@ add_subdirectory(third_party/sqlite)
 set(TARGETNAME ab)
 
 set(DEPENDENCIES
-  sqlite3
+  sqlite
 )
 
 set(SOURCES

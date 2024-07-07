@@ -5,7 +5,7 @@ set(TARGETNAME "${PROJECT_NAME}")
 
 set(DEPENDENCIES
   ab
-  sqlite3
+  sqlite
 )
 
 set(SOURCES
