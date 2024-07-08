@@ -4,10 +4,10 @@
 
 #include "config.h"
 
-static char const license_gpl3[] =
+static char const license_gpl2[] =
     "This program is free software: you can redistribute it and/or modify\n"
     "it under the terms of the GNU General Public License as published by\n"
-    "the Free Software Foundation; either version 3 of the License, or\n"
+    "the Free Software Foundation; either version 2 of the License, or\n"
     "(at your option) any later version.\n"
     "\n"
     "This program is distributed in the hope that it will be useful,\n"
@@ -38,7 +38,7 @@ void show_about_dialog(GtkWindow *parent) {
 			"comments",           comments,
 			"copyright",          copyright,
 			"documenters",        documenters,
-			"license",            license_gpl3,
+			"license",            license_gpl2,
                         "program-name",       PACKAGE,
 			"translator-credits", "",
 			"version",            VERSION,
