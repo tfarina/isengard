@@ -29,7 +29,7 @@ void show_about_dialog(GtkWindow *parent) {
     NULL
   };
 
-  static char const comments[] = "A simple and easy to use address book";
+  static char const comments[] = "A simple and easy to use address book manager";
   static char const copyright[] = "Copyright © 2019";
 
   gtk_show_about_dialog(parent,
