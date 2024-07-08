@@ -19,6 +19,7 @@ include(UninstallTarget)
 find_package(PkgConfig REQUIRED)
 
 set(BINDIR "${CMAKE_INSTALL_PREFIX}/bin")
+set(DATADIR "${CMAKE_INSTALL_PREFIX}/share")
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
 # Place binaries for all build types in the same directory,
