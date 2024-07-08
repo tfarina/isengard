@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.6)
 project(tribe C)
 
+set(PROJECT_BUGREPORT "")
+set(PROJECT_URL "")
+
 set(VERSION_MAJOR "0")
 set(VERSION_MINOR "1")
 set(VERSION_PATCH "0")

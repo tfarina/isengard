@@ -13,10 +13,10 @@
 #define PACKAGE_STRING "${PROJECT_NAME} ${VERSION}"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT ""
+#define PACKAGE_BUGREPORT "${PROJECT_BUGREPORT}"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL ""
+#define PACKAGE_URL "${PROJECT_URL}"
 
 /* Name of package */
 #define PACKAGE "${PROJECT_NAME}"
