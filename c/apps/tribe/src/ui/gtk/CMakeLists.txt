@@ -24,7 +24,7 @@ add_dependencies(${TARGETNAME}
 )
 
 target_include_directories(${TARGETNAME} PUBLIC
-  ${CMAKE_BINARY_DIR}/src
+  ${CMAKE_BINARY_DIR}
   ${GTK2_INCLUDE_DIRS}
 )
 
