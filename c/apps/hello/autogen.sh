@@ -1,9 +1,9 @@
 #!/bin/sh
 
-echo "Aclocal..."
+echo "running: aclocal"
 aclocal
-echo "Autoconf..."
+echo "running: autoconf"
 autoconf
-echo "Automake..."
+echo "running: automake"
 automake --add-missing
 echo "Done."
