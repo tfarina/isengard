@@ -1,4 +1,4 @@
-add_subdirectory(third_party/sqlite)
+add_subdirectory(${CMAKE_SOURCE_DIR}/third_party/sqlite third_party/sqlite)
 
 set(TARGETNAME ab)
 
@@ -39,6 +39,7 @@ add_dependencies(${TARGETNAME}
 )
 
 target_include_directories(${TARGETNAME} PUBLIC
+  ${CMAKE_SOURCE_DIR}
   ${CMAKE_SOURCE_DIR}/src
 )
 
