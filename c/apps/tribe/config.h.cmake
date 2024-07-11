@@ -1,22 +1,22 @@
 /* config.h.  Generated from config.h.cmake by cmake.  */
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "${PROJECT_NAME}"
+#define PACKAGE_NAME "${PACKAGE_NAME}"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "${PROJECT_NAME}"
+#define PACKAGE_TARNAME "${PACKAGE_TARNAME}"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "${VERSION}"
+#define PACKAGE_VERSION "${PACKAGE_VERSION}"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "${PROJECT_NAME} ${VERSION}"
+#define PACKAGE_STRING "${PACKAGE_STRING}"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "${PROJECT_BUGREPORT}"
+#define PACKAGE_BUGREPORT "${PACKAGE_BUGREPORT}"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL "${PROJECT_URL}"
+#define PACKAGE_URL "${PACKAGE_URL}"
 
 /* Name of package */
 #define PACKAGE "${PACKAGE}"

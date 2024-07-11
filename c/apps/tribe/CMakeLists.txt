@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 project(tribe C)
 
-set(PROJECT_BUGREPORT "")
-set(PROJECT_URL "")
-
 set(VERSION_MAJOR "0")
 set(VERSION_MINOR "1")
 set(VERSION_PATCH "0")
@@ -11,6 +8,14 @@ set(VERSION_EXTRA "")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_EXTRA}")
 
 set(PACKAGE           "${PROJECT_NAME}")
+
+# Set the identity of this package.
+set(PACKAGE_NAME "${PROJECT_NAME}")
+set(PACKAGE_TARNAME "${PROJECT_NAME}")
+set(PACKAGE_VERSION "${VERSION}")
+set(PACKAGE_STRING "${PROJECT_NAME} ${VERSION}")
+set(PACKAGE_BUGREPORT "")
+set(PACKAGE_URL "")
 
 configure_file(
   "config.h.cmake"
