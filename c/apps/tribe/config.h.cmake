@@ -19,7 +19,7 @@
 #define PACKAGE_URL "${PROJECT_URL}"
 
 /* Name of package */
-#define PACKAGE "${PROJECT_NAME}"
+#define PACKAGE "${PACKAGE}"
 
 /* Version number of package */
 #define VERSION "${VERSION}"
