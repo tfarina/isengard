@@ -13,7 +13,7 @@ set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_EXTRA}"
 set(PACKAGE           "${PROJECT_NAME}")
 
 configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.cmake"
+  "config.h.cmake"
   "${CMAKE_CURRENT_BINARY_DIR}/config.h"
 )
 
