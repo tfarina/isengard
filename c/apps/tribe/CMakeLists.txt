@@ -24,7 +24,7 @@ configure_file(
 
 # Load local modules
 list(APPEND CMAKE_MODULE_PATH
-  ${PROJECT_SOURCE_DIR}/cmake/modules)
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
 include(DistTargets)
 include(UninstallTarget)
