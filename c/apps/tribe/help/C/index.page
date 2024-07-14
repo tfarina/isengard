@@ -5,13 +5,13 @@
 
   <info>
     <desc>Learn how to manage your contacts.</desc>
-    <title type="link" role="trail"><app>Tribe</app> Address Book</title>
-    <title type='text'><app>Tribe</app> Address Book Help</title>
+    <title type="link" role="trail"><app>Tribe</app></title>
+    <title type='text'><app>Tribe</app> Help</title>
     <revision pkgversion="3.8.2" version="0.7" date="2013-06-22" status="final"/>
   </info>
 
   <title>
-    <app>Tribe</app> Address Book Help
+    <app>Tribe</app> Help
   </title>
 
   <section id="managing-contacts" style="2column">
