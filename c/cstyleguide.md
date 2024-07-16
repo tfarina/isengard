@@ -1,6 +1,6 @@
 # C Coding Style Guide
 
-## Naming:
+## Naming
 
 ### File Names
 
