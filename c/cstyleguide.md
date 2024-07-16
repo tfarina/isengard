@@ -1,10 +1,5 @@
 # C Coding Style Guide
 
-## Literals
-
-* Hexadecimal prefix should be 0x.
-* Hexadecimal literals should use upper case letters A-F.
-
 ## Naming:
 
 ### File Names
@@ -90,6 +85,13 @@ FunctionName(void)
     ...
 }
 ```
+
+## Formatting
+
+### Literals
+
+* Hexadecimal prefix should be 0x.
+* Hexadecimal literals should use upper case letters A-F.
 
 ## The rest:
 
