@@ -1,4 +1,4 @@
-# C Coding Style Guide
+# C Style Guide
 
 ## Naming
 
