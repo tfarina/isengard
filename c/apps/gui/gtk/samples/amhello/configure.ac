@@ -13,6 +13,8 @@ PKG_PROG_PKG_CONFIG([0.29.1])
 dnl Check for required packages
 PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.10.0])
 
+AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
+
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
