@@ -88,6 +88,10 @@ FunctionName(void)
 
 ## Formatting
 
+### Indenting
+
+Indent 4 spaces.
+
 ### Literals
 
 * Hexadecimal prefix should be 0x.
