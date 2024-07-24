@@ -164,7 +164,7 @@ static int _db_get_row_count(int *p_row_count) {
   int row_count = 0;
 
   if (NULL == p_row_count) {
-    return -1;  /* Invalid args */
+    return -EINVAL;  /* Invalid args */
   }
 
   rc = sqlite3_prepare_v2(hdb, count_sql, -1, &count_stmt, NULL);
