@@ -1,4 +1,4 @@
-# Use PkgConfig to detect GTK+
+# Check for required packages
 pkg_check_modules(GTK2 REQUIRED gtk+-2.0)
 
 set(TARGETNAME "${PROJECT_NAME}")
