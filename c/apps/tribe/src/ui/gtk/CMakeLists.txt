@@ -27,6 +27,10 @@ add_dependencies(${TARGETNAME}
   ${DEPENDENCIES}
 )
 
+target_compile_options(${TARGETNAME} PUBLIC
+  ${GTK2_CFLAGS}
+)
+
 target_include_directories(${TARGETNAME} PUBLIC
   ${CMAKE_BINARY_DIR}
   ${GTK2_INCLUDE_DIRS}
