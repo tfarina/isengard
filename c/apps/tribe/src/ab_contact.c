@@ -55,6 +55,8 @@ int ab_contact_set_first_name(ab_contact_t *contact, char const *fname) {
   int rc = 0;
   size_t len = 0;
 
+  free(contact->fname);
+
   len = strlen(fname) + 1;
   contact->fname = malloc(len * sizeof(char));
   if (!contact->fname) {
@@ -71,6 +73,8 @@ int ab_contact_set_last_name(ab_contact_t *contact, char const *lname) {
   int rc = 0;
   size_t len = 0;
 
+  free(contact->lname);
+
   len = strlen(lname) + 1;
   contact->lname = malloc(len * sizeof(char));
   if (!contact->lname) {
@@ -86,6 +90,8 @@ out:
 int ab_contact_set_email(ab_contact_t *contact, char const *email) {
   int rc = 0;
   size_t len = 0;
+
+  free(contact->email);
 
   len = strlen(email) + 1;
   contact->email = malloc(len * sizeof(char));
