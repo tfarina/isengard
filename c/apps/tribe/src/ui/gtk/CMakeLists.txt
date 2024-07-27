@@ -31,7 +31,7 @@ target_include_directories(${TARGETNAME} PUBLIC
 
 target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
-  ${GTK_LIBRARIES}
+  ${GTK_LDFLAGS}
 )
 
 install(TARGETS ${TARGETNAME}
