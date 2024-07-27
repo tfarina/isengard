@@ -53,6 +53,13 @@ foreach(flag IN LISTS c_flags)
     set(CMAKE_C_FLAGS "${flag} ${CMAKE_C_FLAGS}")
 endforeach()
 
+set(GTK_REQUIRED 2.10.0)
+
+# Check for required packages
+pkg_check_modules(GTK REQUIRED
+  gtk+-2.0>=${GTK_REQUIRED}
+)
+
 add_subdirectory(data)
 add_subdirectory(src)
 add_subdirectory(help)
