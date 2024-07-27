@@ -1,7 +1,7 @@
 set(GTK_REQUIRED 2.10.0)
 
 # Check for required packages
-pkg_check_modules(GTK2 REQUIRED
+pkg_check_modules(GTK REQUIRED
   gtk+-2.0>=${GTK_REQUIRED}
 )
 
@@ -28,17 +28,17 @@ add_dependencies(${TARGETNAME}
 )
 
 target_compile_options(${TARGETNAME} PUBLIC
-  ${GTK2_CFLAGS}
+  ${GTK_CFLAGS}
 )
 
 target_include_directories(${TARGETNAME} PUBLIC
   ${CMAKE_BINARY_DIR}
-  ${GTK2_INCLUDE_DIRS}
+  ${GTK_INCLUDE_DIRS}
 )
 
 target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
-  ${GTK2_LIBRARIES}
+  ${GTK_LIBRARIES}
 )
 
 install(TARGETS ${TARGETNAME}
