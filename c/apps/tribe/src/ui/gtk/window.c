@@ -1027,7 +1027,7 @@ addrbook_window_new(void)
   gtk_box_pack_start(GTK_BOX(vbox), statusbar, FALSE, TRUE, 0);
 
   statusbar_cid = gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar),
-					       "Address Book Window");
+					       "contact-message");
 
   /*
    * Set up menu items
