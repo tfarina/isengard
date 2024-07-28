@@ -124,8 +124,6 @@ enum {
 
 static GtkActionEntry menubar_entries[] =
 {
-  {"Menu", NULL, "Menu", NULL, NULL, NULL },
-
   /*
    * Menus
    */
