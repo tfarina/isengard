@@ -727,7 +727,7 @@ _create_menubar(void)
 
   ui_manager = gtk_ui_manager_new();
 
-  action_group = gtk_action_group_new("Menu");
+  action_group = gtk_action_group_new("MenuActions");
   gtk_action_group_set_translation_domain(action_group, NULL);
   gtk_action_group_add_actions(action_group, menubar_entries,
 			       G_N_ELEMENTS(menubar_entries), NULL);
