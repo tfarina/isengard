@@ -136,10 +136,10 @@ static GtkActionEntry menubar_entries[] =
    * File menu
    */
   {"File/NewContact", NULL, "New _Contact...", "<control>N", NULL, G_CALLBACK(_on_file_new_contact_cb) },
-  {"File/---", NULL, "---", NULL, NULL, NULL },
+  /* Separator --- */
   {"File/Properties", NULL, "P_roperties", "<alt>Return", NULL, G_CALLBACK(_on_file_properties_cb) },
   {"File/Delete", NULL, "_Delete", NULL, NULL, G_CALLBACK(_on_file_delete_cb) },
-  /* {"File/---", NULL, "---", NULL, NULL, NULL } */
+  /* Separator --- */
   {"File/Exit", NULL, "E_xit", NULL, NULL, G_CALLBACK(_on_file_exit_cb) },
 
   /*
@@ -151,13 +151,13 @@ static GtkActionEntry menubar_entries[] =
    * View menu
    */
   {"View/ToolbarStyle", NULL, "Toolbar Style", NULL, NULL, NULL },
-  /* {"View/---", NULL, "---", NULL, NULL, NULL } */
+  /* Separator --- */
 
   /*
    * Help menu
    */
   {"Help/Contents", NULL, "_Contents", "F1", NULL, G_CALLBACK(_on_help_contents_cb) },
-  /* {"Help/---", NULL, "---", NULL, NULL, NULL } */
+  /* Separator --- */
   {"Help/About", NULL, "_About", NULL, NULL, G_CALLBACK(_on_help_about_cb) }
 };
 
@@ -168,7 +168,7 @@ static GtkToggleActionEntry menubar_toggle_entries[] =
    */
   {"View/ToolBar", NULL, "_Toolbar", "<control><alt>T", NULL, G_CALLBACK(_on_view_toolbar_cb), FALSE },
   {"View/StatusBar", NULL, "_Status Bar", "", NULL, G_CALLBACK(_on_view_statusbar_cb), FALSE },
-  {"View/---", NULL, "---", NULL, NULL, NULL, FALSE },
+  /* Separator --- */
   {"View/FullScreen", NULL, "_Full Screen", "F11", NULL, G_CALLBACK(_on_view_fullscreen_cb), FALSE },
 };
 
@@ -757,13 +757,13 @@ _create_menubar(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/File", "NewContact", "File/NewContact", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/File", "Separator1", "File/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/Menu/File", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/File", "Properties", "File/Properties", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/File", "Delete", "File/Delete", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/File", "Separator2", "File/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/Menu/File", "Separator2", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/File", "Exit", "File/Exit", GTK_UI_MANAGER_MENUITEM, FALSE);
 
@@ -777,7 +777,7 @@ _create_menubar(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View", "StatusBar", "View/StatusBar", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View", "Separator1", "View/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/Menu/View", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View", "ToolbarStyle", "View/ToolbarStyle", GTK_UI_MANAGER_MENU, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
@@ -789,7 +789,7 @@ _create_menubar(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View/ToolbarStyle", "TextOnly", "View/ToolbarStyle/TextOnly", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View", "Separator2", "View/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/Menu/View", "Separator2", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/View", "FullScreen", "View/FullScreen", GTK_UI_MANAGER_MENUITEM, FALSE);
 
@@ -797,7 +797,7 @@ _create_menubar(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/Help", "Contents", "Help/Contents", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/Help", "Separator1", "Help/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/Menu/Help", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Menu/Help", "About", "Help/About", GTK_UI_MANAGER_MENUITEM, FALSE);
 
