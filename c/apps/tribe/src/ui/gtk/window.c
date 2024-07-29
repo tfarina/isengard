@@ -530,11 +530,11 @@ _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
   can_edit = num_selected == 1;
   can_delete = num_selected > 0;
 
-  action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Properties");
+  action = gtk_ui_manager_get_action(ui_manager, "/MainMenu/File/Properties");
   gtk_action_set_sensitive(action, can_edit);
   gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), can_edit);
 
-  action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Delete");
+  action = gtk_ui_manager_get_action(ui_manager, "/MainMenu/File/Delete");
   gtk_action_set_sensitive(action, can_delete);
   gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), can_delete);
 
@@ -742,64 +742,64 @@ _create_menubar(void)
   gtk_ui_manager_insert_action_group(ui_manager, action_group, 0);
 
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/", "Menu", NULL, GTK_UI_MANAGER_MENUBAR, FALSE);
+			"/", "MainMenu", NULL, GTK_UI_MANAGER_MENUBAR, FALSE);
 
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu", "File", "File", GTK_UI_MANAGER_MENU, FALSE);
+			"/MainMenu", "File", "File", GTK_UI_MANAGER_MENU, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu", "Edit", "Edit", GTK_UI_MANAGER_MENU, FALSE);
+			"/MainMenu", "Edit", "Edit", GTK_UI_MANAGER_MENU, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu", "View", "View", GTK_UI_MANAGER_MENU, FALSE);
+			"/MainMenu", "View", "View", GTK_UI_MANAGER_MENU, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu", "Help", "Help", GTK_UI_MANAGER_MENU, FALSE);
+			"/MainMenu", "Help", "Help", GTK_UI_MANAGER_MENU, FALSE);
 
   /* File menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/File", "NewContact", "File/NewContact", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/File", "NewContact", "File/NewContact", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/File", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/MainMenu/File", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/File", "Properties", "FilePropertiesAction", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/File", "Properties", "FilePropertiesAction", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/File", "Delete", "FileDeleteAction", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/File", "Delete", "FileDeleteAction", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/File", "Separator2", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/MainMenu/File", "Separator2", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/File", "Exit", "File/Exit", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/File", "Exit", "File/Exit", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* Edit menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/Edit", "Select All", "Edit/SelectAll", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/Edit", "Select All", "Edit/SelectAll", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* View menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View", "ToolBar", "View/ToolBar", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/View", "ToolBar", "View/ToolBar", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View", "StatusBar", "View/StatusBar", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/View", "StatusBar", "View/StatusBar", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/MainMenu/View", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View", "ToolbarStyle", "View/ToolbarStyle", GTK_UI_MANAGER_MENU, FALSE);
+			"/MainMenu/View", "ToolbarStyle", "View/ToolbarStyle", GTK_UI_MANAGER_MENU, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View/ToolbarStyle", "TextBelowIcon", "View/ToolbarStyle/TextBelowIcon", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/View/ToolbarStyle", "TextBelowIcon", "View/ToolbarStyle/TextBelowIcon", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View/ToolbarStyle", "TextBesideIcon", "View/ToolbarStyle/TextBesideIcon", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/View/ToolbarStyle", "TextBesideIcon", "View/ToolbarStyle/TextBesideIcon", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View/ToolbarStyle", "IconsOnly", "View/ToolbarStyle/IconsOnly", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/View/ToolbarStyle", "IconsOnly", "View/ToolbarStyle/IconsOnly", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View/ToolbarStyle", "TextOnly", "View/ToolbarStyle/TextOnly", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/View/ToolbarStyle", "TextOnly", "View/ToolbarStyle/TextOnly", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View", "Separator2", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/MainMenu/View", "Separator2", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/View", "FullScreen", "View/FullScreen", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/View", "FullScreen", "View/FullScreen", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* Help menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/Help", "Contents", "Help/Contents", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/Help", "Contents", "Help/Contents", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/Help", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/MainMenu/Help", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Menu/Help", "About", "Help/About", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/Help", "About", "Help/About", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* List context menu */
 
@@ -820,13 +820,13 @@ _create_menubar(void)
 
   gtk_window_add_accel_group(GTK_WINDOW(main_window), gtk_ui_manager_get_accel_group(ui_manager));
 
-  action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Properties");
+  action = gtk_ui_manager_get_action(ui_manager, "/MainMenu/File/Properties");
   gtk_action_set_sensitive(action, FALSE);
 
-  action = gtk_ui_manager_get_action(ui_manager, "/Menu/File/Delete");
+  action = gtk_ui_manager_get_action(ui_manager, "/MainMenu/File/Delete");
   gtk_action_set_sensitive(action, FALSE);
 
-  menubar = gtk_ui_manager_get_widget(ui_manager, "/Menu");
+  menubar = gtk_ui_manager_get_widget(ui_manager, "/MainMenu");
   return menubar;
 }
 
@@ -1030,12 +1030,12 @@ addrbook_window_new(void)
   /*
    * Set up menu items
    */
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolBar");
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/MainMenu/View/ToolBar");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/StatusBar");
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/MainMenu/View/StatusBar");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/Menu/View/ToolbarStyle/TextBelowIcon");
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/MainMenu/View/ToolbarStyle/TextBelowIcon");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
   gtk_widget_grab_focus(list_view);
