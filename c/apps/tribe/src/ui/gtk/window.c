@@ -184,7 +184,7 @@ static GtkActionEntry list_context_entries[] =
 {
   {"ListContextMenu", NULL, "ListContextMenu", NULL, NULL, NULL },
   {"ListContextMenu/NewContact", NULL, "New _Contact...", NULL, NULL, G_CALLBACK(_on_file_new_contact_cb) },
-  {"ListContextMenu/---", NULL, "---", NULL, NULL, NULL },
+  /* Separator --- */
   {"ListContextMenu/Properties", NULL, "P_roperties", NULL, NULL, G_CALLBACK(_on_file_properties_cb) },
   {"ListContextMenu/Delete", NULL, "_Delete", NULL, NULL, G_CALLBACK(_on_file_delete_cb) },
 };
@@ -810,7 +810,7 @@ _create_menubar(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Popups/ListContextMenu", "NewContact", "ListContextMenu/NewContact", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Popups/ListContextMenu", "Separator1", "ListContextMenu/---", GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/Popups/ListContextMenu", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Popups/ListContextMenu", "Properties", "ListContextMenu/Properties", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
