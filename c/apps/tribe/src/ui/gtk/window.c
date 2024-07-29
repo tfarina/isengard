@@ -150,7 +150,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * View menu
    */
-  {"ToolbarStyleAction", NULL, "Toolbar Style", NULL, NULL, NULL },
+  {"ToolbarStyleMenuAction", NULL, "Toolbar Style", NULL, NULL, NULL },
   /* Separator --- */
 
   /*
@@ -779,7 +779,7 @@ _create_menubar(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/MainMenu/ViewMenu", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/MainMenu/ViewMenu", "ToolbarStyleMenu", "ToolbarStyleAction", GTK_UI_MANAGER_MENU, FALSE);
+			"/MainMenu/ViewMenu", "ToolbarStyleMenu", "ToolbarStyleMenuAction", GTK_UI_MANAGER_MENU, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/MainMenu/ViewMenu/ToolbarStyleMenu", "TextBelowIcon", "ViewTextBelowIconAction", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
