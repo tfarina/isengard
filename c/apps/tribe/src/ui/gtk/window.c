@@ -769,7 +769,7 @@ _create_menubar(void)
 
   /* Edit menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/MainMenu/EditMenu", "Select All", "EditSelectAllAction", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/EditMenu", "SelectAll", "EditSelectAllAction", GTK_UI_MANAGER_MENUITEM, FALSE);
 
   /* View menu */
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
