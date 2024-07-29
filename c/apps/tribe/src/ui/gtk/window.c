@@ -150,7 +150,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * View menu
    */
-  {"ToolbarStyleMenuAction", NULL, "Toolbar Style", NULL, NULL, NULL },
+  {"ToolBarStyleMenuAction", NULL, "Toolbar Style", NULL, NULL, NULL },
   /* Separator --- */
 
   /*
@@ -779,15 +779,15 @@ _create_menubar(void)
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/MainMenu/ViewMenu", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/MainMenu/ViewMenu", "ToolbarStyleMenu", "ToolbarStyleMenuAction", GTK_UI_MANAGER_MENU, FALSE);
+			"/MainMenu/ViewMenu", "ToolBarStyleMenu", "ToolBarStyleMenuAction", GTK_UI_MANAGER_MENU, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/MainMenu/ViewMenu/ToolbarStyleMenu", "TextBelowIcon", "ViewTextBelowIconAction", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/ViewMenu/ToolBarStyleMenu", "TextBelowIcon", "ViewTextBelowIconAction", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/MainMenu/ViewMenu/ToolbarStyleMenu", "TextBesideIcon", "ViewTextBesideIconAction", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/ViewMenu/ToolBarStyleMenu", "TextBesideIcon", "ViewTextBesideIconAction", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/MainMenu/ViewMenu/ToolbarStyleMenu", "IconsOnly", "ViewIconsOnlyAction", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/ViewMenu/ToolBarStyleMenu", "IconsOnly", "ViewIconsOnlyAction", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/MainMenu/ViewMenu/ToolbarStyleMenu", "TextOnly", "ViewTextOnlyAction", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/MainMenu/ViewMenu/ToolBarStyleMenu", "TextOnly", "ViewTextOnlyAction", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/MainMenu/ViewMenu", "Separator2", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
@@ -1035,7 +1035,7 @@ addrbook_window_new(void)
   menuitem = gtk_ui_manager_get_widget(ui_manager, "/MainMenu/ViewMenu/StatusBar");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
-  menuitem = gtk_ui_manager_get_widget(ui_manager, "/MainMenu/ViewMenu/ToolbarStyleMenu/TextBelowIcon");
+  menuitem = gtk_ui_manager_get_widget(ui_manager, "/MainMenu/ViewMenu/ToolBarStyleMenu/TextBelowIcon");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
   gtk_widget_grab_focus(list_view);
