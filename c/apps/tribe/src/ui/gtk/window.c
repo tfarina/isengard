@@ -127,7 +127,7 @@ static GtkActionEntry menubar_entries[] =
   /*
    * Menus
    */
-  {"FileMenuAction", NULL, "_File", NULL, NULL, NULL },
+  {"FileMenuAction", NULL, "_File", NULL, NULL, NULL }, /* name, stock id, label */
   {"EditMenuAction", NULL, "_Edit", NULL, NULL, NULL },
   {"ViewMenuAction", NULL, "_View", NULL, NULL, NULL },
   {"HelpMenuAction", NULL, "_Help", NULL, NULL, NULL },
@@ -135,30 +135,54 @@ static GtkActionEntry menubar_entries[] =
   /*
    * File menu
    */
-  {"FileNewContactAction", NULL, "New _Contact...", "<control>N", NULL, G_CALLBACK(_on_file_new_contact_cb) },
+  {"FileNewContactAction", NULL,          /* name, stock id */
+   "New _Contact...", "<control>N",       /* label, accelerator */
+   NULL,                                  /* tooltip */
+   G_CALLBACK(_on_file_new_contact_cb) },
   /* Separator --- */
-  {"FilePropertiesAction", NULL, "P_roperties", "<alt>Return", NULL, G_CALLBACK(_on_file_properties_cb) },
-  {"FileDeleteAction", NULL, "_Delete", NULL, NULL, G_CALLBACK(_on_file_delete_cb) },
+  {"FilePropertiesAction", NULL,
+   "P_roperties", "<alt>Return",
+   NULL,
+   G_CALLBACK(_on_file_properties_cb) },
+  {"FileDeleteAction", NULL,
+   "_Delete", NULL,
+   NULL,
+   G_CALLBACK(_on_file_delete_cb) },
   /* Separator --- */
-  {"FileExitAction", NULL, "E_xit", NULL, NULL, G_CALLBACK(_on_file_exit_cb) },
+  {"FileExitAction", NULL,
+   "E_xit", NULL,
+   NULL,
+   G_CALLBACK(_on_file_exit_cb) },
 
   /*
    * Edit menu
    */
-  {"EditSelectAllAction", NULL, "Select _All", "<control>A", NULL, G_CALLBACK(_on_edit_select_all_cb) },
+  {"EditSelectAllAction", NULL,
+   "Select _All", "<control>A",
+   NULL,
+   G_CALLBACK(_on_edit_select_all_cb) },
 
   /*
    * View menu
    */
-  {"ToolBarStyleMenuAction", NULL, "Toolbar Style", NULL, NULL, NULL },
+  {"ToolBarStyleMenuAction", NULL,
+   "Toolbar Style", NULL,
+   NULL,
+   NULL },
   /* Separator --- */
 
   /*
    * Help menu
    */
-  {"HelpContentsAction", NULL, "_Contents", "F1", NULL, G_CALLBACK(_on_help_contents_cb) },
+  {"HelpContentsAction", NULL,
+   "_Contents", "F1",
+   NULL,
+   G_CALLBACK(_on_help_contents_cb) },
   /* Separator --- */
-  {"HelpAboutAction", NULL, "_About", NULL, NULL, G_CALLBACK(_on_help_about_cb) }
+  {"HelpAboutAction", NULL,
+   "_About", NULL,
+   NULL,
+   G_CALLBACK(_on_help_about_cb) }
 };
 
 static GtkToggleActionEntry menubar_toggle_entries[] =
@@ -166,26 +190,59 @@ static GtkToggleActionEntry menubar_toggle_entries[] =
   /*
    * View menu
    */
-  {"ViewToolBarAction", NULL, "_Toolbar", "<control><alt>T", NULL, G_CALLBACK(_on_view_toolbar_cb), FALSE },
-  {"ViewStatusBarAction", NULL, "_Status Bar", "", NULL, G_CALLBACK(_on_view_statusbar_cb), FALSE },
+  {"ViewToolBarAction", NULL,       /* name, stock id */
+   "_Toolbar", "<control><alt>T",   /* label, accelerator */
+   NULL,                            /* tooltip */
+   G_CALLBACK(_on_view_toolbar_cb),
+   FALSE },                         /* is_active */
+  {"ViewStatusBarAction", NULL,
+   "_Status Bar", "",
+   NULL,
+   G_CALLBACK(_on_view_statusbar_cb),
+   FALSE },
   /* Separator --- */
-  {"ViewFullScreenAction", NULL, "_Full Screen", "F11", NULL, G_CALLBACK(_on_view_fullscreen_cb), FALSE },
+  {"ViewFullScreenAction", NULL,
+   "_Full Screen", "F11",
+   NULL,
+   G_CALLBACK(_on_view_fullscreen_cb),
+   FALSE },
 };
 
 static GtkRadioActionEntry menubar_radio_entries[] =
 {
-  {"ViewTextBelowIconAction", NULL, "Text _below icons", NULL, NULL, TOOLBAR_STYLE_BOTH },
-  {"ViewTextBesideIconAction", NULL, "Text be_side icons", NULL, NULL, TOOLBAR_STYLE_BOTH_HORIZ },
-  {"ViewIconsOnlyAction", NULL, "_Icons only", NULL, NULL, TOOLBAR_STYLE_ICONS },
-  {"ViewTextOnlyAction", NULL, "_Text only", NULL, NULL, TOOLBAR_STYLE_TEXT },
+  {"ViewTextBelowIconAction", NULL, /* name, stock id */
+   "Text _below icons", NULL,       /* label, accelerator */
+   NULL,                            /* tooltip */
+   TOOLBAR_STYLE_BOTH },            /* value */
+  {"ViewTextBesideIconAction", NULL,
+   "Text be_side icons", NULL,
+   NULL,
+   TOOLBAR_STYLE_BOTH_HORIZ },
+  {"ViewIconsOnlyAction", NULL,
+   "_Icons only", NULL,
+   NULL,
+   TOOLBAR_STYLE_ICONS },
+  {"ViewTextOnlyAction", NULL,
+   "_Text only", NULL,
+   NULL,
+   TOOLBAR_STYLE_TEXT },
 };
 
 static GtkActionEntry list_context_entries[] =
 {
-  {"LVNewContactAction", NULL, "New _Contact...", NULL, NULL, G_CALLBACK(_on_file_new_contact_cb) },
+  {"LVNewContactAction", NULL,            /* name, stock id */
+   "New _Contact...", NULL,               /* label, accelerator */
+   NULL,                                  /* tooltip */
+   G_CALLBACK(_on_file_new_contact_cb) },
   /* Separator --- */
-  {"LVPropertiesAction", NULL, "P_roperties", NULL, NULL, G_CALLBACK(_on_file_properties_cb) },
-  {"LVDeleteAction", NULL, "_Delete", NULL, NULL, G_CALLBACK(_on_file_delete_cb) },
+  {"LVPropertiesAction", NULL,
+   "P_roperties", NULL,
+   NULL,
+   G_CALLBACK(_on_file_properties_cb) },
+  {"LVDeleteAction", NULL,
+   "_Delete", NULL,
+   NULL,
+   G_CALLBACK(_on_file_delete_cb) },
 };
 
 /*
