@@ -182,11 +182,10 @@ static GtkRadioActionEntry menubar_radio_entries[] =
 
 static GtkActionEntry list_context_entries[] =
 {
-  {"ListContextMenu", NULL, "ListContextMenu", NULL, NULL, NULL },
-  {"ListContextMenu/NewContact", NULL, "New _Contact...", NULL, NULL, G_CALLBACK(_on_file_new_contact_cb) },
+  {"LVNewContactAction", NULL, "New _Contact...", NULL, NULL, G_CALLBACK(_on_file_new_contact_cb) },
   /* Separator --- */
-  {"ListContextMenu/Properties", NULL, "P_roperties", NULL, NULL, G_CALLBACK(_on_file_properties_cb) },
-  {"ListContextMenu/Delete", NULL, "_Delete", NULL, NULL, G_CALLBACK(_on_file_delete_cb) },
+  {"LVPropertiesAction", NULL, "P_roperties", NULL, NULL, G_CALLBACK(_on_file_properties_cb) },
+  {"LVDeleteAction", NULL, "_Delete", NULL, NULL, G_CALLBACK(_on_file_delete_cb) },
 };
 
 /*
@@ -594,10 +593,10 @@ _on_list_button_press_cb(GtkTreeView *widget,
     can_edit = num_selected == 1;
     can_delete = num_selected > 0;
 
-    action = gtk_ui_manager_get_action(ui_manager, "/Popups/ListContextMenu/Properties");
+    action = gtk_ui_manager_get_action(ui_manager, "/LVMenu/Properties");
     gtk_action_set_sensitive(action, can_edit);
 
-    action = gtk_ui_manager_get_action(ui_manager, "/Popups/ListContextMenu/Delete");
+    action = gtk_ui_manager_get_action(ui_manager, "/LVMenu/Delete");
     gtk_action_set_sensitive(action, can_delete);
 
     gtk_menu_popup(GTK_MENU(list_context_menu), NULL, NULL, NULL, NULL, event->button, event->time);
@@ -804,19 +803,17 @@ _create_menubar(void)
   /* List context menu */
 
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/", "Popups", NULL, GTK_UI_MANAGER_POPUP, FALSE);
+			"/", "LVMenu", NULL, GTK_UI_MANAGER_POPUP, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Popups", "ListContextMenu", "ListContextMenu", GTK_UI_MANAGER_MENU, FALSE);
+			"/LVMenu", "NewContact", "LVNewContactAction", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Popups/ListContextMenu", "NewContact", "ListContextMenu/NewContact", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/LVMenu", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Popups/ListContextMenu", "Separator1", NULL, GTK_UI_MANAGER_SEPARATOR, FALSE);
+			"/LVMenu", "Properties", "LVPropertiesAction", GTK_UI_MANAGER_MENUITEM, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Popups/ListContextMenu", "Properties", "ListContextMenu/Properties", GTK_UI_MANAGER_MENUITEM, FALSE);
-  gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/Popups/ListContextMenu", "Delete", "ListContextMenu/Delete", GTK_UI_MANAGER_MENUITEM, FALSE);
+			"/LVMenu", "Delete", "LVDeleteAction", GTK_UI_MANAGER_MENUITEM, FALSE);
 
-  list_context_menu = gtk_menu_item_get_submenu(GTK_MENU_ITEM(gtk_ui_manager_get_widget(ui_manager, "/Popups/ListContextMenu")));
+  list_context_menu = gtk_ui_manager_get_widget(ui_manager, "/LVMenu");
 
   gtk_window_add_accel_group(GTK_WINDOW(main_window), gtk_ui_manager_get_accel_group(ui_manager));
 
