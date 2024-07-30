@@ -804,7 +804,7 @@ _create_menubar(void)
   /* List context menu */
 
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
-			"/", "Popups", NULL, GTK_UI_MANAGER_MENUBAR, FALSE);
+			"/", "Popups", NULL, GTK_UI_MANAGER_POPUP, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
 			"/Popups", "ListContextMenu", "ListContextMenu", GTK_UI_MANAGER_MENU, FALSE);
   gtk_ui_manager_add_ui(ui_manager, gtk_ui_manager_new_merge_id(ui_manager),
