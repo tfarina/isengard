@@ -20,9 +20,15 @@ $ cmake -GNinja ..
 
 ## Build and install
 
-After it is properly configured, run:
+After it is properly configured, build it with:
 
 ```
 $ ninja
-$ sudo ninja install
+```
+
+When it is done, run the following to install it:
+
+```
+[Become root if necessary]
+$ ninja install
 ```
