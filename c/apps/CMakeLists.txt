@@ -187,3 +187,23 @@ add_executable(freenull freenull.c)
 add_executable(stringize_test stringize_test.c)
 
 add_executable(atm atm.c)
+
+find_package(PkgConfig REQUIRED)
+
+set(ID3TAG_MINIMUM_VERSION 0.15.0)
+
+# Check for required packages
+pkg_check_modules(ID3TAG REQUIRED
+  id3tag>=${ID3TAG_MINIMUM_VERSION}
+)
+
+add_executable(songinfo songinfo.c)
+target_compile_options(songinfo PUBLIC
+  ${ID3TAG_CFLAGS}
+)
+target_include_directories(songinfo PUBLIC
+  ${ID3TAG_INCLUDE_DIRS}
+)
+target_link_libraries(songinfo
+  ${ID3TAG_LDFLAGS}
+)
