@@ -207,3 +207,10 @@ target_include_directories(songinfo PUBLIC
 target_link_libraries(songinfo
   ${ID3TAG_LDFLAGS}
 )
+
+add_executable(songplay songplay.c)
+target_link_libraries(songplay
+  -pthread
+  ${CMAKE_DL_LIBS}
+  ${M_LIBRARY}
+)

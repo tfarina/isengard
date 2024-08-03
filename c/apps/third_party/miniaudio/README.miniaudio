@@ -1,0 +1,12 @@
+Name: miniaudio
+URL: https://miniaud.io
+Version: 0.11.21
+Included In Release: Yes
+Security Critical: Yes
+License: Public Domain (www.unlicense.org)
+
+How to import a new version of miniaudio?
+
+1. Download the file miniaudio.h from https://github.com/mackron/miniaudio/blob/master/miniaudio.h.
+2. Copy it here.
+3. Commit the differences.
