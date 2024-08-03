@@ -7,7 +7,6 @@
 
 static action_code_t action_code;
 static ab_contact_t *current_contact;
-typedef void (*editor_post_cb_t)(ab_contact_t *contact);
 static editor_post_cb_t add_edit_post_cb = NULL;
 
 /*
@@ -84,7 +83,7 @@ static gboolean _on_contact_window_key_press_cb(GtkWidget *widget,
   return FALSE;
 }
 
-void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, void (*post_cb)(ab_contact_t *contact))
+void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, editor_post_cb_t post_cb)
 {
   GtkWidget *vbox;
   GtkWidget *notebook;

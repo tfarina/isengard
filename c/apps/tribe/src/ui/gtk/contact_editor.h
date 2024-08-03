@@ -10,6 +10,8 @@ typedef enum action_code_e {
   AC_EDIT,
 } action_code_t;
 
-void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, void (*post_cb)(ab_contact_t *contact));
+typedef void (*editor_post_cb_t)(ab_contact_t *contact);
+
+void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, editor_post_cb_t post_cb);
 
 #endif  /* !defined(_CONTACT_EDITOR_H_INCLUDED_) */
