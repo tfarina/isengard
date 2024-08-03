@@ -57,7 +57,7 @@ main(int argc, char **argv)
     return 1;
   }
 
-  free(latin1);
+  free(utf8);
 
   id3_file_close(file);
 
