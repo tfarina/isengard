@@ -5,6 +5,7 @@
 int
 main(int argc, char **argv)
 {
+  int errcode = 0; /* success */
   struct id3_file *file;
   struct id3_tag *tag;
   struct id3_frame *frame;
@@ -16,37 +17,43 @@ main(int argc, char **argv)
   file = id3_file_open(argv[1], ID3_FILE_MODE_READONLY);
   if (!file)
   {
-    return 1;
+    errcode = 1;
+    goto out;
   }
 
   tag = id3_file_tag(file);
   if (!tag)
   {
-    return 1;
+    errcode = 1;
+    goto out;
   }
 
   frame = id3_tag_findframe(tag, ID3_FRAME_TITLE, 0);
   if (!frame)
   {
-    return 1;
+    errcode = 1;
+    goto out;
   }
 
   field = id3_frame_field(frame, 1);
   if (!field)
   {
-    return 1;
+    errcode = 1;
+    goto out;
   }
 
   ucs4 = id3_field_getstrings(field, 0);
   if (!ucs4)
   {
-    return 1;
+    errcode = 1;
+    goto out;
   }
 
   latin1 = id3_ucs4_latin1duplicate(ucs4);
   if (!latin1)
   {
-    return 1;
+    errcode = 1;
+    goto out;
   }
 
   free(latin1);
@@ -54,12 +61,15 @@ main(int argc, char **argv)
   utf8 = id3_ucs4_utf8duplicate(ucs4);
   if (!utf8)
   {
-    return 1;
+    errcode = 1;
+    goto out;
   }
 
   free(utf8);
 
-  id3_file_close(file);
+out:
+  if (file)
+    id3_file_close(file);
 
-  return 0;
+  return errcode;
 }
