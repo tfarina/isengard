@@ -11,6 +11,7 @@ main(int argc, char **argv)
   struct id3_frame *frame;
   union id3_field *field;
   enum id3_field_type field_type;
+  unsigned int nstrings, i;
   id3_ucs4_t const *ucs4;
   id3_latin1_t *latin1;
   id3_utf8_t *utf8;
@@ -47,7 +48,16 @@ main(int argc, char **argv)
 
   if (ID3_FIELD_TYPE_STRINGLIST == field_type)
   {
-    ucs4 = id3_field_getstrings(field, 0);
+    nstrings = id3_field_getnstrings(field);
+    for (i = 0; i < nstrings; i++)
+    {
+      ucs4 = id3_field_getstrings(field, i);
+      if (ucs4)
+      {
+        break;
+      }
+    }
+
     if (!ucs4)
     {
       errcode = 1;
