@@ -23,7 +23,10 @@ int print_contact_list(alpm_list_t *contact_list) {
     int length = snprintf(NULL, 0, "%d", contact->id);
     char* idstr = malloc(length + 1);
     snprintf(idstr, length + 1, "%d", contact->id);
-    ft_write_ln(table, idstr, contact->fname, contact->lname, contact->email);
+    ft_write_ln(table, idstr,
+		ab_contact_get_first_name(contact),
+		ab_contact_get_last_name(contact),
+		ab_contact_get_email(contact));
     free(idstr);
   }
 
@@ -57,7 +60,10 @@ int print_contact_list_v2(int count, ab_contact_t *contacts_list) {
     int length = snprintf(NULL, 0, "%d", contact->id);
     char* idstr = malloc(length + 1);
     snprintf(idstr, length + 1, "%d", contact->id);
-    ft_write_ln(table, idstr, contact->fname, contact->lname, contact->email);
+    ft_write_ln(table, idstr,
+		ab_contact_get_first_name(contact),
+		ab_contact_get_last_name(contact),
+		ab_contact_get_email(contact));
     free(idstr);
   }
 
