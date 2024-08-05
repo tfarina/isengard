@@ -249,7 +249,7 @@ static GtkActionEntry list_context_entries[] =
  * Prototype declarations
  */
 
-static void _append_item_to_list_store(GtkListStore *list_store, ab_contact_t *contact);
+static void _append_item_to_list_store(ab_contact_t *contact);
 static void _on_new_contact_cb(ab_contact_t *contact);
 static void _on_edit_contact_cb(ab_contact_t *contact);
 
@@ -716,11 +716,7 @@ _on_list_key_press_cb(GtkWidget *widget, GdkEventKey *event, gpointer data)
 static void
 _on_new_contact_cb(ab_contact_t *contact)
 {
-  GtkListStore *store;
-
-  store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list_view)));
-
-  _append_item_to_list_store(store, contact);
+  _append_item_to_list_store(contact);
 }
 
 static void
@@ -758,8 +754,7 @@ _on_edit_contact_cb(ab_contact_t *contact)
  */
 
 static void
-_append_item_to_list_store(GtkListStore *list_store,
-                           ab_contact_t *contact)
+_append_item_to_list_store(ab_contact_t *contact)
 {
   GtkTreeIter iter;
 
@@ -1008,7 +1003,7 @@ _populate_list_view(GtkListStore *list_store, alpm_list_t *list)
 
   for (item = list; item; item = alpm_list_next(item))
     {
-      _append_item_to_list_store(list_store, (ab_contact_t *)item->data);
+      _append_item_to_list_store((ab_contact_t *)item->data);
     }
 }
 
