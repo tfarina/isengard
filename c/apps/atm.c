@@ -10,7 +10,8 @@ main(
   int pin = 0;
   int choice = 0;
   /*BOOL */ int quit = 0;
-  unsigned long amount = 100;
+  unsigned long balance = 100;
+  unsigned long amount = 0;
 
   while (pin != SECRETCODE)
   {
@@ -35,15 +36,17 @@ main(
     switch (choice)
     {
     case 1:
-      printf("\nYOUR BALANCE IS: %lu\n", amount);
+      printf("\nYOUR BALANCE IS: %lu\n", balance);
       break;
 
     case 2:
-      fputs("\nNOT AVAILABLE!\n", stdout);
+      fputs("\nOPERATION NOT AVAILABLE!\n", stdout);
       break;
 
     case 3:
-      fputs("\nNOT AVAILABLE!\n", stdout);
+      fputs("\nENTER THE AMOUNT TO DEPOSIT: ", stdout);
+      scanf("%lu", &amount);
+      balance = balance + amount;
       break;
 
     case 4:
