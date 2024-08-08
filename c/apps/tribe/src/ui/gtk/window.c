@@ -24,14 +24,15 @@
 /*
  * Constants for accessing columns in a GtkListStore.
  */
-enum {
-  LIST_COL_FIRST_NAME = 0,
-  LIST_COL_LAST_NAME,
-  LIST_COL_EMAIL,
-  LIST_COL_PTR,
+enum
+{
+  COL_FIRST_NAME = 0,
+  COL_LAST_NAME,
+  COL_EMAIL,
+  COL_PTR,
 };
-#define LIST_COL_LAST  LIST_COL_PTR
-#define LIST_COL_COUNT (LIST_COL_LAST + 1)
+#define COL_LAST  COL_PTR
+#define COL_COUNT (COL_LAST + 1)
 
 static gint
 contact_column_compare_func(GtkTreeModel *model,
@@ -45,23 +46,23 @@ contact_column_compare_func(GtkTreeModel *model,
   gint ret = 0;
 
   switch (sortcol) {
-  case LIST_COL_FIRST_NAME:
-    gtk_tree_model_get(model, a, LIST_COL_FIRST_NAME, &sa, -1);
-    gtk_tree_model_get(model, b, LIST_COL_FIRST_NAME, &sb, -1);
+  case COL_FIRST_NAME:
+    gtk_tree_model_get(model, a, COL_FIRST_NAME, &sa, -1);
+    gtk_tree_model_get(model, b, COL_FIRST_NAME, &sb, -1);
     ret = g_utf8_collate(sa, sb);
     g_free(sa);
     g_free(sb);
     break;
-  case LIST_COL_LAST_NAME:
-    gtk_tree_model_get(model, a, LIST_COL_LAST_NAME, &sa, -1);
-    gtk_tree_model_get(model, b, LIST_COL_LAST_NAME, &sb, -1);
+  case COL_LAST_NAME:
+    gtk_tree_model_get(model, a, COL_LAST_NAME, &sa, -1);
+    gtk_tree_model_get(model, b, COL_LAST_NAME, &sb, -1);
     ret = g_utf8_collate(sa, sb);
     g_free(sa);
     g_free(sb);
     break;
-  case LIST_COL_EMAIL:
-    gtk_tree_model_get(model, a, LIST_COL_EMAIL, &sa, -1);
-    gtk_tree_model_get(model, b, LIST_COL_EMAIL, &sb, -1);
+  case COL_EMAIL:
+    gtk_tree_model_get(model, a, COL_EMAIL, &sa, -1);
+    gtk_tree_model_get(model, b, COL_EMAIL, &sb, -1);
     ret = g_utf8_collate(sa, sb);
     g_free(sa);
     g_free(sb);
@@ -281,7 +282,7 @@ _edit_selection(void)
 	  continue;
 	}
 
-      gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
+      gtk_tree_model_get(model, &iter, COL_PTR, (ab_contact_t *)&contact, -1);
       if (!contact)
 	{
 	  continue;
@@ -349,7 +350,7 @@ _remove_selection(void)
       GtkTreePath *path = gtk_tree_row_reference_get_path(ref);
 
       if (gtk_tree_model_get_iter(model, &iter, path)) {
-        gtk_tree_model_get(model, &iter, LIST_COL_PTR, (ab_contact_t *)&contact, -1);
+        gtk_tree_model_get(model, &iter, COL_PTR, (ab_contact_t *)&contact, -1);
 
         has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
 
@@ -685,7 +686,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
     selected_rows = gtk_tree_selection_get_selected_rows(selection, &model);
     gtk_tree_model_get_iter(GTK_TREE_MODEL(list_store), &iter, selected_rows->data);
-    gtk_tree_model_get(GTK_TREE_MODEL(list_store), &iter, LIST_COL_PTR, &contact, -1);
+    gtk_tree_model_get(GTK_TREE_MODEL(list_store), &iter, COL_PTR, &contact, -1);
 
     if (contact != NULL) {
       contact_editor_new(GTK_WINDOW(main_window), AC_EDIT, contact, _on_edit_contact_cb);
@@ -737,9 +738,9 @@ _on_edit_contact_cb(ab_contact_t *contact)
       if (gtk_tree_model_get_iter(model, &iter, cur->data))
 	{
 	  gtk_list_store_set(GTK_LIST_STORE(model), &iter,
-			     LIST_COL_FIRST_NAME, ab_contact_get_first_name(contact),
-			     LIST_COL_LAST_NAME, ab_contact_get_last_name(contact),
-			     LIST_COL_EMAIL, ab_contact_get_email(contact),
+			     COL_FIRST_NAME, ab_contact_get_first_name(contact),
+			     COL_LAST_NAME, ab_contact_get_last_name(contact),
+			     COL_EMAIL, ab_contact_get_email(contact),
 			     -1);
 	}
 
@@ -760,10 +761,10 @@ _append_item_to_list_store(ab_contact_t *contact)
 
   gtk_list_store_append(list_store, &iter);
   gtk_list_store_set(list_store, &iter,
-                     LIST_COL_FIRST_NAME, ab_contact_get_first_name(contact),
-                     LIST_COL_LAST_NAME, ab_contact_get_last_name(contact),
-                     LIST_COL_EMAIL, ab_contact_get_email(contact),
-		     LIST_COL_PTR, contact,
+                     COL_FIRST_NAME, ab_contact_get_first_name(contact),
+                     COL_LAST_NAME, ab_contact_get_last_name(contact),
+                     COL_EMAIL, ab_contact_get_email(contact),
+		     COL_PTR, contact,
                      -1);
 }
 
@@ -932,22 +933,22 @@ _create_list_view(void)
   GtkTreeViewColumn *column;
 
   /* Create the list store. */
-  list_store = gtk_list_store_new(LIST_COL_COUNT,
+  list_store = gtk_list_store_new(COL_COUNT,
                                   G_TYPE_STRING,    /* First name */
                                   G_TYPE_STRING,    /* Last name */
                                   G_TYPE_STRING,    /* Email */
                                   G_TYPE_POINTER);  /* Contact pointer */
 
   sortable = GTK_TREE_SORTABLE(list_store);
-  gtk_tree_sortable_set_sort_func(sortable, LIST_COL_FIRST_NAME,
+  gtk_tree_sortable_set_sort_func(sortable, COL_FIRST_NAME,
 				  contact_column_compare_func,
-				  GINT_TO_POINTER(LIST_COL_FIRST_NAME), NULL);
-  gtk_tree_sortable_set_sort_func(sortable, LIST_COL_LAST_NAME,
+				  GINT_TO_POINTER(COL_FIRST_NAME), NULL);
+  gtk_tree_sortable_set_sort_func(sortable, COL_LAST_NAME,
 				  contact_column_compare_func,
-				  GINT_TO_POINTER(LIST_COL_LAST_NAME), NULL);
-  gtk_tree_sortable_set_sort_func(sortable, LIST_COL_EMAIL,
+				  GINT_TO_POINTER(COL_LAST_NAME), NULL);
+  gtk_tree_sortable_set_sort_func(sortable, COL_EMAIL,
 				  contact_column_compare_func,
-				  GINT_TO_POINTER(LIST_COL_EMAIL), NULL);
+				  GINT_TO_POINTER(COL_EMAIL), NULL);
 
   /* Create the list view. */
   list_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list_store));
@@ -972,25 +973,25 @@ _create_list_view(void)
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("First Name",
                                                     renderer, "text",
-						    LIST_COL_FIRST_NAME, NULL);
+						    COL_FIRST_NAME, NULL);
   gtk_tree_view_column_set_resizable(column, TRUE);
-  gtk_tree_view_column_set_sort_column_id(column, LIST_COL_FIRST_NAME);
+  gtk_tree_view_column_set_sort_column_id(column, COL_FIRST_NAME);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("Last Name",
                                                     renderer, "text",
-						    LIST_COL_LAST_NAME, NULL);
+						    COL_LAST_NAME, NULL);
   gtk_tree_view_column_set_resizable(column, TRUE);
-  gtk_tree_view_column_set_sort_column_id(column, LIST_COL_LAST_NAME);
+  gtk_tree_view_column_set_sort_column_id(column, COL_LAST_NAME);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   renderer = gtk_cell_renderer_text_new();
   column = gtk_tree_view_column_new_with_attributes("Email",
                                                     renderer, "text",
-						    LIST_COL_EMAIL, NULL);
+						    COL_EMAIL, NULL);
   gtk_tree_view_column_set_resizable(column, TRUE);
-  gtk_tree_view_column_set_sort_column_id(column, LIST_COL_EMAIL);
+  gtk_tree_view_column_set_sort_column_id(column, COL_EMAIL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
 
   return list_view;
