@@ -30,9 +30,8 @@ enum
   COL_LAST_NAME,
   COL_EMAIL,
   COL_PTR,
+  N_COLUMNS
 };
-#define COL_LAST  COL_PTR
-#define COL_COUNT (COL_LAST + 1)
 
 static gint
 contact_column_compare_func(GtkTreeModel *model,
@@ -933,7 +932,7 @@ _create_list_view(void)
   GtkTreeViewColumn *column;
 
   /* Create the list store. */
-  list_store = gtk_list_store_new(COL_COUNT,
+  list_store = gtk_list_store_new(N_COLUMNS,
                                   G_TYPE_STRING,    /* First name */
                                   G_TYPE_STRING,    /* Last name */
                                   G_TYPE_STRING,    /* Email */
