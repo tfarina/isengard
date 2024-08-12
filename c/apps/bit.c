@@ -3,10 +3,10 @@
 /*                  Power of 2 values      */
 
 /*             Hex         | Binary                                  | Decimal       */
-#define FLAG01 0x01       /*                                       1 | 1             */
-#define FLAG02 0x02       /*                                      10 | 2             */
-#define FLAG03 0x04       /*                                     100 | 4             */
-#define FLAG04 0x08       /*                                    1000 | 8             */
+#define FLAG01 0x1        /*                                    0001 | 1             */
+#define FLAG02 0x2        /*                                    0010 | 2             */
+#define FLAG03 0x4        /*                                    0100 | 4             */
+#define FLAG04 0x8        /*                                    1000 | 8             */
 #define FLAG05 0x10       /*                                  1 0000 | 16            */
 #define FLAG06 0x20       /*                                 10 0000 | 32            */
 #define FLAG07 0x40       /*                                100 0000 | 64            */
