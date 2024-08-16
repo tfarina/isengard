@@ -16,7 +16,7 @@ int ab_add_contact_v2(ab_contact_t *contact);
 int ab_update_contact(ab_contact_t *contact);
 
 int ab_delete_contact(ab_contact_t *contact);
-int ab_delete_contact_v2(int id, int *pb_deleted);
+int ab_delete_contact_v2(int id);
 
 int ab_get_contact_by_id(int id, ab_contact_t **pp_contact);
 

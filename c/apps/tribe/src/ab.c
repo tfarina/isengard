@@ -530,7 +530,7 @@ int ab_delete_contact(ab_contact_t *contact) {
 /*
  * Deletes a contact with the given id from the address book database.
  */
-int ab_delete_contact_v2(int id, int *pb_deleted) {
+int ab_delete_contact_v2(int id) {
   int rc;
   char *query;
   char *err_msg;
@@ -547,8 +547,9 @@ int ab_delete_contact_v2(int id, int *pb_deleted) {
   }
 
   rows_deleted = sqlite3_changes(hdb);
-  if (rows_deleted > 0)
-    *pb_deleted = 1;
+  if (!rows_deleted) {
+    /* No such contact exists */
+  }
 
   sqlite3_free(query);
 

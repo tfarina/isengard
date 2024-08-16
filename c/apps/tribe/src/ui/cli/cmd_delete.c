@@ -10,7 +10,7 @@ int cmd_delete(int argc, char **argv) {
   int rc;
   char *dbdir;
   int id;
-  int deleted = 0;
+  ab_contact_t *contact = NULL;
 
   if (argc != 2) {
     fprintf(stderr, "usage: %s <id>\n", argv[0]);
@@ -32,14 +32,15 @@ int cmd_delete(int argc, char **argv) {
 
   id = atoi(argv[1]);
 
-  rc = ab_delete_contact_v2(id, &deleted);
-  if (rc < 0) {
+  rc = ab_get_contact_by_id(id, &contact);
+  if (rc < 0 || !contact) {
+    fprintf(stderr, "Error: no contact with id %d was found in our database.\n",
+            id);
     return 1;
   }
 
-  if (!deleted) {
-    fprintf(stderr, "Error: no contact with id %d was found in our database.\n",
-            id);
+  rc = ab_delete_contact_v2(id);
+  if (rc < 0) {
     return 1;
   }
 
