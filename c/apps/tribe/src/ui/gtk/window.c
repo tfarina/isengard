@@ -360,19 +360,17 @@ _remove_selection(void)
   gtk_widget_destroy(dialog);
 
   if (GTK_RESPONSE_YES == response)
-    {
+  {
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+    paths = gtk_tree_selection_get_selected_rows(selection, &model);
 
-  selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
+    /* The code below came mostly from:
+     * https://github.com/tristanheaven/gtkhash/blob/master/src/list.c
+     * https://github.com/raspberrypi-ui/pcmanfm-bullseye/blob/7393401d8d61d5c1cbd7f653b6549875055bc2e5/src/pref.c#L433
+     */
 
-  paths = gtk_tree_selection_get_selected_rows(selection, &model);
-
-  /* The code below came mostly from:
-   * https://github.com/tristanheaven/gtkhash/blob/master/src/list.c
-   * https://github.com/raspberrypi-ui/pcmanfm-bullseye/blob/7393401d8d61d5c1cbd7f653b6549875055bc2e5/src/pref.c#L433
-   */
-
-  /* Convert paths to references. */
-  for (row = paths; row; row = g_list_next(row))
+    /* Convert paths to references. */
+    for (row = paths; row; row = g_list_next(row))
     {
       GtkTreeRowReference *ref;
 
@@ -381,15 +379,16 @@ _remove_selection(void)
       gtk_tree_path_free(row->data);
     }
 
-  g_list_free(paths);
+    g_list_free(paths);
 
-  /* Remove rows from model. */
-  for (row = references; row; row = g_list_next(row))
+    /* Remove rows from model. */
+    for (row = references; row; row = g_list_next(row))
     {
       GtkTreeRowReference *ref = row->data;
       GtkTreePath *path = gtk_tree_row_reference_get_path(ref);
 
-      if (gtk_tree_model_get_iter(model, &iter, path)) {
+      if (gtk_tree_model_get_iter(model, &iter, path))
+      {
         gtk_tree_model_get(model, &iter, COL_PTR, (ab_contact_t *)&contact, -1);
 
         has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
@@ -401,25 +400,28 @@ _remove_selection(void)
       gtk_tree_row_reference_free(ref);
     }
 
-  g_list_free(references);
+    g_list_free(references);
 
-  /* From claws-mail src/editaddress.c:edit_person_email_delete() */
-  if (!has_row) {
-    /* The removed row was the last in the list, so iter is not
-     * valid. Find out if there is at least one row remaining
-     * in the list, and select the last one if so. */
-    n = gtk_tree_model_iter_n_children(model, NULL);
-    if (n > 0 && gtk_tree_model_iter_nth_child(model, &iter, NULL, n-1)) {
-      /* It exists */
-      has_row = TRUE;
+    /* From claws-mail src/editaddress.c:edit_person_email_delete() */
+    if (!has_row)
+    {
+      /* The removed row was the last in the list, so iter is not
+       * valid. Find out if there is at least one row remaining
+       * in the list, and select the last one if so.
+       */
+      n = gtk_tree_model_iter_n_children(model, NULL);
+      if (n > 0 && gtk_tree_model_iter_nth_child(model, &iter, NULL, n-1))
+      {
+        /* It exists */
+        has_row = TRUE;
+      }
+    }
+
+    if (has_row)
+    {
+      gtk_tree_selection_select_iter(selection, &iter);
     }
   }
-
-  if (has_row) {
-    gtk_tree_selection_select_iter(selection, &iter);
-  }
-
-    }
 }
 
 /*
