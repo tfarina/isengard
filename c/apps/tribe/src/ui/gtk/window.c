@@ -390,10 +390,8 @@ _remove_selection(void)
       if (gtk_tree_model_get_iter(model, &iter, path))
       {
         gtk_tree_model_get(model, &iter, COL_PTR, (ab_contact_t *)&contact, -1);
-
-        has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
-
         ab_delete_contact(contact);
+        has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
       }
 
       gtk_tree_path_free(path);
