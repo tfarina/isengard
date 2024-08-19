@@ -161,6 +161,7 @@ static int _db_get_row_count(int *p_row_count) {
   int rc;
   char const count_sql[] = "SELECT COUNT(*) FROM contacts";
   sqlite3_stmt *count_stmt;
+  int ncols = 0;
   int row_count = 0;
 
   if (NULL == p_row_count) {
@@ -174,8 +175,8 @@ static int _db_get_row_count(int *p_row_count) {
     return -1;
   }
 
-  rc = sqlite3_column_count(count_stmt);
-  if (rc != 1) {
+  ncols = sqlite3_column_count(count_stmt);
+  if (ncols != 1) {
     return -1;
   }
 
