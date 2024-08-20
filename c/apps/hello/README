@@ -1,0 +1,13 @@
+DIRECTORIES
+-----------
+data    - contains desktop icons
+
+doc     - contains manual page documentation
+
+help    - contains Manual
+
+m4      - contains macro files
+
+po      - contains international language translations
+
+src     - contains source code
