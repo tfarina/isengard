@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define SECRETCODE 4242
 
@@ -36,14 +37,17 @@ main(
     switch (choice)
     {
     case 1:
+      system("clear");
       printf("\nYOUR BALANCE IS: %lu\n", balance);
       break;
 
     case 2:
+      system("clear");
       fputs("\nOPERATION NOT AVAILABLE!\n", stdout);
       break;
 
     case 3:
+      system("clear");
       fputs("\nENTER THE AMOUNT TO DEPOSIT: ", stdout);
       scanf("%lu", &amount);
       balance = balance + amount;
@@ -54,6 +58,7 @@ main(
       break;
 
     default:
+      system("clear");
       fputs("\nINVALID CHOICE\n", stdout);
     }
   } while (!quit);
