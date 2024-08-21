@@ -26,10 +26,10 @@ main(
   do
   {
     fputs("\nWelcome to XYZ Bank ATM\n\n", stdout);
-    fputs("1. Check Balance\n", stdout);
-    fputs("2. Withdraw\n", stdout);
-    fputs("3. Deposit\n", stdout);
-    fputs("4. Quit\n", stdout);
+    fputs("    1. Check Balance\n", stdout);
+    fputs("    2. Withdraw\n", stdout);
+    fputs("    3. Deposit\n", stdout);
+    fputs("    4. Quit\n", stdout);
     fputs("\nEnter your choice: ", stdout);
     scanf("%d", &choice);
 
