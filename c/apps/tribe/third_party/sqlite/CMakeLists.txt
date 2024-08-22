@@ -1,7 +1,7 @@
 set(TARGETNAME sqlite)
 
 set(SOURCES
-  amalgamation/sqlite3.c
+  sqlite3.c
 )
 
 add_library(${TARGETNAME}

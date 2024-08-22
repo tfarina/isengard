@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "third_party/sqlite/amalgamation/sqlite3.h"
+#include "third_party/sqlite/sqlite3.h"
 
 #include "os_path.h"
 #include "xstring.h"
