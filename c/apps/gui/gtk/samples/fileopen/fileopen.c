@@ -6,12 +6,11 @@ on_file_open_cb(GtkMenuItem *menuitem,
 		gpointer     user_data)
 {
   GtkWidget *dialog;
-  GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
   gint res;
 
   dialog = gtk_file_chooser_dialog_new("Open",
 				       user_data,
-				       action,
+				       GTK_FILE_CHOOSER_ACTION_OPEN,
 				       "_Cancel",
 				       GTK_RESPONSE_CANCEL,
 				       "_Open",
