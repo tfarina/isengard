@@ -34,7 +34,7 @@
 #endif
 
 /**
- * ATTRIBUTE_PRINTFLIKE:
+ * ATTRIBUTE_PRINTF:
  *
  * Tells the compiler to check the arguments in calls to the function for
  * consistency with the `printf` style format string argument (if the
@@ -46,13 +46,13 @@
  * @param firstvararg the index of the first variable argument (...) it should check.
  */
 
-#if defined(ATTRIBUTE_PRINTFLIKE)
-#undef ATTRIBUTE_PRINTFLIKE
+#if defined(ATTRIBUTE_PRINTF)
+#undef ATTRIBUTE_PRINTF
 #endif
 #if defined(__GNUC__)
-#define ATTRIBUTE_PRINTFLIKE(fmtarg, firstvararg) __attribute__ ((__format__ (__printf__, fmtarg, firstvararg)))
+#define ATTRIBUTE_PRINTF(fmtarg, firstvararg) __attribute__ ((__format__ (__printf__, fmtarg, firstvararg)))
 #else
-#define ATTRIBUTE_PRINTFLIKE(fmtarg, firstvararg)
+#define ATTRIBUTE_PRINTF(fmtarg, firstvararg)
 #endif
 
 #endif  /* !defined(_ATTRIBUTES_H_INCLUDED_) */
