@@ -182,6 +182,7 @@ add_executable(radians angle.c radians.c)
 
 add_executable(acceptanddisplay acceptanddisplay.c)
 add_executable(promptuser promptuser.c)
+add_executable(promptpassword promptpassword.c)
 
 add_executable(freenull freenull.c)
 add_executable(stringize_test stringize_test.c)
