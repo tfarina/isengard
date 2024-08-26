@@ -49,11 +49,7 @@ main(int argc, char **argv)
     field_type = id3_field_type(field);
     switch (field_type)
     {
-
-    }
-
-    if (ID3_FIELD_TYPE_STRINGLIST == field_type)
-    {
+    case ID3_FIELD_TYPE_STRINGLIST:
       nstrings = id3_field_getnstrings(field);
       for (j = 0; j < nstrings; j++)
       {
@@ -87,6 +83,7 @@ main(int argc, char **argv)
       }
 
       free(utf8);
+      break;
     }
   }
 
