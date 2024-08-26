@@ -214,3 +214,13 @@ target_link_libraries(songplay
   ${CMAKE_DL_LIBS}
   ${M_LIBRARY}
 )
+
+set(PNG_MINIMUM_VERSION 1.2.54)
+
+pkg_check_modules(PNG REQUIRED
+  libpng>=${PNG_MINIMUM_VERSION}
+)
+add_executable(scanimg scanimg.c)
+target_link_libraries(scanimg
+  png
+)
