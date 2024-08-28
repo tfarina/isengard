@@ -13,9 +13,9 @@ main(
   png_structp png = NULL;
   png_infop info = NULL;
   png_bytep *rows = NULL;
-  int width = 0;
-  int height = 0;
-  int y = 0;
+  png_uint_32 width = 0;
+  png_uint_32 height = 0;
+  png_uint_32 y = 0;
 
   if (argc < 2)
   {
