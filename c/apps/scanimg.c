@@ -55,6 +55,8 @@ main(
   {
   }
 
+  free(rows);
+
   return 0;
 
 out:
