@@ -457,12 +457,6 @@ int ab_update_contact(ab_contact_t *contact) {
   return _db_update_contact(contact);
 }
 
-static int _ab_contact_cmp(void const *p1, void const *p2) {
-  ab_contact_t *c1 = (ab_contact_t *)p1;
-  ab_contact_t *c2 = (ab_contact_t *)p2;
-  return c1->id == c2->id;
-}
-
 static int _db_delete_contact(int id) {
   int rc;
   int errcode = 0;
@@ -516,14 +510,11 @@ out:
  * Deletes a contact from the address book database.
  */
 int ab_delete_contact(ab_contact_t *contact) {
-  void *vc;
   int rc;
 
   rc = _db_delete_contact(contact->id);
   if (rc < 0)
     return -1;
-
-  contact_list = alpm_list_remove(contact_list, contact, _ab_contact_cmp, &vc);
 
   return 0;
 }
