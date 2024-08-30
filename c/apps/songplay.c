@@ -26,7 +26,7 @@ main(int argc, char **argv)
 
   if (argc < 2)
   {
-    fputs("No input file.\n", stderr);
+    fputs("Usage: songplay <filename.mp3>\n", stderr);
     return -1;
   }
 
