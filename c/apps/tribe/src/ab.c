@@ -275,6 +275,9 @@ int ab_enum_contacts(alpm_list_t **pp_contact_list) {
   ab_contact_t *p_contact = NULL;
 
   rc = _db_enum_contacts(&num_contacts, &contacts);
+  if (rc < 0) {
+    goto exit;
+  }
 
   for (i = 0; i < num_contacts; i++) {
     rc = ab_contact_create(&p_contact);
