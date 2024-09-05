@@ -160,7 +160,7 @@ int ab_fini(void) {
 static int _db_get_row_count(int *p_row_count) {
   int rc;
   char const count_sql[] = "SELECT COUNT(*) FROM contacts";
-  sqlite3_stmt *count_stmt;
+  sqlite3_stmt *count_stmt = NULL;
   int row_count = 0;
 
   if (NULL == p_row_count) {
@@ -197,8 +197,8 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   int errcode = 0;
   int row_count = 0;
   char const select_sql[] = "SELECT * FROM contacts";
-  sqlite3_stmt *select_stmt;
-  ab_contact_t *contacts;
+  sqlite3_stmt *select_stmt = NULL;
+  ab_contact_t *contacts = NULL;
   int i;
 
   if (NULL == pCount || NULL == ppContacts) {
@@ -387,7 +387,7 @@ int _db_update_contact(ab_contact_t* contact) {
   int errcode = 0;
   char const update_sql[] =
       "UPDATE contacts SET fname=?, lname=?, email=? WHERE id=?";
-  sqlite3_stmt *update_stmt;
+  sqlite3_stmt *update_stmt = NULL;
 
   rc = sqlite3_prepare_v2(hdb, update_sql, -1, &update_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -458,8 +458,8 @@ static int _db_delete_contact(int id) {
   int rc;
   int errcode = 0;
   char const delete_sql[] = "DELETE FROM contacts WHERE id=?";
-  sqlite3_stmt *delete_stmt;
-  int rows_deleted;
+  sqlite3_stmt *delete_stmt = NULL;
+  int rows_deleted = 0;
 
   rc = sqlite3_prepare_v2(hdb, delete_sql, -1, &delete_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -541,8 +541,8 @@ int ab_delete_contact_v2(int id) {
 int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
   int rc;
   char const query[] = "SELECT * FROM contacts WHERE id=?";
-  sqlite3_stmt *stmt;
-  ab_contact_t *contact;
+  sqlite3_stmt *stmt = NULL;
+  ab_contact_t *contact = NULL;
   int errcode = 0;
 
   rc = sqlite3_prepare_v2(hdb, query, -1, &stmt, NULL);
