@@ -349,13 +349,7 @@ int _db_insert_contact(ab_contact_t *contact) {
   }
 
 out:
-  rc = sqlite3_finalize(insert_stmt);
-  insert_stmt = NULL;
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_finalize failed: %s\n",
-            sqlite3_errmsg(hdb));
-    errcode = -1;
-  }
+  sqlite3_finalize(insert_stmt);
 
   return errcode;
 }
@@ -436,13 +430,7 @@ int _db_update_contact(ab_contact_t* contact) {
   }
 
 out:
-  rc = sqlite3_finalize(update_stmt);
-  update_stmt = NULL;
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_finalize failed: %s\n",
-            sqlite3_errmsg(hdb));
-    errcode = -1;
-  }
+  sqlite3_finalize(update_stmt);
 
   return errcode;
 }
@@ -485,13 +473,7 @@ static int _db_delete_contact(int id) {
   }
 
 out:
-  rc = sqlite3_finalize(delete_stmt);
-  delete_stmt = NULL;
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_finalize failed: %s\n",
-            sqlite3_errmsg(hdb));
-    errcode = -1;
-  }
+  sqlite3_finalize(delete_stmt);
 
   /* Check the operation result
    */
@@ -594,13 +576,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
   /* If rc is equal to SQLITE_DONE then NO contact with the given id was found */
 
 out:
-  rc = sqlite3_finalize(stmt);
-  stmt = NULL;
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_finalize failed: %s\n",
-            sqlite3_errmsg(hdb));
-    errcode = -1;
-  }
+  sqlite3_finalize(stmt);
 
   return errcode;
 }
