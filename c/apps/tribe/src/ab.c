@@ -249,15 +249,9 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   *pCount = row_count;
   *ppContacts = contacts;
 
-  rc = sqlite3_finalize(select_stmt);
-  select_stmt = NULL;
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_finalize failed: %s\n",
-            sqlite3_errmsg(hdb));
-    errcode = -1;
-  }
-
 err:
+  sqlite3_finalize(select_stmt);
+
   return errcode;
 }
 
