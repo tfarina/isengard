@@ -179,6 +179,8 @@ static int _db_get_row_count(int *p_row_count) {
     row_count = sqlite3_column_int(count_stmt, 0);
   }
 
+  *p_row_count = row_count;
+
   rc = sqlite3_finalize(count_stmt);
   count_stmt = NULL;
   if (rc != SQLITE_OK) {
@@ -186,8 +188,6 @@ static int _db_get_row_count(int *p_row_count) {
             sqlite3_errmsg(hdb));
     return -1;
   }
-
-  *p_row_count = row_count;
 
   return 0;
 }
