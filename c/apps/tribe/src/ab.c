@@ -181,13 +181,7 @@ static int _db_get_row_count(int *p_row_count) {
 
   *p_row_count = row_count;
 
-  rc = sqlite3_finalize(count_stmt);
-  count_stmt = NULL;
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_finalize failed: %s\n",
-            sqlite3_errmsg(hdb));
-    return -1;
-  }
+  sqlite3_finalize(count_stmt);
 
   return 0;
 }
