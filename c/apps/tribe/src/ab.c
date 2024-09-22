@@ -159,6 +159,7 @@ int ab_fini(void) {
 
 static int _db_get_row_count(int *p_row_count) {
   int rc;
+  int errcode = 0; /* success */
   char const count_sql[] = "SELECT COUNT(*) FROM contacts";
   sqlite3_stmt *count_stmt = NULL;
   int row_count = 0;
@@ -169,9 +170,10 @@ static int _db_get_row_count(int *p_row_count) {
 
   rc = sqlite3_prepare_v2(hdb, count_sql, -1, &count_stmt, NULL);
   if (rc != SQLITE_OK) {
+    errcode = -1;
     fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
-    return -1;
+    goto out;
   }
 
   rc = sqlite3_step(count_stmt);
@@ -181,9 +183,10 @@ static int _db_get_row_count(int *p_row_count) {
 
   *p_row_count = row_count;
 
+out:
   sqlite3_finalize(count_stmt);
 
-  return 0;
+  return errcode;
 }
 
 int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
