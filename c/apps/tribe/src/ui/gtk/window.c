@@ -970,7 +970,7 @@ _create_list_view(void)
 }
 
 static void
-_populate_list_view(GtkListStore *list_store, alpm_list_t *list)
+_populate_list_view(alpm_list_t *list)
 {
   alpm_list_t *item;
 
@@ -1064,7 +1064,7 @@ addrbook_window_new(void)
 
   ab_enum_contacts(&list);
 
-  _populate_list_view(list_store, list);
+  _populate_list_view(list);
 
   return main_window;
 }
