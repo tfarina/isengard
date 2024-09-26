@@ -8,8 +8,8 @@
 int cmd_list(int argc, char **argv) {
   int rc;
   char *dbdir;
-  int count = 0;
-  ab_contact_t *list = NULL;
+  int num_contacts = 0;
+  ab_contact_t *contacts = NULL;
 
   dirs_init();
 
@@ -24,16 +24,16 @@ int cmd_list(int argc, char **argv) {
     return 1;
   }
 
-  rc = ab_enum_contacts_v2(&count, &list);
+  rc = ab_enum_contacts_v2(&num_contacts, &contacts);
   if (rc < 0) {
     return 1;
   }
 
-  rc = print_contact_list_v2(count, list);
+  rc = print_contact_list_v2(num_contacts, contacts);
 
-  if (list) {
-    free(list);
-    list = NULL;
+  if (contacts) {
+    free(contacts);
+    contacts = NULL;
   }
 
   ab_fini();
