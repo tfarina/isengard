@@ -10,6 +10,7 @@ static char const *progname;
 
 int main(int argc, char **argv) {
   int rc;
+  int status = 0;
   char *dbdir;
   int id;
   ab_contact_t *contact = NULL;
@@ -31,7 +32,8 @@ int main(int argc, char **argv) {
 
   rc = ab_init(dbdir);
   if (rc < 0) {
-    return 1;
+    status = 1;
+    goto out;
   }
 
   id = atoi(argv[1]);
@@ -40,7 +42,8 @@ int main(int argc, char **argv) {
   if (!contact) {
     fprintf(stderr, "Error: no contact with id %d was found in our database.\n",
             id);
-    return 1;
+    status = 1;
+    goto out;
   }
 
   ab_contact_set_first_name(contact, argv[2]);
@@ -49,13 +52,15 @@ int main(int argc, char **argv) {
 
   rc = ab_update_contact(contact);
   if (rc < 0) {
-    ab_contact_destroy(contact);
-    return 1;
+    status = 1;
+    goto out;
   }
 
-  ab_contact_destroy(contact);
+out:
+  if (contact)
+    ab_contact_destroy(contact);
 
   ab_fini();
 
-  return 0;
+  return status;
 }
