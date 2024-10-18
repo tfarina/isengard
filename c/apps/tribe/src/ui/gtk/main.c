@@ -9,6 +9,7 @@ int
 main(int argc, char **argv)
 {
   int rc;
+  int status = 0; /* success */
   char *dbdir;
   GtkWidget *window;
 
@@ -22,7 +23,8 @@ main(int argc, char **argv)
 
   rc = ab_init(dbdir);
   if (rc < 0) {
-    return 1;
+    status = 1;
+    goto out;
   }
 
   gtk_init(&argc, &argv);
@@ -34,5 +36,8 @@ main(int argc, char **argv)
 
   gtk_main();
 
-  return 0;
+out:
+  ab_fini();
+
+  return status;
 }
