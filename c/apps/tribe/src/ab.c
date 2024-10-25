@@ -13,7 +13,6 @@
  * changes */
 #define DB_VERSION 0
 
-static char const dbname[] = "abdb.sqlite3";
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
 static alpm_list_t *contact_list;
@@ -94,6 +93,7 @@ static int _db_pragma_user_version_cb(void *data, int argc, char **argv, char **
 int ab_init(char *dbpath) {
   char *dbfile;  /* Database filename */
   int rc;
+  char const dbname[] = "abdb.sqlite3";
   int corrupted = 0;
   int user_version = 0;
   char *err_msg = NULL;
