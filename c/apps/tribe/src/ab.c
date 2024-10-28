@@ -438,7 +438,7 @@ static int _db_delete_contact(int id) {
   int errcode = 0;
   char const delete_sql[] = "DELETE FROM contacts WHERE id=?";
   sqlite3_stmt *delete_stmt = NULL;
-  int rows_deleted = 0;
+  int num_change = 0;
 
   rc = sqlite3_prepare_v2(hdb, delete_sql, -1, &delete_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -468,8 +468,8 @@ out:
 
   /* Check the operation result
    */
-  rows_deleted = sqlite3_changes(hdb);
-  if (!rows_deleted) {
+  num_change = sqlite3_changes(hdb);
+  if (!num_change) {
     errcode = -ENOENT;  /* No such contact exists */
   }
 
