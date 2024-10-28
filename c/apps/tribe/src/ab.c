@@ -463,7 +463,7 @@ static int _db_delete_contact(int id) {
     goto out;
   }
 
-  /* Check the operation result
+  /* Check the execution result
    */
   num_change = sqlite3_changes(hdb);
   if (!num_change) {
