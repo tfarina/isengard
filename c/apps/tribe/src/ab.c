@@ -22,7 +22,7 @@ static int _db_close(void) {
 
   rc = sqlite3_close(hdb);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to close the SQLite database: %s\n", sqlite3_errmsg(hdb));
+    fprintf(stderr, "ERROR: Failed to close the SQLite database: %s\n", sqlite3_errmsg(hdb));
     return -1;
   } else {
     hdb = NULL;
@@ -52,7 +52,7 @@ static int _db_init_schema(void) {
 
   rc = sqlite3_exec(hdb, create_sql, 0, 0, &err_msg);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_exec failed: %s\n", err_msg);
+    fprintf(stderr, "ERROR: sqlite3_exec failed: %s\n", err_msg);
     sqlite3_free(err_msg);
     return -1;
   }
@@ -107,7 +107,7 @@ int ab_init(char *dbpath) {
 
   rc = sqlite3_open(dbfile, &hdb);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "Failed to open the SQLite database at %s: %s\n", dbfile, sqlite3_errmsg(hdb));
+    fprintf(stderr, "ERROR: Failed to open the SQLite database at %s: %s\n", dbfile, sqlite3_errmsg(hdb));
     free(dbfile);
     sqlite3_close(hdb);
     hdb = NULL;
@@ -118,19 +118,19 @@ int ab_init(char *dbpath) {
 
   rc = sqlite3_exec(hdb, "PRAGMA integrity_check;", _db_pragma_integrity_check_cb, &corrupted, &err_msg);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_exec failed: %s\n", err_msg);
+    fprintf(stderr, "ERROR: sqlite3_exec failed: %s\n", err_msg);
     sqlite3_free(err_msg);
     return -1;
   }
 
   if (1 == corrupted) {
-    fprintf(stderr, "Error: The SQLite database integrity check failed. It may be corrupted.\n");
+    fprintf(stderr, "ERROR: The SQLite database integrity check failed. It may be corrupted.\n");
     return -1;
   }
 
   rc = sqlite3_exec(hdb, "PRAGMA user_version;", _db_pragma_user_version_cb, &user_version, &err_msg);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_exec failed: %s\n", err_msg);
+    fprintf(stderr, "ERROR: sqlite3_exec failed: %s\n", err_msg);
     sqlite3_free(err_msg);
     return -1;
   }
@@ -171,7 +171,7 @@ static int _db_get_row_count(int *p_row_count) {
   rc = sqlite3_prepare_v2(hdb, count_sql, -1, &count_stmt, NULL);
   if (rc != SQLITE_OK) {
     errcode = -1;
-    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     goto out;
   }
@@ -221,7 +221,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
 
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
@@ -303,14 +303,14 @@ int _db_insert_contact(ab_contact_t *contact) {
 
   rc = sqlite3_prepare_v2(hdb, insert_sql, -1, &insert_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
 
   rc = sqlite3_bind_text(insert_stmt, 1, contact->fname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -318,7 +318,7 @@ int _db_insert_contact(ab_contact_t *contact) {
 
   rc = sqlite3_bind_text(insert_stmt, 2, contact->lname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -326,7 +326,7 @@ int _db_insert_contact(ab_contact_t *contact) {
 
   rc = sqlite3_bind_text(insert_stmt, 3, contact->email, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -334,7 +334,7 @@ int _db_insert_contact(ab_contact_t *contact) {
 
   rc = sqlite3_step(insert_stmt);
   if (rc != SQLITE_DONE) {
-    fprintf(stderr, "sqlite3_step failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
   }
@@ -376,14 +376,14 @@ int _db_update_contact(ab_contact_t* contact) {
 
   rc = sqlite3_prepare_v2(hdb, update_sql, -1, &update_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
 
   rc = sqlite3_bind_text(update_stmt, 1, contact->fname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -391,7 +391,7 @@ int _db_update_contact(ab_contact_t* contact) {
 
   rc = sqlite3_bind_text(update_stmt, 2, contact->lname, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -399,7 +399,7 @@ int _db_update_contact(ab_contact_t* contact) {
 
   rc = sqlite3_bind_text(update_stmt, 3, contact->email, -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_bind_text failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -407,7 +407,7 @@ int _db_update_contact(ab_contact_t* contact) {
 
   rc = sqlite3_bind_int(update_stmt, 4, contact->id);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_bind_int failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_int failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -415,7 +415,7 @@ int _db_update_contact(ab_contact_t* contact) {
 
   rc = sqlite3_step(update_stmt);
   if (rc != SQLITE_DONE) {
-    fprintf(stderr, "sqlite3_step failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
 	    sqlite3_errmsg(hdb));
     errcode = -1;
   }
@@ -442,14 +442,14 @@ static int _db_delete_contact(int id) {
 
   rc = sqlite3_prepare_v2(hdb, delete_sql, -1, &delete_stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
 
   rc = sqlite3_bind_int(delete_stmt, 1, id);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_bind_int failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_int failed: %s\n",
 	    sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -457,7 +457,7 @@ static int _db_delete_contact(int id) {
 
   rc = sqlite3_step(delete_stmt);
   if (rc != SQLITE_DONE) {
-    fprintf(stderr, "sqlite3_step failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -520,14 +520,14 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
 
   rc = sqlite3_prepare_v2(hdb, query, -1, &stmt, NULL);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     return -1;
   }
 
   rc = sqlite3_bind_int(stmt, 1, id);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "sqlite3_bind_int failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_int failed: %s\n",
 	    sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
@@ -535,7 +535,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
 
   rc = sqlite3_step(stmt);
   if (rc != SQLITE_ROW && rc != SQLITE_DONE) {
-    fprintf(stderr, "sqlite3_step failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
             sqlite3_errmsg(hdb));
     errcode = -1;
     goto out;
