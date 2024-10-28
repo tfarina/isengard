@@ -463,15 +463,15 @@ static int _db_delete_contact(int id) {
     goto out;
   }
 
-out:
-  sqlite3_finalize(delete_stmt);
-
   /* Check the operation result
    */
   num_change = sqlite3_changes(hdb);
   if (!num_change) {
     errcode = -ENOENT;  /* No such contact exists */
   }
+
+out:
+  sqlite3_finalize(delete_stmt);
 
   return errcode;
 }
