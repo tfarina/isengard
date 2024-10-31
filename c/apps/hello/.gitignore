@@ -1,6 +1,5 @@
 *.o
 .deps
-Makefile
 
 /src/hello
 
@@ -14,6 +13,7 @@ Makefile
 /configure
 /depcomp
 /install-sh
+/Makefile
 /Makefile.in
 /missing
 /stamp-h1
