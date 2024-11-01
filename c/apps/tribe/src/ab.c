@@ -159,7 +159,7 @@ int ab_fini(void) {
 
 static int _db_get_row_count(int *p_row_count) {
   int rc;
-  int errcode = 0; /* success */
+  int scode = 0; /* success */
   char const count_sql[] = "SELECT COUNT(*) FROM contacts";
   sqlite3_stmt *count_stmt = NULL;
   int row_count = 0;
@@ -170,7 +170,7 @@ static int _db_get_row_count(int *p_row_count) {
 
   rc = sqlite3_prepare_v2(hdb, count_sql, -1, &count_stmt, NULL);
   if (rc != SQLITE_OK) {
-    errcode = -1;
+    scode = -1;
     fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
     goto out;
@@ -186,12 +186,12 @@ static int _db_get_row_count(int *p_row_count) {
 out:
   sqlite3_finalize(count_stmt);
 
-  return errcode;
+  return scode;
 }
 
 int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   int rc;
-  int errcode = 0;
+  int scode = 0;
   int row_count = 0;
   char const select_sql[] = "SELECT * FROM contacts";
   sqlite3_stmt *select_stmt = NULL;
@@ -211,7 +211,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
    */
   contacts = malloc(row_count * sizeof(ab_contact_t));
   if (NULL == contacts) {
-    errcode = -ENOMEM;
+    scode = -ENOMEM;
     goto err;
   }
 
@@ -249,7 +249,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
 err:
   sqlite3_finalize(select_stmt);
 
-  return errcode;
+  return scode;
 }
 
 int ab_enum_contacts(alpm_list_t **pp_contact_list) {
@@ -296,7 +296,7 @@ int ab_enum_contacts_v2(int *p_count, ab_contact_t **pp_contacts) {
 
 int _db_insert_contact(ab_contact_t *contact) {
   int rc = 0;
-  int errcode = 0;
+  int scode = 0;
   char const insert_sql[] =
       "INSERT INTO contacts (fname, lname, email) VALUES (?, ?, ?)";
   sqlite3_stmt *insert_stmt = NULL;
@@ -312,7 +312,7 @@ int _db_insert_contact(ab_contact_t *contact) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
     goto out;
   }
 
@@ -320,7 +320,7 @@ int _db_insert_contact(ab_contact_t *contact) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
     goto out;
   }
 
@@ -328,7 +328,7 @@ int _db_insert_contact(ab_contact_t *contact) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
     goto out;
   }
 
@@ -336,13 +336,13 @@ int _db_insert_contact(ab_contact_t *contact) {
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
             sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
   }
 
 out:
   sqlite3_finalize(insert_stmt);
 
-  return errcode;
+  return scode;
 }
 
 /*
@@ -369,7 +369,7 @@ int ab_add_contact_v2(ab_contact_t *contact) {
 
 int _db_update_contact(ab_contact_t* contact) {
   int rc;
-  int errcode = 0;
+  int scode = 0;
   char const update_sql[] =
       "UPDATE contacts SET fname=?, lname=?, email=? WHERE id=?";
   sqlite3_stmt *update_stmt = NULL;
@@ -385,7 +385,7 @@ int _db_update_contact(ab_contact_t* contact) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
     goto out;
   }
 
@@ -393,7 +393,7 @@ int _db_update_contact(ab_contact_t* contact) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
     goto out;
   }
 
@@ -401,7 +401,7 @@ int _db_update_contact(ab_contact_t* contact) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
     goto out;
   }
 
@@ -409,7 +409,7 @@ int _db_update_contact(ab_contact_t* contact) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_int failed: %s\n",
             sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
     goto out;
   }
 
@@ -417,13 +417,13 @@ int _db_update_contact(ab_contact_t* contact) {
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
 	    sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
   }
 
 out:
   sqlite3_finalize(update_stmt);
 
-  return errcode;
+  return scode;
 }
 
 /*
@@ -435,7 +435,7 @@ int ab_update_contact(ab_contact_t *contact) {
 
 static int _db_delete_contact(int id) {
   int rc;
-  int errcode = 0;
+  int scode = 0;
   char const delete_sql[] = "DELETE FROM contacts WHERE id=?";
   sqlite3_stmt *delete_stmt = NULL;
   int num_change = 0;
@@ -451,7 +451,7 @@ static int _db_delete_contact(int id) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_int failed: %s\n",
 	    sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
     goto out;
   }
 
@@ -459,7 +459,7 @@ static int _db_delete_contact(int id) {
   if (rc != SQLITE_DONE) {
     fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
             sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
     goto out;
   }
 
@@ -467,13 +467,13 @@ static int _db_delete_contact(int id) {
    */
   num_change = sqlite3_changes(hdb);
   if (!num_change) {
-    errcode = -ENOENT;  /* No such contact exists */
+    scode = -ENOENT;  /* No such contact exists */
   }
 
 out:
   sqlite3_finalize(delete_stmt);
 
-  return errcode;
+  return scode;
 }
 
 /*
@@ -513,10 +513,10 @@ int ab_delete_contact_v2(int id) {
  */
 int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
   int rc;
+  int scode = 0;
   char const query[] = "SELECT * FROM contacts WHERE id=?";
   sqlite3_stmt *stmt = NULL;
   ab_contact_t *contact = NULL;
-  int errcode = 0;
 
   rc = sqlite3_prepare_v2(hdb, query, -1, &stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -529,7 +529,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_int failed: %s\n",
 	    sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
     goto out;
   }
 
@@ -537,7 +537,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
   if (rc != SQLITE_ROW && rc != SQLITE_DONE) {
     fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
             sqlite3_errmsg(hdb));
-    errcode = -1;
+    scode = -1;
     goto out;
   }
 
@@ -547,7 +547,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
 
     rc = ab_contact_create(&contact);
     if (rc < 0 || NULL == contact) {
-      errcode = -1;
+      scode = -1;
       goto out;
     }
 
@@ -569,5 +569,5 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
 out:
   sqlite3_finalize(stmt);
 
-  return errcode;
+  return scode;
 }
