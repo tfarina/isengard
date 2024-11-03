@@ -177,10 +177,14 @@ static int _db_get_row_count(int *p_row_count) {
   }
 
   rc = sqlite3_step(count_stmt);
-  if (rc == SQLITE_ROW) {
-    row_count = sqlite3_column_int(count_stmt, 0);
+  if (rc != SQLITE_ROW) {
+    fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
+            sqlite3_errmsg(hdb));
+    scode = -1;
+    goto out;
   }
 
+  row_count = sqlite3_column_int(count_stmt, 0);
   *p_row_count = row_count;
 
 out:
