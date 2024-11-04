@@ -162,7 +162,6 @@ static int _db_get_row_count(int *p_row_count) {
   int scode = 0; /* success */
   char const count_sql[] = "SELECT COUNT(*) FROM contacts";
   sqlite3_stmt *count_stmt = NULL;
-  int row_count = 0;
 
   if (NULL == p_row_count) {
     return -EINVAL;  /* Invalid args */
@@ -184,8 +183,7 @@ static int _db_get_row_count(int *p_row_count) {
     goto out;
   }
 
-  row_count = sqlite3_column_int(count_stmt, 0);
-  *p_row_count = row_count;
+  *p_row_count = sqlite3_column_int(count_stmt, 0);
 
 out:
   sqlite3_finalize(count_stmt);
