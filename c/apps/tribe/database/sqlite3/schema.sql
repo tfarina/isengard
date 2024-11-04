@@ -56,12 +56,4 @@ CREATE TABLE PHONE_NUMBER (
   lastModifiedDateTime TEXT
 );
 
-/* Initial Data ------------------------------------------------------------- */
-
-/**
- * Populating with some values.
- */
-
-INSERT INTO "contacts" VALUES (1, 'John', 'Doe', 'jdoe@yahoo.com');
-
 COMMIT;
