@@ -225,7 +225,8 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
-    return -1;
+    scode = -1;
+    goto err;
   }
 
   for (i = 0; i < row_count; i++) {
@@ -249,6 +250,10 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   *ppContacts = contacts;
 
 err:
+  if (scode < 0) {
+    free(contacts);
+    contacts = NULL;
+  }
   sqlite3_finalize(select_stmt);
 
   return scode;
