@@ -20,13 +20,13 @@ xstrdup(char const *str)
   char *dst;
 
   if (str == 0) {
-    return (char *) 0;
+    return NULL;
   }
 
   len = strlen(str) + 1;
   dst = malloc(sizeof(char) * len);
   if (dst == 0) {
-    return (char *) 0;
+    return NULL;
   }
 
   strcpy(dst, str);
