@@ -19,13 +19,13 @@ xstrdup(char const *str)
   size_t len;
   char *dst;
 
-  if (str == 0) {
+  if (!str) {
     return NULL;
   }
 
   len = strlen(str) + 1;
   dst = malloc(sizeof(char) * len);
-  if (dst == 0) {
+  if (!dst) {
     return NULL;
   }
 
