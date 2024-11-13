@@ -231,20 +231,21 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
 
   for (i = 0; i < row_count; i++) {
     rc = sqlite3_step(select_stmt);
-    if (rc == SQLITE_ROW) {
-      unsigned char const *psz = NULL;
+    if (rc != SQLITE_ROW)
+      break;
 
-      contacts[i].id = sqlite3_column_int(select_stmt, 0);
+    unsigned char const *psz = NULL;
 
-      psz = sqlite3_column_text(select_stmt, 1);
-      contacts[i].fname = xstrdup((char const *)psz);
+    contacts[i].id = sqlite3_column_int(select_stmt, 0);
 
-      psz = sqlite3_column_text(select_stmt, 2);
-      contacts[i].lname = xstrdup((char const *)psz);
+    psz = sqlite3_column_text(select_stmt, 1);
+    contacts[i].fname = xstrdup((char const *)psz);
 
-      psz = sqlite3_column_text(select_stmt, 3);
-      contacts[i].email = xstrdup((char const *)psz);
-    }
+    psz = sqlite3_column_text(select_stmt, 2);
+    contacts[i].lname = xstrdup((char const *)psz);
+
+    psz = sqlite3_column_text(select_stmt, 3);
+    contacts[i].email = xstrdup((char const *)psz);
   }
 
   *pCount = row_count;
