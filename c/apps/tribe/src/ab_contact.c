@@ -11,7 +11,7 @@ int ab_contact_create(ab_contact_t **pp_contact) {
   /* Allocate space for the ab_contact structure
    */
   contact = malloc(sizeof(ab_contact_t));
-  if (NULL == contact) {
+  if (!contact) {
     rc = -ENOMEM;
     goto err;
   }
@@ -36,7 +36,7 @@ err:
 }
 
 void ab_contact_destroy(ab_contact_t *contact) {
-  if (contact == NULL) {
+  if (!contact) {
     return;
   }
 

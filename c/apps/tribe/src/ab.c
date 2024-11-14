@@ -163,7 +163,7 @@ static int _db_get_row_count(int *p_row_count) {
   char const count_sql[] = "SELECT COUNT(*) FROM contacts";
   sqlite3_stmt *count_stmt = NULL;
 
-  if (NULL == p_row_count) {
+  if (!p_row_count) {
     return -EINVAL;  /* Invalid args */
   }
 
@@ -200,7 +200,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   ab_contact_t *contacts = NULL;
   int i;
 
-  if (NULL == pCount || NULL == ppContacts) {
+  if (!pCount || !ppContacts) {
     return -EINVAL;  /* Invalid args */
   }
 
@@ -212,7 +212,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   /* Allocate the contacts array
    */
   contacts = malloc(row_count * sizeof(ab_contact_t));
-  if (NULL == contacts) {
+  if (!contacts) {
     scode = -ENOMEM;
     goto err;
   }
@@ -555,7 +555,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
     unsigned char const *psz = NULL;
 
     rc = ab_contact_create(&contact);
-    if (rc < 0 || NULL == contact) {
+    if (rc < 0 || !contact) {
       scode = -1;
       goto out;
     }
