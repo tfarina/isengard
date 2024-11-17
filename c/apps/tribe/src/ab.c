@@ -169,9 +169,9 @@ static int _db_get_row_count(int *p_row_count) {
 
   rc = sqlite3_prepare_v2(hdb, count_sql, -1, &count_stmt, NULL);
   if (rc != SQLITE_OK) {
-    scode = -1;
     fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
             sqlite3_errmsg(hdb));
+    scode = -1;
     goto out;
   }
 
