@@ -199,6 +199,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   sqlite3_stmt *select_stmt = NULL;
   ab_contact_t *contacts = NULL;
   int i;
+  int num_rows = 0;
 
   if (!pCount || !ppContacts) {
     return -EINVAL;  /* Invalid args */
@@ -258,9 +259,11 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
       scode = -ENOMEM;
       goto err;
     }
+
+    num_rows++;
   }
 
-  *pCount = row_count;
+  *pCount = num_rows;
   *ppContacts = contacts;
 
 err:
