@@ -240,12 +240,24 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
 
     psz = sqlite3_column_text(select_stmt, 1);
     contacts[i].fname = xstrdup((char const *)psz);
+    if (!contacts[i].fname) {
+      scode = -ENOMEM;
+      goto err;
+    }
 
     psz = sqlite3_column_text(select_stmt, 2);
     contacts[i].lname = xstrdup((char const *)psz);
+    if (!contacts[i].lname) {
+      scode = -ENOMEM;
+      goto err;
+    }
 
     psz = sqlite3_column_text(select_stmt, 3);
     contacts[i].email = xstrdup((char const *)psz);
+    if (!contacts[i].email) {
+      scode = -ENOMEM;
+      goto err;
+    }
   }
 
   *pCount = row_count;
