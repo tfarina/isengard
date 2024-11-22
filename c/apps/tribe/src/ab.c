@@ -231,11 +231,11 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   }
 
   for (i = 0; i < row_count; i++) {
+    unsigned char const *psz = NULL;
+
     rc = sqlite3_step(select_stmt);
     if (rc != SQLITE_ROW)
       break;
-
-    unsigned char const *psz = NULL;
 
     contacts[i].id = sqlite3_column_int(select_stmt, 0);
 
