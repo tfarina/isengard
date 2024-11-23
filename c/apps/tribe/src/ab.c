@@ -231,7 +231,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   }
 
   for (i = 0; i < row_count; i++) {
-    unsigned char const *psz = NULL;
+    char const *psz = NULL;
 
     rc = sqlite3_step(select_stmt);
     if (rc != SQLITE_ROW)
@@ -239,22 +239,22 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
 
     contacts[i].id = sqlite3_column_int(select_stmt, 0);
 
-    psz = sqlite3_column_text(select_stmt, 1);
-    contacts[i].fname = xstrdup((char const *)psz);
+    psz = (char const *)sqlite3_column_text(select_stmt, 1);
+    contacts[i].fname = xstrdup(psz);
     if (!contacts[i].fname) {
       scode = -ENOMEM;
       goto err;
     }
 
-    psz = sqlite3_column_text(select_stmt, 2);
-    contacts[i].lname = xstrdup((char const *)psz);
+    psz = (char const *)sqlite3_column_text(select_stmt, 2);
+    contacts[i].lname = xstrdup(psz);
     if (!contacts[i].lname) {
       scode = -ENOMEM;
       goto err;
     }
 
-    psz = sqlite3_column_text(select_stmt, 3);
-    contacts[i].email = xstrdup((char const *)psz);
+    psz = (char const *)sqlite3_column_text(select_stmt, 3);
+    contacts[i].email = xstrdup(psz);
     if (!contacts[i].email) {
       scode = -ENOMEM;
       goto err;
@@ -567,7 +567,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
 
   /* If rc is equal to SQLITE_ROW then a contact with the given id was found! */
   if (rc == SQLITE_ROW) {
-    unsigned char const *psz = NULL;
+    char const *psz = NULL;
 
     rc = ab_contact_create(&contact);
     if (rc < 0 || !contact) {
@@ -577,14 +577,14 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
 
     contact->id = sqlite3_column_int(stmt, 0);
 
-    psz = sqlite3_column_text(stmt, 1);
-    contact->fname = xstrdup((char const *)psz);
+    psz = (char const *)sqlite3_column_text(stmt, 1);
+    contact->fname = xstrdup(psz);
 
-    psz = sqlite3_column_text(stmt, 2);
-    contact->lname = xstrdup((char const *)psz);
+    psz = (char const *)sqlite3_column_text(stmt, 2);
+    contact->lname = xstrdup(psz);
 
-    psz = sqlite3_column_text(stmt, 3);
-    contact->email = xstrdup((char const *)psz);
+    psz = (char const *)sqlite3_column_text(stmt, 3);
+    contact->email = xstrdup(psz);
 
     *pp_contact = contact;
   }
