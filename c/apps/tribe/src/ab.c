@@ -191,7 +191,7 @@ out:
   return scode;
 }
 
-int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
+int _db_enum_contacts(int *num_contacts, ab_contact_t **contacts_dst) {
   int rc;
   int scode = 0;
   int row_count = 0;
@@ -201,7 +201,7 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
   int i;
   int num_rows = 0;
 
-  if (!pCount || !ppContacts) {
+  if (!num_contacts || !contacts_dst) {
     return -EINVAL;  /* Invalid args */
   }
 
@@ -263,8 +263,8 @@ int _db_enum_contacts(int *pCount, ab_contact_t **ppContacts) {
     num_rows++;
   }
 
-  *pCount = num_rows;
-  *ppContacts = contacts;
+  *num_contacts = num_rows;
+  *contacts_dst = contacts;
 
 err:
   if (scode < 0) {
@@ -314,8 +314,8 @@ exit:
   return rc;
 }
 
-int ab_enum_contacts_v2(int *p_count, ab_contact_t **pp_contacts) {
-  return _db_enum_contacts(p_count, pp_contacts);
+int ab_enum_contacts_v2(int *num_contacts, ab_contact_t **contacts_dst) {
+  return _db_enum_contacts(num_contacts, contacts_dst);
 }
 
 int _db_insert_contact(ab_contact_t *contact) {

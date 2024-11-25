@@ -8,7 +8,7 @@ int ab_init(char *dbpath);
 int ab_fini(void);
 
 int ab_enum_contacts(alpm_list_t **pp_contact_list);
-int ab_enum_contacts_v2(int *p_count, ab_contact_t **pp_contacts);
+int ab_enum_contacts_v2(int *num_contacts, ab_contact_t **contacts_dst);
 
 int ab_add_contact(ab_contact_t *contact);
 int ab_add_contact_v2(ab_contact_t *contact);
