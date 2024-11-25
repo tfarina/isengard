@@ -157,7 +157,7 @@ int ab_fini(void) {
   return 0;
 }
 
-static int _db_get_row_count(int *row_count) {
+static int _db_get_contacts_row_count(int *row_count) {
   int rc;
   int scode = 0; /* success */
   char const count_sql[] = "SELECT COUNT(*) FROM contacts";
@@ -205,7 +205,7 @@ int _db_enum_contacts(int *num_contacts, ab_contact_t **contacts_dst) {
     return -EINVAL;  /* Invalid args */
   }
 
-  rc = _db_get_row_count(&row_count);
+  rc = _db_get_contacts_row_count(&row_count);
   if (rc < 0) {
     return -1;
   }
