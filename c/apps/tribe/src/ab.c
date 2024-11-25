@@ -157,13 +157,13 @@ int ab_fini(void) {
   return 0;
 }
 
-static int _db_get_row_count(int *p_row_count) {
+static int _db_get_row_count(int *row_count) {
   int rc;
   int scode = 0; /* success */
   char const count_sql[] = "SELECT COUNT(*) FROM contacts";
   sqlite3_stmt *count_stmt = NULL;
 
-  if (!p_row_count) {
+  if (!row_count) {
     return -EINVAL;  /* Invalid args */
   }
 
@@ -183,7 +183,7 @@ static int _db_get_row_count(int *p_row_count) {
     goto out;
   }
 
-  *p_row_count = sqlite3_column_int(count_stmt, 0);
+  *row_count = sqlite3_column_int(count_stmt, 0);
 
 out:
   sqlite3_finalize(count_stmt);
