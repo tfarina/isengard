@@ -26,9 +26,6 @@ static int _db_close(void) {
     return -1;
   } else {
     hdb = NULL;
-    /*if (debug) {
-      printf("Database closed\n");
-    }*/
   }
 
   return 0;
