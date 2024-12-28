@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
   /* It's okay to add duplicate records. */
   rc = ab_add_contact_v2(contact);
   if (rc < 0) {
-    fputs("Failed to create a new contact.\n", stderr);
+    fputs("Error: Failed to create a new contact.\n", stderr);
     status = 1;
     goto done;
   }
