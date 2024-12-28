@@ -19,16 +19,17 @@ static alpm_list_t *contact_list;
 
 static int _db_close(void) {
   int rc;
+  int scode = 0; /* success */
 
   rc = sqlite3_close(hdb);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: Failed to close the SQLite database: %s\n", sqlite3_errmsg(hdb));
-    return -1;
+    scode = -1;
   } else {
     hdb = NULL;
   }
 
-  return 0;
+  return scode;
 }
 
 /**
