@@ -25,9 +25,8 @@ static int _db_close(void) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: Failed to close the SQLite database: %s\n", sqlite3_errmsg(hdb));
     scode = -1;
-  } else {
-    hdb = NULL;
   }
+  hdb = NULL;
 
   return scode;
 }
