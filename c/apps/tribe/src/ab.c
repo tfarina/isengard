@@ -87,10 +87,10 @@ static int _db_pragma_user_version_cb(void *data, int argc, char **argv, char **
   return 0;
 }
 
-int ab_init(char *dbpath) {
-  char *dbfile;  /* Database filename */
+int ab_init(char *db_dir) {
   int rc;
-  char const dbname[] = "abdb.sqlite3";
+  char const db_file_name[] = "abdb.sqlite3";
+  char *db_file_path;
   int corrupted = 0;
   int user_version = 0;
   char *err_msg = NULL;
@@ -100,18 +100,18 @@ int ab_init(char *dbpath) {
     return 0;
   }
 
-  dbfile = os_path_join(dbpath, dbname);
+  db_file_path = os_path_join(db_dir, db_file_name);
 
-  rc = sqlite3_open(dbfile, &hdb);
+  rc = sqlite3_open(db_file_path, &hdb);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "ERROR: Failed to open the SQLite database at %s: %s\n", dbfile, sqlite3_errmsg(hdb));
-    free(dbfile);
+    fprintf(stderr, "ERROR: Failed to open the SQLite database at %s: %s\n",
+	    db_file_path, sqlite3_errmsg(hdb));
+    free(db_file_path);
     sqlite3_close(hdb);
     hdb = NULL;
     return -1;
   }
-  free(dbfile);
-
+  free(db_file_path);
 
   rc = sqlite3_exec(hdb, "PRAGMA integrity_check;", _db_pragma_integrity_check_cb, &corrupted, &err_msg);
   if (rc != SQLITE_OK) {
