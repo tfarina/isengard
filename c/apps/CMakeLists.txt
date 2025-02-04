@@ -192,10 +192,14 @@ add_executable(atm atm.c)
 find_package(PkgConfig REQUIRED)
 
 set(ID3TAG_MINIMUM_VERSION 0.15.0)
+set(TAGLIB_MINIMUM_VERSION 1.9.1)
 
 # Check for required packages
 pkg_check_modules(ID3TAG REQUIRED
   id3tag>=${ID3TAG_MINIMUM_VERSION}
+)
+pkg_check_modules(TAGLIB REQUIRED
+  taglib_c>=${TAGLIB_MINIMUM_VERSION}
 )
 
 add_executable(songinfo songinfo.c)
@@ -207,6 +211,17 @@ target_include_directories(songinfo PUBLIC
 )
 target_link_libraries(songinfo
   ${ID3TAG_LDFLAGS}
+)
+
+add_executable(songinfov2 songinfov2.c)
+target_compile_options(songinfov2 PUBLIC
+  ${TAGLIB_CFLAGS}
+)
+target_include_directories(songinfov2 PUBLIC
+  ${TAGLIB_INCLUDE_DIRS}
+)
+target_link_libraries(songinfov2
+  ${TAGLIB_LDFLAGS}
 )
 
 add_executable(songplay songplay.c)
