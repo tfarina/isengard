@@ -118,11 +118,15 @@ int ab_init(char *db_dir) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_exec failed: %s\n", err_msg);
     sqlite3_free(err_msg);
+    sqlite3_close(hdb);
+    hdb = NULL;
     return -1;
   }
 
   if (1 == corrupted) {
     fprintf(stderr, "ERROR: The SQLite database integrity check failed. It may be corrupted.\n");
+    sqlite3_close(hdb);
+    hdb = NULL;
     return -1;
   }
 
@@ -130,6 +134,8 @@ int ab_init(char *db_dir) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_exec failed: %s\n", err_msg);
     sqlite3_free(err_msg);
+    sqlite3_close(hdb);
+    hdb = NULL;
     return -1;
   }
 
