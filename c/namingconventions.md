@@ -1,6 +1,6 @@
 # Naming Conventions
 
-| Naming Convetion | Example Format |
+| Naming Convention | Example Format |
 | ---------------- | -------------- |
 | Pascal Case      | PascalCase     |
 | Camel Case       | camelCase      |
