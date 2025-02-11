@@ -13,3 +13,26 @@
 | Screaming Snake Case | SCREAMING_SNAKE_CASE |
 | Train Case       | Train-Case     |
 | Cobol-Case       | COBOL-CASE     |
+
+
+## Pascal Case
+
+## Camel Case
+
+## Snake Case
+
+## Kebab Case
+
+## Flat Case
+
+## Upper Flat Case
+
+## Pascal Snake Case
+
+## Camel Snake Case
+
+## Screaming Snake Case
+
+## Train Case
+
+## Cobol Case
