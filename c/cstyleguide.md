@@ -42,7 +42,7 @@ typedef enum _ENUM_NAME
 
 ### Variable Names
 
-Name variables using a noun, noun phrase, or adjective.
+Name variables with nouns, noun phrases, or adjectives.
 
 Should be in mixed case (camelCase) with the first word in lower case and
 every other word starts with a capital letter.
