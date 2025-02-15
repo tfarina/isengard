@@ -88,9 +88,11 @@ FunctionName(void)
 
 ## Formatting
 
+Tab size should be 4.
+
 ### Indenting
 
-Indent 4 spaces.
+Indent size should be 4.
 
 ### Literals
 
