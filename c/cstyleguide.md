@@ -33,6 +33,11 @@ Use singlar name unless its values are bit fields.
 
 Use plural if the enumeration has bit fields as values, also called flags enum.
 
+To form the enum name you may start (prefix) it with an underscore
+(_SCREAMING_NAKE_CASE), with tag (tagSCREAMING_SNAKE_CASE), with underscore
+and tag (_tagSCREAMING_SNAKE_CASE) or with nothing (SCREAMING_SNAKE_CASE).
+The first one is the preferred way.
+
 ```
 typedef enum _ENUM_NAME
 {
