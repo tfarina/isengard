@@ -16,6 +16,10 @@ The following are acceptable forms of file names (in order of preference):
 
 ### Macro Names
 
+There are two kinds of macros. Object-like macros, which resemble data objects,
+and function-like macros, which resemble function calls. So, naming a
+macro will depend on its kind.
+
 Should be all upper case (SCREAMING_SNAKE_CASE) with words separated by
 underscores (“_”).
 
