@@ -87,6 +87,14 @@ Function names should be verbs or verb phrases, because they are the means of do
 Should be in mixed case (CamelCase or PascalCase) with the first letter
 of each word capitalized.
 
+## A/HC/LC Pattern
+
+When naming functions, there is this useful pattern you may follow:
+
+```
+action (A) + high context (HC) + low context? (LC)
+```
+
 ```
 void
 FunctionName(void)
