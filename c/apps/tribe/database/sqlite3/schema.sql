@@ -4,8 +4,6 @@
  * To recreate the database: sqlite3 abdb.sqlite3 < schema.sql
  */
 
-PRAGMA foreign_keys=OFF;
-
 BEGIN TRANSACTION;
 
 /* Contacts table ----------------------------------------------------------- */
