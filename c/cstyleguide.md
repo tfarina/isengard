@@ -20,9 +20,9 @@ There are two kinds of macros. Object-like macros, which resemble data objects,
 and function-like macros, which resemble function calls. So, naming a
 macro will depend on its kind.
 
-If you are naming an object-like macro, use SCREAMING_SNAKE_CASE convention
-where all characters are upper case and words are separated by
-underscores (“_”).
+If you are naming an object-like macro, use a descriptive noun and
+the SCREAMING_SNAKE_CASE convention where all characters are upper case
+and words are separated by underscores (“_”).
 
 If, instead, you are naming a function-like macro, then use PascalCase
 convention.
