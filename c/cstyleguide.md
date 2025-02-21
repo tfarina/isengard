@@ -86,7 +86,8 @@ typedef union _UNION_NAME
 
 ### Function Names
 
-Function names should be verbs or verb phrases, because they are the means of doing action.
+Function names should be verbs or verb phrases in the imperative mood,
+because they are the means of doing action.
 
 Should be in mixed case (PascalCase) with the first letter of each word
 capitalized.
