@@ -92,14 +92,8 @@ because they are the means of doing action.
 Should be in mixed case (PascalCase) with the first letter of each word
 capitalized.
 
-Here is a list of verbs you may use to begin your function names: Activate,
-Add, Backup, Begin, Bind, Build, Call, Check, Clear, Close, Convert, Copy,
-Create, Deactivate, Debug, Decrypt, Define, Delete, Dequeue, Deregister,
-Destroy, Disable, Enable, Encrypt, End, Enter, Enum(erate), Erase, Escape,
-Execute, Find, Format, Get, Init(ialize), Load, Locate, Logon, Lookup,
-Make, Map, Move, Notify, Open, Prepare, Pulse, Purge, Query, Read, Register,
-Release, Remove, ReOpen, Replace, Report, Request, Set, Switch, Transmit,
-Unregister, Update, Verify, Wait, Write
+We have is a list of verbs you may use to begin your function names here:
+[verbs](verbs.txt)
 
 ## A/HC/LC Pattern
 
