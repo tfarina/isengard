@@ -9,6 +9,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 set(PROGRAM "echod")
 
 set(SRCS
+  base.h
   cfgfile.c
   cfgfile.h
   daemonize.c
@@ -36,7 +37,6 @@ set(SRCS
   security.h
   sig2str.c
   sig2str.h
-  stringize.h
   ulog.c
   ulog.h
   valid.c

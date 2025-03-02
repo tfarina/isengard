@@ -1,5 +1,5 @@
-#ifndef _STRINGIZE_H_INCLUDED_
-#define _STRINGIZE_H_INCLUDED_ 1
+#ifndef _BASE_H_INCLUDED_
+#define _BASE_H_INCLUDED_ 1
 
 /**
  * M_STRINGIZE:
@@ -27,4 +27,4 @@
 #define M_CONCAT_(A, B) A##B
 #define M_CONCAT(A, B)  M_CONCAT_(A, B)
 
-#endif  /* !defined(_STRINGIZE_H_INCLUDED_) */
+#endif  /* !defined(_BASE_H_INCLUDED_) */
