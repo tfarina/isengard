@@ -17,12 +17,12 @@
 
 ## Pascal Case
 
-This convention capitalizes the first letter of each word, with no
+The PascalCase convention capitalizes the first letter of each word, with no
 spaces or underscores between them.
 
 ## Camel Case
 
-This convention capitalizes the first letter of each word except the
+The camelCase convention capitalizes the first letter of each word except the
 first one, with no spaces or underscores between them.
 
 ## Snake Case
