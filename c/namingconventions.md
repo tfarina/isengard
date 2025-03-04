@@ -31,7 +31,13 @@ first one, with no spaces or underscores between them.
 
 ## Flat Case
 
+flatcase is a naming convention where all characters of each word are written
+in lowercase with no spaces, hyphens, or underscores between them.
+
 ## Upper Flat Case
+
+UPPERFLATCASE is a naming convention where all characters of each word are
+written in uppercase with no spaces, hyphens, or underscores between them.
 
 ## Pascal Snake Case
 
