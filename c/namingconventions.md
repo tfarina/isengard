@@ -1,18 +1,18 @@
 # Naming Conventions
 
-| Naming Convention | Example Format |
-| ---------------- | -------------- |
-| Pascal Case      | PascalCase     |
-| Camel Case       | camelCase      |
-| Snake Case       | snake_case     |
-| Kebab Case       | kebab-case     |
-| Flat Case        | flatcase       |
-| Upper Flat Case  | UPPERFLATCASE  |
-| Pascal Snake Case | Pascal_Snake_Case |
-| Camel Snake Case | camel_Snake_Case |
+| Naming Convention    | Example Format       |
+| -----------------    | --------------       |
+| Pascal Case          | PascalCase           |
+| Camel Case           | camelCase            |
+| Flat Case            | flatcase             |
+| Upper Flat Case      | UPPERFLATCASE        |
+| Snake Case           | snake_case           |
 | Screaming Snake Case | SCREAMING_SNAKE_CASE |
-| Train Case       | Train-Case     |
-| Cobol-Case       | COBOL-CASE     |
+| Pascal Snake Case    | Pascal_Snake_Case    |
+| Camel Snake Case     | camel_Snake_Case     |
+| Kebab Case           | kebab-case           |
+| Train Case           | Train-Case           |
+| Cobol-Case           | COBOL-CASE           |
 
 
 ## Pascal Case
