@@ -1,0 +1,9 @@
+Build/Installation
+
+```
+$ ./autogen.sh
+$ ./configure
+$ make
+[ Become root if necessary ]
+$ make install
+```
