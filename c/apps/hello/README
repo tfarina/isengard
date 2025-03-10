@@ -11,3 +11,13 @@ m4      - contains macro files
 po      - contains international language translations
 
 src     - contains source code
+
+Build/Installation
+
+```
+$ ./autogen.sh
+$ ./configure
+$ make
+[ Become root if necessary ]
+$ make install
+```
