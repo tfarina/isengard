@@ -30,6 +30,12 @@ int main(void)
   int arr[5] = {1, 2, 3, 4, 5};
 
   /*
+   * This example demonstrates the "counting from zero" in the sentence
+   * above. It retrieves the first element in the array.
+   */
+  printf("%d\n", arr[0]);
+
+  /*
    * The next two examples shows that the expression arr[2] is identical
    * to 2[arr]. The reason for that comes from the subscript operator []
    * definition.
@@ -49,6 +55,15 @@ int main(void)
   printf("%d\n", *(arr + 2));
 
   printf("%d\n", *(2 + arr));
+
+  /*
+   * In examples below we demonstrate the three ways of writing E1[0] using
+   * the pointer syntax to show they are all equivalent to E1[0] and yield
+   * the same result.
+   */
+  printf("%d\n", *(arr + 0));
+  printf("%d\n", *(0 + arr));
+  printf("%d\n", *arr);
 
   return 0;
 }
