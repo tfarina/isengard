@@ -1,6 +1,4 @@
 /**
- * SQLITE DATABASE SCHEMA FOR THE 'ADDRESS BOOK' APP.
- *
  * To recreate the database: sqlite3 abdb.sqlite3 < schema.sql
  */
 
