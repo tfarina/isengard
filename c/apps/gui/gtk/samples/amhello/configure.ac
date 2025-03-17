@@ -1,5 +1,12 @@
 # Process this file with autoconf to produce a configure script.
 
+dnl **************************
+dnl Define version information
+dnl **************************
+m4_define([m_major_version], [0])
+m4_define([m_minor_version], [1])
+m4_define([m_version], [m_major_version.m_minor_version])
+
 dnl *************************
 dnl Define bug-report address
 dnl *************************
@@ -9,7 +16,7 @@ m4_define([m_bug_report_url],
 dnl *******************
 dnl Initialize autoconf
 dnl *******************
-AC_INIT([amhello], [0.1], [m_bug_report_url])
+AC_INIT([amhello], [m_version], [m_bug_report_url])
 AC_PREREQ([2.69])
 
 dnl *******************
