@@ -1,9 +1,15 @@
 # Process this file with autoconf to produce a configure script.
 
+dnl *************************
+dnl Define bug-report address
+dnl *************************
+m4_define([m_bug_report_url],
+          [https://github.com/tfarina/isengard/issues])
+
 dnl *******************
 dnl Initialize autoconf
 dnl *******************
-AC_INIT([hello], [0.1], [bug-report@address])
+AC_INIT([hello], [0.1], [m_bug_report_url])
 AC_PREREQ([2.69])
 AC_CONFIG_HEADERS([config.h])
 
