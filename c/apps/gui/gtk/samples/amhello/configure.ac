@@ -29,6 +29,11 @@ dnl Check for basic programs
 dnl ************************
 AC_PROG_CC
 
+dnl ***************************
+dnl Check for required programs
+dnl ***************************
+AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
+
 PKG_PROG_PKG_CONFIG([0.29.1])
 
 dnl *************************
@@ -40,8 +45,6 @@ dnl ***************************
 dnl Check for required packages
 dnl ***************************
 PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= gtk_min_version])
-
-AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
 
 AC_CONFIG_FILES([
 Makefile
