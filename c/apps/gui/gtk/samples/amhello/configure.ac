@@ -18,11 +18,14 @@ AC_PROG_CC
 
 PKG_PROG_PKG_CONFIG([0.29.1])
 
-dnl Dependencies
-
+dnl *************************
+dnl Minimum required versions
+dnl *************************
 gtk_min_version=2.10.0
 
+dnl ***************************
 dnl Check for required packages
+dnl ***************************
 PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= gtk_min_version])
 
 AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
