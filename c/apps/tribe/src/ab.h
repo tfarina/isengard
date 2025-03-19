@@ -4,7 +4,7 @@
 #include "ab_contact.h"
 #include "alpm_list.h"
 
-int ab_init(char *dbpath);
+int ab_init(char *db_dir);
 int ab_fini(void);
 
 int ab_enum_contacts(alpm_list_t **pp_contact_list);
