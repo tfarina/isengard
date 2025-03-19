@@ -141,7 +141,8 @@ int ab_init(char *db_dir) {
 
   rc = _db_init_schema();
   if (rc < 0) {
-    _db_close();
+    sqlite3_close(hdb);
+    hdb = NULL;
     return -1;
   }
 
