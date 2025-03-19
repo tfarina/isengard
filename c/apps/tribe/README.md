@@ -14,7 +14,7 @@ Tribe depends on the following packages:
 To configure your build, run the following:
 
 ```
-$ mkdir build && cd build
+$ mkdir out && cd out
 $ cmake -GNinja ..
 ```
 
