@@ -24,6 +24,6 @@
  *
  * @return    The number of elements in the array, expressed as a size_t.
  */
-#define ARRAY_SIZE(array) (sizeof(array) / sizeof(*(array)))
+#define ARRAY_SIZE(array) (sizeof(array) / sizeof((array)[0]))
 
 #endif /* ARRAYSIZE_H_ */
