@@ -12,7 +12,7 @@
 | Camel Snake Case     | camel_Snake_Case     |
 | Kebab Case           | kebab-case           |
 | Train Case           | Train-Case           |
-| Cobol-Case           | COBOL-CASE           |
+| Cobol Case           | COBOL-CASE           |
 
 
 ## Pascal Case
