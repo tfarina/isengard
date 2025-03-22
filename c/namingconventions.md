@@ -27,7 +27,13 @@ first one, with no spaces or underscores between them.
 
 ## Snake Case
 
+snake_case is a naming convention where all letters are written in lowercase
+and each word is separated by an underscore.
+
 ## Kebab Case
+
+kebab-case is a naming convention where all letters are written in lowercase
+and each word is separated by an hyphen.
 
 ## Flat Case
 
