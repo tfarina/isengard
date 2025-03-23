@@ -1,4 +1,4 @@
-set(desktopdir ${DATADIR}/appliations)
+set(desktopdir ${DATADIR}/applications)
 
 configure_file(tribe.desktop.in
   tribe.desktop
