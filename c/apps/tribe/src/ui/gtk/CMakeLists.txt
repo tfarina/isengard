@@ -35,5 +35,5 @@ target_link_libraries(${TARGETNAME}
 )
 
 install(TARGETS ${TARGETNAME}
-  DESTINATION ${BINDIR}
+  RUNTIME DESTINATION ${BINDIR}
 )
