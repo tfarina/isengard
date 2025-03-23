@@ -50,6 +50,9 @@ foreach(flag IN LISTS c_flags)
     set(CMAKE_C_FLAGS "${flag} ${CMAKE_C_FLAGS}")
 endforeach()
 
+# *************************
+# Minimum required versions
+# *************************
 set(GTK_REQUIRED 2.10.0)
 
 # Check for required packages
