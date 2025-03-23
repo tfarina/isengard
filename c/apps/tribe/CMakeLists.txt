@@ -26,13 +26,12 @@ configure_file(
 list(APPEND CMAKE_MODULE_PATH
   ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
+include(GNUInstallDirs) # for CMAKE_INSTALL_<dir> variables
 include(DistTargets)
 include(UninstallTarget)
 
 find_package(PkgConfig REQUIRED)
 
-set(BINDIR "${CMAKE_INSTALL_PREFIX}/bin")
-set(DATADIR "${CMAKE_INSTALL_PREFIX}/share")
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
 # Place binaries for all build types in the same directory,

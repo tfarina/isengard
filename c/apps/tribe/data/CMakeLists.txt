@@ -1,4 +1,4 @@
-set(desktopdir ${DATADIR}/applications)
+set(desktopdir ${CMAKE_INSTALL_DATADIR}/applications)
 
 configure_file(tribe.desktop.in
   tribe.desktop
