@@ -32,11 +32,9 @@ include(UninstallTarget)
 
 find_package(PkgConfig REQUIRED)
 
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
-
 # Place binaries for all build types in the same directory,
 # so we know where to find it.
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR} CACHE PATH "Output directory for runtime binaries")
 
 list(APPEND c_flags
     -std=c99
