@@ -52,7 +52,9 @@ endforeach()
 # *************************
 set(GTK_REQUIRED 2.10.0)
 
+# ***************************
 # Check for required packages
+# ***************************
 pkg_check_modules(GTK REQUIRED
   gtk+-2.0>=${GTK_REQUIRED}
 )
