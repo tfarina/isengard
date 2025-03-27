@@ -30,8 +30,6 @@ include(GNUInstallDirs) # for CMAKE_INSTALL_<dir> variables
 include(DistTargets)
 include(UninstallTarget)
 
-find_package(PkgConfig REQUIRED)
-
 # Place binaries for all build types in the same directory,
 # so we know where to find it.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR} CACHE PATH "Output directory for runtime binaries")
@@ -46,6 +44,11 @@ list(APPEND c_flags
 foreach(flag IN LISTS c_flags)
     set(CMAKE_C_FLAGS "${flag} ${CMAKE_C_FLAGS}")
 endforeach()
+
+# ***************************
+# Check for required programs
+# ***************************
+find_package(PkgConfig REQUIRED)
 
 # *************************
 # Minimum required versions
