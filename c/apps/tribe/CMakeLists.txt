@@ -53,13 +53,13 @@ find_package(PkgConfig REQUIRED)
 # *************************
 # Minimum required versions
 # *************************
-set(GTK_REQUIRED 2.10.0)
+set(gtk_min_version 2.10.0)
 
 # ***************************
 # Check for required packages
 # ***************************
 pkg_check_modules(GTK REQUIRED
-  gtk+-2.0>=${GTK_REQUIRED}
+  gtk+-2.0>=${gtk_min_version}
 )
 
 add_subdirectory(data)
