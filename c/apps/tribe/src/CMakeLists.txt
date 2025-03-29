@@ -47,4 +47,5 @@ target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
 )
 
+add_subdirectory(cli)
 add_subdirectory(ui)
