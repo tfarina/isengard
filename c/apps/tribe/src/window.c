@@ -980,7 +980,7 @@ _populate_list_view(alpm_list_t *list)
 }
 
 GtkWidget *
-addrbook_window_new(void)
+create_main_window(void)
 {
   GtkWidget *vbox;
   GtkWidget *menuitem;

@@ -29,7 +29,7 @@ main(int argc, char **argv)
 
   gtk_init(&argc, &argv);
 
-  window = addrbook_window_new();
+  window = create_main_window();
 
   /* Show main window as late as possible. */
   gtk_widget_show_all(window);

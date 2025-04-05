@@ -3,6 +3,6 @@
 
 #include <gtk/gtk.h>
 
-GtkWidget *addrbook_window_new(void);
+GtkWidget *create_main_window(void);
 
 #endif  /* !defined(_WINDOW_H_INCLUDED_) */
