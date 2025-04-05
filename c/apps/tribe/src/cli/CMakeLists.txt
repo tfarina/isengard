@@ -31,3 +31,7 @@ target_include_directories(${TARGETNAME} PUBLIC
 target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
 )
+
+install(TARGETS ${TARGETNAME}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
