@@ -18,7 +18,7 @@ set(PACKAGE_BUGREPORT "")
 set(PACKAGE_URL "")
 
 configure_file(
-  "config.h.cmake"
+  "config.h.cmake.in"
   "${CMAKE_CURRENT_BINARY_DIR}/config.h"
 )
 add_definitions(-DHAVE_CONFIG_H)
