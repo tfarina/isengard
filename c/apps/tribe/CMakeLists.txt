@@ -21,6 +21,7 @@ configure_file(
   "config.h.cmake"
   "${CMAKE_CURRENT_BINARY_DIR}/config.h"
 )
+add_definitions(-DHAVE_CONFIG_H)
 
 # Load local modules
 list(APPEND CMAKE_MODULE_PATH
