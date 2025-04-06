@@ -39,7 +39,7 @@ PKG_PROG_PKG_CONFIG([0.29.1])
 dnl *************************
 dnl Minimum required versions
 dnl *************************
-gtk_min_version=2.10.0
+gtk_min_version=2.16.1
 
 dnl ***************************
 dnl Check for required packages
