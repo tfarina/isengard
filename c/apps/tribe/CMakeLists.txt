@@ -54,7 +54,7 @@ find_package(PkgConfig REQUIRED)
 # *************************
 # Minimum required versions
 # *************************
-set(gtk_min_version 2.10.0)
+set(gtk_min_version 2.16.1)
 
 # ***************************
 # Check for required packages
