@@ -58,11 +58,15 @@ find_package(PkgConfig REQUIRED)
 # *************************
 # Minimum required versions
 # *************************
+set(glib_min_version 2.19.7)
 set(gtk_min_version 2.16.1)
 
 # ***************************
 # Check for required packages
 # ***************************
+pkg_check_modules(GLIB REQUIRED
+  glib-2.0>=${glib_min_version}
+)
 pkg_check_modules(GTK REQUIRED
   gtk+-2.0>=${gtk_min_version}
 )
