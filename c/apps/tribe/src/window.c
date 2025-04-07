@@ -1021,23 +1021,19 @@ create_main_window(void)
   gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, TRUE, 0);
 
   /*
-   * List view
-   */
-  list_view = _create_list_view();
-
-  /*
    * Scrolled window
    */
-
-  /* Setup the scrolled window. */
   scrolledwin = gtk_scrolled_window_new(NULL, NULL);
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwin),
                                  GTK_POLICY_AUTOMATIC,
                                  GTK_POLICY_AUTOMATIC);
-
-  /* Attach the list view to the scrolled window. */
-  gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
   gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
+
+  /*
+   * List view
+   */
+  list_view = _create_list_view();
+  gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
 
   /*
    * Statusbar
