@@ -124,6 +124,11 @@ Indent size should be 4.
 * Hexadecimal prefix should be 0x.
 * Hexadecimal literals should use upper case letters A-F.
 
+## Error Variables
+
+You can name your local error variables like: rv, ret, retval, res, result,
+rc, err.
+
 ## The rest:
 
 * Avoid long functions.
