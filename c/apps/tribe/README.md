@@ -6,8 +6,8 @@ Tribe is an address book manager for the GNOME and Xfce desktop environments.
 
 Tribe depends on the following packages:
 
-* [GLib](https://gitlab.gnome.org/GNOME/glib/) >= 2.48.2
-* [GTK](https://www.gtk.org) >= 2.24.30
+* [GLib](https://gitlab.gnome.org/GNOME/glib/) >= 2.19.7
+* [GTK](https://www.gtk.org) >= 2.16.1
 
 ## Configure your build
 
