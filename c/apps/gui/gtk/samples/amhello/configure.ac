@@ -39,11 +39,13 @@ PKG_PROG_PKG_CONFIG([0.29.1])
 dnl *************************
 dnl Minimum required versions
 dnl *************************
+glib_min_version=2.19.7
 gtk_min_version=2.16.1
 
 dnl ***************************
 dnl Check for required packages
 dnl ***************************
+PKG_CHECK_MODULES([GLIB], [glib-2.0 >= glib_min_version])
 PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= gtk_min_version])
 
 AC_CONFIG_FILES([
