@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.6)
 project(tribe C)
 
+# **************************
+# Define version information
+# **************************
 # For a release candidate, set VERSION_EXTRA to -rc1, -rc2, and so on.
 # Example: set(VERSION_EXTRA "-rc1")
 # For a release, leave VERSION_EXTRA empty.
