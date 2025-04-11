@@ -14,7 +14,9 @@ set(VERSION_PATCH "0")
 set(VERSION_EXTRA "")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_EXTRA}")
 
-# Set the identity of this package.
+# **********************************
+# Define the identity of the package
+# **********************************
 set(PACKAGE "${PROJECT_NAME}")
 set(PACKAGE_NAME "${PROJECT_NAME}")
 set(PACKAGE_TARNAME "${PROJECT_NAME}")
