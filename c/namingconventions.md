@@ -30,6 +30,11 @@ first one, with no spaces or underscores between them.
 snake_case is a naming convention where all letters are written in lowercase
 and each word is separated by an underscore.
 
+## Screaming Snake Case
+
+SCREAMING_SNAKE_CASE is a naming convention where all letters are written in
+uppercase and each word is separated by an underscore.
+
 ## Kebab Case
 
 kebab-case is a naming convention where all letters are written in lowercase
@@ -48,8 +53,6 @@ written in uppercase with no spaces, hyphens, or underscores between them.
 ## Pascal Snake Case
 
 ## Camel Snake Case
-
-## Screaming Snake Case
 
 ## Train Case
 
