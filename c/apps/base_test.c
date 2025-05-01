@@ -27,5 +27,7 @@ main(void)
 
   printf("%s\n", STR_VERSION);
 
+  printf("%s\n", M_STRINGIZE_(3));
+
   return 0;
 }

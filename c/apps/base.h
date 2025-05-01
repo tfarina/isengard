@@ -4,11 +4,11 @@
 /**
  * M_STRINGIZE:
  *
- * Turns the macro @x into a string.
+ * Turns the argument @x into a string.
  *
  * See https://c-faq.com/ansi/stringize.html for an explanation.
  *
- * @param   x   A macro.
+ * @param   x   A token.
  */
 #define M_STRINGIZE_(x) #x
 #define M_STRINGIZE(x)  M_STRINGIZE_(x)
