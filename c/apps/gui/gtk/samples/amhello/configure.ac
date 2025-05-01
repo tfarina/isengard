@@ -3,20 +3,20 @@
 dnl **************************
 dnl Define version information
 dnl **************************
-m4_define([m_major_version], [0])
-m4_define([m_minor_version], [1])
-m4_define([m_version], [m_major_version.m_minor_version])
+m4_define([amh_major_version], [0])
+m4_define([amh_minor_version], [1])
+m4_define([amh_version], [amh_major_version.amh_minor_version])
 
 dnl *************************
 dnl Define bug-report address
 dnl *************************
-m4_define([m_bug_report_url],
+m4_define([amh_bug_report_url],
           [https://github.com/tfarina/isengard/issues])
 
 dnl *******************
 dnl Initialize autoconf
 dnl *******************
-AC_INIT([amhello], [m_version], [m_bug_report_url])
+AC_INIT([amhello], [amh_version], [amh_bug_report_url])
 AC_PREREQ([2.69])
 
 dnl *******************
