@@ -4,15 +4,15 @@ project(tribe C)
 # **************************
 # Define version information
 # **************************
-# For a release candidate, set VERSION_EXTRA to -rc1, -rc2, and so on.
-# Example: set(VERSION_EXTRA "-rc1")
-# For a release, leave VERSION_EXTRA empty.
-# Example: set(VERSION_EXTRA "")
+# For a release candidate, set VERSION_SUFFIX to -rc1, -rc2, and so on.
+# Example: set(VERSION_SUFFIX "-rc1")
+# For a release, leave VERSION_SUFFIX empty.
+# Example: set(VERSION_SUFFIX "")
 set(VERSION_MAJOR "0")
 set(VERSION_MINOR "1")
 set(VERSION_MICRO "0")
-set(VERSION_EXTRA "")
-set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}${VERSION_EXTRA}")
+set(VERSION_SUFFIX "")
+set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}${VERSION_SUFFIX}")
 
 # **********************************
 # Define the identity of the package
