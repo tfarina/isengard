@@ -3,10 +3,10 @@
 dnl **************************
 dnl Define version information
 dnl **************************
-m4_define([he_major_version], [0])
-m4_define([he_minor_version], [1])
-m4_define([he_micro_version], [0])
-m4_define([he_version], [he_major_version.he_minor_version.he_micro_version])
+m4_define([he_version_major], [0])
+m4_define([he_version_minor], [1])
+m4_define([he_version_micro], [0])
+m4_define([he_version], [he_version_major.he_version_minor.he_version_micro])
 
 dnl *************************
 dnl Define bug-report address
