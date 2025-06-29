@@ -17,28 +17,29 @@
 
 ## Pascal Case
 
-The PascalCase convention capitalizes the first letter of each word, with no
-spaces or underscores between them.
+PascalCase is a naming convention where all words start with a capital letter
+and are joined without separators.
 
 ## Camel Case
 
-The camelCase convention capitalizes the first letter of each word except the
-first one, with no spaces or underscores between them.
+camelCase is a naming convention where the first word starts with a lowercase
+letter, and each subsequent word starts with a capital letter, with no
+separators.
 
 ## Snake Case
 
-snake_case is a naming convention where all letters are written in lowercase
-and each word is separated by an underscore.
+snake_case is a naming convention where all words are written in lowercase and
+separated by underscores.
 
 ## Screaming Snake Case
 
-SCREAMING_SNAKE_CASE is a naming convention where all letters are written in
-uppercase and each word is separated by an underscore.
+SCREAMING_SNAKE_CASE is a naming convention where all words are written in
+uppercase and separated by underscores.
 
 ## Kebab Case
 
-kebab-case is a naming convention where all letters are written in lowercase
-and each word is separated by an hyphen.
+kebab-case is a naming convention where all words are written in lowercase
+and are separated by hyphens.
 
 ## Flat Case
 
