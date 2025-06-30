@@ -53,8 +53,21 @@ are written together with no separators.
 
 ## Pascal Snake Case
 
+Pascal_Snake_Case is a naming convention where each word starts with a capital
+letter and words are separated by underscores.
+
 ## Camel Snake Case
+
+camel_Snake_Case is a naming convention where the first word is lowercase, and
+subsequent words start with a capital letter, with words separated by
+underscores.
 
 ## Train Case
 
+Train-Case is a naming convention where each word starts with a capital letter
+and words are separated by hyphens.
+
 ## Cobol Case
+
+COBOL-CASE is a naming convention where all words are uppercase and separated
+by hyphens.
