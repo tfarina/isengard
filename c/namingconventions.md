@@ -43,13 +43,13 @@ by hyphens.
 
 ## Flat Case
 
-flatcase is a naming convention where all characters of each word are written
-in lowercase with no spaces, hyphens, or underscores between them.
+flatcase is a naming convention where all letters are lowercase and words are
+written together with no separators.
 
 ## Upper Flat Case
 
-UPPERFLATCASE is a naming convention where all characters of each word are
-written in uppercase with no spaces, hyphens, or underscores between them.
+UPPERFLATCASE is a naming convention where all letters are uppercase and words
+are written together with no separators.
 
 ## Pascal Snake Case
 
