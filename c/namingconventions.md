@@ -48,8 +48,8 @@ separated by underscores.
 
 ## Pascal Snake Case
 
-Pascal_Snake_Case is a naming convention where each word starts with a capital
-letter and words are separated by underscores.
+Pascal_Snake_Case is a naming convention where all words start with a capital
+letter and are separated by underscores.
 
 ## Camel Snake Case
 
@@ -64,8 +64,8 @@ by hyphens.
 
 ## Train Case
 
-Train-Case is a naming convention where each word starts with a capital letter
-and words are separated by hyphens.
+Train-Case is a naming convention where all words start with a capital letter
+and are separated by hyphens.
 
 ## Cobol Case
 
