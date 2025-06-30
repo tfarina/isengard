@@ -28,18 +28,18 @@ separators.
 
 ## Snake Case
 
-snake_case is a naming convention where all words are written in lowercase and
-separated by underscores.
+snake_case is a naming convention where all words are lowercase and separated
+by underscores.
 
 ## Screaming Snake Case
 
-SCREAMING_SNAKE_CASE is a naming convention where all words are written in
-uppercase and separated by underscores.
+SCREAMING_SNAKE_CASE is a naming convention where all words are uppercase and
+separated by underscores.
 
 ## Kebab Case
 
-kebab-case is a naming convention where all words are written in lowercase
-and are separated by hyphens.
+kebab-case is a naming convention where all words are lowercase and separated
+by hyphens.
 
 ## Flat Case
 
