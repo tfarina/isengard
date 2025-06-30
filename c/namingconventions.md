@@ -26,21 +26,6 @@ camelCase is a naming convention where the first word starts with a lowercase
 letter, and each subsequent word starts with a capital letter, with no
 separators.
 
-## Snake Case
-
-snake_case is a naming convention where all words are lowercase and separated
-by underscores.
-
-## Screaming Snake Case
-
-SCREAMING_SNAKE_CASE is a naming convention where all words are uppercase and
-separated by underscores.
-
-## Kebab Case
-
-kebab-case is a naming convention where all words are lowercase and separated
-by hyphens.
-
 ## Flat Case
 
 flatcase is a naming convention where all letters are lowercase and words are
@@ -50,6 +35,16 @@ written together with no separators.
 
 UPPERFLATCASE is a naming convention where all letters are uppercase and words
 are written together with no separators.
+
+## Snake Case
+
+snake_case is a naming convention where all words are lowercase and separated
+by underscores.
+
+## Screaming Snake Case
+
+SCREAMING_SNAKE_CASE is a naming convention where all words are uppercase and
+separated by underscores.
 
 ## Pascal Snake Case
 
@@ -61,6 +56,11 @@ letter and words are separated by underscores.
 camel_Snake_Case is a naming convention where the first word is lowercase, and
 subsequent words start with a capital letter, with words separated by
 underscores.
+
+## Kebab Case
+
+kebab-case is a naming convention where all words are lowercase and separated
+by hyphens.
 
 ## Train Case
 
