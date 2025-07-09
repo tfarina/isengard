@@ -61,7 +61,8 @@ Should be in mixed case (camelCase) with the first word in lower case and
 every other word starts with a capital letter.
 
 ```
-int numEntries;
+int maxSpeed;
+float avgTemp;
 char firstName[64];
 ```
 
