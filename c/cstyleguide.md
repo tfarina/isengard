@@ -60,8 +60,8 @@ typedef enum _ENUM_NAME
 
 ### Variable Names
 
-Use camelCase: start with a lowercase letter and capitalize the first letter
-of each subsequent word, using no separators.
+Variables should use camelCase. Start with a lowercase letter and capitalize
+the first letter of each subsequent word, using no separators.
 
 Name variables with nouns, noun phrases, or adjectives.
 
