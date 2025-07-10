@@ -96,11 +96,10 @@ typedef union _UNION_NAME
 
 ### Function Names
 
-Function names should be verbs or verb phrases in the imperative mood,
-because they are the means of doing action.
+Functions should use PascalCase. Capitalize the first letter of each word
+and join them without separators.
 
-Should be in mixed case (PascalCase) with the first letter of each word
-capitalized.
+Use a verb or verb phrase in the imperative mood.
 
 We have is a list of verbs you may use to begin your function names here:
 [verbs](verbs.txt)
