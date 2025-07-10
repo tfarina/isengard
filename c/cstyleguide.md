@@ -97,13 +97,13 @@ capitalized.
 We have is a list of verbs you may use to begin your function names here:
 [verbs](verbs.txt)
 
-## A/HC/LC Pattern
+#### Function Naming Pattern: A/HC/LC
 
-When naming functions, there is this useful pattern you may follow:
+Use this pattern when applicable:
 
-```
-action (A) + high context (HC) + low context? (LC)
-```
+- **A** = Action (verb)
+- **HC** = High-context noun (what)
+- **LC** = Optional low-context (where, how, why)
 
 ```
 void
