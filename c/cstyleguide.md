@@ -55,10 +55,10 @@ typedef enum _ENUM_NAME
 
 ### Variable Names
 
-Name variables with nouns, noun phrases, or adjectives.
+Use camelCase: start with a lowercase letter and capitalize the first letter
+of each subsequent word, using no separators.
 
-Should be in mixed case (camelCase) with the first word in lower case and
-every other word starts with a capital letter.
+Name variables with nouns, noun phrases, or adjectives.
 
 ```
 int maxSpeed;
