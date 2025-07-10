@@ -36,8 +36,10 @@ convention.
 
 ### Naming Enumerations
 
-Name enumeration (enum) types with nouns or noun phrases. All characters
-in upper case (SCREAMING_SNAKE_CASE) with words separated by underscores (“_”).
+Enum types and their values should use SCREAMING_SNAKE_CASE. Write all words in
+uppercase and separate them with underscores.
+
+Use a noun or noun phrase for the name.
 
 Use singlar name unless its values are bit fields.
 
