@@ -77,7 +77,8 @@ char firstName[64];
 Structs and unions should use SCREAMING_SNAKE_CASE. Write all words in
 uppercase and separate them with underscores.
 
-Use a noun or noun phrase for the name.
+Use a noun or noun phrase for the name. Prefix the tag with an underscore (_),
+and use the same uppercase name for the typedef.
 
 **Example:**
 ```
