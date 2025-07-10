@@ -4,7 +4,8 @@
 
 ### File Names
 
-Should be all lower case and can include underscores ("_") or dashes ("-").
+File names should be all lowercase and may use underscores `_` or dashes `-`
+as separators.
 
 Name files using a noun or noun phrase, but NOT verbs.
 
