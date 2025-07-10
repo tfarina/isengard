@@ -28,6 +28,7 @@ and words are separated by underscores (“_”).
 If, instead, you are naming a function-like macro, then use PascalCase
 convention.
 
+**Example:**
 ```
 #define BUFFER_SIZE 1024
 #define PRINTER_PAUSED 0x00000001
@@ -47,6 +48,7 @@ To form the enum name you may start (prefix) it with an underscore
 and tag (_tagSCREAMING_SNAKE_CASE) or with nothing (SCREAMING_SNAKE_CASE).
 The first one is the preferred way.
 
+**Example:**
 ```
 typedef enum _ENUM_NAME
 {
@@ -61,6 +63,7 @@ of each subsequent word, using no separators.
 
 Name variables with nouns, noun phrases, or adjectives.
 
+**Example:**
 ```
 int maxSpeed;
 float avgTemp;
@@ -72,6 +75,7 @@ char firstName[64];
 Name types (struct or union) with nouns or noun phrases, with all characters
 upper case (SCREAMING_SNAKE_CASE) and words separated by underscores (“_”).
 
+**Example:**
 ```
 typedef struct _STRUCT_NAME
 {
@@ -105,6 +109,7 @@ Use this pattern when applicable:
 - **HC** = High-context noun (what)
 - **LC** = Optional low-context (where, how, why)
 
+**Example:**
 ```
 void
 FunctionName(void)
