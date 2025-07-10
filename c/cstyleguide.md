@@ -74,8 +74,10 @@ char firstName[64];
 
 ### Type Names
 
-Name types (struct or union) with nouns or noun phrases, with all characters
-upper case (SCREAMING_SNAKE_CASE) and words separated by underscores (“_”).
+Structs and unions should use SCREAMING_SNAKE_CASE. Write all words in
+uppercase and separate them with underscores.
+
+Use a noun or noun phrase for the name.
 
 **Example:**
 ```
