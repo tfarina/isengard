@@ -61,10 +61,11 @@ existing codebases or for consistency with external codebases.
 
 **Example:**
 ```
-typedef enum _ENUM_NAME
+typedef enum _COLOR_MODE
 {
-    ...
-} ENUM_NAME;
+    COLOR_MODE_RGB,
+    COLOR_MODE_CMYK
+} COLOR_MODE;
 ```
 
 ### Variable Names
