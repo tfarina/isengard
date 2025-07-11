@@ -21,6 +21,8 @@ There are two kinds of macros: **object-like** and **function-like**.
 
 #### Object-Like Macros
 
+Object-like macros should use SCREAMING_SNAKE_CASE.
+
 Object-like macros represent constants or values.
 
 **Example:**
@@ -30,6 +32,8 @@ Object-like macros represent constants or values.
 ```
 
 #### Function-Like Macros
+
+Function-like macros should use PascalCase.
 
 Function-like macros resemble function calls.
 
