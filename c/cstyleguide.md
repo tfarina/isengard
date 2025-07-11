@@ -17,22 +17,21 @@ The following are acceptable forms of file names (in order of preference):
 
 ### Macro Names
 
-There are two kinds of macros. Object-like macros, which resemble data objects,
-and function-like macros, which resemble function calls. So, naming a
-macro will depend on its kind.
+There are two kinds of macros: **object-like** and **function-like**.
 
-If you are naming an object-like macro, use a descriptive noun and
-the SCREAMING_SNAKE_CASE convention where all characters are upper case
-and words are separated by underscores (“_”).
+#### Object-Like Macros
 
-If, instead, you are naming a function-like macro, then use PascalCase
-convention.
+Object-like macros represent constants or values.
 
 **Example:**
 ```
 #define BUFFER_SIZE 1024
 #define PRINTER_PAUSED 0x00000001
 ```
+
+#### Function-Like Macros
+
+Function-like macros resemble function calls.
 
 ### Enumeration Names
 
