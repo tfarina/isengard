@@ -23,7 +23,7 @@ There are two kinds of macros: **object-like** and **function-like**.
 
 Object-like macros should use SCREAMING_SNAKE_CASE.
 
-Object-like macros represent constants or values.
+These macros typically represent constants, numeric values, or flags.
 
 **Example:**
 ```
