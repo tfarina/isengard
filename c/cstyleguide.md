@@ -137,8 +137,8 @@ Indent size should be 4.
 
 ### Literals
 
-* Hexadecimal prefix should be 0x.
-* Hexadecimal literals should use upper case letters A-F.
+* Prefix hexadecimal values with 0x.
+* Use uppercase letters A-F.
 
 ## Error Variables
 
