@@ -45,7 +45,8 @@ Use singlar name unless the values are bit flags - in that case, use a plural
 name.
 
 Prefix the enum tag with an underscore (`_`). This makes the tag distinct from
-the typedef name and reduces the chance of name clashes.
+the typedef name and reduces the chance of name clashes. Use the same uppercase
+name for the typedef.
 
 Alternative forms exist, such as:
 - `tagENUM_NAME` — prefix with `tag`
