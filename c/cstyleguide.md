@@ -34,7 +34,7 @@ convention.
 #define PRINTER_PAUSED 0x00000001
 ```
 
-### Naming Enumerations
+### Enumeration Names
 
 Enum types and their values should use SCREAMING_SNAKE_CASE. Write all words in
 uppercase and separate them with underscores.
