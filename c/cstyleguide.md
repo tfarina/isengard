@@ -21,7 +21,8 @@ There are two kinds of macros: **object-like** and **function-like**.
 
 #### Object-Like Macros
 
-Object-like macros should use SCREAMING_SNAKE_CASE.
+Object-like macros should use SCREAMING_SNAKE_CASE. Write all words in
+uppercase and separate them with underscores.
 
 These macros typically represent constants, numeric values, or flags.
 
@@ -33,7 +34,8 @@ These macros typically represent constants, numeric values, or flags.
 
 #### Function-Like Macros
 
-Function-like macros should use PascalCase.
+Function-like macros should use PascalCase. Capitalize the first letter of
+each word and join them without separators.
 
 Function-like macros resemble function calls.
 
