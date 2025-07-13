@@ -90,19 +90,19 @@ uppercase and separate them with underscores.
 Use a noun or noun phrase for the name. Prefix the tag with an underscore (_),
 and use the same uppercase name for the typedef.
 
-**Example:**
+**Examples:**
 ```
-typedef struct _STRUCT_NAME
+typedef struct _PERSON
 {
-    ...
-} STRUCT_NAME;
-```
+    char name[50];
+    int age;
+} PERSON;
 
-```
-typedef union _UNION_NAME
+typedef union _DATA
 {
-    ...
-} UNION_NAME;
+    int intValue;
+    float floatValue;
+} DATA;
 ```
 
 ### Function Names
