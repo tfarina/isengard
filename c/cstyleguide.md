@@ -7,7 +7,7 @@
 File names should be all lowercase and may use underscores `_` or dashes `-`
 as separators.
 
-Name files using a noun or noun phrase, but NOT verbs.
+Use a noun or noun phrase, not verbs.
 
 The following are acceptable forms of file names (in order of preference):
 
