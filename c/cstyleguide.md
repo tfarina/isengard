@@ -137,13 +137,10 @@ Use this pattern when applicable:
 - **HC** = High-context noun (what)
 - **LC** = Optional low-context (where, how, why)
 
-**Example:**
+**Examples:**
 ```
-void
-FunctionName(void)
-{
-    ...
-}
+void LoadUserSettings(void);
+int SaveFileToPath(char const *path);
 ```
 
 ## Formatting
