@@ -26,10 +26,11 @@ uppercase and separate them with underscores.
 
 These macros typically represent constants, numeric values, or flags.
 
-**Example:**
+**Examples:**
 ```
 #define BUFFER_SIZE 1024
 #define PRINTER_PAUSED 0x00000001
+#define DEFAULT_TIMEOUT_MS 5000
 ```
 
 #### Function-Like Macros
