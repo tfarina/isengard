@@ -38,7 +38,18 @@ These macros typically represent constants, numeric values, or flags.
 Function-like macros should use PascalCase. Capitalize the first letter of
 each word and join them without separators.
 
-Function-like macros resemble function calls.
+These macros resemble function calls.
+
+**Examples:**
+```
+#define MaxValue(x, y) ((x) > (y) ? (x) : (y))
+#define Swap(a, b)     \
+    do {               \
+        int temp = a;  \
+        a = b;         \
+        b = temp;      \
+    } while (0)
+```
 
 ### Enumeration Names
 
