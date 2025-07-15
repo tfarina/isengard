@@ -4,7 +4,7 @@
 /**
  * M_STRINGIZE:
  *
- * Turns the macro @x into a string.
+ * Converts the macro argument @x into a string literal.
  *
  * See https://c-faq.com/ansi/stringize.html for an explanation.
  *
