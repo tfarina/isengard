@@ -6,7 +6,8 @@
  *
  * Converts the macro argument @x into a string literal.
  *
- * See https://c-faq.com/ansi/stringize.html for an explanation.
+ * This two-step macro indirection ensures that if @x is itself a macro,
+ * it gets expanded before being converted to a string.
  *
  * @param   x   The argument to be stringified.
  */
