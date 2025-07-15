@@ -3,3 +3,4 @@ project(CPlayground C)
 
 add_subdirectory(common)
 add_subdirectory(experiments)
+add_subdirectory(tests)
