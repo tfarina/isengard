@@ -8,7 +8,7 @@
  *
  * See https://c-faq.com/ansi/stringize.html for an explanation.
  *
- * @param   x   A macro.
+ * @param   x   The argument to be stringified.
  */
 #define M_STRINGIZE_(x) #x
 #define M_STRINGIZE(x)  M_STRINGIZE_(x)
