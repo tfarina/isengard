@@ -2,8 +2,6 @@
 #define _BASE_H_INCLUDED_ 1
 
 /**
- * M_STRINGIZE:
- *
  * Converts the macro argument `x` into a string literal.
  *
  * This two-step macro indirection ensures that if `x` is itself a macro,
