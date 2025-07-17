@@ -4,9 +4,9 @@
 /**
  * M_STRINGIZE:
  *
- * Converts the macro argument @x into a string literal.
+ * Converts the macro argument `x` into a string literal.
  *
- * This two-step macro indirection ensures that if @x is itself a macro,
+ * This two-step macro indirection ensures that if `x` is itself a macro,
  * it gets expanded before being converted to a string.
  *
  * @param   x   The argument to be stringified.
