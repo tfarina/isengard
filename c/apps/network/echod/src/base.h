@@ -17,7 +17,7 @@
 /**
  * M_CONCAT:
  *
- * Merges two tokens into one while expanding macros.
+ * Concatenates two tokens into a single token.
  *
  * Refer to https://gnu-c-language-manual.github.io/GNU-C-Language-Manual/Concatenation.html
  * for more information.
