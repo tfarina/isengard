@@ -13,8 +13,6 @@
 #define M_STRINGIZE(x)  M_STRINGIZE_(x)
 
 /**
- * M_CONCAT:
- *
  * Concatenates two tokens into a single token.
  *
  * This macro joins the two arguments into a single token. It's commonly
