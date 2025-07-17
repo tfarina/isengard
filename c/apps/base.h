@@ -22,10 +22,10 @@
  * Refer to https://gnu-c-language-manual.github.io/GNU-C-Language-Manual/Concatenation.html
  * for more information.
  *
- * @param   A   The first token.
- * @param   B   The second token.
+ * @param   a   The first token.
+ * @param   b   The second token.
  */
-#define M_CONCAT_(A, B) A##B
-#define M_CONCAT(A, B)  M_CONCAT_(A, B)
+#define M_CONCAT_(a, b) a##b
+#define M_CONCAT(a, b)  M_CONCAT_(a, b)
 
 #endif  /* !defined(_BASE_H_INCLUDED_) */
