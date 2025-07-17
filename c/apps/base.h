@@ -22,8 +22,8 @@
  * Refer to https://gnu-c-language-manual.github.io/GNU-C-Language-Manual/Concatenation.html
  * for more information.
  *
- * @param   x   The first token.
- * @param   y   The second token.
+ * @param   x   First token to concatenate.
+ * @param   y   Second token to concatenate.
  */
 #define M_CONCAT_(x, y) x##y
 #define M_CONCAT(x, y)  M_CONCAT_(x, y)
