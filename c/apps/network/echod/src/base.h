@@ -19,8 +19,12 @@
  *
  * Concatenates two tokens into a single token.
  *
- * Refer to https://gnu-c-language-manual.github.io/GNU-C-Language-Manual/Concatenation.html
- * for more information.
+ * This macro joins the two arguments into a single token. It's commonly
+ * used in macro metaprogramming when generating unique identifiers or
+ * symbol names.
+ *
+ * Internally, it uses a helper macro (M_CONCAT_) to ensure correct
+ * expansion when x or y are themselves macros.
  *
  * @param   x   First token to concatenate.
  * @param   y   Second token to concatenate.
