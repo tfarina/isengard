@@ -183,7 +183,6 @@ add_executable(promptuser promptuser.c)
 add_executable(promptpassword promptpassword.c)
 
 add_executable(freenull freenull.c)
-add_executable(base_test base_test.c)
 
 add_executable(atm atm.c)
 
