@@ -31,6 +31,12 @@ dnl Check for basic programs
 dnl ************************
 AC_PROG_CC
 
+dnl *******************
+dnl Enable i18n support
+dnl *******************
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.7])
+
 AC_CONFIG_FILES([
 Makefile
 src/Makefile

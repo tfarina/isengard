@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "running: autopoint"
+autopoint --force
 echo "running: aclocal"
 aclocal
 echo "running: autoconf"

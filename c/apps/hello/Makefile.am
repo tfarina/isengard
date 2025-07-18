@@ -1,3 +1,3 @@
 ## Process this file with automake to generate a Makefile.in.
 
-SUBDIRS = src
+SUBDIRS = src po
