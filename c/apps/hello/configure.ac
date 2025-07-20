@@ -45,6 +45,7 @@ AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"],
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
+po/Makefile.in
 ])
 
 AC_OUTPUT
