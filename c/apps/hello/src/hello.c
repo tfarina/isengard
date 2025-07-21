@@ -2,6 +2,8 @@
 #include <libintl.h>
 #include <stdio.h>
 
+#define _(String) gettext(String)
+
 int
 main(
   void
@@ -11,7 +13,7 @@ main(
   bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
   textdomain(GETTEXT_PACKAGE);
 
-  fputs("Hello, world!\n", stdout);
+  fputs(_("Hello, world!\n"), stdout);
 
   return 0;
 }
