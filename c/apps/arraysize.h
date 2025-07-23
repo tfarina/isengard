@@ -2,11 +2,6 @@
 #define ARRAYSIZE_H_
 
 /**
- * The undef is needed in case some other header already defined a macro like this.
- */
-#undef ARRAY_SIZE
-
-/**
  * @brief Computes the number of elements in a statically allocated array.
  *
  * @code
@@ -24,6 +19,8 @@
  *
  * @return    The number of elements in the array, expressed as a size_t.
  */
+#ifndef ARRAY_SIZE
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof((array)[0]))
+#endif
 
 #endif /* ARRAYSIZE_H_ */
