@@ -4,20 +4,22 @@
 /**
  * @brief Computes the number of elements in a statically allocated array.
  *
+ * This macro returns the number of elements in an array at compile time.
+ * It is intended for use with arrays that are declared locally or globally,
+ * not with pointers or dynamically allocated arrays.
+
  * @code
  * int array[10];
- * size_t array_size = ARRAY_SIZE(array);
+ * size_t array_size = ARRAY_SIZE(array); // array_size will be 10
  * @endcode
  *
- * @note Ensure that 'array' is actually an array, not a pointer. Otherwise,
- *       ARRAY_SIZE will produce erroneous results if 'array' is a pointer.
- *       Pay attention to the fact that an array passed as a parameter to a
- *       function decays to a pointer, which means that within the function
- *       you can't use ARRAY_SIZE.
- *
- * @param[in] array The name of the array.
- *
- * @return    The number of elements in the array, expressed as a size_t.
+ * @warning This macro only works with statically allocated arrays. If used
+ * with a pointer (including arrays passed to functions, they decay to a
+ * pointer), the result will be incorrect because the `sizeof` operator
+ * returns the size of the pointer not the array it may point to.
+
+ * @param[in] array A statically allocated array.
+ * @return The number of elements in the array, as a `size_t`.
  */
 #ifndef ARRAY_SIZE
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof((array)[0]))
