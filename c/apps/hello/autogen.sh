@@ -1,7 +1,10 @@
 #!/bin/sh
 
-echo "running: autopoint"
-autopoint --force
+if [ -d po ] && command -v gettextize >/dev/null 2>&1; then
+    echo "Running gettextize..."
+    gettextize --force --copy || exit 1
+fi
+
 echo "running: aclocal"
 aclocal
 echo "running: autoconf"
