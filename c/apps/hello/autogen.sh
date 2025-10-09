@@ -5,12 +5,5 @@ if [ -d po ] && command -v gettextize >/dev/null 2>&1; then
     gettextize --force --copy || exit 1
 fi
 
-echo "running: aclocal"
-aclocal
-echo "running: autoconf"
-autoconf
-echo "running: header"
-autoheader
-echo "running: automake"
-automake --add-missing
-echo "Done."
+echo "Running autoreconf..."
+autoreconf --verbose --force --install || exit 1
