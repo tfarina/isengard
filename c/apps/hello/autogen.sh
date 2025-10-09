@@ -7,3 +7,10 @@ fi
 
 echo "Running autoreconf..."
 autoreconf --verbose --force --install || exit 1
+
+if [ -z "$NOCONFIGURE" ]; then
+    echo "Running ./configure..."
+    ./configure "$@"
+else
+    echo "Skipping configure process because NOCONFIGURE is set."
+fi
