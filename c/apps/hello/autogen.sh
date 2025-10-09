@@ -17,7 +17,7 @@ cd "$ORIGDIR" || exit $?
 
 if [ -z "$NOCONFIGURE" ]; then
     echo "Running ./configure..."
-    ./configure "$@"
+    "$srcdir"/configure "$@"
 else
     echo "Skipping configure process because NOCONFIGURE is set."
 fi
