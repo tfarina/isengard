@@ -25,46 +25,61 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
   char const *email;
 
   entry_text = gtk_entry_get_text(GTK_ENTRY(fname_entry));
-  if (0 == strlen(entry_text)) {
+  if (0 == strlen(entry_text))
+  {
     first_name = "";
     ab_contact_set_first_name(current_contact, first_name);
-  } else {
+  }
+  else
+  {
     ab_contact_set_first_name(current_contact, entry_text);
   }
 
   entry_text = gtk_entry_get_text(GTK_ENTRY(lname_entry));
-  if (0 == strlen(entry_text)) {
+  if (0 == strlen(entry_text))
+  {
     last_name = "";
     ab_contact_set_last_name(current_contact, last_name);
-  } else {
+  }
+  else
+  {
     ab_contact_set_last_name(current_contact, entry_text);
   }
 
   entry_text = gtk_entry_get_text(GTK_ENTRY(email_entry));
-  if (0 == strlen(entry_text)) {
+  if (0 == strlen(entry_text))
+  {
     email = "";
     ab_contact_set_email(current_contact, email);
-  } else {
+  }
+  else
+  {
     ab_contact_set_email(current_contact, entry_text);
   }
 
-  if (action_code == AC_ADD) {
+  if (action_code == AC_ADD)
+  {
     ab_add_contact(current_contact);
-  } else {
+  }
+  else
+  {
     ab_update_contact(current_contact);
   }
 
   gtk_widget_destroy(contact_window);
 
-  if (add_edit_post_cb) {
+  if (add_edit_post_cb)
+  {
     add_edit_post_cb(current_contact);
   }
 }
 
 static void _contact_editor_cancel_cb(GtkWidget *widget, gboolean *cancelled)
 {
-  if (action_code == AC_ADD) {
-    if (current_contact) {
+  if (action_code == AC_ADD)
+  {
+    if (current_contact)
+    {
       ab_contact_destroy(current_contact);
     }
   }
@@ -77,9 +92,9 @@ static gboolean _on_contact_window_key_press_cb(GtkWidget *widget,
 						gpointer data)
 {
   if (event && event->keyval == GDK_KEY_Escape)
-    {
-      gtk_widget_destroy(contact_window);
-    }
+  {
+    gtk_widget_destroy(contact_window);
+  }
   return FALSE;
 }
 
@@ -187,19 +202,23 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   g_signal_connect_swapped(cancel_btn, "clicked",
 			   G_CALLBACK(_contact_editor_cancel_cb), NULL);
 
-  if (current_contact) {
+  if (current_contact)
+  {
     entry_text = ab_contact_get_first_name(current_contact);
-    if (entry_text) {
+    if (entry_text)
+    {
       gtk_entry_set_text(GTK_ENTRY(fname_entry), entry_text);
     }
 
     entry_text = ab_contact_get_last_name(current_contact);
-    if (entry_text) {
+    if (entry_text)
+    {
       gtk_entry_set_text(GTK_ENTRY(lname_entry), entry_text);
     }
 
     entry_text = ab_contact_get_email(current_contact);
-    if (entry_text) {
+    if (entry_text)
+    {
       gtk_entry_set_text(GTK_ENTRY(email_entry), entry_text);
     }
   }

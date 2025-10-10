@@ -15,14 +15,16 @@ main(int argc, char **argv)
 
   dirs_init();
 
-  if (!ensure_data_dir()) {
+  if (!ensure_data_dir())
+  {
     return 1;
   }
 
   dbdir = dirs_get_user_data_dir();
 
   rc = ab_init(dbdir);
-  if (rc < 0) {
+  if (rc < 0)
+  {
     status = 1;
     goto out;
   }
