@@ -1,9 +1,19 @@
-Build/Installation
+## Building from source
 
+To build and install from source, run:
+
+```sh
+./autogen.sh
+./configure
+make
+sudo make install
 ```
-$ ./autogen.sh
-$ ./configure
-$ make
-[ Become root if necessary ]
-$ make install
+
+You can customize the build by passing options to `configure`.
+For example:
+
+```sh
+./configure --prefix=/usr/local
 ```
+
+Run `./configure --help` to see all available options.
