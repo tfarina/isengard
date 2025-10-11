@@ -1,3 +1,15 @@
+hello is a minimal example program written in C that simply prints a
+localized “Hello, world!” message.
+Its main purpose is to demonstrate clean and modern practices for
+setting up a small C project using the GNU Autotools build system,
+including integration with GNU gettext for internationalization
+and localization support.
+
+This project is intentionally simple — it serves as a reference
+template for developers who want to learn or bootstrap their own
+Autotools-based software with proper build configuration, translation
+infrastructure, and standard project layout.
+
 DIRECTORIES
 -----------
 data    - contains desktop icons
