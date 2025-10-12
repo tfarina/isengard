@@ -9,26 +9,33 @@ Tribe depends on the following packages:
 * [GLib](https://gitlab.gnome.org/GNOME/glib/) >= 2.19.7
 * [GTK](https://www.gtk.org) >= 2.16.1
 
-## Configure your build
+## Building from Source
 
-To configure your build, run the following:
+This project uses [CMake](https://cmake.org/) as its build system and
+[Ninja](https://ninja-build.org/) as the build tool.
 
-```
-$ mkdir out && cd out
-$ cmake -GNinja ..
-```
+### 1. Configure the Build
 
-## Build and install
+Create a dedicated directory for the build and generate the build files:
 
-After it is properly configured, build it with:
-
-```
-$ ninja
+```sh
+mkdir out && cd out
+cmake -G Ninja ..
 ```
 
-When it is done, run the following to install it:
+### 2. Compile the Project
 
+Build the project using Ninja:
+
+```sh
+ninja
 ```
-[Become root if necessary]
-$ ninja install
+
+### 3. Install
+
+Install the resulting binaries and other files to the system (root privileges
+may be required):
+
+```sh
+sudo ninja install
 ```
