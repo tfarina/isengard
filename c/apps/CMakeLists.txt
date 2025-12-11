@@ -237,3 +237,5 @@ add_executable(scanimg scanimg.c)
 target_link_libraries(scanimg
   png
 )
+
+add_executable(macro_precedence_demo macro_precedence_demo.c)
