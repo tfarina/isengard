@@ -239,3 +239,4 @@ target_link_libraries(scanimg
 )
 
 add_executable(macro_precedence_demo macro_precedence_demo.c)
+add_executable(builtin_expect_demo builtin_expect_demo.c)
