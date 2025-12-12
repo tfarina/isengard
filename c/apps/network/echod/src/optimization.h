@@ -22,7 +22,7 @@
  * @exp: C expression.
  */
 
-#if __GNUC__ >= 3
+#if defined(__GNUC__) && (__GNUC__ >= 3)
 # define M_UNLIKELY(exp) __builtin_expect ((exp), 0)
 # define M_LIKELY(exp)   __builtin_expect ((exp), 1)
 #else
