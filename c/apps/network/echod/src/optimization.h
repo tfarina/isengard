@@ -34,11 +34,11 @@
  * @exp: C expression.
  */
 #if !defined(M_LIKELY)
-#if defined(M_HAS_BUILTIN_EXPECT)
-#define M_LIKELY(exp) __builtin_expect ((exp), 1)
-#else
-#define M_LIKELY(exp) (exp)
-#endif
+# if defined(M_HAS_BUILTIN_EXPECT)
+#  define M_LIKELY(exp) (__builtin_expect(!!(exp), 1))
+# else
+#  define M_LIKELY(exp) (!!(exp))
+# endif
 #endif
 
 /**
@@ -49,11 +49,11 @@
  * @exp: C expression.
  */
 #if !defined(M_UNLIKELY)
-#if defined(M_HAS_BUILTIN_EXPECT)
-#define M_UNLIKELY(exp) __builtin_expect ((exp), 0)
-#else
-#define M_UNLIKELY(exp) (exp)
-#endif
+# if defined(M_HAS_BUILTIN_EXPECT)
+#  define M_UNLIKELY(exp) (__builtin_expect(!!(exp), 0))
+# else
+#  define M_UNLIKELY(exp) (!!(exp))
+# endif
 #endif
 
 #endif  /* !defined(_OPTIMIZATION_H_INCLUDED_) */
