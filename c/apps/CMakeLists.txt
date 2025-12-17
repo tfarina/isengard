@@ -175,6 +175,9 @@ target_link_libraries(numbers)
 add_executable(numbersv2 os_path.c xstring.c numbersv2.c)
 target_link_libraries(numbersv2)
 
+add_executable(numbersv3 os_path.c xstring.c numbersv3.c)
+target_link_libraries(numbersv3)
+
 add_executable(degrees angle.c degrees.c)
 add_executable(radians angle.c radians.c)
 
