@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define VECTOR_DEFAULT_CAPACITY 4
+
 vector_t *vector_create(size_t datasize, size_t capacity)
 {
         vector_t *self;
@@ -49,8 +51,7 @@ void vector_push_back(vector_t *self, void *element)
 	}
 
         if (self->size == self->capacity) {
-                /* Increase the capacity by one to make room for the new element, then double it. */
-	        size_t const new_capacity = (self->capacity + 1) * 2;
+                size_t new_capacity = self->capacity == 0 ? VECTOR_DEFAULT_CAPACITY : self->capacity * 2;
                 void *new_data = realloc(self->data, new_capacity * self->datasize);
                 if (new_data == NULL) {
 		        return; /* self->data unchanged */
