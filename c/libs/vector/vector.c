@@ -48,7 +48,7 @@ void vector_push_back(vector_t *self, void *element)
 	        return;
 	}
 
-        if (self->size + 1 > self->capacity) {
+        if (self->size == self->capacity) {
                 /* Increase the capacity by one to make room for the new element, then double it. */
 	        size_t const new_capacity = (self->capacity + 1) * 2;
                 void *new_data = realloc(self->data, new_capacity * self->datasize);
