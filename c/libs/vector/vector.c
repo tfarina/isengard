@@ -44,17 +44,17 @@ void vector_destroy(vector_t *self)
         free(self);
 }
 
-void vector_push_back(vector_t *self, void *element)
+int vector_push_back(vector_t *self, void *element)
 {
         if (self == NULL) {
-	        return;
+	        return -1;
 	}
 
         if (self->size == self->capacity) {
                 size_t new_capacity = self->capacity == 0 ? VECTOR_DEFAULT_CAPACITY : self->capacity * 2;
                 void *new_data = realloc(self->data, new_capacity * self->datasize);
                 if (new_data == NULL) {
-		        return; /* self->data unchanged */
+		        return -1; /* self->data unchanged */
                 }
 
                 self->data = new_data;
@@ -63,6 +63,8 @@ void vector_push_back(vector_t *self, void *element)
 
         memcpy((char *)self->data + (self->size * self->datasize), element, self->datasize);
         self->size++;
+
+	return 0;
 }
 
 void *vector_at(vector_t const * const self, int unsigned const index)

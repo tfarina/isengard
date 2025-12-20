@@ -72,7 +72,7 @@ void vector_destroy(vector_t *self);
  * @param[in,out] self    A pointer to the `vector_t` instance (must not be NULL).
  * @param[in]     element The element to be added to the end of the array.
  */
-void vector_push_back(vector_t *self, void *element);
+int vector_push_back(vector_t *self, void *element);
 
 /* ------------------------------------------------------------------------- */
 /* Element access                                                            */
