@@ -7,10 +7,10 @@ hello_x86.o: hello_x86.s
 	gcc -m32 -c -o $@ $<
 
 hello_x64: hello_x64.o
-	ld -m elf_x86_64 -o $@ $<
+	gcc -m64 -nostdlib -o $@ $<
 
 hello_x64.o: hello_x64.s
-	as --64 -o $@ $<
+	gcc -m64 -c -o $@ $<
 
 clean:
 	$(RM) *.o hello_x86
