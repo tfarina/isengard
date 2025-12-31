@@ -13,4 +13,4 @@ hello_x64.o: hello_x64.s
 	gcc -m64 -c -o $@ $<
 
 clean:
-	$(RM) *.o hello_x86
+	$(RM) *.o hello_x86 hello_x64
