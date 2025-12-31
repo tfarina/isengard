@@ -14,3 +14,5 @@ hello_x64.o: hello_x64.s
 
 clean:
 	$(RM) *.o hello_x86 hello_x64
+
+.PHONY: clean
