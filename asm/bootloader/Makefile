@@ -5,17 +5,17 @@ LD := ld
 LDFLAGS := --oformat binary -e _start -Ttext $(LOAD_ADDR)
 RM := rm -f
 
-boot.bin: boot.o
+boot.img: boot.o
 	$(LD) $(LDFLAGS) -o $@ $<
 	@SIZE=$$(stat --format='%s' $@); \
 	if [ $$SIZE -ne 512 ]; then \
-		echo "Error: boot.bin is $$SIZE bytes (must be 512)"; exit 1; \
+		echo "Error: boot.img is $$SIZE bytes (must be 512)"; exit 1; \
 	fi
 
 boot.o: boot.S
 	$(AS) $(ASFLAGS) -o $@ $<
 
 clean:
-	$(RM) *.o boot.bin
+	$(RM) *.o boot.img
 
 .PHONY: clean

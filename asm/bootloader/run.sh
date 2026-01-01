@@ -3,7 +3,7 @@
 # Die if any command dies.
 set -e
 
-BOOT=boot.bin
+BOOT=boot.img
 
 if [ ! -f "$BOOT" ]; then
     echo "error: $BOOT not found"

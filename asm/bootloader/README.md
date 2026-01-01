@@ -23,7 +23,7 @@ sudo fdisk -l
 Pick the binary you want to run and:
 
 ```
-sudo dd if=boot.bin of=/dev/sdX
+sudo dd if=boot.img of=/dev/sdX
 ```
 
 Then:
