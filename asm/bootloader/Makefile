@@ -1,9 +1,11 @@
 AS := as
 ASFLAGS := --32
+LD := ld
+LDFLAGS := --oformat binary -e _start -Ttext 0x7c00
 RM := rm -f
 
 boot.bin: boot.o
-	ld -o $@ --oformat binary -e _start -Ttext 0x7c00 $<
+	$(LD) -o $@ $(LDFLAGS) $<
 
 boot.o: boot.S
 	$(AS) $(ASFLAGS) -o $@ $<
