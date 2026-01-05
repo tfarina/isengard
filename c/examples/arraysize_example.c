@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "arraysize.h"
+#include "base.h"
 
 int main(void) {
   int numbers[] = {0, 1, 2, 3};
