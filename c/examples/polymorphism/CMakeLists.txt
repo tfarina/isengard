@@ -7,7 +7,7 @@ set(SRCS
 
 add_library(libpm ${SRCS})
 
-add_executable(animal_test animal_test.c)
-target_link_libraries(animal_test libpm)
+add_executable(polymorphism_example polymorphism_example.c)
+target_link_libraries(polymorphism_example libpm)
 
 
