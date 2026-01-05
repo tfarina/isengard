@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "os_path.h"
-#include "xstring.h"
+#include "xalloc.h"
 
 /*
  * To allocate memory for an array, just multiply the numbers of elements in

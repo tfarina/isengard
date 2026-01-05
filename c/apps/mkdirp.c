@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "xstring.h"
+#include "xalloc.h"
 
 /**
  * Creates a directory if it doesn't already exist and its intermediate

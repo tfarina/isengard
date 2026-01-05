@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "os_path.h"
-#include "xstring.h"
+#include "xalloc.h"
 
 static unsigned count; /* count of numbers */
 static int *numbers; /* array of numbers */

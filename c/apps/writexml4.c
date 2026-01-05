@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "alpm_list.h"
-#include "xstring.h"
+#include "xalloc.h"
 #include "third_party/mxml/mxml.h"
 #include "third_party/libuuid/uuid.h"
 

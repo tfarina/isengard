@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "os_path.h"
-#include "xstring.h"
+#include "xalloc.h"
 
 typedef struct _INTARRAY
 {

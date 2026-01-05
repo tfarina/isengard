@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "xstring.h"
+#include "xalloc.h"
 
 int main(int argc, char **argv)
 {

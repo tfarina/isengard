@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "xstring.h"
+#include "xalloc.h"
 #include "os_path.h"
 
 /*
