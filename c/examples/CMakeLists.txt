@@ -1,3 +1,5 @@
+add_subdirectory(polymorphism)
+
 add_executable(stringize_example stringize_example.c)
 target_link_libraries(stringize_example PRIVATE common)
 
