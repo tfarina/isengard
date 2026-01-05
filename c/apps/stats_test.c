@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "arraysize.h"
+#include "base.h"
 #include "stats.h"
 
 static void print_array(double const *arr, size_t const size)
