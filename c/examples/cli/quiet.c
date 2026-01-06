@@ -1,17 +1,16 @@
+#include <getopt.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-#include "getopt.h"
-
-static int want_verbose = 0;
+static int want_quiet = 0;
 
 /**
  * Short options.
  */
 static char const short_options[] =
   "h"  /* help */
-  "v"  /* verbose */
+  "q"  /* quiet or silent */
   ;
 
 /**
@@ -20,7 +19,8 @@ static char const short_options[] =
 static struct option const long_options[] = {
 /*{  name,       has_arg,       *flag, val } */
   { "help",      no_argument,       0, 'h' },
-  { "verbose",   no_argument,       0, 'v' },
+  { "quiet",     no_argument,       0, 'q' },
+  { "silent",    no_argument,       0, 'q' },
   { (char *) 0,  no_argument, (int *) 0, 0 }
 };
 
@@ -30,9 +30,9 @@ static struct option const long_options[] = {
 static void
 usage(int status)
 {
-  printf("Usage: %s [OPTION]... FILE\n\n", "verbose");
+  printf("Usage: %s [OPTION]... FILE\n\n", "quiet");
   fputs(
-"  -v, --verbose          print more information (can be used several times)\n", stdout);
+"  -q, --quiet, --silent  suppress non-error messages\n", stdout);
   fputs(
 "  -h, --help             display this help and exit\n", stdout);
 
@@ -59,8 +59,8 @@ parse_args(int argc, char **argv)
     case 'h':
       usage(EXIT_SUCCESS);
 
-    case 'v':  /* --verbose */
-      want_verbose = 1;
+    case 'q':  /* --quiet, --silent */
+      want_quiet = 1;
       break;
 
     default:
@@ -68,7 +68,7 @@ parse_args(int argc, char **argv)
     }
   }
 
-  printf("%d\n", want_verbose);
+  printf("%d\n", want_quiet);
 }
 
 int
