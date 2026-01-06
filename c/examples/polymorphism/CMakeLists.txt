@@ -9,5 +9,3 @@ add_library(libpm ${SRCS})
 
 add_executable(polymorphism_example polymorphism_example.c)
 target_link_libraries(polymorphism_example libpm)
-
-

@@ -1,0 +1,1 @@
+add_executable(inheritance_example inheritance_example.c)
