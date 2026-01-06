@@ -60,9 +60,6 @@ check_include_file(locale.h HAVE_LOCALE_H)
 ###############################################################################
 # Check functions
 check_function_exists(getopt_long HAVE_GETOPT_LONG)
-if (HAVE_GETOPT_H)
-  message("-- Found header getopt.h")
-endif()
 
 # Setup compiler flags
 list(APPEND proposed_flags

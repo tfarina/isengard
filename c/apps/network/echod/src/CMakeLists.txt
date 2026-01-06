@@ -17,9 +17,6 @@ set(SRCS
   debug.h
   echod.h
   fnet.c
-  getopt.c
-  getopt.h
-  getopt1.c
   id.c
   id.h
   main.c
@@ -46,6 +43,21 @@ set(SRCS
 )
 
 add_executable(${PROGRAM} ${SRCS})
+
+if (NOT HAVE_GETOPT_LONG)
+  message(STATUS "System getopt_long not found, using bundled implementation")
+
+  target_sources(${PROGRAM} PRIVATE
+      getopt.c
+      getopt1.c
+      getopt.h
+  )
+
+  target_compile_definitions(${PROGRAM} PRIVATE USE_BUNDLED_GETOPT)
+else()
+  message(STATUS "Using system getopt_long")
+endif()
+
 set_target_properties(${PROGRAM} PROPERTIES LINKER_LANGUAGE C)
 
 install(TARGETS ${PROGRAM}

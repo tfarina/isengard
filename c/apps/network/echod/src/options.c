@@ -5,10 +5,10 @@
 #include "config.h"
 #endif
 
-#ifdef HAVE_GETOPT_H
-#include <getopt.h>
-#else
+#ifdef USE_BUNDLED_GETOPT
 #include "getopt.h"
+#else
+#include <getopt.h>
 #endif
 
 #include <limits.h>
