@@ -1,8 +1,8 @@
-#include "greatest.h"
+#include "utest.h"
 
 #include "buffer.h"
 
-TEST buffer_test_create(void)
+UTEST(buffer_test, create)
 {
   buffer_t *p_buffer;
 
@@ -11,11 +11,4 @@ TEST buffer_test_create(void)
   ASSERT_EQ(0, buffer_size(p_buffer));
 
   buffer_destroy(p_buffer);
-
-  PASS();
-}
-
-SUITE(buffer_suite)
-{
-  RUN_TEST(buffer_test_create);
 }

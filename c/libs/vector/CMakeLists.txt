@@ -34,7 +34,7 @@ add_executable(vector_example vector_example.c)
 target_link_libraries(vector_example vector)
 
 enable_testing()
-add_executable(vector_unittests greatest.h vector_test.c run_all_unittests.c)
+add_executable(vector_unittests utest.h vector_test.c run_all_unittests.c)
 target_link_libraries(vector_unittests vector)
 
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})

@@ -1,8 +1,8 @@
-#include "greatest.h"
+#include "utest.h"
 
 #include "vector.h"
 
-TEST vector_test_create(void)
+UTEST(vector_test, create)
 {
   vector_t *vp;
 
@@ -11,11 +11,9 @@ TEST vector_test_create(void)
   ASSERT_EQ(0, vector_size(vp));
 
   vector_destroy(vp);
-
-  PASS();
 }
 
-TEST vector_test_push_back(void)
+UTEST(vector_test, push_back)
 {
   vector_t *vp;
   int i = 10;
@@ -28,12 +26,4 @@ TEST vector_test_push_back(void)
   ASSERT_EQ(1, vector_size(vp));
 
   vector_destroy(vp);
-
-  PASS();
-}
-
-SUITE(vector_suite)
-{
-  RUN_TEST(vector_test_create);
-  RUN_TEST(vector_test_push_back);
 }
