@@ -51,5 +51,3 @@ UTEST(os_path_test, basename)
   name = os_path_basename("./..");
   ASSERT_STREQ("..", name);
 }
-
-UTEST_MAIN()
