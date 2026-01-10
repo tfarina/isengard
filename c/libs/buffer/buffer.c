@@ -1,3 +1,12 @@
+/*
+ * This code is derived from Go's src/cmd/dist buffer implementation.
+ *
+ * Original sources:
+ *   https://github.com/golang/go/blob/ce5cb037d171273f1a5294723234be5495c9d336src/cmd/dist/a.h
+ *   https://github.com/golang/go/blob/ce5cb037d171273f1a5294723234be5495c9d336/src/cmd/dist/buf.c
+ *
+ * Modified and adapted for this project.
+ */
 #include "buffer.h"
 
 #include <stdlib.h>

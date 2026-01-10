@@ -1,4 +1,8 @@
-This was originally copied from Go's src/cmd/dist/ and modified by me.
+This buffer implementation was originally based on Go's build tool sources
+and later adapted and extended.
 
-https://github.com/golang/go/blob/ce5cb037d171273f1a5294723234be5495c9d336/src/cmd/dist/a.h
-https://github.com/golang/go/blob/ce5cb037d171273f1a5294723234be5495c9d336/src/cmd/dist/buf.c
+Original sources:
+  - https://github.com/golang/go/blob/ce5cb037d171273f1a5294723234be5495c9d336/src/cmd/dist/a.h
+  - https://github.com/golang/go/blob/ce5cb037d171273f1a5294723234be5495c9d336/src/cmd/dist/buf.c
+
+The code has been modified to fit this project’s conventions and needs.
