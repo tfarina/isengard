@@ -1,4 +1,4 @@
-add_library(common STATIC os_path.c)
+add_library(common STATIC buffer.c os_path.c vector.c)
 
 # This exposes os_path.h to anything that links against common.
 target_include_directories(common PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
@@ -7,7 +7,9 @@ target_include_directories(common PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../third_party)
 
 set(TEST_SRCS
+  buffer_test.c
   os_path_test.c
+  vector_test.c
   run_all_unittests.c
 )
 

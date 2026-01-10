@@ -1,4 +1,4 @@
-This buffer implementation was originally based on Go's build tool sources
+The buffer implementation was originally based on Go's build tool sources
 and later adapted and extended.
 
 Original sources:
