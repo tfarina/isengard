@@ -183,8 +183,6 @@ add_executable(acceptanddisplay acceptanddisplay.c)
 add_executable(promptuser promptuser.c)
 add_executable(promptpassword promptpassword.c)
 
-add_executable(freenull freenull.c)
-
 add_executable(atm atm.c)
 
 find_package(PkgConfig REQUIRED)

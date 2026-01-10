@@ -13,3 +13,5 @@ target_link_libraries(buffer_example PRIVATE common)
 
 add_executable(vector_example vector_example.c)
 target_link_libraries(vector_example PRIVATE common)
+
+add_executable(freenull freenull.c)
