@@ -73,19 +73,37 @@ static int _db_pragma_integrity_check_cb(void *data, int argc, char **argv, char
   return 0;
 }
 
-static int _db_pragma_user_version_cb(void *data, int argc, char **argv, char **column) {
-  int *id = data;
+static int _db_get_user_version(int *version) {
+  int rc;
+  int scode = 0; /* success */
+  sqlite3_stmt *stmt = NULL;
 
-  /*UNUSED(argc);*/
-  /*UNUSED(column);*/
-
-  if (argv[0]) {
-    *id = atoi(argv[0]);
-  } else {
-    *id = 0;
+  if (!version) {
+    return -EINVAL;  /* Invalid args */
   }
 
-  return 0;
+  rc = sqlite3_prepare_v2(hdb, "PRAGMA user_version;", -1, &stmt, NULL);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
+            sqlite3_errmsg(hdb));
+    scode = -1;
+    goto out;
+  }
+
+  rc = sqlite3_step(stmt);
+  if (rc != SQLITE_ROW) {
+    fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
+            sqlite3_errmsg(hdb));
+    scode = -1;
+    goto out;
+  }
+
+  *version = sqlite3_column_int(stmt, 0);
+
+out:
+  sqlite3_finalize(stmt);
+
+  return scode;
 }
 
 int ab_init(char *db_dir) {
@@ -130,10 +148,9 @@ int ab_init(char *db_dir) {
     return -1;
   }
 
-  rc = sqlite3_exec(hdb, "PRAGMA user_version;", _db_pragma_user_version_cb, &user_version, &err_msg);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "ERROR: sqlite3_exec failed: %s\n", err_msg);
-    sqlite3_free(err_msg);
+  rc = _db_get_user_version(&user_version);
+  if (rc < 0) {
+    fprintf(stderr, "ERROR: _db_get_user_version failed\n");
     sqlite3_close(hdb);
     hdb = NULL;
     return -1;
