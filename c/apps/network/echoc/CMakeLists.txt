@@ -14,6 +14,18 @@ set(PACKAGE_URL       "")
 set(PACKAGE_VERSION   "${VERSION}")
 set(PACKAGE_STRING    "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 
+###############################################################################
+include(CheckIncludeFile)
+include(CheckFunctionExists)
+
+###############################################################################
+# Check headers
+check_include_file(getopt.h HAVE_GETOPT_H)
+
+###############################################################################
+# Check functions
+check_function_exists(getopt_long HAVE_GETOPT_LONG)
+
 set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-std=c99 -pedantic -Wall")
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
@@ -38,8 +50,6 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 set(ECHOC_SRCS
   src/check.c
   src/fnet.c
-  src/getopt.c
-  src/getopt1.c
   src/main.c
   src/msg.c
   src/options.c
@@ -47,5 +57,19 @@ set(ECHOC_SRCS
 )
 
 add_executable(echoc ${ECHOC_SRCS})
+
+if (NOT HAVE_GETOPT_LONG)
+  message(STATUS "System getopt_long not found, using bundled implementation")
+
+  target_sources(echoc PRIVATE
+      getopt.c
+      getopt1.c
+      getopt.h
+  )
+
+  target_compile_definitions(echoc PRIVATE USE_BUNDLED_GETOPT)
+else()
+  message(STATUS "Using system getopt_long")
+endif()
 
 install(TARGETS echoc RUNTIME DESTINATION ${CMAKE_INSTALL_SBINDIR})

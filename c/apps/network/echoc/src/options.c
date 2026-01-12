@@ -3,12 +3,17 @@
 /* config.h must be included first.*/
 #include "config.h"
 
+#ifdef USE_BUNDLED_GETOPT
+#include "getopt.h"
+#else
+#include <getopt.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "attributes.h"
 #include "echoc.h"
-#include "getopt.h"
 
 /* For now, no gettext support. */
 #define _(STRING) STRING
