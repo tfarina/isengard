@@ -58,19 +58,41 @@ static int _db_init_schema(void) {
   return rc;
 }
 
-static int _db_pragma_integrity_check_cb(void *data, int argc, char **argv, char **column_names) {
-  int *errflag = data;
+static int _db_check_integrity(void) {
+  int rc;
+  int scode = 0; /* success */
+  sqlite3_stmt *stmt = NULL;
+  unsigned char const *result = NULL;
 
-  if (argc == 1) {
-    if (0 == strcmp(column_names[0], "integrity_check")) {
-      if (0 != strcmp(argv[0], "ok")) {
-        /* Error! */
-        *errflag = 1;
-      }
-    }
+  rc = sqlite3_prepare_v2(hdb, "PRAGMA integrity_check;", -1, &stmt, NULL);
+  if (rc != SQLITE_OK) {
+    fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
+            sqlite3_errmsg(hdb));
+    scode = -1;
+    goto out;
   }
 
-  return 0;
+  rc = sqlite3_step(stmt);
+  if (rc != SQLITE_ROW) {
+    fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
+            sqlite3_errmsg(hdb));
+    scode = -1;
+    goto out;
+  }
+
+  result = sqlite3_column_text(stmt, 0);
+  if (!result || strcmp((char const *)result, "ok") != 0) {
+    fprintf(stderr,
+	    "ERROR: SQLite integrity check failed: %s\n",
+	    result ? (char const *)result : "(null)");
+    scode = -1;
+    goto out;
+  }
+
+out:
+  sqlite3_finalize(stmt);
+
+  return scode;
 }
 
 static int _db_get_user_version(int *version) {
@@ -110,9 +132,7 @@ int ab_init(char *db_dir) {
   int rc;
   char const db_file_name[] = "abdb.sqlite3";
   char *db_file_path;
-  int corrupted = 0;
   int user_version = 0;
-  char *err_msg = NULL;
 
   /* Do nothing if the database handle has been set. */
   if (hdb) {
@@ -132,17 +152,8 @@ int ab_init(char *db_dir) {
   }
   free(db_file_path);
 
-  rc = sqlite3_exec(hdb, "PRAGMA integrity_check;", _db_pragma_integrity_check_cb, &corrupted, &err_msg);
-  if (rc != SQLITE_OK) {
-    fprintf(stderr, "ERROR: sqlite3_exec failed: %s\n", err_msg);
-    sqlite3_free(err_msg);
-    sqlite3_close(hdb);
-    hdb = NULL;
-    return -1;
-  }
-
-  if (1 == corrupted) {
-    fprintf(stderr, "ERROR: The SQLite database integrity check failed. It may be corrupted.\n");
+  rc = _db_check_integrity();
+  if (rc < 0) {
     sqlite3_close(hdb);
     hdb = NULL;
     return -1;
