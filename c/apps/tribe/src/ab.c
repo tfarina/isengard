@@ -9,8 +9,15 @@
 #include "os_path.h"
 #include "xstring.h"
 
-/* NOTE: Always increment this when you make incompatible db structure
- * changes */
+/* Database schema version.
+ *
+ * This constant corresponds to PRAGMA user_version and represents the latest
+ * supported database schema version. It is compared against the stored
+ * user_version to determine whether schema migrations are required.
+ *
+ * Increment this when making incompatible changes to the database schema and
+ * provide a corresponding migration step.
+ */
 #define DB_VERSION 0
 
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
