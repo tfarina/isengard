@@ -100,17 +100,6 @@ if (GTK2_FOUND)
   target_link_libraries(graph ${M_LIBRARY} ${GTK2_LIBRARIES})
 endif()
 
-# These options are settable from the CMake command line. For example, to disable
-# SQL, put -DWITH_MYSQL=OFF on the command line.
-
-option(WITH_MYSQL "Include MySQL support" OFF)
-
-if (WITH_MYSQL)
-  find_package(MySQL)
-  add_executable(mysql_version mysql_version.c)
-  target_link_libraries(mysql_version ${MYSQL_LIBRARY})
-endif()
-
 add_executable(writexml writexml.c)
 target_link_libraries(writexml mxml -pthread)
 

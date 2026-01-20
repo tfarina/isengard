@@ -1,6 +1,7 @@
 add_subdirectory(polymorphism)
 add_subdirectory(inheritance)
 add_subdirectory(cli)
+add_subdirectory(db)
 
 add_executable(stringize_example stringize_example.c)
 target_link_libraries(stringize_example PRIVATE common)

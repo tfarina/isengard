@@ -1,0 +1,5 @@
+find_package(MySQL)
+if (MYSQL_FOUND)
+  add_executable(mysql_version_example mysql_version_example.c)
+  target_link_libraries(mysql_version_example ${MYSQL_LIBRARY})
+endif()
