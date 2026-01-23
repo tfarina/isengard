@@ -10,8 +10,6 @@ CREATE TABLE contacts (
   id       INTEGER PRIMARY KEY,
   fname    TEXT,
   lname    TEXT,
-  mname    TEXT,
-  nickname TEXT,
   email    TEXT
 );
 
