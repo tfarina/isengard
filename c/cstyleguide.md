@@ -1,5 +1,35 @@
 # C Style Guide
 
+## Header (.h) files
+
+All header files **must** use include guards to prevent multiple inclusion.
+
+### Include guard naming
+
+The include guard macro should:
+
+- Be fully uppercase
+- Use underscores as separators
+- Be unique across the project
+- End with `_H_INCLUDED_`
+
+The recommended format is:
+
+    _FILENAME_H_INCLUDED_
+
+### Example
+
+```c
+#ifndef _XALLOC_H_INCLUDED_
+#define _XALLOC_H_INCLUDED_ 1
+
+#include <stddef.h>
+
+char *xstrdup(char const *s);
+
+#endif /* !defined(_XALLOC_H_INCLUDED_) */
+```
+
 ## Naming
 
 ### File Names
