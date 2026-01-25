@@ -21,7 +21,7 @@ The recommended format is:
 
 ```c
 #ifndef _XALLOC_H_INCLUDED_
-#define _XALLOC_H_INCLUDED_ 1
+#define _XALLOC_H_INCLUDED_
 
 #include <stddef.h>
 
