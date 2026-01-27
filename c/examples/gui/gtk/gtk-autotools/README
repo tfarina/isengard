@@ -1,3 +1,20 @@
+# gtk-autotools
+
+This directory contains a small GTK application built using the
+GNU Build System (Autotools).
+
+The goal of this example is educational. It is intended to be read,
+built, and experimented with in order to understand:
+
+- How a basic GTK application is structured
+- How GLib and GTK are integrated in an Autotools-based build
+- How common GTK-related tooling (such as `glib-compile-resources`)
+  fits into the build process
+
+This is **not** meant to be a full application or framework. It is a
+minimal, focused reference project that demonstrates how the pieces
+work together in practice.
+
 ## Building from source
 
 To build and install from source, run:
