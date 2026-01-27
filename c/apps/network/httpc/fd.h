@@ -1,5 +1,5 @@
 #ifndef _FD_H_INCLUDED_
-#define _FD_H_INCLUDED_ 1
+#define _FD_H_INCLUDED_
 
 #include <stddef.h>
 #include <sys/types.h>
