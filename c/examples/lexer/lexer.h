@@ -1,5 +1,5 @@
 #ifndef _LEXER_H_INCLUDED_
-#define _LEXER_H_INCLUDED_ 1
+#define _LEXER_H_INCLUDED_
 
 void lex(const char *input);
 
