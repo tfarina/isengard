@@ -1,12 +1,12 @@
 ## Process this file with automake to generate a Makefile.in.
 
-bin_PROGRAMS = amhello
+bin_PROGRAMS = gat
 
-amhello_SOURCES = \
+gat_SOURCES = \
 	hello.c
 
-amhello_CFLAGS = \
+gat_CFLAGS = \
 	$(GTK_CFLAGS)
 
-amhello_LDADD = \
+gat_LDADD = \
 	$(GTK_LIBS)

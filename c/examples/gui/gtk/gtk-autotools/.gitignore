@@ -3,7 +3,7 @@
 Makefile
 Makefile.in
 
-/src/amhello
+/src/gat
 
 /aclocal.m4
 /autom4te.cache
