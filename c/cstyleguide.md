@@ -11,23 +11,22 @@ The include guard macro should:
 - Be fully uppercase
 - Use underscores as separators
 - Be unique across the project
-- End with `_H_INCLUDED_`
 
 The recommended format is:
 
-    _FILENAME_H_INCLUDED_
+    FILENAME_H
 
 ### Example
 
 ```c
-#ifndef _XALLOC_H_INCLUDED_
-#define _XALLOC_H_INCLUDED_
+#ifndef XALLOC_H
+#define XALLOC_H
 
 #include <stddef.h>
 
 char *xstrdup(char const *s);
 
-#endif /* !defined(_XALLOC_H_INCLUDED_) */
+#endif /* XALLOC_H */
 ```
 
 ## Naming
