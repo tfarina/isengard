@@ -1,5 +1,5 @@
 #ifndef _MKDIRP_H_INCLUDED_
-#define _MKDIRP_H_INCLUDED_ 1
+#define _MKDIRP_H_INCLUDED_
 
 #include <sys/types.h>
 #include <sys/stat.h>

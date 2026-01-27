@@ -1,5 +1,5 @@
 #ifndef _AB_CONTACT_H_INCLUDED_
-#define _AB_CONTACT_H_INCLUDED_ 1
+#define _AB_CONTACT_H_INCLUDED_
 
 typedef struct ab_contact_s
 {

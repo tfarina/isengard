@@ -1,5 +1,5 @@
 #ifndef _OS_PATH_H_INCLUDED_
-#define _OS_PATH_H_INCLUDED_ 1
+#define _OS_PATH_H_INCLUDED_
 
 /**
  * Returns a pointer to the last element of the path.

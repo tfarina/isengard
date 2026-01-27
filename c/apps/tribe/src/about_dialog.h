@@ -1,5 +1,5 @@
 #ifndef _ABOUT_DIALOG_H_INCLUDED_
-#define _ABOUT_DIALOG_H_INCLUDED_ 1
+#define _ABOUT_DIALOG_H_INCLUDED_
 
 #include <gtk/gtk.h>
 

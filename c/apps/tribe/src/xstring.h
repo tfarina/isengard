@@ -1,5 +1,5 @@
 #ifndef _XSTRING_H_INCLUDED_
-#define _XSTRING_H_INCLUDED_ 1
+#define _XSTRING_H_INCLUDED_
 
 /**
  * String processing functions

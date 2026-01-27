@@ -1,5 +1,5 @@
 #ifndef _USER_H_INCLUDED_
-#define _USER_H_INCLUDED_ 1
+#define _USER_H_INCLUDED_
 
 char *user_home_dir(void);
 char *user_data_dir(void);

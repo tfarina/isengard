@@ -1,5 +1,5 @@
 #ifndef _WINDOW_H_INCLUDED_
-#define _WINDOW_H_INCLUDED_ 1
+#define _WINDOW_H_INCLUDED_
 
 #include <gtk/gtk.h>
 

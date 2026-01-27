@@ -1,5 +1,5 @@
 #ifndef _CONTACT_EDITOR_H_INCLUDED_
-#define _CONTACT_EDITOR_H_INCLUDED_ 1
+#define _CONTACT_EDITOR_H_INCLUDED_
 
 #include <gtk/gtk.h>
 

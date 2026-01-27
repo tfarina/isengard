@@ -1,5 +1,5 @@
 #ifndef _COMMON_H_INCLUDED_
-#define _COMMON_H_INCLUDED_ 1
+#define _COMMON_H_INCLUDED_
 
 #include "alpm_list.h"
 #include "ab_contact.h"
