@@ -1,5 +1,5 @@
 #ifndef _COMPOSE_H_INCLUDED_
-#define _COMPOSE_H_INCLUDED_ 1
+#define _COMPOSE_H_INCLUDED_
 
 typedef struct _ComposeWindow ComposeWindow;
 

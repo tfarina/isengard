@@ -1,5 +1,5 @@
 #ifndef _PASSWORD_DIALOG_H_INCLUDED_
-#define _PASSWORD_DIALOG_H_INCLUDED_ 1
+#define _PASSWORD_DIALOG_H_INCLUDED_
 
 #include <gtk/gtk.h>
 
