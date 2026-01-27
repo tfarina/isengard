@@ -1,5 +1,5 @@
 #ifndef _ATTRIBUTES_H_INCLUDED_
-#define _ATTRIBUTES_H_INCLUDED_ 1
+#define _ATTRIBUTES_H_INCLUDED_
 
 /**
  * @file attributes.h

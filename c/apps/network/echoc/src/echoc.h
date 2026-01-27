@@ -2,7 +2,7 @@
  * echoc.h - Prototypes and external variables for echoc.
  */
 #ifndef _ECHOC_H_INCLUDED_
-#define _ECHOC_H_INCLUDED_ 1
+#define _ECHOC_H_INCLUDED_
 
 /*
  * The name the program was invoked with.

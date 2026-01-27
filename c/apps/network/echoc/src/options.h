@@ -1,5 +1,5 @@
 #ifndef _OPTIONS_H_INCLUDED_
-#define _OPTIONS_H_INCLUDED_ 1
+#define _OPTIONS_H_INCLUDED_
 
 /**
  * Parse command-line arguments into |opt|.
