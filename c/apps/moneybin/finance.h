@@ -1,5 +1,5 @@
-#ifndef _FINANCE_H_INCLUDED_ 
-#define _FINANCE_H_INCLUDED_ 1
+#ifndef _FINANCE_H_INCLUDED_
+#define _FINANCE_H_INCLUDED_
 
 #include <stddef.h>
 

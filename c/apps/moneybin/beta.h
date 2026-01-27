@@ -1,5 +1,5 @@
 #ifndef _BETA_H_INCLUDED_
-#define _BETA_H_INCLUDED_ 1
+#define _BETA_H_INCLUDED_
 
 #include <stddef.h>
 

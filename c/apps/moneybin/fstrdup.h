@@ -1,5 +1,5 @@
 #ifndef _FSTRDUP_H_INCLUDED_
-#define _FSTRDUP_H_INCLUDED_ 1
+#define _FSTRDUP_H_INCLUDED_
 
 char *f_strdup(char const *src);
 

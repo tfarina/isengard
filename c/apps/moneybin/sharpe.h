@@ -1,5 +1,5 @@
 #ifndef _SHARPE_H_INCLUDED_
-#define _SHARPE_H_INCLUDED_ 1
+#define _SHARPE_H_INCLUDED_
 
 double sharpe_ratio(double avg, double stdev, double risk_free_rate);
 

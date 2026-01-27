@@ -1,5 +1,5 @@
 #ifndef _DOWNLOAD_H_INCLUDED_
-#define _DOWNLOAD_H_INCLUDED_ 1
+#define _DOWNLOAD_H_INCLUDED_
 
 int download_file(char const *downloadurl, char const *destfile);
 

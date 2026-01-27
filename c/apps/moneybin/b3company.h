@@ -1,5 +1,5 @@
 #ifndef _B3COMPANY_H_INCLUDED_
-#define _B3COMPANY_H_INCLUDED_ 1
+#define _B3COMPANY_H_INCLUDED_
 
 #include "b3security.h"
 

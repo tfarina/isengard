@@ -1,5 +1,5 @@
 #ifndef _DOUNZIP_H_INCLUDED_
-#define _DOUNZIP_H_INCLUDED_ 1
+#define _DOUNZIP_H_INCLUDED_
 
 /**
  * Extract files from a zip archive.
