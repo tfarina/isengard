@@ -1,5 +1,5 @@
 #ifndef TEMPDIR_H_INCLUDED_
-#define TEMPDIR_H_INCLUDED_ 1
+#define TEMPDIR_H_INCLUDED_
 
 /**
  * Returns the path to a directory designated for temporary files.

@@ -1,5 +1,5 @@
 #ifndef _CDECL_H_INCLUDED_
-#define _CDECL_H_INCLUDED_ 1
+#define _CDECL_H_INCLUDED_
 
 /**
  * This informs C++ that the types and declarations are C, not C++.

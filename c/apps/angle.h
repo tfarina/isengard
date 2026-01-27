@@ -1,5 +1,5 @@
 #ifndef ANGLE_H_INCLUDED_
-#define ANGLE_H_INCLUDED_ 1
+#define ANGLE_H_INCLUDED_
 
 float degrees(float radians);
 float radians(float degrees);

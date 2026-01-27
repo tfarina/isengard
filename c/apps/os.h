@@ -1,5 +1,5 @@
 #ifndef _OS_H_INCLUDED_
-#define _OS_H_INCLUDED_ 1
+#define _OS_H_INCLUDED_
 
 /**
  * Returns the local machine's host name as reported by the kernel.

@@ -1,5 +1,5 @@
 #ifndef _PERCENTAGE_H_INCLUDED_
-#define _PERCENTAGE_H_INCLUDED_ 1
+#define _PERCENTAGE_H_INCLUDED_
 
 /**
  * Computes the return between two values.
