@@ -1,5 +1,5 @@
 #ifndef _OPTIONS_H_INCLUDED_
-#define _OPTIONS_H_INCLUDED_ 1
+#define _OPTIONS_H_INCLUDED_
 
 typedef struct options_s {
   int unsigned detach:1; /* foreground mode */

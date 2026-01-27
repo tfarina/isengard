@@ -1,5 +1,5 @@
 #ifndef _XASSERT_H_INCLUDED_
-#define _XASSERT_H_INCLUDED_ 1
+#define _XASSERT_H_INCLUDED_
 
 /**
  * @file xassert.h

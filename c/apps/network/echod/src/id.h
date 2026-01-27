@@ -1,5 +1,5 @@
 #ifndef _ID_H_INCLUDED_
-#define _ID_H_INCLUDED_ 1
+#define _ID_H_INCLUDED_
 
 int id_is_root(void);
 char const *id_get_username(void);

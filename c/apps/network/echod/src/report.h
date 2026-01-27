@@ -1,5 +1,5 @@
 #ifndef _REPORT_H_INCLUDED_
-#define _REPORT_H_INCLUDED_ 1
+#define _REPORT_H_INCLUDED_
 
 /**
  * @file report.h

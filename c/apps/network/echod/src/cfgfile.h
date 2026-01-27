@@ -1,5 +1,5 @@
 #ifndef _CFGFILE_H_INCLUDED_
-#define _CFGFILE_H_INCLUDED_ 1
+#define _CFGFILE_H_INCLUDED_
 
 void read_config_file(char const *cfgfile);
 

@@ -1,5 +1,5 @@
 #ifndef _OPTIMIZATION_H_INCLUDED_
-#define _OPTIMIZATION_H_INCLUDED_ 1
+#define _OPTIMIZATION_H_INCLUDED_
 
 /**
  * @file optimization.h

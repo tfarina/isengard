@@ -34,7 +34,7 @@
  */
 
 #ifndef _ULOG_H_INCLUDED_
-#define _ULOG_H_INCLUDED_ 1
+#define _ULOG_H_INCLUDED_
 
 /**
  * Log levels.

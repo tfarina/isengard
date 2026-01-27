@@ -1,5 +1,5 @@
 #ifndef _BASE_H_INCLUDED_
-#define _BASE_H_INCLUDED_ 1
+#define _BASE_H_INCLUDED_
 
 /**
  * Converts the macro argument `x` into a string literal.

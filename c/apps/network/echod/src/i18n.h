@@ -1,5 +1,5 @@
 #ifndef _I18N_H_INCLUDED_
-#define _I18N_H_INCLUDED_ 1
+#define _I18N_H_INCLUDED_
 
 /**
  * @file i18n.h

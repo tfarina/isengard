@@ -1,5 +1,5 @@
 #ifndef _DAEMONIZE_H_INCLUDED_
-#define _DAEMONIZE_H_INCLUDED_ 1
+#define _DAEMONIZE_H_INCLUDED_
 
 /*
  * http://man7.org/linux/man-pages/man3/daemon.3.html

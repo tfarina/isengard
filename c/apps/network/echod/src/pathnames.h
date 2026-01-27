@@ -2,7 +2,7 @@
  * pathnames.h - define default paths for echod
  */
 #ifndef _PATHNAMES_H_INCLUDED_
-#define _PATHNAMES_H_INCLUDED_ 1
+#define _PATHNAMES_H_INCLUDED_
 
 /*
  * Paths are controlled via cmake. One can pass the following options:

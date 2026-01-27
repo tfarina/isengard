@@ -1,5 +1,5 @@
 #ifndef _VALID_H_INCLUDED_
-#define _VALID_H_INCLUDED_ 1
+#define _VALID_H_INCLUDED_
 
 int valid_port(int port);
 

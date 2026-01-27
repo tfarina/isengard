@@ -1,5 +1,5 @@
 #ifndef _SECURITY_H_INCLUDED_
-#define _SECURITY_H_INCLUDED_ 1
+#define _SECURITY_H_INCLUDED_
 
 /**
  * Drop root privileges.

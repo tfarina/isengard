@@ -1,5 +1,5 @@
 #ifndef _PIDFILE_H_INCLUDED_
-#define _PIDFILE_H_INCLUDED_ 1
+#define _PIDFILE_H_INCLUDED_
 
 /**
  * Functions for creating and removing PID files.

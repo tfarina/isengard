@@ -2,7 +2,7 @@
  * debug.h - Debugging macros for echod.
  */
 #ifndef _DEBUG_H_INCLUDED_
-#define _DEBUG_H_INCLUDED_ 1
+#define _DEBUG_H_INCLUDED_
 
 /**
  * This must be called with an extra level of parentheses because it's not
