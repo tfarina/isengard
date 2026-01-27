@@ -1,5 +1,5 @@
 #ifndef _HOSTNAME_H_INCLUDED_
-#define _HOSTNAME_H_INCLUDED_ 1
+#define _HOSTNAME_H_INCLUDED_
 
 char *get_hostname(void);
 
