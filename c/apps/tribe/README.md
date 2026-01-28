@@ -11,8 +11,7 @@ Tribe depends on the following packages:
 
 ## Building from Source
 
-This project uses [CMake](https://cmake.org/) as its build system and
-[Ninja](https://ninja-build.org/) as the build tool.
+This project uses [CMake](https://cmake.org/) as its build system.
 
 ### 1. Configure the Build
 
@@ -20,15 +19,15 @@ Create a dedicated directory for the build and generate the build files:
 
 ```sh
 mkdir out && cd out
-cmake -G Ninja ..
+cmake ..
 ```
 
 ### 2. Compile the Project
 
-Build the project using Ninja:
+Build the project with:
 
 ```sh
-ninja
+make
 ```
 
 ### 3. Install
@@ -37,5 +36,5 @@ Install the resulting binaries and other files to the system (root privileges
 may be required):
 
 ```sh
-sudo ninja install
+sudo make install
 ```
