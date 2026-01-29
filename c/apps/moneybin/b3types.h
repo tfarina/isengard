@@ -1,5 +1,5 @@
-#ifndef _B3TYPES_H_INCLUDED_
-#define _B3TYPES_H_INCLUDED_
+#ifndef B3TYPES_H
+#define B3TYPES_H
 
 /**
  * TABELA DE TPMERC - RELAÇÃO DOS VALORES PARA TIPO DE MERCADO
@@ -100,4 +100,4 @@ typedef enum security_bdi_e {
 
 security_bdi_t get_security_bdi(int bdi);
 
-#endif  /* !defined(_B3TYPES_H_INCLUDED_) */
+#endif /* B3TYPES_H */

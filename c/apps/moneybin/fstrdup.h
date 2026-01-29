@@ -1,6 +1,6 @@
-#ifndef _FSTRDUP_H_INCLUDED_
-#define _FSTRDUP_H_INCLUDED_
+#ifndef FSTRDUP_H
+#define FSTRDUP_H
 
 char *f_strdup(char const *src);
 
-#endif /* !defined(_FSTRDUP_H_INCLUDED_) */
+#endif /* FSTRDUP_H */

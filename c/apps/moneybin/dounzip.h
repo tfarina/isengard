@@ -1,5 +1,5 @@
-#ifndef _DOUNZIP_H_INCLUDED_
-#define _DOUNZIP_H_INCLUDED_
+#ifndef DOUNZIP_H
+#define DOUNZIP_H
 
 /**
  * Extract files from a zip archive.
@@ -9,4 +9,4 @@
  */
 int unzip(char const *zipfile, char const *exdir);
 
-#endif  /* !defined(_DOUNZIP_H_INCLUDED_) */
+#endif /* DOUNZIP_H */

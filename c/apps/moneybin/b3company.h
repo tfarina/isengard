@@ -1,5 +1,5 @@
-#ifndef _B3COMPANY_H_INCLUDED_
-#define _B3COMPANY_H_INCLUDED_
+#ifndef B3COMPANY_H
+#define B3COMPANY_H
 
 #include "b3security.h"
 
@@ -11,4 +11,4 @@ typedef struct company_s {
   unsigned nb_securities;
 } company_t;
 
-#endif  /* !defined(_B3COMPANY_H_INCLUDED_) */
+#endif /* B3COMPANY_H */
