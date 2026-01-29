@@ -1,6 +1,6 @@
-#ifndef _LEXER_H_INCLUDED_
-#define _LEXER_H_INCLUDED_
+#ifndef LEXER_H
+#define LEXER_H
 
 void lex(const char *input);
 
-#endif  /* !defined(_LEXER_H_INCLUDED_) */
+#endif /* LEXER_H */
