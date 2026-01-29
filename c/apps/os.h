@@ -1,5 +1,5 @@
-#ifndef _OS_H_INCLUDED_
-#define _OS_H_INCLUDED_
+#ifndef OS_H
+#define OS_H
 
 /**
  * Returns the local machine's host name as reported by the kernel.
@@ -22,4 +22,4 @@ char *os_userconfigdir(void);
  */
 char *os_username(void);
 
-#endif  /* !defined(_OS_H_INCLUDED_) */
+#endif /* OS_H */

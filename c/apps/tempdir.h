@@ -1,9 +1,9 @@
-#ifndef TEMPDIR_H_INCLUDED_
-#define TEMPDIR_H_INCLUDED_
+#ifndef TEMPDIR_H
+#define TEMPDIR_H
 
 /**
  * Returns the path to a directory designated for temporary files.
  */
 char *f_tempdir(void);
 
-#endif  /* !defined(TEMPDIR_H_INCLUDED_) */
+#endif /* TEMPDIR_H */

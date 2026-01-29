@@ -1,6 +1,6 @@
-#ifndef _XALLOC_H_INCLUDED_
-#define _XALLOC_H_INCLUDED_
+#ifndef XALLOC_H
+#define XALLOC_H
 
 char *xstrdup(char const *str);
 
-#endif /* !defined(_XALLOC_H_INCLUDED_) */
+#endif /* XALLOC_H */

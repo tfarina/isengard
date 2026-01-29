@@ -1,5 +1,5 @@
-#ifndef _BASE_H_INCLUDED_
-#define _BASE_H_INCLUDED_
+#ifndef BASE_H
+#define BASE_H
 
 /**
  * Converts the macro argument `x` into a string literal.
@@ -54,4 +54,4 @@
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof((array)[0]))
 #endif
 
-#endif  /* !defined(_BASE_H_INCLUDED_) */
+#endif /* BASE_H */

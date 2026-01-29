@@ -1,5 +1,5 @@
-#ifndef _PERCENTAGE_H_INCLUDED_
-#define _PERCENTAGE_H_INCLUDED_
+#ifndef PERCENTAGE_H
+#define PERCENTAGE_H
 
 /**
  * Computes the return between two values.
@@ -8,4 +8,4 @@
  */
 double percentage_change(double old_value, double new_value);
 
-#endif  /* !defined(_PERCENTAGE_H_INCLUDED_) */
+#endif /* PERCENTAGE_H */

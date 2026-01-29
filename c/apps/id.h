@@ -1,6 +1,6 @@
-#ifndef _ID_H_INCLUDED_
-#define _ID_H_INCLUDED_
+#ifndef ID_H
+#define ID_H
 
 char *id_username(void);
 
-#endif  /* !defined(_ID_H_INCLUDED_) */
+#endif /* ID_H */

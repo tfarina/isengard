@@ -1,5 +1,5 @@
-#ifndef _CDECL_H_INCLUDED_
-#define _CDECL_H_INCLUDED_
+#ifndef CDECL_H
+#define CDECL_H
 
 /**
  * This informs C++ that the types and declarations are C, not C++.
@@ -12,4 +12,4 @@
 # define END_C_DECLS
 #endif
 
-#endif  /* !defined(_CDECL_H_INCLUDED_) */
+#endif /* CDECL_H */
