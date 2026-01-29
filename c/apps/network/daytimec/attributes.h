@@ -1,5 +1,5 @@
-#ifndef _ATTRIBUTES_H_INCLUDED_
-#define _ATTRIBUTES_H_INCLUDED_
+#ifndef ATTRIBUTES_H
+#define ATTRIBUTES_H
 
 #include "compiler_tests.h"
 
@@ -38,4 +38,4 @@
 #define MK_PRINTFLIKE(string_index, first_to_check)
 #endif
 
-#endif  /* !defined(_ATTRIBUTES_H_INCLUDED_) */
+#endif /* ATTRIBUTES_H */
