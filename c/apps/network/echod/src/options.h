@@ -1,5 +1,5 @@
-#ifndef _OPTIONS_H_INCLUDED_
-#define _OPTIONS_H_INCLUDED_
+#ifndef OPTIONS_H
+#define OPTIONS_H
 
 typedef struct options_s {
   int unsigned detach:1; /* foreground mode */
@@ -35,4 +35,4 @@ void preparse_args(int argc, char **argv);
  */
 void parse_args(int argc, char **argv);
 
-#endif  /* !defined(_OPTIONS_H_INCLUDED_) */
+#endif /* OPTIONS_H */

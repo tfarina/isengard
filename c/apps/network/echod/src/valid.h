@@ -1,6 +1,6 @@
-#ifndef _VALID_H_INCLUDED_
-#define _VALID_H_INCLUDED_
+#ifndef VALID_H
+#define VALID_H
 
 int valid_port(int port);
 
-#endif  /* !defined(_VALID_H_INCLUDED_) */
+#endif /* VALID_H */

@@ -1,5 +1,5 @@
-#ifndef _PIDFILE_H_INCLUDED_
-#define _PIDFILE_H_INCLUDED_
+#ifndef PIDFILE_H
+#define PIDFILE_H
 
 /**
  * Functions for creating and removing PID files.
@@ -11,4 +11,4 @@ int pidfile_create(char const *pidfile_path);
 int pidfile_write(char const *pidfile_path, pid_t pid);
 int pidfile_remove(char const *pidfile_path);
 
-#endif  /* !defined(_PIDFILE_H_INCLUDED_) */
+#endif /* PIDFILE_H */

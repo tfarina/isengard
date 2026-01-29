@@ -33,8 +33,8 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _ULOG_H_INCLUDED_
-#define _ULOG_H_INCLUDED_
+#ifndef ULOG_H
+#define ULOG_H
 
 /**
  * Log levels.
@@ -60,4 +60,4 @@ void ulog_warn(char const *, ...);
 void ulog_notice(char const *, ...);
 void ulog_info(char const *, ...);
 
-#endif  /* !defined(_ULOG_H_INCLUDED_) */
+#endif /* ULOG_H */

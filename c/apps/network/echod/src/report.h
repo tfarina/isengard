@@ -1,5 +1,5 @@
-#ifndef _REPORT_H_INCLUDED_
-#define _REPORT_H_INCLUDED_
+#ifndef REPORT_H
+#define REPORT_H
 
 /**
  * @file report.h
@@ -8,4 +8,4 @@
 
 void fatal_exit(int const code, char const *format, ...);
 
-#endif  /* !defined(_REPORT_H_INCLUDED_) */
+#endif /* REPORT_H */

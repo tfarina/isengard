@@ -1,8 +1,8 @@
 /*
  * pathnames.h - define default paths for echod
  */
-#ifndef _PATHNAMES_H_INCLUDED_
-#define _PATHNAMES_H_INCLUDED_
+#ifndef PATHNAMES_H
+#define PATHNAMES_H
 
 /*
  * Paths are controlled via cmake. One can pass the following options:
@@ -15,4 +15,4 @@
 #define DEF_PIDDIR LOCALSTATEDIR "/run/echod"
 #define DEF_PIDFILE DEF_PIDDIR "/echod.pid"
 
-#endif  /* !defined(_PATHNAMES_H_INCLUDED_) */
+#endif /* PATHNAMES_H */

@@ -1,5 +1,5 @@
-#ifndef _OS_PATH_H_INCLUDED_
-#define _OS_PATH_H_INCLUDED_
+#ifndef OS_PATH_H
+#define OS_PATH_H
 
 /**
  * Returns a pointer to the last element of the path.
@@ -18,4 +18,4 @@ char const *os_path_basename(char const *path);
  */
 char *os_path_join(char *dir, char *file);
 
-#endif  /* !defined(_OS_PATH_H_INCLUDED_) */
+#endif /* OS_PATH_H */

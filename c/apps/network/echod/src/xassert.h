@@ -1,5 +1,5 @@
-#ifndef _XASSERT_H_INCLUDED_
-#define _XASSERT_H_INCLUDED_
+#ifndef XASSERT_H
+#define XASSERT_H
 
 /**
  * @file xassert.h
@@ -21,4 +21,4 @@ void __assertion_failed(char const *, char const *, int);
 
 #endif  /* NDEBUG */
 
-#endif  /* !defined(_XASSERT_H_INCLUDED_) */
+#endif /* XASSERT_H */

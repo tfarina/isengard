@@ -1,6 +1,6 @@
-#ifndef _CFGFILE_H_INCLUDED_
-#define _CFGFILE_H_INCLUDED_
+#ifndef CFGFILE_H
+#define CFGFILE_H
 
 void read_config_file(char const *cfgfile);
 
-#endif  /* !defined(_CFGFILE_H_INCLUDED_) */
+#endif /* CFGFILE_H */

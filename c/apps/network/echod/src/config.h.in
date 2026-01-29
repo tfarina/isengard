@@ -1,7 +1,7 @@
 /* config.h. Generated from config.h.in by cmake. */
 
-#ifndef _CONFIG_H_INCLUDED_
-#define _CONFIG_H_INCLUDED_
+#ifndef CONFIG_H
+#define CONFIG_H
 
 /* Define to 1 if you have <getopt.h> header file. */
 #cmakedefine HAVE_GETOPT_H 1
@@ -38,4 +38,4 @@
 /* Version number of this package */
 #define VERSION "@VERSION@"
 
-#endif  /* !defined(_CONFIG_H_INCLUDED_) */
+#endif /* CONFIG_H */

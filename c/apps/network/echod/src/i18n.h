@@ -1,5 +1,5 @@
-#ifndef _I18N_H_INCLUDED_
-#define _I18N_H_INCLUDED_
+#ifndef I18N_H
+#define I18N_H
 
 /**
  * @file i18n.h
@@ -11,4 +11,4 @@
 /* For now, no gettext support. */
 #define _(STRING) STRING
 
-#endif  /* !defined(_I18N_H_INCLUDED_) */
+#endif /* I18N_H */

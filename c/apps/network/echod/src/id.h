@@ -1,8 +1,8 @@
-#ifndef _ID_H_INCLUDED_
-#define _ID_H_INCLUDED_
+#ifndef ID_H
+#define ID_H
 
 int id_is_root(void);
 char const *id_get_username(void);
 char const *id_get_groupname(void);
 
-#endif  /* !defined(_ID_H_INCLUDED_) */
+#endif /* ID_H */

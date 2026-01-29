@@ -1,5 +1,5 @@
-#ifndef _OPTIMIZATION_H_INCLUDED_
-#define _OPTIMIZATION_H_INCLUDED_
+#ifndef OPTIMIZATION_H
+#define OPTIMIZATION_H
 
 /**
  * @file optimization.h
@@ -56,4 +56,4 @@
 # endif
 #endif
 
-#endif  /* !defined(_OPTIMIZATION_H_INCLUDED_) */
+#endif /* OPTIMIZATION_H */

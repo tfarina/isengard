@@ -1,8 +1,8 @@
 /*
  * debug.h - Debugging macros for echod.
  */
-#ifndef _DEBUG_H_INCLUDED_
-#define _DEBUG_H_INCLUDED_
+#ifndef DEBUG_H
+#define DEBUG_H
 
 /**
  * This must be called with an extra level of parentheses because it's not
@@ -25,4 +25,4 @@
 
 #endif  /* NDEBUG */
 
-#endif  /* !defined(_DEBUG_H_INCLUDED_) */
+#endif /* DEBUG_H */

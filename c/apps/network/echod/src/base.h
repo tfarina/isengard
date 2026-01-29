@@ -1,5 +1,5 @@
-#ifndef _BASE_H_INCLUDED_
-#define _BASE_H_INCLUDED_
+#ifndef BASE_H
+#define BASE_H
 
 /**
  * Converts the macro argument `x` into a string literal.
@@ -28,4 +28,4 @@
 #define M_CONCAT_(x, y) x##y
 #define M_CONCAT(x, y)  M_CONCAT_(x, y)
 
-#endif  /* !defined(_BASE_H_INCLUDED_) */
+#endif /* BASE_H */
