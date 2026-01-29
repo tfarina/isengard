@@ -1,5 +1,5 @@
-#ifndef _FD_H_INCLUDED_
-#define _FD_H_INCLUDED_
+#ifndef FD_H
+#define FD_H
 
 #include <stddef.h>
 #include <sys/types.h>
@@ -9,4 +9,4 @@ ssize_t fd_write_all(int fd, const char *buf, size_t len);
 ssize_t fd_read(int fd, char *buf, size_t len);
 ssize_t fd_read_all(int fd, char *buf, size_t len);
 
-#endif  /* !defined(_FD_H_INCLUDED_) */
+#endif /* FD_H */
