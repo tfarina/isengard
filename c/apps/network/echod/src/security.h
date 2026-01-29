@@ -1,9 +1,9 @@
-#ifndef _SECURITY_H_INCLUDED_
-#define _SECURITY_H_INCLUDED_
+#ifndef SECURITY_H
+#define SECURITY_H
 
 /**
  * Drop root privileges.
  */
 int drop_privileges(char const *username);
 
-#endif  /* !defined(_SECURITY_H_INCLUDED_) */
+#endif /* SECURITY_H */
