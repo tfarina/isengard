@@ -1,5 +1,5 @@
-#ifndef _XSTRING_H_INCLUDED_
-#define _XSTRING_H_INCLUDED_
+#ifndef XSTRING_H
+#define XSTRING_H
 
 /**
  * String processing functions
@@ -7,4 +7,4 @@
 
 char *xstrdup(char const *str);
 
-#endif /* !defined(_XSTRING_H_INCLUDED_) */
+#endif /* XSTRING_H */

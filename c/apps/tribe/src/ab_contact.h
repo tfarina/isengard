@@ -1,5 +1,5 @@
-#ifndef _AB_CONTACT_H_INCLUDED_
-#define _AB_CONTACT_H_INCLUDED_
+#ifndef AB_CONTACT_H
+#define AB_CONTACT_H
 
 typedef struct ab_contact_s
 {
@@ -20,4 +20,4 @@ char *ab_contact_get_first_name(ab_contact_t *contact);
 char *ab_contact_get_last_name(ab_contact_t *contact);
 char *ab_contact_get_email(ab_contact_t *contact);
 
-#endif  /* !defined(_AB_CONTACT_H_INCLUDED_) */
+#endif /* AB_CONTACT_H */

@@ -1,5 +1,5 @@
-#ifndef _COMMON_H_INCLUDED_
-#define _COMMON_H_INCLUDED_
+#ifndef COMMON_H
+#define COMMON_H
 
 #include "alpm_list.h"
 #include "ab_contact.h"
@@ -14,4 +14,4 @@ int print_contact_list(alpm_list_t *contact_list);
  */
 int print_contact_list_v2(int count, ab_contact_t *contacts_list);
 
-#endif  /* !defined(_COMMON_H_INCLUDED_) */
+#endif /* COMMON_H */

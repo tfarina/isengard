@@ -1,5 +1,5 @@
-#ifndef _OS_PATH_H_INCLUDED_
-#define _OS_PATH_H_INCLUDED_
+#ifndef OS_PATH_H
+#define OS_PATH_H
 
 /**
  * Returns a pointer to the last element of the path.
@@ -36,4 +36,4 @@ int os_path_exists(char const *path);
 
 int os_path_isdir(char const *path);
 
-#endif  /* !defined(_OS_PATH_H_INCLUDED_) */
+#endif /* OS_PATH_H */
