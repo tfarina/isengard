@@ -1,5 +1,5 @@
-#ifndef _OPTIONS_H_INCLUDED_
-#define _OPTIONS_H_INCLUDED_
+#ifndef OPTIONS_H
+#define OPTIONS_H
 
 /**
  * Parse command-line arguments into |opt|.
@@ -9,4 +9,4 @@
  */
 void parse_args(int argc, char **argv);
 
-#endif  /* !defined(_OPTIONS_H_INCLUDED_) */
+#endif /* OPTIONS_H */

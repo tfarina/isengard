@@ -1,5 +1,5 @@
-#ifndef _ATTRIBUTES_H_INCLUDED_
-#define _ATTRIBUTES_H_INCLUDED_
+#ifndef ATTRIBUTES_H
+#define ATTRIBUTES_H
 
 /**
  * @file attributes.h
@@ -55,4 +55,4 @@
 #define ATTRIBUTE_PRINTF(fmtarg, firstvararg)
 #endif
 
-#endif  /* !defined(_ATTRIBUTES_H_INCLUDED_) */
+#endif /* ATTRIBUTES_H */

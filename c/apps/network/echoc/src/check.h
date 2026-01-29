@@ -1,6 +1,6 @@
-#ifndef _CHECK_H_INCLUDED_
-#define _CHECK_H_INCLUDED_
+#ifndef CHECK_H
+#define CHECK_H
 
 int is_valid_port(int port);
 
-#endif  /* !defined(_CHECK_H_INCLUDED_) */
+#endif /* CHECK_H */
