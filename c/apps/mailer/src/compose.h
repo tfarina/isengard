@@ -1,9 +1,9 @@
-#ifndef _COMPOSE_H_INCLUDED_
-#define _COMPOSE_H_INCLUDED_
+#ifndef COMPOSE_H
+#define COMPOSE_H
 
 typedef struct _ComposeWindow ComposeWindow;
 
 ComposeWindow *compose_window_new(void);
 void compose_window_delete(ComposeWindow *compose);
 
-#endif  /* !defined(_COMPOSE_H_INCLUDED_) */
+#endif /* COMPOSE_H */
