@@ -28,7 +28,7 @@
 /* libalpm */
 #include "alpm_list.h"
 
-#include "xstring.h"
+#include "xalloc.h"
 
 /* check exported library symbols with: nm -C -D <lib> */
 #define SYMEXPORT __attribute__((visibility("default")))

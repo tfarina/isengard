@@ -15,7 +15,7 @@ set(SOURCES
   os_path.c
   user.c
   util.c
-  xstring.c
+  xalloc.c
 )
 
 set(HEADERS
@@ -27,7 +27,7 @@ set(HEADERS
   os_path.h
   user.h
   util.h
-  xstring.h
+  xalloc.h
 )
 
 add_library(${TARGETNAME}
