@@ -1,6 +1,6 @@
-#ifndef _HOSTNAME_H_INCLUDED_
-#define _HOSTNAME_H_INCLUDED_
+#ifndef HOSTNAME_H
+#define HOSTNAME_H
 
 char *get_hostname(void);
 
-#endif  /* !defined(_HOSTNAME_H_INCLUDED_) */
+#endif /* HOSTNAME_H */
