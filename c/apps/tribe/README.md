@@ -1,40 +1,14 @@
 # Tribe
 
-Tribe is an address book manager for the GNOME and Xfce desktop environments.
+This project was originally developed inside the `isengard` repository
+under `sqlite`, then moved to `c/apps/sab`, later renamed to `tribe`.
 
-## Dependencies
+At commit c83bb8b ("tribe: replace xstring.[ch] with xalloc.[ch]"), the
+project was extracted into its own dedicated Git repository, preserving
+full history.
 
-Tribe depends on the following packages:
+The active development of Tribe now lives here:
 
-* [GLib](https://gitlab.gnome.org/GNOME/glib/) >= 2.19.7
-* [GTK](https://www.gtk.org) >= 2.16.1
+    https://github.com/tfarina/tribe
 
-## Building from Source
-
-This project uses [CMake](https://cmake.org/) as its build system.
-
-### 1. Configure the Build
-
-Create a dedicated directory for the build and generate the build files:
-
-```sh
-mkdir out && cd out
-cmake ..
-```
-
-### 2. Compile the Project
-
-Build the project with:
-
-```sh
-make
-```
-
-### 3. Install
-
-Install the resulting binaries and other files to the system (root privileges
-may be required):
-
-```sh
-sudo make install
-```
+This directory is kept only as a historical reference.
