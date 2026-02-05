@@ -17,8 +17,8 @@ m4_define([he_bug_report_url],
 dnl *******************
 dnl Initialize autoconf
 dnl *******************
-AC_INIT([hello], [he_version], [he_bug_report_url])
 AC_PREREQ([2.69])
+AC_INIT([hello], [he_version], [he_bug_report_url])
 AC_CONFIG_HEADERS([config.h])
 
 dnl *******************
