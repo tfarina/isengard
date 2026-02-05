@@ -17,8 +17,8 @@ m4_define([ga_bug_report_url],
 dnl *******************
 dnl Initialize autoconf
 dnl *******************
-AC_INIT([gat], [ga_version], [ga_bug_report_url])
 AC_PREREQ([2.69])
+AC_INIT([gat], [ga_version], [ga_bug_report_url])
 
 dnl *******************
 dnl Initialize automake
