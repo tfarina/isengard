@@ -20,6 +20,7 @@ dnl *******************
 AC_PREREQ([2.69])
 AC_INIT([hello], [he_version], [he_bug_report_url])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_SRCDIR([src/hello.c])
 
 dnl *******************
 dnl Initialize automake
