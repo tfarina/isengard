@@ -25,3 +25,15 @@ Makefile
 Makefile.in
 
 .deps/
+
+# gettext / intltool generated files
+/ABOUT-NLS
+po/*.gmo
+po/*.sed
+po/*.sin
+po/*.header
+po/Makefile.in.in
+po/Makevars.template
+po/POTFILES
+po/Rules-quot
+po/stamp-po
