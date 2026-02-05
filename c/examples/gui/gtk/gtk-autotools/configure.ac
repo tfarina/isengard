@@ -49,9 +49,13 @@ dnl ***************************
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= glib_min_version])
 PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= gtk_min_version])
 
+dnl *****************
+dnl Process .in files
+dnl *****************
 AC_CONFIG_FILES([
-Makefile
-src/Makefile
+  Makefile
+
+  src/Makefile
 ])
 
 AC_OUTPUT
