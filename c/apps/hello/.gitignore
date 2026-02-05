@@ -1,7 +1,16 @@
+# Build objects
+*.o
+*.lo
+*.la
+*.a
+*.so
+
+# Hello binary
 /src/hello
 
+# Autotools generated files
 /aclocal.m4
-/autom4te.cache
+/autom4te.cache/
 /compile
 /config.h
 /config.h.in
@@ -9,11 +18,10 @@
 /config.status
 /configure
 /depcomp
-.deps
 /install-sh
-Makefile
-Makefile.in
 /missing
 /stamp-h1
+Makefile
+Makefile.in
 
-*.o
+.deps/
