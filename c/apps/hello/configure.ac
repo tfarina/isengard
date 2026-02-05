@@ -42,10 +42,15 @@ AC_SUBST([GETTEXT_PACKAGE])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"],
                    [Name of default gettext domain])
 
+dnl *****************
+dnl Process .in files
+dnl *****************
 AC_CONFIG_FILES([
-Makefile
-src/Makefile
-po/Makefile.in
+  Makefile
+
+  src/Makefile
+
+  po/Makefile.in
 ])
 
 AC_OUTPUT
