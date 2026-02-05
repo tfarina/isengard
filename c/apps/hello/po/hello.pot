@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hello 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/tfarina/isengard/issues\n"
-"POT-Creation-Date: 2025-07-21 09:46+0100\n"
+"POT-Creation-Date: 2026-02-05 10:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/hello.c:16
+#: src/hello.c:17
 msgid "Hello, world!\n"
 msgstr ""
