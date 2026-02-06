@@ -1,9 +1,19 @@
 #!/bin/sh
 
-echo "Aclocal..."
-aclocal
-echo "Autoconf..."
-autoconf
-echo "Automake..."
-automake --add-missing
-echo "Done."
+srcdir=`dirname "$0"`
+test -z "$srcdir" && srcdir=.
+
+ORIGDIR=`pwd`
+cd "$srcdir"
+
+echo "Running autoreconf..."
+autoreconf --verbose --force --install || exit 1
+
+cd "$ORIGDIR" || exit $?
+
+if [ -z "$NOCONFIGURE" ]; then
+    echo "Running ./configure..."
+    "$srcdir"/configure "$@"
+else
+    echo "Skipping configure process because NOCONFIGURE is set."
+fi
