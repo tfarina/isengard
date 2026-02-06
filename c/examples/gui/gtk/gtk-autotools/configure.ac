@@ -20,6 +20,7 @@ dnl *******************
 AC_PREREQ([2.69])
 AC_INIT([gat], [ga_version], [ga_bug_report_url])
 AC_CONFIG_SRCDIR([src/hello.c])
+AC_CONFIG_AUX_DIR([build-aux])
 
 dnl *******************
 dnl Initialize automake
