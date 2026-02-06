@@ -40,3 +40,6 @@ po/Makevars.template
 po/POTFILES
 po/Rules-quot
 po/stamp-po
+
+# Editor backups
+*~
