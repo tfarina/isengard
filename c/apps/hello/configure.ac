@@ -28,6 +28,8 @@ dnl Initialize automake
 dnl *******************
 AM_INIT_AUTOMAKE([1.8 foreign])
 
+AM_MAINTAINER_MODE([enable])
+
 dnl ************************
 dnl Check for basic programs
 dnl ************************
