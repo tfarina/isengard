@@ -1,15 +1,15 @@
 #!/bin/sh
 
-srcdir=`dirname "$0"`
+srcdir=$(dirname "$0")
 test -z "$srcdir" && srcdir=.
 
-ORIGDIR=`pwd`
+origdir=$(pwd)
 cd "$srcdir"
 
 echo "Running autoreconf..."
 autoreconf --verbose --force --install || exit 1
 
-cd "$ORIGDIR" || exit $?
+cd "$origdir" || exit $?
 
 if [ -z "$NOCONFIGURE" ]; then
     echo "Running $srcdir/configure..."
