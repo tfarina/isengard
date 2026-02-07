@@ -14,6 +14,9 @@ cd "$ORIGDIR" || exit $?
 if [ -z "$NOCONFIGURE" ]; then
     echo "Running $srcdir/configure..."
     "$srcdir"/configure "$@"
+
+    echo
+    echo "Now type 'make' to compile." || exit 1
 else
     echo "Skipping configure process because NOCONFIGURE is set."
 fi
