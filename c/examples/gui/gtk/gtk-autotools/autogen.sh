@@ -18,5 +18,5 @@ if [ -z "$NOCONFIGURE" ]; then
     echo
     echo "Now type 'make' to compile." || exit 1
 else
-    echo "Skipping configure process because NOCONFIGURE is set."
+    echo "Skipping configure process."
 fi
