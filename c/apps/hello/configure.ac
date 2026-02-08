@@ -30,6 +30,7 @@ dnl *******************
 AM_INIT_AUTOMAKE([1.8 foreign])
 
 AM_MAINTAINER_MODE([enable])
+AM_SILENT_RULES([yes])
 
 dnl ************************
 dnl Check for basic programs
