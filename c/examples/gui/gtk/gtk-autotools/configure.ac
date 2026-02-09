@@ -26,7 +26,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 dnl *******************
 dnl Initialize automake
 dnl *******************
-AM_INIT_AUTOMAKE([1.8 foreign])
+AM_INIT_AUTOMAKE([1.8 foreign subdir-objects])
 
 AM_MAINTAINER_MODE([enable])
 AM_SILENT_RULES([yes])
