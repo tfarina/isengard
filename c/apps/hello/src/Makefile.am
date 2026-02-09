@@ -9,3 +9,5 @@ AM_CPPFLAGS = \
 	$(NULL)
 
 hello_SOURCES = hello.c
+
+-include $(top_srcdir)/git.mk
