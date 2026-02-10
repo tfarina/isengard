@@ -15,3 +15,5 @@ gat_CFLAGS = \
 gat_LDADD = \
 	$(GTK_LIBS) \
 	$(NULL)
+
+-include $(top_srcdir)/git.mk
