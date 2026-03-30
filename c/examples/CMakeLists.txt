@@ -16,3 +16,4 @@ add_executable(vector_example vector_example.c)
 target_link_libraries(vector_example PRIVATE common)
 
 add_executable(freenull freenull.c)
+add_executable(strlennull strlennull.c)
