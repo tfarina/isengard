@@ -19,28 +19,27 @@ static void list_add_item(GtkWidget *list, const gchar *str)
 int main(int argc, char *argv[])
 {
   GtkWidget *window;
+  GtkWidget *vbox;
   GtkWidget *list;
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
   GtkListStore *store;
 
-  GtkWidget *vbox;
-
   gtk_init(&argc, &argv);
 
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  list = gtk_tree_view_new();
-
   gtk_window_set_title(GTK_WINDOW(window), "List view");
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
   gtk_container_set_border_width(GTK_CONTAINER(window), 10);
   gtk_window_set_default_size(GTK_WINDOW(window), 270, 250);
 
+  g_signal_connect(G_OBJECT (window), "destroy",
+		   G_CALLBACK(gtk_main_quit), NULL);
+
   vbox = gtk_vbox_new(FALSE, 0);
-
-  gtk_box_pack_start(GTK_BOX(vbox), list, TRUE, TRUE, 5);
-
   gtk_container_add(GTK_CONTAINER(window), vbox);
+
+  list = gtk_tree_view_new();
 
   gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list), TRUE);
 
@@ -55,14 +54,13 @@ int main(int argc, char *argv[])
 
   g_object_unref(store);
 
+  gtk_box_pack_start(GTK_BOX(vbox), list, TRUE, TRUE, 5);
+
   list_add_item(list, "Apple");
   list_add_item(list, "Banana");
   list_add_item(list, "Blackberry");
   list_add_item(list, "Coconut");
   list_add_item(list, "Kiwi");
-
-  g_signal_connect(G_OBJECT (window), "destroy",
-		   G_CALLBACK(gtk_main_quit), NULL);
 
   gtk_widget_show_all(window);
 
