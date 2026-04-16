@@ -14,7 +14,8 @@ int main(int argc, char *argv[])
   GtkTreeViewColumn *column;
   GtkCellRenderer *renderer;
   GtkTreeStore *treestore;
-  GtkTreeIter toplevel, child;
+  GtkTreeIter parent_iter;
+  GtkTreeIter node_iter;
   GtkTreeModel *treemodel;
 
   gtk_init(&argc, &argv);
@@ -43,23 +44,23 @@ int main(int argc, char *argv[])
 
   treestore = gtk_tree_store_new(NUM_COLS, G_TYPE_STRING);
 
-  gtk_tree_store_append(treestore, &toplevel, NULL);
-  gtk_tree_store_set(treestore, &toplevel, COLUMN_NAME, "Local Folders", -1);
+  gtk_tree_store_append(treestore, &parent_iter, NULL);
+  gtk_tree_store_set(treestore, &parent_iter, COLUMN_NAME, "Local Folders", -1);
 
-  gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child, COLUMN_NAME, "Inbox", -1);
+  gtk_tree_store_append(treestore, &node_iter, &parent_iter);
+  gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, "Inbox", -1);
 
-  gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child, COLUMN_NAME, "Outbox", -1);
+  gtk_tree_store_append(treestore, &node_iter, &parent_iter);
+  gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, "Outbox", -1);
 
-  gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child, COLUMN_NAME, "Sent Items", -1);
+  gtk_tree_store_append(treestore, &node_iter, &parent_iter);
+  gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, "Sent Items", -1);
 
-  gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child, COLUMN_NAME, "Deleted Items", -1);
+  gtk_tree_store_append(treestore, &node_iter, &parent_iter);
+  gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, "Deleted Items", -1);
 
-  gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child, COLUMN_NAME, "Drafts", -1);
+  gtk_tree_store_append(treestore, &node_iter, &parent_iter);
+  gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, "Drafts", -1);
 
   treemodel = GTK_TREE_MODEL(treestore);
   gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), treemodel);
