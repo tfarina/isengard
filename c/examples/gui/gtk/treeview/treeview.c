@@ -1,7 +1,8 @@
 #include <gtk/gtk.h>
 
-enum {
-  COLUMN = 0,
+enum
+{
+  COLUMN_NAME = 0,
   NUM_COLS
 };
 
@@ -38,27 +39,27 @@ int main(int argc, char *argv[])
 
   renderer = gtk_cell_renderer_text_new();
   gtk_tree_view_column_pack_start(column, renderer, TRUE);
-  gtk_tree_view_column_add_attribute(column, renderer, "text", COLUMN);
+  gtk_tree_view_column_add_attribute(column, renderer, "text", COLUMN_NAME);
 
   treestore = gtk_tree_store_new(NUM_COLS, G_TYPE_STRING);
 
   gtk_tree_store_append(treestore, &toplevel, NULL);
-  gtk_tree_store_set(treestore, &toplevel, COLUMN, "Local Folders", -1);
+  gtk_tree_store_set(treestore, &toplevel, COLUMN_NAME, "Local Folders", -1);
 
   gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child, COLUMN, "Inbox", -1);
+  gtk_tree_store_set(treestore, &child, COLUMN_NAME, "Inbox", -1);
 
   gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child, COLUMN, "Outbox", -1);
+  gtk_tree_store_set(treestore, &child, COLUMN_NAME, "Outbox", -1);
 
   gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child, COLUMN, "Sent Items", -1);
+  gtk_tree_store_set(treestore, &child, COLUMN_NAME, "Sent Items", -1);
 
   gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child, COLUMN, "Deleted Items", -1);
+  gtk_tree_store_set(treestore, &child, COLUMN_NAME, "Deleted Items", -1);
 
   gtk_tree_store_append(treestore, &child, &toplevel);
-  gtk_tree_store_set(treestore, &child, COLUMN, "Drafts", -1);
+  gtk_tree_store_set(treestore, &child, COLUMN_NAME, "Drafts", -1);
 
   treemodel = GTK_TREE_MODEL(treestore);
   gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), treemodel);
