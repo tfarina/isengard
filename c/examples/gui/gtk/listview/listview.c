@@ -7,13 +7,13 @@ enum {
 
 static void list_add_item(GtkWidget *list, const gchar *str)
 {
-  GtkListStore *store;
+  GtkTreeModel *model;
   GtkTreeIter iter;
 
-  store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list)));
+  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list));
 
-  gtk_list_store_append(store, &iter);
-  gtk_list_store_set(store, &iter, LIST_FRUITS_COLUMN, str, -1);
+  gtk_list_store_append(GTK_LIST_STORE(model), &iter);
+  gtk_list_store_set(GTK_LIST_STORE(model), &iter, LIST_FRUITS_COLUMN, str, -1);
 }
 
 int main(int argc, char *argv[])
