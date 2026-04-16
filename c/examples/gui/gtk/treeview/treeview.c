@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
   gtk_container_add(GTK_CONTAINER(window), vbox);
 
   treeview = gtk_tree_view_new();
+  gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(treeview), FALSE);
 
   column = gtk_tree_view_column_new();
   gtk_tree_view_column_set_title(column, "Folders");
