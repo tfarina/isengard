@@ -5,7 +5,7 @@ enum {
   LIST_NUM_COLUMNS
 };
 
-static void list_add_item(GtkWidget *list, const gchar *str)
+static void append_fruit_to_model(GtkWidget *list, const gchar *str)
 {
   GtkTreeModel *model;
   GtkTreeIter iter;
@@ -56,11 +56,11 @@ int main(int argc, char *argv[])
 
   gtk_box_pack_start(GTK_BOX(vbox), list, TRUE, TRUE, 5);
 
-  list_add_item(list, "Apple");
-  list_add_item(list, "Banana");
-  list_add_item(list, "Blackberry");
-  list_add_item(list, "Coconut");
-  list_add_item(list, "Kiwi");
+  append_fruit_to_model(list, "Apple");
+  append_fruit_to_model(list, "Banana");
+  append_fruit_to_model(list, "Blackberry");
+  append_fruit_to_model(list, "Coconut");
+  append_fruit_to_model(list, "Kiwi");
 
   gtk_widget_show_all(window);
 
