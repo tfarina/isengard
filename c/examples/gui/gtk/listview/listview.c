@@ -1,8 +1,9 @@
 #include <gtk/gtk.h>
 
-enum {
-  LIST_FRUITS_COLUMN = 0,
-  LIST_NUM_COLUMNS
+enum
+{
+  COLUMN_NAME = 0,
+  N_COLUMNS
 };
 
 static void append_fruit_to_model(GtkWidget *list, const gchar *str)
@@ -13,7 +14,7 @@ static void append_fruit_to_model(GtkWidget *list, const gchar *str)
   model = gtk_tree_view_get_model(GTK_TREE_VIEW(list));
 
   gtk_list_store_append(GTK_LIST_STORE(model), &iter);
-  gtk_list_store_set(GTK_LIST_STORE(model), &iter, LIST_FRUITS_COLUMN, str, -1);
+  gtk_list_store_set(GTK_LIST_STORE(model), &iter, COLUMN_NAME, str, -1);
 }
 
 int main(int argc, char *argv[])
@@ -44,11 +45,11 @@ int main(int argc, char *argv[])
   list = gtk_tree_view_new();
 
   renderer = gtk_cell_renderer_text_new ();
-  column = gtk_tree_view_column_new_with_attributes("Fruits", renderer, "text",
-						    LIST_FRUITS_COLUMN, NULL);
+  column = gtk_tree_view_column_new_with_attributes("Name", renderer, "text",
+						    COLUMN_NAME, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
-  store = gtk_list_store_new(LIST_NUM_COLUMNS, G_TYPE_STRING);
+  store = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING);
 
   gtk_tree_view_set_model(GTK_TREE_VIEW(list), GTK_TREE_MODEL(store));
 
