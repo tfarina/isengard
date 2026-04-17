@@ -43,8 +43,6 @@ int main(int argc, char *argv[])
 
   list = gtk_tree_view_new();
 
-  gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(list), TRUE);
-
   renderer = gtk_cell_renderer_text_new ();
   column = gtk_tree_view_column_new_with_attributes("Fruits", renderer, "text",
 						    LIST_FRUITS_COLUMN, NULL);
