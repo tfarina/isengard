@@ -24,6 +24,8 @@ int main(int argc, char *argv[])
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
   GtkListStore *store;
+  char const *fruits[] = { "Apple", "Banana", "Blackberry", "Coconut", "Kiwi" };
+  guint i;
 
   gtk_init(&argc, &argv);
 
@@ -56,11 +58,10 @@ int main(int argc, char *argv[])
 
   gtk_box_pack_start(GTK_BOX(vbox), list, TRUE, TRUE, 5);
 
-  append_fruit_to_model(list, "Apple");
-  append_fruit_to_model(list, "Banana");
-  append_fruit_to_model(list, "Blackberry");
-  append_fruit_to_model(list, "Coconut");
-  append_fruit_to_model(list, "Kiwi");
+  for (i = 0; i < G_N_ELEMENTS(fruits); i++)
+  {
+    append_fruit_to_model(list, fruits[i]);
+  }
 
   gtk_widget_show_all(window);
 
