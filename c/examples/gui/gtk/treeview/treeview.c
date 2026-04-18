@@ -45,6 +45,10 @@ int main(int argc, char *argv[])
   gtk_tree_view_column_add_attribute(column, renderer, "text", COLUMN_NAME);
 
   treestore = gtk_tree_store_new(NUM_COLS, G_TYPE_STRING);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(treestore));
+  g_object_unref(treestore);
+
+  gtk_box_pack_start(GTK_BOX(vbox), treeview, TRUE, TRUE, 0);
 
   gtk_tree_store_append(treestore, &parent_iter, NULL);
   gtk_tree_store_set(treestore, &parent_iter, COLUMN_NAME, "Local Folders", -1);
@@ -53,11 +57,6 @@ int main(int argc, char *argv[])
     gtk_tree_store_append(treestore, &node_iter, &parent_iter);
     gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, special_folders[i], -1);
   }
-
-  gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(treestore));
-  g_object_unref(treestore);
-
-  gtk_box_pack_start(GTK_BOX(vbox), treeview, TRUE, TRUE, 0);
 
   gtk_widget_show_all(window);
 
