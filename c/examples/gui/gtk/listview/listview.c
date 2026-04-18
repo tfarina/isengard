@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 
   g_object_unref(store);
 
-  gtk_box_pack_start(GTK_BOX(vbox), list, TRUE, TRUE, 5);
+  gtk_box_pack_start(GTK_BOX(vbox), list, TRUE, TRUE, 0);
 
   for (i = 0; i < G_N_ELEMENTS(fruits); i++)
   {
