@@ -17,6 +17,8 @@ int main(int argc, char *argv[])
   GtkTreeIter parent_iter;
   GtkTreeIter node_iter;
   GtkTreeModel *treemodel;
+  char const *special_folders[] = { "Inbox", "Outbox", "Sent Items", "Deleted Items", "Drafts" };
+  guint i;
 
   gtk_init(&argc, &argv);
 
@@ -48,20 +50,10 @@ int main(int argc, char *argv[])
   gtk_tree_store_append(treestore, &parent_iter, NULL);
   gtk_tree_store_set(treestore, &parent_iter, COLUMN_NAME, "Local Folders", -1);
 
-  gtk_tree_store_append(treestore, &node_iter, &parent_iter);
-  gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, "Inbox", -1);
-
-  gtk_tree_store_append(treestore, &node_iter, &parent_iter);
-  gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, "Outbox", -1);
-
-  gtk_tree_store_append(treestore, &node_iter, &parent_iter);
-  gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, "Sent Items", -1);
-
-  gtk_tree_store_append(treestore, &node_iter, &parent_iter);
-  gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, "Deleted Items", -1);
-
-  gtk_tree_store_append(treestore, &node_iter, &parent_iter);
-  gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, "Drafts", -1);
+  for (i = 0; i < G_N_ELEMENTS(special_folders); i++) {
+    gtk_tree_store_append(treestore, &node_iter, &parent_iter);
+    gtk_tree_store_set(treestore, &node_iter, COLUMN_NAME, special_folders[i], -1);
+  }
 
   treemodel = GTK_TREE_MODEL(treestore);
   gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), treemodel);
