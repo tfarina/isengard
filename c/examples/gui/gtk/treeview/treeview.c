@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
   gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(treestore));
   g_object_unref(treestore);
 
-  gtk_box_pack_start(GTK_BOX(vbox), treeview, TRUE, TRUE, 1);
+  gtk_box_pack_start(GTK_BOX(vbox), treeview, TRUE, TRUE, 0);
 
   gtk_widget_show_all(window);
 
