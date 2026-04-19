@@ -41,7 +41,9 @@ int main(int argc, char *argv[])
 
   renderer = gtk_cell_renderer_text_new();
   gtk_tree_view_column_pack_start(column, renderer, TRUE);
-  gtk_tree_view_column_add_attribute(column, renderer, "text", COLUMN_NAME);
+  gtk_tree_view_column_set_attributes(column, renderer,
+				      "text", COLUMN_NAME,
+				      NULL);
 
   gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
 
