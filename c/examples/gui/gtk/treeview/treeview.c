@@ -38,11 +38,12 @@ int main(int argc, char *argv[])
 
   column = gtk_tree_view_column_new();
   gtk_tree_view_column_set_title(column, "Folders");
-  gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
 
   renderer = gtk_cell_renderer_text_new();
   gtk_tree_view_column_pack_start(column, renderer, TRUE);
   gtk_tree_view_column_add_attribute(column, renderer, "text", COLUMN_NAME);
+
+  gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
 
   treestore = gtk_tree_store_new(NUM_COLS, G_TYPE_STRING);
   gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(treestore));
