@@ -4,10 +4,10 @@
 | -----------------    | --------------       |
 | Pascal Case          | PascalCase           |
 | Camel Case           | camelCase            |
-| Flat Case            | flatcase             |
+| Lower Flat Case      | lowerflatcase        |
 | Upper Flat Case      | UPPERFLATCASE        |
-| Snake Case           | snake_case           |
-| Screaming Snake Case | SCREAMING_SNAKE_CASE |
+| Lower Snake Case     | lower_snake_case     |
+| Upper Snake Case     | UPPER_SNAKE_CASE     |
 | Pascal Snake Case    | Pascal_Snake_Case    |
 | Camel Snake Case     | camel_Snake_Case     |
 | Kebab Case           | kebab-case           |
@@ -26,9 +26,9 @@ camelCase is a naming convention where the first word starts with a lowercase
 letter, and each subsequent word starts with a capital letter, with no
 separators.
 
-## Flat Case
+## Lower Flat Case
 
-flatcase is a naming convention where all letters are lowercase and words are
+lowerflatcase is a naming convention where all letters are lowercase and words are
 written together with no separators.
 
 ## Upper Flat Case
@@ -36,14 +36,14 @@ written together with no separators.
 UPPERFLATCASE is a naming convention where all letters are uppercase and words
 are written together with no separators.
 
-## Snake Case
+## Lower Snake Case
 
-snake_case is a naming convention where all words are lowercase and separated
+lower_snake_case is a naming convention where all words are lowercase and separated
 by underscores.
 
-## Screaming Snake Case
+## Upper Snake Case
 
-SCREAMING_SNAKE_CASE is a naming convention where all words are uppercase and
+UPPER_SNAKE_CASE is a naming convention where all words are uppercase and
 separated by underscores.
 
 ## Pascal Snake Case
